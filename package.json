@@ -146,6 +146,7 @@
     "test-husky": "env-cmd -f .env.testing node scripts/test.js --watchAll=false",
     "test-ci": "env-cmd -f .env.testing node scripts/test.js --watchAll=false",
     "test-coverage": "env-cmd -f .env.testing node scripts/test.js --watchAll=false --coverage",
+    "test-codecov": "env-cmd -f .env.testing jest && codecov",
     "styleguidist": "node ./node_modules/react-styleguidist/lib/bin/styleguidist.js server",
     "styleguidist:build": "node ./node_modules/react-styleguidist/lib/bin/styleguidist.js build",
     "storybook": "node  ./node_modules/@storybook/react/bin/index.js",
@@ -172,6 +173,8 @@
     ]
   },
   "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
     "coverageReporters": [
       "text",
       "html"
