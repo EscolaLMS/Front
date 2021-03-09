@@ -1,5 +1,7 @@
 # Escola TypeScript React App bootstrap
 
+[![codecov](https://codecov.io/gh/EscolaLMS/Front/branch/main/graph/badge.svg?token=6KK98WL977)](https://codecov.io/gh/EscolaLMS/Front)
+
 This boostrap is based on ejected [create-react-app](https://github.com/facebook/create-react-app)
 
 Contains
