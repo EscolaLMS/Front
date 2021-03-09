@@ -1,0 +1,37 @@
+@import "../../../scss/common";
+
+.category {
+  margin-bottom: 50px;
+  display: block;
+  .image-wrapper {
+    height: 302px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    background: $teeth-white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  &__name {
+    position: relative;
+    padding: 16px 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: -34px;
+
+    span {
+      z-index: 3;
+      position: relative;
+      @include typo-heading-small();
+      color: $font-black;
+    }
+  }
+  &:hover {
+    text-decoration: none;
+    .image-wrapper {
+      transform: scale(1.03) rotate(1deg);
+      box-shadow: 0px 3px 6px #00000012;
+    }
+  }
+}

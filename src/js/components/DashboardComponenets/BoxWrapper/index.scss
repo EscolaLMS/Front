@@ -1,0 +1,80 @@
+@import "../../../../scss/common";
+
+.box-wrapper {
+  background: $white;
+  border-radius: 7px;
+  border: 1px solid $yellow-grey;
+  overflow: hidden;
+  margin-bottom: 35px;
+  &__head {
+    position: relative;
+    padding: 12px 25px;
+    padding-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $yellow;
+    margin-bottom: 18px;
+    z-index: 10;
+    &.withImage {
+      margin-bottom: 5px;
+    }
+    .back-button {
+      background-color: transparent;
+      border: none;
+      color: $white;
+      @include typo-paragraph-big-light();
+      z-index: 11;
+      position: relative;
+      display: flex;
+      align-items: center;
+      .icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+      }
+    }
+
+    h3 {
+      z-index: 1;
+      @include typo-paragraph-big();
+      font-size: 1.7rem;
+      margin: 0;
+    }
+    h4 {
+      z-index: 1;
+      @include typo-paragraph-normal();
+      margin: 0;
+    }
+    a {
+      text-decoration: underline;
+    }
+
+    &.title-position-center {
+      h3 {
+        text-align: center;
+        width: 100%;
+        @include typo-heading-normal();
+        font-size: 2rem;
+      }
+    }
+    a {
+      color: $green;
+      font-weight: 600;
+      text-decoration: none;
+      &:hover {
+        color: lighten($green, 10);
+      }
+    }
+  }
+  .box-image {
+    position: relative;
+    z-index: 0;
+  }
+  &__content {
+    padding: 25px;
+    .course-grid-item {
+      margin-bottom: 24px;
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@import "../../../../scss/common";
+
+.main-menu {
+  padding: 62px 7px 10px 7px;
+  border: 1px solid $yellow-grey;
+  border-radius: 7px;
+  background: $white;
+  position: relative;
+  margin-top: 55px;
+  picture {
+    width: 102px;
+    height: 102px;
+    border-radius: 50%;
+    border: 3px solid $yellow;
+    margin-bottom: 10px;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $white;
+    background: $yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+      a {
+        border-radius: 5px;
+        padding: 12px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: $font-black;
+        text-decoration: none;
+        .icon,
+        svg {
+          width: 15px;
+          height: 100%;
+          margin-right: 10px;
+          stroke: $dark-grey5;
+          fill: transparent;
+          display: block;
+        }
+        @include typo-paragraph-normal();
+        &.active {
+          @include typo-paragraph-bold();
+          background: $yellow;
+          path {
+            stroke: $black2;
+            fill: $black2;
+          }
+        }
+        &:hover {
+          font-weight: 600;
+          path {
+            stroke: $black2;
+            fill: $black2;
+          }
+        }
+      }
+    }
+  }
+  .letter {
+    line-height: 40px;
+    font-size: 6rem;
+    font-weight: bold;
+    color: $green;
+  }
+}

@@ -1,0 +1,39 @@
+@import "../../../../../scss/common";
+
+.lecture-finished {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  &__head {
+    position: relative;
+    width: 100%;
+    display: block;
+    background: $green;
+    text-align: center;
+    border-radius: 6px 6px 0px 0px;
+    h2 {
+      color: $yellow;
+      padding-top: 10px;
+      margin-bottom: -4px;
+      z-index: 2;
+      position: relative;
+      @include typo-heading-normal();
+    }
+  }
+  button.button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    .icon {
+      margin-right: 10px;
+      svg {
+        width: 20px;
+      }
+    }
+  }
+}

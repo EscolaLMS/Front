@@ -1,0 +1,45 @@
+@import "../../../../../scss/common";
+
+.notifications {
+  border: 1px solid $yellow-grey;
+  border-radius: 7px;
+  padding: 14px;
+  background: $white;
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      border-radius: 5px;
+      border: 1px solid $yellow-grey;
+      padding: 14px;
+      background: $white;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-bottom: 12px;
+      time {
+        width: 100px;
+        min-width: 100px;
+        @include typo-tiny();
+      }
+      a {
+        @include typo-paragraph-bold();
+        color: $green;
+      }
+      p {
+        @include typo-paragraph-normal();
+        strong {
+          @include typo-paragraph-bold();
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+  }
+  button.transparent {
+    margin: auto;
+    margin-top: 20px;
+    color: $dark-grey5;
+    @include typo-paragraph-bold();
+  }
+}

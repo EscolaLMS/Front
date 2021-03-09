@@ -1,0 +1,27 @@
+@import "../../../scss/common";
+
+.profile-form {
+  .input {
+    label {
+      @include typo-paragraph-normal();
+      padding-left: 7px;
+    }
+    input {
+      padding: 11px 15px;
+      @include typo-paragraph-bold();
+      line-height: 18px;
+    }
+  }
+  .text-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .margin-top-30 {
+    margin-top: 30px;
+  }
+  .button {
+    @include typo-paragraph-bold();
+    padding: 11px 25px;
+  }
+}

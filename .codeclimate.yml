@@ -1,0 +1,39 @@
+version: "2" # required to adjust maintainability checks
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-5"
+    config:
+      extensions:
+        - .js
+        - .ts
+        - .tsx
+
+ratings:
+  paths:
+    - src/**
+exclude_patterns:
+  - node_modules
+  - public
+  - web-build
+  - build
+  - covarage
+  - .cache
+  - build
+  - "tests/**"
+  - "**/*.test.js"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.example.js"
+  - "**/*.example.ts"
+  - "**/*.example.tsx"
+  - "**/*.example.*.js"
+  - "**/*.example.*.ts"
+  - "**/*.example.*.tsx"
+  - "**/*.stories.*.js"
+  - "**/*.stories.*.ts"
+  - "**/*.stories.*.tsx"
+  - styleguide.config.js
+  - scripts/*
+  - config/*
+  - "src/js/__mocks__/**"

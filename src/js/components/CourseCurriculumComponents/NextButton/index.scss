@@ -1,0 +1,16 @@
+@import "../../../../scss/common";
+
+button.next-button {
+  min-height: 42px;
+  min-width: 145px;
+  &.disable {
+    background: $light-grey;
+  }
+  &:before {
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+  }
+}

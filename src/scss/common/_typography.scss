@@ -1,0 +1,102 @@
+@mixin typo-mini() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+@mixin typo-tag() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+@mixin typo-tiny() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+@mixin typo-tiny-bold() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+@mixin typo-paragraph-normal() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+@mixin typo-paragraph-bold() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@mixin typo-nav-item-bold() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+@mixin typo-paragraph-big-light() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+}
+
+@mixin typo-paragraph-big() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+@mixin typo-heading-small() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@mixin typo-heading-normal() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+@mixin typo-heading-normal2() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+@mixin typo-heading-big() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.6rem;
+  font-weight: 600;
+}
+
+@mixin typo-heading-big-bold() {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.6rem;
+  font-weight: bold;
+}
+
+.typography {
+  .h1 {
+    @include typo-heading-big();
+  }
+  .h2 {
+    @include typo-heading-normal();
+  }
+  .h3 {
+    @include typo-heading-small();
+  }
+  .h4 {
+    @include typo-nav-item-bold();
+  }
+  .link {
+    font-weight: 600;
+    color: $green;
+  }
+}

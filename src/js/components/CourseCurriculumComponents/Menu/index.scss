@@ -1,0 +1,61 @@
+@import "../../../../scss/common";
+
+.course-menu {
+  background: $white;
+  padding: 12px;
+  padding-bottom: 40px;
+  border-radius: 10px;
+  h4 {
+    @include typo-paragraph-big();
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    .accordion {
+      border-radius: 5px;
+      border: 1px solid $border-light;
+      li {
+        margin-bottom: 15px;
+        .disabled-link {
+          cursor: default;
+        }
+        a,
+        .disabled-link {
+          color: $black;
+          text-decoration: none;
+          display: flex;
+          align-items: flex-start;
+          transition: transform 0.3s ease-in-out;
+          .menu__lecture-name {
+            @include typo-paragraph-normal();
+            margin-left: 12px;
+            display: block;
+          }
+          .video-progress-circle {
+            margin-top: 5px;
+          }
+          .icon-wrapper {
+            height: 24px;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            .icon,
+            svg {
+              width: 18px;
+            }
+          }
+        }
+        &.active {
+          .menu__lecture-name {
+            font-weight: 600;
+          }
+        }
+        a:not(.disabled-link):hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

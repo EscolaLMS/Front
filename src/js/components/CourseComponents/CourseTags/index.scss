@@ -1,0 +1,14 @@
+@import "../../../../scss/common";
+
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  span {
+    padding: 6px;
+    background-color: rgba($white, 0.27);
+    color: $yellow;
+    @include typo-tag();
+    line-height: 1;
+    margin-right: 3px;
+  }
+}

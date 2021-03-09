@@ -1,0 +1,73 @@
+.slick-dots {
+  margin: 0 auto 70px auto;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  li {
+    display: inline-block;
+    &.slick-active {
+      button {
+        opacity: 1;
+      }
+    }
+    button {
+      padding: 0;
+      outline: none;
+      border: 0;
+      box-shadow: none;
+      line-height: 0;
+      font-size: 0;
+      margin: 0 10px;
+      width: 7px;
+      height: 7px;
+      border-radius: 100%;
+      opacity: 0.5;
+      background-color: $white;
+    }
+  }
+  .slick-active {
+    button:before {
+      color: $orange;
+      font-size: 10px;
+    }
+  }
+}
+
+.slick-slider {
+  .slick-track {
+    display: flex !important;
+  }
+  .slick-slide {
+    height: inherit !important;
+    > div {
+      height: 100%;
+    }
+  }
+
+  .slick-list {
+    width: 100%;
+    margin: 0 -8px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    padding-top: 25px;
+    margin-top: -25px;
+    .slick-track {
+      min-width: 100%;
+      .slick-slide {
+        height: 100%;
+        padding: 0 8px;
+      }
+    }
+  }
+  &.no-clone {
+    .slick-slide.slick-cloned {
+      display: none;
+    }
+  }
+}

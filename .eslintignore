@@ -1,0 +1,12 @@
+.cache
+build
+**/node_modules/**
+tests/**
+**/*.test.js
+**/*.example.js
+**/*.example.*.js
+styleguide.config.js
+scripts/*
+config/*
+
+src/js/react-app-env.d.ts

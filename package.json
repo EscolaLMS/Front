@@ -1,0 +1,256 @@
+{
+  "name": "escola-lms",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.3.7",
+    "@babel/core": "^7.12.8",
+    "@sentry/react": "^6.0.2",
+    "@storybook/addon-actions": "^6.1.4",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-knobs": "^6.1.4",
+    "@storybook/addon-links": "^6.1.4",
+    "@storybook/addon-notes": "^5.3.21",
+    "@stripe/react-stripe-js": "^1.2.2",
+    "@stripe/stripe-js": "^1.12.1",
+    "@svgr/webpack": "^5.5.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/history": "^4.7.8",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.9",
+    "@types/react": "^17.0.0",
+    "@types/react-circular-progressbar": "^1.1.0",
+    "@types/react-datepicker": "^3.1.3",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-infinite-scroller": "^1.2.1",
+    "@types/react-lazy-load-image-component": "^1.5.1",
+    "@types/react-modal": "^3.10.6",
+    "@types/react-pdf": "^5.0.1",
+    "@types/react-redux": "^7.1.11",
+    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.1",
+    "babel-plugin-named-asset-import": "^0.3.7",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react-app": "^10.0.0",
+    "bfj": "^7.0.2",
+    "bootstrap": "^4.5.3",
+    "camelcase": "^6.2.0",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "connected-react-router": "^6.8.0",
+    "css-loader": "^5.0.1",
+    "date-fns": "^2.16.1",
+    "dotenv": "^8.2.0",
+    "dotenv-expand": "^5.1.0",
+    "env-cmd": "^10.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "eslint": "^7.14.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-webpack-plugin": "^2.4.0",
+    "fetch-mock": "^9.11.0",
+    "file-loader": "^6.2.0",
+    "formik": "^2.2.6",
+    "fs-extra": "^9.0.1",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
+    "html-webpack-plugin": "^4.5.0",
+    "husky": "^4.3.5",
+    "identity-obj-proxy": "^3.0.0",
+    "isomorphic-fetch": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-environment-jsdom-fourteen": "^1.0.1",
+    "jest-junit": "^12.0.0",
+    "jest-resolve": "^26.6.2",
+    "jest-watch-typeahead": "^0.6.1",
+    "lint-staged": "^10.5.2",
+    "lodash.isequalwith": "^4.4.0",
+    "markdown-it": "^12.0.4",
+    "mini-css-extract-plugin": "^1.3.1",
+    "node-sass": "^5.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "pnp-webpack-plugin": "^1.6.4",
+    "postcss-flexbugs-fixes": "^4",
+    "postcss-loader": "^3",
+    "postcss-normalize": "^9.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-safe-parser": "^5.0.2",
+    "prettier": "^2.2.1",
+    "query-string": "^6.13.7",
+    "react": "^17.0.1",
+    "react-apollo": "^3.1.5",
+    "react-app-polyfill": "^2.0.0",
+    "react-chartjs-2": "^2.11.1",
+    "react-circular-progressbar": "^2.0.3",
+    "react-datepicker": "^3.4.1",
+    "react-dev-utils": "^11",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^17.0.1",
+    "react-dropzone": "^11.2.4",
+    "react-image-lightbox": "^5.1.1",
+    "react-infinite-scroller": "^1.2.4",
+    "react-lazy-load-image-component": "^1.5.1",
+    "react-markdown": "^5.0.3",
+    "react-markdown-editor-lite": "^1.2.4",
+    "react-modal": "^3.12.1",
+    "react-pdf": "^5.1.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-slick": "^0.27.13",
+    "react-toastify": "^6.2.0",
+    "react-xmasonry": "^3.0.5",
+    "recharts": "^2.0.4",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.1.3",
+    "redux-saga-test-plan": "^4.0.1",
+    "resolve": "^1.19.0",
+    "resolve-url-loader": "^3.1.2",
+    "sass-loader": "^10.1.0",
+    "semver": "^7.3.2",
+    "slick-carousel": "^1.8.1",
+    "style-loader": "^2.0.0",
+    "ts-jest": "^26.4.4",
+    "ts-pnp": "^1.2.0",
+    "typescript": "^4.1.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^4",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-manifest-plugin": "^2.2.0",
+    "workbox-webpack-plugin": "^5.1.4"
+  },
+  "scripts": {
+    "dev": "env-cmd -f .env.local node scripts/start.js",
+    "start": "env-cmd -f .env.staging node scripts/start.js",
+    "build": "env-cmd -f .env.production node scripts/build.js",
+    "test": "env-cmd -f .env.testing node scripts/test.js",
+    "test-husky": "env-cmd -f .env.testing node scripts/test.js --watchAll=false",
+    "test-ci": "env-cmd -f .env.testing node scripts/test.js --watchAll=false",
+    "test-coverage": "env-cmd -f .env.testing node scripts/test.js --watchAll=false --coverage",
+    "styleguidist": "node ./node_modules/react-styleguidist/lib/bin/styleguidist.js server",
+    "styleguidist:build": "node ./node_modules/react-styleguidist/lib/bin/styleguidist.js build",
+    "storybook": "node  ./node_modules/@storybook/react/bin/index.js",
+    "storybook:build": "node  ./node_modules/@storybook/react/bin/build.js",
+    "prettier": "prettier --write .",
+    "lint": "eslint . --fix",
+    "codeclimate": "codeclimate analyze "
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "roots": [
+      "<rootDir>/src/js"
+    ],
+    "collectCoverageFrom": [
+      "src/js/**/*.{js,jsx,ts,tsx}",
+      "!src/js/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/js/setupTests.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/js/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/js/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jest-environment-jsdom-fourteen",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/react": "^6.1.4",
+    "@types/markdown-it": "^12.0.1",
+    "@types/react-slick": "^0.23.4",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "react-docgen-typescript": "^1.20.5",
+    "react-styleguidist": "^11.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test-husky",
+      "post-merge": "sh shooks/post-merge.sh",
+      "post-rewrite": "sh shooks/post-merge.sh",
+      "pre-commit": "eslint . --fix"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css,html}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
+  }
+}

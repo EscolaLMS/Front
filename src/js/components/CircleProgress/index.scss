@@ -1,0 +1,31 @@
+@import "../../../scss/common";
+
+.video-progress-circle {
+  max-width: 24px;
+  height: 24px;
+  position: relative;
+  .CircularProgressbar-path {
+    stroke: $pink;
+    width: 4px;
+    height: 4px;
+  }
+  .CircularProgressbar-trail {
+    stroke: $dirty-white;
+    width: 4px;
+    height: 4px;
+  }
+  .icon {
+    width: 8px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    svg,
+    path {
+      width: 8px;
+      fill: $pink;
+    }
+  }
+}

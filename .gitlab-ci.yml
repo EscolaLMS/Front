@@ -1,0 +1,96 @@
+image: escolasoft/ubuntu-ssh
+
+# AUTODEVOPS STARTS HERE
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
+
+build:
+  tags:
+    - cluster
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+review:
+  tags:
+    - cluster
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+production:
+  tags:
+    - cluster
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+code_quality:
+  tags:
+    - cluster
+
+variables:
+  PERFORMANCE_DISABLED: PERFORMANCE_DISABLED
+  AUTO_DEVOPS_BUILD_IMAGE_EXTRA_ARGS: "--build-arg=STORYBOOK=TRUE --build-arg=STYLEGUIDE=TRUE"
+  POSTGRES_ENABLED: "false"
+
+cache:
+  paths:
+    - node_modules/
+
+test:
+  stage: test
+  image: node:12-alpine
+  before_script:
+    - yarn
+  script:
+    #- yarn test-web src --ci -u  --reporters='jest-junit' --coverage --forceExit --no-watch
+    #- echo 'hello test'
+    - yarn test-ci
+  artifacts:
+    reports:
+      junit: junit.xml
+  tags:
+    - services
+
+deploy_stage:
+  stage: deploy
+  resource_group: staging
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: stage
+    url: https://getkibble-app.stage.etd24.pl/
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - echo "Deploy to staging server"
+    - ssh escola@stage.etd24.pl 'exec ~/scripts/getkibble-app-build.sh'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+  tags:
+    - services
+
+deploy_clients_stage:
+  stage: deploy
+  resource_group: staging
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: clients_stage
+    url: https://gk.stage.etd24.pl/
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+    - echo "Deploy to staging server"
+    - ssh escola@stage.etd24.pl 'exec ~/scripts/getkibble-clients-app-build.sh'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: manual
+  tags:
+    - services

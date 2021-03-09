@@ -1,0 +1,60 @@
+@import "../../../../scss/common";
+
+aside.image-box {
+  position: relative;
+  border-radius: 7px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 300px;
+  z-index: 3;
+
+  span {
+    padding-top: 10px;
+    color: $white;
+    @include typo-paragraph-big();
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+  a,
+  span {
+    z-index: 3;
+  }
+  .image-box__shadow {
+    box-shadow: inset 0px -300px 300px -300px #000000;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
+  picture {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    > div {
+      height: 100%;
+    }
+  }
+  a {
+    @include typo-heading-small();
+    text-decoration: none;
+    color: $yellow;
+    padding-bottom: 18px;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      color: rgba($yellow, 0.8);
+    }
+  }
+}

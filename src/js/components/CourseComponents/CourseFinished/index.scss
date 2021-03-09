@@ -1,0 +1,49 @@
+@import "../../../../scss/common";
+.course-finished-box {
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid $yellow-grey;
+  margin-bottom: 22px;
+
+  img {
+    border-radius: 5px;
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    padding: 8px 0px 12px 0px;
+    > div {
+      width: 100%;
+    }
+    .right {
+      text-align: right;
+    }
+    h5 {
+      @include typo-paragraph-big();
+    }
+    small {
+      @include typo-tiny();
+    }
+    span,
+    a {
+      @include typo-nav-item-bold();
+      display: block;
+      width: 100%;
+    }
+    a {
+      color: $green;
+      font-size: 1.7rem;
+      text-decoration: none;
+      &.black {
+        color: $font-black;
+      }
+    }
+  }
+}

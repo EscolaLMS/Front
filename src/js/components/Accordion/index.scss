@@ -1,0 +1,54 @@
+@import "../../../scss/common";
+
+.accordion {
+  margin-bottom: 10px;
+  .accordion-header {
+    padding: 12px 40px 11px 12px;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    .title {
+      display: flex;
+      align-items: center;
+      @include typo-paragraph-bold();
+      p {
+        margin-bottom: 0;
+      }
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        min-width: 6px;
+        height: 6px;
+        border-left: 2px solid $font-black;
+        border-bottom: 2px solid $font-black;
+        margin-right: 10px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  .accordion-description {
+    margin-top: 2px;
+    padding: 14px 40px 14px 12px;
+    background-color: $white;
+    transform: scaleY(0);
+    transition: transform 0.4s ease-in-out;
+    transform-origin: top;
+    display: none;
+  }
+  &.active {
+    .accordion-description {
+      display: block;
+      transform: scaleY(1);
+    }
+    .accordion-header {
+      .title {
+        &:before {
+          transform: rotate(135deg);
+        }
+      }
+    }
+  }
+}

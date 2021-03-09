@@ -1,0 +1,119 @@
+@import "../../../scss/common";
+
+.header {
+  background-color: $bone-white;
+  padding: 10px 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: -1px;
+  z-index: 999;
+  border-bottom: 1px solid $light-grey6;
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__nav {
+    margin-left: 40px;
+  }
+
+  .header__user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .icon {
+      margin-left: 30px;
+      cursor: pointer;
+      fill: transparent;
+    }
+    .header__user-cart {
+      position: relative;
+      .cart-btn {
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+        outline: none;
+        position: relative;
+        .count {
+          position: absolute;
+          right: -5px;
+          top: -3px;
+          width: 19px;
+          height: 19px;
+          border-radius: 100%;
+          background-color: $red2;
+          color: $white;
+          line-height: 19px;
+          text-align: center;
+        }
+      }
+    }
+    .header__user-name {
+      color: $white;
+      display: flex;
+      align-items: center;
+      > button {
+        background: transparent;
+        border: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        color: $white;
+        outline: none;
+        .icon {
+          margin-right: 15px;
+        }
+        > div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          small {
+            @include typo-tag();
+            font-weight: 400;
+          }
+          span {
+            margin-top: -5px;
+            display: block;
+            flex-direction: row;
+            font-weight: 600;
+          }
+        }
+      }
+      .sub-menu-wrapper {
+        position: absolute;
+        z-index: 22;
+        top: 70px;
+        right: 0;
+        height: calc(100vh - 70px);
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        &.active {
+          visibility: visible;
+          opacity: 1;
+        }
+        nav {
+          position: relative;
+          z-index: 4;
+          padding: 30px 15px;
+          background-color: $white;
+          box-shadow: 0px 3px 6px #00000012;
+          color: $font-black;
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

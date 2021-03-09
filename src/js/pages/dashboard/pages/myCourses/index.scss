@@ -1,0 +1,22 @@
+@import "../../../../../scss/common";
+
+.my-coursess-list {
+  background: $white;
+  border-radius: 7px;
+  border: 1px solid $yellow-grey;
+  overflow: hidden;
+  margin-bottom: 35px;
+  &__content {
+    // padding: 25px;
+    position: relative;
+    .course-grid-item {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.box-wrapper {
+  button.small {
+    margin: auto;
+  }
+}

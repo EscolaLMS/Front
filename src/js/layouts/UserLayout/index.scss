@@ -1,0 +1,20 @@
+@import "../../../scss/common";
+
+.user-layout {
+  padding-bottom: 30px;
+  background-color: $bone-white;
+  .section-margin {
+    margin-bottom: 30px;
+    height: 100%;
+  }
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    p {
+      color: $light-grey5;
+      @include typo-paragraph-normal;
+      margin: 0;
+    }
+  }
+}

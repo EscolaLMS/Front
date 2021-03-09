@@ -1,0 +1,24 @@
+@import "../../../../../scss/common";
+
+.pdf-wrapper {
+  text-align: center;
+  min-height: 912px;
+  canvas {
+    margin: auto;
+  }
+  .react-pdf__Page__annotations {
+    display: none;
+  }
+  p {
+    margin-bottom: 30px;
+  }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button.button {
+      margin: 5px;
+      text-transform: capitalize;
+    }
+  }
+}

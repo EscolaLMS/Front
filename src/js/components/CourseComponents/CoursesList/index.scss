@@ -1,0 +1,35 @@
+@import "../../../../scss/common";
+@import "../../../../scss/components/slick";
+
+.courses__list {
+  padding-bottom: 50px;
+  position: relative;
+  background: $bone-white;
+
+  &--white {
+    background: $white;
+    padding-top: 35px;
+    margin-bottom: 40px;
+    &:after {
+      content: none;
+    }
+    .infinite-scroll {
+      display: flex;
+      @include media-breakpoint-down(lg) {
+        display: none;
+      }
+    }
+  }
+  .slick-slider {
+    display: none;
+    @include media-breakpoint-down(lg) {
+      display: flex;
+    }
+    .slick-dots li button {
+      background: $black;
+    }
+  }
+  .loader {
+    z-index: 3;
+  }
+}

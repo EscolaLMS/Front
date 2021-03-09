@@ -1,0 +1,149 @@
+@import "../../../../scss/common";
+
+.select {
+  width: 200px;
+  min-width: 200px;
+  background: $white;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  height: 100%;
+  position: relative;
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
+  .select__value {
+    @include typo-paragraph-bold();
+    position: relative;
+    width: 200px;
+    padding: 11px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .select__value__label {
+      width: 220px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .icon {
+      width: 13px;
+    }
+    &--open {
+      .icon {
+        transform: rotate(180deg);
+      }
+    }
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    background: $bone-white;
+    li {
+      cursor: pointer;
+      span {
+        padding: 10px 10px 10px 15px;
+        display: block;
+        transition: font-weight 0.2s ease-in-out;
+        font-weight: 600;
+        color: $light-black;
+        background: $bone-white;
+        &:hover {
+          font-weight: bold;
+          color: $green;
+          background: $teeth-white;
+        }
+      }
+      ul > li {
+        span {
+          padding: 10px 30px;
+          padding-right: 0;
+          font-weight: normal;
+        }
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+    }
+    .select__option--active {
+      > span {
+        font-weight: 600;
+        background: $green;
+        color: $white;
+      }
+    }
+  }
+  > ul {
+    max-height: 400px;
+    height: auto;
+    width: 200px;
+    z-index: 2;
+    overflow-y: auto;
+    top: calc(100% + 10px);
+    position: absolute;
+    left: 0;
+    box-shadow: 0px 3px 6px #00000012;
+    border-radius: 5px;
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+  }
+
+  &:after {
+    content: "";
+    height: 60%;
+    width: 2px;
+    position: absolute;
+    right: 0;
+    background: $dark-grey2;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    @include media-breakpoint-down(lg) {
+      content: none;
+    }
+  }
+  &.form-field {
+    width: 100%;
+    .label {
+      @include typo-paragraph-normal();
+      padding-left: 7px;
+      margin-bottom: 5px;
+    }
+    .select__value {
+      background: $white;
+      border: 1px solid $grey;
+      padding: 11px 15px;
+      @include typo-paragraph-bold();
+      line-height: 18px;
+      width: 100%;
+      border-radius: 5px;
+    }
+    &:after {
+      display: none;
+    }
+    > ul {
+      width: 100%;
+      height: 100%;
+      top: 72px;
+      position: absolute;
+      right: 0;
+    }
+  }
+  &.long {
+    background: transparent;
+    .select__value {
+      background: $white;
+    }
+    > ul {
+      height: 300px;
+      span {
+        background: $white;
+      }
+    }
+  }
+}

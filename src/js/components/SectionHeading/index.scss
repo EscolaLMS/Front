@@ -1,0 +1,50 @@
+@import "../../../scss/common";
+
+.section-heading {
+  margin-bottom: 20px;
+  padding-left: 10px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+  }
+  h2 {
+    font-size: 2.4rem;
+  }
+  > div {
+    margin-left: 22px;
+    select {
+      padding: 4px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+      border-color: $dark-grey4;
+      @include typo-paragraph-bold();
+      @include media-breakpoint-down(lg) {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+    a {
+      color: $green;
+      @include typo-paragraph-bold();
+      text-decoration: underline;
+    }
+    small {
+      @include typo-paragraph-big();
+      margin-top: auto;
+      margin-bottom: 5px;
+    }
+  }
+}
