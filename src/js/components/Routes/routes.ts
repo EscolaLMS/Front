@@ -5,7 +5,7 @@ const routeRoutes = {
   course: "/course/:id",
   dashboard: "/dashboard",
   courses: "/courses",
-  curriculum: "/course/:id/curriculum/:section?/:lecture?",
+  program: "/course/:id/program/:section?/:lecture?",
   loginSocial: "/social-login",
   resetPassword: "/reset-password",
   projects: "/projects",

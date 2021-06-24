@@ -7,7 +7,7 @@ import { createSaga } from "./../sagas";
 function* mySaga() {
   yield takeLatest(
     ACTION.FETCH_REQUEST,
-    createSaga("FETCH_CURRICULUM", "/courses/{id}/curriculum")
+    createSaga("FETCH_PROGRAM", "/courses/{id}/program")
   );
 }
 

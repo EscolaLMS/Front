@@ -48,7 +48,7 @@ export type CoursesApiAction =
 
 export interface IProgressElementState {
   loading: boolean;
-  error: boolean;
+  error: boolean | IDefaultApiError;
   list: IProgressElement[];
   id: number;
 }

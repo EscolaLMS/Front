@@ -38,7 +38,7 @@ const CourseFinishedBox: React.FC<ICourseFinishedBox> = ({
     <div className="course-finished-box">
       <div className="row">
         <div className="col-8">
-          <Link to={`course/${id}/curriculum`}>
+          <Link to={`course/${id}/program`}>
             <picture>
               <Image src={image} alt={name} />
             </picture>
@@ -48,7 +48,7 @@ const CourseFinishedBox: React.FC<ICourseFinishedBox> = ({
           <div className="course-finished-box__content">
             <div className="row">
               <div className="col-24">
-                <Link className="black" to={`course/${id}/curriculum`}>
+                <Link className="black" to={`course/${id}/program`}>
                   <h5>{name}</h5>
                 </Link>
                 <div dangerouslySetInnerHTML={{ __html: description }} />

@@ -1,7 +1,5 @@
 import React, { ReactElement } from "react";
 
-import { ICourse } from "../../../interfaces/course";
-
 import InfiniteScroll from "react-infinite-scroller";
 
 import CourseGridItem from "../CourseGridItem";
@@ -13,7 +11,7 @@ import "slick-carousel/slick/slick.css";
 
 import "./index.scss";
 interface IProps {
-  data: ICourse[];
+  data: API.Course[];
   loading: boolean;
   error: boolean | IDefaultApiError;
   limit?: number;
@@ -52,17 +50,17 @@ const CoursesList: React.FC<IProps> = ({
         >
           {data.length > 0 ? (
             data.map(
-              (course: ICourse, index: number): ReactElement => {
+              (course: API.Course, index: number): ReactElement => {
                 return (
                   <div className="col-lg-12" key={index}>
                     <CourseGridItem
-                      id={course.id}
-                      image={course.thumb_image}
-                      title={course.course_title}
+                      id={Number(course.id)}
+                      image={String(course.image_url)}
+                      title={String(course.title)}
                       tags={course.tags}
-                      price={course.price}
+                      price={course.base_price}
                       type="round"
-                      strikePrice={course.strike_out_price}
+                      // strikePrice={course.strike_out_price}
                     />
                   </div>
                 );
@@ -86,17 +84,17 @@ const CoursesList: React.FC<IProps> = ({
           >
             {data.length > 0 ? (
               data.map(
-                (course: ICourse, index: number): ReactElement => {
+                (course: API.Course, index: number): ReactElement => {
                   return (
                     <div className="col-sm-24" key={index}>
                       <CourseGridItem
-                        id={course.id}
-                        image={course.thumb_image}
-                        title={course.course_title}
+                        id={Number(course.id)}
+                        image={String(course.image_url)}
+                        title={String(course.title)}
                         tags={course.tags}
-                        price={course.price}
+                        price={String(course.base_price)}
                         type="round"
-                        strikePrice={course.strike_out_price}
+                        // strikePrice={course.strike_out_price}
                       />
                     </div>
                   );

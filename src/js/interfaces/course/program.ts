@@ -8,7 +8,7 @@ export enum MediaType {
   INTERACTIVE = 6,
 }
 
-export interface ICurriculumLectureCommon {
+export interface IProgramLectureCommon {
   lecture_quiz_id: number;
   section_id: number;
   title: string;
@@ -45,8 +45,8 @@ export interface IMedia {
   user_id: number;
 }
 
-export type ICurriculumLecture =
-  | (ICurriculumLectureCommon & {
+export type IProgramLecture =
+  | (IProgramLectureCommon & {
       media_type: 0; // VIDEO
       created_at: string;
       updated_at: string;
@@ -67,7 +67,7 @@ export type ICurriculumLecture =
       file_tag: string;
       id: number;
     })
-  | (ICurriculumLectureCommon & {
+  | (IProgramLectureCommon & {
       media_type: 1 | 2; // AUDIO | DOCUMENT
       file_name: string; // this is a link if `file_type === 'link'
       file_title: string;
@@ -75,45 +75,42 @@ export type ICurriculumLecture =
       file_extension: string; // mp3, pdf, link
       file_size: string;
       duration: string;
-      file_tag:
-        | "curriculum"
-        | "curriculum_resource"
-        | "curriculum_resource_link";
+      file_tag: "program" | "program_resource" | "program_resource_link";
       uploader_id: number;
       processed: boolean;
       created_at: string;
       updated_at: string;
     })
-  | (ICurriculumLectureCommon & {
+  | (IProgramLectureCommon & {
       media_type: 3; // TEXT
     })
-  | (ICurriculumLectureCommon & {
+  | (IProgramLectureCommon & {
       media_type: 6; // INTERACTIVE h5p, `media` is ID to element
     });
 
-export interface ICurriculumData {
-  list: ICurriculum[];
+export interface IProgramData {
+  list: IProgram[];
 }
 
-export interface ICurriculum {
+export interface IProgram {
   section_id: number;
   course_id: number;
   title: string;
   sort_order: number;
   created_at: string;
   updated_at: string;
-  lectures: ICurriculumLecture[];
+  lectures: IProgramLecture[];
 }
 
-export interface ICurriculumMenu {
+export interface IProgramMenu {
   courseId: string;
-  data: ICurriculumData;
+  data: IProgramData;
   selectedSection?: number;
   selectedLecture?: number;
   allCompleted: number[];
 }
 
-export interface ICurriculumButton {
+export interface IProgramButton {
   active: boolean;
   lesson?: number;
   section?: number;
@@ -122,7 +119,7 @@ export interface ICurriculumButton {
   state: ICourseState;
 }
 
-export interface ICurriculumHeader {
+export interface IProgramHeader {
   section?: string;
   lecture?: string;
   title?: string;

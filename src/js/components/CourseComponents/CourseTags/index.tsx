@@ -1,13 +1,18 @@
 import React, { ReactElement } from "react";
-import { ITag } from "../../../interfaces/index";
 import "./index.scss";
 
-const CourseTags: React.FC<{ tags: ITag[] }> = ({ tags }): ReactElement => {
+const CourseTags: React.FC<{ tags: API.Tag[] | string[] }> = ({
+  tags,
+}): ReactElement => {
   return (
     <div className="course-tags">
-      {tags?.map((item) => (
-        <span key={item.id}>{item.title}</span>
-      ))}
+      {tags?.map((item) =>
+        typeof item === "string" ? (
+          <span key={item}>{item}</span>
+        ) : (
+          <span key={item.id}>{item.title}</span>
+        )
+      )}
     </div>
   );
 };

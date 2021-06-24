@@ -11,7 +11,7 @@ import { IRootState } from "./../../interfaces/redux";
 
 import { ICategoriesState } from "../../redux/categories/reducer";
 import { fetchCategories } from "../../redux/categories/actions";
-import { ICategory, IInterest } from "../../interfaces";
+import { IInterest } from "../../interfaces";
 import { IAuthState } from "../../redux/auth/reducer";
 
 import Button from "../FormElements/Button/Button";
@@ -21,7 +21,7 @@ import "./index.scss";
 import { updateInterests } from "../../redux/auth/actions";
 
 export const CategoryBox: React.FC<{
-  data: ICategory;
+  data: API.Category;
   onSelect: (id: number) => void;
   selected: boolean;
 }> = ({ data, selected, onSelect }): ReactElement => {
@@ -31,7 +31,7 @@ export const CategoryBox: React.FC<{
       className={`category-box ${selected ? "category-box--selected" : ""}`}
     >
       <div className="category-box__content">
-        <Image src={data?.icon} alt={data.name} />
+        {data?.icon && <Image src={data?.icon} alt={data.name} />}
         <span>{data.name}</span>
       </div>
     </div>
@@ -79,7 +79,7 @@ export const CategoriesList: React.FC<{ edit?: boolean }> = ({
   const mainCategories = useMemo(() => {
     if (categories?.list?.length > 0) {
       return categories.list.filter(
-        (category: ICategory) => !category.parent_id && category.is_active
+        (category: API.Category) => !category.parent_id && category.is_active
       );
     }
     return [];
@@ -104,7 +104,7 @@ export const CategoriesList: React.FC<{ edit?: boolean }> = ({
         <div className={edit ? "col-24" : "col-lg-20 offset-lg-2"}>
           <div className={edit ? "category-row row" : "row"}>
             {mainCategories?.length > 0 &&
-              mainCategories?.map((category: ICategory, index: number) => {
+              mainCategories?.map((category: API.Category, index: number) => {
                 return (
                   <div
                     className={edit ? "category-item col" : "col-12 col-lg-8"}

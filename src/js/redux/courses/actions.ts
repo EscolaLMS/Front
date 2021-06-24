@@ -8,7 +8,7 @@ export const FETCH_UNIQUE_FAILURE = "FETCH_COURSES_UNIQUE_FAILURE";
 
 interface IData {
   category_id?: string;
-  course_title?: string;
+  title?: string;
   limit?: number;
 }
 

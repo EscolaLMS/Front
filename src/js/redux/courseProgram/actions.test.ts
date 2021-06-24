@@ -1,11 +1,11 @@
 import * as actions from "./actions";
 
-describe("courseCurriculum actions", () => {
+describe("courseprogram actions", () => {
   it("should reset", () => {
     const expectedAction = {
       type: actions.FETCH_REQUEST,
       id: "1",
     };
-    expect(actions.fetchCurriculum("1")).toEqual(expectedAction);
+    expect(actions.fetchprogram("1")).toEqual(expectedAction);
   });
 });

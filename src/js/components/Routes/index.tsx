@@ -8,7 +8,7 @@ import RegisterPage from "../../pages/register";
 import ResetPasswordPage from "../../pages/resetPassword";
 import CoursePage from "../../pages/course";
 import CoursesPage from "../../pages/courses";
-import CourseCurriculum from "../../pages/courseCurriculum";
+import CourseProgram from "../../pages/courseProgram";
 import MyCoursesPage from "../../pages/dashboard/pages/myCourses";
 import Dashboard from "../../pages/dashboard";
 
@@ -27,7 +27,7 @@ const Routes: React.FC = (): ReactElement => {
     register,
     course,
     courses,
-    curriculum,
+    program,
     loginSocial,
     resetPassword,
     dashboard,
@@ -46,7 +46,7 @@ const Routes: React.FC = (): ReactElement => {
       <Route exact path={home} component={CoursesPage} />
 
       <PrivateRoute exact path={dashboard} component={Dashboard} />
-      <PrivateRoute exact path={curriculum} component={CourseCurriculum} />
+      <PrivateRoute exact path={program} component={CourseProgram} />
       <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
       <PrivateRoute exact path={myProfile} component={MyProfile} />
 
@@ -54,7 +54,7 @@ const Routes: React.FC = (): ReactElement => {
         <Tags />
       </Route>
 
-      <Route path="" strict extact>
+      <Route path="" strict>
         Main
       </Route>
     </Switch>

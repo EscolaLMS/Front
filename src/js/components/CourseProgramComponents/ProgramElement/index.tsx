@@ -8,7 +8,7 @@ import React, {
 
 import { useParams } from "react-router-dom";
 
-import { ICurriculumLecture } from "../../../interfaces/course/curriculum";
+import { IProgramLecture } from "../../../interfaces/course/program";
 import { IDefaultApiError } from "../../../interfaces/redux";
 
 import { completeLecture } from "../../../services/lectureComplete";
@@ -18,8 +18,8 @@ import H5PPlayer from "./H5P/player";
 import Text from "./Text";
 import PdfViewer from "./PdfViewer";
 
-const CurriculumElement: FunctionComponent<{
-  lecture: ICurriculumLecture;
+const programElement: FunctionComponent<{
+  lecture: IProgramLecture;
   completed: boolean;
   loading: boolean;
   error: boolean | IDefaultApiError;
@@ -89,4 +89,4 @@ const CurriculumElement: FunctionComponent<{
   }
 };
 
-export default CurriculumElement;
+export default programElement;

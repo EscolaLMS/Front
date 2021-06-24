@@ -20,7 +20,7 @@ const CourseProgressBox: React.FC<ICourseProgressBox> = ({
 
   return (
     <div className="course-progress-box">
-      <Link to={`/course/${id}/curriculum`}>
+      <Link to={`/course/${id}/program`}>
         <picture>
           <Image src={image} alt={name} />
         </picture>

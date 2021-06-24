@@ -8,8 +8,6 @@ import { fetchCourse } from "../../redux/courses/actions";
 import { ICoursesState } from "../../redux/courses/reducer";
 import { IRootState } from "../../interfaces/redux";
 
-import { ICourse } from "../../interfaces/course";
-
 import MainLayout from "../../layouts/MainLayout";
 
 import CourseHeader from "../../components/CourseComponents/CourseHeader";
@@ -20,6 +18,7 @@ import CourseGridItem from "../../components/CourseComponents/CourseGridItem";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import CourseCart from "../../components/CourseComponents/CourseCart";
+import ReactMarkdown from "react-markdown";
 
 import "./index.scss";
 
@@ -53,48 +52,46 @@ const CoursePage: React.FC<RouteComponentProps<{ id: string }>> = (
   }
 
   const {
-    shortDesc,
-    overview,
+    author,
+    title,
+    image_url,
+    summary,
     tags,
     lessons,
     duration,
-    author,
-    price,
+    base_price,
     updated_at,
   } = data.unique;
 
   return (
     <MainLayout>
-      <CourseHeader
-        title={shortDesc?.title}
-        tags={tags}
-        image={shortDesc?.image}
-      />
+      <CourseHeader title={title} tags={tags} image={image_url} />
 
       <article className="course">
         <div className="container">
           <div className="row">
             <div className="col-lg-16">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: overview }}
-              />
+              <ReactMarkdown className="content">{summary}</ReactMarkdown>
             </div>
           </div>
         </div>
 
-        <ShortCourseDesc
-          title="What you’ll learn"
-          description={shortDesc?.description}
-          image={shortDesc?.image}
-        />
-        <CourseContent
-          title="Course content"
-          lessons={lessons}
-          authorImage={author?.image}
-          authorName={author?.name}
-          authorDescription={author?.description}
-        />
+        {
+          <ShortCourseDesc
+            title="What you’ll learn"
+            description={summary}
+            image={image_url}
+          />
+        }
+        {
+          <CourseContent
+            title="Course content"
+            lessons={lessons}
+            // authorImage={author?.image}
+            authorName={author?.name}
+            // authorDescription={author?.description}
+          />
+        }
         <div className="fixed-cart">
           <div className="container">
             <div className="row">
@@ -108,8 +105,8 @@ const CoursePage: React.FC<RouteComponentProps<{ id: string }>> = (
                   quizesLength={0}
                   gamesLength={0}
                   mobileAccess={true}
-                  owned={data?.unique?.owned}
-                  price={`$ ${price}`}
+                  // owned={data?.unique?.owned}
+                  price={base_price}
                 />
               </div>
             </div>

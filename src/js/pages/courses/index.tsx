@@ -9,7 +9,6 @@ import { fetchCategories } from "../../redux/categories/actions";
 import { fetchCourses } from "../../redux/courses/actions";
 
 import { IRootState } from "../../interfaces/redux";
-import { ICategory } from "../../interfaces";
 import { IAuthState } from "../../redux/auth/reducer";
 import { ICategoriesState } from "../../redux/categories/reducer";
 import { ICoursesState } from "../../redux/courses/reducer";
@@ -67,7 +66,7 @@ const CoursePage: React.FC = (): ReactElement => {
   const selectedCategory = useMemo(() => {
     if (categories?.list?.length > 0 && qData?.category) {
       return categories.list.find(
-        (category: ICategory) => category.id === Number(qData.category)
+        (category: API.Category) => category.id === Number(qData.category)
       )?.name;
     }
     return null;
@@ -83,7 +82,7 @@ const CoursePage: React.FC = (): ReactElement => {
     if (qInpuValue || qCategory) {
       dispatch(
         fetchCourses({
-          course_title: qInpuValue || undefined,
+          title: qInpuValue || undefined,
           category_id: qCategory || undefined,
           limit,
         })

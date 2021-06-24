@@ -46,14 +46,14 @@ const Finished: React.FC<{ id: number }> = ({ id }): ReactElement => {
   }, []);
 
   return (
-    <div className="curriculum-finished">
+    <div className="program-finished">
       {course.loading && <Loader width={100} height={100} />}
-      <div className="curriculum-finished__head">
+      <div className="program-finished__head">
         <h1>Congratulations</h1>
       </div>
       <h2>You’ve finished course!</h2>
 
-      <ul className="curriculum-finished__stats">
+      <ul className="program-finished__stats">
         <li>
           <h4>Spend time</h4>{" "}
           <h3>

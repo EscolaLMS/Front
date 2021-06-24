@@ -8,7 +8,6 @@ import { fetchCoursesProgress } from "../../../../redux/courseProgress/actions";
 
 import { IRootState } from "../../../../interfaces/redux";
 import { ICoursesState } from "../../../../redux/courses/reducer";
-import { ICourse } from "../../../../interfaces/course";
 import { IProgressState } from "../../../../redux/courseProgress/reducer";
 import {
   ICourseProgress,
@@ -80,22 +79,27 @@ const MyCoursesPage: React.FC = (): ReactElement => {
               <Loader width={50} height={50} />
             ) : coursesInProgress.length > 0 ? (
               <div className="row">
-                {coursesInProgress.map((el: ICourseProgress) => (
-                  <div key={el.course.id} className="col-lg-8 col-md-12 col-24">
-                    <CourseProgressBox
-                      id={el.course.id}
-                      image={el.course.shortDesc.thumb}
-                      name={el.course.course_title}
-                      total={el.progress?.length}
-                      completed={
-                        el?.progress?.filter(
-                          (progress: IProgressElement) =>
-                            progress?.status === courseComplete
-                        ).length
-                      }
-                    />
-                  </div>
-                ))}
+                {coursesInProgress
+                  .filter((prog: ICourseProgress) => prog.course.id)
+                  .map((el: ICourseProgress) => (
+                    <div
+                      key={el.course.id}
+                      className="col-lg-8 col-md-12 col-24"
+                    >
+                      <CourseProgressBox
+                        id={Number(el.course.id)}
+                        image={String(el.course.image_url)}
+                        name={String(el.course.title)}
+                        total={el.progress?.length}
+                        completed={
+                          el?.progress?.filter(
+                            (progress: IProgressElement) =>
+                              progress?.status === courseComplete
+                          ).length
+                        }
+                      />
+                    </div>
+                  ))}
               </div>
             ) : (
               <p>You currently have no courses in progress.</p>
@@ -109,11 +113,11 @@ const MyCoursesPage: React.FC = (): ReactElement => {
                 {coursesFinished.map((el: ICourseProgress) => (
                   <div key={el.course.id} className="col-24">
                     <CourseFinishedBox
-                      id={el.course.id}
-                      image={el.course.shortDesc.thumb}
-                      name={el.course.course_title}
-                      description={el.course.shortDesc.description}
-                      price={el.course.price}
+                      id={Number(el.course.id)}
+                      image={String(el.course.image_url)}
+                      name={String(el.course.title)}
+                      description={String(el.course.summary)}
+                      price={String(el.course.base_price)}
                       time={el?.spent_time}
                       date={el?.finish_date}
                     />

@@ -14,7 +14,7 @@ import { IRootState } from "../../../interfaces/redux";
 import { Dispatch } from "redux";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
-import { ICourseCart, ICourse } from "../../../interfaces/course";
+import { ICourseCart } from "../../../interfaces/course";
 
 import { IAuthState } from "../../../redux/auth/reducer";
 import "./index.scss";
@@ -111,8 +111,8 @@ const CourseCart: React.FC<ICourseCart> = ({
           </li>
         </ul>
         <div className="button-wrapper">
-          <Link to={`/course/${id}/curriculum`} className="button primary">
-            course curriculum
+          <Link to={`/course/${id}/program`} className="button primary">
+            course program
           </Link>
         </div>
       </div>

@@ -2,7 +2,6 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
-import { ITag } from "../../../interfaces";
 import { ICourseGridItem } from "../../../interfaces/course";
 
 import "./index.scss";
@@ -28,9 +27,13 @@ const CourseGridItem: React.FC<ICourseGridItem> = ({
         <div className="content">
           <h5>{title}</h5>
           <div className="tags">
-            {tags?.map((item: ITag) => (
-              <span key={item.id}>{item.title},</span>
-            ))}
+            {tags?.map((item: API.Tag | string) =>
+              typeof item === "string" ? (
+                <span key={item}>{item},</span>
+              ) : (
+                <span key={item.id}>{item.title},</span>
+              )
+            )}
             {overview && <span>{overview}</span>}
           </div>
           {price && (

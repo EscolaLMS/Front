@@ -22,13 +22,29 @@ const CourseContent: React.FC<ICourseContent> = ({
             </SectionHeading>
             <div className="lessons">
               {lessons?.map(
-                (item, index): ReactElement => (
+                (lesson, index): ReactElement => (
                   <Fragment key={index}>
                     <Accordion
-                      title={item?.title}
-                      duration={item?.duration}
-                      description={item?.description}
-                    />
+                      title={`${lesson.title} (${lesson.topics.length} topics)`}
+                      duration={lesson?.duration}
+                      // description={item?.description}
+                    >
+                      <ul>
+                        {lesson.topics.map((topic) => (
+                          <li
+                            key={topic.id}
+                            title={topic?.title}
+                            // duration={topic?.duration}
+                            // description={lesson.description}
+                          >
+                            {topic.title}{" "}
+                            <small>
+                              {topic.topicable_type?.split("\\").pop()}
+                            </small>
+                          </li>
+                        ))}
+                      </ul>
+                    </Accordion>
                   </Fragment>
                 )
               )}
@@ -39,7 +55,9 @@ const CourseContent: React.FC<ICourseContent> = ({
             </SectionHeading>
             <div className="author">
               <div className="author-meta">
-                {authorImage && <Image src={authorImage} alt={authorName} />}
+                {authorImage && (
+                  <Image src={authorImage} alt={authorName || ""} />
+                )}
                 {authorName && <h5>{authorName}</h5>}
               </div>
               {authorDescription && (

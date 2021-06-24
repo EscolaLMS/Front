@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { ITag } from "../index";
+
 import { IUser } from "../../interfaces";
 
 export interface ICourseHeader {
   title: string;
   image: string;
-  tags?: ITag[];
+  tags?: API.Tag[] | string[];
 }
 
 export interface IShortCourseDesc {
@@ -35,17 +35,18 @@ export interface ILesson extends IAccordion {
 
 export interface ICourseContent {
   title: string;
-  authorImage: string;
-  authorName: string;
-  authorDescription: string;
-  lessons: IAccordion[];
+  authorImage?: string;
+  authorName?: string;
+  authorDescription?: string;
+  //lessons: IAccordion[];
+  lessons: API.Lesson[];
 }
 
 export interface ICourseGridItem {
   id: number;
   image: string;
   title: string;
-  tags?: ITag[];
+  tags?: API.Tag[] | string[];
   overview?: string;
   price?: string;
   type?: "dark" | "white" | "round";
@@ -67,38 +68,9 @@ export interface IAuthor {
 }
 
 export interface IRelated {
-  data: ICourse[];
+  data: API.Course[];
   message: string;
   success: boolean;
-}
-
-export interface ICourse {
-  category_id: number;
-  course_image: string;
-  course_slug: string;
-  course_title: string;
-  course_video: null;
-  created_at: string;
-  duration: string;
-  id: number;
-  instruction_level_id: number;
-  instructor_id: number;
-  is_active: number;
-  keywords: string;
-  overview: string;
-  price: string;
-  author: IAuthor;
-  lessons: ILesson[];
-  strike_out_price: string;
-  thumb_image: string;
-  updated_at: string;
-  tags: ITag[];
-  summary?: string;
-  shortDesc: IShortDesc;
-  owned?: boolean;
-  spent_time: number;
-  finish_date: string;
-  finished_at: string;
 }
 
 export interface ICourseFinishedBox {

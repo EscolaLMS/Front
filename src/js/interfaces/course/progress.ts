@@ -1,5 +1,3 @@
-import { ICourse } from ".";
-
 export interface IProgressElement {
   lecture_id: number;
   status: number;
@@ -7,7 +5,7 @@ export interface IProgressElement {
 
 export interface ICourseProgress {
   progress: IProgressElement[];
-  course: ICourse;
+  course: API.Course;
   spent_time: number;
   finish_date: string;
 }

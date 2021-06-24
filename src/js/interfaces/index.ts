@@ -4,15 +4,6 @@ declare global {
   }
 }
 
-export interface ITag {
-  id: number;
-  title: string;
-  morphable_type?: "App\\Models\\Blog" | "App\\Models\\Course";
-  morphable_id?: number;
-  created_at?: string;
-  updated_at?: string;
-}
-
 //"id":1,"name":"Development","slug":"development","icon_class":"fa-chart-line","is_active":1,"
 
 export interface IPivot {
@@ -30,19 +21,6 @@ export interface IInterest {
   pivot: IPivot;
   slug: string;
   updated_at: string;
-}
-export interface ICategory {
-  id: number;
-  parent_id?: number;
-  name: string;
-  slug: string;
-  icon_class: string;
-  morphable_type: "App\\Models\\Blog" | "App\\Models\\Course";
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-  icon: string;
-  description: string;
 }
 
 export interface IContentData {

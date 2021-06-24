@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 
-import { fetchCurriculum } from "../../redux/courseCurriculum/actions";
+import { fetchProgram } from "../../redux/courseProgram/actions";
 import { fetchCourseProgress } from "../../redux/courseProgress/actions";
 import { fetchCourse } from "../../redux/courses/actions";
 
@@ -11,11 +11,8 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { courseIncomplete } from "../../constants";
 
-import { ICurriculumState } from "../../redux/courseCurriculum/reducer";
-import {
-  ICurriculum,
-  ICurriculumLecture,
-} from "../../interfaces/course/curriculum";
+import { IProgramState } from "../../redux/courseProgram/reducer";
+import { IProgram, IProgramLecture } from "../../interfaces/course/program";
 import { ICoursesState } from "../../redux/courses/reducer";
 import { ICourseState } from "../../interfaces/course";
 import { IRootState } from "../../interfaces/redux";
@@ -23,18 +20,18 @@ import { IProgressState } from "../../redux/courseProgress/reducer";
 import { IProgressElement } from "../../interfaces/course/progress";
 import { ILesson } from "../../interfaces/course";
 
-import Header from "../../components/CourseCurriculumComponents/Header";
-import Menu from "../../components/CourseCurriculumComponents/Menu";
+import Header from "../../components/CourseProgramComponents/Header";
+import Menu from "../../components/CourseProgramComponents/Menu";
 import Error from "../../components/Error";
-import CurriculumElement from "../../components/CourseCurriculumComponents/CurriculumElement";
-import NextButton from "../../components/CourseCurriculumComponents/NextButton";
+import ProgramElement from "../../components/CourseProgramComponents/ProgramElement";
+import NextButton from "../../components/CourseProgramComponents/NextButton";
 import Loader from "../../components/Loader";
-import Finished from "../../components/CourseCurriculumComponents/Finished";
+import Finished from "../../components/CourseProgramComponents/Finished";
 import MainLayout from "../../layouts/MainLayout";
 
 import "./index.scss";
 
-const CourseCurriculum: React.FC = (): ReactElement => {
+const Courseprogram: React.FC = (): ReactElement => {
   const dispatch: Dispatch = useDispatch();
 
   const [allCompletedLessons, setAllCompletedLessons] = useState<number[]>([]);
@@ -49,10 +46,11 @@ const CourseCurriculum: React.FC = (): ReactElement => {
     lecture: string;
   }>();
 
-  const curriculum: ICurriculumState = useSelector<
-    IRootState,
-    ICurriculumState
-  >((state): ICurriculumState => state.Curriculum);
+  const program: IProgramState = useSelector<IRootState, IProgramState>(
+    (state): IProgramState => state.Program
+  );
+
+  console.log("p", program);
 
   const course: ICoursesState = useSelector<IRootState, ICoursesState>(
     (state): ICoursesState => state.Courses
@@ -69,14 +67,14 @@ const CourseCurriculum: React.FC = (): ReactElement => {
     return null;
   }, [id, progressData]);
 
-  const loading = progress?.loading || curriculum?.loading || course?.loading;
-  const error = progress?.error || curriculum?.error || course?.error;
+  const loading = progress?.loading || program?.loading || course?.loading;
+  const error = progress?.error || program?.error || course?.error;
 
   const allLectures = useMemo(() => {
     if (course?.unique && course?.unique?.lessons?.length > 0) {
       return course?.unique?.lessons
-        ?.filter((lesson: ILesson) => lesson?.id)
-        .map((lesson: ILesson) => lesson);
+        ?.filter((lesson: API.Lesson) => lesson?.id)
+        .map((lesson: API.Lesson) => lesson);
     }
     return [];
   }, [course]);
@@ -91,10 +89,10 @@ const CourseCurriculum: React.FC = (): ReactElement => {
   }, [allCompletedLessons, lecture]);
 
   const currentSection = useMemo(() => {
-    return curriculum?.list?.find(
-      (s: ICurriculum) => s?.section_id === Number(section)
+    return program?.list?.find(
+      (s: IProgram) => s?.section_id === Number(section)
     );
-  }, [section, curriculum]);
+  }, [section, program]);
 
   const currentLecture = useMemo(() => {
     if (
@@ -103,7 +101,7 @@ const CourseCurriculum: React.FC = (): ReactElement => {
       lecture
     ) {
       return currentSection?.lectures?.find(
-        (l: ICurriculumLecture) => l?.lecture_quiz_id === Number(lecture)
+        (l: IProgramLecture) => l?.lecture_quiz_id === Number(lecture)
       );
     }
     return null;
@@ -122,6 +120,8 @@ const CourseCurriculum: React.FC = (): ReactElement => {
     }
   }, [progress]);
 
+  /*
+
   useEffect(() => {
     if (nextLesson && allLectures?.length > 0) {
       const sid = allLectures?.find(
@@ -131,6 +131,8 @@ const CourseCurriculum: React.FC = (): ReactElement => {
       sid && sid !== nextSection && setNextSection(sid);
     }
   }, [allLectures, nextLesson]);
+
+  */
 
   useEffect(() => {
     if (progress && progress?.list?.length > 0) {
@@ -144,7 +146,7 @@ const CourseCurriculum: React.FC = (): ReactElement => {
   useEffect(() => {
     if (id) {
       dispatch(fetchCourseProgress(id));
-      dispatch(fetchCurriculum(id));
+      dispatch(fetchProgram(id));
       dispatch(fetchCourse(parseInt(id)));
     }
   }, [id]);
@@ -157,7 +159,7 @@ const CourseCurriculum: React.FC = (): ReactElement => {
       nextLesson &&
       (!section || !lecture)
     ) {
-      history.push(`/course/${id}/curriculum/${nextSection}/${nextLesson}`);
+      history.push(`/course/${id}/program/${nextSection}/${nextLesson}`);
     }
   }, [nextLesson, nextSection, allLectures, id]);
 
@@ -174,8 +176,16 @@ const CourseCurriculum: React.FC = (): ReactElement => {
         : "NORMAL"
       : "NOTFOUND";
 
+  if (program.error && typeof program.error === "object") {
+    return (
+      <MainLayout>
+        <Error desc={Object.values(program.error).join(",")} />
+      </MainLayout>
+    );
+  }
+
   if (
-    !curriculum?.loading &&
+    !program?.loading &&
     !course.loading &&
     (!course.unique || course.unique.id !== Number(id) || error)
   ) {
@@ -187,21 +197,21 @@ const CourseCurriculum: React.FC = (): ReactElement => {
   }
 
   return (
-    <div className="curriculum-page">
+    <div className="program-page">
       <Header
         section={currentSection?.title}
         lecture={currentLecture?.title}
-        title={course?.unique?.course_title}
+        title={course?.unique?.title}
         loading={loading}
       />
 
-      {curriculum?.loading ? (
+      {program?.loading ? (
         <Loader width={100} height={100} />
       ) : (
         <div className="container">
           <div className="row">
             <div className="col-18">
-              <div className="curriculum-page__iframe-wrapper">
+              <div className="program-page__iframe-wrapper">
                 {state === "FINISHED" && <Finished id={Number(id)} />}
                 {state === "EMPTY" && (
                   <div>
@@ -216,7 +226,7 @@ const CourseCurriculum: React.FC = (): ReactElement => {
                 {(state === "NORMAL" || state === "COMPLETE") &&
                   currentLecture && (
                     <div>
-                      <CurriculumElement
+                      <ProgramElement
                         lecture={currentLecture}
                         completed={isCompelted}
                         loading={loading}
@@ -238,12 +248,12 @@ const CourseCurriculum: React.FC = (): ReactElement => {
             </div>
 
             <div className="col-6">
-              {curriculum?.list?.length > 0 && (
+              {program?.list?.length > 0 && (
                 <Menu
                   courseId={id}
                   selectedSection={currentSection?.section_id}
                   selectedLecture={currentLecture?.lecture_quiz_id}
-                  data={curriculum}
+                  data={program}
                   allCompleted={allCompletedLessons}
                 />
               )}
@@ -255,4 +265,4 @@ const CourseCurriculum: React.FC = (): ReactElement => {
   );
 };
 
-export default CourseCurriculum;
+export default Courseprogram;

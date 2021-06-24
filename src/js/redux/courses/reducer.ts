@@ -1,12 +1,11 @@
 import * as ACTION from "./actions";
 import { IDefaultApiError, IDefaultApiAction } from "../../interfaces/redux";
-import { ICourse } from "../../interfaces/course";
 
 export type CoursesApiAction =
   | (IDefaultApiAction & { type: "FETCH_COURSES_REQUEST" })
   | (IDefaultApiAction & {
       type: "FETCH_COURSES_SUCCESS";
-      payload: { success: boolean; data: ICourse[] };
+      payload: API.DataResponseSuccess<API.PaginatedList<Required<API.Course>>>;
     })
   | (IDefaultApiAction & {
       type: "FETCH_COURSES_FAILURE";
@@ -15,7 +14,7 @@ export type CoursesApiAction =
   | (IDefaultApiAction & { type: "FETCH_COURSES_UNIQUE_REQUEST" })
   | (IDefaultApiAction & {
       type: "FETCH_COURSES_UNIQUE_SUCCESS";
-      payload: ICourse;
+      payload: API.DataResponseSuccess<Required<API.Course>>;
     })
   | (IDefaultApiAction & {
       type: "FETCH_COURSES_UNIQUE_FAILURE";
@@ -25,9 +24,9 @@ export type CoursesApiAction =
 export interface ICoursesState {
   loading: boolean;
   error: boolean | IDefaultApiError;
-  list: ICourse[];
-  unique: ICourse | undefined;
-  recomended: ICourse[];
+  list: Required<API.Course>[];
+  unique: Required<API.Course> | undefined;
+  recomended: Required<API.Course>[];
   isRated: boolean;
 }
 
@@ -70,7 +69,7 @@ export default function reducer(
         ...state,
         error: false,
         loading: false,
-        list: action.payload.data,
+        list: action.payload.data.data,
       };
 
     case ACTION.FETCH_UNIQUE_SUCCESS:
@@ -78,7 +77,7 @@ export default function reducer(
         ...state,
         error: false,
         loading: false,
-        unique: action.payload,
+        unique: action.payload.data,
       };
 
     default:

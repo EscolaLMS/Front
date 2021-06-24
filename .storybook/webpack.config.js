@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 // Export a function. Accept the base config as the only param.
 module.exports = async ({ config, mode }) => {
@@ -10,23 +10,23 @@ module.exports = async ({ config, mode }) => {
   config.module.rules.push(
     {
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../'),
+      use: ["style-loader", "css-loader", "sass-loader"],
+      include: path.resolve(__dirname, "../"),
     },
     {
       test: /\.(ts|tsx)$/,
       use: [
         {
-          loader: require.resolve('awesome-typescript-loader'),
+          loader: require.resolve("awesome-typescript-loader"),
         },
         // Optional
         {
-          loader: require.resolve('react-docgen-typescript-loader'),
+          loader: require.resolve("react-docgen-typescript-loader"),
         },
       ],
     }
   );
-  config.resolve.extensions.push('.ts', '.tsx');
+  config.resolve.extensions.push(".ts", ".tsx");
   // Return the altered config
   return config;
 };

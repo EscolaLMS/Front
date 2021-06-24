@@ -6,7 +6,7 @@ import tagsSaga from "./tags/sagas";
 import categoriesSaga from "./categories/sagas";
 import authSaga from "./auth/sagas";
 import coursesSaga from "./courses/sagas";
-import curriculumSaga from "./courseCurriculum/sagas";
+import programSaga from "./courseProgram/sagas";
 import progressSaga from "./courseProgress/sagas";
 import fileSaga from "./file/sagas";
 
@@ -78,7 +78,7 @@ export default function* rootSaga(getState: any) {
     categoriesSaga(),
     authSaga(),
     coursesSaga(),
-    curriculumSaga(),
+    programSaga(),
     progressSaga(),
     fileSaga(),
     settings(),

@@ -2,7 +2,7 @@ import Tags from "./tags/reducer";
 import Categories from "./categories/reducer";
 import Auth from "./auth/reducer";
 import Courses from "./courses/reducer";
-import Curriculum from "./courseCurriculum/reducer";
+import Program from "./courseProgram/reducer";
 import Progress from "./courseProgress/reducer";
 import File from "./file/reducer";
 import Settings from "./settings/reducer";
@@ -13,7 +13,7 @@ export default {
   Categories,
   Auth,
   Courses,
-  Curriculum,
+  Program,
   Progress,
   File,
   Settings,

@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 
 import { useHistory, Link } from "react-router-dom";
 
-import { ICurriculumHeader } from "../../../interfaces/course/curriculum";
+import { IProgramHeader } from "../../../interfaces/course/program";
 
 import Logo from "../../../../images/logo_small.svg";
 import Image from "../../Image";
@@ -11,7 +11,7 @@ import Loader from "../../Loader";
 
 import "./index.scss";
 
-const Header: React.FC<ICurriculumHeader> = ({
+const Header: React.FC<IProgramHeader> = ({
   section,
   lecture,
   title,
@@ -24,7 +24,7 @@ const Header: React.FC<ICurriculumHeader> = ({
   };
 
   return (
-    <header className="curriculum-header">
+    <header className="program-header">
       <div>
         <Link to="/">
           <Image contain src={Logo} alt="logo" height={31} width={31} />

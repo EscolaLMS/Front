@@ -2,7 +2,7 @@ import { ITagsState } from "./../redux/tags/reducer";
 import { ICategoriesState } from "./../redux/categories/reducer";
 import { IAuthState } from "../redux/auth/reducer";
 import { ICoursesState } from "../redux/courses/reducer";
-import { ICurriculumState } from "../redux/courseCurriculum/reducer";
+import { IProgramState } from "../redux/courseProgram/reducer";
 import { IProgressState } from "../redux/courseProgress/reducer";
 import { IFileState } from "../redux/file/reducer";
 import { ISettingsState } from "../redux/settings/reducer";
@@ -19,11 +19,11 @@ export interface IDefaultApiAction {
 export interface IDefaultApiError {
   id?: string | number;
   type?: string;
-  error?: unknown;
   payload?: unknown | IError;
   data?: unknown;
   errorCode?: number;
   message?: string;
+  error?: Record<string, string> | unknown;
 }
 
 export interface IRootState {
@@ -31,7 +31,7 @@ export interface IRootState {
   Categories: ICategoriesState;
   Auth: IAuthState;
   Courses: ICoursesState;
-  Curriculum: ICurriculumState;
+  Program: IProgramState;
   Progress: IProgressState;
   File: IFileState;
   Settings: ISettingsState;

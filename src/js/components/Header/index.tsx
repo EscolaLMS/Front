@@ -43,9 +43,6 @@ const Header: React.FC = (): ReactElement => {
       </div>
       {auth.token ? (
         <div className="header__user-info">
-          <Icon name="search" />
-          <Icon name="notify" />
-
           <div className="header__user-name">
             <button onClick={() => setOpenMenu(!openMenu)}>
               <Icon name="user" />

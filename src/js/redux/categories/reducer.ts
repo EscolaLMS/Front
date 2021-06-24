@@ -1,13 +1,11 @@
 import * as ACTION from "./actions";
 import { IDefaultApiError, IDefaultApiAction } from "../../interfaces/redux";
 
-import { ICategory } from "../../interfaces";
-
 export type CategoriesApiAction =
   | (IDefaultApiAction & { type: "FETCH_CATEGORIES_REQUEST" })
   | (IDefaultApiAction & {
       type: "FETCH_CATEGORIES_SUCCESS";
-      payload: { success: boolean; data: ICategory[] };
+      payload: { success: boolean; data: API.Category[] };
     })
   | (IDefaultApiAction & {
       type: "FETCH_CATEGORIES_FAILURE";
@@ -16,7 +14,7 @@ export type CategoriesApiAction =
   | (IDefaultApiAction & { type: "FETCH_CATEGORY_REQUEST" })
   | (IDefaultApiAction & {
       type: "FETCH_CATEGORY_SUCCESS";
-      payload: { success: boolean; data: ICategory };
+      payload: { success: boolean; data: API.Category };
     })
   | (IDefaultApiAction & {
       type: "FETCH_CATEGORY_FAILURE";
@@ -26,8 +24,8 @@ export type CategoriesApiAction =
 export interface ICategoriesState {
   loading: boolean;
   error: boolean | IDefaultApiError;
-  list: ICategory[];
-  unique: ICategory | undefined;
+  list: API.Category[];
+  unique: API.Category | undefined;
 }
 
 export const INIT_STATE = {

@@ -2,13 +2,13 @@ import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { useHistory } from "react-router-dom";
 
-import { ICurriculumButton } from "../../../interfaces/course/curriculum";
+import { IProgramButton } from "../../../interfaces/course/program";
 
 import Button from "../../FormElements/Button/Button";
 
 import "./index.scss";
 
-const NextButton: React.FC<ICurriculumButton> = ({
+const NextButton: React.FC<IProgramButton> = ({
   active,
   lesson,
   section,
@@ -33,9 +33,9 @@ const NextButton: React.FC<ICurriculumButton> = ({
 
   const onButtonClick = useCallback(() => {
     if (state === "COMPLETE") {
-      history.push(`/course/${courseId}/curriculum/`);
+      history.push(`/course/${courseId}/program/`);
     } else if (lesson && section) {
-      history.push(`/course/${courseId}/curriculum/${section}/${lesson}`);
+      history.push(`/course/${courseId}/program/${section}/${lesson}`);
     }
   }, [state, lesson, section]);
 

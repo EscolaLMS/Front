@@ -44,6 +44,7 @@
     "babel-loader": "^8.2.1",
     "babel-plugin-named-asset-import": "^0.3.7",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react-app": "^10.0.0",
     "bfj": "^7.0.2",
     "bootstrap": "^4.5.3",
@@ -174,7 +175,12 @@
     ]
   },
   "jest": {
-    "coverageReporters": ["json", "lcov", "text", "clover"],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover"
+    ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "roots": [
@@ -229,7 +235,14 @@
   "babel": {
     "presets": [
       "react-app"
-    ]
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs"
+        ]
+      }
+    }
   },
   "devDependencies": {
     "@storybook/react": "^6.1.4",

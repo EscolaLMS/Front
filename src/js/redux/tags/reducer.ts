@@ -1,13 +1,11 @@
 import * as ACTION from "./actions";
 import { IDefaultApiError, IDefaultApiAction } from "../../interfaces/redux";
 
-import { ITag } from "../../interfaces";
-
 export type TagsApiAction =
   | (IDefaultApiAction & { type: "FETCH_TAGS_REQUEST" })
   | (IDefaultApiAction & {
       type: "FETCH_TAGS_SUCCESS";
-      payload: { success: boolean; data: ITag[] };
+      payload: { success: boolean; data: API.Tag[] };
     })
   | (IDefaultApiAction & {
       type: "FETCH_TAGS_FAILURE";
@@ -26,7 +24,7 @@ export type TagsApiAction =
 export interface ITagsState {
   loading: boolean;
   error: boolean | IDefaultApiError;
-  list: ITag[];
+  list: API.Tag[];
   unique: string[];
 }
 

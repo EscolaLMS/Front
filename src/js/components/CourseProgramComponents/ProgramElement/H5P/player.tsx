@@ -10,11 +10,11 @@ import LectureFinished from "./finished";
 import Loader from "../../../Loader";
 
 import { h5pProgress } from "../../../../services/progress";
-import { ICurriculumLecture } from "../../../../interfaces/course/curriculum";
+import { IProgramLecture } from "../../../../interfaces/course/program";
 
 interface IH5PPlayerProps {
   courseId: string;
-  lecture: ICurriculumLecture;
+  lecture: IProgramLecture;
   completed: boolean;
   loading: boolean;
 }

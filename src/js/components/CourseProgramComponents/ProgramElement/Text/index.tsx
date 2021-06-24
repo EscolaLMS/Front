@@ -1,9 +1,9 @@
 import React, { ReactElement, FunctionComponent, useEffect } from "react";
-import { ICurriculumLecture } from "../../../../interfaces/course/curriculum";
+import { IProgramLecture } from "../../../../interfaces/course/program";
 import ReactMarkdown from "react-markdown";
 
 const Text: FunctionComponent<{
-  lecture?: ICurriculumLecture;
+  lecture?: IProgramLecture;
   onLoad: () => void;
 }> = ({ lecture, onLoad }): ReactElement => {
   useEffect(() => {
@@ -11,7 +11,7 @@ const Text: FunctionComponent<{
   }, [lecture]);
 
   return lecture?.contenttext ? (
-    <ReactMarkdown className="curriculum-markdown">
+    <ReactMarkdown className="program-markdown">
       {lecture.contenttext}
     </ReactMarkdown>
   ) : (

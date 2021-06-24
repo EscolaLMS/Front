@@ -1,22 +1,22 @@
 import * as ACTION from "./actions";
 import { IDefaultApiError, IDefaultApiAction } from "../../interfaces/redux";
-import { ICurriculum } from "../../interfaces/course/curriculum";
+import { IProgram } from "../../interfaces/course/program";
 
-export type CurriculumApiAction =
-  | (IDefaultApiAction & { type: "FETCH_CURRICULUM_REQUEST"; id: string })
+export type programApiAction =
+  | (IDefaultApiAction & { type: "FETCH_PROGRAM_REQUEST"; id: string })
   | (IDefaultApiAction & {
-      type: "FETCH_CURRICULUM_SUCCESS";
-      payload: { sections: ICurriculum[] };
+      type: "FETCH_PROGRAM_SUCCESS";
+      payload: { sections: IProgram[] };
     })
   | (IDefaultApiAction & {
-      type: "FETCH_CURRICULUM_FAILURE";
+      type: "FETCH_PROGRAM_FAILURE";
       payload: IDefaultApiError;
     });
 
-export interface ICurriculumState {
+export interface IProgramState {
   loading: boolean;
   error: boolean | IDefaultApiError;
-  list: ICurriculum[];
+  list: IProgram[];
 }
 
 export const INIT_STATE = {
@@ -26,9 +26,9 @@ export const INIT_STATE = {
 };
 
 export default function reducer(
-  state: ICurriculumState = INIT_STATE,
-  action: CurriculumApiAction
-): ICurriculumState {
+  state: IProgramState = INIT_STATE,
+  action: programApiAction
+): IProgramState {
   if (state === undefined) {
     return INIT_STATE;
   }
