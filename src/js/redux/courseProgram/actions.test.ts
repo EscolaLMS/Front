@@ -6,6 +6,6 @@ describe("courseprogram actions", () => {
       type: actions.FETCH_REQUEST,
       id: "1",
     };
-    expect(actions.fetchprogram("1")).toEqual(expectedAction);
+    expect(actions.fetchProgram("1")).toEqual(expectedAction);
   });
 });
