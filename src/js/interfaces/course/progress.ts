@@ -1,5 +1,5 @@
 export interface IProgressElement {
-  lecture_id: number;
+  topic_id: number;
   status: number;
 }
 

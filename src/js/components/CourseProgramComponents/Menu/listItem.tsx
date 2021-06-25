@@ -20,7 +20,7 @@ const MenuElement: FunctionComponent<{
             name={completed ? "checkmark-after" : "circle"}
           />
         </div>
-        <span className="menu__lecture-name">{title}</span>
+        <span className="menu__topic-name">{title}</span>
       </DisabledLink>
     </li>
   );

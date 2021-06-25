@@ -143,7 +143,7 @@ export default function reducer(
           ...state.byId,
           [action.id]: {
             list: state.byId[action.id].list.map((el: IProgressElement) =>
-              el.lecture_id === action.data.lecture_id ? action.data : el
+              el.topic_id === action.data.id ? action.data : el
             ),
             loading: false,
             error: false,

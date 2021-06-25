@@ -6,68 +6,38 @@ import React, {
   useRef,
 } from "react";
 
-import LectureFinished from "./finished";
+import TopicFinished from "./finished";
 import Loader from "../../../Loader";
 
 import { h5pProgress } from "../../../../services/progress";
-import { IProgramLecture } from "../../../../interfaces/course/program";
+
+import { EditorContextProvider } from "../../../../../../node_modules/h5p-player/src/components/hh5p/context/index";
+import Player from "../../../../../../node_modules/h5p-player/src/components/hh5p/player/index";
 
 interface IH5PPlayerProps {
   courseId: string;
-  lecture: IProgramLecture;
+  topic: API.Topic;
   completed: boolean;
   loading: boolean;
 }
 
+import API from "./../../../../services/api";
+
 const H5PPlayer: FunctionComponent<IH5PPlayerProps> = ({
   courseId,
-  lecture,
+  topic,
   completed,
   loading,
 }): ReactElement => {
-  const [height, setHeight] = useState<number>(100);
-  const iframeEl = useRef<HTMLIFrameElement>(null);
-
-  const [isCompleted, setIsCompleted] = useState(completed);
-
-  useEffect(() => {
-    setIsCompleted(completed);
-  }, [lecture.media.id]);
-
-  useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (event.data.id && event.data.id == lecture.media.id) {
-        if (event.data.iFrameHeight) {
-          setHeight(event.data.iFrameHeight);
-        }
-        if (event?.data?.statement) {
-          h5pProgress(
-            courseId,
-            Number(lecture.lecture_quiz_id),
-            event?.data?.statement
-          );
-        }
-      }
-    };
-    window.addEventListener("message", onMessage);
-    return () => {
-      window.removeEventListener("message", onMessage);
-    };
-  }, [iframeEl, lecture.media.id]);
-
-  if (isCompleted) {
-    return <LectureFinished onRetry={() => setIsCompleted(false)} />;
-  }
-
+  const url = API.getpath("/hh5p");
   return (
-    <div>
-      {loading && <Loader width={100} height={100} />}
-      <iframe
-        ref={iframeEl}
-        src={lecture.media.url}
-        style={{ height }}
-      ></iframe>
-    </div>
+    <EditorContextProvider url={url}>
+      <Player
+        id={Number(
+          topic.topicable?.value
+        )} /* onXAPI={(event) => h5pProgress(courseId, topic.id, event.statement)} */
+      />
+    </EditorContextProvider>
   );
 };
 

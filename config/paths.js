@@ -66,6 +66,7 @@ module.exports = {
   appNodeModules: resolveApp("node_modules"),
   swSrc: resolveModule(resolveApp, "src/service-worker"),
   publicUrlOrPath,
+  h5p: resolveApp("node_modules/h5p-player"),
 };
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
