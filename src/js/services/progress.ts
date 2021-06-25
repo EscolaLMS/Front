@@ -1,5 +1,5 @@
 import API from "./api";
-import { completeLecture } from "./lectureComplete";
+import { completeTopic } from "./topicComplete";
 
 type IStatementCategory = {
   id: string;
@@ -51,7 +51,7 @@ const exception: IEventException = "GuessTheAnswer";
 
 export const h5pProgress = (
   courseId: string,
-  quizId: number,
+  topicId: number,
   statement: IStatement
 ): Promise<Response> | void => {
   const statementId = statement?.verb?.id;
@@ -62,7 +62,7 @@ export const h5pProgress = (
     statementCategory &&
     statementCategory[0].id.includes(exception)
   ) {
-    completeLecture(courseId, quizId);
+    completeTopic(courseId, topicId);
   }
 
   if (blackList.includes(statementId)) {
@@ -70,10 +70,10 @@ export const h5pProgress = (
   }
 
   if (completed.includes(statementId)) {
-    completeLecture(courseId, quizId);
+    completeTopic(courseId, topicId);
   }
 
-  return API.call(`/courses/progress/${quizId}/h5p`, "POST", {
+  return API.call(`/courses/progress/${topicId}/h5p`, "POST", {
     event: statementId,
     data: statement.result || {},
   });

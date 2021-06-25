@@ -1,12 +1,11 @@
 import * as ACTION from "./actions";
 import { IDefaultApiError, IDefaultApiAction } from "../../interfaces/redux";
-import { IProgram } from "../../interfaces/course/program";
 
 export type programApiAction =
   | (IDefaultApiAction & { type: "FETCH_PROGRAM_REQUEST"; id: string })
   | (IDefaultApiAction & {
       type: "FETCH_PROGRAM_SUCCESS";
-      payload: { sections: IProgram[] };
+      payload: API.DefaultResponse<API.CourseProgram>;
     })
   | (IDefaultApiAction & {
       type: "FETCH_PROGRAM_FAILURE";
@@ -16,13 +15,13 @@ export type programApiAction =
 export interface IProgramState {
   loading: boolean;
   error: boolean | IDefaultApiError;
-  list: IProgram[];
+  lessons: API.Lesson[];
 }
 
 export const INIT_STATE = {
   loading: false,
   error: false,
-  list: [],
+  lessons: [],
 };
 
 export default function reducer(
@@ -45,7 +44,7 @@ export default function reducer(
         ...state,
         error: false,
         loading: false,
-        list: action.payload.sections,
+        lessons: action.payload.success ? action.payload.data.lessons : [],
       };
 
     case ACTION.FETCH_FAILURE:

@@ -2,7 +2,8 @@ import { Store } from "redux";
 import { store } from "../redux/store";
 import queryString, { StringifiableRecord } from "query-string";
 
-const URL: string = process.env.REACT_APP_API || "http://localhost:1000/api/";
+export const URL: string =
+  process.env.REACT_APP_API || "http://localhost:1000/api/";
 
 interface IAPI {
   store?: Store;

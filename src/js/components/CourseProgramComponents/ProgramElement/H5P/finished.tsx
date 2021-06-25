@@ -9,12 +9,12 @@ interface IProps {
   onRetry: () => void;
 }
 
-const LectureFinished: FunctionComponent<IProps> = ({
+const TopicFinished: FunctionComponent<IProps> = ({
   onRetry,
 }): ReactElement => {
   return (
-    <div className="lecture-finished">
-      <div className="lecture-finished__head">
+    <div className="topic-finished">
+      <div className="topic-finished__head">
         <h2>Lesson completed</h2>
       </div>
       <Button className="grey" onClick={(): void => onRetry()}>
@@ -25,4 +25,4 @@ const LectureFinished: FunctionComponent<IProps> = ({
   );
 };
 
-export default LectureFinished;
+export default TopicFinished;

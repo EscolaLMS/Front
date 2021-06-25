@@ -12,8 +12,8 @@ import Loader from "../../Loader";
 import "./index.scss";
 
 const Header: React.FC<IProgramHeader> = ({
-  section,
-  lecture,
+  lesson,
+  topic,
   title,
   loading,
 }): ReactElement => {
@@ -33,8 +33,8 @@ const Header: React.FC<IProgramHeader> = ({
         <div>
           <h3>{title}</h3>
           <p>
-            {section}
-            {lecture && ` - ${lecture}`}
+            {lesson}
+            {topic && ` - ${topic}`}
           </p>
           {loading && <Loader position="right" />}
         </div>

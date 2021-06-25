@@ -7,48 +7,100 @@ import React, {
 } from "react";
 
 import { useParams } from "react-router-dom";
+import Embed from "react-tiny-oembed";
 
-import { IProgramLecture } from "../../../interfaces/course/program";
 import { IDefaultApiError } from "../../../interfaces/redux";
 
-import { completeLecture } from "../../../services/lectureComplete";
-import { pingLecture } from "../../../services/pingLecture";
+import { completeTopic } from "../../../services/topicComplete";
+import { pingTopic } from "../../../services/pingTopic";
+
+export enum TopicType {
+  Unselected = "",
+  RichText = "EscolaLms\\Courses\\Models\\TopicContent\\RichText",
+  OEmbed = "EscolaLms\\Courses\\Models\\TopicContent\\OEmbed",
+  Audio = "EscolaLms\\Courses\\Models\\TopicContent\\Audio",
+  Video = "EscolaLms\\Courses\\Models\\TopicContent\\Video",
+  H5P = "EscolaLms\\Courses\\Models\\TopicContent\\H5P",
+  Image = "EscolaLms\\Courses\\Models\\TopicContent\\Image",
+}
 
 import H5PPlayer from "./H5P/player";
 import Text from "./Text";
 import PdfViewer from "./PdfViewer";
 
 const programElement: FunctionComponent<{
-  lecture: IProgramLecture;
+  topic: API.Topic;
   completed: boolean;
   loading: boolean;
   error: boolean | IDefaultApiError;
-}> = ({ lecture, completed, loading, error }): ReactElement => {
+}> = ({ topic, completed, loading, error }): ReactElement => {
   const { id: courseId } = useParams<{
     id: string;
   }>();
 
-  const lectureId = useMemo(() => {
-    return lecture?.lecture_quiz_id;
-  }, [lecture]);
+  const topicId = useMemo(() => {
+    return topic?.id;
+  }, [topic]);
 
-  const onCompleteLectrue = useCallback((): void => {
-    if (!completed && !loading && !error && lectureId) {
-      completeLecture(courseId, lectureId);
+  const onCompleteTopic = useCallback((): void => {
+    if (!completed && !loading && !error && topicId) {
+      completeTopic(courseId, topicId);
     }
-  }, [lectureId, completed, loading, navigator, error]);
+  }, [topicId, completed, loading, navigator, error]);
 
   useEffect(() => {
-    if (lectureId) {
+    if (topicId) {
       const interval = setInterval(() => {
-        pingLecture(lectureId);
+        pingTopic(topicId);
       }, 60000);
 
       return () => {
         clearInterval(interval);
       };
     }
-  }, [lectureId]);
+  }, [topicId]);
+
+  switch (topic.topicable_type) {
+    case TopicType.Image:
+      return <img src={topic.topicable.url} alt={topic.title} />;
+    case TopicType.Audio:
+      return (
+        <audio
+          src={topic.topicable.url}
+          onEnded={(): void => onCompleteTopic()}
+          controls
+        >
+          Your browser does not support the audio.
+        </audio>
+      );
+    case TopicType.Video:
+      return (
+        <video
+          src={topic.topicable.url}
+          onEnded={(): void => onCompleteTopic()}
+          controls
+        >
+          Your browser does not support the video.
+        </video>
+      );
+    case TopicType.RichText:
+      return <Text onLoad={() => onCompleteTopic()} topic={topic} />;
+    case TopicType.H5P:
+      return (
+        <H5PPlayer
+          courseId={courseId}
+          topic={topic}
+          completed={completed}
+          loading={loading}
+        />
+      );
+    case TopicType.OEmbed:
+      return <Embed url={topic.topicable.value} />;
+    default:
+      return <pre>ELENMENT {topic.topicable_type}</pre>;
+  }
+
+  /*
 
   switch (lecture.media.type) {
     case "VIDEO":
@@ -87,6 +139,8 @@ const programElement: FunctionComponent<{
     default:
       return <Text onLoad={() => onCompleteLectrue()} lecture={lecture} />;
   }
+
+  */
 };
 
 export default programElement;

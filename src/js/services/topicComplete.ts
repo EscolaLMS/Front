@@ -5,14 +5,14 @@ import {
   updateCourseProgress,
 } from "../redux/courseProgress/actions";
 
-export const completeLecture = (courseId: string, lectureId: number): void => {
-  if (courseId && lectureId) {
+export const completeTopic = (courseId: string, topicId: number): void => {
+  if (courseId && topicId) {
     if (navigator.onLine) {
       store.dispatch(
         updateCourseProgress(courseId, {
           progress: [
             {
-              lecture_id: lectureId,
+              topic_id: topicId,
               status: 1,
             },
           ],
@@ -21,7 +21,7 @@ export const completeLecture = (courseId: string, lectureId: number): void => {
     } else {
       store.dispatch(
         updateCourseProgressLocally(courseId, {
-          lecture_id: lectureId,
+          topic_id: topicId,
           status: 1,
         })
       );

@@ -10,8 +10,8 @@ import "./index.scss";
 
 const NextButton: React.FC<IProgramButton> = ({
   active,
+  topic,
   lesson,
-  section,
   courseId,
   loading,
   state,
@@ -34,10 +34,10 @@ const NextButton: React.FC<IProgramButton> = ({
   const onButtonClick = useCallback(() => {
     if (state === "COMPLETE") {
       history.push(`/course/${courseId}/program/`);
-    } else if (lesson && section) {
-      history.push(`/course/${courseId}/program/${section}/${lesson}`);
+    } else if (lesson && topic) {
+      history.push(`/course/${courseId}/program/${lesson}/${topic}`);
     }
-  }, [state, lesson, section]);
+  }, [state, lesson, topic]);
 
   return (
     <Button
@@ -46,7 +46,7 @@ const NextButton: React.FC<IProgramButton> = ({
       disabled={!active || loading}
       loading={loading}
     >
-      {!loading && <> {text} </>}
+      {text}
     </Button>
   );
 };

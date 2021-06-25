@@ -12,7 +12,6 @@ import { useParams, useHistory } from "react-router-dom";
 import { courseIncomplete } from "../../constants";
 
 import { IProgramState } from "../../redux/courseProgram/reducer";
-import { IProgram, IProgramLecture } from "../../interfaces/course/program";
 import { ICoursesState } from "../../redux/courses/reducer";
 import { ICourseState } from "../../interfaces/course";
 import { IRootState } from "../../interfaces/redux";
@@ -31,19 +30,19 @@ import MainLayout from "../../layouts/MainLayout";
 
 import "./index.scss";
 
-const Courseprogram: React.FC = (): ReactElement => {
+const CourseProgram: React.FC = (): ReactElement => {
   const dispatch: Dispatch = useDispatch();
 
-  const [allCompletedLessons, setAllCompletedLessons] = useState<number[]>([]);
+  const [allCompletedTopics, setAllCompletedTopics] = useState<number[]>([]);
+  const [nextTopic, setNextTopic] = useState<number>();
   const [nextLesson, setNextLesson] = useState<number>();
-  const [nextSection, setNextSection] = useState<number>();
 
   const history = useHistory();
 
-  const { id, section, lecture } = useParams<{
+  const { id, lesson, topic } = useParams<{
     id: string;
-    section: string;
-    lecture: string;
+    lesson: string;
+    topic: string;
   }>();
 
   const program: IProgramState = useSelector<IRootState, IProgramState>(
@@ -68,9 +67,10 @@ const Courseprogram: React.FC = (): ReactElement => {
   }, [id, progressData]);
 
   const loading = progress?.loading || program?.loading || course?.loading;
+
   const error = progress?.error || program?.error || course?.error;
 
-  const allLectures = useMemo(() => {
+  const allTopics = useMemo(() => {
     if (course?.unique && course?.unique?.lessons?.length > 0) {
       return course?.unique?.lessons
         ?.filter((lesson: API.Lesson) => lesson?.id)
@@ -79,44 +79,38 @@ const Courseprogram: React.FC = (): ReactElement => {
     return [];
   }, [course]);
 
-  const isCompelted = useMemo(() => {
+  const isCompleted = useMemo(() => {
     return (
-      (lecture &&
-        allCompletedLessons?.length > 0 &&
-        allCompletedLessons?.includes(parseInt(lecture))) ||
+      (topic &&
+        allCompletedTopics?.length > 0 &&
+        allCompletedTopics?.includes(parseInt(topic))) ||
       false
     );
-  }, [allCompletedLessons, lecture]);
+  }, [allCompletedTopics, topic]);
 
-  const currentSection = useMemo(() => {
-    return program?.list?.find(
-      (s: IProgram) => s?.section_id === Number(section)
-    );
-  }, [section, program]);
+  const currentLesson = useMemo(() => {
+    return program?.lessons?.find((s: API.Lesson) => s?.id === Number(lesson));
+  }, [lesson, program]);
 
-  const currentLecture = useMemo(() => {
-    if (
-      currentSection?.lectures &&
-      currentSection?.lectures?.length > 0 &&
-      lecture
-    ) {
-      return currentSection?.lectures?.find(
-        (l: IProgramLecture) => l?.lecture_quiz_id === Number(lecture)
+  const currentTopic = useMemo(() => {
+    if (currentLesson?.topics && currentLesson?.topics?.length > 0 && topic) {
+      return currentLesson?.topics?.find(
+        (t: API.Topic) => t?.id === Number(topic)
       );
     }
     return null;
-  }, [currentSection, lecture]);
+  }, [currentLesson, topic]);
 
   const isCourseFinished = useMemo(() => {
-    return allCompletedLessons?.length === progress?.list.length || false;
-  }, [allCompletedLessons, progress]);
+    return allCompletedTopics?.length === progress?.list.length || false;
+  }, [allCompletedTopics, progress]);
 
   useEffect(() => {
     if (progress?.list && progress?.list?.length > 0) {
       const lid = progress?.list?.find(
         (progressEl: IProgressElement) => progressEl.status === courseIncomplete
-      )?.lecture_id;
-      lid && lid !== nextLesson && setNextLesson(lid);
+      )?.topic_id;
+      lid && lid !== nextTopic && setNextTopic(lid);
     }
   }, [progress]);
 
@@ -138,8 +132,8 @@ const Courseprogram: React.FC = (): ReactElement => {
     if (progress && progress?.list?.length > 0) {
       const all: number[] = progress.list
         .filter((p: IProgressElement) => p.status !== courseIncomplete)
-        .map((p: IProgressElement) => p.lecture_id);
-      setAllCompletedLessons(all);
+        .map((p: IProgressElement) => p.topic_id);
+      setAllCompletedTopics(all);
     }
   }, [progress]);
 
@@ -154,23 +148,23 @@ const Courseprogram: React.FC = (): ReactElement => {
   useEffect(() => {
     if (
       id &&
-      allLectures?.length > 0 &&
-      nextSection &&
+      allTopics?.length > 0 &&
       nextLesson &&
-      (!section || !lecture)
+      nextTopic &&
+      (!lesson || !topic)
     ) {
-      history.push(`/course/${id}/program/${nextSection}/${nextLesson}`);
+      history.push(`/course/${id}/program/${nextLesson}/${nextTopic}`);
     }
-  }, [nextLesson, nextSection, allLectures, id]);
+  }, [nextLesson, nextTopic, allTopics, id]);
 
   const state: ICourseState =
-    !section && !lecture && isCourseFinished && !loading
+    !lesson && !topic && isCourseFinished && !loading
       ? "FINISHED"
-      : !section && !lecture && !isCourseFinished && !loading
+      : !lesson && !topic && !isCourseFinished && !loading
       ? "EMPTY"
-      : section && !currentLecture
+      : lesson && !currentTopic
       ? "NOTFOUND"
-      : currentLecture
+      : currentTopic
       ? isCourseFinished
         ? "COMPLETE"
         : "NORMAL"
@@ -199,8 +193,8 @@ const Courseprogram: React.FC = (): ReactElement => {
   return (
     <div className="program-page">
       <Header
-        section={currentSection?.title}
-        lecture={currentLecture?.title}
+        lesson={currentLesson?.title}
+        topic={currentTopic?.title}
         title={course?.unique?.title}
         loading={loading}
       />
@@ -223,23 +217,22 @@ const Courseprogram: React.FC = (): ReactElement => {
                     <p>Lesson does not exist.</p>
                   </div>
                 )}
-                {(state === "NORMAL" || state === "COMPLETE") &&
-                  currentLecture && (
-                    <div>
-                      <ProgramElement
-                        lecture={currentLecture}
-                        completed={isCompelted}
-                        loading={loading}
-                        error={error}
-                      />
-                    </div>
-                  )}
+                {(state === "NORMAL" || state === "COMPLETE") && currentTopic && (
+                  <div>
+                    <ProgramElement
+                      topic={currentTopic}
+                      completed={isCompleted}
+                      loading={loading}
+                      error={error}
+                    />
+                  </div>
+                )}
                 {state !== "FINISHED" && (
                   <NextButton
                     courseId={id}
-                    active={state === "NORMAL" ? isCompelted : true}
+                    active={state === "NORMAL" ? isCompleted : true}
+                    topic={nextTopic}
                     lesson={nextLesson}
-                    section={nextSection}
                     loading={loading}
                     state={state}
                   />
@@ -248,13 +241,13 @@ const Courseprogram: React.FC = (): ReactElement => {
             </div>
 
             <div className="col-6">
-              {program?.list?.length > 0 && (
+              {program?.lessons?.length > 0 && (
                 <Menu
                   courseId={id}
-                  selectedSection={currentSection?.section_id}
-                  selectedLecture={currentLecture?.lecture_quiz_id}
-                  data={program}
-                  allCompleted={allCompletedLessons}
+                  selectedLesson={currentLesson?.id}
+                  selectedTopic={currentTopic?.id}
+                  data={program.lessons}
+                  allCompleted={allCompletedTopics}
                 />
               )}
             </div>
@@ -265,4 +258,4 @@ const Courseprogram: React.FC = (): ReactElement => {
   );
 };
 
-export default Courseprogram;
+export default CourseProgram;
