@@ -423,7 +423,7 @@ describe("courses reducer", () => {
     expect(reducer(undefined, data)).toEqual({
       loading: false,
       error: false,
-      list: data.payload.lessons,
+      lessons: data.payload.lessons,
     });
   });
 });
