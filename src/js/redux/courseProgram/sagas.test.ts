@@ -416,7 +416,7 @@ describe("redux saga data", () => {
     const goodResponse = {
       loading: false,
       error: false,
-      list: mockResponseFetchSuccess.data.lessons,
+      lessons: mockResponseFetchSuccess.data.lessons,
     };
 
     fetchMock.mock("*", {
