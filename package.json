@@ -75,7 +75,7 @@
     "gh-pages": "^3.1.0",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
-    "h5p-player": "EscolaLMS/H5P-player#c7e3643",
+    "h5p-player": "EscolaLMS/H5P-player#e36f56b",
     "html-webpack-plugin": "^4.5.0",
     "husky": "^4.3.5",
     "identity-obj-proxy": "^3.0.0",
