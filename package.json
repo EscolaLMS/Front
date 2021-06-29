@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.7",
     "@babel/core": "^7.12.8",
     "@sentry/react": "^6.0.2",
     "@storybook/addon-actions": "^6.1.4",

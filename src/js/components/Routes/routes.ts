@@ -13,6 +13,7 @@ const routeRoutes = {
   myTasks: "/my-tasks",
   myCourses: "/my-courses",
   myProfile: "/my-profile",
+  cart: "/cart",
 };
 
 export default routeRoutes;

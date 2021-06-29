@@ -1,0 +1,117 @@
+@import "../../../../scss/common";
+
+.cart-item {
+  display: flex;
+  &.small {
+    margin-bottom: 17px;
+    picture {
+      min-width: 77px;
+      max-width: 77px;
+      height: 44px;
+      position: relative;
+      .image-wrapper {
+        height: 100%;
+      }
+      img {
+        border-radius: 3px;
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    h5 {
+      @include typo-paragraph-bold();
+      line-height: 18px;
+      color: $font-black;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+    .cart-content {
+      width: calc(100% - 77px);
+      padding-left: 13px;
+    }
+    .wrapper-price {
+      span {
+        @include typo-paragraph-normal();
+      }
+    }
+    .remove-btn {
+      @include typo-mini();
+      margin-bottom: 3px;
+    }
+  }
+  &.medium {
+    margin-bottom: 22px;
+    picture {
+      min-width: 155px;
+      max-width: 155px;
+      height: 88px;
+      position: relative;
+      .image-wrapper {
+        height: 100%;
+      }
+      img {
+        border-radius: 3px;
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    h5 {
+      @include typo-paragraph-bold();
+      line-height: 24px;
+      color: $font-black;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+    .description {
+      @include typo-paragraph-normal();
+      line-height: 18px;
+    }
+    .cart-content {
+      width: calc(100% - 155px);
+      padding-left: 19px;
+    }
+    .wrapper-price {
+      span {
+        @include typo-paragraph-bold();
+      }
+    }
+    .remove-btn {
+      @include typo-tiny();
+    }
+  }
+  .wrapper-price {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .remove-btn {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    display: block;
+    color: $light-grey7;
+    box-shadow: none;
+    transition: color 0.3s ease-in-out;
+    &:hover {
+      color: $font-black;
+    }
+  }
+  .add-btn {
+    @include typo-tiny-bold();
+    background-color: $green;
+    color: $yellow;
+    border: 0;
+    margin: 0;
+    border-radius: 4px;
+    line-height: 18px;
+    padding: 7px 15px;
+    transition: color 0.3s ease-in-out;
+    &:hover {
+      color: $white;
+    }
+  }
+}

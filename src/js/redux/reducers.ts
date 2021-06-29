@@ -7,7 +7,8 @@ import Progress from "./courseProgress/reducer";
 import File from "./file/reducer";
 import Settings from "./settings/reducer";
 import Dashboard from "./dashboard/reducer";
-
+import Cart from "./cart/reducer";
+import AppSettings from "./appSettings/reducer";
 export default {
   Tags,
   Categories,
@@ -18,4 +19,6 @@ export default {
   File,
   Settings,
   Dashboard,
+  Cart,
+  AppSettings,
 };

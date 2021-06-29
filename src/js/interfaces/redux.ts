@@ -7,6 +7,8 @@ import { IProgressState } from "../redux/courseProgress/reducer";
 import { IFileState } from "../redux/file/reducer";
 import { ISettingsState } from "../redux/settings/reducer";
 import { IDashboardState } from "../redux/dashboard/reducer";
+import { ICartState } from "../redux/cart/reducer";
+import { IAppSettingsState } from "../redux/appSettings/reducer";
 
 export interface IDefaultApiAction {
   id?: string | number;
@@ -36,6 +38,8 @@ export interface IRootState {
   File: IFileState;
   Settings: ISettingsState;
   Dashboard: IDashboardState;
+  Cart: ICartState;
+  AppSettings: IAppSettingsState;
 }
 
 export interface IError {

@@ -1,0 +1,102 @@
+@import "../../../../scss/common";
+
+.cart-box {
+  border: 1px solid $grey-border;
+  border-radius: 8px;
+  padding: 11px 14px;
+  background: $white;
+  h3 {
+    @include typo-paragraph-big();
+    padding-bottom: 10px;
+    border-bottom: 1px solid $grey-border;
+    margin-bottom: 15px;
+  }
+  h4 {
+    @include typo-paragraph-big();
+  }
+
+  small {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 200px;
+    height: 1.2em;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  h2,
+  h3,
+  h4,
+  h5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  h5 {
+    color: $dark-grey;
+  }
+  .green {
+    color: $green;
+    padding: 0;
+    border: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    span {
+      text-align: right;
+    }
+  }
+
+  footer {
+    border-top: 1px solid $grey-border;
+    padding-top: 10px;
+    margin-top: 15px;
+    .button {
+      display: block;
+      width: 100%;
+    }
+  }
+  .discount {
+    margin: 20px 0;
+    border-radius: 8px;
+    padding: 8px 11px;
+    border: 1px solid $grey-border;
+    h4 {
+      @include typo-paragraph-bold();
+      small {
+        @include typo-paragraph-normal();
+      }
+    }
+    .value {
+      @include typo-paragraph-big();
+      width: 100%;
+      margin-right: 20px;
+      input {
+        width: 100%;
+      }
+      b {
+        @include typo-heading-normal();
+      }
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+    input {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid $grey-border;
+      box-shadow: none;
+      @include typo-tag();
+    }
+    button {
+      background-color: $green;
+      color: $white;
+      border: 0;
+      border-radius: 5px;
+      padding: 0 10px;
+      box-shadow: none;
+      display: flex;
+      line-height: 31px;
+      outline: none;
+    }
+  }
+}
