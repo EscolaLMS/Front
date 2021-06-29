@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useCallback,
   useRef,
+  useMemo,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,9 +16,13 @@ import { Dispatch } from "redux";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { ICourseCart } from "../../../interfaces/course";
+import { addToCart, fetchCart } from "../../../redux/cart/actions";
+import { ICartState } from "../../../redux/cart/reducer";
+import { useHistory } from "react-router-dom";
 
 import { IAuthState } from "../../../redux/auth/reducer";
 import "./index.scss";
+import routes from "../../Routes/routes";
 
 const CourseCart: React.FC<ICourseCart> = ({
   id,
@@ -32,6 +37,7 @@ const CourseCart: React.FC<ICourseCart> = ({
   owned = false,
 }): ReactElement => {
   const [favoured, setFavoured] = useState(false);
+  const history = useHistory();
 
   const [active, setActive] = useState(false);
   const [position, setPostion] = useState(0);
@@ -43,6 +49,32 @@ const CourseCart: React.FC<ICourseCart> = ({
   const auth: IAuthState = useSelector<IRootState, IAuthState>(
     (state) => state.Auth
   );
+
+  const cart: ICartState = useSelector<IRootState, ICartState>(
+    (state): ICartState => state.Cart
+  );
+
+  const addToCartHandler = useCallback(() => {
+    dispatch(addToCart(id));
+  }, [id]);
+
+  const inCart = useMemo(() => {
+    if (
+      cart?.data?.items &&
+      cart?.data?.items?.length > 0 &&
+      id &&
+      auth.token
+    ) {
+      return cart.data.items.find((item: API.Course) => item.id === id);
+    }
+    return false;
+  }, [cart, id, auth]);
+
+  useEffect(() => {
+    cart.added && dispatch(fetchCart());
+  }, [cart.added]);
+
+  console.log(cart);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,10 +142,27 @@ const CourseCart: React.FC<ICourseCart> = ({
             Price <span>{price}</span>
           </li>
         </ul>
+
         <div className="button-wrapper">
-          <Link to={`/course/${id}/program`} className="button primary">
-            course program
-          </Link>
+          {owned ? (
+            <Link to={`/course/${id}/program`} className="button primary">
+              Curriculum
+            </Link>
+          ) : inCart ? (
+            <Link to={routes.cart} className="button primary">
+              Go to checkout
+            </Link>
+          ) : (
+            <Button
+              loading={cart?.loading}
+              className="primary"
+              onClick={() =>
+                auth?.token ? addToCartHandler() : history.push(routes.login)
+              }
+            >
+              Buy access now <small>Full lifetime access</small>
+            </Button>
+          )}
         </div>
       </div>
     </aside>

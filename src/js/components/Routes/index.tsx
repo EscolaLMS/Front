@@ -14,6 +14,7 @@ import Dashboard from "../../pages/dashboard";
 
 import Notifications from "../../pages/dashboard/pages/notifications";
 import MyProfile from "../../pages/dashboard/pages/profile";
+import CartPage from "../../pages/cart";
 
 // components will be deleted soon
 import Tags from "../../components/Tags";
@@ -33,6 +34,7 @@ const Routes: React.FC = (): ReactElement => {
     dashboard,
     myCourses,
     myProfile,
+    cart,
   } = routes;
 
   return (
@@ -49,6 +51,7 @@ const Routes: React.FC = (): ReactElement => {
       <PrivateRoute exact path={program} component={CourseProgram} />
       <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
       <PrivateRoute exact path={myProfile} component={MyProfile} />
+      <PrivateRoute exact path={cart} component={CartPage} />
 
       <Route exact path="/tags">
         <Tags />

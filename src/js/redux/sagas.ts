@@ -9,9 +9,11 @@ import coursesSaga from "./courses/sagas";
 import programSaga from "./courseProgram/sagas";
 import progressSaga from "./courseProgress/sagas";
 import fileSaga from "./file/sagas";
+import cartSaga from "./cart/sagas";
 
 import settings from "./settings/sagas";
 import dashboard from "./dashboard/sagas";
+import appSettingsSaga from "./appSettings/sagas";
 
 export interface IDefaultApiAction {
   id?: string | number;
@@ -83,5 +85,7 @@ export default function* rootSaga(getState: any) {
     fileSaga(),
     settings(),
     dashboard(),
+    cartSaga(),
+    appSettingsSaga(),
   ]);
 }

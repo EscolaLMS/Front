@@ -8,6 +8,7 @@ import { IRootState } from "./interfaces/redux";
 import { IAuthState } from "./redux/auth/reducer";
 
 import { getMe, socialLogin } from "./redux/auth/actions";
+import { fetchSettings } from "./redux/appSettings/actions";
 
 import Routes from "./components/Routes";
 import routes from "./components/Routes/routes";
@@ -84,6 +85,10 @@ const App: React.FC = (): ReactElement => {
     return () => {
       unlisten();
     };
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchSettings());
   }, []);
 
   return (
