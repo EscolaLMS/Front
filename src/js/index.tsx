@@ -7,34 +7,21 @@ import { store, history, persistor } from "./redux/store";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { HashRouter } from "react-router-dom";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import * as serviceWorker from "./serviceWorker";
 
 import "./ybug";
 import "./sentry";
 
-const client = new ApolloClient({
-  uri: process.env.REACT_APP_WP_GRAPHQL_URL,
-  cache: new InMemoryCache(),
-});
-
-export const ContentClient = new ApolloClient({
-  uri: process.env.REACT_APP_WP_ADMIN_URL,
-  cache: new InMemoryCache(),
-});
-
 ReactDOM.render(
   <Provider store={store}>
-    <ApolloProvider client={client}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ConnectedRouter history={history}>
-          <HashRouter>
-            <App />
-          </HashRouter>
-        </ConnectedRouter>
-      </PersistGate>
-    </ApolloProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
