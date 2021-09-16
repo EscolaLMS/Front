@@ -3,18 +3,17 @@ import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
-import GoTop from "./GoTop";
+// import GoTop from "./GoTop";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import StudentNavbar from "./StudentNavbar";
-import AdminNavbar from "./AdminNavbar";
-import Preloader from "./Preloader";
-import CourseNavbar from "./CourseNavbar";
+// import StudentNavbar from "./StudentNavbar";
+// import AdminNavbar from "./AdminNavbar";
+import Preloader from "../Preloader";
+// import CourseNavbar from "./CourseNavbar";
 
-import { EscolaLMSContextProvider } from "@/escolalms/context";
+import { EscolaLMSContextProvider } from "../../escolalms/context";
 
-const Layout = ({ children, user }) => {
-  // const router = useRouter();
+const Layout = ({ children }) => {
   const { pathname, search } = useLocation();
   const [loader, setLoader] = React.useState(true);
   React.useEffect(() => {
@@ -52,20 +51,14 @@ const Layout = ({ children, user }) => {
   //   setLoader(false);
   // });
 
-  const isStudent = user && user.role === "student";
-  const isAdmin = user && user.role === "admin";
-  const isTeacher = user && user.role === "teacher";
+  // const isStudent = user && user.role === "student";
+  // const isAdmin = user && user.role === "admin";
+  // const isTeacher = user && user.role === "teacher";
   const isCourse = pathname.includes("/course/[id]");
 
   return (
     <React.Fragment>
-      <EscolaLMSContextProvider
-        apiUrl={
-          process.env.NEXT_PUBLIC_API_URL || //"http://localhost:1000"
-          "https://escola-lms-api.stage.etd24.pl"
-        }
-      >
-        {/* <Head>
+      {/* <Head>
           <title>
             EscolaLMS - React Next Online Courses & Education Template
           </title>
@@ -92,16 +85,16 @@ const Layout = ({ children, user }) => {
           ></link>
         </Head> */}
 
-        {loader && <Preloader />}
+      {loader && <Preloader />}
 
-        <Toaster position="top-left" reverseOrder={false} />
+      <Toaster position="top-left" reverseOrder={false} />
 
-        <ToastProvider
-          placement="bottom-left"
-          autoDismissTimeout={10000}
-          autoDismiss
-        >
-          {isCourse ? (
+      <ToastProvider
+        placement="bottom-left"
+        autoDismissTimeout={10000}
+        autoDismiss
+      >
+        {/* {isCourse ? (
             <CourseNavbar />
           ) : isStudent ? (
             <StudentNavbar user={user} />
@@ -109,14 +102,13 @@ const Layout = ({ children, user }) => {
             <AdminNavbar user={user} />
           ) : (
             <Navbar />
-          )}
+          )} */}
+        <Navbar />
+        {children}
 
-          {children}
-
-          <GoTop scrollStepInPx="100" delayInMs="10.50" />
-          <Footer />
-        </ToastProvider>
-      </EscolaLMSContextProvider>
+        {/* <GoTop scrollStepInPx="100" delayInMs="10.50" /> */}
+        <Footer />
+      </ToastProvider>
     </React.Fragment>
   );
 };

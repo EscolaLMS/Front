@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useEffect } from "react";
-import Link from "@/utils/ActiveLink";
+import { Link, NavLink } from "react-router-dom";
 // import { handleLogout } from "@/utils/auth";
-import SearchForm from "./SearchForm";
-import { EscolaLMSContext } from "@/escolalms/context";
-import { useTranslation } from "react-i18next";
+
+import { EscolaLMSContext } from "../../escolalms/context";
+// import { useTranslation } from "react-i18next";
 
 export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
   return (
@@ -88,16 +88,16 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
 };
 
 const Navbar = () => {
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
-  useEffect(() => {
-    const lang = window.localStorage.getItem("lang");
-    if (lang) {
-      i18n.changeLanguage(lang);
-    }
-  }, [i18n]);
+  // useEffect(() => {
+  //   const lang = window.localStorage.getItem("lang");
+  //   if (lang) {
+  //     i18n.changeLanguage(lang);
+  //   }
+  // }, [i18n]);
 
-  const languages = ["pl", "en"].filter((lang) => lang !== i18n.language);
+  // const languages = ["pl", "en"].filter((lang) => lang !== i18n.language);
 
   const [menu, setMenu] = React.useState(true);
   const {
@@ -167,32 +167,37 @@ const Navbar = () => {
                 {/* <SearchForm /> */}
 
                 <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link href="/" activeClassName="active">
-                      <a className="nav-link">{t("Home")}</a>
-                    </Link>
+                  <li className="nav-item megamenu">
+                    <NavLink to="/">
+                      {/* <a className="nav-link">{t("Home")}</a> */}
+                      <a className="nav-link">Home</a>
+                    </NavLink>
                   </li>
 
                   <li className="nav-item megamenu">
-                    <Link href="/courses">
-                      <a className="nav-link">{t("Courses")}</a>
-                    </Link>
+                    <NavLink to="/courses">
+                      {/* <a className="nav-link">{t("Courses")}</a> */}
+                      <a className="nav-link">Courses</a>
+                    </NavLink>
                   </li>
 
                   <li className="nav-item megamenu">
-                    <Link href="/tutors">
-                      <a className="nav-link">{t("Tutors")}</a>
-                    </Link>
+                    <NavLink to="/tutors">
+                      {/* <a className="nav-link">{t("Tutors")}</a> */}
+                      <a className="nav-link">Tutors</a>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link href="/pages">
-                      <a className="nav-link">{t("Pages")}</a>
-                    </Link>
+                    <NavLink to="/pages">
+                      {/* <a className="nav-link">{t("Pages")}</a> */}
+                      <a className="nav-link">Pages</a>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link href="/contact">
-                      <a className="nav-link">{t("Contact Us")}</a>
-                    </Link>
+                    <NavLink to="/contact">
+                      {/* <a className="nav-link">{t("Contact Us")}</a> */}
+                      <a className="nav-link">Contact Us</a>
+                    </NavLink>
                   </li>
                 </ul>
 
@@ -218,7 +223,7 @@ const Navbar = () => {
                     logout={logout}
                   />
 
-                  {languages &&
+                  {/* {languages &&
                     languages.map((lang) => (
                       <button
                         className="lang-btn"
@@ -231,7 +236,7 @@ const Navbar = () => {
                       >
                         {lang}
                       </button>
-                    ))}
+                    ))} */}
                 </div>
               </div>
             </div>

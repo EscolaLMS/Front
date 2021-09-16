@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { EscolaLMSContext } from "@/escolalms/context";
-import Image from "@/escolalms/components/Image";
+import { Link } from "react-router-dom";
+import { EscolaLMSContext } from "../../escolalms/context";
+import Image from "../../escolalms/components/Image";
+import Preloader from "../Preloader";
 import ReactMarkdown from "react-markdown";
 import StripMarkdown from "strip-markdown";
-const OwlCarousel = dynamic(import("react-owl-carousel3"));
+import OwlCarousel from "react-owl-carousel3";
 
 const options = {
   loop: true,

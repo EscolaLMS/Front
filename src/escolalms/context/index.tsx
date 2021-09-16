@@ -18,11 +18,11 @@ import {
   tutor as getTutor,
   topicPing as putTopicPing,
   h5pProgress as postSendh5pProgress,
-} from "@/escolalms/services/courses";
-import { pages as getPages, page as getPage } from "@/escolalms/services/pages";
-import { settings as getSettings } from "@/escolalms/services/settings";
-import { uniqueTags as getUniqueTags } from "@/escolalms/services/tags";
-import { categoryTree as getCategoryTree } from "@/escolalms/services/categories";
+} from "../services/courses";
+import { pages as getPages, page as getPage } from "../services/pages";
+import { settings as getSettings } from "../services/settings";
+import { uniqueTags as getUniqueTags } from "../services/tags";
+import { categoryTree as getCategoryTree } from "../services/categories";
 import {
   login as postLogin,
   profile as getProfile,
@@ -31,7 +31,7 @@ import {
   updateAvatar as postUpdateAvatar,
   forgot,
   reset,
-} from "@/escolalms/services/auth";
+} from "../services/auth";
 import {
   cart as getCart,
   addToCart as postAddToCart,
@@ -39,8 +39,8 @@ import {
   payWithStripe as postPayWithStripe,
   orders as getOrders,
   payments as getPayments,
-} from "@/escolalms/services/cart";
-import { useLocalStorage } from "@/escolalms/hooks/useLocalStorage";
+} from "../services/cart";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { EditorContextProvider } from "h5p-headless-player";
 
 interface IMock {

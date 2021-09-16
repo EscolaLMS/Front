@@ -1,0 +1,205 @@
+/*
+Flaticon icon font: Flaticon
+*/
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/Flaticon.eot");
+  src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Flaticon.woff2") format("woff2"),
+    url("../fonts/Flaticon.woff") format("woff"),
+    url("../fonts/Flaticon.ttf") format("truetype"),
+    url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before,
+[class^="flaticon-"]:after,
+[class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-style: normal;
+}
+
+.flaticon-search:before {
+  content: "\f100";
+}
+.flaticon-shopping-cart:before {
+  content: "\f101";
+}
+.flaticon-arrow:before {
+  content: "\f102";
+}
+.flaticon-people:before {
+  content: "\f103";
+}
+.flaticon-brain-process:before {
+  content: "\f104";
+}
+.flaticon-computer:before {
+  content: "\f105";
+}
+.flaticon-world:before {
+  content: "\f106";
+}
+.flaticon-shield-1:before {
+  content: "\f107";
+}
+.flaticon-search-1:before {
+  content: "\f108";
+}
+.flaticon-time-left:before {
+  content: "\f109";
+}
+.flaticon-quotation:before {
+  content: "\f10a";
+}
+.flaticon-play:before {
+  content: "\f10b";
+}
+.flaticon-user:before {
+  content: "\f10c";
+}
+.flaticon-calendar:before {
+  content: "\f10d";
+}
+.flaticon-heart:before {
+  content: "\f10e";
+}
+.flaticon-right-chevron:before {
+  content: "\f10f";
+}
+.flaticon-tag:before {
+  content: "\f110";
+}
+.flaticon-teacher:before {
+  content: "\f111";
+}
+.flaticon-time:before {
+  content: "\f112";
+}
+.flaticon-distance-learning:before {
+  content: "\f113";
+}
+.flaticon-web:before {
+  content: "\f114";
+}
+.flaticon-lock:before {
+  content: "\f115";
+}
+.flaticon-credit-card:before {
+  content: "\f116";
+}
+.flaticon-share:before {
+  content: "\f117";
+}
+.flaticon-password:before {
+  content: "\f118";
+}
+.flaticon-right:before {
+  content: "\f119";
+}
+.flaticon-history:before {
+  content: "\f11a";
+}
+.flaticon-home:before {
+  content: "\f11b";
+}
+.flaticon-chevron:before {
+  content: "\f11c";
+}
+.flaticon-right-arrow:before {
+  content: "\f11d";
+}
+.flaticon-html:before {
+  content: "\f11e";
+}
+.flaticon-tick:before {
+  content: "\f11f";
+}
+.flaticon-caption:before {
+  content: "\f120";
+}
+.flaticon-quiz:before {
+  content: "\f121";
+}
+.flaticon-certification:before {
+  content: "\f122";
+}
+.flaticon-experience:before {
+  content: "\f123";
+}
+.flaticon-tutorials:before {
+  content: "\f124";
+}
+.flaticon-self-growth:before {
+  content: "\f125";
+}
+.flaticon-checkmark:before {
+  content: "\f126";
+}
+.flaticon-webinar:before {
+  content: "\f127";
+}
+.flaticon-credit-card-1:before {
+  content: "\f128";
+}
+.flaticon-verify:before {
+  content: "\f129";
+}
+.flaticon-cancel:before {
+  content: "\f12a";
+}
+.flaticon-agenda:before {
+  content: "\f12b";
+}
+.flaticon-diet:before {
+  content: "\f12c";
+}
+.flaticon-vitamin-c:before {
+  content: "\f12d";
+}
+.flaticon-heart-rate-monitor:before {
+  content: "\f12e";
+}
+.flaticon-pineapple:before {
+  content: "\f12f";
+}
+.flaticon-healthy-food:before {
+  content: "\f130";
+}
+.flaticon-yoga:before {
+  content: "\f131";
+}
+.flaticon-lotus:before {
+  content: "\f132";
+}
+.flaticon-tomato:before {
+  content: "\f133";
+}
+.flaticon-yoga-1:before {
+  content: "\f134";
+}
+.flaticon-yoga-2:before {
+  content: "\f135";
+}
+.flaticon-strawberry:before {
+  content: "\f136";
+}
+.flaticon-guitar:before {
+  content: "\f137";
+}
+.flaticon-certification-1:before {
+  content: "\f138";
+}
+.flaticon-artist:before {
+  content: "\f139";
+}
+.flaticon-translation:before {
+  content: "\f13a";
+}
