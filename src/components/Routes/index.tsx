@@ -7,6 +7,8 @@ import HomePage from "../../pages/index";
 import AuthPage from "../../pages/authentication";
 import StaticPage from "../../pages/static-page";
 import NotFoundPage from "../../pages/404";
+import TutorsPage from "../../pages/tutors/index";
+import TutorPage from "../../pages/tutors/tutor/index";
 
 // privates
 import MyProfilePage from "../../pages/user/my-profile";
@@ -54,6 +56,8 @@ const Routes: React.FC = (): ReactElement => {
     myOrders,
     myPayments,
     myCourses,
+    tutors,
+    tutor,
   } = routes;
 
   // const { pathname } = useLocation();
@@ -65,6 +69,8 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
         <Route exact path={page} component={StaticPage} />
+        <Route exact path={tutors} component={TutorsPage} />
+        <Route exact path={tutor} component={TutorPage} />
 
         {/* privates pages*/}
         {/* TODO: create private */}
