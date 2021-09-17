@@ -36,8 +36,8 @@ const AboutArea = () => {
                   </strong>
                 </p>
 
-                <Link href="/contact">
-                  <a className="link-btn">Explore Learning</a>
+                <Link className="link-btn" to="/contact">
+                  Explore Learning
                 </Link>
               </div>
             </div>
@@ -48,16 +48,15 @@ const AboutArea = () => {
                   <img src="/images/about-img5a.jpeg" alt="image" />
                 </div>
 
-                <Link href="#play-video">
-                  <a
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openModal();
-                    }}
-                    className="video-btn popup-youtube"
-                  >
-                    <i className="flaticon-play"></i>
-                  </a>
+                <Link
+                  className="video-btn popup-youtube"
+                  to="#play-video"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openModal();
+                  }}
+                >
+                  <i className="flaticon-play"></i>
                 </Link>
 
                 <div className="shape10">

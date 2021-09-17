@@ -10,10 +10,8 @@ const Footer = () => {
         <div className="row">
           <div className="col-lg-4 col-md-6 col-sm-6">
             <div className="single-footer-widget">
-              <Link href="/">
-                <a className="logo">
-                  <img src="/images/logo2.svg" alt="logo" />
-                </a>
+              <Link className="logo" to="/">
+                <img src="/images/logo2.svg" alt="logo" />
               </Link>
 
               <p>
@@ -100,14 +98,10 @@ const Footer = () => {
             <div className="col-lg-6 col-md-6">
               <ul>
                 <li>
-                  <Link href="/privacy-policy">
-                    <a>Privacy Policy</a>
-                  </Link>
+                  <Link to="/privacy-policy">Privacy Policy</Link>
                 </li>
                 <li>
-                  <Link href="/terms-of-service">
-                    <a>Terms & Conditions</a>
-                  </Link>
+                  <Link to="/terms-of-service">Terms & Conditions</Link>
                 </li>
               </ul>
             </div>

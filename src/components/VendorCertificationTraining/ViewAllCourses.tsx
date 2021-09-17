@@ -18,11 +18,9 @@ const ViewAllCourses = () => {
                 relocate, you can continue to study wherever you go.
               </p>
 
-              <Link href="/courses-2">
-                <a className="default-btn">
-                  <i className="flaticon-agenda"></i> View All Courses{" "}
-                  <span></span>
-                </a>
+              <Link className="default-btn" to="/courses-2">
+                <i className="flaticon-agenda"></i> View All Courses{" "}
+                <span></span>
               </Link>
             </div>
           </div>

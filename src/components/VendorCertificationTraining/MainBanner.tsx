@@ -1,20 +1,21 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const MainBanner: React.FC = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="banner-section">
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-lg-5 col-md-12">
             <div className="banner-content">
-              {/* <h1>{t("Homepage.heading")}</h1>
-              <p>{t("Homepage.headingText")} </p> */}
+              <h1>{t("Homepage.heading")}</h1>
+              <p>{t("Homepage.headingText")} </p>
 
               <Link href="/authentication">
                 <a className="default-btn">
-                  {/* <i className="flaticon-user"></i> {t("Homepage.joinFree")}{" "} */}
+                  <i className="flaticon-user"></i> {t("Homepage.joinFree")}{" "}
                   <span></span>
                 </a>
               </Link>

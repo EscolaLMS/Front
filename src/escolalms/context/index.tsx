@@ -60,6 +60,12 @@ interface ContextPaginatedState<T> {
   error?: API.DefaultResponseError;
 }
 
+interface ContextPaginatedMetaState<T> {
+  loading: boolean;
+  list?: API.PaginatedMetaList<T>;
+  error?: API.DefaultResponseError;
+}
+
 interface ContextListState<T> {
   loading: boolean;
   list?: T[];
@@ -101,7 +107,7 @@ const questionSet: API.IEventException = "QuestionSet";
 
 interface EscolaLMSContextConfig {
   apiUrl: string;
-  courses: ContextPaginatedState<API.CourseListItem>;
+  courses: ContextPaginatedMetaState<API.CourseListItem>;
   fetchCourses: (filter?: API.CourseParams) => Promise<void>;
   course: ContextStateValue<API.CourseListItem>;
   fetchCourse: (id: number) => Promise<void>;
@@ -141,8 +147,8 @@ interface EscolaLMSContextConfig {
   orders: ContextListState<API.Order>;
   fetchOrders: () => Promise<void>;
   fetchPayments: () => Promise<void>;
-  payments: ContextPaginatedState<API.Payment>;
-  pages: ContextPaginatedState<API.PageListItem>;
+  payments: ContextPaginatedMetaState<API.Payment>;
+  pages: ContextPaginatedMetaState<API.PageListItem>;
   fetchPages: () => Promise<void>;
   page: ContextStateValue<API.Page>;
   fetchPage: (slug: string) => Promise<void>;
@@ -310,7 +316,7 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
   shouldFire.current = false;
 
   const [courses, setCourses] = useLocalStorage<
-    ContextPaginatedState<API.CourseListItem>
+    ContextPaginatedMetaState<API.CourseListItem>
   >("lms", "courses", defaultConfig.courses);
 
   const [course, setCourse] = useLocalStorage<
@@ -365,18 +371,16 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
     defaultConfig.orders
   );
 
-  const [payments, setPayments] = useLocalStorage<any>(
-    "lms",
-    "payments",
-    defaultConfig.payments
-  );
+  const [payments, setPayments] = useLocalStorage<
+    ContextPaginatedMetaState<API.Payment>
+  >("lms", "payments", defaultConfig.payments);
 
   const [tutor, setTutor] = useState<ContextStateValue<API.UserItem>>(
     defaultConfig.tutor
   );
 
   const [pages, setPages] = useLocalStorage<
-    ContextPaginatedState<API.PageListItem>
+    ContextPaginatedMetaState<API.PageListItem>
   >("lms", "pages", defaultConfig.pages);
 
   const [page, setPage] = useLocalStorage<ContextStateValue<API.Page>>(
@@ -413,22 +417,23 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
   const fetchCourses = useCallback(
     (filter: API.CourseParams) => {
       setCourses((prevState) => ({ ...prevState, loading: true }));
-      return getCourses(filter).then((response) => {
-        if (response.success) {
-          setCourses({
-            loading: false,
-            list: response.data,
-            error: undefined,
-          });
-        }
-        if (response.success === false) {
+      return getCourses(filter)
+        .then((response) => {
+          if (response.success) {
+            setCourses({
+              loading: false,
+              list: response,
+              error: undefined,
+            });
+          }
+        })
+        .catch((error) => {
           setCourses((prevState) => ({
             ...prevState,
             loading: false,
-            error: response,
+            error: error,
           }));
-        }
-      });
+        });
     },
     [courses]
   );
@@ -756,15 +761,8 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
         if (res.success) {
           setPayments({
             loading: false,
-            list: (res as any).data,
+            list: res,
           });
-        } else if (res.success === false) {
-          {
-            setPayments({
-              loading: false,
-              error: res,
-            });
-          }
         }
       })
       .catch((error) => {
@@ -783,16 +781,9 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
           if (response.success) {
             setPages({
               loading: false,
-              list: response.data,
+              list: response,
               error: undefined,
             });
-          }
-          if (response.success === false) {
-            setPages((prevState) => ({
-              ...prevState,
-              loading: false,
-              error: response,
-            }));
           }
         })
         .catch((error) => {

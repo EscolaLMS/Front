@@ -4,7 +4,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import routes from "./routes";
 
 import HomePage from "../../pages/index";
-
+import AuthPage from "../../pages/authentication";
 // import LoginPage from "../../pages/login";
 // import RegisterPage from "../../pages/register";
 // import ResetPasswordPage from "../../pages/resetPassword";
@@ -37,37 +37,8 @@ import PrivateRoute from "./private";
 // import NotFound from "../../pages/404";
 
 const Routes: React.FC = (): ReactElement => {
-  const {
-    home,
-    login,
-    register,
-    course,
-
-    projects,
-    project,
-    courses,
-    curriculum,
-    loginSocial,
-    resetPassword,
-    myTasks,
-
-    myCourses,
-    myAchievements,
-    funZone,
-    flashcards,
-    notifications,
-    myProfile,
-    cart,
-    myPoints,
-    forum,
-    followingMads,
-    article,
-    forumCategory,
-    forumTopic,
-    careerPlanner,
-    career,
-    search,
-  } = routes;
+  const { home, login, register, course, authentication, courses, curriculum } =
+    routes;
 
   // const { pathname } = useLocation();
   // const exception = `${dashboard}${onboarding}${curriculum}${myTasks}${myCourses}${myAchievements}${funZone}${flashcards}${notifications}${myProfile}${cart}${myPoints}${forum}${forumCategory}${forumTopic}${followingMads}`;
@@ -76,6 +47,7 @@ const Routes: React.FC = (): ReactElement => {
     <BrowserRouter>
       <Switch>
         <Route exact path={home} component={HomePage} />
+        <Route exact path={authentication} component={AuthPage} />
         {/* <Route exact path={login} component={LoginPage} />
       <Route exact path={register} component={RegisterPage} />
       <Route exact path={resetPassword} component={ResetPasswordPage} />

@@ -30,16 +30,12 @@ const PopularCourses = () => {
               <div className="col-lg-4 col-md-6" key={course.id}>
                 <div className="single-courses-box without-boxshadow">
                   <div className="courses-image">
-                    <Link href={`courses/${course.id}`}>
-                      <a className="d-block image">
-                        <img src={course.image_url} alt="image" />
-                      </a>
+                    <Link className="d-block image" to={`courses/${course.id}`}>
+                      <img src={course.image_url} alt="image" />
                     </Link>
 
-                    <Link href="#">
-                      <a className="fav">
-                        <i className="flaticon-heart"></i>
-                      </a>
+                    <Link className="fav" href="#">
+                      <i className="flaticon-heart"></i>
                     </Link>
 
                     <div className="price shadow">
@@ -66,9 +62,7 @@ const PopularCourses = () => {
                       </span>
                     </div>
                     <h3>
-                      <Link href={`courses/${course.id}`}>
-                        <a>{course.title}</a>
-                      </Link>
+                      <Link to={`courses/${course.id}`}>{course.title}</Link>
                     </h3>
                     <p>{course.subtitle}</p>
                     <ul className="courses-box-footer d-flex justify-content-between align-items-center">
@@ -102,11 +96,8 @@ const PopularCourses = () => {
 
           <div className="col-lg-12 col-md-12">
             <div className="courses-info">
-              <Link href="/courses">
-                <a className="default-btn">
-                  <i className="flaticon-user"></i> View All Courses{" "}
-                  <span></span>
-                </a>
+              <Link className="default-btn" to="/courses">
+                <i className="flaticon-user"></i> View All Courses <span></span>
               </Link>
             </div>
           </div>

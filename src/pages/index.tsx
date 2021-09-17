@@ -13,11 +13,10 @@ import Testimonials from "../components/Common/Testimonials";
 import ViewAllCourses from "../components/VendorCertificationTraining/ViewAllCourses";
 import Layout from "../components/_App/Layout";
 
-const Index2 = () => {
+const Index2 = ({ pageProps }) => {
   return (
-    <Layout>
+    <Layout {...pageProps}>
       <React.Fragment>
-        {/* <Navbar /> */}
         <MainBanner />
         <Partner />
         <SloganArea />

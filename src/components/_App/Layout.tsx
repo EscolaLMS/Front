@@ -1,21 +1,23 @@
-import React from "react";
-// import Head from "next/head";
+import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
 import { ToastProvider } from "react-toast-notifications";
 import { Toaster } from "react-hot-toast";
 import { useHistory, useLocation } from "react-router-dom";
-// import GoTop from "./GoTop";
+import GoTop from "./GoTop";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-// import StudentNavbar from "./StudentNavbar";
-// import AdminNavbar from "./AdminNavbar";
+import StudentNavbar from "./StudentNavbar";
+import AdminNavbar from "./AdminNavbar";
 import Preloader from "../Preloader";
-// import CourseNavbar from "./CourseNavbar";
+import CourseNavbar from "./CourseNavbar";
+import { EscolaLMSContext } from "../../escolalms/context";
 
-import { EscolaLMSContextProvider } from "../../escolalms/context";
-
-const Layout = ({ children }) => {
+const Layout = ({ children, user }) => {
   const { pathname, search } = useLocation();
   const [loader, setLoader] = React.useState(true);
+
+  // const { user } = useContext(EscolaLMSContext);
+
   React.useEffect(() => {
     setTimeout(() => {
       setLoader(false);
@@ -51,39 +53,39 @@ const Layout = ({ children }) => {
   //   setLoader(false);
   // });
 
-  // const isStudent = user && user.role === "student";
-  // const isAdmin = user && user.role === "admin";
-  // const isTeacher = user && user.role === "teacher";
+  const isStudent = user && user.role === "student";
+  const isAdmin = user && user.role === "admin";
+  const isTeacher = user && user.role === "teacher";
   const isCourse = pathname.includes("/course/[id]");
 
   return (
     <React.Fragment>
-      {/* <Head>
-          <title>
-            EscolaLMS - React Next Online Courses & Education Template
-          </title>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          />
-          <meta
-            name="description"
-            content="EscolaLMS - React Next Online Courses & Education Template"
-          />
-          <meta
-            name="og:title"
-            property="og:title"
-            content="EscolaLMS - React Next Online Courses & Education Template"
-          ></meta>
-          <meta
-            name="twitter:card"
-            content="EscolaLMS - React Next Online Courses & Education Template"
-          ></meta>
-          <link
-            rel="canonical"
-            href="https://escolalms-react.envytheme.com/"
-          ></link>
-        </Head> */}
+      <Helmet>
+        <title>
+          EscolaLMS - React Next Online Courses & Education Template
+        </title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta
+          name="description"
+          content="EscolaLMS - React Next Online Courses & Education Template"
+        />
+        <meta
+          name="og:title"
+          property="og:title"
+          content="EscolaLMS - React Next Online Courses & Education Template"
+        ></meta>
+        <meta
+          name="twitter:card"
+          content="EscolaLMS - React Next Online Courses & Education Template"
+        ></meta>
+        <link
+          rel="canonical"
+          href="https://escolalms-react.envytheme.com/"
+        ></link>
+      </Helmet>
 
       {loader && <Preloader />}
 
@@ -94,19 +96,19 @@ const Layout = ({ children }) => {
         autoDismissTimeout={10000}
         autoDismiss
       >
-        {/* {isCourse ? (
-            <CourseNavbar />
-          ) : isStudent ? (
-            <StudentNavbar user={user} />
-          ) : isAdmin || isTeacher ? (
-            <AdminNavbar user={user} />
-          ) : (
-            <Navbar />
-          )} */}
-        <Navbar />
+        {isCourse ? (
+          <CourseNavbar />
+        ) : isStudent ? (
+          <StudentNavbar user={user} />
+        ) : isAdmin || isTeacher ? (
+          <AdminNavbar user={user} />
+        ) : (
+          <Navbar />
+        )}
+
         {children}
 
-        {/* <GoTop scrollStepInPx="100" delayInMs="10.50" /> */}
+        <GoTop scrollStepInPx="100" delayInMs="10.50" />
         <Footer />
       </ToastProvider>
     </React.Fragment>

@@ -137,12 +137,6 @@ declare namespace API {
   };
 
   type PaginatedMetaList<Model> = {
-    links: {
-      first: string;
-      last: string;
-      next: string;
-      prev: string;
-    };
     data: Model[];
     meta: {
       current_page: number;
@@ -152,6 +146,12 @@ declare namespace API {
       prev_page_url: string;
       to: number;
       total: number;
+      links: {
+        first: string;
+        last: string;
+        next: string;
+        prev: string;
+      };
     };
   };
 
@@ -184,13 +184,20 @@ declare namespace API {
     | DefaultResponseSuccess<Model>
     | DefaultResponseError;
 
+  type DefaultMetaResponse<Model> =
+    | (PaginatedMetaList<Model> & {
+        message: string;
+        success: true;
+      })
+    | DefaultResponseError;
+
   type DataResponse<Model> = DataResponseSuccess<Model> | DefaultResponseError;
 
   type RawResponse<Model> = Model | DefaultResponseError;
 
   type SuccessResponse = { success: true } | DefaultResponseError;
 
-  type CourseList = DefaultResponse<PaginatedList<Course>>;
+  type CourseList = DefaultMetaResponse<Course>;
 
   type TutorList = DefaultResponse<API.UserItem[]>;
 
@@ -204,19 +211,19 @@ declare namespace API {
 
   type CategoryListItem = Category;
 
-  type UserList = PaginatedMetaList<UserItem>;
+  type UserList = DefaultMetaResponse<UserItem>;
 
   type UserListItem = UserItem;
 
-  type OrderList = PaginatedMetaList<Order>;
+  type OrderList = DefaultMetaResponse<Order>;
 
   type OrderListItem = Order;
 
-  type PaymentList = DefaultResponse<PaginatedList<Payment>>;
+  type PaymentList = DefaultMetaResponse<Payment>;
 
   type PaymentListItem = Payment;
 
-  type PageList = DefaultResponse<PaginatedList<Page>>;
+  type PageList = DefaultMetaResponse<Page>;
 
   type PageListItem = Page;
 

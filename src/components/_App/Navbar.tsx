@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import { handleLogout } from "@/utils/auth";
 
 import { EscolaLMSContext } from "../../escolalms/context";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
   return (
@@ -18,7 +18,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
 
           <ul className="dropdown-menu">
             <li className="nav-item">
-              <Link href="/user/my-profile" activeClassName="active">
+              <Link href="/user/my-profile">
                 <a
                   onClick={() => toggleNavbar && toggleNavbar()}
                   className="nav-link"
@@ -29,7 +29,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-courses" activeClassName="active">
+              <Link href="/user/my-courses">
                 <a
                   onClick={() => toggleNavbar && toggleNavbar()}
                   className="nav-link"
@@ -40,7 +40,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-orders" activeClassName="active">
+              <Link href="/user/my-orders">
                 <a
                   onClick={() => toggleNavbar && toggleNavbar()}
                   className="nav-link"
@@ -51,7 +51,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-payments" activeClassName="active">
+              <Link href="/user/my-payments">
                 <a
                   onClick={() => toggleNavbar && toggleNavbar()}
                   className="nav-link"
@@ -77,10 +77,8 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
           </ul>
         </div>
       ) : (
-        <Link href="/authentication">
-          <a className="default-btn">
-            <i className="flaticon-user"></i> Login/Register <span></span>
-          </a>
+        <Link to="/authentication" className="default-btn">
+          <i className="flaticon-user"></i> Login/Register <span></span>
         </Link>
       )}
     </div>
@@ -88,16 +86,16 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
 };
 
 const Navbar = () => {
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  // useEffect(() => {
-  //   const lang = window.localStorage.getItem("lang");
-  //   if (lang) {
-  //     i18n.changeLanguage(lang);
-  //   }
-  // }, [i18n]);
+  useEffect(() => {
+    const lang = window.localStorage.getItem("lang");
+    if (lang) {
+      i18n.changeLanguage(lang);
+    }
+  }, [i18n]);
 
-  // const languages = ["pl", "en"].filter((lang) => lang !== i18n.language);
+  const languages = ["pl", "en"].filter((lang) => lang !== i18n.language);
 
   const [menu, setMenu] = React.useState(true);
   const {
@@ -144,10 +142,8 @@ const Navbar = () => {
         <div className="escolalms-nav">
           <div className="container-fluid">
             <div className="navbar navbar-expand-lg navbar-light">
-              <Link href="/">
-                <a onClick={toggleNavbar} className="navbar-brand">
-                  <img src="/images/logo.svg" alt="logo" />
-                </a>
+              <Link to="/" onClick={toggleNavbar} className="navbar-brand">
+                <img src="/images/logo.svg" alt="logo" />
               </Link>
 
               <button
@@ -167,36 +163,31 @@ const Navbar = () => {
                 {/* <SearchForm /> */}
 
                 <ul className="navbar-nav">
-                  <li className="nav-item megamenu">
-                    <NavLink to="/">
-                      {/* <a className="nav-link">{t("Home")}</a> */}
-                      <a className="nav-link">Home</a>
+                  <li className="nav-item ">
+                    <NavLink className="nav-link" to="/">
+                      {t("Home")}
                     </NavLink>
                   </li>
 
-                  <li className="nav-item megamenu">
-                    <NavLink to="/courses">
-                      {/* <a className="nav-link">{t("Courses")}</a> */}
-                      <a className="nav-link">Courses</a>
+                  <li className="nav-item ">
+                    <NavLink className="nav-link" to="/courses">
+                      {t("Courses")}
                     </NavLink>
                   </li>
 
-                  <li className="nav-item megamenu">
-                    <NavLink to="/tutors">
-                      {/* <a className="nav-link">{t("Tutors")}</a> */}
-                      <a className="nav-link">Tutors</a>
+                  <li className="nav-item ">
+                    <NavLink className="nav-link" to="/tutors">
+                      {t("Tutors")}
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/pages">
-                      {/* <a className="nav-link">{t("Pages")}</a> */}
-                      <a className="nav-link">Pages</a>
+                    <NavLink className="nav-link" to="/pages">
+                      {t("Pages")}
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/contact">
-                      {/* <a className="nav-link">{t("Contact Us")}</a> */}
-                      <a className="nav-link">Contact Us</a>
+                    <NavLink className="nav-link" to="/contact">
+                      {t("Contact Us")}
                     </NavLink>
                   </li>
                 </ul>
@@ -205,13 +196,11 @@ const Navbar = () => {
                   {user && (
                     <div className="option-item">
                       <div className="cart-btn">
-                        <Link href="/cart">
-                          <a>
-                            <i className="flaticon-shopping-cart"></i>{" "}
-                            {cart?.value?.items?.length > 0 && (
-                              <span>{cart?.value?.items?.length}</span>
-                            )}
-                          </a>
+                        <Link to="/cart">
+                          <i className="flaticon-shopping-cart"></i>{" "}
+                          {cart?.value?.items?.length > 0 && (
+                            <span>{cart?.value?.items?.length}</span>
+                          )}
                         </Link>
                       </div>
                     </div>
@@ -223,7 +212,7 @@ const Navbar = () => {
                     logout={logout}
                   />
 
-                  {/* {languages &&
+                  {languages &&
                     languages.map((lang) => (
                       <button
                         className="lang-btn"
@@ -236,7 +225,7 @@ const Navbar = () => {
                       >
                         {lang}
                       </button>
-                    ))} */}
+                    ))}
                 </div>
               </div>
             </div>

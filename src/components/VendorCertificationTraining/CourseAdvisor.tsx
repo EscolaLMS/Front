@@ -77,7 +77,7 @@ const CourseAdvisor = () => {
                   <div className="col-lg-8 col-md-8">
                     <div className="advisor-content">
                       <h3>
-                        <Link href={`/tutors/${tutor.id}`}>
+                        <Link to={`/tutors/${tutor.id}`}>
                           <span>
                             {tutor.first_name} {tutor.last_name}
                           </span>

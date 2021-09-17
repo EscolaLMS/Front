@@ -13,9 +13,7 @@ const PageBanner: React.FC<{
         <div className="page-title-content">
           <ul>
             <li>
-              <Link href={homePageUrl}>
-                <a>{homePageText}</a>
-              </Link>
+              <Link to={homePageUrl}>{homePageText}</Link>
             </li>
             <li className="active">{activePageText}</li>
           </ul>
