@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react";
 import PageBanner from "../../../components/Common/PageBanner";
 
 import { EscolaLMSContext } from "../../../escolalms/context";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Preloader from "../../../components/Preloader";
 import Image from "../../../escolalms/components/Image";
 import ReactMarkdown from "react-markdown";
@@ -11,9 +11,9 @@ import CourseCard from "../../../components/CourseCard";
 import Layout from "../../../components/_App/Layout";
 
 const Profile = ({ pageProps }) => {
-  const { pathname } = useLocation();
+  const { id } = useParams();
 
-  const id = pathname.split("tutors/")[1];
+  // const id = pathname.split("tutors/")[1];
   const { tutor, fetchTutor, courses, fetchCourses } =
     useContext(EscolaLMSContext);
 

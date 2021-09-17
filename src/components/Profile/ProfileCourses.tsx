@@ -30,9 +30,7 @@ const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({
       </div>
       <div className="courses-content">
         <h3>
-          <Link href={`/course/${course.id}`}>
-            <a>{course.title}</a>
-          </Link>
+          <Link to={`/course/${course.id}`}>{course.title}</Link>
         </h3>
 
         <p>{course.subtitle}</p>
@@ -67,7 +65,7 @@ const ProfileCourses = () => {
         {progress.value && progress.value.length === 0 && (
           <p>
             You have no courses yet. Find one on{" "}
-            <Link href="/courses">courses</Link> page.
+            <Link to="/courses">courses</Link> page.
           </p>
         )}
         {progress.value?.map((item) => (

@@ -9,12 +9,16 @@ import StaticPage from "../../pages/static-page";
 import NotFoundPage from "../../pages/404";
 import TutorsPage from "../../pages/tutors/index";
 import TutorPage from "../../pages/tutors/tutor/index";
+import CoursesPage from "../../pages/courses";
+import CoursePage from "../../pages/courses/course/index";
+import CoursePreviewPage from "../../pages/courses/preview";
 
 // privates
 import MyProfilePage from "../../pages/user/my-profile";
 import MyOrderPage from "../../pages/user/my-orders";
 import MyPaymentsPage from "../../pages/user/my-payments";
 import MyCoursesPage from "../../pages/user/my-courses";
+import CourseProgramPage from "../../pages/course/index";
 
 // import LoginPage from "../../pages/login";
 // import RegisterPage from "../../pages/register";
@@ -58,6 +62,10 @@ const Routes: React.FC = (): ReactElement => {
     myCourses,
     tutors,
     tutor,
+    courses,
+    course,
+    preview,
+    courseProgram,
   } = routes;
 
   // const { pathname } = useLocation();
@@ -71,6 +79,9 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={page} component={StaticPage} />
         <Route exact path={tutors} component={TutorsPage} />
         <Route exact path={tutor} component={TutorPage} />
+        <Route exact path={courses} component={CoursesPage} />
+        <Route exact path={course} component={CoursePage} />
+        <Route exact path={preview} component={CoursePreviewPage} />
 
         {/* privates pages*/}
         {/* TODO: create private */}
@@ -78,19 +89,7 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={myOrders} component={MyOrderPage} />
         <Route exact path={myPayments} component={MyPaymentsPage} />
         <Route exact path={myCourses} component={MyCoursesPage} />
-        {/* <Route exact path={login} component={LoginPage} />
-      <Route exact path={register} component={RegisterPage} />
-      <Route exact path={resetPassword} component={ResetPasswordPage} />
-      <Route exact path={loginSocial} component={LoginPage} />
-      <Route exact path={courses} component={CoursesPage} />
-      <Route exact path={course} component={CoursePage} />
-      <Route exact path={article} component={ArticlePage} />
-      <Route exact path={project} component={MadPage} />
-      <Route exact path={projects} component={ProjectsPage} />
-      <Route exact path={home} component={CoursesPage} />
-      <Route exact path={careerPlanner} component={CareerPlanner} />
-      <Route exact path={career} component={Career} />
-      <Route exact path={search} component={Search} /> */}
+        <Route exact path={courseProgram} component={CourseProgramPage} />
         {/* 
         <PrivateRoute exact path={dashboard} component={Dashboard} />
       <PrivateRoute exact path={onboarding} component={OnboardingPage} />

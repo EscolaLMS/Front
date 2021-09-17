@@ -83,11 +83,9 @@ const Orders = ({ pageProps }) => {
                               switch (type) {
                                 case "Course":
                                   return (
-                                    <Link href={`/courses/${item.buyable_id}`}>
-                                      <a>
-                                        {t(`Courses_plural`)}
-                                        <small> ID: {item.buyable_id}</small>
-                                      </a>
+                                    <Link to={`/courses/${item.buyable_id}`}>
+                                      {t(`Courses_plural`)}
+                                      <small> ID: {item.buyable_id}</small>
                                     </Link>
                                   );
                                 default:

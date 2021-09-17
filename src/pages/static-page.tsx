@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { EscolaLMSContext } from "../escolalms/context";
 import Loader from "../components/Preloader";
 // import Sidebar from "../components/TermsOfService/Sidebar";
@@ -9,7 +9,6 @@ import Layout from "../components/_App/Layout";
 
 const StaticPage = ({ pageProps }) => {
   const { pathname } = useLocation();
-  // const history = useHistory();
 
   const id = pathname.split("/page")[1].split("/")[1];
 
@@ -20,12 +19,6 @@ const StaticPage = ({ pageProps }) => {
       fetchPage(String(id));
     }
   }, [id]);
-
-  // useEffect(() => {
-  //   if (!page?.error?.success) {
-  //     history.push("/404");
-  //   }
-  // }, [page]);
 
   if (page.loading) {
     return <Loader />;

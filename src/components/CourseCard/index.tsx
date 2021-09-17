@@ -13,10 +13,8 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
     <div className="single-courses-box">
       <div className="courses-image">
         {course.image_path && (
-          <Link href={`/courses/${course.id}`}>
-            <a className="d-block image">
-              <Image path={course.image_path} srcSizes={[380, 380 * 2]} />
-            </a>
+          <Link to={`/courses/${course.id}`} className="d-block image">
+            <Image path={course.image_path} srcSizes={[380, 380 * 2]} />
           </Link>
         )}
         <a href="#" className="fav">
@@ -47,9 +45,7 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
         )}
 
         <h3>
-          <Link href={`/courses/${course.id}`}>
-            <a>{course.title}</a>
-          </Link>
+          <Link to={`/courses/${course.id}`}>{course.title}</Link>
         </h3>
 
         <p>{course.subtitle}</p>
