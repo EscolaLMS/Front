@@ -8,7 +8,6 @@ const PrivateRoute: React.FC<RouteProps> = ({
   ...rest
 }: // eslint-disable-next-line
 any) => {
-  const { login } = routes;
   return null;
   // return (
   //   <Route
