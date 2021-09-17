@@ -11,6 +11,8 @@ const routeRoutes = {
   myOrders: "/user/my-orders",
   myPayments: "/user/my-payments",
   myCourses: "/user/my-courses",
+  tutors: "/tutors",
+  tutor: "/tutors/:id",
   // loginSocial: "/social-login",
   // resetPassword: "/reset-password",
   // projects: "/projects",
