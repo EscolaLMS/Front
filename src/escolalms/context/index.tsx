@@ -657,10 +657,12 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
       loading: true,
     }));
     return getProgress(token).then((res) => {
-      setProgress({
-        loading: false,
-        value: res,
-      });
+      if (res.success) {
+        setProgress({
+          loading: false,
+          value: res.data,
+        });
+      }
     });
   }, [token]);
 
@@ -797,34 +799,37 @@ export const EscolaLMSContextProvider: FunctionComponent<IMock> = ({
     [pages]
   );
 
-  const fetchPage = useCallback((slug: string) => {
-    setPage((prevState) => ({
-      ...prevState,
-      loading: true,
-    }));
-    return getPage(slug)
-      .then((res) => {
-        if (res.success) {
-          setPage({
-            loading: false,
-            value: res.data,
-          });
-        } else if (res.success === false) {
-          {
+  const fetchPage = useCallback(
+    (slug: string) => {
+      setPage((prevState) => ({
+        ...prevState,
+        loading: true,
+      }));
+      return getPage(slug)
+        .then((res) => {
+          if (res.success) {
             setPage({
               loading: false,
-              error: res,
+              value: res.data,
             });
+          } else if (res.success === false) {
+            {
+              setPage({
+                loading: false,
+                error: res,
+              });
+            }
           }
-        }
-      })
-      .catch((error) => {
-        setPage({
-          loading: false,
-          error: error.data,
+        })
+        .catch((error) => {
+          setPage({
+            loading: false,
+            error: error.data,
+          });
         });
-      });
-  }, []);
+    },
+    [token]
+  );
 
   const sendProgress = useCallback(
     (courseId: number, data: API.CourseProgressItemElement[]) => {

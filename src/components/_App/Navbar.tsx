@@ -18,60 +18,55 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
 
           <ul className="dropdown-menu">
             <li className="nav-item">
-              <Link href="/user/my-profile">
-                <a
-                  onClick={() => toggleNavbar && toggleNavbar()}
-                  className="nav-link"
-                >
-                  My Profile
-                </a>
+              <Link
+                className="nav-link"
+                to="/user/my-profile"
+                onClick={() => toggleNavbar && toggleNavbar()}
+              >
+                My Profile
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-courses">
-                <a
-                  onClick={() => toggleNavbar && toggleNavbar()}
-                  className="nav-link"
-                >
-                  My Courses
-                </a>
+              <Link
+                className="nav-link"
+                to="/user/my-courses"
+                onClick={() => toggleNavbar && toggleNavbar()}
+              >
+                My Courses
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-orders">
-                <a
-                  onClick={() => toggleNavbar && toggleNavbar()}
-                  className="nav-link"
-                >
-                  My Orders
-                </a>
+              <Link
+                to="/user/my-orders"
+                onClick={() => toggleNavbar && toggleNavbar()}
+                className="nav-link"
+              >
+                My Orders
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link href="/user/my-payments">
-                <a
-                  onClick={() => toggleNavbar && toggleNavbar()}
-                  className="nav-link"
-                >
-                  My Payments
-                </a>
+              <Link
+                to="/user/my-payments"
+                onClick={() => toggleNavbar && toggleNavbar()}
+                className="nav-link"
+              >
+                My Payments
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link href="/">
-                <a
-                  className="nav-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    logout && logout();
-                  }}
-                >
-                  Logout
-                </a>
+              <Link
+                to="/"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logout && logout();
+                }}
+              >
+                Logout
               </Link>
             </li>
           </ul>

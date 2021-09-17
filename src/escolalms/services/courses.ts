@@ -70,14 +70,17 @@ export async function progress(
   token: string,
   options?: { [key: string]: any }
 ) {
-  return request<API.CourseProgress>(`/api/courses/progress`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    ...(options || {}),
-  });
+  return request<API.DefaultResponse<API.CourseProgress>>(
+    `/api/courses/progress`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      ...(options || {}),
+    }
+  );
 }
 
 export async function sendProgress(
@@ -86,17 +89,20 @@ export async function sendProgress(
   token: string,
   options?: { [key: string]: any }
 ) {
-  return request<API.CourseProgress>(`/api/courses/progress/${courseId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    data: {
-      progress: data,
-    },
-    ...(options || {}),
-  });
+  return request<API.DefaultResponse<API.CourseProgress>>(
+    `/api/courses/progress/${courseId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        progress: data,
+      },
+      ...(options || {}),
+    }
+  );
 }
 
 export async function tutors(options?: { [key: string]: any }) {

@@ -5,6 +5,15 @@ import routes from "./routes";
 
 import HomePage from "../../pages/index";
 import AuthPage from "../../pages/authentication";
+import StaticPage from "../../pages/static-page";
+import NotFoundPage from "../../pages/404";
+
+// privates
+import MyProfilePage from "../../pages/user/my-profile";
+import MyOrderPage from "../../pages/user/my-orders";
+import MyPaymentsPage from "../../pages/user/my-payments";
+import MyCoursesPage from "../../pages/user/my-courses";
+
 // import LoginPage from "../../pages/login";
 // import RegisterPage from "../../pages/register";
 // import ResetPasswordPage from "../../pages/resetPassword";
@@ -37,8 +46,15 @@ import PrivateRoute from "./private";
 // import NotFound from "../../pages/404";
 
 const Routes: React.FC = (): ReactElement => {
-  const { home, login, register, course, authentication, courses, curriculum } =
-    routes;
+  const {
+    home,
+    authentication,
+    page,
+    myProfile,
+    myOrders,
+    myPayments,
+    myCourses,
+  } = routes;
 
   // const { pathname } = useLocation();
   // const exception = `${dashboard}${onboarding}${curriculum}${myTasks}${myCourses}${myAchievements}${funZone}${flashcards}${notifications}${myProfile}${cart}${myPoints}${forum}${forumCategory}${forumTopic}${followingMads}`;
@@ -48,6 +64,14 @@ const Routes: React.FC = (): ReactElement => {
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
+        <Route exact path={page} component={StaticPage} />
+
+        {/* privates pages*/}
+        {/* TODO: create private */}
+        <Route exact path={myProfile} component={MyProfilePage} />
+        <Route exact path={myOrders} component={MyOrderPage} />
+        <Route exact path={myPayments} component={MyPaymentsPage} />
+        <Route exact path={myCourses} component={MyCoursesPage} />
         {/* <Route exact path={login} component={LoginPage} />
       <Route exact path={register} component={RegisterPage} />
       <Route exact path={resetPassword} component={ResetPasswordPage} />
@@ -61,8 +85,8 @@ const Routes: React.FC = (): ReactElement => {
       <Route exact path={careerPlanner} component={CareerPlanner} />
       <Route exact path={career} component={Career} />
       <Route exact path={search} component={Search} /> */}
-
-        {/* <PrivateRoute exact path={dashboard} component={Dashboard} />
+        {/* 
+        <PrivateRoute exact path={dashboard} component={Dashboard} />
       <PrivateRoute exact path={onboarding} component={OnboardingPage} />
       <PrivateRoute exact path={curriculum} component={CourseCurriculum} />
       <PrivateRoute exact path={myTasks} component={MyTasksPage} />
@@ -77,8 +101,9 @@ const Routes: React.FC = (): ReactElement => {
       <PrivateRoute exact path={forum} component={ForumPage} />
       <PrivateRoute exact path={forumCategory} component={ForumCategoryPage} />
       <PrivateRoute exact path={forumTopic} component={ForumTopicPage} />
-      <PrivateRoute exact path={followingMads} component={FollowingMadsPage} />
-      <Route exact component={NotFound} /> */}
+      <PrivateRoute exact path={followingMads} component={FollowingMadsPage} /> */}
+
+        <Route exact component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
   );
