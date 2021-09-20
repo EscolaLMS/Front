@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import Logo from "../../images/logo.svg";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="col-lg-4 col-md-6 col-sm-6">
             <div className="single-footer-widget">
               <Link className="logo" to="/">
-                <img src="/images/logo2.svg" alt="logo" />
+                <img src={Logo} alt="logo" />
               </Link>
 
               <p>

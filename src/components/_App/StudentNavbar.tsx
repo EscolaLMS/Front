@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../images/logo.svg";
 // import { handleLogout } from "@/utils/auth";
 // import SearchForm from "./SearchForm";
 
@@ -41,7 +42,7 @@ const StudentNavbar = ({ user }) => {
             <div className="navbar navbar-expand-lg navbar-light">
               <Link href="/">
                 <a onClick={toggleNavbar} className="navbar-brand">
-                  <img src="/images/logo.svg" alt="logo" />
+                  <img src={Logo} alt="logo" />
                 </a>
               </Link>
 
