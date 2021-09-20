@@ -45,7 +45,7 @@ const AboutArea = () => {
             <div className="col-lg-7 col-md-12">
               <div className="about-video-box">
                 <div className="image">
-                  <img src="/images/about-img5a.jpeg" alt="image" />
+                  <img src="/Front/images/about-img5a.jpeg" alt="image" />
                 </div>
 
                 <Link
@@ -60,7 +60,7 @@ const AboutArea = () => {
                 </Link>
 
                 <div className="shape10">
-                  <img src="/images/shape9.png" alt="image" />
+                  <img src="/Front/images/shape9.png" alt="image" />
                 </div>
               </div>
             </div>
@@ -69,13 +69,13 @@ const AboutArea = () => {
 
         <div className="divider"></div>
         <div className="shape3">
-          <img src="/images/shape3.png" alt="image" />
+          <img src="/Front/images/shape3.png" alt="image" />
         </div>
         <div className="shape4">
-          <img src="/images/shape4.png" alt="image" />
+          <img src="/Front/images/shape4.png" alt="image" />
         </div>
         <div className="shape2">
-          <img src="/images/shape2.png" alt="image" />
+          <img src="/Front/images/shape2.png" alt="image" />
         </div>
 
         {/* If you want to change the video need to update videoID */}

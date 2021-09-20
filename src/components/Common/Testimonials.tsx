@@ -40,7 +40,11 @@ const Testimonials = () => {
             {...options}
           >
             <div className="single-testimonials-item">
-              <img src="/images/user1.jpg" className="client-img" alt="image" />
+              <img
+                src="/Front/images/user1.jpg"
+                className="client-img"
+                alt="image"
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
@@ -52,18 +56,30 @@ const Testimonials = () => {
               <span>Python Developer</span>
 
               <div className="shape-img">
-                <img src="/images/shape4.png" className="shape-1" alt="image" />
                 <img
-                  src="/images/shape14.png"
+                  src="/Front/images/shape4.png"
+                  className="shape-1"
+                  alt="image"
+                />
+                <img
+                  src="/Front/images/shape14.png"
                   className="shape-2"
                   alt="image"
                 />
-                <img src="/images/shape7.png" className="shape-3" alt="image" />
+                <img
+                  src="/Front/images/shape7.png"
+                  className="shape-3"
+                  alt="image"
+                />
               </div>
             </div>
 
             <div className="single-testimonials-item">
-              <img src="/images/user2.jpg" className="client-img" alt="image" />
+              <img
+                src="/Front/images/user2.jpg"
+                className="client-img"
+                alt="image"
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
@@ -75,18 +91,30 @@ const Testimonials = () => {
               <span>PHP Developer</span>
 
               <div className="shape-img">
-                <img src="/images/shape4.png" className="shape-1" alt="image" />
                 <img
-                  src="/images/shape14.png"
+                  src="/Front/images/shape4.png"
+                  className="shape-1"
+                  alt="image"
+                />
+                <img
+                  src="/Front/images/shape14.png"
                   className="shape-2"
                   alt="image"
                 />
-                <img src="/images/shape7.png" className="shape-3" alt="image" />
+                <img
+                  src="/Front/images/shape7.png"
+                  className="shape-3"
+                  alt="image"
+                />
               </div>
             </div>
 
             <div className="single-testimonials-item">
-              <img src="/images/user3.jpg" className="client-img" alt="image" />
+              <img
+                src="/Front/images/user3.jpg"
+                className="client-img"
+                alt="image"
+              />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
@@ -98,13 +126,21 @@ const Testimonials = () => {
               <span>QA Developer</span>
 
               <div className="shape-img">
-                <img src="/images/shape4.png" className="shape-1" alt="image" />
                 <img
-                  src="/images/shape14.png"
+                  src="/Front/images/shape4.png"
+                  className="shape-1"
+                  alt="image"
+                />
+                <img
+                  src="/Front/images/shape14.png"
                   className="shape-2"
                   alt="image"
                 />
-                <img src="/images/shape7.png" className="shape-3" alt="image" />
+                <img
+                  src="/Front/images/shape7.png"
+                  className="shape-3"
+                  alt="image"
+                />
               </div>
             </div>
           </OwlCarousel>

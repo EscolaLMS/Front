@@ -7,7 +7,7 @@ const SloganArea = () => {
         <div className="row align-items-center">
           <div className="col-lg-5 col-md-12">
             <div className="slogan-image">
-              <img src="/images/man3.jpeg" alt="image" />
+              <img src="/Front/images/man3.jpeg" alt="image" />
             </div>
           </div>
 
@@ -31,16 +31,16 @@ const SloganArea = () => {
       <div className="divider2"></div>
       <div className="divider3"></div>
       <div className="shape2">
-        <img src="/images/shape2.png" alt="image" />
+        <img src="/Front/images/shape2.png" alt="image" />
       </div>
       <div className="shape3">
-        <img src="/images/shape3.png" alt="image" />
+        <img src="/Front/images/shape3.png" alt="image" />
       </div>
       <div className="shape4">
-        <img src="/images/shape4.png" alt="image" />
+        <img src="/Front/images/shape4.png" alt="image" />
       </div>
       <div className="shape9">
-        <img src="/images/shape8.svg" alt="image" />
+        <img src="/Front/images/shape8.svg" alt="image" />
       </div>
     </div>
   );
