@@ -2,7 +2,7 @@
   "theme_color": "#000",
   "background_color": "#fff",
   "display": "browser",
-  "start_url": ".",
+  "start_url": "/Front/",
   "name": "EscolaLMS",
   "short_name": "EscolaLMS",
   "icons": [
