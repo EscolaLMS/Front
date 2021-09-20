@@ -13,7 +13,7 @@ import CourseNavbar from "./CourseNavbar";
 import { EscolaLMSContext } from "../../escolalms/context";
 
 const Layout = ({ children, user }) => {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const [loader, setLoader] = React.useState(true);
 
   // const { user } = useContext(EscolaLMSContext);
@@ -56,7 +56,7 @@ const Layout = ({ children, user }) => {
   const isStudent = user && user.role === "student";
   const isAdmin = user && user.role === "admin";
   const isTeacher = user && user.role === "teacher";
-  const isCourse = pathname.includes("/course/[id]");
+  const isCourse = pathname.includes("/course/");
 
   return (
     <React.Fragment>

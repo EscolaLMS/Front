@@ -12,7 +12,7 @@ const routeRoutes = {
   tutors: "/tutors",
   tutor: "/tutors/:id",
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
-  // curriculum: "/course/:id/:section?/:lecture?",
+  cart: "/cart",
 };
 
 export default routeRoutes;

@@ -19,6 +19,7 @@ import MyOrderPage from "../../pages/user/my-orders";
 import MyPaymentsPage from "../../pages/user/my-payments";
 import MyCoursesPage from "../../pages/user/my-courses";
 import CourseProgramPage from "../../pages/course/index";
+import CartPage from "../../pages/cart";
 
 // import LoginPage from "../../pages/login";
 // import RegisterPage from "../../pages/register";
@@ -66,6 +67,7 @@ const Routes: React.FC = (): ReactElement => {
     course,
     preview,
     courseProgram,
+    cart,
   } = routes;
 
   // const { pathname } = useLocation();
@@ -90,6 +92,7 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={myPayments} component={MyPaymentsPage} />
         <Route exact path={myCourses} component={MyCoursesPage} />
         <Route exact path={courseProgram} component={CourseProgramPage} />
+        <Route exact path={cart} component={CartPage} />
         {/* 
         <PrivateRoute exact path={dashboard} component={Dashboard} />
       <PrivateRoute exact path={onboarding} component={OnboardingPage} />
