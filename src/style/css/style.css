@@ -1733,7 +1733,7 @@ Main Banner Area CSS
 .main-banner {
   position: relative;
   z-index: 1;
-  background-image: url(../images/gray-bg.jpg);
+  background-image: url(../../images/gray-bg.jpg);
   background-position: bottom right;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1856,7 +1856,7 @@ Main Banner Area CSS
 .banner-section {
   position: relative;
   z-index: 1;
-  background-image: url(../images/banner-bg.jpg);
+  background-image: url(../../images/banner-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2218,7 +2218,7 @@ Main Banner Area CSS
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(../images/main-banner1.jpg);
+  background-image: url(../../images/main-banner1.jpg);
 }
 
 .banner-wrapper::before {
@@ -2232,7 +2232,7 @@ Main Banner Area CSS
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(../images/banner-shape11.png);
+  background-image: url(../../images/banner-shape11.png);
 }
 
 .banner-wrapper-text {
@@ -2264,7 +2264,7 @@ Main Banner Area CSS
   background-color: #fe4a55;
   background-position: center center;
   background-size: cover;
-  background-image: url(../images/main-banner2.jpg);
+  background-image: url(../../images/main-banner2.jpg);
   background-repeat: no-repeat;
   margin-bottom: 50px;
   margin-top: 25px;
@@ -2494,7 +2494,7 @@ Yoga Main Banner Area CSS
 .yoga-main-banner {
   position: relative;
   z-index: 1;
-  background-image: url(../images/main-banner3.jpg);
+  background-image: url(../../images/main-banner3.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2999,7 +2999,7 @@ About Area CSS
   line-height: 40px;
   color: #fe4a55;
   font-size: 25px;
-  background-image: url(../images/circle-border.png);
+  background-image: url(../../images/circle-border.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -3690,7 +3690,7 @@ Kindergarten Main Banner Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url(../images/events-rectangle1.png);
+  background-image: url(../../images/events-rectangle1.png);
   background-position: top;
   background-repeat: no-repeat;
 }
@@ -3703,7 +3703,7 @@ Kindergarten Main Banner Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url(../images/events-rectangle2.png);
+  background-image: url(../../images/events-rectangle2.png);
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -4190,7 +4190,7 @@ Kindergarten Courses Area CSS
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-image: url(../images/box-shape7.png);
+  background-image: url(../../images/box-shape7.png);
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -4249,7 +4249,7 @@ Kindergarten Courses Area CSS
 }
 
 .owl-item:nth-child(1) .single-kindergarten-courses-box .courses-image::before {
-  background-image: url(../images/box-shape4.png);
+  background-image: url(../../images/box-shape4.png);
 }
 
 .owl-item:nth-child(2) .single-kindergarten-courses-box {
@@ -4257,7 +4257,7 @@ Kindergarten Courses Area CSS
 }
 
 .owl-item:nth-child(2) .single-kindergarten-courses-box .courses-image::before {
-  background-image: url(../images/box-shape5.png);
+  background-image: url(../../images/box-shape5.png);
 }
 
 .owl-item:nth-child(3) .single-kindergarten-courses-box {
@@ -4265,7 +4265,7 @@ Kindergarten Courses Area CSS
 }
 
 .owl-item:nth-child(3) .single-kindergarten-courses-box .courses-image::before {
-  background-image: url(../images/box-shape6.png);
+  background-image: url(../../images/box-shape6.png);
 }
 
 .courses-slides-two.owl-theme .owl-nav {
@@ -5180,7 +5180,7 @@ Courses Area CSS
 
 .courses-area.bg-image {
   background-color: #fff7f4;
-  background-image: url(../images/courses-bg.jpg);
+  background-image: url(../../images/courses-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -6704,7 +6704,7 @@ Courses Details Area CSS
   height: 115px;
   border-radius: 5px 5px 0 0;
   background-color: #fe4a55;
-  background-image: url(../images/bg.jpg);
+  background-image: url(../../images/bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -7661,7 +7661,7 @@ Funfacts Area CSS
 .funfacts-and-feedback-area {
   position: relative;
   z-index: 1;
-  background-image: url(../images/white-bg.jpg);
+  background-image: url(../../images/white-bg.jpg);
   background-position: bottom right;
   background-size: cover;
   background-repeat: no-repeat;
@@ -7776,7 +7776,7 @@ Funfacts Area CSS
   margin: 10px;
   opacity: 0.7;
   z-index: -1;
-  background-image: url(../images/funfacts-shape.png);
+  background-image: url(../../images/funfacts-shape.png);
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -8402,7 +8402,7 @@ Feedback Area CSS
 .feedback-with-bg-image {
   position: relative;
   z-index: 1;
-  background-image: url(../images/feedback-bg.jpg);
+  background-image: url(../../images/feedback-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -9662,7 +9662,7 @@ Events Area CSS
 }
 
 .events-area.bg-image {
-  background-image: url(../images/events-bg.jpg);
+  background-image: url(../../images/events-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -9752,7 +9752,7 @@ Events Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url(../images/events-rectangle1.png);
+  background-image: url(../../images/events-rectangle1.png);
   background-position: top;
   background-repeat: no-repeat;
 }
@@ -9765,7 +9765,7 @@ Events Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url(../images/events-rectangle2.png);
+  background-image: url(../../images/events-rectangle2.png);
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -9785,19 +9785,19 @@ Events Area CSS
 }
 
 .events-box .image.bg1 {
-  background-image: url(../images/events/kindergarten-img1.jpg);
+  background-image: url(../../images/events/kindergarten-img1.jpg);
 }
 
 .events-box .image.bg2 {
-  background-image: url(../images/events/kindergarten-img2.jpg);
+  background-image: url(../../images/events/kindergarten-img2.jpg);
 }
 
 .events-box .image.bg3 {
-  background-image: url(../images/events/kindergarten-img3.jpg);
+  background-image: url(../../images/events/kindergarten-img3.jpg);
 }
 
 .events-box .image.bg4 {
-  background-image: url(../images/events/kindergarten-img4.jpg);
+  background-image: url(../../images/events/kindergarten-img4.jpg);
 }
 
 .events-box .image img {
@@ -10205,7 +10205,7 @@ Program Area CSS
 .program-area {
   position: relative;
   z-index: 1;
-  background-image: url(../images/program-bg.jpg);
+  background-image: url(../../images/program-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -10327,7 +10327,7 @@ Health Services Area CSS
 .health-services-area {
   position: relative;
   z-index: 1;
-  background-image: url(../images/health-services-bg.jpg);
+  background-image: url(../../images/health-services-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -10872,7 +10872,7 @@ Blog Area CSS
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-image: url(../images/shape-style1.png);
+  background-image: url(../../images/shape-style1.png);
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -11245,7 +11245,7 @@ Blog Details Area CSS
   height: 115px;
   border-radius: 5px 5px 0 0;
   background-color: #fe4a55;
-  background-image: url(../images/bg.jpg);
+  background-image: url(../../images/bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -12026,7 +12026,7 @@ Become Instructor & Partner CSS
   position: relative;
   z-index: 1;
   padding: 100px;
-  background-image: url(../images/pattern.png);
+  background-image: url(../../images/pattern.png);
   background-position: center center;
   background-size: contain;
   background-repeat: repeat;
@@ -12078,7 +12078,7 @@ Become Instructor & Partner CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  /* background-image: url(../images/bg-lines.svg); */
+  /* background-image: url(../../images/bg-lines.svg); */
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -12093,11 +12093,11 @@ Become Instructor & Partner CSS
 }
 
 .become-instructor-partner-image.bg-image1 {
-  /* background-image: url(../images/become-instructor.jpg); */
+  /* background-image: url(../../images/become-instructor.jpg); */
 }
 
 .become-instructor-partner-image.bg-image2 {
-  /* background-image: url(../images/become-partner.jpg); */
+  /* background-image: url(../../images/become-partner.jpg); */
 }
 
 .become-instructor-partner-image img {
@@ -12766,7 +12766,7 @@ Overview Area CSS
 Teacher Register Area CSS
 =================================================*/
 .teacher-register-area {
-  background-image: url(../images/teacher-register-bg.jpg);
+  background-image: url(../../images/teacher-register-bg.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -12779,7 +12779,7 @@ Teacher Register Area CSS
   padding: 45px;
   border-radius: 5px;
   background-color: #fe4a55;
-  background-image: url(../images/register-shape.jpg);
+  background-image: url(../../images/register-shape.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -13156,7 +13156,7 @@ Download Syllabus Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url(../images/download-shape.png);
+  background-image: url(../../images/download-shape.png);
   background-position: bottom;
   background-repeat: no-repeat;
 }
@@ -13806,7 +13806,7 @@ Subscribe Area CSS
 .subscribe-area-two {
   padding-top: 30px;
   background-color: #eee8df;
-  background-image: url(../images/subscribe-bg.jpg);
+  background-image: url(../../images/subscribe-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -15859,15 +15859,15 @@ Widget Sidebar CSS
 }
 
 .widget-area .widget_escolalms_posts_thumb .item .thumb .fullimage.bg1 {
-  background-image: url(../images/blog/blog15.jpg);
+  background-image: url(../../images/blog/blog15.jpg);
 }
 
 .widget-area .widget_escolalms_posts_thumb .item .thumb .fullimage.bg2 {
-  background-image: url(../images/blog/blog14.jpg);
+  background-image: url(../../images/blog/blog14.jpg);
 }
 
 .widget-area .widget_escolalms_posts_thumb .item .thumb .fullimage.bg3 {
-  background-image: url(../images/blog/blog13.jpg);
+  background-image: url(../../images/blog/blog13.jpg);
 }
 
 .widget-area .widget_escolalms_posts_thumb .item .thumb::before,
@@ -16105,15 +16105,15 @@ Widget Sidebar CSS
 }
 
 .widget-area .widget_recent_courses .item .thumb .fullimage.bg1 {
-  background-image: url(../images/courses/courses1.jpg);
+  background-image: url(../../images/courses/courses1.jpg);
 }
 
 .widget-area .widget_recent_courses .item .thumb .fullimage.bg2 {
-  background-image: url(../images/courses/courses2.jpg);
+  background-image: url(../../images/courses/courses2.jpg);
 }
 
 .widget-area .widget_recent_courses .item .thumb .fullimage.bg3 {
-  background-image: url(../images/courses/courses3.jpg);
+  background-image: url(../../images/courses/courses3.jpg);
 }
 
 .widget-area .widget_recent_courses .item .thumb::before,
@@ -16229,15 +16229,15 @@ Widget Sidebar CSS
 }
 
 .widget-area .widget_popular_products .item .thumb .fullimage.bg1 {
-  background-image: url(../images/products/product7.jpg);
+  background-image: url(../../images/products/product7.jpg);
 }
 
 .widget-area .widget_popular_products .item .thumb .fullimage.bg2 {
-  background-image: url(../images/products/product8.jpg);
+  background-image: url(../../images/products/product8.jpg);
 }
 
 .widget-area .widget_popular_products .item .thumb .fullimage.bg3 {
-  background-image: url(../images/products/product9.jpg);
+  background-image: url(../../images/products/product9.jpg);
 }
 
 .widget-area .widget_popular_products .item .thumb::before,
@@ -16777,7 +16777,7 @@ Coming Soon Area CSS
   position: relative;
   z-index: 1;
   background: #f6f7fb;
-  background-image: url(../images/coming-soon-bg.jpg);
+  background-image: url(../../images/coming-soon-bg.jpg);
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -17276,7 +17276,7 @@ Contact Area CSS
   margin-left: 15px;
   border-radius: 5px;
   background-color: #fe4a55;
-  background-image: url(../images/register-shape.jpg);
+  background-image: url(../../images/register-shape.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

@@ -14,6 +14,7 @@ const routeRoutes = {
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
   cart: "/cart",
   pages: "/pages",
+  contact: "/contact",
 };
 
 export default routeRoutes;
