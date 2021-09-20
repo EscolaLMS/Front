@@ -20,6 +20,7 @@ import MyPaymentsPage from "../../pages/user/my-payments";
 import MyCoursesPage from "../../pages/user/my-courses";
 import CourseProgramPage from "../../pages/course/index";
 import CartPage from "../../pages/cart";
+import PagesPage from "../../pages/pages";
 
 // import LoginPage from "../../pages/login";
 // import RegisterPage from "../../pages/register";
@@ -68,6 +69,7 @@ const Routes: React.FC = (): ReactElement => {
     preview,
     courseProgram,
     cart,
+    pages,
   } = routes;
 
   // const { pathname } = useLocation();
@@ -84,6 +86,7 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={courses} component={CoursesPage} />
         <Route exact path={course} component={CoursePage} />
         <Route exact path={preview} component={CoursePreviewPage} />
+        <Route exact path={pages} component={PagesPage} />
 
         {/* privates pages*/}
         {/* TODO: create private */}
