@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-// import { handleLogout } from "@/utils/auth";
+import Logo from "../../images/logo.svg";
 
 import { EscolaLMSContext } from "../../escolalms/context";
 import { useTranslation } from "react-i18next";
@@ -138,7 +138,7 @@ const Navbar = () => {
           <div className="container-fluid">
             <div className="navbar navbar-expand-lg navbar-light">
               <Link to="/" onClick={toggleNavbar} className="navbar-brand">
-                <img src="/images/logo.svg" alt="logo" />
+                <img src={Logo} alt="logo" />
               </Link>
 
               <button
