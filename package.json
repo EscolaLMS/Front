@@ -133,7 +133,7 @@
     "codeclimate": "codeclimate analyze ",
     "gh-pages": "gh-pages -d build"
   },
-  "homepage": "https://escolalms.github.io",
+  "homepage": "https://escolalms.github.io/Front/",
   "eslintConfig": {
     "extends": [
       "react-app",
