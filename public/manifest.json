@@ -2,8 +2,7 @@
   "theme_color": "#000",
   "background_color": "#fff",
   "display": "browser",
-  "scope": "/",
-  "start_url": "/",
+  "start_url": ".",
   "name": "EscolaLMS",
   "short_name": "EscolaLMS",
   "icons": [
