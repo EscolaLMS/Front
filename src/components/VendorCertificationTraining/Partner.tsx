@@ -45,31 +45,31 @@ const Partner = () => {
             {...options}
           >
             <div className="single-partner-item">
-              <img src="/images/partner/partner1.png" alt="image" />
+              <img src="/Front/images/partner/partner1.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner2.png" alt="image" />
+              <img src="/Front/images/partner/partner2.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner3.png" alt="image" />
+              <img src="/Front/images/partner/partner3.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner4.png" alt="image" />
+              <img src="/Front/images/partner/partner4.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner5.png" alt="image" />
+              <img src="/Front/images/partner/partner5.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner6.png" alt="image" />
+              <img src="/Front/images/partner/partner6.png" alt="image" />
             </div>
 
             <div className="single-partner-item">
-              <img src="/images/partner/partner4.png" alt="image" />
+              <img src="/Front/images/partner/partner4.png" alt="image" />
             </div>
           </OwlCarousel>
         ) : (

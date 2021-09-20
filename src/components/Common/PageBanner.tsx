@@ -23,7 +23,7 @@ const PageBanner: React.FC<{
       </div>
 
       <div className="shape9">
-        <img src="/images/shape8.svg" alt="image" />
+        <img src="/Front/images/shape8.svg" alt="image" />
       </div>
     </div>
   );
