@@ -13,6 +13,7 @@ const routeRoutes = {
   tutor: "/tutors/:id",
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
   cart: "/cart",
+  pages: "/pages",
 };
 
 export default routeRoutes;

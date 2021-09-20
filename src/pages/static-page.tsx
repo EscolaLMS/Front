@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { EscolaLMSContext } from "../escolalms/context";
 import Loader from "../components/Preloader";
-// import Sidebar from "../components/TermsOfService/Sidebar";
+import Sidebar from "../components/TermsOfService/Sidebar";
 import PageBanner from "../components/Common/PageBanner";
 import ReactMarkdown from "react-markdown";
 import Layout from "../components/_App/Layout";
@@ -44,7 +44,9 @@ const StaticPage = ({ pageProps }) => {
                 </div>
               </div>
 
-              <div className="col-lg-4 col-md-12">{/* <Sidebar /> */}</div>
+              <div className="col-lg-4 col-md-12">
+                <Sidebar />
+              </div>
             </div>
           </div>
         </div>

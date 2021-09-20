@@ -124,8 +124,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "gh-pages": "gh-pages -d build"
   },
+  "homepage": "https://escolalms.github.io/Front/",
   "eslintConfig": {
     "extends": [
       "react-app",
