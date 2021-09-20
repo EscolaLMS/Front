@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-
+import { EscolaLMSContext } from "../../escolalms/context";
 import routes from "./routes";
 
 const PrivateRoute: React.FC<RouteProps> = ({
@@ -8,23 +8,24 @@ const PrivateRoute: React.FC<RouteProps> = ({
   ...rest
 }: // eslint-disable-next-line
 any) => {
-  return null;
-  // return (
-  //   <Route
-  //     {...rest}
-  //     render={(props) =>
-  //       auth.token ? (
-  //         <Component {...props} />
-  //       ) : (
-  //         <Redirect
-  //           to={{
-  //             pathname: login,
-  //           }}
-  //         />
-  //       )
-  //     }
-  //   />
-  // );
+  const { authentication } = routes;
+  const { user } = useContext(EscolaLMSContext);
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        user ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: authentication,
+            }}
+          />
+        )
+      }
+    />
+  );
 };
 
 export default PrivateRoute;
