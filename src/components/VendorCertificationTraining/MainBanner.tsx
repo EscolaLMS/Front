@@ -13,11 +13,9 @@ const MainBanner: React.FC = () => {
               <h1>{t("Homepage.heading")}</h1>
               <p>{t("Homepage.headingText")} </p>
 
-              <Link href="/authentication">
-                <a className="default-btn">
-                  <i className="flaticon-user"></i> {t("Homepage.joinFree")}{" "}
-                  <span></span>
-                </a>
+              <Link to="/authentication" className="default-btn">
+                <i className="flaticon-user"></i> {t("Homepage.joinFree")}{" "}
+                <span></span>
               </Link>
             </div>
           </div>
