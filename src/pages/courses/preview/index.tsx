@@ -87,8 +87,7 @@ const CourseProgram = ({ pageProps }) => {
   if (program.value && program.value.lessons && program.value.lessons.length) {
     return (
       <Layout {...pageProps}>
-        Dupa
-        {/* <CourseProgramLessonsPreview program={program.value} />; */}
+        <CourseProgramLessonsPreview program={program.value} />;
       </Layout>
     );
   }

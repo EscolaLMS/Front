@@ -30,7 +30,7 @@ export const CourseProgramContent: React.FC<{
   } = useContext(EscolaLMSContext);
 
   useEffect(() => {
-    setIsDisabledNextTopicButton(false);
+    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
   }, [topicId, lessonId, program]);
 
   const topic = useMemo(() => {
