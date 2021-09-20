@@ -131,6 +131,7 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --fix",
     "codeclimate": "codeclimate analyze ",
+    "predeploy": "npm run build",
     "gh-pages": "gh-pages -d build"
   },
   "homepage": "https://escolalms.github.io/Front/",
