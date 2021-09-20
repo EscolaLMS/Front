@@ -25,9 +25,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: rm -rf node_modules
-      - run: rm package-lock.json
-      - run: rm yarn.lock
       - run: npm i
       # - run: npm run build --if-present
       # - run: npm run test-codecov
