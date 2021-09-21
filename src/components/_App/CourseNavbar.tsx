@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
-
+import Logo from "../../images/logo.svg";
 import { EscolaLMSContext } from "../../escolalms/context";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -80,7 +80,7 @@ const Navbar = () => {
             <div className="navbar navbar-expand-lg navbar-light">
               <Link href="/">
                 <a onClick={toggleNavbar} className="navbar-brand">
-                  <img src="/images/logo.svg" alt="logo" />
+                  <img src={Logo} alt="logo" />
                 </a>
               </Link>
 

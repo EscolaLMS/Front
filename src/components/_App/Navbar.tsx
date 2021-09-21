@@ -6,6 +6,7 @@ import { EscolaLMSContext } from "../../escolalms/context";
 import { useTranslation } from "react-i18next";
 
 export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
+  const { t } = useTranslation();
   return (
     <div className="option-item">
       {user ? (
@@ -23,7 +24,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
                 to="/user/my-profile"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                My Profile
+                {t("Navbar.MyProfile")}
               </Link>
             </li>
 
@@ -33,7 +34,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
                 to="/user/my-courses"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                My Courses
+                {t("Navbar.MyCourses")}
               </Link>
             </li>
 
@@ -43,7 +44,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                My Orders
+                {t("Navbar.MyOrders")}
               </Link>
             </li>
 
@@ -53,7 +54,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                My Payments
+                {t("Navbar.MyPayments")}
               </Link>
             </li>
 
@@ -66,7 +67,7 @@ export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
                   logout && logout();
                 }}
               >
-                Logout
+                {t("Navbar.Logout")}
               </Link>
             </li>
           </ul>
