@@ -30,7 +30,7 @@ const PageBanner = ({
       </div>
 
       <div className="shape9">
-        <img src="/images/shape8.svg" alt="image" />
+        <img src={`${process.env.PUBLIC_URL}/images/shape8.svg`} alt="image" />
       </div>
     </div>
   );

@@ -37,6 +37,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
           }}
         >
           <iframe
+            title={"scorm-player"}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"

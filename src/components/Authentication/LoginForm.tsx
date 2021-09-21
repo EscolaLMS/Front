@@ -37,7 +37,7 @@ const LoginForm = () => {
       .catch((error) => {
         setState({ state: "error", error: error.data.message });
       });
-  }, [isForgoten, user]);
+  }, [user, login]);
 
   const forgotHandler = React.useCallback(() => {
     forgot({
@@ -53,7 +53,7 @@ const LoginForm = () => {
       .catch((error) => {
         setState({ state: "error", error: error.data.message });
       });
-  }, [isForgoten, user]);
+  }, [user, forgot]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,12 +117,12 @@ const LoginForm = () => {
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">
-            <a
+            <span
               className="lost-your-password"
-              onClick={(e) => [setIsForgoten(!isForgoten), e.preventDefault()]}
+              onClick={(e) => [setIsForgoten(!isForgoten)]}
             >
               {isForgoten ? "Back" : "Lost your password?"}
-            </a>
+            </span>
           </div>
         </div>
 

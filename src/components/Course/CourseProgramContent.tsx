@@ -29,9 +29,9 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
   } = useContext(EscolaLMSContext);
 
-  useEffect(() => {
-    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
-  }, [topicId, lessonId, program]);
+  // useEffect(() => {
+  //   setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
+  // }, [topicId, lessonId, program]);
 
   const topic = useMemo(() => {
     return program.value?.lessons
@@ -47,7 +47,7 @@ export const CourseProgramContent: React.FC<{
 
   const onXAPI = useCallback(
     (event): void => {
-      setIsDisabledNextTopicButton(true);
+      !topic.can_skip && setIsDisabledNextTopicButton(true);
 
       if (event?.statement) {
         if (

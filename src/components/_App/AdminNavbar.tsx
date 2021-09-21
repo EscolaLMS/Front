@@ -38,10 +38,8 @@ const AdminNavbar = ({ user }) => {
         <div className="escolalms-nav admin-nav">
           <div className="container-fluid">
             <div className="navbar navbar-expand-lg navbar-light">
-              <Link href="/">
-                <a onClick={toggleNavbar} className="navbar-brand">
-                  <img src={Logo} alt="logo" />
-                </a>
+              <Link to="/" onClick={toggleNavbar} className="navbar-brand">
+                <img src={Logo} alt="logo" />
               </Link>
 
               <button
@@ -62,26 +60,27 @@ const AdminNavbar = ({ user }) => {
 
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link href="/">
-                      <a
-                        onClick={(e) => e.preventDefault()}
-                        className="nav-link"
-                      >
-                        Home <i className="bx bx-chevron-down"></i>
-                      </a>
+                    <Link
+                      to="/"
+                      onClick={(e) => e.preventDefault()}
+                      className="nav-link"
+                    >
+                      Home <i className="bx bx-chevron-down"></i>
                     </Link>
 
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link href="/">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            eLearning School
-                          </a>
+                        <Link
+                          to="/"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          eLearning School
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-2">
+                        <Link to="/index-2">
                           <a onClick={toggleNavbar} className="nav-link">
                             Vendor Certification Training
                           </a>
@@ -89,82 +88,98 @@ const AdminNavbar = ({ user }) => {
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-3">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Online Training School
-                          </a>
+                        <Link
+                          to="/index-3"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Online Training School
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-4">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Distance Learning
-                          </a>
+                        <Link
+                          to="/index-4"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Distance Learning
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-5">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Language School
-                          </a>
+                        <Link
+                          to="/index-5"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Language School
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-6">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Modern Schooling
-                          </a>
+                        <Link
+                          to="/index-6"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Modern Schooling
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-7">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Yoga Training
-                          </a>
+                        <Link
+                          to="/index-7"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Yoga Training
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-8">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Health Coaching
-                          </a>
+                        <Link
+                          to="/index-8"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Health Coaching
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/index-9">
-                          <a onClick={toggleNavbar} className="nav-link">
-                            Kindergaten
-                          </a>
+                        <Link
+                          to="/index-9"
+                          onClick={toggleNavbar}
+                          className="nav-link"
+                        >
+                          Kindergaten
                         </Link>
                       </li>
                     </ul>
                   </li>
 
                   <li className="nav-item">
-                    <Link href="/courses">
-                      <a onClick={toggleNavbar} className="nav-link">
-                        Courses
-                      </a>
+                    <Link
+                      to="/courses"
+                      onClick={toggleNavbar}
+                      className="nav-link"
+                    >
+                      Courses
                     </Link>
                   </li>
 
                   {((user && isTeacher) || (user && isAdmin)) && (
                     <li className="nav-item">
-                      <Link href="/teacher/dashboard">
-                        <a className="nav-link">Teacher Dashboard</a>
+                      <Link to="/teacher/dashboard" className="nav-link">
+                        Teacher Dashboard
                       </Link>
                     </li>
                   )}
                   {user && isAdmin && (
                     <li className="nav-item">
-                      <Link href="/admin/dashboard">
-                        <a className="nav-link">Dashboard</a>
+                      <Link to="/admin/dashboard" className="nav-link">
+                        Dashboard
                       </Link>
                     </li>
                   )}
@@ -173,11 +188,9 @@ const AdminNavbar = ({ user }) => {
                 <div className="others-option d-flex align-items-center">
                   <div className="option-item">
                     <div className="cart-btn">
-                      <Link href="/cart">
-                        <a>
-                          <i className="flaticon-shopping-cart"></i>{" "}
-                          <span>3</span>
-                        </a>
+                      <Link to="/cart">
+                        <i className="flaticon-shopping-cart"></i>{" "}
+                        <span>3</span>
                       </Link>
                     </div>
                   </div>
@@ -185,70 +198,74 @@ const AdminNavbar = ({ user }) => {
                   <div className="option-item">
                     {user ? (
                       <div className="user-dropdown">
-                        <Link href="/">
-                          <a
-                            onClick={(e) => e.preventDefault()}
-                            className="default-btn"
-                          >
-                            <i className="flaticon-user"></i> {user.name}{" "}
-                            <span></span>
-                          </a>
+                        <Link
+                          to="/"
+                          onClick={(e) => e.preventDefault()}
+                          className="default-btn"
+                        >
+                          <i className="flaticon-user"></i> {user.name}{" "}
+                          <span></span>
                         </Link>
 
                         <ul className="dropdown-menu">
                           <li className="nav-item">
-                            <Link href="/my-courses">
-                              <a onClick={toggleNavbar} className="nav-link">
-                                My Courses
-                              </a>
+                            <Link
+                              to="/my-courses"
+                              onClick={toggleNavbar}
+                              className="nav-link"
+                            >
+                              My Courses
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/user/my-profile">
-                              <a onClick={toggleNavbar} className="nav-link">
-                                My Profile
-                              </a>
+                            <Link
+                              to="/user/my-profile"
+                              onClick={toggleNavbar}
+                              className="nav-link"
+                            >
+                              My Profile
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/user/edit-profile">
-                              <a onClick={toggleNavbar} className="nav-link">
-                                Edit Profile
-                              </a>
+                            <Link
+                              to="/user/edit-profile"
+                              onClick={toggleNavbar}
+                              className="nav-link"
+                            >
+                              Edit Profile
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/user/edit-password">
-                              <a onClick={toggleNavbar} className="nav-link">
-                                Edit Password
-                              </a>
+                            <Link
+                              to="/user/edit-password"
+                              onClick={toggleNavbar}
+                              className="nav-link"
+                            >
+                              Edit Password
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/">
-                              <a
-                                className="nav-link"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  // handleLogout();
-                                }}
-                              >
-                                Logout
-                              </a>
+                            <Link
+                              to="/"
+                              className="nav-link"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                // handleLogout();
+                              }}
+                            >
+                              Logout
                             </Link>
                           </li>
                         </ul>
                       </div>
                     ) : (
-                      <Link href="/authentication">
-                        <a className="default-btn">
-                          <i className="flaticon-user"></i> Login/Register{" "}
-                          <span></span>
-                        </a>
+                      <Link to="/authentication" className="default-btn">
+                        <i className="flaticon-user"></i> Login/Register{" "}
+                        <span></span>
                       </Link>
                     )}
                   </div>

@@ -13,7 +13,6 @@ import Layout from "../../../components/_App/Layout";
 const Profile = ({ pageProps }) => {
   const { id } = useParams();
 
-  // const id = pathname.split("tutors/")[1];
   const { tutor, fetchTutor, courses, fetchCourses } =
     useContext(EscolaLMSContext);
 
@@ -21,8 +20,6 @@ const Profile = ({ pageProps }) => {
     fetchTutor(Number(id));
     fetchCourses({ author_id: id });
   }, [id]);
-
-  console.log(tutor);
 
   return (
     <Layout {...pageProps}>

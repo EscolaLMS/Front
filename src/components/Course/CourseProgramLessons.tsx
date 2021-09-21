@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { useHistory, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "../../escolalms/context";
@@ -9,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import Preloader from "../../components/Preloader";
 import CourseProgramContent from "./CourseProgramContent";
 import CourseProgramList from "./CourseProgramList";
-import { TopicType } from "../../escolalms/services/courses";
+// import { TopicType } from "../../escolalms/services/courses";
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -20,6 +26,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 }) => {
   const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] =
     useState(false);
+
   const { push } = useHistory();
   const { lessonID, topicID } = useParams();
 
@@ -56,6 +63,12 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     );
   }, [lessonId, topicId, program, push]);
 
+  useEffect(() => {
+    topic.can_skip
+      ? setIsDisabledNextTopicButton(false)
+      : setIsDisabledNextTopicButton(true);
+  }, [topic, topicId, topicIsFinished(Number(topicId))]);
+
   if (!program) {
     return <Preloader />;
   }
@@ -76,16 +89,12 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               <div className="course-program-player-next">
                 <button
                   disabled={
-                    topic.topicable_type === TopicType.H5P
-                      ? isDisabledNextTopicButton
-                      : !topicIsFinished(Number(topicId))
+                    isDisabledNextTopicButton
+                    // : !topicIsFinished(Number(topicId))
                   }
                   className={`default-btn ${
-                    topic.topicable_type === TopicType.H5P
-                      ? isDisabledNextTopicButton
-                        ? "disabled"
-                        : ""
-                      : !topicIsFinished(Number(topicId)) && "disabled"
+                    isDisabledNextTopicButton ? "disabled" : ""
+                    // : !topicIsFinished(Number(topicId)) && "disabled"
                   }`}
                   onClick={onNextTopic}
                 >
