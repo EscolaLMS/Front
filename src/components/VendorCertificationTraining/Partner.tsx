@@ -45,31 +45,52 @@ const Partner = () => {
             {...options}
           >
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner1.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner1.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner2.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner2.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner3.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner3.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner4.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner4.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner5.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner5.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner6.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner6.png`}
+                alt="image"
+              />
             </div>
 
             <div className="single-partner-item">
-              <img src="/Front/images/partner/partner4.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/partner/partner4.png`}
+                alt="image"
+              />
             </div>
           </OwlCarousel>
         ) : (

@@ -63,6 +63,13 @@ const resources = {
       CourseProgram: {
         TopicAttachment: "Topic attachments",
       },
+      Navbar: {
+        MyProfile: "My Profile",
+        MyCourses: "My Courses",
+        MyOrders: "My Orders",
+        MyPayments: "My Payments",
+        Logout: "Logout",
+      },
     },
   },
   pl: {
@@ -160,6 +167,13 @@ const resources = {
       },
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
+      },
+      Navbar: {
+        MyProfile: "Mój Profil",
+        MyCourses: "Moje Kursy",
+        MyOrders: "Moje zamówienia",
+        MyPayments: "Płatności",
+        Logout: "Wyloguj",
       },
     },
   },

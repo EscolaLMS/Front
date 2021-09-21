@@ -27,13 +27,22 @@ const ViewAllCourses = () => {
 
           <div className="col-lg-6 col-md-12">
             <div className="view-all-courses-image">
-              <img src="/Front/images/woman-with-book2.png" alt="image" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/woman-with-book2.png`}
+                alt="image"
+              />
 
               <div className="shape11" data-speed="0.06" data-revert="true">
-                <img src="/Front/images/shape10.png" alt="image" />
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/shape10.png`}
+                  alt="image"
+                />
               </div>
               <div className="shape12" data-speed="0.06" data-revert="true">
-                <img src="/Front/images/shape11.png" alt="image" />
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/shape11.png`}
+                  alt="image"
+                />
               </div>
             </div>
           </div>
@@ -41,10 +50,10 @@ const ViewAllCourses = () => {
       </div>
 
       <div className="shape1" data-speed="0.06" data-revert="true">
-        <img src="/Front/images/shape1.png" alt="image" />
+        <img src={`${process.env.PUBLIC_URL}/images/shape1.png`} alt="image" />
       </div>
       <div className="shape9" data-speed="0.06" data-revert="true">
-        <img src="/Front/images/shape8.svg" alt="image" />
+        <img src={`${process.env.PUBLIC_URL}/images/shape8.svg`} alt="image" />
       </div>
     </div>
   );

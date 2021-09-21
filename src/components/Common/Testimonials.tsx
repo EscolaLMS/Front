@@ -41,7 +41,7 @@ const Testimonials = () => {
           >
             <div className="single-testimonials-item">
               <img
-                src="/Front/images/user1.jpg"
+                src={`${process.env.PUBLIC_URL}/images/user1.jpg`}
                 className="client-img"
                 alt="image"
               />
@@ -57,17 +57,17 @@ const Testimonials = () => {
 
               <div className="shape-img">
                 <img
-                  src="/Front/images/shape4.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape4.png`}
                   className="shape-1"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape14.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape14.png`}
                   className="shape-2"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape7.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape7.png`}
                   className="shape-3"
                   alt="image"
                 />
@@ -76,7 +76,7 @@ const Testimonials = () => {
 
             <div className="single-testimonials-item">
               <img
-                src="/Front/images/user2.jpg"
+                src={`${process.env.PUBLIC_URL}/images/user2.jpg`}
                 className="client-img"
                 alt="image"
               />
@@ -92,17 +92,17 @@ const Testimonials = () => {
 
               <div className="shape-img">
                 <img
-                  src="/Front/images/shape4.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape4.png`}
                   className="shape-1"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape14.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape14.png`}
                   className="shape-2"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape7.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape7.png`}
                   className="shape-3"
                   alt="image"
                 />
@@ -111,7 +111,7 @@ const Testimonials = () => {
 
             <div className="single-testimonials-item">
               <img
-                src="/Front/images/user3.jpg"
+                src={`${process.env.PUBLIC_URL}/images/user3.jpg`}
                 className="client-img"
                 alt="image"
               />
@@ -127,17 +127,17 @@ const Testimonials = () => {
 
               <div className="shape-img">
                 <img
-                  src="/Front/images/shape4.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape4.png`}
                   className="shape-1"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape14.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape14.png`}
                   className="shape-2"
                   alt="image"
                 />
                 <img
-                  src="/Front/images/shape7.png"
+                  src={`${process.env.PUBLIC_URL}/images/shape7.png`}
                   className="shape-3"
                   alt="image"
                 />

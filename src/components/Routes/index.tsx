@@ -46,7 +46,7 @@ const Routes: React.FC = (): ReactElement => {
   } = routes;
 
   return (
-    <BrowserRouter basename="/Front/">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />

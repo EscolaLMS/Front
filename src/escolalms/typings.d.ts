@@ -325,6 +325,7 @@ declare namespace API {
     preview?: boolean;
     summary?: string;
     resources?: TopicResource[];
+    can_skip?: boolean;
     /*
       topicable_type?:
         | TopicType.RichText
