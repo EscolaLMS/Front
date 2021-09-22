@@ -99,7 +99,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               >
                 <div className="course-program-summary">
                   <div className="container-md">
-                    <h3>Lesson summary</h3>
+                    <h3>{t("LessonSummary")}</h3>
                     <ReactMarkdown>{lesson.summary}</ReactMarkdown>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             {topic && topic.summary && (
               <div className={`col-lg-6 col-md-6 col-sm-12`}>
                 <div className="course-program-summary">
-                  <h3>Topic summary</h3>
+                  <h3>{t("TopicSummary")}</h3>
                   <div className="container-md">
                     <ReactMarkdown>{topic.summary}</ReactMarkdown>
                   </div>
