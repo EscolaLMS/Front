@@ -5,8 +5,8 @@ import React, {
   useState,
   useEffect,
 } from "react";
-
-import { EscolaLMSContext } from "../../escolalms/context";
+import { API } from "@escolalms/connector/lib";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { useTranslation } from "react-i18next";
 
 const CategoryTreeOptions: React.FC<{

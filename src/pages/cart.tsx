@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
-// import Navbar from '../components/_App/Navbar';
+
 import PageBanner from "../components/Common/PageBanner";
-// import Footer from '../components/_App/Footer';
 import { Link, useHistory } from "react-router-dom";
-import { EscolaLMSContext } from "../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 
 import Preloader from "../components/Preloader";
 import { loadStripe } from "@stripe/stripe-js";

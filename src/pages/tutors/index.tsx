@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from "react";
 import PageBanner from "../../components/Common/PageBanner";
 
 import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "../../escolalms/context";
-import Image from "../..//escolalms/components/Image";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import Image from "@escolalms/connector/lib/components/Image";
 import Layout from "../../components/_App/Layout";
 
 const Advisor = ({ pageProps }) => {

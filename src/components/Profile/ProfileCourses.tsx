@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "../../escolalms/context";
-import Image from "../../escolalms/components/Image";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import Image from "@escolalms/connector/lib/components/Image";
+import { API } from "@escolalms/connector/lib";
 import { useTranslation } from "react-i18next";
 
 const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({

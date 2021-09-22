@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
-
+import { API } from "@escolalms/connector/lib";
 import Preloader from "../../components/Preloader";
 import CourseProgramContent from "./CourseProgramContent";
 import CourseProgramList from "./CourseProgramList";
