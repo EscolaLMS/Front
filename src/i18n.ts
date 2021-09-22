@@ -33,6 +33,8 @@ const resources = {
       OEmbed: "Inserted Element",
       "Buy now": "Buy now",
       RecentCourses: "Recent courses",
+      LessonSummary: "Lesson summary",
+      TopicSummary: "Topic summary",
       Pages: "Pages",
       Homepage: {
         heading: "Digital Wellbeing",
@@ -160,6 +162,8 @@ const resources = {
       OEmbed: "Element wstawiony",
       Pages: "Strony",
       RecentCourses: "Ostatnie kursy",
+      LessonSummary: "Podsumowanie lekcji",
+      TopicSummary: "Podsumowanie tematu",
       Homepage: {
         heading: "Cyfrowy Dobrostan",
         headingText: `Nowoczesne technologie informacyjno-komunikacyjne na zawsze

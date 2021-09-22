@@ -2,46 +2,48 @@ import React, { useContext, useEffect, useState } from "react";
 
 import PageBanner from "../../components/Common/PageBanner";
 import CoursesSidebar from "../../components/Courses/CoursesSidebar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "../../escolalms/context";
 import Preloader from "../../components/Preloader";
 import CourseCard from "../../components/CourseCard";
 import Pagination from "../../components/Pagination";
 import Layout from "../../components/_App/Layout";
+import qs from "query-string";
 
 const CoursesRightSidebar = ({ pageProps }) => {
   const { fetchCourses, courses } = useContext(EscolaLMSContext);
   const location = useLocation();
+  const { push } = useHistory();
 
-  const [params, setParams] = useState<API.CourseParams>(
-    location.search !== ""
-      ? location.search
-      : {
-          page: 1,
-          per_page: 6,
-        }
-  );
+  const [params, setParams] = useState<API.CourseParams>();
 
   useEffect(() => {
-    const urlParams = Object.entries(params)
-      .filter((param) => param[1])
-      .map((param) => `${param[0]}=${param[1]}`)
-      .join("&");
-
-    window.location.hash = urlParams;
-    //router.push(`/courses?${urlParams}`, undefined, { shallow: false });
-    fetchCourses(params);
+    const urlParams = parseParams(params);
+    push(`/courses?${urlParams}`);
   }, [params]);
+
+  useEffect(() => {
+    if (
+      location.search &&
+      location.search.split("?")[1] !== parseParams(params)
+    ) {
+      setParams(qs.parse(location.search));
+      fetchCourses(qs.parse(location.search));
+    } else {
+      fetchCourses(params);
+    }
+  }, [location.search]);
 
   const { t } = useTranslation();
 
-  console.log(courses);
+  const parseParams = (params: API.CourseParams) => {
+    return qs.stringify(params);
+  };
 
   return (
     <Layout {...pageProps}>
       <React.Fragment>
-        {/* <Navbar /> */}
         <PageBanner
           pageTitle={t("Courses")}
           homePageUrl="/"
@@ -109,6 +111,7 @@ const CoursesRightSidebar = ({ pageProps }) => {
                           setParams((prevParams) => ({
                             ...prevParams,
                             page: i,
+                            per_page: 6,
                           }))
                         }
                       />
@@ -121,10 +124,12 @@ const CoursesRightSidebar = ({ pageProps }) => {
 
               <div className="col-lg-4 col-md-12">
                 <CoursesSidebar
+                  params={params}
                   onTag={(tag) => {
                     setParams((prevParams) => ({
                       ...prevParams,
                       page: 1,
+                      per_page: 6,
                       tag: tag ? tag.title : undefined,
                     }));
                   }}
@@ -132,6 +137,7 @@ const CoursesRightSidebar = ({ pageProps }) => {
                     setParams((prevParams) => ({
                       ...prevParams,
                       page: 1,
+                      per_page: 6,
                       title: term ? term : undefined,
                     }))
                   }
@@ -139,6 +145,7 @@ const CoursesRightSidebar = ({ pageProps }) => {
                     setParams((prevParams) => ({
                       ...prevParams,
                       page: 1,
+                      per_page: 6,
                       category_id: category_id ? category_id : undefined,
                     }));
                   }}
@@ -146,6 +153,7 @@ const CoursesRightSidebar = ({ pageProps }) => {
                     setParams((prevParams) => ({
                       ...prevParams,
                       page: 1,
+                      per_page: 6,
                       author_id: tutor_id ? tutor_id : undefined,
                     }));
                   }}
