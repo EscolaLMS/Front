@@ -44,10 +44,8 @@ const Advisor = ({ pageProps }) => {
 
                     <div className="advisor-content">
                       <h3>
-                        <Link href={`/tutors/${tutor.id}`}>
-                          <a>
-                            {tutor.first_name} {tutor.last_name}
-                          </a>
+                        <Link to={`/tutors/${tutor.id}`}>
+                          {tutor.first_name} {tutor.last_name}
                         </Link>
                       </h3>
                       <span>Tutor</span>

@@ -12,12 +12,13 @@ import { useTranslation } from "react-i18next";
 const CategoryTreeOptions: React.FC<{
   categories: API.Category[];
   nest?: number;
-}> = ({ categories, nest = 0 }) => {
+  id?: number;
+}> = ({ categories, nest = 0, id }) => {
   return (
     <React.Fragment>
       {categories.map((category) => (
         <React.Fragment key={category.id}>
-          <option value={category.id}>
+          <option value={category.id} selected={Number(id) === category.id}>
             {Array.from({ length: nest + 1 }).join(" > ")}
             {category.name}
           </option>
@@ -25,6 +26,7 @@ const CategoryTreeOptions: React.FC<{
             <CategoryTreeOptions
               categories={category.subcategories}
               nest={nest + 1}
+              id={id}
             />
           )}
         </React.Fragment>
@@ -33,7 +35,7 @@ const CategoryTreeOptions: React.FC<{
   );
 };
 
-export const CategoryTree = ({ onChange }) => {
+export const CategoryTree = ({ onChange, id }) => {
   const { t } = useTranslation();
 
   const { categoryTree } = useContext(EscolaLMSContext);
@@ -49,14 +51,16 @@ export const CategoryTree = ({ onChange }) => {
         }}
         suppressHydrationWarning={true}
       >
-        <option value="">{t("All Categories")}</option>
-        <CategoryTreeOptions categories={categoryTree.list} />
+        <option value="" selected={!!!id}>
+          {t("All Categories")}
+        </option>
+        <CategoryTreeOptions categories={categoryTree.list} id={id} />
       </select>
     </div>
   );
 };
 
-export const Tutors = ({ onChange }) => {
+export const Tutors = ({ onChange, id }) => {
   const { t } = useTranslation();
 
   const { tutors } = useContext(EscolaLMSContext);
@@ -70,9 +74,15 @@ export const Tutors = ({ onChange }) => {
         }}
         suppressHydrationWarning={true}
       >
-        <option value="">{t("All Tutors")}</option>
+        <option value="" selected={!!!id}>
+          {t("All Tutors")}
+        </option>
         {tutors.list?.map((tutor) => (
-          <option key={tutor.id} value={tutor.id}>
+          <option
+            key={tutor.id}
+            value={tutor.id}
+            selected={Number(id) === tutor.id}
+          >
             {tutor.first_name} {tutor.last_name}
           </option>
         ))}
@@ -87,6 +97,7 @@ const CoursesSidebar = ({
   onCategory,
   onTutor,
   multiple = false,
+  params,
 }) => {
   const { uniqueTags, fetchTutors } = useContext(EscolaLMSContext);
   const [tags, setTags] = useState<API.Tag[]>([]);
@@ -115,9 +126,14 @@ const CoursesSidebar = ({
   useEffect(() => {
     fetchTutors();
   }, []);
+
   const { t } = useTranslation();
 
   const inputRef = useRef<HTMLInputElement>();
+
+  useEffect(() => {
+    inputRef.current.value = params?.title ? params?.title : "";
+  }, [params]);
 
   return (
     <div className="widget-area">
@@ -149,13 +165,13 @@ const CoursesSidebar = ({
       <div className="widget widget_search">
         <h3 className="widget-title">{t("Categories")}</h3>
 
-        <CategoryTree onChange={onCategory} />
+        <CategoryTree id={params?.category_id} onChange={onCategory} />
       </div>
 
       <div className="widget widget_search">
         <h3 className="widget-title">{t("Tutors")}</h3>
 
-        <Tutors onChange={onTutor} />
+        <Tutors id={params?.author_id} onChange={onTutor} />
       </div>
 
       <div className="widget widget_tag_cloud">
@@ -166,7 +182,9 @@ const CoursesSidebar = ({
             <a
               href="#"
               key={tag.title}
-              className={hasTags(tags, tag) ? "active" : ""}
+              className={
+                params?.tag ? (params?.tag === tag.title ? "active" : "") : ""
+              }
               onClick={(e) => {
                 e.preventDefault();
                 toggleTag(tag);

@@ -1,16 +1,10 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
-
+import React, { useContext, useEffect } from "react";
 import PageBanner from "../../components/Common/PageBanner";
-
 import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "../../escolalms/context";
-
 import Preloader from "../../components/Preloader";
-import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
 import Layout from "../../components/_App/Layout";
-
-const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
 const Orders = ({ pageProps }) => {
   const { user, fetchPayments, payments } = useContext(EscolaLMSContext);
@@ -23,9 +17,7 @@ const Orders = ({ pageProps }) => {
     } else {
       fetchPayments();
     }
-  }, [history, user]);
-
-  console.log(payments);
+  }, [history, user, fetchPayments]);
 
   return (
     <Layout {...pageProps}>

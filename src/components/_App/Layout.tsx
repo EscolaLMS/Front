@@ -2,21 +2,17 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { ToastProvider } from "react-toast-notifications";
 import { Toaster } from "react-hot-toast";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import GoTop from "./GoTop";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import StudentNavbar from "./StudentNavbar";
-import AdminNavbar from "./AdminNavbar";
+
 import Preloader from "../Preloader";
 import CourseNavbar from "./CourseNavbar";
-import { EscolaLMSContext } from "../../escolalms/context";
 
 const Layout = ({ children, user }) => {
   const { pathname } = useLocation();
   const [loader, setLoader] = React.useState(true);
-
-  // const { user } = useContext(EscolaLMSContext);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -96,15 +92,7 @@ const Layout = ({ children, user }) => {
         autoDismissTimeout={10000}
         autoDismiss
       >
-        {isCourse ? (
-          <CourseNavbar />
-        ) : isStudent ? (
-          <StudentNavbar user={user} />
-        ) : isAdmin || isTeacher ? (
-          <AdminNavbar user={user} />
-        ) : (
-          <Navbar />
-        )}
+        {isCourse ? <CourseNavbar /> : <Navbar />}
 
         {children}
 

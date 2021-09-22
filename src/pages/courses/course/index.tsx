@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import PageBanner from "../../../components/SingleCoursesTwo/PageBanner";
 import CoursesDetailsSidebar from "../../../components/SingleCoursesTwo/CoursesDetailsSidebar";
 import { Link, useParams } from "react-router-dom";
-
 import { EscolaLMSContext } from "../../../escolalms/context";
 import Loader from "../../../components/Preloader";
 import { format } from "date-fns";

@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { useHistory, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "../../escolalms/context";
@@ -9,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import Preloader from "../../components/Preloader";
 import CourseProgramContent from "./CourseProgramContent";
 import CourseProgramList from "./CourseProgramList";
-import { TopicType } from "../../escolalms/services/courses";
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -20,6 +25,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 }) => {
   const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] =
     useState(false);
+
   const { push } = useHistory();
   const { lessonID, topicID } = useParams();
 
@@ -75,18 +81,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             {getNextPrevTopic(Number(topicId)) && (
               <div className="course-program-player-next">
                 <button
-                  disabled={
-                    topic.topicable_type === TopicType.H5P
-                      ? isDisabledNextTopicButton
-                      : !topicIsFinished(Number(topicId))
-                  }
-                  className={`default-btn ${
-                    topic.topicable_type === TopicType.H5P
-                      ? isDisabledNextTopicButton
-                        ? "disabled"
-                        : ""
-                      : !topicIsFinished(Number(topicId)) && "disabled"
-                  }`}
+                  disabled={topic.can_skip ? false : isDisabledNextTopicButton}
+                  className={`default-btn`}
                   onClick={onNextTopic}
                 >
                   <i className="flaticon-play"></i> {t("Next Topic")}{" "}
@@ -103,7 +99,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               >
                 <div className="course-program-summary">
                   <div className="container-md">
-                    <h3>Lesson summary</h3>
+                    <h3>{t("LessonSummary")}</h3>
                     <ReactMarkdown>{lesson.summary}</ReactMarkdown>
                   </div>
                 </div>
@@ -112,7 +108,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             {topic && topic.summary && (
               <div className={`col-lg-6 col-md-6 col-sm-12`}>
                 <div className="course-program-summary">
-                  <h3>Topic summary</h3>
+                  <h3>{t("TopicSummary")}</h3>
                   <div className="container-md">
                     <ReactMarkdown>{topic.summary}</ReactMarkdown>
                   </div>

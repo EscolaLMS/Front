@@ -1,15 +1,10 @@
 import React, { useContext, useEffect } from "react";
-
 import PageBanner from "../../components/Common/PageBanner";
 import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "../../escolalms/context";
-
 import Preloader from "../../components/Preloader";
-import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
 import Layout from "../../components/_App/Layout";
-
-// const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
 const Orders = ({ pageProps }) => {
   const { user, orders, fetchOrders } = useContext(EscolaLMSContext);
@@ -22,14 +17,13 @@ const Orders = ({ pageProps }) => {
     } else {
       fetchOrders();
     }
-  }, [history, user]);
+  }, [history, user, fetchOrders]);
 
   const parsePrice = (price: string) => parseInt(price) / 100;
 
   return (
     <Layout {...pageProps}>
       <React.Fragment>
-        {/* <Navbar /> */}
         <PageBanner
           pageTitle={t("OrdersPage.MyOrders")}
           homePageUrl="/"

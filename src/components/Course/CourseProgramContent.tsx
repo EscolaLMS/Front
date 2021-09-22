@@ -31,6 +31,13 @@ export const CourseProgramContent: React.FC<{
 
   useEffect(() => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
+    if (
+      topic.topicable_type === TopicType.H5P ||
+      topic.topicable_type === TopicType.Video ||
+      topic.topicable_type === TopicType.Audio
+    ) {
+      setIsDisabledNextTopicButton(true);
+    }
   }, [topicId, lessonId, program]);
 
   const topic = useMemo(() => {
@@ -40,6 +47,7 @@ export const CourseProgramContent: React.FC<{
   }, [program, lessonId, topicId]);
 
   const onCompleteTopic = useCallback((): void => {
+    setIsDisabledNextTopicButton(false);
     sendProgress(program?.value?.id, [
       { topic_id: Number(topicId), status: 1 },
     ]);
