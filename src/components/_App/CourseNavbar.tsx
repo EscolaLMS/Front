@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.svg";
-import { EscolaLMSContext } from "../../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

@@ -4,7 +4,8 @@ import PageBanner from "../../components/Common/PageBanner";
 import CoursesSidebar from "../../components/Courses/CoursesSidebar";
 import { useLocation, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { EscolaLMSContext } from "../../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import { API } from "@escolalms/connector/lib";
 import Preloader from "../../components/Preloader";
 import CourseCard from "../../components/CourseCard";
 import Pagination from "../../components/Pagination";
@@ -41,6 +42,11 @@ const CoursesRightSidebar = ({ pageProps }) => {
     return qs.stringify(params);
   };
 
+  enum Order {
+    ASC = "ASC",
+    DESC = "DESC",
+  }
+
   return (
     <Layout {...pageProps}>
       <React.Fragment>
@@ -75,10 +81,11 @@ const CoursesRightSidebar = ({ pageProps }) => {
                           className="form-control"
                           onChange={(e) => {
                             const [order_by, order] = e.target.value.split("|");
+
                             setParams((prevParams) => ({
                               ...prevParams,
                               order_by,
-                              order,
+                              order: order as Order,
                             }));
                           }}
                         >

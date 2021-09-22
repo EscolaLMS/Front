@@ -1,15 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { EscolaLMSContext } from "../../escolalms/context";
-import Image from "../../escolalms/components/Image";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import Image from "@escolalms/connector/lib/components/Image";
+
 import Preloader from "../Preloader";
 
 const PopularCourses = () => {
   const { fetchCourses, courses, settings } = useContext(EscolaLMSContext);
 
   useEffect(() => {
-    fetchCourses({ pageSize: 3 });
+    fetchCourses({ per_page: 3 });
   }, []);
 
   return (

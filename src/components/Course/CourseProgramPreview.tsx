@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
-
-import { TopicType } from "../../escolalms/services/courses";
+import { API } from "@escolalms/connector/lib";
+import { TopicType } from "@escolalms/connector/lib/services/courses";
 import { Player } from "h5p-headless-player";
 import Embed from "react-tiny-oembed";
 import ReactPlayer from "react-player";

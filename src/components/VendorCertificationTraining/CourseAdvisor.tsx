@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "../../escolalms/context";
-import Image from "../../escolalms/components/Image";
-import Preloader from "../Preloader";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import Image from "@escolalms/connector/lib/components/Image";
+
 import ReactMarkdown from "react-markdown";
 import StripMarkdown from "strip-markdown";
 import OwlCarousel from "react-owl-carousel3";

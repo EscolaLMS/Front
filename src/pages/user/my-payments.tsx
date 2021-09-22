@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import PageBanner from "../../components/Common/PageBanner";
 import { useHistory } from "react-router-dom";
-import { EscolaLMSContext } from "../../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import Preloader from "../../components/Preloader";
 import { useTranslation } from "react-i18next";
 import Layout from "../../components/_App/Layout";

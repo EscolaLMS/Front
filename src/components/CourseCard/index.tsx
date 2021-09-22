@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { EscolaLMSContext } from "../../escolalms/context";
-import Image from "../../escolalms/components/Image";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import Image from "@escolalms/connector/lib/components/Image";
+import { API } from "@escolalms/connector/lib";
 import { useTranslation } from "react-i18next";
 
 export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {

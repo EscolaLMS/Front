@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../images/logo.svg";
 
-import { EscolaLMSContext } from "../../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { useTranslation } from "react-i18next";
 
 export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {

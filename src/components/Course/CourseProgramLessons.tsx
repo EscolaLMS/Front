@@ -7,8 +7,8 @@ import React, {
 } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
-import { EscolaLMSContext } from "../../escolalms/context";
-
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import { API } from "@escolalms/connector/lib";
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 

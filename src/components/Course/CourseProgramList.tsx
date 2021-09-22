@@ -2,8 +2,8 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import { Link, useHistory } from "react-router-dom";
 
-import { EscolaLMSContext } from "../../escolalms/context";
-
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import { API } from "@escolalms/connector/lib";
 import { useTranslation } from "react-i18next";
 
 export const CourseProgramList: React.FC<{

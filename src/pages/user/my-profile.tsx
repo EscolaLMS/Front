@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState, ChangeEvent } from "react";
 
 import PageBanner from "../../components/Common/PageBanner";
-import { EscolaLMSContext } from "../../escolalms/context";
+import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { useHistory } from "react-router-dom";
 import { useCallback } from "react";
 import Editor from "rich-markdown-editor";
-import Image from "../../escolalms/components/Image";
+import Image from "@escolalms/connector/lib/components/Image";
+import { API } from "@escolalms/connector/lib";
 import Layout from "../../components/_App/Layout";
 import { useTranslation } from "react-i18next";
 
