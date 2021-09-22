@@ -4,16 +4,18 @@ import React from "react";
 import PageBanner from "../../components/Common/PageBanner";
 
 import ProfileCourses from "../../components/Profile/ProfileCourses";
+import { useTranslation } from "react-i18next";
 
 const MyCourses = ({ pageProps }) => {
+  const { t } = useTranslation();
   return (
     <Layout {...pageProps}>
       <React.Fragment>
         <PageBanner
-          pageTitle="My Courses"
+          pageTitle={t("Navbar.MyCourses")}
           homePageUrl="/"
           homePageText="Home"
-          activePageText="My Courses"
+          activePageText={t("Navbar.MyCourses")}
         />
 
         <div className="profile-area">

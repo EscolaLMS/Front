@@ -29,9 +29,16 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
   } = useContext(EscolaLMSContext);
 
-  // useEffect(() => {
-  //   setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
-  // }, [topicId, lessonId, program]);
+  useEffect(() => {
+    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
+    if (
+      topic.topicable_type === TopicType.H5P ||
+      topic.topicable_type === TopicType.Video ||
+      topic.topicable_type === TopicType.Audio
+    ) {
+      setIsDisabledNextTopicButton(true);
+    }
+  }, [topicId, lessonId, program]);
 
   const topic = useMemo(() => {
     return program.value?.lessons
@@ -40,6 +47,7 @@ export const CourseProgramContent: React.FC<{
   }, [program, lessonId, topicId]);
 
   const onCompleteTopic = useCallback((): void => {
+    setIsDisabledNextTopicButton(false);
     sendProgress(program?.value?.id, [
       { topic_id: Number(topicId), status: 1 },
     ]);
@@ -47,7 +55,7 @@ export const CourseProgramContent: React.FC<{
 
   const onXAPI = useCallback(
     (event): void => {
-      !topic.can_skip && setIsDisabledNextTopicButton(true);
+      setIsDisabledNextTopicButton(true);
 
       if (event?.statement) {
         if (

@@ -7,12 +7,14 @@ import { useCallback } from "react";
 import Editor from "rich-markdown-editor";
 import Image from "../../escolalms/components/Image";
 import Layout from "../../components/_App/Layout";
+import { useTranslation } from "react-i18next";
 
 const MyProfile = ({ pageProps }) => {
   const { user, updateProfile, updateAvatar } = useContext(EscolaLMSContext);
   const [state, setState] = useState<API.UserItem>(user.value);
   const history = useHistory();
   const [editorKey, setEditorKey] = useState<string>(Math.random().toString());
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -60,10 +62,10 @@ const MyProfile = ({ pageProps }) => {
     <Layout {...pageProps}>
       <React.Fragment>
         <PageBanner
-          pageTitle="My Profile"
+          pageTitle={t("Navbar.MyProfile")}
           homePageUrl="/"
           homePageText="Home"
-          activePageText="My Profile"
+          activePageText={t("Navbar.MyProfile")}
         />
 
         <div className="ptb-100">
@@ -87,7 +89,7 @@ const MyProfile = ({ pageProps }) => {
                       accept="image/png, image/jpeg"
                     />
                     <label className="custom-file-label" htmlFor="customFile">
-                      Select file to replace Avatar
+                      {t("MyProfilePage.Avatar")}
                     </label>
                   </div>
 
@@ -107,7 +109,7 @@ const MyProfile = ({ pageProps }) => {
                       <table className="table table-bordered vertical-align-top">
                         <tbody>
                           <tr>
-                            <td>First Name</td>
+                            <td>{t("MyProfilePage.FirstName")}</td>
                             <td>
                               <div className="form-group">
                                 <input
@@ -120,7 +122,7 @@ const MyProfile = ({ pageProps }) => {
                             </td>
                           </tr>
                           <tr>
-                            <td>Last Name</td>
+                            <td>{t("MyProfilePage.LastName")}</td>
                             <td>
                               <div className="form-group">
                                 <input
@@ -151,7 +153,8 @@ const MyProfile = ({ pageProps }) => {
                     </div>
                   </div>
                   <button className="default-btn" disabled={user.loading}>
-                    <i className="flaticon-checkmark"></i>Update
+                    <i className="flaticon-checkmark"></i>
+                    {t("MyProfilePage.Update")}
                   </button>
                 </form>
               </div>

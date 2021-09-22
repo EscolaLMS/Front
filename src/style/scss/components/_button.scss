@@ -1,6 +1,6 @@
 .default-btn {
   color: $white-color !important;
-  &.disabled {
+  &:disabled {
     opacity: 0.4;
   }
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import baseUrl from "../../utils/baseUrl";
+import { useTranslation } from "react-i18next";
 
 const MySwal = withReactContent(Swal);
 
@@ -30,6 +31,7 @@ const INITIAL_STATE = {
 const ContactForm = () => {
   const [contact, setContact] = useState(INITIAL_STATE);
   const { register, handleSubmit, errors } = useForm();
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +56,8 @@ const ContactForm = () => {
 
   return (
     <div className="contact-form">
-      <h2>Ready to Get Started?</h2>
-      <p>
-        Your email address will not be published. Required fields are marked *
-      </p>
+      <h2>{t("ContactPage.Ready")}</h2>
+      <p>{t("ContactPage.EmailInfo")}</p>
 
       <form id="contactForm" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
@@ -66,7 +66,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder={t("ContactPage.Name")}
                 value={contact.name}
                 onChange={handleChange}
                 ref={register({ required: true })}
@@ -82,7 +82,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="email"
-                placeholder="Your email address"
+                placeholder={t("ContactPage.Email")}
                 value={contact.email}
                 onChange={handleChange}
                 ref={register({ required: true, pattern: /^\S+@\S+$/i })}
@@ -98,7 +98,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="number"
-                placeholder="Your phone number"
+                placeholder={t("ContactPage.Phone")}
                 value={contact.number}
                 onChange={handleChange}
                 ref={register({ required: true })}
@@ -114,7 +114,7 @@ const ContactForm = () => {
               <input
                 type="text"
                 name="subject"
-                placeholder="Your Subject"
+                placeholder={t("ContactPage.Subject")}
                 value={contact.subject}
                 onChange={handleChange}
                 ref={register({ required: true })}
@@ -131,7 +131,7 @@ const ContactForm = () => {
                 name="text"
                 cols={30}
                 rows={5}
-                placeholder="Write your message..."
+                placeholder={t("ContactPage.Message")}
                 value={contact.text}
                 onChange={handleChange}
                 ref={register({ required: true })}
@@ -144,7 +144,7 @@ const ContactForm = () => {
 
           <div className="col-lg-12 col-sm-12">
             <button type="submit" className="default-btn">
-              Send Message
+              {t("ContactPage.Send")}
             </button>
           </div>
         </div>

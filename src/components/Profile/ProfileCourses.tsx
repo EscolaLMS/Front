@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { EscolaLMSContext } from "../../escolalms/context";
 import Image from "../../escolalms/components/Image";
+import { useTranslation } from "react-i18next";
 
 const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({
   course,
@@ -41,6 +42,7 @@ const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({
 
 const ProfileCourses = () => {
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchProgress();
@@ -60,12 +62,11 @@ const ProfileCourses = () => {
 
   return (
     <div className="profile-courses pb-70">
-      <h3 className="title">My Courses</h3>
+      <h3 className="title">{t("Navbar.MyCourses")}</h3>
       <div className="row">
         {progress.value && progress.value.length === 0 && (
           <p>
-            You have no courses yet. Find one on{" "}
-            <Link to="/courses">courses</Link> page.
+            {t("NoCoursesYet")} <Link to="/courses">{t("Courses")}</Link>
           </p>
         )}
         {progress.value?.map((item) => (

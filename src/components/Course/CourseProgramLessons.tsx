@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import Preloader from "../../components/Preloader";
 import CourseProgramContent from "./CourseProgramContent";
 import CourseProgramList from "./CourseProgramList";
-// import { TopicType } from "../../escolalms/services/courses";
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -63,12 +62,6 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     );
   }, [lessonId, topicId, program, push]);
 
-  useEffect(() => {
-    topic.can_skip
-      ? setIsDisabledNextTopicButton(false)
-      : setIsDisabledNextTopicButton(true);
-  }, [topic, topicId, topicIsFinished(Number(topicId))]);
-
   if (!program) {
     return <Preloader />;
   }
@@ -88,14 +81,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             {getNextPrevTopic(Number(topicId)) && (
               <div className="course-program-player-next">
                 <button
-                  disabled={
-                    isDisabledNextTopicButton
-                    // : !topicIsFinished(Number(topicId))
-                  }
-                  className={`default-btn ${
-                    isDisabledNextTopicButton ? "disabled" : ""
-                    // : !topicIsFinished(Number(topicId)) && "disabled"
-                  }`}
+                  disabled={topic.can_skip ? false : isDisabledNextTopicButton}
+                  className={`default-btn`}
                   onClick={onNextTopic}
                 >
                   <i className="flaticon-play"></i> {t("Next Topic")}{" "}
