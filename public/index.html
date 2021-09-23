@@ -50,15 +50,10 @@
     <script>
       // register ServiceWorker, remember to use absolute path!
       if (navigator.serviceWorker) {
-        navigator.serviceWorker.register(
-          `${process.env.PUBLIC_URL}serviceWorker.js`,
-          {
-            scope: `${process.env.PUBLIC_URL}`,
-          }
-        );
+        navigator.serviceWorker.register(`/Front/serviceWorker.js`, {
+          scope: `/Front/`,
+        });
       }
-
-      // --- Application code here ---
     </script>
   </body>
 </html>
