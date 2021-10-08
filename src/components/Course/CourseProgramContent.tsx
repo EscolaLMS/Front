@@ -7,7 +7,7 @@ import {
   completed,
   noCompletedEventsIds,
 } from "@escolalms/connector/lib/services/courses";
-import { Player } from "h5p-headless-player";
+import { Player } from "@escolalms/h5p-react";
 import Embed from "react-tiny-oembed";
 import ImagePlayer from "./Players/ImagePlayer";
 import VideoPlayer from "./Players/VideoPlayer";
