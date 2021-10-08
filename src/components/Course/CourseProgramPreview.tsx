@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import { API } from "@escolalms/connector/lib";
 import { TopicType } from "@escolalms/connector/lib/services/courses";
-import { Player } from "h5p-headless-player";
+import { Player } from "@escolalms/h5p-react";
 import Embed from "react-tiny-oembed";
 import ReactPlayer from "react-player";
 import PdfPlayer from "./Players/PdfPlayer";
