@@ -8,7 +8,7 @@ import Preloader from "../components/Preloader";
 import PageCard from "../components/PageCard";
 import Layout from "../components/_App/Layout";
 
-const Pages = ({ pageProps }) => {
+const Pages = () => {
   const { fetchPages, pages } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ const Pages = ({ pageProps }) => {
   console.log(pages);
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         <PageBanner
           pageTitle={t("Pages")}

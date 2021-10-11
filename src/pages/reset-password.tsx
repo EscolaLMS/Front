@@ -4,6 +4,7 @@ import ResetForm from "../components/Authentication/ResetForm";
 import { useLocation } from "react-router-dom";
 
 const ResetPassword: React.FC = () => {
+  //@ts-ignore //TODO fix this
   const { push, query } = useLocation();
   const { token, email } = query;
 

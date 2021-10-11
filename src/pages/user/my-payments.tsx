@@ -6,7 +6,7 @@ import Preloader from "../../components/Preloader";
 import { useTranslation } from "react-i18next";
 import Layout from "../../components/_App/Layout";
 
-const Orders = ({ pageProps }) => {
+const Orders = () => {
   const { user, fetchPayments, payments } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const history = useHistory();
@@ -20,7 +20,7 @@ const Orders = ({ pageProps }) => {
   }, [history, user, fetchPayments]);
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         <PageBanner
           pageTitle={t("PaymentsPage.MyPayments")}

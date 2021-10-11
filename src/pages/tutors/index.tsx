@@ -7,7 +7,7 @@ import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import Image from "@escolalms/connector/lib/components/Image";
 import Layout from "../../components/_App/Layout";
 
-const Advisor = ({ pageProps }) => {
+const Advisor = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Advisor = ({ pageProps }) => {
   }, []);
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         {/* <Navbar /> */}
         <PageBanner

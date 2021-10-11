@@ -1,8 +1,11 @@
 import React from "react";
 
-const GoTop = ({ scrollStepInPx, delayInMs }) => {
+const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number | string }> = ({
+  scrollStepInPx,
+  delayInMs,
+}) => {
   const [thePosition, setThePosition] = React.useState(false);
-  const timeoutRef = React.useRef(null);
+  const timeoutRef = React.useRef<number>(null);
 
   React.useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -16,12 +19,14 @@ const GoTop = ({ scrollStepInPx, delayInMs }) => {
 
   const onScrollStep = () => {
     if (window.pageYOffset === 0) {
+      //@ts-ignore
       clearInterval(timeoutRef.current);
     }
-    window.scroll(0, window.pageYOffset - scrollStepInPx);
+    window.scroll(0, window.pageYOffset - Number(scrollStepInPx));
   };
 
   const scrollToTop = () => {
+    //@ts-ignore
     timeoutRef.current = setInterval(onScrollStep, delayInMs);
   };
 

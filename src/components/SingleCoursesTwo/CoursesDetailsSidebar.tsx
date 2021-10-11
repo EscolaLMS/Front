@@ -6,7 +6,8 @@ import Image from "@escolalms/connector/lib/components/Image";
 import { API } from "@escolalms/connector/lib";
 import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { Spinner } from "reactstrap";
-import ModalVideo from "react-modal-video";
+//@ts-ignore  
+import ModalVideo from "react-modal-video"; // TODO seems type is missing heere
 
 const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
   course,
@@ -58,7 +59,7 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
 
       <div className="courses-sidebar-information">
         <ul className="info">
-          <li>
+          {course.author && <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
                 <i className="flaticon-teacher"></i> {t("Tutor")}
@@ -67,7 +68,7 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
                 {course.author?.first_name} {course.author?.last_name}
               </Link>
             </div>
-          </li>
+          </li>}
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
@@ -76,7 +77,7 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
               {course.duration}
             </div>
           </li>
-          <li>
+          {course.lessons && <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
                 <i className="flaticon-distance-learning"></i>{" "}
@@ -84,8 +85,8 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
               </span>
               {course.lessons.length}
             </div>
-          </li>
-          {course.users_count > 0 && (
+          </li>}
+          {course.users_count && course.users_count > 0 && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
@@ -130,7 +131,7 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({
             </Link>
           ) : (
             <button
-              onClick={() => addToCart(course.id)}
+              onClick={() => addToCart(Number(course.id))}
               className="default-btn"
             >
               <i className="flaticon-shopping-cart"></i> {t("Add to Cart")}{" "}

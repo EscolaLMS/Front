@@ -21,30 +21,33 @@ const RegisterForm = () => {
   const [error, setError] = React.useState<API.DefaultResponseError>();
   const [success, setSuccess] = React.useState<boolean>(false);
 
-  const onDismiss = () => setError(null);
+  const onDismiss = () => setError(undefined);
+
 
   React.useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
     isUser ? setDisabled(false) : setDisabled(true);
   }, [user]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e:React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
+
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
     try {
       setLoading(true);
-      setError(null);
+      setError(undefined);
 
       register({ ...user })
         .then(() => setSuccess(true))
         .catch((error) => {
           setError(error.data);
         });
-    } catch (error) {
+    } catch (error:any) {
       setError(error.data);
     } finally {
       setLoading(false);

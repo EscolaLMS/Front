@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import SocialButtons from "../components/Authentication/SocialButtons";
 import Layout from "../components/_App/Layout";
 
-const Authentication = ({ pageProps }) => {
+const Authentication = () => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
 
@@ -17,7 +17,7 @@ const Authentication = ({ pageProps }) => {
   }
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         <PageBanner
           pageTitle="Authentication"

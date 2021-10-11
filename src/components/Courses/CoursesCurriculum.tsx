@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CoursesCurriculum = ({ videos }) => {
+const CoursesCurriculum:React.FC<{videos:{
+  id:string | number, 
+  name:string
+}[]}> = ({ videos }) => {
   return (
     <div className="courses-curriculum">
       <h3>Course Videos</h3>

@@ -36,7 +36,7 @@ export const CourseProgramPreview: React.FC<{
         case TopicType.Image:
           return (
             <div className="img-container-xl">
-              <img src={topic.topicable.url} />
+              <img src={topic.topicable.url} alt={topic.title} />
             </div>
           );
         case TopicType.Audio:

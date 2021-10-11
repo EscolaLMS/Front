@@ -5,7 +5,7 @@ import Image from "@escolalms/connector/lib/components/Image";
 
 import ReactMarkdown from "react-markdown";
 import StripMarkdown from "strip-markdown";
-import OwlCarousel from "react-owl-carousel3";
+import OwlCarousel from "react-owl-carousel";
 
 const options = {
   loop: true,
@@ -66,12 +66,12 @@ const CourseAdvisor = () => {
               <div className="single-advisor-box" key={tutor.id}>
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
-                    <div className="advisor-image">
+                    {tutor.path_avatar && <div className="advisor-image">
                       <Image
                         path={tutor.path_avatar}
                         srcSizes={[195, 2 * 195]}
                       />
-                    </div>
+                    </div>}
                   </div>
 
                   <div className="col-lg-8 col-md-8">
@@ -84,11 +84,11 @@ const CourseAdvisor = () => {
                         </Link>
                       </h3>
                       <span className="sub-title">Tutor</span>
-                      <div className="profile-bio-summary">
+                      {tutor.bio && <div className="profile-bio-summary">
                         <ReactMarkdown plugins={[StripMarkdown]}>
-                          {tutor.bio}
+                          {tutor.bio }
                         </ReactMarkdown>
-                      </div>
+                      </div>}
                     </div>
                   </div>
                 </div>

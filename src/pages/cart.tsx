@@ -12,7 +12,7 @@ import Layout from "../components/_App/Layout";
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
-const Cart = ({ pageProps }) => {
+const Cart = () => {
   const {
     user,
     cart,
@@ -63,7 +63,7 @@ const Cart = ({ pageProps }) => {
   }, []);
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         {/* <Navbar /> */}
         <PageBanner
@@ -118,7 +118,7 @@ const Cart = ({ pageProps }) => {
                               <a
                                 href="#"
                                 className="remove"
-                                onClick={() => removeFromCart(item.id)}
+                                onClick={() => removeFromCart(Number(item.id))}
                               >
                                 <i className="bx bx-trash"></i>
                               </a>
@@ -183,29 +183,27 @@ const Cart = ({ pageProps }) => {
                   </ul>
 
                   {Number(cart.value?.total) === 0 ? (
-                    <Link
-                      href="#"
+                    <button
                       className="default-btn"
                       onClick={() => onPay(0)}
                     >
                       <i className="flaticon-shopping-cart"></i> Free Checkout{" "}
                       <span></span>
-                    </Link>
+                    </button>
                   ) : (
-                    <Link
-                      to="#"
+                    <button
                       className="default-btn"
                       onClick={() => setModal(true)}
                     >
                       <i className="flaticon-shopping-cart"></i> Pay with stripe
                       Checkout <span></span>
-                    </Link>
+                    </button>
                   )}
                 </div>
               </form>
             )}
 
-            {Number(cart.value?.total) > 0 && (
+            {settings?.stripe?.publishable_key && Number(cart.value?.total) > 0 && (
               <Elements stripe={stripePromise(settings.stripe.publishable_key)}>
                 <PaymentModal
                   total={`${Number(cart.value?.total).toFixed(2)} ${

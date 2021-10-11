@@ -6,10 +6,10 @@ import PageBanner from "../../components/Common/PageBanner";
 import ProfileCourses from "../../components/Profile/ProfileCourses";
 import { useTranslation } from "react-i18next";
 
-const MyCourses = ({ pageProps }) => {
+const MyCourses = () => {
   const { t } = useTranslation();
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         <PageBanner
           pageTitle={t("Navbar.MyCourses")}

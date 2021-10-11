@@ -12,7 +12,6 @@ import TutorPage from "../../pages/tutors/tutor/index";
 import CoursesPage from "../../pages/courses";
 import CoursePage from "../../pages/courses/course/index";
 import CoursePreviewPage from "../../pages/courses/preview";
-import ContactPage from "../../pages/contact";
 
 // privates
 import MyProfilePage from "../../pages/user/my-profile";
@@ -57,7 +56,6 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={course} component={CoursePage} />
         <Route exact path={preview} component={CoursePreviewPage} />
         <Route exact path={pages} component={PagesPage} />
-        <Route exact path={contact} component={ContactPage} />
 
         {/* privates pages*/}
 

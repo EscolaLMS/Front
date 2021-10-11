@@ -35,12 +35,10 @@ const PopularCourses = () => {
                       <img src={course.image_url} alt="image" />
                     </Link>
 
-                    <Link className="fav" href="#">
-                      <i className="flaticon-heart"></i>
-                    </Link>
+              
 
                     <div className="price shadow">
-                      {course.base_price === 0
+                      {course.base_price === 0 || course.base_price === undefined
                         ? "FREE"
                         : `${settings?.currencies?.default} ${(
                             course.base_price / 100
@@ -72,14 +70,14 @@ const PopularCourses = () => {
                           <i className="flaticon-agenda"></i> SCORM
                         </li>
                       )}
-                      {course.lessons_count > 0 && (
+                      {course.lessons_count&& course.lessons_count > 0 && (
                         <li>
                           <i className="flaticon-agenda"></i>{" "}
                           {course.lessons_count} Lessons, {course.topic_count}{" "}
                           Topics
                         </li>
                       )}
-                      {course.users_count > 0 && (
+                      {course.users_count && course.users_count > 0 && (
                         <li>
                           <i className="flaticon-people"></i>{" "}
                           {course.users_count}

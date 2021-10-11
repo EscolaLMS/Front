@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ModalVideo from "react-modal-video";
+//@ts-ignore 
+import ModalVideo from "react-modal-video"; 
 
 const AboutArea = () => {
   const [display, setDisplay] = React.useState(false);
