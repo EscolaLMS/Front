@@ -1,7 +1,7 @@
 {
-  "name": "lms-front-2",
+  "name": "escolalms-demo",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://escolalms.github.io/Front",
   "dependencies": {
     "@escolalms/sdk": "^0",
     "@escolalms/h5p-react": "^0",
