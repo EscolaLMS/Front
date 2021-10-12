@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 // import "./CourseNavbar.scss";
 
 const Navbar = () => {

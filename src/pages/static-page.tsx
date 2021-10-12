@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import Loader from '../components/Preloader';
 import Sidebar from '../components/TermsOfService/Sidebar';
 import PageBanner from '../components/Common/PageBanner';

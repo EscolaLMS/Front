@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { Link, useParams } from 'react-router-dom';
 
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
-import { API } from '@escolalms/connector/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { API } from '@escolalms/sdk/lib';
 import Preloader from '../../../components/Preloader';
 import Layout from '../../../components/_App/Layout';
 

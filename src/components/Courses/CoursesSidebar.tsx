@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useRef, useState, useEffect } from 'react';
-import { API } from '@escolalms/connector/lib';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { API } from '@escolalms/sdk/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import { useTranslation } from 'react-i18next';
 
 const CategoryTreeOptions: React.FC<{

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
-import { API } from '@escolalms/connector/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { API } from '@escolalms/sdk/lib';
 import TempEmail from '../TempEmail';
 
 const INITIAL_USER = {

@@ -3,7 +3,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import { API } from '@escolalms/connector/lib';
+import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from './CourseProgramContent';
 import CourseProgramList from './CourseProgramList';
 import ReactMarkdownWithTrim from '../ReactMarkdownWithTrim';

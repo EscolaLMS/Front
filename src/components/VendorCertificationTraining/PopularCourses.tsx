@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
-import Image from '@escolalms/connector/lib/components/Image';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import Image from '@escolalms/sdk/lib/components/Image';
 
 import Preloader from '../Preloader';
 

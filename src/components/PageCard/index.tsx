@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { API } from '@escolalms/connector/lib';
+import { API } from '@escolalms/sdk/lib';
 export const PageCard: React.FC<{ page: API.Page }> = ({ page }) => {
   return (
     <div className="single-courses-box">

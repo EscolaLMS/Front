@@ -1,5 +1,5 @@
 import React from 'react';
-import { API } from '@escolalms/connector/lib';
+import { API } from '@escolalms/sdk/lib';
 
 export const CoursesContext: React.Context<{
   params?: API.CourseParams & { free: boolean };
