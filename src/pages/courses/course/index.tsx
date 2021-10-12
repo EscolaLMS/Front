@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '@/components/Preloader';
 import { format } from 'date-fns';
-import ReactMarkdown from 'react-markdown';
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
@@ -266,7 +266,7 @@ const SingleCourses = () => {
 
                 <div className="courses-details-desc-style-two">
                   <h3>{t('Summary')}</h3>
-                  {course.value.summary && <ReactMarkdown>{course.value.summary}</ReactMarkdown>}
+                  {course.value.summary && <MarkdownReader>{course.value.summary}</MarkdownReader>}
 
                   <h3>{t('Course Program')}</h3>
                   {course.value.lessons && (
@@ -278,7 +278,7 @@ const SingleCourses = () => {
 
                   <h3>{t('Description')}</h3>
                   {course.value.description && (
-                    <ReactMarkdown>{course.value.description}</ReactMarkdown>
+                    <MarkdownReader>{course.value.description}</MarkdownReader>
                   )}
 
                   <h3>{t('Meet Your Instructors')}</h3>
@@ -306,7 +306,7 @@ const SingleCourses = () => {
                           </div>
                         </Link>
                         <div className="bio">
-                          <ReactMarkdown>{course.value.author?.bio || ''}</ReactMarkdown>
+                          <MarkdownReader>{course.value.author?.bio || ''}</MarkdownReader>
                         </div>
                       </div>
                     </div>
