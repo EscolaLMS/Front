@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from '../../images/logo.svg';
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 

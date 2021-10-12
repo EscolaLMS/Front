@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import PageBanner from '../components/Common/PageBanner';
 
 import { useTranslation } from 'react-i18next';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '../components/Preloader';
 import PageCard from '../components/PageCard';
 import Layout from '../components/_App/Layout';

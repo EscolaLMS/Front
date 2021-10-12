@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { API } from '@escolalms/sdk/lib';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '@/components/Preloader';
 
 import CourseProgramLessons from '@/escolalms/sdk/components/Course/CourseProgramLessons';

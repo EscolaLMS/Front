@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useCallback, useState } from 'react';
 
 import PageBanner from '../components/Common/PageBanner';
 import { Link, useHistory } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 
 import Preloader from '../components/Preloader';
 import { loadStripe } from '@stripe/stripe-js';
