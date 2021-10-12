@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 
 import {
   TopicType,

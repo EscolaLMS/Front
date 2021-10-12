@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 
 import PageBanner from '../../../components/Common/PageBanner';
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useParams } from 'react-router-dom';
 import Preloader from '../../../components/Preloader';
-import Image from '@escolalms/sdk/lib/components/Image';
+import Image from '@escolalms/sdk/lib/react/components/Image';
 import ReactMarkdown from 'react-markdown';
 import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';

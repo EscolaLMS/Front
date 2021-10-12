@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import TempEmail from '../TempEmail';
 

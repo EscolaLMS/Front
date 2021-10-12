@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
 import baseUrl from '../../utils/baseUrl';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import TempLogin from '../TempLogin';
 import { FormState } from './types';
 

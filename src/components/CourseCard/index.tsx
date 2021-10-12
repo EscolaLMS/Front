@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
-import Image from '@escolalms/sdk/lib/components/Image';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
+import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 

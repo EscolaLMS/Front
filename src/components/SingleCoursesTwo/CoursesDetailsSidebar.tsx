@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import Image from '@escolalms/sdk/lib/components/Image';
+import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { Spinner } from 'reactstrap';
 //@ts-ignore
 import ModalVideo from 'react-modal-video'; // TODO seems type is missing heere
