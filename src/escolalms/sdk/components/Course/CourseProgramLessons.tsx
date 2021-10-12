@@ -6,7 +6,7 @@ import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 import CourseProgramContent from './CourseProgramContent';
 import CourseProgramList from './CourseProgramList';
-import ReactMarkdownWithTrim from '../ReactMarkdownWithTrim';
+import ReactMarkdownWithTrim from '../Markdown/ReactMarkdownWithTrim';
 import { trimContentForMarkdown } from '../../utils/trim';
 
 export const courseIncomplete = 0;
