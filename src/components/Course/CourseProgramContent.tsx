@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 
-import { EscolaLMSContext } from '@escolalms/connector/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib';
 
 import {
   TopicType,
   completed,
   noCompletedEventsIds,
-} from '@escolalms/connector/lib/services/courses';
+} from '@escolalms/sdk/lib/services/courses';
 import { Player } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ImagePlayer from './Players/ImagePlayer';

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PageBanner from '../components/Common/PageBanner';
 import LoginForm from '../components/Authentication/LoginForm';
 import RegisterForm from '../components/Authentication/RegisterForm';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import { useHistory } from 'react-router-dom';
 
 import SocialButtons from '../components/Authentication/SocialButtons';
