@@ -200,7 +200,7 @@ const Navbar = () => {
                       <div className="cart-btn">
                         <Link to="/cart">
                           <i className="flaticon-shopping-cart"></i>{" "}
-                          {cart && cart?.value?.items?.length && cart?.value?.items?.length > 0 && (
+                          {(cart?.value?.items?.length || 0) > 0 && (
                             <span>{cart?.value?.items?.length}</span>
                           )}
                         </Link>
