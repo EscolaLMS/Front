@@ -1,6 +1,6 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import ReactPlayer from "react-player";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import ReactPlayer from 'react-player';
 
 const VideoPlayer: React.FC<{ topicUrl: string; onFinish: () => void }> = ({
   topicUrl,
@@ -24,7 +24,7 @@ const VideoPlayer: React.FC<{ topicUrl: string; onFinish: () => void }> = ({
       />
       {!isVideoPlaying && (
         <button className="default-btn" onClick={() => setIsVideoPlaying(true)}>
-          {t("playVideo")}
+          {t('playVideo')}
         </button>
       )}
     </div>

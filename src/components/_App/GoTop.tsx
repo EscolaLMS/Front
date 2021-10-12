@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number | string }> = ({
   scrollStepInPx,
@@ -8,7 +8,7 @@ const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number | str
   const timeoutRef = React.useRef<number>(null);
 
   React.useEffect(() => {
-    document.addEventListener("scroll", () => {
+    document.addEventListener('scroll', () => {
       if (window.scrollY > 170) {
         setThePosition(true);
       } else {
@@ -33,8 +33,11 @@ const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number | str
   const renderGoTopIcon = () => {
     return (
       <div
-        className={`go-top ${thePosition ? "active" : ""}`}
+        className={`go-top ${thePosition ? 'active' : ''}`}
         onClick={scrollToTop}
+        onKeyDown={scrollToTop}
+        role="button"
+        tabIndex={-1}
       >
         <i className="bx bx-chevron-up"></i>
       </div>

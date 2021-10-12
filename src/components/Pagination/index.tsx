@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Pagination: React.FC<{
   currentPage: number;
   total: number;
@@ -9,7 +11,7 @@ const Pagination: React.FC<{
     <div className="col-lg-12 col-md-12 col-sm-12">
       <div className="pagination-area text-center">
         <a
-          href="#"
+          href="#!prev_page"
           className="prev page-numbers"
           onClick={(e) => {
             e.preventDefault();
@@ -21,21 +23,19 @@ const Pagination: React.FC<{
         {Array.from({ length: lastPage }).map((page, i) => (
           <a
             key={`#${i + 1}`}
-            href={`#${i + 1}`}
+            href={`#!page-${i + 1}`}
             onClick={(e) => {
               e.preventDefault();
               onPage(i + 1);
             }}
-            className={
-              i + 1 === currentPage ? "page-numbers current" : "page-numbers"
-            }
+            className={i + 1 === currentPage ? 'page-numbers current' : 'page-numbers'}
             aria-current="page"
           >
             {i + 1}
           </a>
         ))}
         <a
-          href="#"
+          href="#!next_page"
           className="next page-numbers"
           onClick={(e) => {
             e.preventDefault();

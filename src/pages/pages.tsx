@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from 'react';
 
-import PageBanner from "../components/Common/PageBanner";
+import PageBanner from '../components/Common/PageBanner';
 
-import { useTranslation } from "react-i18next";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Preloader from "../components/Preloader";
-import PageCard from "../components/PageCard";
-import Layout from "../components/_App/Layout";
+import { useTranslation } from 'react-i18next';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Preloader from '../components/Preloader';
+import PageCard from '../components/PageCard';
+import Layout from '../components/_App/Layout';
 
 const Pages = () => {
   const { fetchPages, pages } = useContext(EscolaLMSContext);
@@ -20,13 +20,13 @@ const Pages = () => {
   console.log(pages);
 
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={t("Pages")}
+          pageTitle={t('Pages')}
           homePageUrl="/"
           homePageText="Home"
-          activePageText={t("Pages")}
+          activePageText={t('Pages')}
         />
 
         <div className="courses-area ptb-100">
@@ -34,10 +34,7 @@ const Pages = () => {
             <div className="row">
               {pages.loading && <Preloader />}
               {pages.list ? (
-                <div
-                  className="col-lg-8 col-md-12"
-                  suppressHydrationWarning={true}
-                >
+                <div className="col-lg-8 col-md-12">
                   <div className="escolalms-grid-sorting row align-items-center"></div>
 
                   <div className="row">

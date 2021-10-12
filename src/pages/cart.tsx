@@ -1,33 +1,26 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
+import React, { useContext, useEffect, useCallback, useState } from 'react';
 
-import PageBanner from "../components/Common/PageBanner";
-import { Link, useHistory } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import PageBanner from '../components/Common/PageBanner';
+import { Link, useHistory } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
 
-import Preloader from "../components/Preloader";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentModal from "../components/PaymentModal";
-import Layout from "../components/_App/Layout";
+import Preloader from '../components/Preloader';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import PaymentModal from '../components/PaymentModal';
+import Layout from '../components/_App/Layout';
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
 const Cart = () => {
-  const {
-    user,
-    cart,
-    fetchCart,
-    settings,
-    removeFromCart,
-    payWithStripe,
-    fetchProgress,
-  } = useContext(EscolaLMSContext);
+  const { user, cart, fetchCart, settings, removeFromCart, payWithStripe, fetchProgress } =
+    useContext(EscolaLMSContext);
 
   const { location, push } = useHistory();
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      push("/authentication");
+      push('/authentication');
     } else {
       fetchCart();
     }
@@ -36,19 +29,17 @@ const Cart = () => {
   const priceLiteral = useCallback(
     (course) => {
       return course.base_price === 0
-        ? "FREE"
-        : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(
-            2
-          )}`;
+        ? 'FREE'
+        : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
     },
-    [settings]
+    [settings],
   );
 
   const [modal, setModal] = useState(false);
 
   const onPay = useCallback((paymentMethodId) => {
     payWithStripe(paymentMethodId).then(() => {
-      push("/user/my-courses");
+      push('/user/my-courses');
       fetchCart();
       fetchProgress();
     });
@@ -63,15 +54,10 @@ const Cart = () => {
   }, []);
 
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         {/* <Navbar /> */}
-        <PageBanner
-          pageTitle="Cart"
-          homePageUrl="/"
-          homePageText="Home"
-          activePageText="Cart"
-        />
+        <PageBanner pageTitle="Cart" homePageUrl="/" homePageText="Home" activePageText="Cart" />
 
         <div className="cart-area ptb-100">
           <div className="container">
@@ -103,20 +89,16 @@ const Cart = () => {
                             </td>
 
                             <td className="product-name">
-                              <Link to={`/courses/${item.id}`}>
-                                {item.title}
-                              </Link>
+                              <Link to={`/courses/${item.id}`}>{item.title}</Link>
                             </td>
 
                             <td className="product-price">
-                              <span className="unit-amount">
-                                {priceLiteral(item)}
-                              </span>
+                              <span className="unit-amount">{priceLiteral(item)}</span>
                             </td>
 
                             <td className="product-subtotal">
                               <a
-                                href="#"
+                                href="#cart"
                                 className="remove"
                                 onClick={() => removeFromCart(Number(item.id))}
                               >
@@ -160,43 +142,33 @@ const Cart = () => {
 
                   <ul>
                     <li>
-                      Subtotal{" "}
+                      Subtotal{' '}
                       <span>
-                        {settings?.currencies?.default}{" "}
-                        {Number(cart.value?.subtotal).toFixed(2)}
+                        {settings?.currencies?.default} {Number(cart.value?.subtotal).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      Tax{" "}
+                      Tax{' '}
                       <span>
-                        {settings?.currencies?.default}{" "}
-                        {Number(cart.value?.tax).toFixed(2)}
+                        {settings?.currencies?.default} {Number(cart.value?.tax).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      Total{" "}
+                      Total{' '}
                       <span>
-                        {settings?.currencies?.default}{" "}
-                        {Number(cart.value?.total).toFixed(2)}
+                        {settings?.currencies?.default} {Number(cart.value?.total).toFixed(2)}
                       </span>
                     </li>
                   </ul>
 
                   {Number(cart.value?.total) === 0 ? (
-                    <button
-                      className="default-btn"
-                      onClick={() => onPay(0)}
-                    >
-                      <i className="flaticon-shopping-cart"></i> Free Checkout{" "}
-                      <span></span>
+                    <button className="default-btn" onClick={() => onPay(0)}>
+                      <i className="flaticon-shopping-cart"></i> Free Checkout <span></span>
                     </button>
                   ) : (
-                    <button
-                      className="default-btn"
-                      onClick={() => setModal(true)}
-                    >
-                      <i className="flaticon-shopping-cart"></i> Pay with stripe
-                      Checkout <span></span>
+                    <button className="default-btn" onClick={() => setModal(true)}>
+                      <i className="flaticon-shopping-cart"></i> Pay with stripe Checkout{' '}
+                      <span></span>
                     </button>
                   )}
                 </div>
@@ -206,9 +178,7 @@ const Cart = () => {
             {settings?.stripe?.publishable_key && Number(cart.value?.total) > 0 && (
               <Elements stripe={stripePromise(settings.stripe.publishable_key)}>
                 <PaymentModal
-                  total={`${Number(cart.value?.total).toFixed(2)} ${
-                    settings?.currencies?.default
-                  }`}
+                  total={`${Number(cart.value?.total).toFixed(2)} ${settings?.currencies?.default}`}
                   active={modal}
                   onClose={() => setModal(false)}
                   onPaymentId={onPay}

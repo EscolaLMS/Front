@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
+import React, { useContext, useMemo } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
 // import "./CourseNavbar.scss";
 
 const Navbar = () => {
@@ -12,20 +12,19 @@ const Navbar = () => {
     courseProgress,
   } = useContext(EscolaLMSContext);
 
-  const { lessonID, topicID } = useParams<{lessonID?: string, topicID?: string}>();
+  const { lessonID, topicID } = useParams<{ lessonID?: string; topicID?: string }>();
 
   const lessonId = lessonID;
   const topicId = topicID;
 
   const lesson = useMemo(
-    () =>
-      program.value?.lessons.find((lesson) => lesson.id === Number(lessonId)),
-    [program, lessonId]
+    () => program.value?.lessons.find((lesson) => lesson.id === Number(lessonId)),
+    [program, lessonId],
   );
 
   const topic = useMemo(
     () => lesson?.topics?.find((topic) => topic.id === Number(topicId)),
-    [lesson, topicId]
+    [lesson, topicId],
   );
 
   const progProc = Math.round((courseProgress(Number(program.value?.id)) || 0) * 100);
@@ -34,12 +33,10 @@ const Navbar = () => {
     setMenu(!menu);
   };
 
-  const classOne = menu
-    ? "collapse navbar-collapse"
-    : "collapse navbar-collapse show";
+  const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
   const classTwo = menu
-    ? "navbar-toggler navbar-toggler-right collapsed"
-    : "navbar-toggler navbar-toggler-right";
+    ? 'navbar-toggler navbar-toggler-right collapsed'
+    : 'navbar-toggler navbar-toggler-right';
 
   // React.useEffect(() => {
   //   let elementId = document.getElementById("navbar");
@@ -60,10 +57,7 @@ const Navbar = () => {
       <div id="navbar" className="navbar-area">
         <div className="course-nav">
           <div className="top-progress">
-            <div
-              className="top-progress-bar"
-              style={{ width: `${progProc}%` }}
-            ></div>
+            <div className="top-progress-bar" style={{ width: `${progProc}%` }}></div>
           </div>
           <div className="navbar navbar-expand-lg navbar-light">
             <button
@@ -94,7 +88,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Wyjdź z kursu{" "}
+                Wyjdź z kursu{' '}
                 <div className="close">
                   <i className="bx bx-x"></i>
                 </div>

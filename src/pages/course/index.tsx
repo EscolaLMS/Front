@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { API } from "@escolalms/connector/lib";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Loader from "../../components/Preloader";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { API } from '@escolalms/connector/lib';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Loader from '../../components/Preloader';
 
-import CourseProgramLessons from "../../components/Course/CourseProgramLessons";
-import Layout from "../../components/_App/Layout";
+import CourseProgramLessons from '../../components/Course/CourseProgramLessons';
+import Layout from '../../components/_App/Layout';
 
-const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
-  program,
-}) => {
+const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const sco = program?.scorm?.scos?.find((sco) => sco?.entry_url !== undefined);
   const uuid = sco?.uuid;
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -19,9 +17,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
 
   useEffect(() => {
     if (iframeRef.current) {
-      setHeight(
-        iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0
-      );
+      setHeight(iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0);
     }
   }, [iframeRef]);
 
@@ -39,7 +35,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
           }}
         >
           <iframe
-            title={"scorm-player"}
+            title={'scorm-player'}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"

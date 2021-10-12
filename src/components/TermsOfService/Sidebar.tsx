@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
 
 const Sidebar = () => {
   const { t } = useTranslation();
@@ -19,32 +19,32 @@ const Sidebar = () => {
           <li className="nav-item">
             {/* activeClassName="active */}
             <Link to="/" className="nav-link">
-              {t("Home")}
+              {t('Home')}
             </Link>
           </li>
 
           <li className="nav-item megamenu">
             <Link to="/courses" className="nav-link">
-              {t("Courses")}
+              {t('Courses')}
             </Link>
           </li>
 
           <li className="nav-item megamenu">
             <Link to="/tutors" className="nav-link">
-              {t("Tutors")}
+              {t('Tutors')}
             </Link>
           </li>
 
           <li className="nav-item">
             <Link to="/contact" className="nav-link">
-              {t("Contact Us")}
+              {t('Contact Us')}
             </Link>
           </li>
         </ul>
       </div>
 
       <div className="widget widget_recent_courses">
-        <h3 className="widget-title">{t("RecentCourses")}</h3>
+        <h3 className="widget-title">{t('RecentCourses')}</h3>
         {courses &&
           courses?.list?.data?.map((course) => (
             <div key={course.id} className="item">
@@ -56,8 +56,7 @@ const Sidebar = () => {
               <div className="info">
                 {settings.currencies && course.base_price && (
                   <span>
-                    {settings.currencies.default}{" "}
-                    {(course.base_price / 100).toFixed(2)}
+                    {settings.currencies.default} {(course.base_price / 100).toFixed(2)}
                   </span>
                 )}
                 <h4 className="title usmall">

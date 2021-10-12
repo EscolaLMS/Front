@@ -1,12 +1,12 @@
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { ReactElement, useMemo, useState } from 'react';
 import {
   useStripe,
   useElements,
   CardNumberElement,
   CardCvcElement,
   CardExpiryElement,
-} from "@stripe/react-stripe-js";
-import { Spinner } from "reactstrap";
+} from '@stripe/react-stripe-js';
+import { Spinner } from 'reactstrap';
 
 // import "./index.scss";
 
@@ -15,25 +15,25 @@ const useOptions = () => {
     () => ({
       style: {
         base: {
-          iconColor: "#c4f0ff",
-          color: "#000000",
+          iconColor: '#c4f0ff',
+          color: '#000000',
           fontWeight: 500,
-          fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-          fontSize: "16px",
-          fontSmoothing: "antialiased",
-          ":-webkit-autofill": {
-            color: "#000000",
+          fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+          fontSize: '16px',
+          fontSmoothing: 'antialiased',
+          ':-webkit-autofill': {
+            color: '#000000',
           },
-          "::placeholder": {
-            color: "#999999",
+          '::placeholder': {
+            color: '#999999',
           },
         },
         invalid: {
-          color: "#ff0000",
+          color: '#ff0000',
         },
       },
     }),
-    []
+    [],
   );
 
   return options;
@@ -43,7 +43,7 @@ const PaymentModal: React.FC<{
   active: boolean;
   total: string;
   onClose: () => void;
-  onPaymentId: (paymentId:string) => void;
+  onPaymentId: (paymentId: string) => void;
 }> = ({ active, onClose, onPaymentId, total }): ReactElement => {
   const stripe = useStripe();
   const elements = useElements();
@@ -52,14 +52,14 @@ const PaymentModal: React.FC<{
   const [processing, setProcessing] = useState(false);
 
   const [billingDetails, setBillingDetails] = useState({
-    name: "",
+    name: '',
   });
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     setError(undefined);
     if (!billingDetails.name) {
-      setError("Card holder can not be empty.");
+      setError('Card holder can not be empty.');
     }
 
     if (!stripe || !elements || !billingDetails.name) {
@@ -71,7 +71,7 @@ const PaymentModal: React.FC<{
     cardNumber &&
       stripe
         .createPaymentMethod({
-          type: "card",
+          type: 'card',
           card: cardNumber,
           billing_details: billingDetails,
         })
@@ -98,7 +98,7 @@ const PaymentModal: React.FC<{
 
   return (
     <div
-      className={`modal fade ${active ? "show" : ""} paymentModal`}
+      className={`modal fade ${active ? 'show' : ''} paymentModal`}
       id="exampleModalCenter"
       tabIndex={-1}
       role="dialog"
@@ -124,12 +124,12 @@ const PaymentModal: React.FC<{
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="modal-body">
               <div className="form-group">
-                <label>Card number</label>
+                <label htmlFor="card-number">Card number</label>
                 <CardNumberElement options={options} className="form-control" />
               </div>
 
               <div className="form-group">
-                <label>Name on card</label>
+                <label htmlFor="card_holder">Name on card</label>
                 <input
                   className="form-control"
                   id="card_holder"
@@ -147,15 +147,12 @@ const PaymentModal: React.FC<{
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label>Expiration date</label>
-                  <CardExpiryElement
-                    options={options}
-                    className="form-control"
-                  />
+                  <label htmlFor="card_expiry">Expiration date</label>
+                  <CardExpiryElement options={options} className="form-control" />
                 </div>
 
                 <div className="form-group col-md-6">
-                  <label>CVC</label>
+                  <label htmlFor="card_cvc">CVC</label>
                   <CardCvcElement options={options} className="form-control" />
                 </div>
 
@@ -165,8 +162,8 @@ const PaymentModal: React.FC<{
                   </div>
                 )}
                 <div className="alert alert-info">
-                  Use{" "}
-                  <a href="https://stripe.com/docs/testing" target="_blank">
+                  Use{' '}
+                  <a href="https://stripe.com/docs/testing" target="_blank" rel="noreferrer">
                     stripe testing card numbers
                   </a>
                   , eg <code>4242 4242 4242 4242</code>
@@ -185,11 +182,7 @@ const PaymentModal: React.FC<{
                 Close
               </button>
 
-              <button
-                className="default-btn"
-                type="submit"
-                disabled={processing}
-              >
+              <button className="default-btn" type="submit" disabled={processing}>
                 Pay {total}! {processing && <Spinner color="success" />}
               </button>
             </div>

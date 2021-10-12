@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from 'react';
 
-import PageBanner from "../../../components/Common/PageBanner";
+import PageBanner from '../../../components/Common/PageBanner';
 
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { useParams } from "react-router-dom";
-import Preloader from "../../../components/Preloader";
-import Image from "@escolalms/connector/lib/components/Image";
-import ReactMarkdown from "react-markdown";
-import CourseCard from "../../../components/CourseCard";
-import Layout from "../../../components/_App/Layout";
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { useParams } from 'react-router-dom';
+import Preloader from '../../../components/Preloader';
+import Image from '@escolalms/connector/lib/components/Image';
+import ReactMarkdown from 'react-markdown';
+import CourseCard from '../../../components/CourseCard';
+import Layout from '../../../components/_App/Layout';
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { tutor, fetchTutor, courses, fetchCourses } =
-    useContext(EscolaLMSContext);
+  const { tutor, fetchTutor, courses, fetchCourses } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchTutor(Number(id));
@@ -25,12 +24,7 @@ const Profile = () => {
     <Layout>
       <React.Fragment>
         {/* <Navbar /> */}
-        <PageBanner
-          pageTitle="Tutor"
-          homePageUrl="/"
-          homePageText="Home"
-          activePageText="Tutor"
-        />
+        <PageBanner pageTitle="Tutor" homePageUrl="/" homePageText="Home" activePageText="Tutor" />
 
         <div className="profile-area">
           <div className="container">
@@ -40,12 +34,11 @@ const Profile = () => {
               <div className="profile-box ptb-100">
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
-                    {tutor.value.path_avatar && <div className="image">
-                      <Image
-                        path={tutor.value.path_avatar}
-                        srcSizes={[355, 355 * 2]}
-                      />
-                    </div>}
+                    {tutor.value.path_avatar && (
+                      <div className="image">
+                        <Image path={tutor.value.path_avatar} srcSizes={[355, 355 * 2]} />
+                      </div>
+                    )}
                   </div>
 
                   <div className="col-lg-8 col-md-8">
@@ -55,7 +48,7 @@ const Profile = () => {
                       </h3>
                       <span className="sub-title">Tutor</span>
                       <div>
-                        <ReactMarkdown>{tutor.value.bio || ""}</ReactMarkdown>
+                        <ReactMarkdown>{tutor.value.bio || ''}</ReactMarkdown>
                       </div>
                     </div>
                   </div>

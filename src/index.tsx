@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { EscolaLMSContextProvider } from "@escolalms/connector/lib/context";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { EscolaLMSContextProvider } from '@escolalms/connector/lib/context';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-import "./i18n";
+import './i18n';
 
 serviceWorkerRegistration.register();
 
@@ -14,13 +14,13 @@ ReactDOM.render(
     <EscolaLMSContextProvider
       apiUrl={
         process.env.NEXT_PUBLIC_API_URL || //"http://localhost:1000"
-        "https://escola-lms-api.stage.etd24.pl"
+        'https://escola-lms-api.stage.etd24.pl'
       }
     >
       <App />
     </EscolaLMSContextProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

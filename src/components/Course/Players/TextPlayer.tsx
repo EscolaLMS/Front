@@ -1,7 +1,7 @@
-import React, { ReactElement, FunctionComponent, useEffect } from "react";
-import ReactMarkdownWithTrim from "../../ReactMarkdownWithTrim";
+import React, { ReactElement, FunctionComponent, useEffect } from 'react';
+import ReactMarkdownWithTrim from '../../ReactMarkdownWithTrim';
 
-const fontSizes = ["small", "regular", "bigger", "big"];
+const fontSizes = ['small', 'regular', 'bigger', 'big'];
 
 const TextPlayer: FunctionComponent<{
   value?: string;
@@ -13,9 +13,7 @@ const TextPlayer: FunctionComponent<{
   }, [value, onLoad]);
 
   return (
-    <div
-      className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}
-    >
+    <div className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}>
       {value && <ReactMarkdownWithTrim>{value}</ReactMarkdownWithTrim>}
     </div>
   );

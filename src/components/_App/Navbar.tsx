@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Logo from "../../images/logo.svg";
+import React, { useContext, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import Logo from '../../images/logo.svg';
 
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { useTranslation } from "react-i18next";
-import { API } from "@escolalms/connector/lib";
-
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { useTranslation } from 'react-i18next';
+import { API } from '@escolalms/connector/lib';
 
 export const UserNavbarItem: React.FC<{
   user?: API.UserItem;
@@ -18,7 +17,13 @@ export const UserNavbarItem: React.FC<{
       {user ? (
         <div className="user-dropdown">
           <Link to="/">
-            <a onClick={(e) => e.preventDefault()} className="default-btn">
+            <a
+              onClick={(e) => e.preventDefault()}
+              onKeyDown={(e) => e.preventDefault()}
+              className="default-btn"
+              href="#/profile"
+              role="button"
+            >
               <i className="flaticon-user"></i> {user.first_name} <span></span>
             </a>
           </Link>
@@ -30,7 +35,7 @@ export const UserNavbarItem: React.FC<{
                 to="/user/my-profile"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                {t("Navbar.MyProfile")}
+                {t('Navbar.MyProfile')}
               </Link>
             </li>
 
@@ -40,7 +45,7 @@ export const UserNavbarItem: React.FC<{
                 to="/user/my-courses"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                {t("Navbar.MyCourses")}
+                {t('Navbar.MyCourses')}
               </Link>
             </li>
 
@@ -50,7 +55,7 @@ export const UserNavbarItem: React.FC<{
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                {t("Navbar.MyOrders")}
+                {t('Navbar.MyOrders')}
               </Link>
             </li>
 
@@ -60,7 +65,7 @@ export const UserNavbarItem: React.FC<{
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                {t("Navbar.MyPayments")}
+                {t('Navbar.MyPayments')}
               </Link>
             </li>
 
@@ -73,7 +78,7 @@ export const UserNavbarItem: React.FC<{
                   logout && logout();
                 }}
               >
-                {t("Navbar.Logout")}
+                {t('Navbar.Logout')}
               </Link>
             </li>
           </ul>
@@ -91,21 +96,16 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const lang = window.localStorage.getItem("lang");
+    const lang = window.localStorage.getItem('lang');
     if (lang) {
       i18n.changeLanguage(lang);
     }
   }, [i18n]);
 
-  const languages = ["pl", "en"].filter((lang) => lang !== i18n.language);
+  const languages = ['pl', 'en'].filter((lang) => lang !== i18n.language);
 
   const [menu, setMenu] = React.useState(true);
-  const {
-    user: userObj,
-    logout,
-    cart,
-    fetchCart,
-  } = useContext(EscolaLMSContext);
+  const { user: userObj, logout, cart, fetchCart } = useContext(EscolaLMSContext);
 
   const user = userObj.value;
 
@@ -114,29 +114,27 @@ const Navbar = () => {
   };
 
   React.useEffect(() => {
-    let elementId = document.getElementById("navbar");
+    let elementId = document.getElementById('navbar');
     const listener = () => {
       if (window.scrollY > 170) {
-        elementId && elementId.classList.add("is-sticky");
+        elementId && elementId.classList.add('is-sticky');
       } else {
-        elementId && elementId.classList.remove("is-sticky");
+        elementId && elementId.classList.remove('is-sticky');
       }
     };
-    document.addEventListener("scroll", listener);
+    document.addEventListener('scroll', listener);
     window.scrollTo(0, 0);
-    return () => document.removeEventListener("scroll", listener);
+    return () => document.removeEventListener('scroll', listener);
   }, []);
 
   useEffect(() => {
     user && fetchCart();
   }, [user]);
 
-  const classOne = menu
-    ? "collapse navbar-collapse"
-    : "collapse navbar-collapse show";
+  const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
   const classTwo = menu
-    ? "navbar-toggler navbar-toggler-right collapsed"
-    : "navbar-toggler navbar-toggler-right";
+    ? 'navbar-toggler navbar-toggler-right collapsed'
+    : 'navbar-toggler navbar-toggler-right';
 
   return (
     <React.Fragment>
@@ -167,29 +165,29 @@ const Navbar = () => {
                 <ul className="navbar-nav">
                   <li className="nav-item ">
                     <NavLink className="nav-link" to="/">
-                      {t("Home")}
+                      {t('Home')}
                     </NavLink>
                   </li>
 
                   <li className="nav-item ">
                     <NavLink className="nav-link" to="/courses">
-                      {t("Courses")}
+                      {t('Courses')}
                     </NavLink>
                   </li>
 
                   <li className="nav-item ">
                     <NavLink className="nav-link" to="/tutors">
-                      {t("Tutors")}
+                      {t('Tutors')}
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/pages">
-                      {t("Pages")}
+                      {t('Pages')}
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/contact">
-                      {t("Contact Us")}
+                      {t('Contact Us')}
                     </NavLink>
                   </li>
                 </ul>
@@ -199,7 +197,7 @@ const Navbar = () => {
                     <div className="option-item">
                       <div className="cart-btn">
                         <Link to="/cart">
-                          <i className="flaticon-shopping-cart"></i>{" "}
+                          <i className="flaticon-shopping-cart"></i>{' '}
                           {(cart?.value?.items?.length || 0) > 0 && (
                             <span>{cart?.value?.items?.length}</span>
                           )}
@@ -208,11 +206,7 @@ const Navbar = () => {
                     </div>
                   )}
 
-                  <UserNavbarItem
-                    user={user}
-                    toggleNavbar={toggleNavbar}
-                    logout={logout}
-                  />
+                  <UserNavbarItem user={user} toggleNavbar={toggleNavbar} logout={logout} />
 
                   {languages &&
                     languages.map((lang) => (
@@ -222,7 +216,7 @@ const Navbar = () => {
                         onClick={(e) => {
                           e.preventDefault();
                           i18n.changeLanguage(lang);
-                          window.localStorage.setItem("lang", lang);
+                          window.localStorage.setItem('lang', lang);
                         }}
                       >
                         {lang}

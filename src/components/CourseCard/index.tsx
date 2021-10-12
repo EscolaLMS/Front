@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
-import { API } from "@escolalms/connector/lib";
-import { useTranslation } from "react-i18next";
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
+import { API } from '@escolalms/connector/lib';
+import { useTranslation } from 'react-i18next';
 
 export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
   const { settings } = useContext(EscolaLMSContext);
@@ -18,15 +18,11 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
             <Image path={course.image_path} srcSizes={[380, 380 * 2]} />
           </Link>
         )}
-        <a href="#" className="fav">
-          <i className="flaticon-heart"></i>
-        </a>
+
         <div className="price shadow">
           {course.base_price === 0 || course.base_price === undefined
-            ? t("FREE")
-            : `${settings?.currencies?.default} ${(
-                course.base_price / 100
-              ).toFixed(2)}`}
+            ? t('FREE')
+            : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`}
         </div>
       </div>
       <div className="courses-content">
@@ -59,15 +55,15 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
           )}
           {course.lessons_count && course.lessons_count > 0 && (
             <li>
-              <i className="flaticon-agenda"></i> {course.lessons_count}{" "}
-              {t("Lesson", { count: course.lessons_count })},{" "}
-              {course.topic_count} {t("Topic", { count: course.topic_count })}
+              <i className="flaticon-agenda"></i> {course.lessons_count}{' '}
+              {t('Lesson', { count: course.lessons_count })}, {course.topic_count}{' '}
+              {t('Topic', { count: course.topic_count })}
             </li>
           )}
           {course.users_count && course.users_count > 0 && (
             <li>
-              <i className="flaticon-people"></i> {course.users_count}{" "}
-              {t("Student", { count: course.users_count })}
+              <i className="flaticon-people"></i> {course.users_count}{' '}
+              {t('Student', { count: course.users_count })}
             </li>
           )}
         </ul>

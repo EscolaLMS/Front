@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert } from "reactstrap";
+import React, { useState } from 'react';
+import { Alert } from 'reactstrap';
 
 const TempEmail = () => {
   const [open, setOpen] = useState(true);
@@ -7,8 +7,8 @@ const TempEmail = () => {
   return (
     <Alert color="info" isOpen={open} toggle={() => setOpen(!open)}>
       <p>
-        This demo is using fake email service{" "}
-        <a href="https://ethereal.email/messages" target="_blank">
+        This demo is using fake email service{' '}
+        <a href="https://ethereal.email/messages" target="_blank" rel="noreferrer">
           ethereal.email
         </a>
         <br />

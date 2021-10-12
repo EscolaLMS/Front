@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { API } from "@escolalms/connector/lib";
-
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { API } from '@escolalms/connector/lib';
 
 export const CourseProgramList: React.FC<{
   course: API.CourseProgram;
@@ -15,9 +14,7 @@ export const CourseProgramList: React.FC<{
   const program =
     course &&
     course.lessons &&
-    course.lessons.filter(
-      (lesson) => lesson && lesson.topics && lesson?.topics?.length > 0
-    );
+    course.lessons.filter((lesson) => lesson && lesson.topics && lesson?.topics?.length > 0);
 
   const { topicIsFinished } = useContext(EscolaLMSContext);
 
@@ -50,25 +47,29 @@ export const CourseProgramList: React.FC<{
           <React.Fragment key={lesson.id}>
             <h3
               className={`d-flex justify-content-between align-items-center ${
-                lessonId === lesson.id ? "active" : ""
+                lessonId === lesson.id ? 'active' : ''
               }`}
-              onClick={() => lesson && lesson.id && toggleOpenLesson(lesson.id)}
             >
-              <span>
-                <span className="box">
-                  {isOpen ? (
-                    <i className="bx bx-chevron-up"></i>
-                  ) : (
-                    <i className="bx bx-chevron-down"></i>
-                  )}
+              <div
+                role="button"
+                onClick={() => lesson && lesson.id && toggleOpenLesson(lesson.id)}
+                onKeyDown={() => lesson && lesson.id && toggleOpenLesson(lesson.id)}
+                tabIndex={-1}
+              >
+                <span>
+                  <span className="box">
+                    {isOpen ? (
+                      <i className="bx bx-chevron-up"></i>
+                    ) : (
+                      <i className="bx bx-chevron-down"></i>
+                    )}
+                  </span>
+                  {lesson_index + 1}. {lesson.title}{' '}
                 </span>
-                {lesson_index + 1}. {lesson.title}{" "}
-              </span>
 
-              <div className="courses-meta">
-                {lesson.duration && (
-                  <span className="duration">{lesson.duration}</span>
-                )}
+                <div className="courses-meta">
+                  {lesson.duration && <span className="duration">{lesson.duration}</span>}
+                </div>
               </div>
             </h3>
             {isOpen && (
@@ -79,10 +80,8 @@ export const CourseProgramList: React.FC<{
                     return (
                       <li
                         key={topic.id}
-                        className={`${topicId === topic.id ? "active" : ""} ${
-                          topic && topic.id && topicIsFinished(topic.id)
-                            ? "finished"
-                            : ""
+                        className={`${topicId === topic.id ? 'active' : ''} ${
+                          topic && topic.id && topicIsFinished(topic.id) ? 'finished' : ''
                         }`}
                       >
                         <Link
@@ -102,7 +101,7 @@ export const CourseProgramList: React.FC<{
                               className={`status ${
                                 topic &&
                                 topic?.topicable_type &&
-                                topic?.topicable_type.split("\\").pop()
+                                topic?.topicable_type.split('\\').pop()
                               }`}
                             ></span>
                           </div>

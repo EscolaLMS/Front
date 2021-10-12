@@ -1,4 +1,4 @@
-import React, { ReactElement, FunctionComponent } from "react";
+import React, { ReactElement, FunctionComponent } from 'react';
 
 const AudioPlayer: FunctionComponent<{
   url?: string;
@@ -11,6 +11,7 @@ const AudioPlayer: FunctionComponent<{
   return (
     <>
       {url && (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio
           className={`audio }`}
           onEnded={(): void => {

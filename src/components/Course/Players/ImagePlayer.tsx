@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useCallback } from "react";
-import Lightbox from "react-image-lightbox";
-import Image from "@escolalms/connector/lib/components/Image";
-import { API } from "@escolalms/connector/lib";
+import React, { useState } from 'react';
+import { useCallback } from 'react';
+import Lightbox from 'react-image-lightbox';
+import Image from '@escolalms/connector/lib/components/Image';
+import { API } from '@escolalms/connector/lib';
 
 const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
   topic,
@@ -22,12 +22,7 @@ const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
         srcSizes={[500, 750, 1000]}
         onClick={() => setOpen(true)}
       />
-      {open && (
-        <Lightbox
-          mainSrc={topic.topicable.url}
-          onCloseRequest={onCloseRequest}
-        />
-      )}
+      {open && <Lightbox mainSrc={topic.topicable.url} onCloseRequest={onCloseRequest} />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-//@ts-ignore 
-import ModalVideo from "react-modal-video"; 
+import React from 'react';
+import { Link } from 'react-router-dom';
+//@ts-ignore
+import ModalVideo from 'react-modal-video';
 
 const AboutArea = () => {
   const [display, setDisplay] = React.useState(false);
@@ -25,15 +25,14 @@ const AboutArea = () => {
                 <span className="sub-title">Distance Learning</span>
                 <h2>Build Your Project Management Skills Online, Anytime</h2>
                 <p>
-                  Want to learn and earn PDUs or CEUs on your schedule —
-                  anytime, anywhere? Or, pick up a new skill quickly like,
-                  project team leadership or agile? Browse our most popular
-                  online courses.
+                  Want to learn and earn PDUs or CEUs on your schedule — anytime, anywhere? Or, pick
+                  up a new skill quickly like, project team leadership or agile? Browse our most
+                  popular online courses.
                 </p>
                 <p>
                   <strong>
-                    Grow your knowledge and your opportunities with thought
-                    leadership, training and tools.
+                    Grow your knowledge and your opportunities with thought leadership, training and
+                    tools.
                   </strong>
                 </p>
 
@@ -48,7 +47,7 @@ const AboutArea = () => {
                 <div className="image">
                   <img
                     src={`${process.env.PUBLIC_URL}/images/about-img5a.jpeg`}
-                    alt="image"
+                    alt="imMain Banner "
                   />
                 </div>
 
@@ -64,10 +63,7 @@ const AboutArea = () => {
                 </Link>
 
                 <div className="shape10">
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/shape9.png`}
-                    alt="image"
-                  />
+                  <img src={`${process.env.PUBLIC_URL}/images/shape9.png`} alt="Main Banner " />
                 </div>
               </div>
             </div>
@@ -76,22 +72,13 @@ const AboutArea = () => {
 
         <div className="divider"></div>
         <div className="shape3">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/shape3.png`}
-            alt="image"
-          />
+          <img src={`${process.env.PUBLIC_URL}/images/shape3.png`} alt="Main Banner " />
         </div>
         <div className="shape4">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/shape4.png`}
-            alt="image"
-          />
+          <img src={`${process.env.PUBLIC_URL}/images/shape4.png`} alt="Main Banner " />
         </div>
         <div className="shape2">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/shape2.png`}
-            alt="image"
-          />
+          <img src={`${process.env.PUBLIC_URL}/images/shape2.png`} alt="Main Banner " />
         </div>
 
         {/* If you want to change the video need to update videoID */}
@@ -103,7 +90,7 @@ const AboutArea = () => {
             onClose={() => setIsOpen(!isOpen)}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     </React.Fragment>

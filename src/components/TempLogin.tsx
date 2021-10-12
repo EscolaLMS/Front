@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert } from "reactstrap";
+import React, { useState } from 'react';
+import { Alert } from 'reactstrap';
 
 const TempLogin = () => {
   const [open, setOpen] = useState(true);

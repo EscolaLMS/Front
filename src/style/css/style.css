@@ -67,13 +67,13 @@ This files table contents are outlined below>>>>>
 /*================================================
 Default CSS
 =================================================*/
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
   padding: 0;
   margin: 0;
   font-size: 16px;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 img {
@@ -109,7 +109,7 @@ h4,
 h5,
 h6 {
   color: #221638;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .container {
@@ -253,7 +253,7 @@ a:hover {
 }
 
 .playfair-display-font {
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .d-table {
@@ -391,7 +391,7 @@ a:hover {
 }
 
 .default-btn-style-two::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -563,10 +563,7 @@ Navbar Area CSS
   border-color: #fe4a55;
 }
 
-.escolalms-nav
-  .navbar
-  .search-box
-  .input-search:focus::-webkit-input-placeholder {
+.escolalms-nav .navbar .search-box .input-search:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -697,57 +694,17 @@ Navbar Area CSS
   visibility: hidden;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a {
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a {
   color: #221638;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a:hover,
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a:focus,
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a.active {
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover,
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus,
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
   color: #fe4a55;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu {
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu {
   top: 0;
   opacity: 0;
   left: 100%;
@@ -1308,15 +1265,7 @@ Navbar Area CSS
   visibility: visible;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li.active
-  a {
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
   color: #fe4a55;
 }
 
@@ -1337,13 +1286,7 @@ Navbar Area CSS
   color: #fe4a55;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li:hover
-  .dropdown-menu {
+.escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   margin-top: 0;
@@ -1382,14 +1325,7 @@ Navbar Area CSS
   transform: unset !important;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .megamenu-submenu
-  li
-  a {
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a {
   margin-top: 14px;
   color: #221638;
   padding: 0;
@@ -1398,22 +1334,8 @@ Navbar Area CSS
   font-weight: 700;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .megamenu-submenu
-  li
-  a:hover,
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .megamenu-submenu
-  li
-  a.active {
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a:hover,
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a.active {
   color: #fe4a55;
 }
 
@@ -1428,25 +1350,14 @@ Navbar Area CSS
   margin-top: 0;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .single-category-widget {
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget {
   position: relative;
   border-top: 1px solid #eeeeee;
   padding-top: 30px;
   margin-top: 30px;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .single-category-widget
-  .icon {
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget .icon {
   width: 70px;
   height: 70px;
   position: relative;
@@ -1479,13 +1390,7 @@ Navbar Area CSS
   right: 0;
 }
 
-.escolalms-nav
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .single-category-widget
-  h3 {
+.escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget h3 {
   margin-bottom: 0;
   font-size: 20px;
   font-weight: 800;
@@ -1624,13 +1529,7 @@ Navbar Area CSS
 
 .escolalms-nav .navbar .others-option .user-dropdown .dropdown-menu li a:hover,
 .escolalms-nav .navbar .others-option .user-dropdown .dropdown-menu li a:focus,
-.escolalms-nav
-  .navbar
-  .others-option
-  .user-dropdown
-  .dropdown-menu
-  li
-  a.active {
+.escolalms-nav .navbar .others-option .user-dropdown .dropdown-menu li a.active {
   color: #fe4a55;
 }
 
@@ -2225,7 +2124,7 @@ Main Banner Area CSS
   height: 512px;
   width: 100%;
   position: absolute;
-  content: "";
+  content: '';
   left: 0;
   bottom: 0;
   z-index: 1;
@@ -2556,7 +2455,7 @@ Yoga Main Banner Area CSS
 }
 
 .yoga-banner-content::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3079,7 +2978,7 @@ About Area CSS
 }
 
 .about-video-box .image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3117,7 +3016,7 @@ About Area CSS
 
 .about-video-box .video-btn::after,
 .about-video-box .video-btn::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -3532,7 +3431,7 @@ About Area CSS
 }
 
 .about-content .about-list li span i::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3641,7 +3540,7 @@ Success Story Area CSS
 }
 
 .success-story-area::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -3683,7 +3582,7 @@ Kindergarten Main Banner Area CSS
 }
 
 .kindergarten-main-banner::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -3696,7 +3595,7 @@ Kindergarten Main Banner Area CSS
 }
 
 .kindergarten-main-banner::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -4020,7 +3919,7 @@ Kindergarten Services Area CSS
 }
 
 .kindergarten-services-area::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -4062,7 +3961,7 @@ Kindergarten Services Area CSS
   margin-top: 0;
 }
 
-.services-slides.owl-theme .owl-nav [class*="owl-"] {
+.services-slides.owl-theme .owl-nav [class*='owl-'] {
   margin: 0;
   position: absolute;
   left: -45px;
@@ -4083,7 +3982,7 @@ Kindergarten Services Area CSS
   padding-left: 2px !important;
 }
 
-.services-slides.owl-theme .owl-nav [class*="owl-"]::before {
+.services-slides.owl-theme .owl-nav [class*='owl-']::before {
   position: absolute;
   left: 0;
   right: 0;
@@ -4091,23 +3990,23 @@ Kindergarten Services Area CSS
   bottom: 0;
   z-index: -1;
   background-color: #ffffff;
-  content: "";
+  content: '';
   border-radius: 50%;
   margin: 4px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.services-slides.owl-theme .owl-nav [class*="owl-"].owl-next {
+.services-slides.owl-theme .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: -65px;
 }
 
-.services-slides.owl-theme .owl-nav [class*="owl-"]:hover {
+.services-slides.owl-theme .owl-nav [class*='owl-']:hover {
   color: #ffffff;
 }
 
-.services-slides.owl-theme .owl-nav [class*="owl-"]:hover::before {
+.services-slides.owl-theme .owl-nav [class*='owl-']:hover::before {
   background-color: #fe4a55;
 }
 
@@ -4183,7 +4082,7 @@ Kindergarten Courses Area CSS
 }
 
 .single-kindergarten-courses-box .courses-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -4272,7 +4171,7 @@ Kindergarten Courses Area CSS
   margin-top: 0;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"] {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-'] {
   margin: 0;
   position: absolute;
   left: -75px;
@@ -4293,7 +4192,7 @@ Kindergarten Courses Area CSS
   padding-left: 3px !important;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"]::before {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-']::before {
   position: absolute;
   left: 0;
   right: 0;
@@ -4301,32 +4200,32 @@ Kindergarten Courses Area CSS
   bottom: 0;
   z-index: -1;
   background-color: #e8e8e8;
-  content: "";
+  content: '';
   border-radius: 50%;
   margin: 4px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"].owl-next {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: -75px;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"]:hover {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-']:hover {
   color: #ffffff;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"]:hover::before {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-']:hover::before {
   background-color: #fe4a55;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"].disabled {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-'].disabled {
   color: #d1a1a1;
   cursor: not-allowed;
 }
 
-.courses-slides-two.owl-theme .owl-nav [class*="owl-"].disabled::before {
+.courses-slides-two.owl-theme .owl-nav [class*='owl-'].disabled::before {
   background-color: #e8e8e8;
 }
 
@@ -4571,7 +4470,7 @@ Courses Area CSS
 }
 
 .single-courses-item .courses-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -4670,11 +4569,7 @@ Courses Area CSS
   top: 0;
 }
 
-.single-courses-item
-  .courses-content
-  .courses-content-footer
-  li
-  i.flaticon-people {
+.single-courses-item .courses-content .courses-content-footer li i.flaticon-people {
   font-size: 18px;
   left: 3px;
 }
@@ -4706,7 +4601,7 @@ Courses Area CSS
 }
 
 .single-courses-item-box .courses-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -4850,7 +4745,7 @@ Courses Area CSS
 }
 
 .courses-slides.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -4881,7 +4776,7 @@ Courses Area CSS
   bottom: -3px;
 }
 
-.courses-slides.owl-theme .owl-nav [class*="owl-"] {
+.courses-slides.owl-theme .owl-nav [class*='owl-'] {
   margin: 0 40px;
   width: 35px;
   height: 35px;
@@ -4897,7 +4792,7 @@ Courses Area CSS
   color: #fe4a55;
 }
 
-.courses-slides.owl-theme .owl-nav [class*="owl-"]:hover {
+.courses-slides.owl-theme .owl-nav [class*='owl-']:hover {
   background-color: #fe4a55;
   color: #ffffff;
 }
@@ -4953,7 +4848,7 @@ Courses Area CSS
 }
 
 .shorting-menu.shorting-menu-style-two .filter::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -5062,7 +4957,7 @@ Courses Area CSS
 }
 
 .escolalms-grid-sorting .ordering .nice-select .list .option::before {
-  content: "\f11f";
+  content: '\f11f';
   position: absolute;
   left: 10px;
   top: 0;
@@ -5085,11 +4980,7 @@ Courses Area CSS
   color: #ffffff;
 }
 
-.escolalms-grid-sorting
-  .ordering
-  .nice-select
-  .list
-  .option.selected:hover::before {
+.escolalms-grid-sorting .ordering .nice-select .list .option.selected:hover::before {
   color: #ffffff;
 }
 
@@ -5257,7 +5148,7 @@ Courses Details Area CSS
 }
 
 .courses-details-desc .react-tabs__tab-list .react-tabs__tab::before {
-  content: "";
+  content: '';
   bottom: 1px;
   height: 2px;
   background-color: #fe4a55;
@@ -5271,16 +5162,12 @@ Courses Details Area CSS
 }
 
 .courses-details-desc .react-tabs__tab-list .react-tabs__tab:hover,
-.courses-details-desc
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected {
+.courses-details-desc .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
   color: #221638;
 }
 
 .courses-details-desc .react-tabs__tab-list .react-tabs__tab:hover::before,
-.courses-details-desc
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected::before {
+.courses-details-desc .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected::before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
@@ -5301,10 +5188,7 @@ Courses Details Area CSS
   font-weight: 800;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-overview
-  h3:not(:first-child) {
+.courses-details-desc .react-tabs__tab-panel .courses-overview h3:not(:first-child) {
   margin-top: 30px;
 }
 
@@ -5322,10 +5206,7 @@ Courses Details Area CSS
   font-weight: 800;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  h3:not(:first-child) {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum h3:not(:first-child) {
   margin-top: 30px;
 }
 
@@ -5351,13 +5232,8 @@ Courses Details Area CSS
   margin-right: -30px;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a::before {
-  content: "\f104";
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a::before {
+  content: '\f104';
   position: absolute;
   left: 30px;
   color: #fe4a55;
@@ -5366,35 +5242,16 @@ Courses Details Area CSS
   font-family: Flaticon;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-name {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a .courses-name {
   font-size: 14.5px;
   font-weight: 700;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a .courses-meta {
   text-align: right;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .questions {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a .courses-meta .questions {
   display: inline-block;
   background: #e3f1f2;
   color: #2dbbc4;
@@ -5406,14 +5263,7 @@ Courses Details Area CSS
   font-weight: 700;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .duration {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a .courses-meta .duration {
   display: inline-block;
   background: #f7e7e8;
   color: #fe4a55;
@@ -5424,14 +5274,7 @@ Courses Details Area CSS
   font-weight: 700;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .status {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li a .courses-meta .status {
   display: inline-block;
   background: #221638;
   color: #ffffff;
@@ -5465,313 +5308,60 @@ Courses Details Area CSS
   color: #fe4a55;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(2)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(4)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(6)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(8)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(10)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(12)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(14)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(16)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(18)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(20)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(22)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(24)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(26)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(28)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(30)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(32)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(34)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(36)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(38)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(40)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(42)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(44)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(46)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(48)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(50)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(52)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(54)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(56)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(58)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(60)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(62)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(64)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(66)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(68)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(70)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(72)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(74)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(76)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(78)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(80)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(82)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(84)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(86)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(88)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(90)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(92)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(94)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(96)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(98)
-  a,
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-curriculum
-  ul
-  li:nth-child(100)
-  a {
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(2) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(4) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(6) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(8) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(10) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(12) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(14) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(16) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(18) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(20) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(22) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(24) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(26) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(28) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(30) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(32) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(34) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(36) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(38) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(40) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(42) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(44) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(46) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(48) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(50) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(52) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(54) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(56) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(58) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(60) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(62) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(64) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(66) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(68) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(70) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(72) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(74) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(76) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(78) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(80) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(82) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(84) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(86) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(88) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(90) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(92) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(94) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(96) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(98) a,
+.courses-details-desc .react-tabs__tab-panel .courses-curriculum ul li:nth-child(100) a {
   background-color: #ffffff;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-instructor
-  .single-advisor-box {
+.courses-details-desc .react-tabs__tab-panel .courses-instructor .single-advisor-box {
   margin-bottom: 0;
 }
 
@@ -5812,11 +5402,7 @@ Courses Details Area CSS
   margin-right: 2px;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-reviews
-  .rating
-  span.checked {
+.courses-details-desc .react-tabs__tab-panel .courses-reviews .rating span.checked {
   color: orange;
 }
 
@@ -5825,11 +5411,7 @@ Courses Details Area CSS
   margin-bottom: 20px;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-reviews
-  .rating-count
-  span {
+.courses-details-desc .react-tabs__tab-panel .courses-reviews .rating-count span {
   display: block;
   font-size: 16px;
   color: #606060;
@@ -5918,20 +5500,13 @@ Courses Details Area CSS
   font-weight: 800;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-review-comments
-  .user-review {
+.courses-details-desc .react-tabs__tab-panel .courses-review-comments .user-review {
   border-bottom: 1px solid #f3f3f3;
   padding: 20px 0 20px 110px;
   position: relative;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-review-comments
-  .user-review
-  img {
+.courses-details-desc .react-tabs__tab-panel .courses-review-comments .user-review img {
   position: absolute;
   left: 0;
   top: 20px;
@@ -5940,20 +5515,12 @@ Courses Details Area CSS
   border-radius: 5px;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-review-comments
-  .user-review
-  .sub-comment {
+.courses-details-desc .react-tabs__tab-panel .courses-review-comments .user-review .sub-comment {
   margin-bottom: 8px;
   font-weight: 700;
 }
 
-.courses-details-desc
-  .react-tabs__tab-panel
-  .courses-review-comments
-  .user-review
-  .review-rating {
+.courses-details-desc .react-tabs__tab-panel .courses-review-comments .user-review .review-rating {
   display: block;
   margin-bottom: 8px;
 }
@@ -6062,7 +5629,7 @@ Courses Details Area CSS
 }
 
 .courses-details-info .image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -6451,7 +6018,7 @@ Courses Details Area CSS
 }
 
 .courses-details-desc-style-two .courses-curriculum ul li a::before {
-  content: "\f104";
+  content: '\f104';
   position: absolute;
   left: 30px;
   color: #fe4a55;
@@ -6469,13 +6036,7 @@ Courses Details Area CSS
   text-align: right;
 }
 
-.courses-details-desc-style-two
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .questions {
+.courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .questions {
   display: inline-block;
   background: #e3f1f2;
   color: #2dbbc4;
@@ -6487,13 +6048,7 @@ Courses Details Area CSS
   font-weight: 700;
 }
 
-.courses-details-desc-style-two
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .duration {
+.courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .duration {
   display: inline-block;
   background: #f7e7e8;
   color: #fe4a55;
@@ -6504,13 +6059,7 @@ Courses Details Area CSS
   font-weight: 700;
 }
 
-.courses-details-desc-style-two
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .status {
+.courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .status {
   display: inline-block;
   background: #221638;
   color: #ffffff;
@@ -6521,13 +6070,7 @@ Courses Details Area CSS
   font-weight: 700;
 }
 
-.courses-details-desc-style-two
-  .courses-curriculum
-  ul
-  li
-  a
-  .courses-meta
-  .status.locked {
+.courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .status.locked {
   color: #221638;
   background-color: transparent;
   padding: 0;
@@ -6612,7 +6155,7 @@ Courses Details Area CSS
 .courses-details-desc-style-two .requirements-list li::before {
   position: absolute;
   left: 0;
-  content: "";
+  content: '';
   top: 7px;
   width: 7px;
   height: 7px;
@@ -6645,7 +6188,7 @@ Courses Details Area CSS
 .courses-details-desc-style-two .description-features-list li::before {
   position: absolute;
   left: 0;
-  content: "";
+  content: '';
   top: 10px;
   width: 7px;
   height: 7px;
@@ -6678,7 +6221,7 @@ Courses Details Area CSS
 .courses-details-desc-style-two .audience-list li::before {
   position: absolute;
   left: 0;
-  content: "";
+  content: '';
   top: 10px;
   width: 7px;
   height: 7px;
@@ -6714,21 +6257,14 @@ Courses Details Area CSS
   padding: 0 25px 25px;
 }
 
-.courses-details-desc-style-two
-  .courses-author
-  .author-profile
-  .author-profile-title {
+.courses-details-desc-style-two .courses-author .author-profile .author-profile-title {
   position: relative;
   z-index: 1;
   margin-bottom: 15px;
   margin-top: -45px;
 }
 
-.courses-details-desc-style-two
-  .courses-author
-  .author-profile
-  .author-profile-title
-  img {
+.courses-details-desc-style-two .courses-author .author-profile .author-profile-title img {
   display: inline-block;
   border: 3px solid #ffffff;
   width: 100px;
@@ -7064,11 +6600,7 @@ Courses Details Area CSS
   margin-right: 3px;
 }
 
-.courses-sidebar-information
-  .courses-share
-  .share-info
-  .social-link
-  li:last-child {
+.courses-sidebar-information .courses-share .share-info .social-link li:last-child {
   margin-right: 0;
 }
 
@@ -7092,12 +6624,7 @@ Courses Details Area CSS
   transform: translateY(-48%);
 }
 
-.courses-sidebar-information
-  .courses-share
-  .share-info
-  .social-link
-  li
-  a:hover {
+.courses-sidebar-information .courses-share .share-info .social-link li a:hover {
   background-color: #fe4a55;
   color: #ffffff;
 }
@@ -7161,7 +6688,7 @@ Slogan Area CSS
 }
 
 .slogan-content::before {
-  content: "\f10a";
+  content: '\f10a';
   position: absolute;
   right: 30px;
   color: #e8e8e8;
@@ -7224,7 +6751,7 @@ Categories Area CSS
 }
 
 .single-categories-box::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -7398,7 +6925,7 @@ Advisor Area CSS
 }
 
 .advisor-slides.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -7560,7 +7087,7 @@ Advisor Area CSS
 }
 
 .advisor-slides-two.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -7767,7 +7294,7 @@ Funfacts Area CSS
 }
 
 .single-funfacts-box::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -7983,7 +7510,7 @@ Feedback Area CSS
 .single-feedback-item::after {
   width: 75px;
   height: 75px;
-  content: "";
+  content: '';
   border-radius: 50%;
   background-color: #fe4a55;
   position: absolute;
@@ -7993,7 +7520,7 @@ Feedback Area CSS
 }
 
 .single-feedback-item::before {
-  content: "\f10a";
+  content: '\f10a';
   font-family: Flaticon;
   font-size: 100px;
   position: absolute;
@@ -8030,7 +7557,7 @@ Feedback Area CSS
 }
 
 .feedback-slides.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -8076,7 +7603,7 @@ Feedback Area CSS
 }
 
 .testimonials-slides.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -8143,7 +7670,7 @@ Feedback Area CSS
 }
 
 .single-testimonials-item::before {
-  content: "\f10a";
+  content: '\f10a';
   position: absolute;
   right: 0;
   color: #e8e8e8;
@@ -8254,7 +7781,7 @@ Feedback Area CSS
 }
 
 .single-feedback-box::before {
-  content: "\f10a";
+  content: '\f10a';
   position: absolute;
   right: 50px;
   color: #ebe6e0;
@@ -8282,7 +7809,7 @@ Feedback Area CSS
 }
 
 .feedback-slides-two.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -8345,7 +7872,7 @@ Feedback Area CSS
 }
 
 .single-testimonials-box::before {
-  content: "\f10a";
+  content: '\f10a';
   position: absolute;
   right: 0;
   color: #e7e2d9;
@@ -8409,7 +7936,7 @@ Feedback Area CSS
 }
 
 .feedback-with-bg-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -8429,7 +7956,7 @@ Feedback Area CSS
 }
 
 .single-feedback-item-box::after {
-  content: "\f10a";
+  content: '\f10a';
   position: absolute;
   right: 90px;
   color: #ffffff;
@@ -8481,7 +8008,7 @@ Feedback Area CSS
 }
 
 .feedback-slides-style-two.feedback-slides.owl-theme::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -8499,9 +8026,7 @@ Feedback Area CSS
   padding: 85px 85px 150px;
 }
 
-.feedback-slides-style-two.feedback-slides.owl-theme
-  .owl-nav.disabled
-  + .owl-dots {
+.feedback-slides-style-two.feedback-slides.owl-theme .owl-nav.disabled + .owl-dots {
   right: auto;
   top: auto;
   -webkit-transform: unset;
@@ -8519,14 +8044,8 @@ Feedback Area CSS
   margin: 0 3px;
 }
 
-.feedback-slides-style-two.feedback-slides.owl-theme
-  .owl-dots
-  .owl-dot.active
-  span::before,
-.feedback-slides-style-two.feedback-slides.owl-theme
-  .owl-dots
-  .owl-dot:hover
-  span::before {
+.feedback-slides-style-two.feedback-slides.owl-theme .owl-dots .owl-dot.active span::before,
+.feedback-slides-style-two.feedback-slides.owl-theme .owl-dots .owl-dot:hover span::before {
   background-color: #ffffff;
 }
 
@@ -8556,45 +8075,21 @@ Feedback Area CSS
   color: #909279;
 }
 
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot
-  span {
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot span {
   border-color: #8ab6a9;
 }
 
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot
-  span::before {
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot span::before {
   background-color: #8ab6a9;
 }
 
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot:hover
-  span,
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot.active
-  span {
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot:hover span,
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot.active span {
   border-color: #ffffff;
 }
 
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot:hover
-  span::before,
-.feedback-area.bg-6ba292
-  .feedback-slides-two.owl-theme
-  .owl-dots
-  .owl-dot.active
-  span::before {
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot:hover span::before,
+.feedback-area.bg-6ba292 .feedback-slides-two.owl-theme .owl-dots .owl-dot.active span::before {
   background-color: #ffffff;
 }
 
@@ -8784,7 +8279,7 @@ Feedback Area CSS
   margin-top: 0;
 }
 
-.feedback-slides-three.owl-theme .owl-nav [class*="owl-"] {
+.feedback-slides-three.owl-theme .owl-nav [class*='owl-'] {
   margin: -60px 0 0;
   position: absolute;
   left: 23%;
@@ -8805,7 +8300,7 @@ Feedback Area CSS
   padding-left: 2px !important;
 }
 
-.feedback-slides-three.owl-theme .owl-nav [class*="owl-"]::before {
+.feedback-slides-three.owl-theme .owl-nav [class*='owl-']::before {
   position: absolute;
   left: 0;
   right: 0;
@@ -8813,23 +8308,23 @@ Feedback Area CSS
   bottom: 0;
   z-index: -1;
   background-color: #ffffff;
-  content: "";
+  content: '';
   border-radius: 50%;
   margin: 4px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.feedback-slides-three.owl-theme .owl-nav [class*="owl-"].owl-next {
+.feedback-slides-three.owl-theme .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: 23%;
 }
 
-.feedback-slides-three.owl-theme .owl-nav [class*="owl-"]:hover {
+.feedback-slides-three.owl-theme .owl-nav [class*='owl-']:hover {
   color: #ffffff;
 }
 
-.feedback-slides-three.owl-theme .owl-nav [class*="owl-"]:hover::before {
+.feedback-slides-three.owl-theme .owl-nav [class*='owl-']:hover::before {
   background-color: #fe4a55;
 }
 
@@ -8977,7 +8472,7 @@ Profile Area CSS
 }
 
 .profile-courses-quizzes .nav .nav-item .nav-link::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -9050,42 +8545,17 @@ Profile Area CSS
   margin-right: 10px;
 }
 
-.profile-courses-quizzes
-  .tab-content
-  .tab-content
-  .nav
-  .nav-item
-  .nav-link::before {
+.profile-courses-quizzes .tab-content .tab-content .nav .nav-item .nav-link::before {
   display: block;
 }
 
-.profile-courses-quizzes
-  .tab-content
-  .tab-content
-  .nav
-  .nav-item
-  .nav-link:hover,
-.profile-courses-quizzes
-  .tab-content
-  .tab-content
-  .nav
-  .nav-item
-  .nav-link.active {
+.profile-courses-quizzes .tab-content .tab-content .nav .nav-item .nav-link:hover,
+.profile-courses-quizzes .tab-content .tab-content .nav .nav-item .nav-link.active {
   color: #221638;
 }
 
-.profile-courses-quizzes
-  .tab-content
-  .tab-content
-  .nav
-  .nav-item
-  .nav-link:hover::before,
-.profile-courses-quizzes
-  .tab-content
-  .tab-content
-  .nav
-  .nav-item
-  .nav-link.active::before {
+.profile-courses-quizzes .tab-content .tab-content .nav .nav-item .nav-link:hover::before,
+.profile-courses-quizzes .tab-content .tab-content .nav .nav-item .nav-link.active::before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
@@ -9386,7 +8856,7 @@ Video Area CSS
 
 .video-box .video-btn::after,
 .video-box .video-btn::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -9602,7 +9072,7 @@ Events Area CSS
 }
 
 .single-events-box .image .date::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 20px;
   bottom: 0;
@@ -9650,7 +9120,7 @@ Events Area CSS
   left: 20px;
   position: absolute;
   bottom: 0;
-  content: "";
+  content: '';
   height: 2px;
   width: 45px;
   background-color: #d6d6d6;
@@ -9745,7 +9215,7 @@ Events Area CSS
 }
 
 .events-area.bg-shape::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -9758,7 +9228,7 @@ Events Area CSS
 }
 
 .events-area.bg-shape::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -9914,7 +9384,7 @@ Events Details Area CSS
 }
 
 .events-details-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -9957,7 +9427,7 @@ Events Details Area CSS
 }
 
 .events-details-image #timer div::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -10753,7 +10223,7 @@ Blog Area CSS
 }
 
 .blog-slides.owl-theme .owl-dots .owl-dot span::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -10784,7 +10254,7 @@ Blog Area CSS
   bottom: -3px;
 }
 
-.blog-slides.owl-theme .owl-nav [class*="owl-"] {
+.blog-slides.owl-theme .owl-nav [class*='owl-'] {
   margin: 0 40px;
   width: 35px;
   height: 35px;
@@ -10800,7 +10270,7 @@ Blog Area CSS
   color: #fe4a55;
 }
 
-.blog-slides.owl-theme .owl-nav [class*="owl-"]:hover {
+.blog-slides.owl-theme .owl-nav [class*='owl-']:hover {
   background-color: #fe4a55;
   color: #ffffff;
 }
@@ -10865,7 +10335,7 @@ Blog Area CSS
 }
 
 .single-blog-item .post-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -2px;
@@ -10928,7 +10398,7 @@ Blog Details Area CSS
   transition: 0.5s;
 }
 
-.blog-details-desc .article-image-slides.owl-theme .owl-nav [class*="owl-"] {
+.blog-details-desc .article-image-slides.owl-theme .owl-nav [class*='owl-'] {
   color: #87a1c1;
   font-size: 18px;
   margin: 0;
@@ -10951,19 +10421,13 @@ Blog Details Area CSS
   border-width: 1.5px;
 }
 
-.blog-details-desc
-  .article-image-slides.owl-theme
-  .owl-nav
-  [class*="owl-"].owl-next {
+.blog-details-desc .article-image-slides.owl-theme .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: 20px;
   padding-left: 3px !important;
 }
 
-.blog-details-desc
-  .article-image-slides.owl-theme
-  .owl-nav
-  [class*="owl-"]:hover {
+.blog-details-desc .article-image-slides.owl-theme .owl-nav [class*='owl-']:hover {
   background-color: #fe4a55;
   color: #ffffff;
   border-color: #fe4a55;
@@ -11130,7 +10594,7 @@ Blog Details Area CSS
 }
 
 .blog-details-desc .article-footer .article-tags a::before {
-  content: ",";
+  content: ',';
   position: absolute;
   right: 0;
 }
@@ -11335,14 +10799,14 @@ blockquote::before,
   left: 50px;
   top: -50px;
   z-index: -1;
-  content: "\f10a";
+  content: '\f10a';
   font-family: Flaticon;
   font-size: 135px;
 }
 
 blockquote::after,
 .blockquote::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -11416,7 +10880,7 @@ blockquote::after,
 
 .prev-link-wrapper .image-prev::after {
   display: block;
-  content: "";
+  content: '';
   height: 100%;
   width: 100%;
   position: absolute;
@@ -11522,7 +10986,7 @@ blockquote::after,
 
 .next-link-wrapper .image-next::after {
   display: block;
-  content: "";
+  content: '';
   height: 100%;
   width: 100%;
   position: absolute;
@@ -11685,10 +11149,7 @@ blockquote::after,
   font-weight: 800;
 }
 
-.comments-area
-  .comment-respond
-  .comment-reply-title
-  #cancel-comment-reply-link {
+.comments-area .comment-respond .comment-reply-title #cancel-comment-reply-link {
   display: inline-block;
 }
 
@@ -11714,18 +11175,18 @@ blockquote::after,
   display: none;
 }
 
-.comments-area .comment-respond input[type="date"],
-.comments-area .comment-respond input[type="time"],
-.comments-area .comment-respond input[type="datetime-local"],
-.comments-area .comment-respond input[type="week"],
-.comments-area .comment-respond input[type="month"],
-.comments-area .comment-respond input[type="text"],
-.comments-area .comment-respond input[type="email"],
-.comments-area .comment-respond input[type="url"],
-.comments-area .comment-respond input[type="password"],
-.comments-area .comment-respond input[type="search"],
-.comments-area .comment-respond input[type="tel"],
-.comments-area .comment-respond input[type="number"],
+.comments-area .comment-respond input[type='date'],
+.comments-area .comment-respond input[type='time'],
+.comments-area .comment-respond input[type='datetime-local'],
+.comments-area .comment-respond input[type='week'],
+.comments-area .comment-respond input[type='month'],
+.comments-area .comment-respond input[type='text'],
+.comments-area .comment-respond input[type='email'],
+.comments-area .comment-respond input[type='url'],
+.comments-area .comment-respond input[type='password'],
+.comments-area .comment-respond input[type='search'],
+.comments-area .comment-respond input[type='tel'],
+.comments-area .comment-respond input[type='number'],
 .comments-area .comment-respond textarea {
   display: block;
   width: 100%;
@@ -11740,190 +11201,138 @@ blockquote::after,
   font-size: 15px;
 }
 
-.comments-area .comment-respond input[type="date"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="time"]::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="week"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="month"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="text"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="email"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="url"]::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="password"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="search"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="tel"]::-webkit-input-placeholder,
-.comments-area .comment-respond input[type="number"]::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='date']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='time']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='week']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='month']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='text']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='email']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='url']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='password']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='search']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='tel']::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='number']::-webkit-input-placeholder,
 .comments-area .comment-respond textarea::-webkit-input-placeholder {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   color: #606060;
 }
 
-.comments-area .comment-respond input[type="date"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="time"]:-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="week"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="month"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="text"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="email"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="url"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="password"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="search"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="tel"]:-ms-input-placeholder,
-.comments-area .comment-respond input[type="number"]:-ms-input-placeholder,
+.comments-area .comment-respond input[type='date']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='time']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='week']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='month']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='text']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='email']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='url']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='password']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='search']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='tel']:-ms-input-placeholder,
+.comments-area .comment-respond input[type='number']:-ms-input-placeholder,
 .comments-area .comment-respond textarea:-ms-input-placeholder {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   color: #606060;
 }
 
-.comments-area .comment-respond input[type="date"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="time"]::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="week"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="month"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="text"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="email"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="url"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="password"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="search"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="tel"]::-ms-input-placeholder,
-.comments-area .comment-respond input[type="number"]::-ms-input-placeholder,
+.comments-area .comment-respond input[type='date']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='time']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='week']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='month']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='text']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='email']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='url']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='password']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='search']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='tel']::-ms-input-placeholder,
+.comments-area .comment-respond input[type='number']::-ms-input-placeholder,
 .comments-area .comment-respond textarea::-ms-input-placeholder {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   color: #606060;
 }
 
-.comments-area .comment-respond input[type="date"]::placeholder,
-.comments-area .comment-respond input[type="time"]::placeholder,
-.comments-area .comment-respond input[type="datetime-local"]::placeholder,
-.comments-area .comment-respond input[type="week"]::placeholder,
-.comments-area .comment-respond input[type="month"]::placeholder,
-.comments-area .comment-respond input[type="text"]::placeholder,
-.comments-area .comment-respond input[type="email"]::placeholder,
-.comments-area .comment-respond input[type="url"]::placeholder,
-.comments-area .comment-respond input[type="password"]::placeholder,
-.comments-area .comment-respond input[type="search"]::placeholder,
-.comments-area .comment-respond input[type="tel"]::placeholder,
-.comments-area .comment-respond input[type="number"]::placeholder,
+.comments-area .comment-respond input[type='date']::placeholder,
+.comments-area .comment-respond input[type='time']::placeholder,
+.comments-area .comment-respond input[type='datetime-local']::placeholder,
+.comments-area .comment-respond input[type='week']::placeholder,
+.comments-area .comment-respond input[type='month']::placeholder,
+.comments-area .comment-respond input[type='text']::placeholder,
+.comments-area .comment-respond input[type='email']::placeholder,
+.comments-area .comment-respond input[type='url']::placeholder,
+.comments-area .comment-respond input[type='password']::placeholder,
+.comments-area .comment-respond input[type='search']::placeholder,
+.comments-area .comment-respond input[type='tel']::placeholder,
+.comments-area .comment-respond input[type='number']::placeholder,
 .comments-area .comment-respond textarea::placeholder {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   color: #606060;
 }
 
-.comments-area
-  .comment-respond
-  input[type="date"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="time"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="week"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="month"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="text"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="email"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="url"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="password"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="search"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="tel"]:focus::-webkit-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="number"]:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='date']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='time']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='week']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='month']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='text']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='email']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='url']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='password']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='search']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='tel']:focus::-webkit-input-placeholder,
+.comments-area .comment-respond input[type='number']:focus::-webkit-input-placeholder,
 .comments-area .comment-respond textarea:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.comments-area .comment-respond input[type="date"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="time"]:focus:-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="week"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="month"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="text"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="email"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="url"]:focus:-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="password"]:focus:-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="search"]:focus:-ms-input-placeholder,
-.comments-area .comment-respond input[type="tel"]:focus:-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="number"]:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='date']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='time']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='week']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='month']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='text']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='email']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='url']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='password']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='search']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='tel']:focus:-ms-input-placeholder,
+.comments-area .comment-respond input[type='number']:focus:-ms-input-placeholder,
 .comments-area .comment-respond textarea:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.comments-area .comment-respond input[type="date"]:focus::-ms-input-placeholder,
-.comments-area .comment-respond input[type="time"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="datetime-local"]:focus::-ms-input-placeholder,
-.comments-area .comment-respond input[type="week"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="month"]:focus::-ms-input-placeholder,
-.comments-area .comment-respond input[type="text"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="email"]:focus::-ms-input-placeholder,
-.comments-area .comment-respond input[type="url"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="password"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="search"]:focus::-ms-input-placeholder,
-.comments-area .comment-respond input[type="tel"]:focus::-ms-input-placeholder,
-.comments-area
-  .comment-respond
-  input[type="number"]:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='date']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='time']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='datetime-local']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='week']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='month']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='text']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='email']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='url']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='password']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='search']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='tel']:focus::-ms-input-placeholder,
+.comments-area .comment-respond input[type='number']:focus::-ms-input-placeholder,
 .comments-area .comment-respond textarea:focus::-ms-input-placeholder {
   color: transparent;
 }
 
-.comments-area .comment-respond input[type="date"]:focus::placeholder,
-.comments-area .comment-respond input[type="time"]:focus::placeholder,
-.comments-area .comment-respond input[type="datetime-local"]:focus::placeholder,
-.comments-area .comment-respond input[type="week"]:focus::placeholder,
-.comments-area .comment-respond input[type="month"]:focus::placeholder,
-.comments-area .comment-respond input[type="text"]:focus::placeholder,
-.comments-area .comment-respond input[type="email"]:focus::placeholder,
-.comments-area .comment-respond input[type="url"]:focus::placeholder,
-.comments-area .comment-respond input[type="password"]:focus::placeholder,
-.comments-area .comment-respond input[type="search"]:focus::placeholder,
-.comments-area .comment-respond input[type="tel"]:focus::placeholder,
-.comments-area .comment-respond input[type="number"]:focus::placeholder,
+.comments-area .comment-respond input[type='date']:focus::placeholder,
+.comments-area .comment-respond input[type='time']:focus::placeholder,
+.comments-area .comment-respond input[type='datetime-local']:focus::placeholder,
+.comments-area .comment-respond input[type='week']:focus::placeholder,
+.comments-area .comment-respond input[type='month']:focus::placeholder,
+.comments-area .comment-respond input[type='text']:focus::placeholder,
+.comments-area .comment-respond input[type='email']:focus::placeholder,
+.comments-area .comment-respond input[type='url']:focus::placeholder,
+.comments-area .comment-respond input[type='password']:focus::placeholder,
+.comments-area .comment-respond input[type='search']:focus::placeholder,
+.comments-area .comment-respond input[type='tel']:focus::placeholder,
+.comments-area .comment-respond input[type='number']:focus::placeholder,
 .comments-area .comment-respond textarea:focus::placeholder {
   color: transparent;
 }
@@ -12071,7 +11480,7 @@ Become Instructor & Partner CSS
 }
 
 .become-instructor-partner-content.bg-color::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -12407,11 +11816,7 @@ Newsletter Modal CSS
   margin-bottom: 22px;
 }
 
-.newsletter-modal
-  .newsletter-modal-content
-  .modal-inner-content
-  form
-  .input-newsletter {
+.newsletter-modal .newsletter-modal-content .modal-inner-content form .input-newsletter {
   display: block;
   width: 100%;
   height: 50px;
@@ -12517,11 +11922,7 @@ Newsletter Modal CSS
   padding-bottom: 12px;
 }
 
-.newsletter-modal
-  .newsletter-modal-content
-  .modal-inner-content
-  form
-  button:hover {
+.newsletter-modal .newsletter-modal-content .modal-inner-content form button:hover {
   color: #ffffff;
   background-color: #221638;
 }
@@ -12582,7 +11983,7 @@ Training Area CSS
   left: -5%;
   width: 110%;
   height: 100%;
-  content: "";
+  content: '';
   z-index: -1;
   border-radius: 50%;
 }
@@ -12928,7 +12329,7 @@ Experience Area CSS
 }
 
 .experience-content .features-list li i::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -12968,7 +12369,7 @@ Experience Area CSS
 }
 
 .experience-image::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -12988,7 +12389,7 @@ Experience Area CSS
   right: 0;
   bottom: 0;
   z-index: 1;
-  content: "";
+  content: '';
   margin-left: 35px;
   margin-top: 35px;
 }
@@ -13013,7 +12414,7 @@ Experience Area CSS
 
 .experience-image .video-btn::after,
 .experience-image .video-btn::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -13095,7 +12496,7 @@ Experience Area CSS
 }
 
 .experience-img::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -13149,7 +12550,7 @@ Download Syllabus Area CSS
 }
 
 .download-syllabus-area::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -13196,10 +12597,7 @@ Download Syllabus Area CSS
   border: none !important;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .form-control::-webkit-input-placeholder {
+.download-syllabus-form form .form-group .form-control::-webkit-input-placeholder {
   color: #eeeeee;
 }
 
@@ -13215,24 +12613,15 @@ Download Syllabus Area CSS
   color: #eeeeee;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .form-control:focus::-webkit-input-placeholder {
+.download-syllabus-form form .form-group .form-control:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .form-control:focus:-ms-input-placeholder {
+.download-syllabus-form form .form-group .form-control:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .form-control:focus::-ms-input-placeholder {
+.download-syllabus-form form .form-group .form-control:focus::-ms-input-placeholder {
   color: transparent;
 }
 
@@ -13292,28 +12681,18 @@ Download Syllabus Area CSS
   color: #ffffff;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .nice-select
-  .list
-  .option:hover::before {
+.download-syllabus-form form .form-group .nice-select .list .option:hover::before {
   color: #ffffff;
 }
 
 .download-syllabus-form form .form-group .nice-select .list .option.focus,
-.download-syllabus-form
-  form
-  .form-group
-  .nice-select
-  .list
-  .option.selected.focus {
+.download-syllabus-form form .form-group .nice-select .list .option.selected.focus {
   background-color: transparent !important;
   color: #221638;
 }
 
 .download-syllabus-form form .form-group .nice-select .list .option::before {
-  content: "\f11f";
+  content: '\f11f';
   position: absolute;
   left: 10px;
   top: 0;
@@ -13326,32 +12705,17 @@ Download Syllabus Area CSS
   font-size: 11px;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .nice-select
-  .list
-  .option.selected::before {
+.download-syllabus-form form .form-group .nice-select .list .option.selected::before {
   opacity: 1;
   visibility: visible;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .nice-select
-  .list
-  .option.selected:hover {
+.download-syllabus-form form .form-group .nice-select .list .option.selected:hover {
   background-color: #fe4a55 !important;
   color: #ffffff;
 }
 
-.download-syllabus-form
-  form
-  .form-group
-  .nice-select
-  .list
-  .option.selected:hover::before {
+.download-syllabus-form form .form-group .nice-select .list .option.selected:hover::before {
   color: #ffffff;
 }
 
@@ -13489,7 +12853,7 @@ Apply Instructor Area CSS
 }
 
 .apply-instructor-content .react-tabs__tab-list .react-tabs__tab::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -13501,16 +12865,12 @@ Apply Instructor Area CSS
 }
 
 .apply-instructor-content .react-tabs__tab-list .react-tabs__tab:hover,
-.apply-instructor-content
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected {
+.apply-instructor-content .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
   color: #221638;
 }
 
 .apply-instructor-content .react-tabs__tab-list .react-tabs__tab:hover::before,
-.apply-instructor-content
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected::before {
+.apply-instructor-content .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected::before {
   width: 40%;
 }
 
@@ -13555,7 +12915,7 @@ Page Title Area CSS
 }
 
 .page-title-content ul li::before {
-  content: "";
+  content: '';
   position: absolute;
   right: -10px;
   top: 5px;
@@ -13682,9 +13042,7 @@ Subscribe Area CSS
   font-weight: 400;
 }
 
-.subscribe-content
-  .newsletter-form
-  .input-newsletter::-webkit-input-placeholder {
+.subscribe-content .newsletter-form .input-newsletter::-webkit-input-placeholder {
   color: #999999;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -13708,21 +13066,15 @@ Subscribe Area CSS
   transition: 0.5s;
 }
 
-.subscribe-content
-  .newsletter-form
-  .input-newsletter:focus::-webkit-input-placeholder {
+.subscribe-content .newsletter-form .input-newsletter:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.subscribe-content
-  .newsletter-form
-  .input-newsletter:focus:-ms-input-placeholder {
+.subscribe-content .newsletter-form .input-newsletter:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.subscribe-content
-  .newsletter-form
-  .input-newsletter:focus::-ms-input-placeholder {
+.subscribe-content .newsletter-form .input-newsletter:focus::-ms-input-placeholder {
   color: transparent;
 }
 
@@ -13823,10 +13175,7 @@ Subscribe Area CSS
   background-color: #ffffff;
 }
 
-.subscribe-area.bg-eee8df
-  .subscribe-content
-  .newsletter-form
-  .input-newsletter {
+.subscribe-area.bg-eee8df .subscribe-content .newsletter-form .input-newsletter {
   background-color: #ffffff;
 }
 
@@ -14060,14 +13409,8 @@ Products Area CSS
   font-weight: 800;
 }
 
-.single-products-box
-  .products-image
-  .products-button
-  ul
-  li
-  a
-  .tooltip-label::before {
-  content: "";
+.single-products-box .products-image .products-button ul li a .tooltip-label::before {
+  content: '';
   background-color: #fe4a55;
   top: 50%;
   position: absolute;
@@ -14085,13 +13428,7 @@ Products Area CSS
   color: #ffffff;
 }
 
-.single-products-box
-  .products-image
-  .products-button
-  ul
-  li
-  a:hover
-  .tooltip-label {
+.single-products-box .products-image .products-button ul li a:hover .tooltip-label {
   visibility: visible;
   opacity: 1;
   right: 135%;
@@ -14398,24 +13735,15 @@ Products Details Area CSS
   font-weight: 600;
 }
 
-.products-details-desc
-  .products-add-to-cart
-  .input-counter
-  input::-webkit-input-placeholder {
+.products-details-desc .products-add-to-cart .input-counter input::-webkit-input-placeholder {
   color: #221638;
 }
 
-.products-details-desc
-  .products-add-to-cart
-  .input-counter
-  input:-ms-input-placeholder {
+.products-details-desc .products-add-to-cart .input-counter input:-ms-input-placeholder {
   color: #221638;
 }
 
-.products-details-desc
-  .products-add-to-cart
-  .input-counter
-  input::-ms-input-placeholder {
+.products-details-desc .products-add-to-cart .input-counter input::-ms-input-placeholder {
   color: #221638;
 }
 
@@ -14547,7 +13875,7 @@ Products Details Area CSS
 }
 
 .products-details-tabs .react-tabs__tab-list .react-tabs__tab::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   width: 0;
@@ -14559,16 +13887,12 @@ Products Details Area CSS
 }
 
 .products-details-tabs .react-tabs__tab-list .react-tabs__tab:hover,
-.products-details-tabs
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected {
+.products-details-tabs .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
   color: #221638;
 }
 
 .products-details-tabs .react-tabs__tab-list .react-tabs__tab:hover::before,
-.products-details-tabs
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected::before {
+.products-details-tabs .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected::before {
   width: 100%;
 }
 
@@ -14597,7 +13921,7 @@ Products Details Area CSS
 }
 
 .products-details-tabs .react-tabs__tab-panel ul li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 8px;
@@ -14629,11 +13953,7 @@ Products Details Area CSS
   margin-right: 2px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .products-reviews
-  .rating
-  span.checked {
+.products-details-tabs .react-tabs__tab-panel .products-reviews .rating span.checked {
   color: orange;
 }
 
@@ -14642,11 +13962,7 @@ Products Details Area CSS
   margin-bottom: 20px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .products-reviews
-  .rating-count
-  span {
+.products-details-tabs .react-tabs__tab-panel .products-reviews .rating-count span {
   display: block;
   font-size: 16px;
   color: #606060;
@@ -14736,20 +14052,13 @@ Products Details Area CSS
   font-weight: 800;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .products-review-comments
-  .user-review {
+.products-details-tabs .react-tabs__tab-panel .products-review-comments .user-review {
   border-bottom: 1px solid #f3f3f3;
   padding: 20px 0 20px 110px;
   position: relative;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .products-review-comments
-  .user-review
-  img {
+.products-details-tabs .react-tabs__tab-panel .products-review-comments .user-review img {
   position: absolute;
   left: 0;
   top: 20px;
@@ -14758,11 +14067,7 @@ Products Details Area CSS
   border-radius: 5px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .products-review-comments
-  .user-review
-  .sub-comment {
+.products-details-tabs .react-tabs__tab-panel .products-review-comments .user-review .sub-comment {
   margin-bottom: 8px;
   font-weight: 700;
 }
@@ -14831,11 +14136,7 @@ Products Details Area CSS
   font-weight: 800;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  .comment-notes
-  span {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper .comment-notes span {
   color: red;
 }
 
@@ -14844,20 +14145,12 @@ Products Details Area CSS
   text-align: center;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  .form-group {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form .form-group {
   margin-bottom: 25px;
   text-align: left;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  .rating {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form .rating {
   text-align: left;
   overflow: hidden;
   max-width: 115px;
@@ -14865,12 +14158,7 @@ Products Details Area CSS
   margin-bottom: 20px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  .rating
-  label {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form .rating label {
   float: right;
   position: relative;
   width: 23px;
@@ -14887,13 +14175,8 @@ Products Details Area CSS
   padding-right: 5px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  .rating
-  label:before {
-  content: "\2605";
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form .rating label:before {
+  content: '\2605';
   -webkit-transition: 0.5s;
   transition: 0.5s;
   font-size: 27px;
@@ -14901,12 +14184,7 @@ Products Details Area CSS
   line-height: 1;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  .rating
-  input {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form .rating input {
   display: none;
 }
 
@@ -14947,13 +14225,13 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked,
+  [type='checkbox']:checked,
 .products-details-tabs
   .react-tabs__tab-panel
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:not(:checked) {
+  [type='checkbox']:not(:checked) {
   display: none;
 }
 
@@ -14962,14 +14240,14 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked
+  [type='checkbox']:checked
   + label,
 .products-details-tabs
   .react-tabs__tab-panel
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:not(:checked)
+  [type='checkbox']:not(:checked)
   + label {
   position: relative;
   padding-left: 28px;
@@ -14986,16 +14264,16 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked
+  [type='checkbox']:checked
   + label:before,
 .products-details-tabs
   .react-tabs__tab-panel
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:not(:checked)
+  [type='checkbox']:not(:checked)
   + label:before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -15013,16 +14291,16 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked
+  [type='checkbox']:checked
   + label:after,
 .products-details-tabs
   .react-tabs__tab-panel
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:not(:checked)
+  [type='checkbox']:not(:checked)
   + label:after {
-  content: "";
+  content: '';
   width: 8px;
   height: 8px;
   background: #fe4a55;
@@ -15038,7 +14316,7 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:not(:checked)
+  [type='checkbox']:not(:checked)
   + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
@@ -15050,7 +14328,7 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked
+  [type='checkbox']:checked
   + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
@@ -15062,7 +14340,7 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:hover
+  [type='checkbox']:hover
   + label:before {
   border-color: #fe4a55;
 }
@@ -15072,7 +14350,7 @@ Products Details Area CSS
   .review-form-wrapper
   form
   .comment-form-cookies-consent
-  [type="checkbox"]:checked
+  [type='checkbox']:checked
   + label:before {
   border-color: #fe4a55;
 }
@@ -15093,11 +14371,7 @@ Products Details Area CSS
   font-size: 16px;
 }
 
-.products-details-tabs
-  .react-tabs__tab-panel
-  .review-form-wrapper
-  form
-  button:hover {
+.products-details-tabs .react-tabs__tab-panel .review-form-wrapper form button:hover {
   background-color: #221638;
   color: #ffffff;
 }
@@ -15200,43 +14474,19 @@ Cart Area CSS
   font-weight: 600;
 }
 
-.cart-table
-  table
-  tbody
-  tr
-  td.product-quantity
-  .input-counter
-  input::-webkit-input-placeholder {
+.cart-table table tbody tr td.product-quantity .input-counter input::-webkit-input-placeholder {
   color: #221638;
 }
 
-.cart-table
-  table
-  tbody
-  tr
-  td.product-quantity
-  .input-counter
-  input:-ms-input-placeholder {
+.cart-table table tbody tr td.product-quantity .input-counter input:-ms-input-placeholder {
   color: #221638;
 }
 
-.cart-table
-  table
-  tbody
-  tr
-  td.product-quantity
-  .input-counter
-  input::-ms-input-placeholder {
+.cart-table table tbody tr td.product-quantity .input-counter input::-ms-input-placeholder {
   color: #221638;
 }
 
-.cart-table
-  table
-  tbody
-  tr
-  td.product-quantity
-  .input-counter
-  input::placeholder {
+.cart-table table tbody tr td.product-quantity .input-counter input::placeholder {
   color: #221638;
 }
 
@@ -15367,7 +14617,7 @@ Checkout Area CSS
 }
 
 .billing-details .title::before {
-  content: "";
+  content: '';
   position: absolute;
   background: #fe4a55;
   bottom: -1px;
@@ -15448,7 +14698,7 @@ Checkout Area CSS
 }
 
 .billing-details .form-group .nice-select .list .option::before {
-  content: "\f11f";
+  content: '\f11f';
   position: absolute;
   left: 10px;
   top: 0;
@@ -15522,7 +14772,7 @@ Checkout Area CSS
 }
 
 .order-details .title::before {
-  content: "";
+  content: '';
   position: absolute;
   background: #fe4a55;
   bottom: -1px;
@@ -15587,18 +14837,13 @@ Checkout Area CSS
   padding: 30px;
 }
 
-.order-details .payment-box .payment-method p [type="radio"]:checked,
-.order-details .payment-box .payment-method p [type="radio"]:not(:checked) {
+.order-details .payment-box .payment-method p [type='radio']:checked,
+.order-details .payment-box .payment-method p [type='radio']:not(:checked) {
   display: none;
 }
 
-.order-details .payment-box .payment-method p [type="radio"]:checked + label,
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:not(:checked)
-  + label {
+.order-details .payment-box .payment-method p [type='radio']:checked + label,
+.order-details .payment-box .payment-method p [type='radio']:not(:checked) + label {
   padding-left: 27px;
   cursor: pointer;
   display: block;
@@ -15608,19 +14853,9 @@ Checkout Area CSS
   font-weight: 800;
 }
 
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:checked
-  + label::before,
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:not(:checked)
-  + label::before {
-  content: "";
+.order-details .payment-box .payment-method p [type='radio']:checked + label::before,
+.order-details .payment-box .payment-method p [type='radio']:not(:checked) + label::before {
+  content: '';
   position: absolute;
   left: 0;
   top: 3px;
@@ -15631,19 +14866,9 @@ Checkout Area CSS
   background: #ffffff;
 }
 
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:checked
-  + label::after,
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:not(:checked)
-  + label::after {
-  content: "";
+.order-details .payment-box .payment-method p [type='radio']:checked + label::after,
+.order-details .payment-box .payment-method p [type='radio']:not(:checked) + label::after {
+  content: '';
   width: 12px;
   height: 12px;
   background: #fe4a55;
@@ -15655,24 +14880,14 @@ Checkout Area CSS
   transition: 0.5s;
 }
 
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:not(:checked)
-  + label::after {
+.order-details .payment-box .payment-method p [type='radio']:not(:checked) + label::after {
   opacity: 0;
   visibility: hidden;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-.order-details
-  .payment-box
-  .payment-method
-  p
-  [type="radio"]:checked
-  + label::after {
+.order-details .payment-box .payment-method p [type='radio']:checked + label::after {
   opacity: 1;
   visibility: visible;
   -webkit-transform: scale(1);
@@ -15711,7 +14926,7 @@ Widget Sidebar CSS
 }
 
 .widget-area .widget .widget-title::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 0;
@@ -15773,10 +14988,7 @@ Widget Sidebar CSS
   transition: 0.5s;
 }
 
-.widget-area
-  .widget_search
-  form
-  .search-field:focus::-webkit-input-placeholder {
+.widget-area .widget_search form .search-field:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -15874,7 +15086,7 @@ Widget Sidebar CSS
 .widget-area .widget_escolalms_posts_thumb .item .thumb::after {
   -webkit-transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
   transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-  content: "";
+  content: '';
   background-color: #ffffff;
   position: absolute;
   z-index: 1;
@@ -15953,7 +15165,7 @@ Widget Sidebar CSS
   background: #fe4a55;
   height: 8px;
   width: 8px;
-  content: "";
+  content: '';
   border-radius: 50%;
   left: 0;
   top: 7px;
@@ -16030,7 +15242,7 @@ Widget Sidebar CSS
   -webkit-transition: 0.5s;
   transition: 0.5s;
   background-color: #606060;
-  content: "";
+  content: '';
   position: absolute;
   left: 25px;
   top: 50%;
@@ -16120,7 +15332,7 @@ Widget Sidebar CSS
 .widget-area .widget_recent_courses .item .thumb::after {
   -webkit-transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
   transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-  content: "";
+  content: '';
   background-color: #ffffff;
   position: absolute;
   z-index: 1;
@@ -16244,7 +15456,7 @@ Widget Sidebar CSS
 .widget-area .widget_popular_products .item .thumb::after {
   -webkit-transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
   transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-  content: "";
+  content: '';
   background-color: #ffffff;
   position: absolute;
   z-index: 1;
@@ -16693,9 +15905,7 @@ FAQ Area CSS
   color: #ffffff;
 }
 
-.faq-accordion-tab
-  .react-tabs__tab-list
-  .react-tabs__tab.react-tabs__tab--selected {
+.faq-accordion-tab .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
   background-color: #fe4a55;
   color: #ffffff;
 }
@@ -16866,7 +16076,7 @@ Coming Soon Area CSS
 }
 
 .coming-soon-content form .form-group .label-title::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: 0;
@@ -16893,10 +16103,7 @@ Coming Soon Area CSS
   font-weight: 400;
 }
 
-.coming-soon-content
-  form
-  .form-group
-  .input-newsletter::-webkit-input-placeholder {
+.coming-soon-content form .form-group .input-newsletter::-webkit-input-placeholder {
   color: #a1a1a1;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -16920,24 +16127,15 @@ Coming Soon Area CSS
   transition: 0.5s;
 }
 
-.coming-soon-content
-  form
-  .form-group
-  .input-newsletter:focus::-webkit-input-placeholder {
+.coming-soon-content form .form-group .input-newsletter:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.coming-soon-content
-  form
-  .form-group
-  .input-newsletter:focus:-ms-input-placeholder {
+.coming-soon-content form .form-group .input-newsletter:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.coming-soon-content
-  form
-  .form-group
-  .input-newsletter:focus::-ms-input-placeholder {
+.coming-soon-content form .form-group .input-newsletter:focus::-ms-input-placeholder {
   color: transparent;
 }
 
@@ -16996,13 +16194,13 @@ Profile Authentication Area CSS
   margin-bottom: 0;
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked,
-.login-form form .remember-me-wrap [type="checkbox"]:not(:checked) {
+.login-form form .remember-me-wrap [type='checkbox']:checked,
+.login-form form .remember-me-wrap [type='checkbox']:not(:checked) {
   display: none;
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked + label,
-.login-form form .remember-me-wrap [type="checkbox"]:not(:checked) + label {
+.login-form form .remember-me-wrap [type='checkbox']:checked + label,
+.login-form form .remember-me-wrap [type='checkbox']:not(:checked) + label {
   position: relative;
   padding-left: 28px;
   cursor: pointer;
@@ -17013,13 +16211,9 @@ Profile Authentication Area CSS
   font-weight: 600;
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked + label:before,
-.login-form
-  form
-  .remember-me-wrap
-  [type="checkbox"]:not(:checked)
-  + label:before {
-  content: "";
+.login-form form .remember-me-wrap [type='checkbox']:checked + label:before,
+.login-form form .remember-me-wrap [type='checkbox']:not(:checked) + label:before {
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
@@ -17032,13 +16226,9 @@ Profile Authentication Area CSS
   background: #f5f5f5;
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked + label:after,
-.login-form
-  form
-  .remember-me-wrap
-  [type="checkbox"]:not(:checked)
-  + label:after {
-  content: "";
+.login-form form .remember-me-wrap [type='checkbox']:checked + label:after,
+.login-form form .remember-me-wrap [type='checkbox']:not(:checked) + label:after {
+  content: '';
   width: 8px;
   height: 8px;
   background: #fe4a55;
@@ -17049,27 +16239,23 @@ Profile Authentication Area CSS
   transition: all 0.2s ease;
 }
 
-.login-form
-  form
-  .remember-me-wrap
-  [type="checkbox"]:not(:checked)
-  + label:after {
+.login-form form .remember-me-wrap [type='checkbox']:not(:checked) + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked + label:after {
+.login-form form .remember-me-wrap [type='checkbox']:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:hover + label:before {
+.login-form form .remember-me-wrap [type='checkbox']:hover + label:before {
   border-color: #fe4a55;
 }
 
-.login-form form .remember-me-wrap [type="checkbox"]:checked + label:before {
+.login-form form .remember-me-wrap [type='checkbox']:checked + label:before {
   border-color: #fe4a55;
 }
 
@@ -17090,7 +16276,7 @@ Profile Authentication Area CSS
   position: absolute;
   left: 0;
   bottom: 0;
-  content: "";
+  content: '';
   -webkit-transition: 0.5s;
   transition: 0.5s;
   background-color: #eeeeee;
@@ -17104,7 +16290,7 @@ Profile Authentication Area CSS
   -webkit-transition: 0.5s;
   transition: 0.5s;
   bottom: 0;
-  content: "";
+  content: '';
   background-color: #fe4a55;
 }
 
@@ -17575,7 +16761,7 @@ Footer Area CSS
 }
 
 .footer-bottom-area ul li::before {
-  content: "";
+  content: '';
   position: absolute;
   right: -12px;
   top: 5.5px;
@@ -17615,7 +16801,7 @@ Footer Area CSS
 }
 
 .lines .line::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   height: 15vh;
@@ -17630,12 +16816,7 @@ Footer Area CSS
     color-stop(75%, #ffffff),
     to(#ffffff)
   );
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 75%,
-    #ffffff 100%
-  );
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
   -webkit-animation: run 7s 0s infinite;
   animation: run 7s 0s infinite;
   -webkit-animation-fill-mode: forwards;
@@ -18158,7 +17339,7 @@ Premium Access Area CSS
   left: 0;
   right: 0;
   bottom: 0;
-  content: "";
+  content: '';
   z-index: -1;
   height: 35px;
   position: absolute;
@@ -18206,7 +17387,7 @@ Testimonials Area CSS
   margin-top: 0;
 }
 
-.testimonials-slides-two.owl-theme .owl-nav [class*="owl-"] {
+.testimonials-slides-two.owl-theme .owl-nav [class*='owl-'] {
   left: -20px;
   position: absolute;
   top: 50%;
@@ -18225,7 +17406,7 @@ Testimonials Area CSS
   border-radius: 50%;
 }
 
-.testimonials-slides-two.owl-theme .owl-nav [class*="owl-"] i {
+.testimonials-slides-two.owl-theme .owl-nav [class*='owl-'] i {
   left: 0;
   right: 0;
   top: 50%;
@@ -18234,12 +17415,12 @@ Testimonials Area CSS
   transform: translateY(-50%);
 }
 
-.testimonials-slides-two.owl-theme .owl-nav [class*="owl-"]:hover {
+.testimonials-slides-two.owl-theme .owl-nav [class*='owl-']:hover {
   background-color: #fe4a55 !important;
   color: #ffffff;
 }
 
-.testimonials-slides-two.owl-theme .owl-nav [class*="owl-"].owl-next {
+.testimonials-slides-two.owl-theme .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: -20px;
 }
@@ -18280,7 +17461,7 @@ Testimonials Area CSS
 
 .testimonials-item::before {
   opacity: 0.04;
-  content: "\f10a";
+  content: '\f10a';
   left: 0;
   position: absolute;
   right: 0;
@@ -18305,7 +17486,7 @@ Get Instant Courses Area CSS
 }
 
 .get-instant-courses-area-two::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -18316,7 +17497,7 @@ Get Instant Courses Area CSS
 }
 
 .get-instant-courses-area-two::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -18388,7 +17569,7 @@ Video Area CSS
 }
 
 .video-area::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;

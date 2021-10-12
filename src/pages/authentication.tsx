@@ -1,23 +1,23 @@
-import React, { useContext } from "react";
-import PageBanner from "../components/Common/PageBanner";
-import LoginForm from "../components/Authentication/LoginForm";
-import RegisterForm from "../components/Authentication/RegisterForm";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import PageBanner from '../components/Common/PageBanner';
+import LoginForm from '../components/Authentication/LoginForm';
+import RegisterForm from '../components/Authentication/RegisterForm';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { useHistory } from 'react-router-dom';
 
-import SocialButtons from "../components/Authentication/SocialButtons";
-import Layout from "../components/_App/Layout";
+import SocialButtons from '../components/Authentication/SocialButtons';
+import Layout from '../components/_App/Layout';
 
 const Authentication = () => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
 
   if (!user.loading && user.value) {
-    history.push("/");
+    history.push('/');
   }
 
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         <PageBanner
           pageTitle="Authentication"

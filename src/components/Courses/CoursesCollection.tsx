@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { CoursesContext } from "../../components/Courses/CoursesContext";
-import CourseCard from "../../components/CourseCard";
-import Pagination from "../../components/Pagination";
-import Preloader from "../../components/Preloader";
+import { CoursesContext } from '../../components/Courses/CoursesContext';
+import CourseCard from '../../components/CourseCard';
+import Pagination from '../../components/Pagination';
+import Preloader from '../../components/Preloader';
 
 enum Order {
-  ASC = "ASC",
-  DESC = "DESC",
+  ASC = 'ASC',
+  DESC = 'DESC',
 }
 
-const CoursesCollection: React.FC<{ className?: string }> = ({ className= '' }) => {
+const CoursesCollection: React.FC<{ className?: string }> = ({ className = '' }) => {
   const { setParams, courses, onlyFree } = useContext(CoursesContext);
 
   if (courses.loading) {
@@ -23,10 +23,7 @@ const CoursesCollection: React.FC<{ className?: string }> = ({ className= '' }) 
 
   return (
     <div className={className}>
-      <div
-        className="escolalms-grid-sorting row align-items-center"
-        suppressHydrationWarning={true}
-      >
+      <div className="escolalms-grid-sorting row align-items-center">
         <div className="col-lg-8 col-md-6 result-count">
           <h2>Dostępne materiały szkoleniowe</h2>
         </div>
@@ -35,8 +32,8 @@ const CoursesCollection: React.FC<{ className?: string }> = ({ className= '' }) 
           <div className="select-box">
             <select
               className="app-input"
-              onChange={(e) => {
-                const [order_by, order] = e.target.value.split("|");
+              onBlur={(e) => {
+                const [order_by, order] = e.target.value.split('|');
                 // @ts-ignore // TODO: fix any
                 setParams((prevParams) => ({
                   ...prevParams,

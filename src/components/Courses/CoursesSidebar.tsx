@@ -1,13 +1,7 @@
-import React, {
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
-import { API } from "@escolalms/connector/lib";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { useTranslation } from "react-i18next";
+import React, { useCallback, useContext, useRef, useState, useEffect } from 'react';
+import { API } from '@escolalms/connector/lib';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { useTranslation } from 'react-i18next';
 
 const CategoryTreeOptions: React.FC<{
   categories: API.Category[];
@@ -19,15 +13,11 @@ const CategoryTreeOptions: React.FC<{
       {categories.map((category) => (
         <React.Fragment key={category.id}>
           <option value={category.id} selected={Number(id) === category.id}>
-            {Array.from({ length: nest + 1 }).join(" > ")}
+            {Array.from({ length: nest + 1 }).join(' > ')}
             {category.name}
           </option>
           {category && category.subcategories && category.subcategories.length > 0 && (
-            <CategoryTreeOptions
-              categories={category.subcategories}
-              nest={nest + 1}
-              id={id}
-            />
+            <CategoryTreeOptions categories={category.subcategories} nest={nest + 1} id={id} />
           )}
         </React.Fragment>
       ))}
@@ -49,13 +39,12 @@ export const CategoryTree: React.FC<{
     <div className="select-box">
       <select
         className="form-control"
-        onChange={(e) => {
+        onBlur={(e) => {
           onChange && onChange(e.target.value);
         }}
-        suppressHydrationWarning={true}
       >
         <option value="" selected={!!!id}>
-          {t("All Categories")}
+          {t('All Categories')}
         </option>
         <CategoryTreeOptions categories={categoryTree.list} id={id} />
       </select>
@@ -75,20 +64,15 @@ export const Tutors: React.FC<{
     <div className="select-box">
       <select
         className="form-control"
-        onChange={(e) => {
+        onBlur={(e) => {
           onChange && onChange(e.target.value);
         }}
-        suppressHydrationWarning={true}
       >
         <option value="" selected={!!!id}>
-          {t("All Tutors")}
+          {t('All Tutors')}
         </option>
         {tutors.list?.map((tutor) => (
-          <option
-            key={tutor.id}
-            value={tutor.id}
-            selected={Number(id) === tutor.id}
-          >
+          <option key={tutor.id} value={tutor.id} selected={Number(id) === tutor.id}>
             {tutor.first_name} {tutor.last_name}
           </option>
         ))}
@@ -105,7 +89,6 @@ const CoursesSidebar: React.FC<{
   multiple?: boolean;
   params?: API.CourseParams;
 }> = ({ onSearch, onTag, onCategory, onTutor, multiple = false, params }) => {
-
   const { uniqueTags, fetchTutors } = useContext(EscolaLMSContext);
   const [tags, setTags] = useState<API.Tag[]>([]);
   const hasTags = useCallback((tags: API.Tag[], tag) => {
@@ -123,7 +106,7 @@ const CoursesSidebar: React.FC<{
         }
       });
     },
-    [tags]
+    [tags],
   );
 
   useEffect(() => {
@@ -140,15 +123,14 @@ const CoursesSidebar: React.FC<{
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.value = params?.title ? params?.title : "";
+      inputRef.current.value = params?.title ? params?.title : '';
     }
   }, [params]);
-
 
   return (
     <div className="widget-area">
       <div className="widget widget_search">
-        <h3 className="widget-title">{t("Search")}</h3>
+        <h3 className="widget-title">{t('Search')}</h3>
 
         <form
           className="search-form"
@@ -158,12 +140,12 @@ const CoursesSidebar: React.FC<{
           }}
         >
           <label>
-            <span className="screen-reader-text">{t("Search for")}:</span>
+            <span className="screen-reader-text">{t('Search for')}:</span>
             <input
               ref={inputRef}
               type="search"
               className="search-field"
-              placeholder={t("Search")}
+              placeholder={t('Search')}
             />
           </label>
           <button type="submit">
@@ -173,28 +155,26 @@ const CoursesSidebar: React.FC<{
       </div>
 
       <div className="widget widget_search">
-        <h3 className="widget-title">{t("Categories")}</h3>
+        <h3 className="widget-title">{t('Categories')}</h3>
 
         <CategoryTree id={params?.category_id} onChange={onCategory} />
       </div>
 
       <div className="widget widget_search">
-        <h3 className="widget-title">{t("Tutors")}</h3>
+        <h3 className="widget-title">{t('Tutors')}</h3>
 
         <Tutors id={params?.author_id} onChange={onTutor} />
       </div>
 
       <div className="widget widget_tag_cloud">
-        <h3 className="widget-title">{t("Popular Tags")}</h3>
+        <h3 className="widget-title">{t('Popular Tags')}</h3>
 
-        <div className="tagcloud" suppressHydrationWarning={true}>
+        <div className="tagcloud">
           {uniqueTags?.list?.map((tag) => (
             <a
-              href="#"
+              href={`!#tag-${tag.title}`}
               key={tag.title}
-              className={
-                params?.tag ? (params?.tag === tag.title ? "active" : "") : ""
-              }
+              className={params?.tag ? (params?.tag === tag.title ? 'active' : '') : ''}
               onClick={(e) => {
                 e.preventDefault();
                 toggleTag(tag);

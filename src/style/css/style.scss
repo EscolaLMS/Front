@@ -68,11 +68,11 @@ This files table contents are outlined below>>>>>
 /*================================================
 Default CSS
 =================================================*/
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-$font-family: "Nunito", sans-serif;
-$font-family2: "Playfair Display", serif;
+$font-family: 'Nunito', sans-serif;
+$font-family2: 'Playfair Display', serif;
 $main-color: #fe4a55;
 $main-color2: #6ba292;
 $optional-color: #606060;
@@ -375,7 +375,7 @@ a {
     top: 14px;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -1547,7 +1547,7 @@ Main Banner Area CSS
     height: 512px;
     width: 100%;
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     bottom: 0;
     z-index: 1;
@@ -1863,7 +1863,7 @@ Yoga Main Banner Area CSS
     }
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -2388,7 +2388,7 @@ About Area CSS
     z-index: 1;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       right: 0;
@@ -2422,7 +2422,7 @@ About Area CSS
 
     &::after,
     &::before {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       top: 0;
@@ -2728,7 +2728,7 @@ About Area CSS
           transition: $transition;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -2841,7 +2841,7 @@ Success Story Area CSS
   z-index: 1;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -2882,7 +2882,7 @@ Kindergarten Main Banner Area CSS
     }
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -2896,7 +2896,7 @@ Kindergarten Main Banner Area CSS
     }
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     bottom: 0;
@@ -3182,7 +3182,7 @@ Kindergarten Services Area CSS
   z-index: 1;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -3226,7 +3226,7 @@ Kindergarten Services Area CSS
     .owl-nav {
       margin-top: 0;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         margin: 0;
         position: absolute;
         left: -45px;
@@ -3252,7 +3252,7 @@ Kindergarten Services Area CSS
           bottom: 0;
           z-index: -1;
           background-color: $white-color;
-          content: "";
+          content: '';
           border-radius: 50%;
           margin: 4px;
           transition: $transition;
@@ -3340,7 +3340,7 @@ Kindergarten Courses Area CSS
       }
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -3448,7 +3448,7 @@ Kindergarten Courses Area CSS
     .owl-nav {
       margin-top: 0;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         margin: 0;
         position: absolute;
         left: -75px;
@@ -3474,7 +3474,7 @@ Kindergarten Courses Area CSS
           bottom: 0;
           z-index: -1;
           background-color: #e8e8e8;
-          content: "";
+          content: '';
           border-radius: 50%;
           margin: 4px;
           transition: $transition;
@@ -3732,7 +3732,7 @@ Courses Area CSS
       transition: $transition;
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       right: 0;
@@ -3864,7 +3864,7 @@ Courses Area CSS
     z-index: 1;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       right: 0;
@@ -4011,7 +4011,7 @@ Courses Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -4042,7 +4042,7 @@ Courses Area CSS
       right: 0;
       bottom: -3px;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         margin: 0 40px;
         width: 35px;
         height: 35px;
@@ -4115,7 +4115,7 @@ Courses Area CSS
         right: 7px;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         bottom: 0;
@@ -4223,7 +4223,7 @@ Courses Area CSS
             color: $black-color;
           }
           &::before {
-            content: "\f11f";
+            content: '\f11f';
             position: absolute;
             left: 10px;
             top: 0;
@@ -4426,7 +4426,7 @@ Courses Details Area CSS
         weight: 800;
       }
       &::before {
-        content: "";
+        content: '';
         bottom: 1px;
         height: 2px;
         background-color: $main-color;
@@ -4509,7 +4509,7 @@ Courses Details Area CSS
               right: -30px;
             }
             &::before {
-              content: "\f104";
+              content: '\f104';
               position: absolute;
               left: 30px;
               color: $main-color;
@@ -4876,7 +4876,7 @@ Courses Details Area CSS
       }
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -5266,7 +5266,7 @@ Courses Details Area CSS
             right: -30px;
           }
           &::before {
-            content: "\f104";
+            content: '\f104';
             position: absolute;
             left: 30px;
             color: $main-color;
@@ -5411,7 +5411,7 @@ Courses Details Area CSS
       &::before {
         position: absolute;
         left: 0;
-        content: "";
+        content: '';
         top: 7px;
         width: 7px;
         height: 7px;
@@ -5443,7 +5443,7 @@ Courses Details Area CSS
       &::before {
         position: absolute;
         left: 0;
-        content: "";
+        content: '';
         top: 10px;
         width: 7px;
         height: 7px;
@@ -5473,7 +5473,7 @@ Courses Details Area CSS
       &::before {
         position: absolute;
         left: 0;
-        content: "";
+        content: '';
         top: 10px;
         width: 7px;
         height: 7px;
@@ -5925,7 +5925,7 @@ Slogan Area CSS
     margin-top: 7px;
   }
   &::before {
-    content: "\f10a";
+    content: '\f10a';
     position: absolute;
     right: 30px;
     color: #e8e8e8;
@@ -5985,7 +5985,7 @@ Categories Area CSS
     transition: $transition;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -6161,7 +6161,7 @@ Advisor Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -6320,7 +6320,7 @@ Advisor Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -6546,7 +6546,7 @@ Funfacts Area CSS
     }
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -6774,7 +6774,7 @@ Feedback Area CSS
   &::after {
     width: 75px;
     height: 75px;
-    content: "";
+    content: '';
     border-radius: 50%;
     background-color: $main-color;
     position: absolute;
@@ -6783,7 +6783,7 @@ Feedback Area CSS
     z-index: -1;
   }
   &::before {
-    content: "\f10a";
+    content: '\f10a';
     font-family: Flaticon;
     font-size: 100px;
     position: absolute;
@@ -6820,7 +6820,7 @@ Feedback Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -6868,7 +6868,7 @@ Feedback Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -6940,7 +6940,7 @@ Feedback Area CSS
     margin-top: 4px;
   }
   &::before {
-    content: "\f10a";
+    content: '\f10a';
     position: absolute;
     right: 0;
     color: #e8e8e8;
@@ -7047,7 +7047,7 @@ Feedback Area CSS
     }
   }
   &::before {
-    content: "\f10a";
+    content: '\f10a';
     position: absolute;
     right: 50px;
     color: #ebe6e0;
@@ -7077,7 +7077,7 @@ Feedback Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -7145,7 +7145,7 @@ Feedback Area CSS
     margin-top: 4px;
   }
   &::before {
-    content: "\f10a";
+    content: '\f10a';
     position: absolute;
     right: 0;
     color: #e7e2d9;
@@ -7206,7 +7206,7 @@ Feedback Area CSS
     repeat: no-repeat;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -7225,7 +7225,7 @@ Feedback Area CSS
   background-color: $main-color;
 
   &::after {
-    content: "\f10a";
+    content: '\f10a';
     position: absolute;
     right: 90px;
     color: $white-color;
@@ -7278,7 +7278,7 @@ Feedback Area CSS
       margin-left: 100px;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         right: 0;
@@ -7563,7 +7563,7 @@ Feedback Area CSS
     .owl-nav {
       margin-top: 0;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         margin: -60px 0 0;
         position: absolute;
         left: 23%;
@@ -7589,7 +7589,7 @@ Feedback Area CSS
           bottom: 0;
           z-index: -1;
           background-color: $white-color;
-          content: "";
+          content: '';
           border-radius: 50%;
           margin: 4px;
           transition: $transition;
@@ -7752,7 +7752,7 @@ Profile Area CSS
           right: 10px;
         }
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           bottom: 0;
@@ -8174,7 +8174,7 @@ Video Area CSS
 
     &::after,
     &::before {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       top: 0;
@@ -8360,7 +8360,7 @@ Events Area CSS
         weight: 700;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 20px;
         bottom: 0;
@@ -8408,7 +8408,7 @@ Events Area CSS
       left: 20px;
       position: absolute;
       bottom: 0;
-      content: "";
+      content: '';
       height: 2px;
       width: 45px;
       background-color: #d6d6d6;
@@ -8503,7 +8503,7 @@ Events Area CSS
       bottom: 110px;
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -8517,7 +8517,7 @@ Events Area CSS
       }
     }
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: 0;
@@ -8673,7 +8673,7 @@ Events Details Area CSS
   margin-bottom: 50px;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -8716,7 +8716,7 @@ Events Details Area CSS
         }
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         right: 0;
@@ -9522,7 +9522,7 @@ Blog Area CSS
           transition: $transition;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -9553,7 +9553,7 @@ Blog Area CSS
       right: 0;
       bottom: -3px;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         margin: 0 40px;
         width: 35px;
         height: 35px;
@@ -9625,7 +9625,7 @@ Blog Area CSS
       }
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: -2px;
@@ -9695,7 +9695,7 @@ Blog Details Area CSS
         visibility: hidden;
         transition: $transition;
 
-        [class*="owl-"] {
+        [class*='owl-'] {
           color: #87a1c1;
           font-size: 18px;
           margin: 0;
@@ -9897,7 +9897,7 @@ Blog Details Area CSS
         margin-right: 3px;
 
         &::before {
-          content: ",";
+          content: ',';
           position: absolute;
           right: 0;
         }
@@ -10081,14 +10081,14 @@ blockquote,
     left: 50px;
     top: -50px;
     z-index: -1;
-    content: "\f10a";
+    content: '\f10a';
     font: {
       family: Flaticon;
       size: 135px;
     }
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -10158,7 +10158,7 @@ blockquote,
     }
     &::after {
       display: block;
-      content: "";
+      content: '';
       height: 100%;
       width: 100%;
       position: absolute;
@@ -10255,7 +10255,7 @@ blockquote,
     }
     &::after {
       display: block;
-      content: "";
+      content: '';
       height: 100%;
       width: 100%;
       position: absolute;
@@ -10437,18 +10437,18 @@ blockquote,
     label {
       display: none;
     }
-    input[type="date"],
-    input[type="time"],
-    input[type="datetime-local"],
-    input[type="week"],
-    input[type="month"],
-    input[type="text"],
-    input[type="email"],
-    input[type="url"],
-    input[type="password"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="number"],
+    input[type='date'],
+    input[type='time'],
+    input[type='datetime-local'],
+    input[type='week'],
+    input[type='month'],
+    input[type='text'],
+    input[type='email'],
+    input[type='url'],
+    input[type='password'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='number'],
     textarea {
       display: block;
       width: 100%;
@@ -10616,7 +10616,7 @@ Become Instructor & Partner CSS
       }
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -11066,7 +11066,7 @@ Training Area CSS
     left: -5%;
     width: 110%;
     height: 100%;
-    content: "";
+    content: '';
     z-index: -1;
     border-radius: 50%;
   }
@@ -11388,7 +11388,7 @@ Experience Area CSS
         transition: $transition;
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           right: 0;
@@ -11429,7 +11429,7 @@ Experience Area CSS
     left: 35px;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     bottom: 0;
@@ -11448,7 +11448,7 @@ Experience Area CSS
     right: 0;
     bottom: 0;
     z-index: 1;
-    content: "";
+    content: '';
     margin: {
       left: 35px;
       top: 35px;
@@ -11472,7 +11472,7 @@ Experience Area CSS
 
     &::after,
     &::before {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       top: 0;
@@ -11548,7 +11548,7 @@ Experience Area CSS
     bottom: 30px;
   }
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     bottom: 0;
@@ -11602,7 +11602,7 @@ Download Syllabus Area CSS
   z-index: 1;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -11719,7 +11719,7 @@ Download Syllabus Area CSS
               color: $black-color;
             }
             &::before {
-              content: "\f11f";
+              content: '\f11f';
               position: absolute;
               left: 10px;
               top: 0;
@@ -11886,7 +11886,7 @@ Apply Instructor Area CSS
         weight: 800;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         bottom: 0;
@@ -11948,7 +11948,7 @@ Page Title Area CSS
         weight: 600;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         right: -10px;
         top: 5px;
@@ -12422,7 +12422,7 @@ Products Area CSS
                 weight: 800;
               }
               &::before {
-                content: "";
+                content: '';
                 background-color: $main-color;
                 top: 50%;
                 position: absolute;
@@ -12861,7 +12861,7 @@ Products Details Area CSS
         weight: 800;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         width: 0;
@@ -12904,7 +12904,7 @@ Products Details Area CSS
         padding-left: 15px;
 
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           top: 8px;
@@ -13122,7 +13122,7 @@ Products Details Area CSS
               padding-right: 5px;
             }
             &:before {
-              content: "\2605";
+              content: '\2605';
               transition: $transition;
               font-size: 27px;
               color: #cccccc;
@@ -13142,12 +13142,12 @@ Products Details Area CSS
           text-align: left;
           margin-bottom: 0;
 
-          [type="checkbox"]:checked,
-          [type="checkbox"]:not(:checked) {
+          [type='checkbox']:checked,
+          [type='checkbox']:not(:checked) {
             display: none;
           }
-          [type="checkbox"]:checked + label,
-          [type="checkbox"]:not(:checked) + label {
+          [type='checkbox']:checked + label,
+          [type='checkbox']:not(:checked) + label {
             position: relative;
             padding-left: 28px;
             cursor: pointer;
@@ -13159,9 +13159,9 @@ Products Details Area CSS
               weight: 600;
             }
           }
-          [type="checkbox"]:checked + label:before,
-          [type="checkbox"]:not(:checked) + label:before {
-            content: "";
+          [type='checkbox']:checked + label:before,
+          [type='checkbox']:not(:checked) + label:before {
+            content: '';
             position: absolute;
             left: 0;
             top: 0;
@@ -13172,9 +13172,9 @@ Products Details Area CSS
             border-radius: 3px;
             background: #f5f5f5;
           }
-          [type="checkbox"]:checked + label:after,
-          [type="checkbox"]:not(:checked) + label:after {
-            content: "";
+          [type='checkbox']:checked + label:after,
+          [type='checkbox']:not(:checked) + label:after {
+            content: '';
             width: 8px;
             height: 8px;
             background: $main-color;
@@ -13184,20 +13184,20 @@ Products Details Area CSS
             -webkit-transition: all 0.2s ease;
             transition: all 0.2s ease;
           }
-          [type="checkbox"]:not(:checked) + label:after {
+          [type='checkbox']:not(:checked) + label:after {
             opacity: 0;
             -webkit-transform: scale(0);
             transform: scale(0);
           }
-          [type="checkbox"]:checked + label:after {
+          [type='checkbox']:checked + label:after {
             opacity: 1;
             -webkit-transform: scale(1);
             transform: scale(1);
           }
-          [type="checkbox"]:hover + label:before {
+          [type='checkbox']:hover + label:before {
             border-color: $main-color;
           }
-          [type="checkbox"]:checked + label:before {
+          [type='checkbox']:checked + label:before {
             border-color: $main-color;
           }
         }
@@ -13473,7 +13473,7 @@ Checkout Area CSS
       weight: 800;
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       background: $main-color;
       bottom: -1px;
@@ -13552,7 +13552,7 @@ Checkout Area CSS
             color: $black-color;
           }
           &::before {
-            content: "\f11f";
+            content: '\f11f';
             position: absolute;
             left: 10px;
             top: 0;
@@ -13632,7 +13632,7 @@ Checkout Area CSS
       weight: 800;
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       background: $main-color;
       bottom: -1px;
@@ -13716,13 +13716,13 @@ Checkout Area CSS
 
     .payment-method {
       p {
-        [type="radio"] {
+        [type='radio'] {
           &:checked,
           &:not(:checked) {
             display: none;
           }
         }
-        [type="radio"] {
+        [type='radio'] {
           &:checked,
           &:not(:checked) {
             + label {
@@ -13736,7 +13736,7 @@ Checkout Area CSS
                 weight: 800;
               }
               &::before {
-                content: "";
+                content: '';
                 position: absolute;
                 left: 0;
                 top: 3px;
@@ -13747,7 +13747,7 @@ Checkout Area CSS
                 background: $white-color;
               }
               &::after {
-                content: "";
+                content: '';
                 width: 12px;
                 height: 12px;
                 background: $main-color;
@@ -13760,7 +13760,7 @@ Checkout Area CSS
             }
           }
         }
-        [type="radio"] {
+        [type='radio'] {
           &:not(:checked) {
             + label {
               &::after {
@@ -13771,7 +13771,7 @@ Checkout Area CSS
             }
           }
         }
-        [type="radio"] {
+        [type='radio'] {
           &:checked {
             + label {
               &::after {
@@ -13814,7 +13814,7 @@ Widget Sidebar CSS
         weight: 800;
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         bottom: 0;
@@ -13933,7 +13933,7 @@ Widget Sidebar CSS
         &::before,
         &::after {
           transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-          content: "";
+          content: '';
           background-color: $white-color;
           position: absolute;
           z-index: 1;
@@ -14016,7 +14016,7 @@ Widget Sidebar CSS
           background: $main-color;
           height: 8px;
           width: 8px;
-          content: "";
+          content: '';
           border-radius: 50%;
           left: 0;
           top: 7px;
@@ -14092,7 +14092,7 @@ Widget Sidebar CSS
             height: 5px;
             transition: $transition;
             background-color: $optional-color;
-            content: "";
+            content: '';
             position: absolute;
             left: 25px;
             top: 50%;
@@ -14175,7 +14175,7 @@ Widget Sidebar CSS
         &::before,
         &::after {
           transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-          content: "";
+          content: '';
           background-color: $white-color;
           position: absolute;
           z-index: 1;
@@ -14298,7 +14298,7 @@ Widget Sidebar CSS
         &::before,
         &::after {
           transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-          content: "";
+          content: '';
           background-color: $white-color;
           position: absolute;
           z-index: 1;
@@ -14947,7 +14947,7 @@ Coming Soon Area CSS
           }
         }
         &::before {
-          content: "";
+          content: '';
           display: block;
           position: absolute;
           bottom: 0;
@@ -15033,12 +15033,12 @@ Profile Authentication Area CSS
     .remember-me-wrap {
       margin-bottom: 0;
 
-      [type="checkbox"]:checked,
-      [type="checkbox"]:not(:checked) {
+      [type='checkbox']:checked,
+      [type='checkbox']:not(:checked) {
         display: none;
       }
-      [type="checkbox"]:checked + label,
-      [type="checkbox"]:not(:checked) + label {
+      [type='checkbox']:checked + label,
+      [type='checkbox']:not(:checked) + label {
         position: relative;
         padding-left: 28px;
         cursor: pointer;
@@ -15050,9 +15050,9 @@ Profile Authentication Area CSS
           weight: 600;
         }
       }
-      [type="checkbox"]:checked + label:before,
-      [type="checkbox"]:not(:checked) + label:before {
-        content: "";
+      [type='checkbox']:checked + label:before,
+      [type='checkbox']:not(:checked) + label:before {
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
@@ -15063,9 +15063,9 @@ Profile Authentication Area CSS
         border-radius: 3px;
         background: #f5f5f5;
       }
-      [type="checkbox"]:checked + label:after,
-      [type="checkbox"]:not(:checked) + label:after {
-        content: "";
+      [type='checkbox']:checked + label:after,
+      [type='checkbox']:not(:checked) + label:after {
+        content: '';
         width: 8px;
         height: 8px;
         background: $main-color;
@@ -15075,20 +15075,20 @@ Profile Authentication Area CSS
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
       }
-      [type="checkbox"]:not(:checked) + label:after {
+      [type='checkbox']:not(:checked) + label:after {
         opacity: 0;
         -webkit-transform: scale(0);
         transform: scale(0);
       }
-      [type="checkbox"]:checked + label:after {
+      [type='checkbox']:checked + label:after {
         opacity: 1;
         -webkit-transform: scale(1);
         transform: scale(1);
       }
-      [type="checkbox"]:hover + label:before {
+      [type='checkbox']:hover + label:before {
         border-color: $main-color;
       }
-      [type="checkbox"]:checked + label:before {
+      [type='checkbox']:checked + label:before {
         border-color: $main-color;
       }
     }
@@ -15107,7 +15107,7 @@ Profile Authentication Area CSS
           position: absolute;
           left: 0;
           bottom: 0;
-          content: "";
+          content: '';
           transition: $transition;
           background-color: #eeeeee;
         }
@@ -15118,7 +15118,7 @@ Profile Authentication Area CSS
           left: 0;
           transition: $transition;
           bottom: 0;
-          content: "";
+          content: '';
           background-color: $main-color;
         }
         &:hover {
@@ -15548,7 +15548,7 @@ Footer Area CSS
         }
       }
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         right: -12px;
         top: 5.5px;
@@ -15587,19 +15587,14 @@ Footer Area CSS
     overflow: hidden;
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       height: 15vh;
       width: 100%;
       top: -50%;
       left: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 0%,
-        #ffffff 75%,
-        #ffffff 100%
-      );
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
       animation: run 7s 0s infinite;
       animation-fill-mode: forwards;
       animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
@@ -16074,7 +16069,7 @@ Premium Access Area CSS
     left: 0;
     right: 0;
     bottom: 0;
-    content: "";
+    content: '';
     z-index: -1;
     height: 35px;
     position: absolute;
@@ -16123,7 +16118,7 @@ Testimonials Area CSS
     .owl-nav {
       margin-top: 0;
 
-      [class*="owl-"] {
+      [class*='owl-'] {
         left: -20px;
         position: absolute;
         top: 50%;
@@ -16193,7 +16188,7 @@ Testimonials Area CSS
   }
   &::before {
     opacity: 0.04;
-    content: "\f10a";
+    content: '\f10a';
     left: 0;
     position: absolute;
     right: 0;
@@ -16221,7 +16216,7 @@ Get Instant Courses Area CSS
   z-index: 1;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -16231,7 +16226,7 @@ Get Instant Courses Area CSS
     background-color: $white-color;
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -16303,7 +16298,7 @@ Video Area CSS
   position: relative;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -16363,4 +16358,4 @@ Funfacts Area CSS
   }
 }
 
-@import "overwrite";
+@import 'overwrite';

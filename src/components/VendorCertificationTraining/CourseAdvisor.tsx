@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
 
-import ReactMarkdown from "react-markdown";
-import StripMarkdown from "strip-markdown";
-import OwlCarousel from "react-owl-carousel";
+import ReactMarkdown from 'react-markdown';
+import StripMarkdown from 'strip-markdown';
+import OwlCarousel from 'react-owl-carousel';
 
 const options = {
   loop: true,
@@ -14,10 +14,7 @@ const options = {
   autoplayHoverPause: true,
   autoplay: true,
   margin: 30,
-  navText: [
-    "<i class='bx bx-chevron-left'></i>",
-    "<i class='bx bx-chevron-right'></i>",
-  ],
+  navText: ["<i class='bx bx-chevron-left'></i>", "<i class='bx bx-chevron-right'></i>"],
   responsive: {
     0: {
       items: 1,
@@ -51,8 +48,8 @@ const CourseAdvisor = () => {
           <span className="sub-title">Instructor</span>
           <h2>Course Advisor</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
 
@@ -66,12 +63,11 @@ const CourseAdvisor = () => {
               <div className="single-advisor-box" key={tutor.id}>
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
-                    {tutor.path_avatar && <div className="advisor-image">
-                      <Image
-                        path={tutor.path_avatar}
-                        srcSizes={[195, 2 * 195]}
-                      />
-                    </div>}
+                    {tutor.path_avatar && (
+                      <div className="advisor-image">
+                        <Image path={tutor.path_avatar} srcSizes={[195, 2 * 195]} />
+                      </div>
+                    )}
                   </div>
 
                   <div className="col-lg-8 col-md-8">
@@ -84,11 +80,11 @@ const CourseAdvisor = () => {
                         </Link>
                       </h3>
                       <span className="sub-title">Tutor</span>
-                      {tutor.bio && <div className="profile-bio-summary">
-                        <ReactMarkdown plugins={[StripMarkdown]}>
-                          {tutor.bio }
-                        </ReactMarkdown>
-                      </div>}
+                      {tutor.bio && (
+                        <div className="profile-bio-summary">
+                          <ReactMarkdown plugins={[StripMarkdown]}>{tutor.bio}</ReactMarkdown>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -96,7 +92,7 @@ const CourseAdvisor = () => {
             ))}
           </OwlCarousel>
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>

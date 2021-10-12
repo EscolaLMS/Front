@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Logo from "../../images/logo.svg";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../../images/logo.svg';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -15,30 +15,29 @@ const Footer = () => {
               </Link>
 
               <p>
-                Working to bring significant changes in online-based learning by
-                doing extensive research for course curriculum preparation,
-                student engagements, and looking forward to the flexible
-                education!
+                Working to bring significant changes in online-based learning by doing extensive
+                research for course curriculum preparation, student engagements, and looking forward
+                to the flexible education!
               </p>
 
               <ul className="social-link">
                 <li>
-                  <a href="#" className="d-block" target="_blank">
+                  <a href="#facebook" className="d-block" target="_blank">
                     <i className="bx bxl-facebook"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="d-block" target="_blank">
+                  <a href="#twitter" className="d-block" target="_blank">
                     <i className="bx bxl-twitter"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="d-block" target="_blank">
+                  <a href="#instagram" className="d-block" target="_blank">
                     <i className="bx bxl-instagram"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="d-block" target="_blank">
+                  <a href="#linkedin" className="d-block" target="_blank">
                     <i className="bx bxl-linkedin"></i>
                   </a>
                 </li>
@@ -88,8 +87,8 @@ const Footer = () => {
             <div className="col-lg-6 col-md-6">
               <p>
                 <i className="bx bx-copyright"></i>
-                {currentYear} EscolaLMS is Proudly Powered by{" "}
-                <a target="_blank" href="https://escolasoft.com/">
+                {currentYear} EscolaLMS is Proudly Powered by{' '}
+                <a target="_blank" href="https://escolasoft.com/" rel="noreferrer">
                   EscolaSoft
                 </a>
               </p>

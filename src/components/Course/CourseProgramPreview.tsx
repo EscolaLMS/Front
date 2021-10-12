@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import ReactMarkdown from "react-markdown";
-import { API } from "@escolalms/connector/lib";
-import { TopicType } from "@escolalms/connector/lib/services/courses";
-import { Player } from "@escolalms/h5p-react";
-import Embed from "react-tiny-oembed";
-import ReactPlayer from "react-player";
-import PdfPlayer from "./Players/PdfPlayer";
+import React, { useMemo } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { API } from '@escolalms/connector/lib';
+import { TopicType } from '@escolalms/connector/lib/services/courses';
+import { Player } from '@escolalms/h5p-react';
+import Embed from 'react-tiny-oembed';
+import ReactPlayer from 'react-player';
+import PdfPlayer from './Players/PdfPlayer';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -25,14 +25,7 @@ export const CourseProgramPreview: React.FC<{
             </div>
           );
         case TopicType.Video:
-          return (
-            <ReactPlayer
-              url={topic.topicable.url}
-              controls
-              width="100%"
-              height="80vh"
-            />
-          );
+          return <ReactPlayer url={topic.topicable.url} controls width="100%" height="80vh" />;
         case TopicType.Image:
           return (
             <div className="img-container-xl">
@@ -40,6 +33,7 @@ export const CourseProgramPreview: React.FC<{
             </div>
           );
         case TopicType.Audio:
+          // eslint-disable-next-line jsx-a11y/media-has-caption
           return <audio src={topic.topicable.url} controls />;
         case TopicType.Pdf:
           return <PdfPlayer url={topic.topicable.url} />;

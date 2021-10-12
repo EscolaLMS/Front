@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import CoursesSidebar from "../../components/Courses/CoursesSidebar";
-import Layout from "../../components/_App/Layout";
+import CoursesSidebar from '../../components/Courses/CoursesSidebar';
+import Layout from '../../components/_App/Layout';
 
-import CoursesCollection from "../../components/Courses/CoursesCollection";
-import CoursesProvider from "../../components/Courses/CoursesProvider";
-import { CoursesContext } from "../../components/Courses/CoursesContext";
+import CoursesCollection from '../../components/Courses/CoursesCollection';
+import CoursesProvider from '../../components/Courses/CoursesProvider';
+import { CoursesContext } from '../../components/Courses/CoursesContext';
 
 const CoursesRightSidebar = () => {
   return (
@@ -16,10 +16,7 @@ const CoursesRightSidebar = () => {
             <div className="course-container">
               <div className="course-wrapper">
                 <div className="row">
-                  <div
-                    className="col-lg-9 col-md-12 order-1 order-md-0"
-                    suppressHydrationWarning={true}
-                  >
+                  <div className="col-lg-9 col-md-12 order-1 order-md-0">
                     <CoursesCollection />
                   </div>
 
@@ -57,9 +54,7 @@ const CoursesRightSidebar = () => {
                                 ...prevParams,
                                 page: 1,
                                 per_page: 6,
-                                category_id: category_id
-                                  ? Number(category_id)
-                                  : undefined,
+                                category_id: category_id ? Number(category_id) : undefined,
                               }));
                             }}
                             onTutor={(tutor_id) => {
@@ -68,9 +63,7 @@ const CoursesRightSidebar = () => {
                                 ...prevParams,
                                 page: 1,
                                 per_page: 6,
-                                author_id: tutor_id
-                                  ? Number(tutor_id)
-                                  : undefined,
+                                author_id: tutor_id ? Number(tutor_id) : undefined,
                               }));
                             }}
                           />

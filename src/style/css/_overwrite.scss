@@ -1,7 +1,7 @@
-@import "_typebase";
-@import "../../../node_modules/react-image-lightbox/style.css";
-$font-family: "Nunito", sans-serif;
-$font-family2: "Playfair Display", serif;
+@import '_typebase';
+@import '../../../node_modules/react-image-lightbox/style.css';
+$font-family: 'Nunito', sans-serif;
+$font-family2: 'Playfair Display', serif;
 $main-color: #fe4a55;
 $main-color2: #6ba292;
 $optional-color: #606060;
@@ -217,7 +217,7 @@ $transition: 0.5s;
           background-color: $main-color;
           color: $main-color;
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             right: 0;
@@ -448,7 +448,7 @@ $transition: 0.5s;
 
 .modal {
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -489,7 +489,7 @@ $transition: 0.5s;
   p:nth-child(2) {
     display: block;
     &:after {
-      content: "...";
+      content: '...';
     }
   }
   p {
@@ -524,7 +524,7 @@ $transition: 0.5s;
         right: -30px;
       }
       &::before {
-        content: "\f104";
+        content: '\f104';
         position: absolute;
         left: 30px;
         color: $main-color;
@@ -616,11 +616,7 @@ $transition: 0.5s;
   }
 }
 
-.courses-details-desc-style-two
-  .courses-author
-  .author-profile
-  .author-profile-title
-  img {
+.courses-details-desc-style-two .courses-author .author-profile .author-profile-title img {
   object-fit: cover;
 }
 

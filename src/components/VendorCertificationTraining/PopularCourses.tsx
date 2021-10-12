@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
 
-import Preloader from "../Preloader";
+import Preloader from '../Preloader';
 
 const PopularCourses = () => {
   const { fetchCourses, courses, settings } = useContext(EscolaLMSContext);
@@ -20,8 +20,8 @@ const PopularCourses = () => {
           <span className="sub-title">Go at your own pace</span>
           <h2>Popular Project Management Courses</h2>
           <p>
-            Explore all of our courses and pick your suitable ones to enroll and
-            start learning with us! We ensure that you will never regret it!
+            Explore all of our courses and pick your suitable ones to enroll and start learning with
+            us! We ensure that you will never regret it!
           </p>
         </div>
 
@@ -32,17 +32,15 @@ const PopularCourses = () => {
                 <div className="single-courses-box without-boxshadow">
                   <div className="courses-image">
                     <Link className="d-block image" to={`courses/${course.id}`}>
-                      <img src={course.image_url} alt="image" />
+                      <img src={course.image_url} alt="Course" />
                     </Link>
-
-              
 
                     <div className="price shadow">
                       {course.base_price === 0 || course.base_price === undefined
-                        ? "FREE"
-                        : `${settings?.currencies?.default} ${(
-                            course.base_price / 100
-                          ).toFixed(2)}`}
+                        ? 'FREE'
+                        : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(
+                            2,
+                          )}`}
                     </div>
                   </div>
                   <div className="courses-content">
@@ -52,7 +50,7 @@ const PopularCourses = () => {
                           path={course.author?.path_avatar}
                           size={100}
                           className="rounded-circle"
-                          alt="image"
+                          alt="Course Shape"
                         />
                       )}
 
@@ -70,17 +68,15 @@ const PopularCourses = () => {
                           <i className="flaticon-agenda"></i> SCORM
                         </li>
                       )}
-                      {course.lessons_count&& course.lessons_count > 0 && (
+                      {course.lessons_count && course.lessons_count > 0 && (
                         <li>
-                          <i className="flaticon-agenda"></i>{" "}
-                          {course.lessons_count} Lessons, {course.topic_count}{" "}
-                          Topics
+                          <i className="flaticon-agenda"></i> {course.lessons_count} Lessons,{' '}
+                          {course.topic_count} Topics
                         </li>
                       )}
                       {course.users_count && course.users_count > 0 && (
                         <li>
-                          <i className="flaticon-people"></i>{" "}
-                          {course.users_count}
+                          <i className="flaticon-people"></i> {course.users_count}
                           Students
                         </li>
                       )}

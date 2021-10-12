@@ -1,6 +1,6 @@
-import Layout from "../components/_App/Layout";
-import React from "react";
-import { Link } from "react-router-dom";
+import Layout from '../components/_App/Layout';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Custom404 = () => {
   return (
@@ -10,11 +10,11 @@ const Custom404 = () => {
           <div className="d-table-cell">
             <div className="container">
               <div className="error-content">
-                <img src="/images/error.png" alt="image" />
+                <img src="/images/error.png" alt="Error" />
                 <h3>Error 404 : Page Not Found</h3>
                 <p>
-                  The page you are looking for might have been removed had its
-                  name changed or is temporarily unavailable.
+                  The page you are looking for might have been removed had its name changed or is
+                  temporarily unavailable.
                 </p>
 
                 <div className="btn-box">

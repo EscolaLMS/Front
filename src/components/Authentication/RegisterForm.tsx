@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { Alert, Spinner } from "reactstrap";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { API } from "@escolalms/connector/lib";
-import TempEmail from "../TempEmail";
+import React, { useContext } from 'react';
+import { Alert, Spinner } from 'reactstrap';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { API } from '@escolalms/connector/lib';
+import TempEmail from '../TempEmail';
 
 const INITIAL_USER = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  password_confirmation: "",
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
 };
 
 const RegisterForm = () => {
@@ -23,20 +23,18 @@ const RegisterForm = () => {
 
   const onDismiss = () => setError(undefined);
 
-
   React.useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
     isUser ? setDisabled(false) : setDisabled(true);
   }, [user]);
 
-  const handleChange = (e:React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -47,7 +45,7 @@ const RegisterForm = () => {
         .catch((error) => {
           setError(error.data);
         });
-    } catch (error:any) {
+    } catch (error: any) {
       setError(error.data);
     } finally {
       setLoading(false);
@@ -60,8 +58,8 @@ const RegisterForm = () => {
       <TempEmail />
       {success && (
         <Alert color="success">
-          Account registered successfully. Please check your{" "}
-          <code>{user.email}</code> for validation link.
+          Account registered successfully. Please check your <code>{user.email}</code> for
+          validation link.
         </Alert>
       )}
       {error && (
@@ -82,8 +80,9 @@ const RegisterForm = () => {
       {!success && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>First Name</label>
+            <label htmlFor="register-name">First Name</label>
             <input
+              id="register-name"
               type="text"
               className="form-control"
               placeholder="Full Name"
@@ -94,7 +93,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Last Name</label>
+            <label htmlFor="register-">Last Name</label>
             <input
               type="text"
               className="form-control"
@@ -106,7 +105,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Email</label>
+            <label htmlFor="register-">Email</label>
             <input
               className="form-control"
               placeholder="Email"
@@ -118,7 +117,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label htmlFor="register-">Password</label>
             <input
               type="password"
               className="form-control"
@@ -130,7 +129,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label>Confirm Password</label>
+            <label htmlFor="register-">Confirm Password</label>
             <input
               type="password"
               className="form-control"
@@ -142,14 +141,13 @@ const RegisterForm = () => {
           </div>
 
           <p className="description">
-            The password should be at least eight characters long. To make it
-            stronger, use upper and lower case letters, numbers, and symbols
-            like ! " ? $ % ^ & )
+            The password should be at least eight characters long. To make it stronger, use upper
+            and lower case letters, numbers, and symbols like ! " ? $ % ^ & )
           </p>
 
           <button type="submit" disabled={disabled}>
             Register
-            {loading ? <Spinner color="success" /> : ""}
+            {loading ? <Spinner color="success" /> : ''}
           </button>
         </form>
       )}

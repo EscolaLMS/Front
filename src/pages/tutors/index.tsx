@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from 'react';
 
-import PageBanner from "../../components/Common/PageBanner";
+import PageBanner from '../../components/Common/PageBanner';
 
-import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
-import Layout from "../../components/_App/Layout";
+import { Link } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
+import Layout from '../../components/_App/Layout';
 
 const Advisor = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
@@ -15,7 +15,7 @@ const Advisor = () => {
   }, []);
 
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         {/* <Navbar /> */}
         <PageBanner
@@ -34,10 +34,7 @@ const Advisor = () => {
                     {tutor.path_avatar && (
                       <Link to={`/tutors/${tutor.id}`}>
                         <div className="advisor-image">
-                          <Image
-                            path={tutor.path_avatar}
-                            srcSizes={[380, 380 * 2]}
-                          />
+                          <Image path={tutor.path_avatar} srcSizes={[380, 380 * 2]} />
                         </div>
                       </Link>
                     )}

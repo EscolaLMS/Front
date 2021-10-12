@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import Image from "@escolalms/connector/lib/components/Image";
-import { API } from "@escolalms/connector/lib";
-import CourseCard from "../CourseCard";
+import React, { useContext, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import Image from '@escolalms/connector/lib/components/Image';
+import { API } from '@escolalms/connector/lib';
+import CourseCard from '../CourseCard';
 
 // type StartedCourse = API.CourseProgressItem & {
 //   categories: API.CategoryListItem[];
@@ -21,9 +21,7 @@ const UserCourse: React.FC<{
       <div className="courses-wrapper">
         <div className="courses-image">
           <Link className="d-block image" to={`/kurs/${course.id}`}>
-            {course.image_path && (
-              <Image path={course.image_path} srcSizes={[160, 106]} />
-            )}
+            {course.image_path && <Image path={course.image_path} srcSizes={[160, 106]} />}
           </Link>
         </div>
 
@@ -31,9 +29,7 @@ const UserCourse: React.FC<{
           <div className="courses-categories">
             {categories &&
               categories.map((category) => (
-                <Link
-                  to={`/materialy-szkoleniowe?free=true&category_id=${category.id}`}
-                >
+                <Link to={`/materialy-szkoleniowe?free=true&category_id=${category.id}`}>
                   {category.name}
                 </Link>
               ))}
@@ -50,10 +46,7 @@ const UserCourse: React.FC<{
                 role="progressbar"
                 style={{ width: `${percProgress}%` }}
               ></div>
-              <div
-                className="circle-wrapper"
-                style={{ left: `${percProgress - 1}%`, top: "-3px" }}
-              >
+              <div className="circle-wrapper" style={{ left: `${percProgress - 1}%`, top: '-3px' }}>
                 <div className="circle"></div>
                 <span> {percProgress}%</span>
               </div>
@@ -98,7 +91,7 @@ const ProfileCourses = () => {
         course.progress?.length > 0 &&
         course.course.base_price > 0 &&
         course.total_spent_time > 0 &&
-        !course.finish_date
+        !course.finish_date,
     );
   }, [progress]);
 
@@ -114,7 +107,7 @@ const ProfileCourses = () => {
         course.course.base_price &&
         course.course.base_price > 0 &&
         course.progress?.length > 0 &&
-        course.total_spent_time === 0
+        course.total_spent_time === 0,
     );
   }, [progress]);
 
@@ -148,12 +141,12 @@ const ProfileCourses = () => {
                           // @ts-ignore
                           progressMap[item.course.id] &&
                           // @ts-ignore
-                          typeof progressMap[item.course.id] === "number"
+                          typeof progressMap[item.course.id] === 'number'
                             ? // @ts-ignore
                               progressMap[item.course.id]
                             : 0
                         }
-                      />{" "}
+                      />{' '}
                     </div>
                   ))}
                 </div>

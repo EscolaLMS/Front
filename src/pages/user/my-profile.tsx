@@ -1,16 +1,16 @@
-import React, { useEffect, useContext, useState, ChangeEvent } from "react";
+import React, { useEffect, useContext, useState, ChangeEvent } from 'react';
 
-import PageBanner from "../../components/Common/PageBanner";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { useHistory } from "react-router-dom";
-import { useCallback } from "react";
-import Editor from "rich-markdown-editor";
-import Image from "@escolalms/connector/lib/components/Image";
-import { API } from "@escolalms/connector/lib";
-import Layout from "../../components/_App/Layout";
-import { useTranslation } from "react-i18next";
+import PageBanner from '../../components/Common/PageBanner';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { useHistory } from 'react-router-dom';
+import { useCallback } from 'react';
+import Editor from 'rich-markdown-editor';
+import Image from '@escolalms/connector/lib/components/Image';
+import { API } from '@escolalms/connector/lib';
+import Layout from '../../components/_App/Layout';
+import { useTranslation } from 'react-i18next';
 
-type UpdateCall = (key:keyof API.UserItem, value:any) => void;
+type UpdateCall = (key: keyof API.UserItem, value: any) => void;
 
 const MyProfile = () => {
   const { user, updateProfile, updateAvatar } = useContext(EscolaLMSContext);
@@ -21,17 +21,15 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push('/authentication');
     } else {
       setState(user.value);
       setEditorKey(Math.random().toString());
     }
   }, [history, user]);
 
-
-
-  const updateValue:UpdateCall = useCallback((key, value) => {
-    //@ts-ignore // TODO fix me 
+  const updateValue: UpdateCall = useCallback((key, value) => {
+    //@ts-ignore // TODO fix me
     setState((prevState) => ({
       ...prevState,
       [key]: value,
@@ -40,12 +38,12 @@ const MyProfile = () => {
 
   const onChange = useCallback(
     (e: ChangeEvent) => {
-      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
         const input = e.target as HTMLInputElement | HTMLTextAreaElement;
         updateValue(input.name as keyof API.UserItem, input.value);
       }
     },
-    [updateValue]
+    [updateValue],
   );
 
   const onSubmit = useCallback(
@@ -53,7 +51,7 @@ const MyProfile = () => {
       e.preventDefault();
       state && updateProfile(state);
     },
-    [state, updateProfile]
+    [state, updateProfile],
   );
 
   const onAvatar = useCallback(
@@ -61,17 +59,17 @@ const MyProfile = () => {
       e.preventDefault();
       e.target.files && updateAvatar(e.target.files[0]);
     },
-    [updateAvatar]
+    [updateAvatar],
   );
 
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={t("Navbar.MyProfile")}
+          pageTitle={t('Navbar.MyProfile')}
           homePageUrl="/"
           homePageText="Home"
-          activePageText={t("Navbar.MyProfile")}
+          activePageText={t('Navbar.MyProfile')}
         />
 
         <div className="ptb-100">
@@ -80,10 +78,7 @@ const MyProfile = () => {
               <div className="col-lg-4">
                 <div className="user-profile">
                   {user?.value?.path_avatar && (
-                    <Image
-                      path={user?.value.path_avatar}
-                      srcSizes={[380, 380 * 2]}
-                    />
+                    <Image path={user?.value.path_avatar} srcSizes={[380, 380 * 2]} />
                   )}
 
                   <div className="custom-file">
@@ -95,7 +90,7 @@ const MyProfile = () => {
                       accept="image/png, image/jpeg"
                     />
                     <label className="custom-file-label" htmlFor="customFile">
-                      {t("MyProfilePage.Avatar")}
+                      {t('MyProfilePage.Avatar')}
                     </label>
                   </div>
 
@@ -115,7 +110,7 @@ const MyProfile = () => {
                       <table className="table table-bordered vertical-align-top">
                         <tbody>
                           <tr>
-                            <td>{t("MyProfilePage.FirstName")}</td>
+                            <td>{t('MyProfilePage.FirstName')}</td>
                             <td>
                               <div className="form-group">
                                 <input
@@ -128,7 +123,7 @@ const MyProfile = () => {
                             </td>
                           </tr>
                           <tr>
-                            <td>{t("MyProfilePage.LastName")}</td>
+                            <td>{t('MyProfilePage.LastName')}</td>
                             <td>
                               <div className="form-group">
                                 <input
@@ -146,10 +141,8 @@ const MyProfile = () => {
                               <div className="form-group">
                                 <Editor
                                   key={editorKey}
-                                  defaultValue={state?.bio ? state?.bio : ""}
-                                  onChange={(value) =>
-                                    updateValue("bio", value())
-                                  }
+                                  defaultValue={state?.bio ? state?.bio : ''}
+                                  onChange={(value) => updateValue('bio', value())}
                                 />
                               </div>
                             </td>
@@ -160,7 +153,7 @@ const MyProfile = () => {
                   </div>
                   <button className="default-btn" disabled={user.loading}>
                     <i className="flaticon-checkmark"></i>
-                    {t("MyProfilePage.Update")}
+                    {t('MyProfilePage.Update')}
                   </button>
                 </form>
               </div>

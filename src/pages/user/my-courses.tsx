@@ -1,21 +1,21 @@
-import Layout from "../../components/_App/Layout";
-import React from "react";
+import Layout from '../../components/_App/Layout';
+import React from 'react';
 
-import PageBanner from "../../components/Common/PageBanner";
+import PageBanner from '../../components/Common/PageBanner';
 
-import ProfileCourses from "../../components/Profile/ProfileCourses";
-import { useTranslation } from "react-i18next";
+import ProfileCourses from '../../components/Profile/ProfileCourses';
+import { useTranslation } from 'react-i18next';
 
 const MyCourses = () => {
   const { t } = useTranslation();
   return (
-    <Layout >
+    <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={t("Navbar.MyCourses")}
+          pageTitle={t('Navbar.MyCourses')}
           homePageUrl="/"
           homePageText="Home"
-          activePageText={t("Navbar.MyCourses")}
+          activePageText={t('Navbar.MyCourses')}
         />
 
         <div className="profile-area">

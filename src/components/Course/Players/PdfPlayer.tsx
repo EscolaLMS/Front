@@ -1,11 +1,6 @@
-import React, {
-  ReactElement,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactElement, FunctionComponent, useEffect, useState } from 'react';
 
-import { Document, Page, pdfjs } from "react-pdf";
+import { Document, Page, pdfjs } from 'react-pdf';
 
 const PdfPlayer: FunctionComponent<{
   url: string;

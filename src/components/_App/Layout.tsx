@@ -1,12 +1,12 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { ToastProvider } from "react-toast-notifications";
-import { Toaster } from "react-hot-toast";
-import { useLocation } from "react-router-dom";
-import GoTop from "./GoTop";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import CourseNavbar from "./CourseNavbar";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { ToastProvider } from 'react-toast-notifications';
+import { Toaster } from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
+import GoTop from './GoTop';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import CourseNavbar from './CourseNavbar';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
@@ -17,31 +17,28 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       if (window) {
         try {
           // @ts-ignore
-          window.ybug_settings = { id: "t2mm545qmpg6p51613b8" };
-          const ybug = document.createElement("script");
-          ybug.type = "text/javascript";
+          window.ybug_settings = { id: 't2mm545qmpg6p51613b8' };
+          const ybug = document.createElement('script');
+          ybug.type = 'text/javascript';
           ybug.async = true;
           ybug.src =
             // @ts-ignore
-            "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
-          const s = document.getElementsByTagName("script")[0];
+            'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
+          const s = document.getElementsByTagName('script')[0];
           s && s.parentNode && s.parentNode.insertBefore(ybug, s);
         } catch (er) {}
       }
     })();
   }, []);
 
-  const isCourse = pathname.includes("/kurs/");
-  const isLearningMaterial = pathname.includes("materialy-szkoleniowe");
+  const isCourse = pathname.includes('/kurs/');
+  const isLearningMaterial = pathname.includes('materialy-szkoleniowe');
 
   return (
     <React.Fragment>
       <Helmet>
         <title>WF z AWF</title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="WF z AWF" />
         <meta name="og:title" property="og:title" content="WF z AWF"></meta>
         <meta name="twitter:card" content="WF z AWF"></meta>
@@ -49,11 +46,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       <Toaster position="top-left" reverseOrder={false} />
 
-      <ToastProvider
-        placement="bottom-left"
-        autoDismissTimeout={10000}
-        autoDismiss
-      >
+      <ToastProvider placement="bottom-left" autoDismissTimeout={10000} autoDismiss>
         <div className="site-wrapper">
           {isCourse ? <CourseNavbar /> : <Navbar />}
 

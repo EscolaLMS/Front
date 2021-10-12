@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { Route, Redirect, RouteProps } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import routes from "./routes";
+import React, { useContext } from 'react';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import routes from './routes';
 
 const PrivateRoute: React.FC<RouteProps> = ({
   component: Component,
