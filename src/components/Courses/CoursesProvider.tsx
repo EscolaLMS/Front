@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import { useLocation, useHistory } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/connector/lib/context";
-import { API } from "@escolalms/connector/lib";
-import qs from "query-string";
-import {CoursesContext} from "./CoursesContext";
+import { useLocation, useHistory } from 'react-router-dom';
+import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { API } from '@escolalms/connector/lib';
+import qs from 'query-string';
+import { CoursesContext } from './CoursesContext';
 
 const parseParams = (params: API.CourseParams = {}) => {
-  return qs.stringify(params);
+    return qs.stringify(params);
 };
 
 /*
@@ -37,43 +37,42 @@ const useQuery:QueryType = () => {
 */
 
 const CoursesProvider: React.FC<{
-  onlyFree?: boolean;
-}> = ({ onlyFree= true, children }) => {
-  const { fetchCourses, courses } = useContext(EscolaLMSContext);
-  const location = useLocation();
-  const { push } = useHistory();
+    onlyFree?: boolean;
+}> = ({ onlyFree = true, children }) => {
+    const { fetchCourses, courses } = useContext(EscolaLMSContext);
+    const location = useLocation();
+    const { push } = useHistory();
 
-  const [params, setParams] = useState<API.CourseParams>();
+    const [params, setParams] = useState<API.CourseParams>();
 
-  const getApiParams = (params: API.CourseParams = {}): API.CourseParams => {
-    const apiParams = {...params}
-    // @ts-ignore TODO
-    if (onlyFree) apiParams.free = true
-    return apiParams
-  }
+    const getApiParams = (params: API.CourseParams = {}): API.CourseParams => {
+        const apiParams = { ...params };
+        // @ts-ignore TODO
+        if (onlyFree) apiParams.free = true;
+        return apiParams;
+    };
 
-  useEffect(() => {
-    push(`${location.pathname}?${parseParams(params)}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params, location.pathname]);
+    useEffect(() => {
+        push(`${location.pathname}?${parseParams(params)}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params, location.pathname]);
 
-  useEffect(() => {
-    if (
-        location.search &&
-        location.search.split("?")[1] !== parseParams(params)
-    ) {
-      setParams(qs.parse(location.search));
-      fetchCourses(getApiParams(qs.parse(location.search)));
-    } else {
-      fetchCourses(getApiParams(params));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+    useEffect(() => {
+        if (location.search && location.search.split('?')[1] !== parseParams(params)) {
+            setParams(qs.parse(location.search));
+            fetchCourses(getApiParams(qs.parse(location.search)));
+        } else {
+            fetchCourses(getApiParams(params));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.search]);
 
-  return (
-  // @ts-ignore TODO
-      <CoursesContext.Provider value={{params, setParams, courses, onlyFree }}>{children}</CoursesContext.Provider>
-  );
+    return (
+        // @ts-ignore TODO
+        <CoursesContext.Provider value={{ params, setParams, courses, onlyFree }}>
+            {children}
+        </CoursesContext.Provider>
+    );
 };
 
 export default CoursesProvider;
