@@ -60,7 +60,8 @@
         "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts build",
         "test": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts test",
         "eject": "react-scripts eject",
-        "postinstall": "husky install"
+        "postinstall": "husky install",
+        "tsc": "tsc --project tsconfig.json --noEmit"
     },
     "eslintConfig": {
         "extends": [
@@ -94,8 +95,8 @@
         }
     },
     "lint-staged": {
-        "*.{js,ts,tsx}": [
-            "eslint --quiet --fix"
+        "src": [
+            "eslint  --max-warnings 0 --fix"
         ],
         "*.{js,ts,tsx,json,md,html}": [
             "prettier --write"
