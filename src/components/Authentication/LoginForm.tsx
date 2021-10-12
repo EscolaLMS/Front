@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
-import baseUrl from '../../utils/baseUrl';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import TempLogin from '../TempLogin';
 import { FormState } from './types';
@@ -41,7 +40,7 @@ const LoginForm = () => {
   const forgotHandler = React.useCallback(() => {
     forgot({
       email: user.email,
-      return_url: `${baseUrl}/reset-password`,
+      return_url: `${window.location.origin}/reset-password`,
     })
       .then((data) => {
         setState({
