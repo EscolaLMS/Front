@@ -3,6 +3,7 @@ import { Alert, Spinner } from 'reactstrap';
 import { EscolaLMSContext } from '@escolalms/connector/lib/context';
 import { API } from '@escolalms/connector/lib';
 import TempEmail from '../TempEmail';
+import { useTranslation } from 'react-i18next';
 
 const INITIAL_USER = {
   first_name: '',
@@ -14,7 +15,7 @@ const INITIAL_USER = {
 
 const RegisterForm = () => {
   const { register } = useContext(EscolaLMSContext);
-
+  const { t } = useTranslation();
   const [user, setUser] = React.useState(INITIAL_USER);
   const [disabled, setDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
@@ -54,7 +55,7 @@ const RegisterForm = () => {
 
   return (
     <div className="register-form">
-      <h2>Register</h2>
+      <h2>{t('Register')}</h2>
       <TempEmail />
       {success && (
         <Alert color="success">
@@ -80,12 +81,12 @@ const RegisterForm = () => {
       {!success && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="register-name">First Name</label>
+            <label htmlFor="register-name">{t('RegisterPage.FullName')}</label>
             <input
               id="register-name"
               type="text"
               className="form-control"
-              placeholder="Full Name"
+              placeholder={t('RegisterPage.FullName')}
               name="first_name"
               value={user.first_name}
               onChange={handleChange}
@@ -93,11 +94,11 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">Last Name</label>
+            <label htmlFor="register-">{t('RegisterPage.LastName')}</label>
             <input
               type="text"
               className="form-control"
-              placeholder="Full Name"
+              placeholder={t('RegisterPage.LastName')}
               name="last_name"
               value={user.last_name}
               onChange={handleChange}
@@ -117,11 +118,11 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">Password</label>
+            <label htmlFor="register-">{t('Password')}</label>
             <input
               type="password"
               className="form-control"
-              placeholder="Password"
+              placeholder={t('Password')}
               name="password"
               value={user.password}
               onChange={handleChange}
@@ -129,11 +130,13 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">Confirm Password</label>
+            <label htmlFor="register-">
+              {t('Confirm')} {t('Password')}
+            </label>
             <input
               type="password"
               className="form-control"
-              placeholder="Confirm Password"
+              placeholder={`${t('Confirm')} ${t('Password')}`}
               name="password_confirmation"
               value={user.password_confirmation}
               onChange={handleChange}
@@ -146,7 +149,7 @@ const RegisterForm = () => {
           </p>
 
           <button type="submit" disabled={disabled}>
-            Register
+            {t('Register')}
             {loading ? <Spinner color="success" /> : ''}
           </button>
         </form>

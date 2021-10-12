@@ -19,7 +19,11 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
           </Link>
         )}
 
-        <div className="price shadow">
+        <div
+          className={`price shadow ${
+            (course.base_price === 0 || course.base_price === undefined) && 'free'
+          }`}
+        >
           {course.base_price === 0 || course.base_price === undefined
             ? t('FREE')
             : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`}
@@ -60,6 +64,7 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
               {t('Topic', { count: course.topic_count })}
             </li>
           )}
+
           {course.users_count && course.users_count > 0 && (
             <li>
               <i className="flaticon-people"></i> {course.users_count}{' '}
