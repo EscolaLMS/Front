@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { API } from '@escolalms/sdk/lib';
 import { TopicType } from '@escolalms/sdk/lib/services/courses';
 import { Player } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
 import PdfPlayer from './Players/PdfPlayer';
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -21,7 +21,7 @@ export const CourseProgramPreview: React.FC<{
         case TopicType.RichText:
           return (
             <div className="container-xl">
-              <ReactMarkdown>{topic.topicable.value}</ReactMarkdown>
+              <MarkdownReader>{topic.topicable.value}</MarkdownReader>
             </div>
           );
         case TopicType.Video:

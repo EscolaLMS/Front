@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 
-import ReactMarkdown from 'react-markdown';
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 import StripMarkdown from 'strip-markdown';
 import OwlCarousel from 'react-owl-carousel';
 
@@ -82,7 +82,7 @@ const CourseAdvisor = () => {
                       <span className="sub-title">Tutor</span>
                       {tutor.bio && (
                         <div className="profile-bio-summary">
-                          <ReactMarkdown plugins={[StripMarkdown]}>{tutor.bio}</ReactMarkdown>
+                          <MarkdownReader remarkPlugins={[StripMarkdown]}>{tutor.bio}</MarkdownReader>
                         </div>
                       )}
                     </div>

@@ -4,7 +4,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '../components/Preloader';
 import Sidebar from '../components/TermsOfService/Sidebar';
 import PageBanner from '../components/Common/PageBanner';
-import ReactMarkdown from 'react-markdown';
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 import Layout from '../components/_App/Layout';
 
 const StaticPage = () => {
@@ -40,7 +40,7 @@ const StaticPage = () => {
               <div className="col-lg-8 col-md-12">
                 <div className="privacy-policy-content">
                   <img src="/images/courses/courses1.jpg" alt="Course" />
-                  <ReactMarkdown>{page?.value?.content || ''}</ReactMarkdown>
+                  <MarkdownReader>{page?.value?.content || ''}</MarkdownReader>
                 </div>
               </div>
 

@@ -6,7 +6,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useParams } from 'react-router-dom';
 import Preloader from '../../../components/Preloader';
 import Image from '@escolalms/sdk/lib/react/components/Image';
-import ReactMarkdown from 'react-markdown';
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';
 
@@ -48,7 +48,7 @@ const Profile = () => {
                       </h3>
                       <span className="sub-title">Tutor</span>
                       <div>
-                        <ReactMarkdown>{tutor.value.bio || ''}</ReactMarkdown>
+                        <MarkdownReader>{tutor.value.bio || ''}</MarkdownReader>
                       </div>
                     </div>
                   </div>

@@ -6,8 +6,8 @@ import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 import CourseProgramContent from './CourseProgramContent';
 import CourseProgramList from './CourseProgramList';
-import ReactMarkdownWithTrim from '../Markdown/ReactMarkdownWithTrim';
-import { trimContentForMarkdown } from '../../utils/trim';
+import MarkdownReader from '../Markdown/MarkdownReader';
+import { fixContentForMarkdown } from '../../utils/markdown';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -54,10 +54,10 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
   const columnWidth =
     lesson &&
     lesson.summary &&
-    trimContentForMarkdown(`${lesson.summary}`) !== '' &&
+    fixContentForMarkdown(`${lesson.summary}`) !== '' &&
     topic &&
     topic.summary &&
-    trimContentForMarkdown(`${topic.summary}`) !== ''
+    fixContentForMarkdown(`${topic.summary}`) !== ''
       ? 6
       : 12;
 
@@ -76,22 +76,22 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             </div>
 
             <div className="row">
-              {lesson && lesson.summary && trimContentForMarkdown(`${lesson.summary}`) !== '' && (
+              {lesson && lesson.summary && fixContentForMarkdown(`${lesson.summary}`) !== '' && (
                 <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
                   <div className="course-program-summary">
                     <div className="container-md">
                       {/* <h3>{t("LessonSummary")}</h3> */}
-                      <ReactMarkdownWithTrim>{lesson.summary}</ReactMarkdownWithTrim>
+                      <MarkdownReader>{lesson.summary}</MarkdownReader>
                     </div>
                   </div>
                 </div>
               )}
-              {topic && topic.summary && trimContentForMarkdown(`${topic.summary}`) !== '' && (
+              {topic && topic.summary && fixContentForMarkdown(`${topic.summary}`) !== '' && (
                 <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
                   <div className="course-program-summary">
                     <div className="container-md">
                       {/* <h3>{t("TopicSummary")}</h3> */}
-                      <ReactMarkdownWithTrim>{topic.summary}</ReactMarkdownWithTrim>
+                      <MarkdownReader>{topic.summary}</MarkdownReader>
                     </div>
                     {topic && topic.resources && topic.resources?.length > 0 && (
                       <React.Fragment>

@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from './CourseProgramContent';
 import CourseProgramList from './CourseProgramList';
-import ReactMarkdownWithTrim from '../Markdown/ReactMarkdownWithTrim';
-import { trimContentForMarkdown } from '../..//utils/trim';
+import MarkdownReader from '../Markdown/MarkdownReader';
+import { fixContentForMarkdown } from '../../utils/markdown';
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
@@ -48,17 +48,17 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               </div>
 
               <div className="row">
-                {lesson && lesson.summary && trimContentForMarkdown(`${lesson.summary}`) !== '' && (
+                {lesson && lesson.summary && fixContentForMarkdown(`${lesson.summary}`) !== '' && (
                   <div className={`col-lg-12 col-md-12 col-sm-12`}>
                     <div className="course-program-summary">
-                      <ReactMarkdownWithTrim>{lesson.summary}</ReactMarkdownWithTrim>
+                      <MarkdownReader>{lesson.summary}</MarkdownReader>
                     </div>
                   </div>
                 )}
-                {topic && topic.summary && trimContentForMarkdown(`${topic.summary}`) !== '' && (
+                {topic && topic.summary && fixContentForMarkdown(`${topic.summary}`) !== '' && (
                   <div className={`col-lg-12 col-md-12 col-sm-12`}>
                     <div className="course-program-summary">
-                      <ReactMarkdownWithTrim>{topic.summary}</ReactMarkdownWithTrim>
+                      <MarkdownReader>{topic.summary}</MarkdownReader>
 
                       {topic && topic.resources && topic.resources?.length > 0 && (
                         <React.Fragment>
