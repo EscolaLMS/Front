@@ -4,14 +4,20 @@ import Logo from "../../images/logo.svg";
 
 import { EscolaLMSContext } from "@escolalms/connector/lib/context";
 import { useTranslation } from "react-i18next";
+import { API } from "@escolalms/connector/lib";
 
-export const UserNavbarItem = ({ user, toggleNavbar, logout }) => {
+
+export const UserNavbarItem: React.FC<{
+  user?: API.UserItem;
+  logout: () => void;
+  toggleNavbar: () => void;
+}> = ({ user, logout, toggleNavbar }) => {
   const { t } = useTranslation();
   return (
     <div className="option-item">
       {user ? (
         <div className="user-dropdown">
-          <Link href="/">
+          <Link to="/">
             <a onClick={(e) => e.preventDefault()} className="default-btn">
               <i className="flaticon-user"></i> {user.first_name} <span></span>
             </a>
@@ -111,9 +117,9 @@ const Navbar = () => {
     let elementId = document.getElementById("navbar");
     const listener = () => {
       if (window.scrollY > 170) {
-        elementId.classList.add("is-sticky");
+        elementId && elementId.classList.add("is-sticky");
       } else {
-        elementId.classList.remove("is-sticky");
+        elementId && elementId.classList.remove("is-sticky");
       }
     };
     document.addEventListener("scroll", listener);
@@ -194,7 +200,7 @@ const Navbar = () => {
                       <div className="cart-btn">
                         <Link to="/cart">
                           <i className="flaticon-shopping-cart"></i>{" "}
-                          {cart?.value?.items?.length > 0 && (
+                          {(cart?.value?.items?.length || 0) > 0 && (
                             <span>{cart?.value?.items?.length}</span>
                           )}
                         </Link>

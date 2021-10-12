@@ -2,9 +2,9 @@ import Layout from "../components/_App/Layout";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Custom404 = ({ pageProps }) => {
+const Custom404 = () => {
   return (
-    <Layout {...pageProps}>
+    <Layout>
       <div className="error-area">
         <div className="d-table">
           <div className="d-table-cell">

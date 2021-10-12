@@ -22,7 +22,7 @@ const CategoryTreeOptions: React.FC<{
             {Array.from({ length: nest + 1 }).join(" > ")}
             {category.name}
           </option>
-          {category.subcategories.length > 0 && (
+          {category && category.subcategories && category.subcategories.length > 0 && (
             <CategoryTreeOptions
               categories={category.subcategories}
               nest={nest + 1}
@@ -35,7 +35,10 @@ const CategoryTreeOptions: React.FC<{
   );
 };
 
-export const CategoryTree = ({ onChange, id }) => {
+export const CategoryTree: React.FC<{
+  onChange: (value: string) => void;
+  id?: number;
+}> = ({ onChange, id }) => {
   const { t } = useTranslation();
 
   const { categoryTree } = useContext(EscolaLMSContext);
@@ -60,7 +63,10 @@ export const CategoryTree = ({ onChange, id }) => {
   );
 };
 
-export const Tutors = ({ onChange, id }) => {
+export const Tutors: React.FC<{
+  onChange: (value: string) => void;
+  id?: number;
+}> = ({ onChange, id }) => {
   const { t } = useTranslation();
 
   const { tutors } = useContext(EscolaLMSContext);
@@ -91,14 +97,15 @@ export const Tutors = ({ onChange, id }) => {
   );
 };
 
-const CoursesSidebar = ({
-  onSearch,
-  onTag,
-  onCategory,
-  onTutor,
-  multiple = false,
-  params,
-}) => {
+const CoursesSidebar: React.FC<{
+  onSearch: (value: string) => void;
+  onTag: (value: API.Tag | API.Tag[]) => void;
+  onCategory: (value: string) => void;
+  onTutor: (value: string) => void;
+  multiple?: boolean;
+  params?: API.CourseParams;
+}> = ({ onSearch, onTag, onCategory, onTutor, multiple = false, params }) => {
+
   const { uniqueTags, fetchTutors } = useContext(EscolaLMSContext);
   const [tags, setTags] = useState<API.Tag[]>([]);
   const hasTags = useCallback((tags: API.Tag[], tag) => {
@@ -129,11 +136,14 @@ const CoursesSidebar = ({
 
   const { t } = useTranslation();
 
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current.value = params?.title ? params?.title : "";
+    if (inputRef.current) {
+      inputRef.current.value = params?.title ? params?.title : "";
+    }
   }, [params]);
+
 
   return (
     <div className="widget-area">

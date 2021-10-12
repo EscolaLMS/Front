@@ -25,8 +25,9 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({
     setState({ state: isPasswordSet ? "input" : "disabled" });
   }, [user]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
+
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -47,7 +48,8 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({
       });
   }, [user]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
     setState({ state: "loading" });
     resetHandler();

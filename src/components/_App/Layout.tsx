@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { ToastProvider } from "react-toast-notifications";
 import { Toaster } from "react-hot-toast";
@@ -6,25 +6,18 @@ import { useLocation } from "react-router-dom";
 import GoTop from "./GoTop";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
-import Preloader from "../Preloader";
 import CourseNavbar from "./CourseNavbar";
 
-const Layout = ({ children, user }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
-  const [loader, setLoader] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1000);
-
     // ybug
     (function () {
       if (window) {
         try {
           // @ts-ignore
-          window.ybug_settings = { id: "4a30b8sn4pfpdw7wp4c0" };
+          window.ybug_settings = { id: "t2mm545qmpg6p51613b8" };
           const ybug = document.createElement("script");
           ybug.type = "text/javascript";
           ybug.async = true;
@@ -32,58 +25,27 @@ const Layout = ({ children, user }) => {
             // @ts-ignore
             "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
           const s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(ybug, s);
+          s && s.parentNode && s.parentNode.insertBefore(ybug, s);
         } catch (er) {}
       }
     })();
-    //
   }, []);
 
-  // Router.events.on("routeChangeStart", () => {
-  //   setLoader(true);
-  // });
-  // Router.events.on("routeChangeComplete", () => {
-  //   setLoader(false);
-  // });
-  // Router.events.on("routeChangeError", () => {
-  //   setLoader(false);
-  // });
-
-  const isStudent = user && user.role === "student";
-  const isAdmin = user && user.role === "admin";
-  const isTeacher = user && user.role === "teacher";
-  const isCourse = pathname.includes("/course/");
+  const isCourse = pathname.includes("/kurs/");
+  const isLearningMaterial = pathname.includes("materialy-szkoleniowe");
 
   return (
     <React.Fragment>
       <Helmet>
-        <title>
-          EscolaLMS - React Next Online Courses & Education Template
-        </title>
+        <title>WF z AWF</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <meta
-          name="description"
-          content="EscolaLMS - React Next Online Courses & Education Template"
-        />
-        <meta
-          name="og:title"
-          property="og:title"
-          content="EscolaLMS - React Next Online Courses & Education Template"
-        ></meta>
-        <meta
-          name="twitter:card"
-          content="EscolaLMS - React Next Online Courses & Education Template"
-        ></meta>
-        <link
-          rel="canonical"
-          href="https://escolalms-react.envytheme.com/"
-        ></link>
+        <meta name="description" content="WF z AWF" />
+        <meta name="og:title" property="og:title" content="WF z AWF"></meta>
+        <meta name="twitter:card" content="WF z AWF"></meta>
       </Helmet>
-
-      {loader && <Preloader />}
 
       <Toaster position="top-left" reverseOrder={false} />
 
@@ -92,12 +54,15 @@ const Layout = ({ children, user }) => {
         autoDismissTimeout={10000}
         autoDismiss
       >
-        {isCourse ? <CourseNavbar /> : <Navbar />}
+        <div className="site-wrapper">
+          {isCourse ? <CourseNavbar /> : <Navbar />}
 
-        {children}
+          {children}
+
+          {!isCourse && !isLearningMaterial && <Footer />}
+        </div>
 
         <GoTop scrollStepInPx="100" delayInMs="10.50" />
-        <Footer />
       </ToastProvider>
     </React.Fragment>
   );

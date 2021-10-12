@@ -48,14 +48,18 @@ const Sidebar = () => {
         {courses &&
           courses?.list?.data?.map((course) => (
             <div key={course.id} className="item">
-              <Link to={`/courses/${course.id}`} className="thumb">
-                <Image path={course.image_path} srcSizes={[380, 380 * 2]} />
-              </Link>
+              {course.image_path && (
+                <Link to={`/courses/${course.id}`} className="thumb">
+                  <Image path={course.image_path} srcSizes={[380, 380 * 2]} />
+                </Link>
+              )}
               <div className="info">
-                <span>
-                  {settings.currencies.default}{" "}
-                  {(course.base_price / 100).toFixed(2)}
-                </span>
+                {settings.currencies && course.base_price && (
+                  <span>
+                    {settings.currencies.default}{" "}
+                    {(course.base_price / 100).toFixed(2)}
+                  </span>
+                )}
                 <h4 className="title usmall">
                   <Link to={`/courses/${course.id}`}>{course.title}</Link>
                 </h4>

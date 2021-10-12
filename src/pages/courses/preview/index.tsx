@@ -14,14 +14,14 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
 }) => {
   const sco = program?.scorm?.scos?.find((sco) => sco.entry_url !== undefined);
   const uuid = sco?.uuid;
-  const iframeRef = useRef<HTMLIFrameElement>();
-  const [height, setHeight] = useState(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [height, setHeight] = useState(0);
   const headerAndFooterHeight = 610;
   const { apiUrl } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     if (iframeRef.current) {
-      setHeight(iframeRef.current?.contentWindow?.document?.body?.scrollHeight);
+      setHeight(iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0);
     }
   }, [iframeRef]);
 
@@ -50,8 +50,8 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
   );
 };
 
-const CourseProgram = ({ pageProps }) => {
-  const { id } = useParams();
+const CourseProgram = () => {
+  const { id } = useParams<{id:string}>();
   const { program, fetchProgram } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -80,14 +80,14 @@ const CourseProgram = ({ pageProps }) => {
   }
   if (program.value && program?.value?.scorm?.id) {
     return (
-      <Layout {...pageProps}>
+      <Layout >
         <CourseProgramScorm program={program.value} />
       </Layout>
     );
   }
   if (program.value && program.value.lessons && program.value.lessons.length) {
     return (
-      <Layout {...pageProps}>
+      <Layout >
         <CourseProgramLessonsPreview program={program.value} />;
       </Layout>
     );

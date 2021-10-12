@@ -22,7 +22,7 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
           <i className="flaticon-heart"></i>
         </a>
         <div className="price shadow">
-          {course.base_price === 0
+          {course.base_price === 0 || course.base_price === undefined
             ? t("FREE")
             : `${settings?.currencies?.default} ${(
                 course.base_price / 100
@@ -57,14 +57,14 @@ export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
               <i className="flaticon-agenda"></i> SCORM
             </li>
           )}
-          {course.lessons_count > 0 && (
+          {course.lessons_count && course.lessons_count > 0 && (
             <li>
               <i className="flaticon-agenda"></i> {course.lessons_count}{" "}
               {t("Lesson", { count: course.lessons_count })},{" "}
               {course.topic_count} {t("Topic", { count: course.topic_count })}
             </li>
           )}
-          {course.users_count > 0 && (
+          {course.users_count && course.users_count > 0 && (
             <li>
               <i className="flaticon-people"></i> {course.users_count}{" "}
               {t("Student", { count: course.users_count })}

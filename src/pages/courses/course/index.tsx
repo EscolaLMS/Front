@@ -34,7 +34,7 @@ export const CourseProgramList: React.FC<{
               </div>
             </h3>
             <ul>
-              {lesson.topics.map((topic, topic_index) => {
+              {lesson?.topics?.map((topic, topic_index) => {
                 return (
                   <li key={topic.id}>
                     <div className="d-flex justify-content-between align-items-center anchor">
@@ -45,9 +45,14 @@ export const CourseProgramList: React.FC<{
                         {topic.title}
                       </span>
                       <div className="courses-meta">
-                        <span className="questions">
-                          {t(topic.topicable_type.split("\\").pop())}
-                        </span>
+                        {topic.topicable_type && (
+                          <span className="questions">
+                            {
+                              //@ts-ignore // TODO fix this
+                              t(topic.topicable_type.split("\\").pop())
+                            }
+                          </span>
+                        )}
                         {topic.preview ? (
                           <span
                             className="status preview"
@@ -85,7 +90,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { id } = course;
 
   const courseInCart = useMemo(() => {
-    return cart.value.items.some((item) => Number(item.id) === Number(id));
+    return cart?.value?.items.some((item) => Number(item.id) === Number(id));
   }, [id, cart]);
 
   useEffect(() => {
@@ -100,7 +105,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   }, [progress, id]);
 
   const priceLiteral = useMemo(() => {
-    return course.base_price === 0
+    return course.base_price === 0 || course.base_price === undefined
       ? t("FREE")
       : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(
           2
@@ -125,7 +130,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
         <button
           className="default-btn"
           disabled={cart.loading}
-          onClick={() => addToCart(course.id)}
+          onClick={() => addToCart(Number(course.id))}
         >
           <i className="flaticon-shopping-cart"></i> {t("Buy Course")}{" "}
           <span></span>
@@ -150,10 +155,10 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   );
 };
 
-const SingleCourses = ({ pageProps }) => {
+const SingleCourses = () => {
   const { t } = useTranslation();
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const { course, fetchCourse, fetchCart, user } = useContext(EscolaLMSContext);
 
@@ -178,23 +183,23 @@ const SingleCourses = ({ pageProps }) => {
   }
 
   return (
-    <Layout {...pageProps}>
+    <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={course.value.title}
+          pageTitle={course.value.title || ""}
           subtitle={course.value.subtitle}
           homePageUrl="/"
           homePageText="Home"
           innerPageUrl={`/courses`}
           innerPageText={t("Courses")}
-          activePageText={course.value.title}
+          activePageText={course.value.title || ""}
         />
 
         {previewTopic && (
           <CourseProgramPreview
             topic={previewTopic}
             onClose={() => {
-              setPreviewTopic(null);
+              setPreviewTopic(undefined);
             }}
           />
         )}
@@ -206,22 +211,30 @@ const SingleCourses = ({ pageProps }) => {
                 <div className="col-lg-8 col-md-12">
                   <div className="courses-meta">
                     <ul>
-                      {course.value.categories.length > 0 && (
+                      {course.value.categories && course.value.categories.length > 0 && (
                         <li>
                           <i className="bx bx-folder-open"></i>
                           <span>{t("Category")}</span>
 
-                          {course.value.categories.map((category) => (
-                            <Link
-                              to={`/courses?category_id=${category.id}`}
-                              key={category.id}
+                          {course.value.categories.map((category) => {
+                            const cat = typeof category === 'object' ? { 
+                              id:category.id,
+                              name:category.name
+                            } : {
+                              id:category,
+                              name:category
+                            }
+                            return <Link
+                              to={`/courses?category_id=${cat.id}`}
+                              key={cat.id}
                             >
-                              {category.name}
+                              {cat.name}
                             </Link>
-                          ))}
+                          })}
+                     
                         </li>
                       )}
-                      {course.value.users_count > 0 && (
+                      {course.value.users_count && course.value.users_count > 0 && (
                         <li>
                           <i className="bx bx-group"></i>
                           <span>
@@ -236,7 +249,7 @@ const SingleCourses = ({ pageProps }) => {
                         <i className="bx bx-calendar"></i>
                         <span>{t("Last Updated")}</span>
                         <Link to="#">
-                          {format(
+                          {course.value.updated_at && format(
                             new Date(course.value.updated_at),
                             "dd/MM/yyyy"
                           )}
@@ -254,31 +267,31 @@ const SingleCourses = ({ pageProps }) => {
 
             <div className="row">
               <div className="col-lg-8 col-md-12">
-                <div className="courses-details-image-style-two text-center">
+                {course.value.image_path && <div className="courses-details-image-style-two text-center">
                   <Image
                     path={course.value.image_path}
                     srcSizes={[790 * 0.5, 790, 2 * 790]}
                   />
-                </div>
+                </div>}
 
                 <div className="courses-details-desc-style-two">
                   <h3>{t("Summary")}</h3>
-                  <ReactMarkdown>{course.value.summary}</ReactMarkdown>
+                  {course.value.summary && <ReactMarkdown>{course.value.summary}</ReactMarkdown>}
 
                   <h3>{t("Course Program")}</h3>
-                  <CourseProgramList
+                  {course.value.lessons && <CourseProgramList
                     program={course.value.lessons}
                     onPreview={(topic) => setPreviewTopic(topic)}
-                  />
+                  />}
 
                   <h3>{t("Description")}</h3>
-                  <ReactMarkdown>{course.value.description}</ReactMarkdown>
+                  {course.value.description && <ReactMarkdown>{course.value.description}</ReactMarkdown>}
 
                   <h3>{t("Meet Your Instructors")}</h3>
-                  <div className="courses-author">
+                  {course.value.author &&  <div className="courses-author">
                     <div className="author-profile-header"></div>
                     <div className="author-profile">
-                      <Link to={`/tutors/${course.value.author.id}`}>
+                    <Link to={`/tutors/${course.value.author.id}`}>
                         <div className="author-profile-title">
                           {course.value.author?.path_avatar && (
                             <Image
@@ -300,11 +313,11 @@ const SingleCourses = ({ pageProps }) => {
                       </Link>
                       <div className="bio">
                         <ReactMarkdown>
-                          {course.value.author?.bio}
+                          {course.value.author?.bio || ""}
                         </ReactMarkdown>
                       </div>
                     </div>
-                  </div>
+                  </div>}
                 </div>
               </div>
 

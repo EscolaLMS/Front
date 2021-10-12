@@ -10,9 +10,11 @@ import { API } from "@escolalms/connector/lib";
 import Layout from "../../components/_App/Layout";
 import { useTranslation } from "react-i18next";
 
-const MyProfile = ({ pageProps }) => {
+type UpdateCall = (key:keyof API.UserItem, value:any) => void;
+
+const MyProfile = () => {
   const { user, updateProfile, updateAvatar } = useContext(EscolaLMSContext);
-  const [state, setState] = useState<API.UserItem>(user.value);
+  const [state, setState] = useState<API.UserItem | undefined>(user.value);
   const history = useHistory();
   const [editorKey, setEditorKey] = useState<string>(Math.random().toString());
   const { t } = useTranslation();
@@ -26,7 +28,10 @@ const MyProfile = ({ pageProps }) => {
     }
   }, [history, user]);
 
-  const updateValue = useCallback((key, value) => {
+
+
+  const updateValue:UpdateCall = useCallback((key, value) => {
+    //@ts-ignore // TODO fix me 
     setState((prevState) => ({
       ...prevState,
       [key]: value,
@@ -37,7 +42,7 @@ const MyProfile = ({ pageProps }) => {
     (e: ChangeEvent) => {
       if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
         const input = e.target as HTMLInputElement | HTMLTextAreaElement;
-        updateValue(input.name, input.value);
+        updateValue(input.name as keyof API.UserItem, input.value);
       }
     },
     [updateValue]
@@ -46,7 +51,7 @@ const MyProfile = ({ pageProps }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      updateProfile(state);
+      state && updateProfile(state);
     },
     [state, updateProfile]
   );
@@ -54,13 +59,13 @@ const MyProfile = ({ pageProps }) => {
   const onAvatar = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
-      updateAvatar(e.target.files[0]);
+      e.target.files && updateAvatar(e.target.files[0]);
     },
     [updateAvatar]
   );
 
   return (
-    <Layout {...pageProps}>
+    <Layout >
       <React.Fragment>
         <PageBanner
           pageTitle={t("Navbar.MyProfile")}

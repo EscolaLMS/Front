@@ -10,19 +10,19 @@ import ReactMarkdown from "react-markdown";
 import CourseCard from "../../../components/CourseCard";
 import Layout from "../../../components/_App/Layout";
 
-const Profile = ({ pageProps }) => {
-  const { id } = useParams();
+const Profile = () => {
+  const { id } = useParams<{ id: string }>();
 
   const { tutor, fetchTutor, courses, fetchCourses } =
     useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchTutor(Number(id));
-    fetchCourses({ author_id: id });
+    fetchCourses({ author_id: Number(id) });
   }, [id]);
 
   return (
-    <Layout {...pageProps}>
+    <Layout>
       <React.Fragment>
         {/* <Navbar /> */}
         <PageBanner
@@ -40,12 +40,12 @@ const Profile = ({ pageProps }) => {
               <div className="profile-box ptb-100">
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
-                    <div className="image">
+                    {tutor.value.path_avatar && <div className="image">
                       <Image
                         path={tutor.value.path_avatar}
                         srcSizes={[355, 355 * 2]}
                       />
-                    </div>
+                    </div>}
                   </div>
 
                   <div className="col-lg-8 col-md-8">
@@ -55,7 +55,7 @@ const Profile = ({ pageProps }) => {
                       </h3>
                       <span className="sub-title">Tutor</span>
                       <div>
-                        <ReactMarkdown>{tutor.value.bio}</ReactMarkdown>
+                        <ReactMarkdown>{tutor.value.bio || ""}</ReactMarkdown>
                       </div>
                     </div>
                   </div>

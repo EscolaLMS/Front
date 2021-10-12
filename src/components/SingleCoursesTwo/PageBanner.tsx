@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PageBanner = ({
+const PageBanner: React.FC<{
+  pageTitle: string;
+  homePageUrl: string;
+  homePageText: string;
+  innerPageUrl: string;
+  innerPageText: string;
+  activePageText: string;
+  subtitle?: string;
+}> = ({
   pageTitle,
   homePageUrl,
   homePageText,
