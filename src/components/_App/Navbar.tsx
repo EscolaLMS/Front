@@ -85,7 +85,7 @@ export const UserNavbarItem: React.FC<{
         </div>
       ) : (
         <Link to="/authentication" className="default-btn">
-          <i className="flaticon-user"></i> Login/Register <span></span>
+          <i className="flaticon-user"></i> {t('Login')}/{t('Register')} <span></span>
         </Link>
       )}
     </div>

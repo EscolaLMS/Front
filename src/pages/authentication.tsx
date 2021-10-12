@@ -4,14 +4,14 @@ import LoginForm from '../components/Authentication/LoginForm';
 import RegisterForm from '../components/Authentication/RegisterForm';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 import SocialButtons from '../components/Authentication/SocialButtons';
 import Layout from '../components/_App/Layout';
 
 const Authentication = () => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
-
+  const { t } = useTranslation();
   if (!user.loading && user.value) {
     history.push('/');
   }
@@ -20,10 +20,10 @@ const Authentication = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle="Authentication"
+          pageTitle={t('Authentication')}
           homePageUrl="/"
           homePageText="Home"
-          activePageText="Authentication"
+          activePageText={t('Authentication')}
         />
 
         <div className="profile-authentication-area ptb-100">

@@ -17,8 +17,6 @@ const Pages = () => {
     fetchPages();
   }, []);
 
-  console.log(pages);
-
   return (
     <Layout>
       <React.Fragment>
