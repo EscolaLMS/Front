@@ -16,11 +16,11 @@ import './style/css/_overwrite.scss';
 import './style/scss/index.scss';
 
 const App = () => {
-    return (
-        <main>
-            <Routes />
-        </main>
-    );
+  return (
+    <main>
+      <Routes />
+    </main>
+  );
 };
 
 export default App;

@@ -1,27 +1,27 @@
 .course-program {
-    .course-program-summary {
-        .file-list {
-            display: flex;
-            flex-direction: column;
-        }
+  .course-program-summary {
+    .file-list {
+      display: flex;
+      flex-direction: column;
     }
-    .topic-video-wrapper {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+  }
+  .topic-video-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-        button {
-            position: absolute;
-            padding-left: 30px;
-        }
-        .overlay {
-            position: absolute;
-            width: 100%;
-            height: 80vh;
-            background-color: rgba($color: #000000, $alpha: 0.6);
-            z-index: 1;
-        }
+    button {
+      position: absolute;
+      padding-left: 30px;
     }
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 80vh;
+      background-color: rgba($color: #000000, $alpha: 0.6);
+      z-index: 1;
+    }
+  }
 }

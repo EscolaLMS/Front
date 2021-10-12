@@ -10,17 +10,17 @@ import './i18n';
 serviceWorkerRegistration.register();
 
 ReactDOM.render(
-    <React.StrictMode>
-        <EscolaLMSContextProvider
-            apiUrl={
-                process.env.NEXT_PUBLIC_API_URL || //"http://localhost:1000"
-                'https://escola-lms-api.stage.etd24.pl'
-            }
-        >
-            <App />
-        </EscolaLMSContextProvider>
-    </React.StrictMode>,
-    document.getElementById('root'),
+  <React.StrictMode>
+    <EscolaLMSContextProvider
+      apiUrl={
+        process.env.NEXT_PUBLIC_API_URL || //"http://localhost:1000"
+        'https://escola-lms-api.stage.etd24.pl'
+      }
+    >
+      <App />
+    </EscolaLMSContextProvider>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

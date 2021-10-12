@@ -1,105 +1,97 @@
 {
-    "name": "lms-front-2",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@escolalms/connector": "^0.1.22",
-        "@stripe/react-stripe-js": "^1.6.0",
-        "@stripe/stripe-js": "^1.19.1",
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.10",
-        "@types/jest": "^26.0.15",
-        "@types/node": "^12.0.0",
-        "@types/query-string": "^6.3.0",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "@types/react-helmet": "^6.1.2",
-        "@types/react-owl-carousel": "^2.3.0",
-        "@types/react-pdf": "^5.0.7",
-        "@types/react-router-dom": "^5.3.0",
-        "antd": "^4.16.13",
-        "axios": "^0.21.4",
-        "formik": "^2.2.9",
-        "i18next": "^21.2.0",
-        "markdown-to-jsx": "^7.1.3",
-        "react": "^17.0.2",
-        "react-accessible-accordion": "^3.3.5",
-        "react-dom": "^17.0.2",
-        "react-helmet": "^6.1.0",
-        "react-hook-form": "^7.16.1",
-        "react-hot-toast": "^2.1.1",
-        "react-i18next": "^11.12.0",
-        "react-image-lightbox": "^5.1.4",
-        "react-markdown": "^7.0.1",
-        "react-modal-video": "^1.2.8",
-        "react-owl-carousel": "^2.3.3",
-        "react-owl-carousel3": "^2.2.5",
-        "react-pdf": "^5.4.0",
-        "react-player": "^2.9.0",
-        "react-router-dom": "^5.3.0",
-        "react-scripts": "4.0.3",
-        "react-tabs": "^3.2.2",
-        "react-tiny-oembed": "^1.1.0",
-        "react-toast-notifications": "^2.5.1",
-        "react-tooltip": "^4.2.21",
-        "reactstrap": "^8.10.0",
-        "remark-gfm": "^3.0.0",
-        "rich-markdown-editor": "^11.18.6",
-        "sass": "^1.42.1",
-        "strip-markdown": "^5.0.0",
-        "styled-components": "^5.3.1",
-        "sweetalert2": "^11.1.7",
-        "sweetalert2-react-content": "^4.1.1",
-        "typescript": "^4.1.2",
-        "web-vitals": "^1.0.1",
-        "yup": "^0.32.9"
-    },
-    "scripts": {
-        "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts start",
-        "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts build",
-        "test": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts test",
-        "eject": "react-scripts eject",
-        "postinstall": "husky install",
-        "tsc": "tsc --project tsconfig.json --noEmit"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@babel/preset-env": "^7.15.6",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "husky": "^7.0.2",
-        "lint-staged": "^11.2.3",
-        "prettier": "2.4.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "src/**/*": [
-            "eslint  --max-warnings 0 --fix"
-        ],
-        "*.{js,ts,tsx,json,md,html}": [
-            "prettier --write"
-        ]
-    }
+  "name": "lms-front-2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@escolalms/connector": "^0.1.22",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.19.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/query-string": "^6.3.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-helmet": "^6.1.2",
+    "@types/react-owl-carousel": "^2.3.0",
+    "@types/react-pdf": "^5.0.7",
+    "@types/react-router-dom": "^5.3.0",
+    "antd": "^4.16.13",
+    "axios": "^0.21.4",
+    "formik": "^2.2.9",
+    "i18next": "^21.2.0",
+    "markdown-to-jsx": "^7.1.3",
+    "react": "^17.0.2",
+    "react-accessible-accordion": "^3.3.5",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.16.1",
+    "react-hot-toast": "^2.1.1",
+    "react-i18next": "^11.12.0",
+    "react-image-lightbox": "^5.1.4",
+    "react-markdown": "^7.0.1",
+    "react-modal-video": "^1.2.8",
+    "react-owl-carousel": "^2.3.3",
+    "react-owl-carousel3": "^2.2.5",
+    "react-pdf": "^5.4.0",
+    "react-player": "^2.9.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "react-tabs": "^3.2.2",
+    "react-tiny-oembed": "^1.1.0",
+    "react-toast-notifications": "^2.5.1",
+    "react-tooltip": "^4.2.21",
+    "reactstrap": "^8.10.0",
+    "remark-gfm": "^3.0.0",
+    "rich-markdown-editor": "^11.18.6",
+    "sass": "^1.42.1",
+    "strip-markdown": "^5.0.0",
+    "styled-components": "^5.3.1",
+    "sweetalert2": "^11.1.7",
+    "sweetalert2-react-content": "^4.1.1",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
+  },
+  "scripts": {
+    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts start",
+    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts build",
+    "test": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-scripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "husky install",
+    "tsc": "tsc --project tsconfig.json --noEmit"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.3",
+    "prettier": "2.4.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,json,md,html}": [
+      "prettier --write"
+    ]
+  }
 }

@@ -14,149 +14,125 @@ export const courseComplete = 1;
 export const courseInProgress = 2;
 
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-    const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
+  const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
 
-    const { push } = useHistory();
-    const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
+  const { push } = useHistory();
+  const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
-    const lessonId = lessonID ? lessonID : program.lessons[0].id;
-    // TODO fix me
-    //@ts-ignore
-    const topicId = topicID ? topicID : (program && program?.lessons[0]?.topics[0]?.id) || 0;
+  const lessonId = lessonID ? lessonID : program.lessons[0].id;
+  // TODO fix me
+  //@ts-ignore
+  const topicId = topicID ? topicID : (program && program?.lessons[0]?.topics[0]?.id) || 0;
 
-    const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
+  const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
 
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [lessonId, topicId]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [lessonId, topicId]);
 
-    const lesson = useMemo(
-        () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),
-        [program, lessonId],
-    );
+  const lesson = useMemo(
+    () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),
+    [program, lessonId],
+  );
 
-    const topic = useMemo(
-        () =>
-            lesson && lesson.topics && lesson.topics.find((topic) => topic.id === Number(topicId)),
-        [lesson, topicId],
-    );
+  const topic = useMemo(
+    () => lesson && lesson.topics && lesson.topics.find((topic) => topic.id === Number(topicId)),
+    [lesson, topicId],
+  );
 
-    const onNextTopic = useCallback(() => {
-        program.id &&
-            sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(() => {
-                const nextTopic = getNextPrevTopic(Number(topicId));
+  const onNextTopic = useCallback(() => {
+    program.id &&
+      sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(() => {
+        const nextTopic = getNextPrevTopic(Number(topicId));
 
-                nextTopic &&
-                    push(`/kurs/${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
-            });
-    }, [topicId, program, push, getNextPrevTopic, sendProgress]);
+        nextTopic && push(`/kurs/${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
+      });
+  }, [topicId, program, push, getNextPrevTopic, sendProgress]);
 
-    const columnWidth =
-        lesson &&
-        lesson.summary &&
-        trimContentForMarkdown(`${lesson.summary}`) !== '' &&
-        topic &&
-        topic.summary &&
-        trimContentForMarkdown(`${topic.summary}`) !== ''
-            ? 6
-            : 12;
+  const columnWidth =
+    lesson &&
+    lesson.summary &&
+    trimContentForMarkdown(`${lesson.summary}`) !== '' &&
+    topic &&
+    topic.summary &&
+    trimContentForMarkdown(`${topic.summary}`) !== ''
+      ? 6
+      : 12;
 
-    return (
-        <React.Fragment>
-            <div className="container-fluid course-program">
-                <div className="course-program-wrapper">
-                    <div className="course-program-player">
-                        <div className="course-program-player-content">
-                            <h2>{topic?.title}</h2>
-                            <CourseProgramContent
-                                lessonId={Number(lessonId)}
-                                topicId={Number(topicId)}
-                                setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
-                            />
-                        </div>
-
-                        <div className="row">
-                            {lesson &&
-                                lesson.summary &&
-                                trimContentForMarkdown(`${lesson.summary}`) !== '' && (
-                                    <div
-                                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                                    >
-                                        <div className="course-program-summary">
-                                            <div className="container-md">
-                                                {/* <h3>{t("LessonSummary")}</h3> */}
-                                                <ReactMarkdownWithTrim>
-                                                    {lesson.summary}
-                                                </ReactMarkdownWithTrim>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            {topic &&
-                                topic.summary &&
-                                trimContentForMarkdown(`${topic.summary}`) !== '' && (
-                                    <div
-                                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                                    >
-                                        <div className="course-program-summary">
-                                            <div className="container-md">
-                                                {/* <h3>{t("TopicSummary")}</h3> */}
-                                                <ReactMarkdownWithTrim>
-                                                    {topic.summary}
-                                                </ReactMarkdownWithTrim>
-                                            </div>
-                                            {topic &&
-                                                topic.resources &&
-                                                topic.resources?.length > 0 && (
-                                                    <React.Fragment>
-                                                        <h3>
-                                                            {t('CourseProgram.TopicAttachment')}
-                                                        </h3>
-                                                        <div className="file-list">
-                                                            {topic.resources.map((resource) => (
-                                                                <a
-                                                                    target="_blank"
-                                                                    href={resource.url}
-                                                                    rel="noreferrer"
-                                                                >
-                                                                    {resource.name}
-                                                                </a>
-                                                            ))}
-                                                        </div>
-                                                    </React.Fragment>
-                                                )}
-                                        </div>
-                                    </div>
-                                )}
-                        </div>
-                        {getNextPrevTopic(Number(topicId)) && (
-                            <div className="course-program-player-next">
-                                <button
-                                    disabled={
-                                        topic && topic.can_skip ? false : isDisabledNextTopicButton
-                                    }
-                                    className={`default-btn`}
-                                    onClick={onNextTopic}
-                                >
-                                    <div className="course-program-player-next-button__wrapper">
-                                        Następna lekcja &gt;
-                                    </div>
-                                    <span></span>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    <CourseProgramList
-                        course={program}
-                        lessonId={Number(lessonId)}
-                        topicId={Number(topicId)}
-                    />
-                </div>
+  return (
+    <React.Fragment>
+      <div className="container-fluid course-program">
+        <div className="course-program-wrapper">
+          <div className="course-program-player">
+            <div className="course-program-player-content">
+              <h2>{topic?.title}</h2>
+              <CourseProgramContent
+                lessonId={Number(lessonId)}
+                topicId={Number(topicId)}
+                setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
+              />
             </div>
-        </React.Fragment>
-    );
+
+            <div className="row">
+              {lesson && lesson.summary && trimContentForMarkdown(`${lesson.summary}`) !== '' && (
+                <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
+                  <div className="course-program-summary">
+                    <div className="container-md">
+                      {/* <h3>{t("LessonSummary")}</h3> */}
+                      <ReactMarkdownWithTrim>{lesson.summary}</ReactMarkdownWithTrim>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {topic && topic.summary && trimContentForMarkdown(`${topic.summary}`) !== '' && (
+                <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
+                  <div className="course-program-summary">
+                    <div className="container-md">
+                      {/* <h3>{t("TopicSummary")}</h3> */}
+                      <ReactMarkdownWithTrim>{topic.summary}</ReactMarkdownWithTrim>
+                    </div>
+                    {topic && topic.resources && topic.resources?.length > 0 && (
+                      <React.Fragment>
+                        <h3>{t('CourseProgram.TopicAttachment')}</h3>
+                        <div className="file-list">
+                          {topic.resources.map((resource) => (
+                            <a target="_blank" href={resource.url} rel="noreferrer">
+                              {resource.name}
+                            </a>
+                          ))}
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            {getNextPrevTopic(Number(topicId)) && (
+              <div className="course-program-player-next">
+                <button
+                  disabled={topic && topic.can_skip ? false : isDisabledNextTopicButton}
+                  className={`default-btn`}
+                  onClick={onNextTopic}
+                >
+                  <div className="course-program-player-next-button__wrapper">
+                    Następna lekcja &gt;
+                  </div>
+                  <span></span>
+                </button>
+              </div>
+            )}
+          </div>
+          <CourseProgramList
+            course={program}
+            lessonId={Number(lessonId)}
+            topicId={Number(topicId)}
+          />
+        </div>
+      </div>
+    </React.Fragment>
+  );
 };
 
 export default CourseProgramLessons;

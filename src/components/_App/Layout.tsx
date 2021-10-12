@@ -9,59 +9,56 @@ import Footer from './Footer';
 import CourseNavbar from './CourseNavbar';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-    React.useEffect(() => {
-        // ybug
-        (function () {
-            if (window) {
-                try {
-                    // @ts-ignore
-                    window.ybug_settings = { id: 't2mm545qmpg6p51613b8' };
-                    const ybug = document.createElement('script');
-                    ybug.type = 'text/javascript';
-                    ybug.async = true;
-                    ybug.src =
-                        // @ts-ignore
-                        'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
-                    const s = document.getElementsByTagName('script')[0];
-                    s && s.parentNode && s.parentNode.insertBefore(ybug, s);
-                } catch (er) {}
-            }
-        })();
-    }, []);
+  React.useEffect(() => {
+    // ybug
+    (function () {
+      if (window) {
+        try {
+          // @ts-ignore
+          window.ybug_settings = { id: 't2mm545qmpg6p51613b8' };
+          const ybug = document.createElement('script');
+          ybug.type = 'text/javascript';
+          ybug.async = true;
+          ybug.src =
+            // @ts-ignore
+            'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
+          const s = document.getElementsByTagName('script')[0];
+          s && s.parentNode && s.parentNode.insertBefore(ybug, s);
+        } catch (er) {}
+      }
+    })();
+  }, []);
 
-    const isCourse = pathname.includes('/kurs/');
-    const isLearningMaterial = pathname.includes('materialy-szkoleniowe');
+  const isCourse = pathname.includes('/kurs/');
+  const isLearningMaterial = pathname.includes('materialy-szkoleniowe');
 
-    return (
-        <React.Fragment>
-            <Helmet>
-                <title>WF z AWF</title>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                />
-                <meta name="description" content="WF z AWF" />
-                <meta name="og:title" property="og:title" content="WF z AWF"></meta>
-                <meta name="twitter:card" content="WF z AWF"></meta>
-            </Helmet>
+  return (
+    <React.Fragment>
+      <Helmet>
+        <title>WF z AWF</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="WF z AWF" />
+        <meta name="og:title" property="og:title" content="WF z AWF"></meta>
+        <meta name="twitter:card" content="WF z AWF"></meta>
+      </Helmet>
 
-            <Toaster position="top-left" reverseOrder={false} />
+      <Toaster position="top-left" reverseOrder={false} />
 
-            <ToastProvider placement="bottom-left" autoDismissTimeout={10000} autoDismiss>
-                <div className="site-wrapper">
-                    {isCourse ? <CourseNavbar /> : <Navbar />}
+      <ToastProvider placement="bottom-left" autoDismissTimeout={10000} autoDismiss>
+        <div className="site-wrapper">
+          {isCourse ? <CourseNavbar /> : <Navbar />}
 
-                    {children}
+          {children}
 
-                    {!isCourse && !isLearningMaterial && <Footer />}
-                </div>
+          {!isCourse && !isLearningMaterial && <Footer />}
+        </div>
 
-                <GoTop scrollStepInPx="100" delayInMs="10.50" />
-            </ToastProvider>
-        </React.Fragment>
-    );
+        <GoTop scrollStepInPx="100" delayInMs="10.50" />
+      </ToastProvider>
+    </React.Fragment>
+  );
 };
 
 export default Layout;

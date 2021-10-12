@@ -25,51 +25,51 @@ import PagesPage from '../../pages/pages';
 import PrivateRoute from './private';
 
 const Routes: React.FC = (): ReactElement => {
-    const {
-        home,
-        authentication,
-        page,
-        myProfile,
-        myOrders,
-        myPayments,
-        myCourses,
-        tutors,
-        tutor,
-        courses,
-        course,
-        preview,
-        courseProgram,
-        cart,
-        pages,
-        contact,
-    } = routes;
+  const {
+    home,
+    authentication,
+    page,
+    myProfile,
+    myOrders,
+    myPayments,
+    myCourses,
+    tutors,
+    tutor,
+    courses,
+    course,
+    preview,
+    courseProgram,
+    cart,
+    pages,
+    contact,
+  } = routes;
 
-    return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Switch>
-                <Route exact path={home} component={HomePage} />
-                <Route exact path={authentication} component={AuthPage} />
-                <Route exact path={page} component={StaticPage} />
-                <Route exact path={tutors} component={TutorsPage} />
-                <Route exact path={tutor} component={TutorPage} />
-                <Route exact path={courses} component={CoursesPage} />
-                <Route exact path={course} component={CoursePage} />
-                <Route exact path={preview} component={CoursePreviewPage} />
-                <Route exact path={pages} component={PagesPage} />
+  return (
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Switch>
+        <Route exact path={home} component={HomePage} />
+        <Route exact path={authentication} component={AuthPage} />
+        <Route exact path={page} component={StaticPage} />
+        <Route exact path={tutors} component={TutorsPage} />
+        <Route exact path={tutor} component={TutorPage} />
+        <Route exact path={courses} component={CoursesPage} />
+        <Route exact path={course} component={CoursePage} />
+        <Route exact path={preview} component={CoursePreviewPage} />
+        <Route exact path={pages} component={PagesPage} />
 
-                {/* privates pages*/}
+        {/* privates pages*/}
 
-                <PrivateRoute exact path={myProfile} component={MyProfilePage} />
-                <PrivateRoute exact path={myOrders} component={MyOrderPage} />
-                <PrivateRoute exact path={myPayments} component={MyPaymentsPage} />
-                <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
-                <PrivateRoute exact path={courseProgram} component={CourseProgramPage} />
-                <PrivateRoute exact path={cart} component={CartPage} />
+        <PrivateRoute exact path={myProfile} component={MyProfilePage} />
+        <PrivateRoute exact path={myOrders} component={MyOrderPage} />
+        <PrivateRoute exact path={myPayments} component={MyPaymentsPage} />
+        <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
+        <PrivateRoute exact path={courseProgram} component={CourseProgramPage} />
+        <PrivateRoute exact path={cart} component={CartPage} />
 
-                <Route exact component={NotFoundPage} />
-            </Switch>
-        </BrowserRouter>
-    );
+        <Route exact component={NotFoundPage} />
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default Routes;
