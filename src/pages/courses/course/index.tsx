@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import PageBanner from '../../../components/SingleCoursesTwo/PageBanner';
-import CoursesDetailsSidebar from '../../../components/SingleCoursesTwo/CoursesDetailsSidebar';
+import PageBanner from '@/components/SingleCoursesTwo/PageBanner';
+import CoursesDetailsSidebar from '@/components/SingleCoursesTwo/CoursesDetailsSidebar';
 import { Link, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Loader from '../../../components/Preloader';
+import Loader from '@/components/Preloader';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
-import Layout from '../../../components/_App/Layout';
-import CourseProgramPreview from '../../../components/Course/CourseProgramPreview';
+import Layout from '@/components/_App/Layout';
+import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
 
 export const CourseProgramList: React.FC<{
   program: API.Lesson[];

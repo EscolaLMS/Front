@@ -41,7 +41,6 @@ const Routes: React.FC = (): ReactElement => {
     courseProgram,
     cart,
     pages,
-    contact,
   } = routes;
 
   return (

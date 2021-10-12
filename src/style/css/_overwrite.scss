@@ -32,6 +32,11 @@ $transition: 0.5s;
   display: flex;
   line-height: 1em;
   font-size: 20px;
+  width: 80px;
+  height: 80px;
+  &.free {
+    font-size: 13px;
+  }
 }
 
 .courses-sidebar-sticky .courses-details-info {

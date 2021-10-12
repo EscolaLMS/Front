@@ -4,10 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
-import Preloader from '../../../components/Preloader';
-import Layout from '../../../components/_App/Layout';
+import Preloader from '@/components/Preloader';
+import Layout from '@/components/_App/Layout';
 
-import CourseProgramLessonsPreview from '../../../components/Course/CourseProgramLessonsPreview';
+import CourseProgramLessonsPreview from '@/escolalms/sdk/components/Course/CourseProgramLessonsPreview';
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const sco = program?.scorm?.scos?.find((sco) => sco.entry_url !== undefined);

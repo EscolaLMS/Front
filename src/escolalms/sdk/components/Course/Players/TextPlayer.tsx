@@ -1,5 +1,5 @@
 import React, { ReactElement, FunctionComponent, useEffect } from 'react';
-import ReactMarkdownWithTrim from '../../ReactMarkdownWithTrim';
+import ReactMarkdownWithTrim from '../../Markdown/ReactMarkdownWithTrim';
 
 const fontSizes = ['small', 'regular', 'bigger', 'big'];
 

@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from './CourseProgramContent';
 import CourseProgramList from './CourseProgramList';
-import ReactMarkdownWithTrim from '../ReactMarkdownWithTrim';
-import { trimContentForMarkdown } from '../../utils/trim';
+import ReactMarkdownWithTrim from '../Markdown/ReactMarkdownWithTrim';
+import { trimContentForMarkdown } from '../..//utils/trim';
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 

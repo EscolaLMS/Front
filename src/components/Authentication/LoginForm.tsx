@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
-import baseUrl from '../../utils/baseUrl';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import TempLogin from '../TempLogin';
 import { FormState } from './types';
+import { useTranslation } from 'react-i18next';
 
 const INITIAL_USER = {
   email: '',
@@ -12,7 +12,7 @@ const INITIAL_USER = {
 
 const LoginForm = () => {
   const { login, forgot } = useContext(EscolaLMSContext);
-
+  const { t } = useTranslation();
   const [user, setUser] = React.useState(INITIAL_USER);
   const [state, setState] = React.useState<FormState>({ state: 'input' });
   const [isForgoten, setIsForgoten] = React.useState(false);
@@ -41,7 +41,7 @@ const LoginForm = () => {
   const forgotHandler = React.useCallback(() => {
     forgot({
       email: user.email,
-      return_url: `${baseUrl}/reset-password`,
+      return_url: `${window.location.origin}/reset-password`,
     })
       .then((data) => {
         setState({
@@ -61,7 +61,7 @@ const LoginForm = () => {
   };
   return (
     <div className="login-form">
-      <h2>{isForgoten ? 'Reset your password' : 'Login'}</h2>
+      <h2>{isForgoten ? 'Reset your password' : t('Login')}</h2>
       {!isForgoten && <TempLogin />}
 
       <Alert
@@ -90,11 +90,11 @@ const LoginForm = () => {
         </div>
         {!isForgoten && (
           <div className="form-group">
-            <label htmlFor="login-password">Password</label>
+            <label htmlFor="login-password">{t('Password')}</label>
             <input
               id="login-password"
               className="form-control"
-              placeholder="Password"
+              placeholder={t('Password')}
               name="password"
               type="password"
               value={user?.password}
@@ -127,7 +127,7 @@ const LoginForm = () => {
         </div>
 
         <button type="submit" disabled={state.state === 'disabled'}>
-          {isForgoten ? 'Send' : 'Log In'}
+          {isForgoten ? 'Send' : t('LogIn')}
           {state.state === 'loading' ? <Spinner color="success" /> : ''}
         </button>
       </form>

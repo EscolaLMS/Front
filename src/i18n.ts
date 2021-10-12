@@ -7,6 +7,10 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      Authentication: 'Authentication',
+      Login: 'Login',
+      LogIn: 'Log In',
+      Register: 'Register',
       Found: 'We found',
       FoundCourses: 'course available for you',
       FoundCourses_plural: 'course available for you',
@@ -19,8 +23,8 @@ const resources = {
       'Contact Us': 'Contact Us',
       Lesson: 'Lesson',
       Lesson_plural: 'Lessons',
-      Topic: 'Lesson',
-      Topic_plural: 'Lessons',
+      Topic: 'Topic',
+      Topic_plural: 'Topics',
       Student: 'Student',
       Student_plural: 'Students',
       Title: 'Title',
@@ -36,10 +40,14 @@ const resources = {
       LessonSummary: 'Lesson summary',
       TopicSummary: 'Topic summary',
       Pages: 'Pages',
+      FREE: 'FREE',
+      Password: 'Password',
+      Confirm: 'Confirm',
       Homepage: {
         heading: 'Digital Wellbeing',
         headingText: `Modern information and communication technologies have changed the way we live and function forever. Learn how to take control of them to reach their full potential. It's up to you to have power over them, not over you.`,
         joinFree: 'Join For Free',
+        headingText2: 'Improve Yours Skills With EscolaLMS Any Time, Anywhere',
       },
       OrdersPage: {
         MyOrders: 'My Orders',
@@ -95,10 +103,18 @@ const resources = {
         Details: 'Contact Details',
         Mobile: 'Mobile',
       },
+      RegisterPage: {
+        FullName: 'First Name',
+        LastName: 'Last Name',
+      },
     },
   },
   pl: {
     translation: {
+      Authentication: 'Uwierzytelnianie',
+      Login: 'Logowanie',
+      LogIn: 'Zaloguj się',
+      Register: 'Rejestracja',
       Student: 'Student',
       Student_plural: 'Studentów',
       Topic: 'Lekcja',
@@ -163,6 +179,8 @@ const resources = {
       RecentCourses: 'Ostatnie kursy',
       LessonSummary: 'Podsumowanie lekcji',
       TopicSummary: 'Podsumowanie tematu',
+      Password: 'Hasło',
+      Confirm: 'Potwierdź',
       Homepage: {
         heading: 'Cyfrowy Dobrostan',
         headingText: `Nowoczesne technologie informacyjno-komunikacyjne na zawsze
@@ -170,6 +188,7 @@ const resources = {
         przejąć nad nimi kontrolę, aby w pełni wykorzystać ich
         potencjał. To Ty masz mieć nad nimi władzę, a nie one nad Tobą.`,
         joinFree: 'Dołącz bezpłatnie',
+        headingText2: 'Podnieś swoje umiejętności dzięki EscolaLMS w dowolnym czasie i miejscu',
       },
       OrdersPage: {
         MyOrders: 'Moje zamówienia',
@@ -224,6 +243,10 @@ const resources = {
         InTouch: 'Bądź w kontakcie',
         Details: 'Szczegóły kontaktu',
         Mobile: 'Telefon',
+      },
+      RegisterPage: {
+        FullName: 'Imię',
+        LastName: 'Nazwisko',
       },
     },
   },
