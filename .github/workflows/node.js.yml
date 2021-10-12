@@ -10,7 +10,7 @@ on:
     types: [assigned, opened, synchronize, reopened]
 
 jobs:
-  build:
+  static-analysis:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,5 +26,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm i
-      # - run: npm run build --if-present
-      # - run: npm run test-codecov
+      
+      - run: ./node_modules/.bin/lint-staged
+      - run: ./node_modules/.bin/eslint --fix --max-warnings 25 src
+      - run: ./node_modules/.bin/tsc --project tsconfig.json --noEmit
+
