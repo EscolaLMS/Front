@@ -1,4 +1,4 @@
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import React, { ReactElement } from 'react';
 import { useContext } from 'react';
 

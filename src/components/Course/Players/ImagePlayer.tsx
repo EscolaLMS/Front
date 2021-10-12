@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useCallback } from 'react';
 import Lightbox from 'react-image-lightbox';
-import Image from '@escolalms/connector/lib/components/Image';
-import { API } from '@escolalms/connector/lib';
+import Image from '@escolalms/sdk/lib/components/Image';
+import { API } from '@escolalms/sdk/lib';
 
 const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
   topic,

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
 import { useHistory } from 'react-router-dom';
 import { FormState } from './types';
 

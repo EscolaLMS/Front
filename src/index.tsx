@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { EscolaLMSContextProvider } from '@escolalms/connector/lib/context';
+import { EscolaLMSContextProvider } from '@escolalms/sdk/lib/context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';

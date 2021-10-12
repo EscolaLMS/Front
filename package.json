@@ -1,9 +1,10 @@
 {
-  "name": "lms-front-2",
+  "name": "escolalms-demo",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://escolalms.github.io/Front",
   "dependencies": {
-    "@escolalms/connector": "^0.1.22",
+    "@escolalms/sdk": "^0",
+    "@escolalms/h5p-react": "^0",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.19.1",
     "@testing-library/jest-dom": "^5.11.4",

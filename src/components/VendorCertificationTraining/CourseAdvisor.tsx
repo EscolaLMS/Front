@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/connector/lib/context';
-import Image from '@escolalms/connector/lib/components/Image';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/context';
+import Image from '@escolalms/sdk/lib/components/Image';
 
 import ReactMarkdown from 'react-markdown';
 import StripMarkdown from 'strip-markdown';
