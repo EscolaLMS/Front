@@ -11,14 +11,13 @@ serviceWorkerRegistration.register();
 
 ReactDOM.render(
   <React.StrictMode>
-    <EscolaLMSContextProvider
-      apiUrl={
-        process.env.NEXT_PUBLIC_API_URL || //"http://localhost:1000"
-        'https://escola-lms-api.stage.etd24.pl'
-      }
-    >
-      <App />
-    </EscolaLMSContextProvider>
+    {process.env.REACT_APP_PUBLIC_API_URL ? (
+      <EscolaLMSContextProvider apiUrl={process.env.REACT_APP_PUBLIC_API_URL}>
+        <App />
+      </EscolaLMSContextProvider>
+    ) : (
+      <pre>error `process.env.REACT_APP_PUBLIC_API_URL` not set</pre>
+    )}
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -71,7 +71,7 @@ export const Tutors: React.FC<{
         <option value="" selected={!!!id}>
           {t('All Tutors')}
         </option>
-        {tutors.list?.map((tutor) => (
+        {tutors.list?.map((tutor: API.UserItem) => (
           <option key={tutor.id} value={tutor.id} selected={Number(id) === tutor.id}>
             {tutor.first_name} {tutor.last_name}
           </option>

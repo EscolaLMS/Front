@@ -85,9 +85,6 @@ const PaymentModal: React.FC<{
             setTimeout(() => {
               setProcessing(false);
             }, 3000);
-
-            //
-            // dispatch(cartPay({ paymentMethodId: res?.paymentMethod?.id }));
           }
         })
         .catch((error) => {
@@ -111,13 +108,7 @@ const PaymentModal: React.FC<{
             <h5 className="modal-title" id="exampleModalLongTitle">
               Pay <strong>{total}</strong> with Stripe
             </h5>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              onClick={onClose}
-            >
+            <button type="button" className="close" onClick={onClose}>
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -175,7 +166,6 @@ const PaymentModal: React.FC<{
               <button
                 type="button"
                 className="default-btn close-btn"
-                data-dismiss="modal"
                 onClick={onClose}
                 disabled={processing}
               >
