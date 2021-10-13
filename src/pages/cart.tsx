@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useCallback, useState } from 'react';
 import PageBanner from '../components/Common/PageBanner';
 import { Link, useHistory } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-
+import { useTranslation } from 'react-i18next';
 import Preloader from '../components/Preloader';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -15,7 +15,7 @@ const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 const Cart = () => {
   const { user, cart, fetchCart, settings, removeFromCart, payWithStripe, fetchProgress } =
     useContext(EscolaLMSContext);
-
+  const { t } = useTranslation();
   const { location, push } = useHistory();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Cart = () => {
   const priceLiteral = useCallback(
     (course) => {
       return course.base_price === 0
-        ? 'FREE'
+        ? t('FREE')
         : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
     },
     [settings],
@@ -43,38 +43,34 @@ const Cart = () => {
       fetchCart();
       fetchProgress();
     });
-
-    /*
-    if (cart?.data && !cart.loading && cart?.data?.total <= 0) {
-      dispatch(cartPay({ paymentMethodId: undefined }));
-    } else {
-      setModalActive(true);
-    }
-    */
   }, []);
 
   return (
     <Layout>
       <React.Fragment>
-        {/* <Navbar /> */}
-        <PageBanner pageTitle="Cart" homePageUrl="/" homePageText="Home" activePageText="Cart" />
+        <PageBanner
+          pageTitle={t('Cart.Cart')}
+          homePageUrl="/"
+          homePageText="Home"
+          activePageText={t('Cart.Cart')}
+        />
 
         <div className="cart-area ptb-100">
           <div className="container">
             {cart.loading && <Preloader />}
 
             {cart?.value?.items?.length === 0 ? (
-              <p className="text-center">Cart is empty!</p>
+              <p className="text-center">{t('Cart.CartIsEmpty')}!</p>
             ) : (
               <form>
                 <div className="cart-table table-responsive">
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Remove</th>
+                        <th scope="col">{t('Cart.Columns.Product')}</th>
+                        <th scope="col">{t('Cart.Columns.Name')}</th>
+                        <th scope="col">{t('Cart.Columns.Price')}</th>
+                        <th scope="col">{t('Cart.Columns.Remove')}</th>
                       </tr>
                     </thead>
 
@@ -97,13 +93,13 @@ const Cart = () => {
                             </td>
 
                             <td className="product-subtotal">
-                              <a
-                                href="#cart"
+                              <span
+                                aria-hidden="true"
                                 className="remove"
                                 onClick={() => removeFromCart(Number(item.id))}
                               >
                                 <i className="bx bx-trash"></i>
-                              </a>
+                              </span>
                             </td>
                           </tr>
                         ))}
@@ -138,23 +134,23 @@ const Cart = () => {
                   </div>*/}
 
                 <div className="cart-totals">
-                  <h3>Cart Totals</h3>
+                  <h3>{t('Cart.CartSummary')}</h3>
 
                   <ul>
                     <li>
-                      Subtotal{' '}
+                      {t('OrdersPage.Price.Subtotal')}{' '}
                       <span>
                         {settings?.currencies?.default} {Number(cart.value?.subtotal).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      Tax{' '}
+                      {t('OrdersPage.Price.Tax')}{' '}
                       <span>
                         {settings?.currencies?.default} {Number(cart.value?.tax).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      Total{' '}
+                      {t('OrdersPage.Price.Total')}{' '}
                       <span>
                         {settings?.currencies?.default} {Number(cart.value?.total).toFixed(2)}
                       </span>
@@ -163,12 +159,13 @@ const Cart = () => {
 
                   {Number(cart.value?.total) === 0 ? (
                     <button className="default-btn" onClick={() => onPay(0)}>
-                      <i className="flaticon-shopping-cart"></i> Free Checkout <span></span>
+                      <i className="flaticon-shopping-cart"></i> {t('Cart.FreeCheckout')}{' '}
+                      <span></span>
                     </button>
                   ) : (
                     <button className="default-btn" onClick={() => setModal(true)}>
-                      <i className="flaticon-shopping-cart"></i> Pay with stripe Checkout{' '}
-                      <span></span>
+                      <i className="flaticon-shopping-cart"></i>
+                      {t('Cart.PayWithStripe')} <span></span>
                     </button>
                   )}
                 </div>
@@ -187,8 +184,6 @@ const Cart = () => {
             )}
           </div>
         </div>
-
-        {/* <Footer /> */}
       </React.Fragment>
     </Layout>
   );

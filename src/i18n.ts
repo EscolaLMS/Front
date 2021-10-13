@@ -107,6 +107,19 @@ const resources = {
         FullName: 'First Name',
         LastName: 'Last Name',
       },
+      Cart: {
+        Cart: 'Cart',
+        PayWithStripe: 'Pay with stripe Checkout',
+        FreeCheckout: 'Free Checkout',
+        CartIsEmpty: 'Cart is empty',
+        CartSummary: 'Cart Totals',
+        Columns: {
+          Product: 'Product',
+          Name: 'Name',
+          Price: 'Price',
+          Remove: 'Remove',
+        },
+      },
     },
   },
   pl: {
@@ -247,6 +260,19 @@ const resources = {
       RegisterPage: {
         FullName: 'Imię',
         LastName: 'Nazwisko',
+      },
+      Cart: {
+        Cart: 'Koszyk',
+        PayWithStripe: 'Płać za pomocą stripe Checkout',
+        FreeCheckout: 'Zakończ bezpłatnie',
+        CartIsEmpty: 'Koszyk jest pusty',
+        CartSummary: 'Suma koszyka',
+        Columns: {
+          Product: 'Produkt',
+          Name: 'Nazwa',
+          Price: 'Cena',
+          Remove: 'Usuń',
+        },
       },
     },
   },
