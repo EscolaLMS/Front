@@ -211,23 +211,25 @@ const SingleCourses = () => {
                           <i className="bx bx-folder-open"></i>
                           <span>{t('Category')}</span>
 
-                          {course.value.categories.map((category: API.CategoryListItem) => {
-                            const cat =
-                              typeof category === 'object'
-                                ? {
-                                    id: category.id,
-                                    name: category.name,
-                                  }
-                                : {
-                                    id: category,
-                                    name: category,
-                                  };
-                            return (
-                              <Link to={`/courses?category_id=${cat.id}`} key={cat.id}>
-                                {cat.name}
-                              </Link>
-                            );
-                          })}
+                          {course.value.categories.map(
+                            (category: API.CategoryListItem | (number | string)) => {
+                              const cat =
+                                typeof category === 'object'
+                                  ? {
+                                      id: category.id,
+                                      name: category.name,
+                                    }
+                                  : {
+                                      id: category,
+                                      name: category,
+                                    };
+                              return (
+                                <Link to={`/courses?category_id=${cat.id}`} key={cat.id}>
+                                  {cat.name}
+                                </Link>
+                              );
+                            },
+                          )}
                         </li>
                       )}
                       {course.value.users_count && course.value.users_count > 0 && (

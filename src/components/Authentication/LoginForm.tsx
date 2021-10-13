@@ -34,8 +34,7 @@ const LoginForm = () => {
       .then(() => {
         setState({ state: 'input' });
       })
-      // TODO:fix this
-      // @ts-ignore
+
       .catch((error) => {
         setState({ state: 'error', error: error.data.message });
       });
@@ -47,13 +46,12 @@ const LoginForm = () => {
       return_url: `${window.location.origin}/reset-password`,
     })
       .then(() => {
-        setState({
+        return setState({
           state: 'success',
+          // TODO: translate,
           message: 'We send a email for password reset',
         });
       })
-      // TODO:fix this
-      // @ts-ignore
       .catch((error) => {
         setState({ state: 'error', error: error.data.message });
       });

@@ -43,8 +43,8 @@ const RegisterForm = () => {
 
       register({ ...user })
         .then(() => setSuccess(true))
-        // @ts-ignore
-        .catch((error) => {
+
+        .catch((error: any) => {
           setError(error.data);
         });
     } catch (error: any) {

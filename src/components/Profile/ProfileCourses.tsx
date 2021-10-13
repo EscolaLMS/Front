@@ -70,11 +70,11 @@ const ProfileCourses = () => {
   }, []);
 
   const progressMap = useMemo(() => {
-    return progress.value?.reduce((acc: API.CourseProgressItem, curr: API.CourseProgressItem) => {
+    return progress.value?.reduce((acc: any, curr: any) => {
       return {
         ...acc,
         [curr.course.id ? curr.course.id : -1]:
-          curr.progress.reduce((pAcc, pCurr) => {
+          curr.progress.reduce((pAcc: any, pCurr: any) => {
             return pCurr.status === 1 ? pAcc + 1 : pAcc;
           }, 0) / curr.progress.length,
       };
