@@ -27,13 +27,16 @@ const Index = () => {
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="hero-banner-image">
-                  <img src="/images/main-banner3.png" alt="main-banner" />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/main-banner3.png`}
+                    alt="main-banner"
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="banner-shape19">
-            {/* <img src="/images/banner-shape20.png" alt="image" /> */}
+            <img src={`${process.env.PUBLIC_URL}/images/banner-shape20.png`} alt="main-banner" />
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '../../components/Preloader';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const Orders = () => {
   const { user, orders, fetchOrders } = useContext(EscolaLMSContext);
@@ -51,7 +52,7 @@ const Orders = () => {
                     </thead>
 
                     <tbody>
-                      {orders.list?.map((order) => (
+                      {orders.list?.map((order: API.OrderListItem) => (
                         <tr key={order.id}>
                           <td className="order-id">{order.id}</td>
                           <td className="order-created">

@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentModal from '../components/PaymentModal';
 import Layout from '../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
@@ -76,7 +77,7 @@ const Cart = () => {
 
                     <tbody>
                       {cart &&
-                        cart?.value?.items?.map((item) => (
+                        cart?.value?.items?.map((item: API.Course) => (
                           <tr key={item.id}>
                             <td className="product-thumbnail">
                               <Link to={`/courses/${item.id}`}>
@@ -177,7 +178,7 @@ const Cart = () => {
                 <PaymentModal
                   total={`${Number(cart.value?.total).toFixed(2)} ${settings?.currencies?.default}`}
                   active={modal}
-                  onClose={() => setModal(false)}
+                  // onClose={() => setModal(false)}
                   onPaymentId={onPay}
                 />
               </Elements>

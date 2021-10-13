@@ -42,7 +42,7 @@ const useOptions = () => {
 const PaymentModal: React.FC<{
   active: boolean;
   total: string;
-  onClose: () => void;
+  onClose?: () => void;
   onPaymentId: (paymentId: string) => void;
 }> = ({ active, onClose, onPaymentId, total }): ReactElement => {
   const stripe = useStripe();

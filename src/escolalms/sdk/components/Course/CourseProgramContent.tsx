@@ -10,6 +10,7 @@ import VideoPlayer from './Players/VideoPlayer';
 import AudioPlayer from './Players/AudioPlayer';
 import TextPlayer from './Players/TextPlayer';
 import PdfPlayer from './Players/PdfPlayer';
+import { API } from '@escolalms/sdk/lib';
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -22,8 +23,8 @@ export const CourseProgramContent: React.FC<{
 
   const topic = useMemo(() => {
     return program.value?.lessons
-      ?.find((lesson) => lesson.id === lessonId)
-      ?.topics?.find((topic) => topic.id === topicId);
+      ?.find((lesson: API.Lesson) => lesson.id === lessonId)
+      ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
 
   useEffect(() => {

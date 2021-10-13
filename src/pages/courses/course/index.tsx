@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '@/components/Preloader';
 import { format } from 'date-fns';
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
@@ -93,7 +93,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { id } = course;
 
   const courseInCart = useMemo(() => {
-    return cart?.value?.items.some((item) => Number(item.id) === Number(id));
+    return cart?.value?.items.some((item: API.Course) => Number(item.id) === Number(id));
   }, [id, cart]);
 
   useEffect(() => {
@@ -101,7 +101,10 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   }, [user]);
 
   const userOwnThisCourse = useMemo(() => {
-    return progress.value && progress.value.findIndex((item) => item.course.id === id) !== -1;
+    return (
+      progress.value &&
+      progress.value.findIndex((item: API.CourseProgressItem) => item.course.id === id) !== -1
+    );
   }, [progress, id]);
 
   const priceLiteral = useMemo(() => {
@@ -208,7 +211,7 @@ const SingleCourses = () => {
                           <i className="bx bx-folder-open"></i>
                           <span>{t('Category')}</span>
 
-                          {course.value.categories.map((category) => {
+                          {course.value.categories.map((category: API.CategoryListItem) => {
                             const cat =
                               typeof category === 'object'
                                 ? {

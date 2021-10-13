@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
+import { API } from '@escolalms/sdk/lib';
 // import "./CourseNavbar.scss";
 
 const Navbar = () => {
@@ -18,12 +19,12 @@ const Navbar = () => {
   const topicId = topicID;
 
   const lesson = useMemo(
-    () => program.value?.lessons.find((lesson) => lesson.id === Number(lessonId)),
+    () => program.value?.lessons.find((lesson: API.Lesson) => lesson.id === Number(lessonId)),
     [program, lessonId],
   );
 
   const topic = useMemo(
-    () => lesson?.topics?.find((topic) => topic.id === Number(topicId)),
+    () => lesson?.topics?.find((topic: API.Topic) => topic.id === Number(topicId)),
     [lesson, topicId],
   );
 

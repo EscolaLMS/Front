@@ -21,7 +21,7 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
   }
 
   if (!courses.list || !courses.list.data?.length) {
-    return <div>{t('NoCourses')}</div>;
+    return <div className="col-lg-8">{t('NoCourses')}</div>;
   }
 
   return (

@@ -6,9 +6,10 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useParams } from 'react-router-dom';
 import Preloader from '../../../components/Preloader';
 import Image from '@escolalms/sdk/lib/react/components/Image';
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
@@ -59,7 +60,7 @@ const Profile = () => {
             <div className="profile-courses pb-70">
               <h3 className="title">Tutor Courses</h3>
               <div className="row">
-                {courses.list?.data.map((course) => (
+                {courses.list?.data.map((course: API.Course) => (
                   <div className="col-lg-4 col-md-6">
                     <CourseCard course={course} key={course.id} />
                   </div>

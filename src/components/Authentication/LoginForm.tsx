@@ -4,6 +4,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import TempLogin from '../TempLogin';
 import { FormState } from './types';
 import { useTranslation } from 'react-i18next';
+import { API } from '@escolalms/sdk/lib';
 
 const INITIAL_USER = {
   email: '',
@@ -30,9 +31,11 @@ const LoginForm = () => {
 
   const loginHandler = React.useCallback(() => {
     login({ ...user })
-      .then((data) => {
+      .then(() => {
         setState({ state: 'input' });
       })
+      // TODO:fix this
+      // @ts-ignore
       .catch((error) => {
         setState({ state: 'error', error: error.data.message });
       });
@@ -43,12 +46,14 @@ const LoginForm = () => {
       email: user.email,
       return_url: `${window.location.origin}/reset-password`,
     })
-      .then((data) => {
+      .then(() => {
         setState({
           state: 'success',
           message: 'We send a email for password reset',
         });
       })
+      // TODO:fix this
+      // @ts-ignore
       .catch((error) => {
         setState({ state: 'error', error: error.data.message });
       });
@@ -118,8 +123,8 @@ const LoginForm = () => {
               tabIndex={-1}
               role="button"
               className="lost-your-password"
-              onClick={(e) => [setIsForgoten(!isForgoten)]}
-              onKeyDown={(e) => [setIsForgoten(!isForgoten)]}
+              onClick={() => [setIsForgoten(!isForgoten)]}
+              onKeyDown={() => [setIsForgoten(!isForgoten)]}
             >
               {isForgoten ? 'Back' : 'Lost your password?'}
             </span>

@@ -5,6 +5,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 
 import Preloader from '../Preloader';
+import { API } from '@escolalms/sdk/lib';
 
 const PopularCourses = () => {
   const { fetchCourses, courses, settings } = useContext(EscolaLMSContext);
@@ -27,7 +28,7 @@ const PopularCourses = () => {
 
         <div className="row">
           {courses.list ? (
-            courses.list.data.map((course) => (
+            courses.list.data.map((course: API.Course) => (
               <div className="col-lg-4 col-md-6" key={course.id}>
                 <div className="single-courses-box without-boxshadow">
                   <div className="courses-image">

@@ -10,7 +10,7 @@ const CategoryTreeOptions: React.FC<{
 }> = ({ categories, nest = 0, id }) => {
   return (
     <React.Fragment>
-      {categories.map((category) => (
+      {categories.map((category: API.CategoryListItem) => (
         <React.Fragment key={category.id}>
           <option value={category.id} selected={Number(id) === category.id}>
             {Array.from({ length: nest + 1 }).join(' > ')}
@@ -170,7 +170,7 @@ const CoursesSidebar: React.FC<{
         <h3 className="widget-title">{t('Popular Tags')}</h3>
 
         <div className="tagcloud">
-          {uniqueTags?.list?.map((tag) => (
+          {uniqueTags?.list?.map((tag: API.Tag) => (
             <a
               href={`!#tag-${tag.title}`}
               key={tag.title}

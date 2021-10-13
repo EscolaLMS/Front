@@ -70,7 +70,7 @@ const ProfileCourses = () => {
   }, []);
 
   const progressMap = useMemo(() => {
-    return progress.value?.reduce((acc, curr) => {
+    return progress.value?.reduce((acc: API.CourseProgressItem, curr: API.CourseProgressItem) => {
       return {
         ...acc,
         [curr.course.id ? curr.course.id : -1]:
@@ -83,7 +83,7 @@ const ProfileCourses = () => {
 
   const startedCourses = useMemo(() => {
     return progress.value?.filter(
-      (course) =>
+      (course: API.CourseProgressItem) =>
         course &&
         course.course &&
         course.course.base_price &&
@@ -96,12 +96,12 @@ const ProfileCourses = () => {
   }, [progress]);
 
   const finishedCourses = useMemo(() => {
-    return progress.value?.filter((course) => course.finish_date);
+    return progress.value?.filter((course: API.CourseProgressItem) => course.finish_date);
   }, [progress]);
 
   const availableCourses = useMemo(() => {
     return progress.value?.filter(
-      (course) =>
+      (course: API.CourseProgressItem) =>
         course &&
         course.course &&
         course.course.base_price &&
@@ -159,7 +159,7 @@ const ProfileCourses = () => {
               <div className="">
                 <h2>Dostępne kursy</h2>
                 <div className="row">
-                  {availableCourses.map((item) => (
+                  {availableCourses.map((item: API.CourseProgressItem) => (
                     <div className="col-lg-4 col-md-12" key={item.course.id}>
                       <CourseCard course={item.course} />
                     </div>
@@ -173,7 +173,7 @@ const ProfileCourses = () => {
               <div className="">
                 <h2>Ukończone kursy</h2>
                 <div className="row">
-                  {finishedCourses.map((item) => (
+                  {finishedCourses.map((item: API.CourseProgressItem) => (
                     <div className="col-lg-4 col-md-12" key={item.course.id}>
                       <CourseCard
                         course={item.course}

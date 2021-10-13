@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
+import { API } from '@escolalms/sdk/lib';
 
 const Sidebar = () => {
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ const Sidebar = () => {
       <div className="widget widget_recent_courses">
         <h3 className="widget-title">{t('RecentCourses')}</h3>
         {courses &&
-          courses?.list?.data?.map((course) => (
+          courses?.list?.data?.map((course: API.Course) => (
             <div key={course.id} className="item">
               {course.image_path && (
                 <Link to={`/courses/${course.id}`} className="thumb">
