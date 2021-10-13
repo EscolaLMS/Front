@@ -18,12 +18,12 @@ const Navbar = () => {
   const topicId = topicID;
 
   const lesson = useMemo(
-    () => program.value?.lessons.find((lesson) => lesson.id === Number(lessonId)),
+    () => program.value?.lessons.find((lesson: any) => lesson.id === Number(lessonId)),
     [program, lessonId],
   );
 
   const topic = useMemo(
-    () => lesson?.topics?.find((topic) => topic.id === Number(topicId)),
+    () => lesson?.topics?.find((topic: any) => topic.id === Number(topicId)),
     [lesson, topicId],
   );
 
