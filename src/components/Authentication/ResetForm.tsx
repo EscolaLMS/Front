@@ -42,7 +42,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
         }, 1500);
       })
 
-      .catch((error) => {
+      .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
   }, [user]);

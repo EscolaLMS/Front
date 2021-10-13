@@ -88,8 +88,8 @@ export const CourseProgramList: React.FC<{
                           className="d-flex justify-content-between align-items-center"
                           to={
                             preview
-                              ? `/materialy-szkoleniowe/${course.id}/${lesson.id}/${topic.id}`
-                              : `/kurs/${course.id}/${lesson.id}/${topic.id}`
+                              ? `/courses/${course.id}/${lesson.id}/${topic.id}`
+                              : `/course/${course.id}/${lesson.id}/${topic.id}`
                           }
                         >
                           <span className="courses-name">

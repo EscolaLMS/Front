@@ -31,8 +31,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     })();
   }, []);
 
-  const isCourse = pathname.includes('/kurs/');
-  const isLearningMaterial = pathname.includes('materialy-szkoleniowe');
+  const isCourse = pathname.includes('/course/');
 
   return (
     <React.Fragment>
@@ -52,7 +51,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
           {children}
 
-          {!isCourse && !isLearningMaterial && <Footer />}
+          {!isCourse && <Footer />}
         </div>
 
         <GoTop scrollStepInPx="100" delayInMs="10.50" />

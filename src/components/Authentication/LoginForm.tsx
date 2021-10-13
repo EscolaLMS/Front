@@ -35,7 +35,7 @@ const LoginForm = () => {
         setState({ state: 'input' });
       })
 
-      .catch((error) => {
+      .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
   }, [user, login]);
@@ -52,7 +52,7 @@ const LoginForm = () => {
           message: 'We send a email for password reset',
         });
       })
-      .catch((error) => {
+      .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
   }, [user, forgot]);

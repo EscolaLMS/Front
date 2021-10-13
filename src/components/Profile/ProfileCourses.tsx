@@ -5,57 +5,28 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import CourseCard from '../CourseCard';
 
-// type StartedCourse = API.CourseProgressItem & {
-//   categories: API.CategoryListItem[];
-// };
-
-const UserCourse: React.FC<{
-  course: API.Course;
-  progress?: number;
-  categories: API.CategoryListItem[];
-}> = ({ course, progress, categories }) => {
-  const percProgress = progress ? Math.round(progress * 100) : 0;
-
+const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({ course, progress }) => {
+  const percProgress = progress && Math.round(progress * 100);
   return (
     <div className="single-courses-box">
-      <div className="courses-wrapper">
-        <div className="courses-image">
-          <Link className="d-block image" to={`/kurs/${course.id}`}>
-            {course.image_path && <Image path={course.image_path} srcSizes={[160, 106]} />}
-          </Link>
-        </div>
+      <div className="courses-image">
+        <Link to={`/courses/${course.id}`} className="d-block image">
+          {course.image_path && <Image path={course.image_path} srcSizes={[300, 600, 900]} />}
+        </Link>
 
-        <div className="courses-content">
-          <div className="courses-categories">
-            {categories &&
-              categories.map((category) => (
-                <Link to={`/materialy-szkoleniowe?free=true&category_id=${category.id}`}>
-                  {category.name}
-                </Link>
-              ))}
-          </div>
-
-          <h3>
-            <Link to={`/kurs/${course.id}`}>{course.title}</Link>
-          </h3>
-          <div className="courses-progress">
-            <span>Ukończono</span>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: `${percProgress}%` }}
-              ></div>
-              <div className="circle-wrapper" style={{ left: `${percProgress - 1}%`, top: '-3px' }}>
-                <div className="circle"></div>
-                <span> {percProgress}%</span>
-              </div>
-            </div>
-          </div>
+        <div className="price shadow">{percProgress} %</div>
+      </div>
+      <div className="courses-progress progress">
+        <div className="progress-bar" role="progressbar" style={{ width: `${percProgress}%` }}>
+          {percProgress}%
         </div>
       </div>
-      <div className="courses-continue">
-        <Link to={`/kurs/${course.id}`}>Kontynuuj</Link>
+      <div className="courses-content">
+        <h3>
+          <Link to={`/course/${course.id}`}>{course.title}</Link>
+        </h3>
+
+        <p>{course.subtitle}</p>
       </div>
     </div>
   );
@@ -70,11 +41,11 @@ const ProfileCourses = () => {
   }, []);
 
   const progressMap = useMemo(() => {
-    return progress.value?.reduce((acc: any, curr: any) => {
+    return progress.value?.reduce((acc: object, curr: API.CourseProgressItem) => {
       return {
         ...acc,
         [curr.course.id ? curr.course.id : -1]:
-          curr.progress.reduce((pAcc: any, pCurr: any) => {
+          curr.progress.reduce((pAcc, pCurr) => {
             return pCurr.status === 1 ? pAcc + 1 : pAcc;
           }, 0) / curr.progress.length,
       };
@@ -122,14 +93,15 @@ const ProfileCourses = () => {
       ) : (
         <React.Fragment>
           {startedCourses && startedCourses?.length > 0 && (
-            <div className="profile-courses margin-bottom-50">
+            <div className="profile-courses pt-100 margin-bottom-50">
               <div className="">
                 <h2>Dokończ rozpoczęty kurs</h2>
                 <div className="row">
+                  {console.log(startedCourses)}
                   {startedCourses.map((item: any) => (
                     <div className="col-lg-12 col-md-12" key={item.course.id}>
                       <UserCourse
-                        categories={item.categories}
+                        // categories={item.categories}
                         course={item.course}
                         // TODO fix this
                         //@ts-ignore
