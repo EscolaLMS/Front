@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentModal from '../components/PaymentModal';
 import Layout from '../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
@@ -62,7 +63,7 @@ const Cart = () => {
             {cart?.value?.items?.length === 0 ? (
               <p className="text-center">{t('Cart.CartIsEmpty')}!</p>
             ) : (
-              <form>
+              <React.Fragment>
                 <div className="cart-table table-responsive">
                   <table className="table table-bordered">
                     <thead>
@@ -76,7 +77,7 @@ const Cart = () => {
 
                     <tbody>
                       {cart &&
-                        cart?.value?.items?.map((item) => (
+                        cart?.value?.items?.map((item: API.Course) => (
                           <tr key={item.id}>
                             <td className="product-thumbnail">
                               <Link to={`/courses/${item.id}`}>
@@ -106,32 +107,6 @@ const Cart = () => {
                     </tbody>
                   </table>
                 </div>
-
-                {/*<div className="cart-buttons">
-              <div className="row align-items-center">
-                <div className="col-lg-7 col-sm-7 col-md-7">
-                  <div className="shopping-coupon-code">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Coupon code"
-                      name="coupon-code"
-                      id="coupon-code"
-                    />
-                    <button type="submit">Apply Coupon</button>
-                  </div>
-                </div>
-
-                <div className="col-lg-5 col-sm-5 col-md-5 text-right">
-                  <Link href="#">
-                    <a className="default-btn">
-                      <i className="flaticon-history"></i> Update Cart{" "}
-                      <span></span>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-                  </div>*/}
 
                 <div className="cart-totals">
                   <h3>{t('Cart.CartSummary')}</h3>
@@ -163,13 +138,13 @@ const Cart = () => {
                       <span></span>
                     </button>
                   ) : (
-                    <button className="default-btn" onClick={() => setModal(true)}>
+                    <button type="button" className="default-btn" onClick={() => setModal(true)}>
                       <i className="flaticon-shopping-cart"></i>
                       {t('Cart.PayWithStripe')} <span></span>
                     </button>
                   )}
                 </div>
-              </form>
+              </React.Fragment>
             )}
 
             {settings?.stripe?.publishable_key && Number(cart.value?.total) > 0 && (

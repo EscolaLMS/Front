@@ -43,10 +43,11 @@ const RegisterForm = () => {
 
       register({ ...user })
         .then(() => setSuccess(true))
-        .catch((error) => {
+
+        .catch((error: any /* ResponseError */) => {
           setError(error.data);
         });
-    } catch (error: any) {
+    } catch (error: any /* ResponseError */) {
       setError(error.data);
     } finally {
       setLoading(false);

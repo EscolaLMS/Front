@@ -47,7 +47,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
       sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(() => {
         const nextTopic = getNextPrevTopic(Number(topicId));
 
-        nextTopic && push(`/kurs/${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
+        nextTopic && push(`/course/${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
       });
   }, [topicId, program, push, getNextPrevTopic, sendProgress]);
 

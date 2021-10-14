@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import Layout from '../../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const Advisor = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
@@ -28,7 +29,7 @@ const Advisor = () => {
         <div className="advisor-area pt-100 pb-70">
           <div className="container">
             <div className="row">
-              {tutors.list?.map((tutor) => (
+              {tutors.list?.map((tutor: API.UserItem) => (
                 <div className="col-lg-4 col-sm-6 col-md-6">
                   <div className="single-advisor-item">
                     {tutor.path_avatar && (

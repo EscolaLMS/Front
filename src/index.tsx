@@ -3,11 +3,8 @@ import ReactDOM from 'react-dom';
 import { EscolaLMSContextProvider } from '@escolalms/sdk/lib/react/context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './i18n';
-
-serviceWorkerRegistration.register();
 
 ReactDOM.render(
   <React.StrictMode>

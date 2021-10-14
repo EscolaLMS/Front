@@ -7,6 +7,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '../components/Preloader';
 import PageCard from '../components/PageCard';
 import Layout from '../components/_App/Layout';
+import { API } from '@escolalms/sdk/lib';
 
 const Pages = () => {
   const { fetchPages, pages } = useContext(EscolaLMSContext);
@@ -15,7 +16,7 @@ const Pages = () => {
 
   useEffect(() => {
     fetchPages();
-  }, []);
+  }, [fetchPages]);
 
   return (
     <Layout>
@@ -36,7 +37,7 @@ const Pages = () => {
                   <div className="escolalms-grid-sorting row align-items-center"></div>
 
                   <div className="row">
-                    {pages.list.data.map((page) => (
+                    {pages.list.data.map((page: API.PageListItem) => (
                       <div className="col-lg-6 col-md-6" key={page.id}>
                         <PageCard page={page} />
                       </div>

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import StripMarkdown from 'strip-markdown';
 import OwlCarousel from 'react-owl-carousel';
+import { API } from '@escolalms/sdk/lib';
 
 const options = {
   loop: true,
@@ -59,7 +60,7 @@ const CourseAdvisor = () => {
             className="advisor-slides owl-carousel owl-theme"
             {...options}
           >
-            {tutors?.list?.map((tutor) => (
+            {tutors?.list?.map((tutor: API.UserItem) => (
               <div className="single-advisor-box" key={tutor.id}>
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
@@ -82,7 +83,9 @@ const CourseAdvisor = () => {
                       <span className="sub-title">Tutor</span>
                       {tutor.bio && (
                         <div className="profile-bio-summary">
-                          <MarkdownReader remarkPlugins={[StripMarkdown]}>{tutor.bio}</MarkdownReader>
+                          <MarkdownReader remarkPlugins={[StripMarkdown]}>
+                            {tutor.bio}
+                          </MarkdownReader>
                         </div>
                       )}
                     </div>

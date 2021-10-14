@@ -34,13 +34,15 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
       email,
       token,
     })
-      .then((data) => {
+      .then(() => {
+        // TODO:translate
         setState({ state: 'success', message: 'Password has been changed' });
         setTimeout(() => {
           history.push('/authentication');
         }, 1500);
       })
-      .catch((error) => {
+
+      .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
   }, [user]);
