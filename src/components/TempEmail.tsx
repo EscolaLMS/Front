@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
 
 const TempEmail = () => {
   const [open, setOpen] = useState(true);
-
+  const { t } = useTranslation();
   return (
     <Alert color="info" isOpen={open} toggle={() => setOpen(!open)}>
       <p>
-        This demo is using fake email service{' '}
+        {t('LoginPage.TempEmail1')}{' '}
         <a href="https://ethereal.email/messages" target="_blank" rel="noreferrer">
           ethereal.email
         </a>
         <br />
-        Use the following credentials to check what emails are being&nbsp;sent.
+        {t('LoginPage.TempEmail2')}
         <br />
-        Name: <code>Tina Hagenes</code>
+        {t('Cart.Columns.Name')}: <code>Tina Hagenes</code>
         <br />
-        Username: <code>tina.hagenes7@ethereal.email</code>
+        {t('LoginPage.Username')}: <code>tina.hagenes7@ethereal.email</code>
         <br />
-        Password: <code>gcWVwGD4pk33As1YdT</code>
+        {t('Password')}: <code>gcWVwGD4pk33As1YdT</code>
         <br />
       </p>
     </Alert>
