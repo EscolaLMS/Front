@@ -470,12 +470,6 @@ $transition: 0.5s;
   }
 }
 
-.course-nav {
-  .option-item {
-    margin-left: 15px;
-  }
-}
-
 .course-author {
   .escolalms-image {
     width: auto;
@@ -623,33 +617,6 @@ $transition: 0.5s;
 
 .courses-details-desc-style-two .courses-author .author-profile .author-profile-title img {
   object-fit: cover;
-}
-
-.course-navbar-title {
-  margin: 0.5em;
-  margin-left: 2em;
-}
-
-.top-progress {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  top: 0;
-  z-index: 90999;
-  .top-progress-bar {
-    background: #fe4a55;
-    height: 4px;
-    transition: width 1s ease-out;
-  }
-  .top-progress-value {
-    font-size: 11px;
-    margin: 2px;
-  }
-}
-
-.lang-btn {
-  background: transparent;
-  border: none;
 }
 
 .inline-loader {

@@ -22,6 +22,7 @@ const resources = {
       NoCourses: 'No courses found',
       Tutors: 'Tutors',
       'Contact Us': 'Contact Us',
+      'Back to website': 'Back to website',
       Lesson: 'Lesson',
       Lesson_plural: 'Lessons',
       Topic: 'Topic',

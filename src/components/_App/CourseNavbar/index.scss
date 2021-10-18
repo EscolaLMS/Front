@@ -1,0 +1,88 @@
+@import "../../../style/scss/base/vars";
+
+.course-navbar {
+  color: $black-color;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+    min-height: 6rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    height: 40px;
+    width: auto;
+    margin: 10px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0.9rem;
+  }
+
+  &__logo + &__title-wrapper {
+    margin-left: 4.5rem;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $black-color;
+    margin: 0 0 0.5rem;
+  }
+
+  &__subtitle {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: $black-color;
+  }
+
+  &__links {
+    //align-self: flex-end;
+  }
+
+  &__close-link {
+    font-size: 1.035rem;
+    font-weight: 700;
+    vertical-align: middle;
+
+    i {
+      vertical-align: middle;
+      font-size: 1.2rem;
+      top: -2px;
+      position: relative;
+    }
+  }
+
+  &__lang-button {}
+
+  &__close-link + &__lang-button {
+    &::before {
+      content: '|';
+      margin-left: 9px;
+    }
+  }
+}
