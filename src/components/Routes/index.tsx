@@ -21,6 +21,7 @@ import MyCoursesPage from '../../pages/user/my-courses';
 import CourseProgramPage from '../../pages/course/index';
 import CartPage from '../../pages/cart';
 import PagesPage from '../../pages/pages';
+import ResetPage from '../../pages/reset-password';
 
 import PrivateRoute from './private';
 
@@ -41,6 +42,7 @@ const Routes: React.FC = (): ReactElement => {
     courseProgram,
     cart,
     pages,
+    reset,
   } = routes;
 
   return (
@@ -55,6 +57,7 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={course} component={CoursePage} />
         <Route exact path={preview} component={CoursePreviewPage} />
         <Route exact path={pages} component={PagesPage} />
+        <Route exact path={reset} component={ResetPage} />
 
         {/* privates pages*/}
 

@@ -144,10 +144,7 @@ const RegisterForm = () => {
             />
           </div>
 
-          <p className="description">
-            The password should be at least eight characters long. To make it stronger, use upper
-            and lower case letters, numbers, and symbols like ! " ? $ % ^ & )
-          </p>
+          <p className="description">{t('RegisterPage.PassInfo')}</p>
 
           <button type="submit" disabled={disabled}>
             {t('Register')}

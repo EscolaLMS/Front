@@ -4,9 +4,11 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import CourseCard from '../CourseCard';
+import { useTranslation } from 'react-i18next';
 
 const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({ course, progress }) => {
   const percProgress = progress && Math.round(progress * 100);
+
   return (
     <div className="single-courses-box">
       <div className="courses-image">
@@ -17,9 +19,11 @@ const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({ cours
         <div className="price shadow">{percProgress} %</div>
       </div>
       <div className="courses-progress progress">
-        <div className="progress-bar" role="progressbar" style={{ width: `${percProgress}%` }}>
-          {percProgress}%
-        </div>
+        <div
+          className="progress-bar"
+          role="progressbar"
+          style={{ width: `${percProgress}%` }}
+        ></div>
       </div>
       <div className="courses-content">
         <h3>
@@ -34,7 +38,7 @@ const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({ cours
 
 const ProfileCourses = () => {
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
-
+  const { t } = useTranslation();
   useEffect(() => {
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,9 +99,8 @@ const ProfileCourses = () => {
           {startedCourses && startedCourses?.length > 0 && (
             <div className="profile-courses pt-100 margin-bottom-50">
               <div className="">
-                <h2>Dokończ rozpoczęty kurs</h2>
+                <h2>{t('MyCoursesPage.Finish')}</h2>
                 <div className="row">
-                  {console.log(startedCourses)}
                   {startedCourses.map((item: any) => (
                     <div className="col-lg-12 col-md-12" key={item.course.id}>
                       <UserCourse
@@ -127,9 +130,9 @@ const ProfileCourses = () => {
           )}
 
           {availableCourses && availableCourses?.length > 0 && (
-            <div className="ended-courses available margin-bottom-50">
+            <div className="ended-courses available margin-bottom-50 pt-70">
               <div className="">
-                <h2>Dostępne kursy</h2>
+                <h2>{t('MyCoursesPage.Available')}</h2>
                 <div className="row">
                   {availableCourses.map((item: API.CourseProgressItem) => (
                     <div className="col-lg-4 col-md-12" key={item.course.id}>
@@ -141,17 +144,13 @@ const ProfileCourses = () => {
             </div>
           )}
           {finishedCourses && finishedCourses?.length > 0 && (
-            <div className="ended-courses">
+            <div className="ended-courses pt-70">
               <div className="">
-                <h2>Ukończone kursy</h2>
+                <h2>{t('MyCoursesPage.Finished')}</h2>
                 <div className="row">
                   {finishedCourses.map((item: API.CourseProgressItem) => (
                     <div className="col-lg-4 col-md-12" key={item.course.id}>
-                      <CourseCard
-                        course={item.course}
-
-                        // finishDate={item.finish_date}
-                      />
+                      <CourseCard course={item.course} finishDate={item.finish_date} />
                     </div>
                   ))}
                 </div>
