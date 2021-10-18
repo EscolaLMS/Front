@@ -42,7 +42,7 @@ const CourseNavbar = () => {
   // find lesson & topic
 
   return (
-    <div id="navbar" className="course-navbar navbar-area">
+    <div id="navbar" className="course-navbar">
       <TopProgress progress={progress} />
 
       <div className="course-navbar__wrapper">

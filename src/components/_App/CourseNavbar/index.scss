@@ -2,28 +2,52 @@
 
 .course-navbar {
   color: $black-color;
+  width: 100%;
+  background: #fff;
+  //z-index: 9999;
+  z-index: 99999999; // TODO: fix sidebar
+  margin-bottom: 50px;
+  box-shadow: 0 2px 28px 0 rgb(0 0 0 / 9%);
+
+  @media (min-width: 992px) {
+    position: fixed;
+  }
 
   &__wrapper {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 15px min(3%, 40px) 0; // magic: padding-top for progress-bar
     min-height: 6rem;
+    column-gap: 10px;
+    row-gap: 15px;
+
+    @media (min-width: 992px) {
+      padding-top: 0;
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   &__header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    column-gap: clamp(0px, 8% - 60px, 3.8rem);
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
   }
 
   &__logo {
-    height: 40px;
+    height: 30px;
     width: auto;
     margin: 10px;
+    min-width: 170px;
+    max-width: 18vw;
 
     img {
       max-width: 100%;
@@ -38,10 +62,14 @@
     justify-content: center;
     align-items: flex-start;
     margin: 0.9rem;
+    flex-grow: 1;
+    max-width: 100%;
+    width: 60%;
+    min-width: min(350px, 100%);
   }
 
   &__logo + &__title-wrapper {
-    margin-left: 4.5rem;
+    //margin-left: 4.5rem;
   }
 
   &__title {
@@ -61,13 +89,21 @@
   }
 
   &__links {
-    //align-self: flex-end;
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    max-width: 100%;
+
+    @media (max-width: 991px) {
+      order: -1;
+    }
   }
 
   &__close-link {
     font-size: 1.035rem;
     font-weight: 700;
     vertical-align: middle;
+    white-space: nowrap;
 
     i {
       vertical-align: middle;
@@ -80,9 +116,14 @@
   &__lang-button {}
 
   &__close-link + &__lang-button {
+    position: relative;
+    padding-left: 15px; // magic: for before padding
+
     &::before {
       content: '|';
-      margin-left: 9px;
+      position: absolute;
+      left: 0;
+      margin: 0 9px;
     }
   }
 }
