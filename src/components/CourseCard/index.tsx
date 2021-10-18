@@ -6,7 +6,10 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 
-export const CourseCard: React.FC<{ course: API.Course }> = ({ course }) => {
+export const CourseCard: React.FC<{ course: API.Course; finishDate?: Date | undefined }> = ({
+  course,
+  finishDate,
+}) => {
   const { settings } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 

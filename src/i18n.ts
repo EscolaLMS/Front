@@ -23,12 +23,15 @@ const resources = {
       Tutors: 'Tutors',
       'Contact Us': 'Contact Us',
       Lesson: 'Lesson',
+
       Lesson_plural: 'Lessons',
       Topic: 'Topic',
       Topic_plural: 'Topics',
       Student: 'Student',
       Student_plural: 'Students',
       Title: 'Title',
+      Back: 'Back',
+      Send: 'Send',
       StudentsEnrolled: 'Students Enrolled',
       playVideo: 'Play video',
       Image: 'Image',
@@ -104,9 +107,26 @@ const resources = {
         Details: 'Contact Details',
         Mobile: 'Mobile',
       },
+      LoginPage: {
+        RememberMe: 'Remember me',
+        Lost: 'Lost your password?',
+        Reset: 'Reset your password',
+        TempLogin: 'For this demo you can use the following credentials',
+        Username: 'Username',
+        TempEmail1: 'This demo is using fake email service',
+        TempEmail2: 'Use the following credentials to check what emails are being sent.',
+        ForgotSuccess: 'We send a email for password reset',
+      },
       RegisterPage: {
         FullName: 'First Name',
         LastName: 'Last Name',
+        PassInfo:
+          ' The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & )',
+      },
+      ResetPage: {
+        Set: 'Set new password',
+        NewPass: 'New password',
+        Reset: 'Reset',
       },
       Cart: {
         Cart: 'Cart',
@@ -120,6 +140,11 @@ const resources = {
           Price: 'Price',
           Remove: 'Remove',
         },
+      },
+      MyCoursesPage: {
+        Finish: 'Finish the course you started',
+        Available: 'Available courses',
+        Finished: 'Completed courses',
       },
     },
   },
@@ -177,6 +202,8 @@ const resources = {
       Lifetime: 'Dozywotni',
       'Add to Cart': 'Dodaj do koszyka',
       'Back to website': 'Wróć do strony głównej',
+      Back: 'Wróć',
+      Send: 'Wyślij',
       'Next Topic': 'Następna lekcja',
       'Buy now': 'Kup teraz',
       'Buy Course': 'Kup kurs',
@@ -259,9 +286,27 @@ const resources = {
         Details: 'Szczegóły kontaktu',
         Mobile: 'Telefon',
       },
+      LoginPage: {
+        RememberMe: 'Zapamietaj mnie',
+        Lost: 'Zapomniałeś hasła?',
+        Reset: 'Zresetuj swoje hasło',
+        TempLogin: 'W tym demo możesz użyć następujących danych uwierzytelniających',
+        Username: 'Nazwa użytkownika',
+        TempEmail1: 'To demo używa fałszywej usługi e-mail.',
+        TempEmail2:
+          'Użyj poniższych danych uwierzytelniających, aby sprawdzić, jakie e-maile są wysyłane',
+        ForgotSuccess: 'Wysłaliśmy wiadomość e-mail z prośbą o zresetowanie hasła',
+      },
       RegisterPage: {
         FullName: 'Imię',
         LastName: 'Nazwisko',
+        PassInfo:
+          'Hasło powinno składać się z co najmniej ośmiu znaków. Aby je wzmocnić, użyj wielkich i małych liter, cyfr i symboli, takich jak ! " ? $ % ^ & )',
+      },
+      ResetPage: {
+        Set: 'Ustaw nowe hasło',
+        NewPass: 'Nowe hasło',
+        Reset: 'Resetuj',
       },
       Cart: {
         Cart: 'Koszyk',
@@ -275,6 +320,11 @@ const resources = {
           Price: 'Cena',
           Remove: 'Usuń',
         },
+      },
+      MyCoursesPage: {
+        Finish: 'Dokończ rozpoczęty kurs',
+        Available: 'Dostępne kursy',
+        Finished: 'Ukończone kursy',
       },
     },
   },

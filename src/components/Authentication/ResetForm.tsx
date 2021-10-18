@@ -3,6 +3,7 @@ import { Alert, Spinner } from 'reactstrap';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { FormState } from './types';
+import { useTranslation } from 'react-i18next';
 
 const INITIAL_USER = {
   password: '',
@@ -13,7 +14,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
 
   const [user, setUser] = React.useState(INITIAL_USER);
   const [state, setState] = React.useState<FormState>({ state: 'input' });
-
+  const { t } = useTranslation();
   const history = useHistory();
 
   React.useEffect(() => {
@@ -54,7 +55,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
   };
   return (
     <div className="login-form">
-      <h2>Set new password</h2>
+      <h2>{t('ResetPage.Set')}</h2>
 
       <Alert
         color={
@@ -69,11 +70,11 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="reset-new-password">New password</label>
+          <label htmlFor="reset-new-password">{t('ResetPage.NewPass')}</label>
           <input
             id="reset-new-password"
             className="form-control"
-            placeholder="New password"
+            placeholder={t('ResetPage.NewPass')}
             name="password"
             type="password"
             value={user?.password}
@@ -82,7 +83,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
         </div>
 
         <button type="submit" disabled={state.state === 'disabled'}>
-          Reset
+          {t('ResetPage.Reset')}
           {state.state === 'loading' ? <Spinner color="success" /> : ''}
         </button>
       </form>

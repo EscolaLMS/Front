@@ -3,6 +3,7 @@ const routeRoutes = {
   course: '/courses/:id',
   courseProgram: '/course/:id/:lessonID?/:topicID?',
   authentication: '/authentication',
+  reset: '/reset-password',
   courses: '/courses',
   page: '/page/:slug',
   myProfile: '/user/my-profile',

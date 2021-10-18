@@ -4,7 +4,6 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import TempLogin from '../TempLogin';
 import { FormState } from './types';
 import { useTranslation } from 'react-i18next';
-import { API } from '@escolalms/sdk/lib';
 
 const INITIAL_USER = {
   email: '',
@@ -49,7 +48,7 @@ const LoginForm = () => {
         return setState({
           state: 'success',
           // TODO: translate,
-          message: 'We send a email for password reset',
+          message: t('LoginPage.ForgotSuccess'),
         });
       })
       .catch((error: any /* ResponseError */) => {
@@ -64,7 +63,7 @@ const LoginForm = () => {
   };
   return (
     <div className="login-form">
-      <h2>{isForgoten ? 'Reset your password' : t('Login')}</h2>
+      <h2>{isForgoten ? t('LoginPage.Reset') : t('Login')}</h2>
       {!isForgoten && <TempLogin />}
 
       <Alert
@@ -111,7 +110,7 @@ const LoginForm = () => {
             {!isForgoten && (
               <p>
                 <input type="checkbox" id="test2" />
-                <label htmlFor="test2">Remember me</label>
+                <label htmlFor="test2">{t('LoginPage.RememberMe')}</label>
               </p>
             )}
           </div>
@@ -124,13 +123,13 @@ const LoginForm = () => {
               onClick={() => [setIsForgoten(!isForgoten)]}
               onKeyDown={() => [setIsForgoten(!isForgoten)]}
             >
-              {isForgoten ? 'Back' : 'Lost your password?'}
+              {isForgoten ? t('Back') : t('LoginPage.Lost')}
             </span>
           </div>
         </div>
 
         <button type="submit" disabled={state.state === 'disabled'}>
-          {isForgoten ? 'Send' : t('LogIn')}
+          {isForgoten ? t('Send') : t('LogIn')}
           {state.state === 'loading' ? <Spinner color="success" /> : ''}
         </button>
       </form>
