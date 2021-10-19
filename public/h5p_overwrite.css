@@ -6,6 +6,7 @@
   --white: #fff;
   --bright-gray: #eeeeee;
   --success: #d4f6e6;
+  --grey: #91979d;
 }
 
 /* INTERACTIVE VIDEO  */
@@ -247,4 +248,62 @@
     flex-direction: column !important;
     align-items: center !important;
   }
+}
+
+/* DIALOG CARDS */
+
+.h5p-dialogcards .h5p-dialogcards-title .h5p-dialogcards-title-inner {
+  text-align: center !important;
+
+  font-family: 'Nunito' !important;
+  margin-bottom: 20px !important;
+  font-size: 17px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-description {
+  text-align: center !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-cardwrap-set .h5p-dialogcards-card-content {
+  border-radius: 50px !important;
+  box-shadow: 0px 3px 11px #00000031;
+  border-radius: 12px !important;
+  padding: 10px !important;
+  padding-bottom: 20px !important;
+}
+
+.h5p-dialogcards
+  .h5p-dialogcards-cardwrap-set
+  .h5p-dialogcards-card-content
+  .h5p-audio-inner
+  .h5p-audio-minimal-button {
+  width: 53px !important;
+  height: 53px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-card-text-area {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+
+  margin-top: 15px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-turn {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  padding: 9px 51px !important;
+  border-radius: 36px !important;
+}
+
+/* FLASHCARDS */
+.h5p-flashcards {
+  background-color: var(--grey) !important;
+}
+
+.h5p-flashcards * {
+  font-family: 'Nunito' !important;
+}
+
+.h5p-flashcards .h5p-description {
+  border-bottom-color: transparent !important ;
 }
