@@ -61,10 +61,8 @@ const ProfileCourses = () => {
       (course: API.CourseProgressItem) =>
         course &&
         course.course &&
-        course.course.base_price &&
         course.total_spent_time &&
         course.progress?.length > 0 &&
-        course.course.base_price > 0 &&
         course.total_spent_time > 0 &&
         !course.finish_date,
     );
@@ -77,12 +75,7 @@ const ProfileCourses = () => {
   const availableCourses = useMemo(() => {
     return progress.value?.filter(
       (course: API.CourseProgressItem) =>
-        course &&
-        course.course &&
-        course.course.base_price &&
-        course.course.base_price > 0 &&
-        course.progress?.length > 0 &&
-        course.total_spent_time === 0,
+        course && course.course && course.progress?.length > 0 && course.total_spent_time === 0,
     );
   }, [progress]);
 
