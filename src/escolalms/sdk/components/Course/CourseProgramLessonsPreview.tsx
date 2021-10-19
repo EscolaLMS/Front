@@ -39,6 +39,15 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
           <div className="course-program-wrapper course-program-wrapper-preview">
             <div className="course-program-player">
               <div className="course-program-player-content">
+                {topic &&
+                  topic.introduction &&
+                  fixContentForMarkdown(`${topic.introduction}`) !== '' && (
+                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                      <div className="container-md">
+                        <MarkdownReader>{topic.introduction}</MarkdownReader>
+                      </div>
+                    </div>
+                  )}
                 <h2>{topic?.title}</h2>
                 <CourseProgramContent
                   preview={true}

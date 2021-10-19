@@ -5,7 +5,7 @@ import { Player } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
 import PdfPlayer from './Players/PdfPlayer';
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -15,7 +15,12 @@ export const CourseProgramPreview: React.FC<{
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
         case TopicType.H5P:
-          return <Player id={topic.topicable.value} />;
+          return (
+            <Player
+              id={topic.topicable.value}
+              styles={[`${window.location.origin}/h5p_overwrite.css`]}
+            />
+          );
         case TopicType.OEmbed:
           return <Embed url={topic.topicable.value} />;
         case TopicType.RichText:
