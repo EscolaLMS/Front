@@ -7,16 +7,15 @@
 }
 
 /* INTERACTIVE VIDEO  */
-.h5p-interactive-video {
-  font-family: 'Poppins' !important;
-}
-
-.h5p-interactive-video .h5p-video video {
-  max-height: 80vh !important;
+.h5p-interactive-video * {
+  font-family: 'Nunito' !important;
 }
 
 .h5p-interactive-video .h5p-splash-main-inner * {
-  font-family: 'Poppins' !important;
+  font-family: 'Nunito' !important;
+}
+.h5p-interactive-video .h5p-splash-wrapper .h5p-splash .h5p-splash-title {
+  font-family: 'Nunito' !important;
 }
 
 .h5p-interactive-video .h5p-interaction-label {
@@ -25,7 +24,7 @@
 
 .h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text {
   font-size: 17px !important;
-  font-family: 'Poppins' !important;
+  font-family: 'Nunito' !important;
 }
 
 .h5p-interactive-video .h5p-dialog,
@@ -34,7 +33,7 @@
   border-radius: 12px !important;
   font-size: 17px !important;
 
-  font-family: 'Poppins' !important;
+  font-family: 'Nunito' !important;
 }
 
 .h5p-interactive-video .h5p-interaction-outer .h5p-question-buttons {
