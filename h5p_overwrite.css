@@ -4,6 +4,8 @@
 :root {
   --main: #fe4a55;
   --white: #fff;
+  --bright-gray: #eeeeee;
+  --success: #d4f6e6;
 }
 
 /* INTERACTIVE VIDEO  */
@@ -32,7 +34,6 @@
 .h5p-interactive-video .h5p-interaction {
   border-radius: 12px !important;
   font-size: 17px !important;
-
   font-family: 'Nunito' !important;
 }
 
@@ -48,4 +49,142 @@
   font-size: 16px !important;
   padding: 9px 51px !important;
   border-radius: 36px !important;
+}
+
+/* DRAG THE WORDS  */
+
+.h5p-drag-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.h5p-drag-text .h5p-question-introduction p {
+  text-align: center !important;
+  font-size: 20px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-droppable-words {
+  order: 1 !important;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-droppable-words
+  > span {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  font-weight: 600;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-droppable-words
+  .h5p-drag-dropzone-container
+  .ui-droppable {
+  width: 140px !important;
+  height: 35px !important;
+  background: var(--bright-gray) 0% 0% no-repeat padding-box !important;
+  border-radius: 22px !important;
+  padding: 0 !important;
+  margin: 0.3em !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-draggables-container {
+  order: 2 !important;
+  padding: 0 !important;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-draggables-container
+  .ui-draggable {
+  width: 140px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 22px !important;
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text [aria-grabbed].h5p-drag-dropped {
+  width: 140px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 22px !important;
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  padding: 0 !important;
+}
+
+.h5p-drag-text .joubel-speech-bubble .joubel-speech-bubble-inner {
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  border-radius: 22px !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-feedback.h5p-question-visible {
+  text-align: center !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible.has-scorebar {
+  margin-top: 20px !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible button {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  font-weight: 600;
+}
+
+.h5p-drag-text .h5p-drag-show-solution-container.incorrect {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  border-radius: 22px !important;
+  background-color: var(--success) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+}
+
+@media (max-width: 600px) {
+  .h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
 }
