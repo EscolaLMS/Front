@@ -7,6 +7,8 @@
   --bright-gray: #eeeeee;
   --success: #d4f6e6;
   --grey: #91979d;
+  --darkGrey: #63676c;
+  --green: #48b87f;
 }
 
 /* INTERACTIVE VIDEO  */
@@ -306,4 +308,42 @@
 
 .h5p-flashcards .h5p-description {
   border-bottom-color: transparent !important ;
+}
+
+.h5p-flashcards .h5p-card {
+  box-shadow: none !important;
+  border-radius: 20px !important;
+}
+
+.h5p-flashcards .h5p-cardholder {
+  box-shadow: none !important;
+  border-radius: 20px !important;
+}
+
+.h5p-flashcards .h5p-imageholder {
+  border-radius: 10px !important;
+}
+
+.h5p-flashcards .h5p-card .h5p-clue {
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.h5p-flashcards .h5p-button {
+  background-color: var(--main) !important;
+  border: none !important;
+}
+
+.h5p-flashcards .h5p-visual-progress {
+  background-color: var(--darkGrey) !important;
+}
+
+.h5p-flashcards .h5p-visual-progress .h5p-visual-progress-inner {
+  height: 11px !important;
+  background-color: var(--green) !important;
+}
+
+.h5p-flashcards .h5p-card > .h5p-flashcard-overlay {
+  border-radius: 20px !important;
 }
