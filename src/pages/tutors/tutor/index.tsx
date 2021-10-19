@@ -19,7 +19,7 @@ const Profile = () => {
   useEffect(() => {
     fetchTutor(Number(id));
     fetchCourses({ author_id: Number(id) });
-  }, [id]);
+  }, [id, fetchCourses, fetchTutor]);
 
   return (
     <Layout>

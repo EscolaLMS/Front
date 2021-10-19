@@ -5,7 +5,6 @@ import RegisterForm from '../components/Authentication/RegisterForm';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SocialButtons from '../components/Authentication/SocialButtons';
 import Layout from '../components/_App/Layout';
 
 const Authentication = () => {

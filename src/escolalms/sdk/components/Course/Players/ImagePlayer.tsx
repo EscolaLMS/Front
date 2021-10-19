@@ -13,6 +13,7 @@ const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
 
   React.useEffect(() => {
     onLoad();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

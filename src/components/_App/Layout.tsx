@@ -11,7 +11,7 @@ import CourseNavbar from "@/components/_App/CourseNavbar";
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     // ybug
     (function () {
       if (window) {

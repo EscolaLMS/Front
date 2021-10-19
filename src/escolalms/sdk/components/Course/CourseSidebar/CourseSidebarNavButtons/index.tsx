@@ -27,7 +27,7 @@ export const CourseSidebarNavButtons: React.FC<{
                 : `/course/${course.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
             );
         },
-        [lessonId, topicId, program]
+        [lessonId, topicId, program, course.id, getNextPrevTopic, history, preview]
     );
 
   if (!course && !program) {

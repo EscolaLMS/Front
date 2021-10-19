@@ -121,7 +121,7 @@ const Navbar = () => {
 
   useEffect(() => {
     user && fetchCart();
-  }, [user]);
+  }, [user, fetchCart]);
 
   const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
   const classTwo = menu

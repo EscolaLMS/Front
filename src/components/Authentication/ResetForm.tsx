@@ -46,7 +46,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
       .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
-  }, [user]);
+  }, [user, email, history, reset, token]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

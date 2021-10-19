@@ -12,6 +12,7 @@ const PopularCourses = () => {
 
   useEffect(() => {
     fetchCourses({ per_page: 3 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

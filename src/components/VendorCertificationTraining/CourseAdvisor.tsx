@@ -40,6 +40,7 @@ const CourseAdvisor = () => {
   React.useEffect(() => {
     setDisplay(true);
     fetchTutors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
