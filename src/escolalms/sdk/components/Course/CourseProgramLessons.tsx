@@ -63,7 +63,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 
   return (
     <React.Fragment>
-      <div className="container-fluid course-program">
+      <div className="container-fluid course-program course-program-page">
         <div className="course-program-wrapper">
 
           <div className="course-program-player">
@@ -78,11 +78,14 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                   </div>
                 )}
               <h2>{topic?.title}</h2>
-              <CourseProgramContent
-                lessonId={Number(lessonId)}
-                topicId={Number(topicId)}
-                setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
-              />
+
+              <div className="course-program-player-content__wrapper">
+                <CourseProgramContent
+                    lessonId={Number(lessonId)}
+                    topicId={Number(topicId)}
+                    setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
+                />
+              </div>
             </div>
 
             <div className="row">

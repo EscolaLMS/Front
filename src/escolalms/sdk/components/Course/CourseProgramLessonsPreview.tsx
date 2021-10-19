@@ -35,7 +35,7 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
 
   return (
     <React.Fragment>
-      <div className="container-fluid course-program">
+      <div className="container-fluid course-program course-program-page">
         <div className="course-program-container">
           <div className="course-program-wrapper course-program-wrapper-preview">
 
@@ -51,11 +51,14 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                     </div>
                   )}
                 <h2>{topic?.title}</h2>
-                <CourseProgramContent
-                  preview={true}
-                  lessonId={Number(lessonId)}
-                  topicId={Number(topicId)}
-                />
+
+                <div className="course-program-player-content__wrapper">
+                  <CourseProgramContent
+                    preview={true}
+                    lessonId={Number(lessonId)}
+                    topicId={Number(topicId)}
+                  />
+                </div>
               </div>
 
               <div className="row">
