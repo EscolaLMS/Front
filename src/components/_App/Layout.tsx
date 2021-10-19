@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import { ToastProvider } from 'react-toast-notifications';
 import { Toaster } from 'react-hot-toast';
@@ -6,12 +6,12 @@ import { useLocation } from 'react-router-dom';
 import GoTop from './GoTop';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import CourseNavbar from './CourseNavbar';
+import CourseNavbar from "@/components/_App/CourseNavbar";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     // ybug
     (function () {
       if (window) {

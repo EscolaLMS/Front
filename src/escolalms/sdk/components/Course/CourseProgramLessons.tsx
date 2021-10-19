@@ -5,7 +5,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 import CourseProgramContent from './CourseProgramContent';
-import CourseProgramList from './CourseProgramList';
+import CourseSidebar from "./CourseSidebar";
 import MarkdownReader from '../Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../utils/markdown';
 
@@ -63,8 +63,9 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 
   return (
     <React.Fragment>
-      <div className="container-fluid course-program">
+      <div className="container-fluid course-program course-program-page">
         <div className="course-program-wrapper">
+
           <div className="course-program-player">
             <div className="course-program-player-content">
               {topic &&
@@ -77,11 +78,14 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                   </div>
                 )}
               <h2>{topic?.title}</h2>
-              <CourseProgramContent
-                lessonId={Number(lessonId)}
-                topicId={Number(topicId)}
-                setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
-              />
+
+              <div className="course-program-player-content__wrapper">
+                <CourseProgramContent
+                    lessonId={Number(lessonId)}
+                    topicId={Number(topicId)}
+                    setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
+                />
+              </div>
             </div>
 
             <div className="row">
@@ -133,7 +137,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               </div>
             )}
           </div>
-          <CourseProgramList
+
+          <CourseSidebar
             course={program}
             lessonId={Number(lessonId)}
             topicId={Number(topicId)}

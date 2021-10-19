@@ -25,7 +25,7 @@ const Cart = () => {
     } else {
       fetchCart();
     }
-  }, [location, user]);
+  }, [location, user, fetchCart, push]);
 
   const priceLiteral = useCallback(
     (course) => {
@@ -33,7 +33,7 @@ const Cart = () => {
         ? t('FREE')
         : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
     },
-    [settings],
+    [settings, t],
   );
 
   const [modal, setModal] = useState(false);
@@ -44,6 +44,7 @@ const Cart = () => {
       fetchCart();
       fetchProgress();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

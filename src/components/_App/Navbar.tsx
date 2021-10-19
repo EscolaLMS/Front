@@ -5,6 +5,7 @@ import Logo from '../../images/logo.svg';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
+import LangButton from "@/components/Common/LangButton";
 
 export const UserNavbarItem: React.FC<{
   user?: API.UserItem;
@@ -93,16 +94,7 @@ export const UserNavbarItem: React.FC<{
 };
 
 const Navbar = () => {
-  const { t, i18n } = useTranslation();
-
-  useEffect(() => {
-    const lang = window.localStorage.getItem('lang');
-    if (lang) {
-      i18n.changeLanguage(lang);
-    }
-  }, [i18n]);
-
-  const languages = ['pl', 'en'].filter((lang) => lang !== i18n.language);
+  const { t } = useTranslation();
 
   const [menu, setMenu] = React.useState(true);
   const { user: userObj, logout, cart, fetchCart } = useContext(EscolaLMSContext);
@@ -129,7 +121,7 @@ const Navbar = () => {
 
   useEffect(() => {
     user && fetchCart();
-  }, [user]);
+  }, [user, fetchCart]);
 
   const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
   const classTwo = menu
@@ -197,7 +189,7 @@ const Navbar = () => {
                     <div className="option-item">
                       <div className="cart-btn">
                         <Link to="/cart">
-                          <i className="flaticon-shopping-cart"></i>{' '}
+                          <i className="flaticon-shopping-cart" />{' '}
                           {(cart?.value?.items?.length || 0) > 0 && (
                             <span>{cart?.value?.items?.length}</span>
                           )}
@@ -208,20 +200,7 @@ const Navbar = () => {
 
                   <UserNavbarItem user={user} toggleNavbar={toggleNavbar} logout={logout} />
 
-                  {languages &&
-                    languages.map((lang) => (
-                      <button
-                        className="lang-btn"
-                        key={lang}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          i18n.changeLanguage(lang);
-                          window.localStorage.setItem('lang', lang);
-                        }}
-                      >
-                        {lang}
-                      </button>
-                    ))}
+                  <LangButton />
                 </div>
               </div>
             </div>

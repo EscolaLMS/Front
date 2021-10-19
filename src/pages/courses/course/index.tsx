@@ -12,7 +12,8 @@ import { useTranslation } from 'react-i18next';
 import Layout from '@/components/_App/Layout';
 import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
 
-export const CourseProgramList: React.FC<{
+// TODO: duplicated
+const CourseProgramList: React.FC<{
   program: API.Lesson[];
   onPreview?: (topic: API.Topic) => void;
 }> = ({ program, onPreview = null }) => {
@@ -98,7 +99,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
 
   useEffect(() => {
     user && user.value && fetchProgress();
-  }, [user]);
+  }, [user, fetchProgress]);
 
   const userOwnThisCourse = useMemo(() => {
     return (
@@ -111,7 +112,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
     return course.base_price === 0 || course.base_price === undefined
       ? t('FREE')
       : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
-  }, [course, settings]);
+  }, [course, settings, t]);
 
   return (
     <div className="courses-price">
@@ -167,7 +168,7 @@ const SingleCourses = () => {
 
   useEffect(() => {
     user.value && fetchCart();
-  }, [user]);
+  }, [user, fetchCart]);
 
   if (course.loading || !course.value) {
     return <Loader />;

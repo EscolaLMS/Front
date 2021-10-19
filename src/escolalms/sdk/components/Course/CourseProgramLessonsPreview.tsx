@@ -5,10 +5,11 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from './CourseProgramContent';
-import CourseProgramList from './CourseProgramList';
+import CourseSidebar from "./CourseSidebar";
 import MarkdownReader from '../Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../utils/markdown';
-export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
+
+export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
   const lessonId = lessonID ? lessonID : program.lessons[0].id;
@@ -34,9 +35,10 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 
   return (
     <React.Fragment>
-      <div className="container-fluid course-program">
+      <div className="container-fluid course-program course-program-page">
         <div className="course-program-container">
           <div className="course-program-wrapper course-program-wrapper-preview">
+
             <div className="course-program-player">
               <div className="course-program-player-content">
                 {topic &&
@@ -49,11 +51,14 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                     </div>
                   )}
                 <h2>{topic?.title}</h2>
-                <CourseProgramContent
-                  preview={true}
-                  lessonId={Number(lessonId)}
-                  topicId={Number(topicId)}
-                />
+
+                <div className="course-program-player-content__wrapper">
+                  <CourseProgramContent
+                    preview={true}
+                    lessonId={Number(lessonId)}
+                    topicId={Number(topicId)}
+                  />
+                </div>
               </div>
 
               <div className="row">
@@ -86,7 +91,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 )}
               </div>
             </div>
-            <CourseProgramList
+
+            <CourseSidebar
               preview={true}
               course={program}
               lessonId={Number(lessonId)}
@@ -99,4 +105,4 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
   );
 };
 
-export default CourseProgramLessons;
+export default CourseProgramLessonsPreview;

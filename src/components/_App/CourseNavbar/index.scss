@@ -1,0 +1,128 @@
+@import "../../../style/scss/base/vars";
+
+.course-navbar {
+  color: $black-color;
+  width: 100%;
+  background: #fff;
+  z-index: 9999;
+  margin-bottom: 50px;
+  box-shadow: 0 2px 28px 0 rgb(0 0 0 / 9%);
+
+  @media (min-width: 992px) {
+    position: fixed;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 15px min(3%, 40px) 0; // magic: padding-top for progress-bar
+    min-height: 6rem;
+    column-gap: 10px;
+    row-gap: 15px;
+
+    @media (min-width: 992px) {
+      padding-top: 0;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: clamp(0px, 8% - 60px, 3.8rem);
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+  }
+
+  &__logo {
+    height: 30px;
+    width: auto;
+    margin: 10px;
+    min-width: 170px;
+    max-width: 18vw;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0.9rem;
+    flex-grow: 1;
+    max-width: 100%;
+    width: 60%;
+    min-width: min(350px, 100%);
+  }
+
+  &__logo + &__title-wrapper {
+    //margin-left: 4.5rem;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $black-color;
+    margin: 0 0 0.5rem;
+  }
+
+  &__subtitle {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: $black-color;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    max-width: 100%;
+
+    @media (max-width: 991px) {
+      order: -1;
+    }
+  }
+
+  &__close-link {
+    font-size: 1.035rem;
+    font-weight: 700;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    i {
+      vertical-align: middle;
+      font-size: 1.2rem;
+      top: -2px;
+      position: relative;
+    }
+  }
+
+  &__lang-button {}
+
+  &__close-link + &__lang-button {
+    position: relative;
+    padding-left: 15px; // magic: for before padding
+
+    &::before {
+      content: '|';
+      position: absolute;
+      left: 0;
+      margin: 0 9px;
+    }
+  }
+}

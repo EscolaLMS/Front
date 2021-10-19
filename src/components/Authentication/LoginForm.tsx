@@ -54,7 +54,7 @@ const LoginForm = () => {
       .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
-  }, [user, forgot]);
+  }, [user, forgot, t]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -106,15 +106,16 @@ const CoursesSidebar: React.FC<{
         }
       });
     },
-    [tags],
+    [tags, hasTags, multiple],
   );
 
   useEffect(() => {
     onTag && onTag(multiple ? tags : tags[0]);
-  }, [tags, multiple]);
+  }, [tags, multiple, onTag]);
 
   useEffect(() => {
     fetchTutors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { t } = useTranslation();

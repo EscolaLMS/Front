@@ -1,0 +1,28 @@
+@import "../../../style/scss/base/vars";
+
+// TODO: this is old `question` class; replace all `question`
+.meta-tag {
+  display: inline-block;
+  background: #e3f1f2;
+  color: #2dbbc4;
+  text-transform: lowercase;
+  border-radius: 3px;
+  padding: 2px 10px 1.5px;
+  font: {
+    size: 14px;
+    weight: 700;
+  }
+
+  &, &:hover, &:active, &:focus {
+    text-decoration: none;
+  }
+
+  span {
+    display: inline-block;
+  }
+
+  &--red {
+    background: #f7e7e8;
+    color: $main-color;
+  }
+}

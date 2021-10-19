@@ -8,3 +8,24 @@
   display: flex;
   width: 100%;
 }
+
+// TODO: tmp class change this
+.course-program-page {
+  .course-program-player {
+    margin-top: 200px;
+    max-width: calc(100vw - 450px);
+    margin-right: 50px;
+  }
+
+  .course-program-player-content__wrapper {
+    border: 1px solid #EEEEEE;
+    padding: 20px;
+    margin: 60px auto 20px;
+  }
+
+  .course-program-wrapper-preview {
+    .course-program-player {
+      margin-top: 100px;
+    }
+  }
+}
