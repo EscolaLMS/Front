@@ -5,7 +5,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 import CourseProgramContent from './CourseProgramContent';
-import CourseSidebar from "./CourseSidebar";
+import CourseSidebar from './CourseSidebar';
 import MarkdownReader from '../Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../utils/markdown';
 
@@ -65,9 +65,9 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     <React.Fragment>
       <div className="container-fluid course-program course-program-page">
         <div className="course-program-wrapper">
-
           <div className="course-program-player">
             <div className="course-program-player-content">
+              <h2>{topic?.title}</h2>
               {topic &&
                 topic.introduction &&
                 fixContentForMarkdown(`${topic.introduction}`) !== '' && (
@@ -77,13 +77,11 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                     </div>
                   </div>
                 )}
-              <h2>{topic?.title}</h2>
-
               <div className="course-program-player-content__wrapper">
                 <CourseProgramContent
-                    lessonId={Number(lessonId)}
-                    topicId={Number(topicId)}
-                    setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
+                  lessonId={Number(lessonId)}
+                  topicId={Number(topicId)}
+                  setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
                 />
               </div>
             </div>
@@ -93,7 +91,6 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
                   <div className="course-program-summary">
                     <div className="container-md">
-                      {/* <h3>{t("LessonSummary")}</h3> */}
                       <MarkdownReader>{lesson.summary}</MarkdownReader>
                     </div>
                   </div>
@@ -103,10 +100,9 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
                   <div className="course-program-summary">
                     <div className="container-md">
-                      {/* <h3>{t("TopicSummary")}</h3> */}
                       <MarkdownReader>{topic.summary}</MarkdownReader>
                     </div>
-                    {topic && topic.resources && topic.resources?.length > 0 && (
+                    {/* {topic && topic.resources && topic.resources?.length > 0 && (
                       <React.Fragment>
                         <h3>{t('CourseProgram.TopicAttachment')}</h3>
                         <div className="file-list">
@@ -117,7 +113,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                           ))}
                         </div>
                       </React.Fragment>
-                    )}
+                    )} */}
                   </div>
                 </div>
               )}
@@ -138,11 +134,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             )}
           </div>
 
-          <CourseSidebar
-            course={program}
-            lessonId={Number(lessonId)}
-            topicId={Number(topicId)}
-          />
+          <CourseSidebar course={program} lessonId={Number(lessonId)} topicId={Number(topicId)} />
         </div>
       </div>
     </React.Fragment>
