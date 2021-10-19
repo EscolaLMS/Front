@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from './CourseProgramContent';
-import CourseSidebar from "./CourseSidebar";
+import CourseSidebar from './CourseSidebar';
 import MarkdownReader from '../Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../utils/markdown';
 
-export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
+export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({
+  program,
+}) => {
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
   const lessonId = lessonID ? lessonID : program.lessons[0].id;
@@ -38,9 +40,9 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
       <div className="container-fluid course-program course-program-page">
         <div className="course-program-container">
           <div className="course-program-wrapper course-program-wrapper-preview">
-
             <div className="course-program-player">
               <div className="course-program-player-content">
+                <h2>{topic?.title}</h2>
                 {topic &&
                   topic.introduction &&
                   fixContentForMarkdown(`${topic.introduction}`) !== '' && (
@@ -50,8 +52,6 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                       </div>
                     </div>
                   )}
-                <h2>{topic?.title}</h2>
-
                 <div className="course-program-player-content__wrapper">
                   <CourseProgramContent
                     preview={true}
@@ -78,11 +78,11 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
-                            {topic.resources.map((resource) => (
+                            {/* {topic.resources.map((resource) => (
                               <a target="_blank" href={resource.url} rel="noreferrer">
                                 {resource.name}
                               </a>
-                            ))}
+                            ))} */}
                           </div>
                         </React.Fragment>
                       )}
