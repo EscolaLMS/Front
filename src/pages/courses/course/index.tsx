@@ -12,7 +12,8 @@ import { useTranslation } from 'react-i18next';
 import Layout from '@/components/_App/Layout';
 import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
 
-export const CourseProgramList: React.FC<{
+// TODO: duplicated
+const CourseProgramList: React.FC<{
   program: API.Lesson[];
   onPreview?: (topic: API.Topic) => void;
 }> = ({ program, onPreview = null }) => {

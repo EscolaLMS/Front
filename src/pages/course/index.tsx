@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { API } from '@escolalms/sdk/lib';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Loader from '@/components/Preloader';
+import Preloader from '@/components/Preloader';
+import Layout from '@/components/_App/Layout';
 
 import CourseProgramLessons from '@/escolalms/sdk/components/Course/CourseProgramLessons';
-import Layout from '@/components/_App/Layout';
+
+// TODO: 99% same as: src/pages/courses/preview/index.tsx
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const sco = program?.scorm?.scos?.find((sco) => sco?.entry_url !== undefined);
@@ -61,7 +63,7 @@ const CourseProgram = () => {
   }, []);
 
   if (program.loading) {
-    return <Loader />;
+    return <Preloader />;
   }
 
   if (program.error) {
@@ -94,7 +96,7 @@ const CourseProgram = () => {
     );
   }
 
-  return <Loader />;
+  return <Preloader />;
 };
 
 export default CourseProgram;

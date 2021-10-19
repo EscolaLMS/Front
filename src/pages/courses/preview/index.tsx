@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-
 import { Link, useParams } from 'react-router-dom';
-
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '@/components/Preloader';
 import Layout from '@/components/_App/Layout';
 
 import CourseProgramLessonsPreview from '@/escolalms/sdk/components/Course/CourseProgramLessonsPreview';
+
+// TODO: 99% same as: src/pages/course/index.tsx
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
   const sco = program?.scorm?.scos?.find((sco) => sco.entry_url !== undefined);
@@ -37,7 +37,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
           }}
         >
           <iframe
-            title={'scrorm-player'}
+            title={'scorm-player'}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"
@@ -76,6 +76,7 @@ const CourseProgram = () => {
       </div>
     );
   }
+
   if (program.value && program?.value?.scorm?.id) {
     return (
       <Layout>
