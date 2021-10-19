@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --main: #fe4a55;
+  --white: #fff;
+  --bright-gray: #eeeeee;
+  --success: #d4f6e6;
+  --grey: #91979d;
+  --darkGrey: #63676c;
+  --green: #48b87f;
+}
+
+/* INTERACTIVE VIDEO  */
+.h5p-interactive-video * {
+  font-family: 'Nunito' !important;
+}
+
+.h5p-interactive-video .h5p-splash-main-inner * {
+  font-family: 'Nunito' !important;
+}
+.h5p-interactive-video .h5p-splash-wrapper .h5p-splash {
+  border-radius: 8px !important;
+}
+
+.h5p-interactive-video .h5p-dialog-interaction * {
+  font-family: 'Nunito' !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+}
+
+.h5p-interactive-video .h5p-question-introduction * {
+  font-family: 'Nunito' !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+.h5p-interactive-video .h5p-splash-wrapper .h5p-splash .h5p-splash-title {
+  font-family: 'Nunito' !important;
+  font-size: 30px !important;
+}
+
+.h5p-interactive-video .h5p-splash-wrapper .h5p-splash .h5p-splash-play-icon {
+  font-size: 3.5em !important;
+}
+
+.h5p-interactive-video .h5p-interaction-label {
+  padding: 0px 40px 0px 60px !important;
+  border-radius: 36px !important;
+}
+
+.h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text {
+  font-size: 20px !important;
+  color: var(--white) !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text {
+  font-size: 20px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text p {
+  font-size: 20px !important;
+  font-family: 'Nunito' !important;
+  font-weight: bold !important;
+}
+
+.h5p-interactive-video .h5p-dialog,
+.h5p-interactive-video .h5p-interaction-outer {
+  border-radius: 12px !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-interactive-video .h5p-interaction-button {
+  width: 65px !important;
+  height: 65px !important;
+}
+
+.h5p-interactive-video .h5p-poster {
+  border-radius: 8px !important;
+}
+
+/* GLOBALS */
+
+.h5p-question-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 100% !important;
+  justify-content: center !important;
+  padding-bottom: 30px !important;
+}
+
+.h5p-question-feedback {
+  text-align: center !important;
+  margin-bottom: 0px !important;
+}
+
+.h5p-question-feedback .h5p-question-feedback-content {
+  margin-bottom: 0 !important;
+}
+
+.h5p-question-scorebar {
+  margin: 0 auto !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.h5p-question-scorebar .h5p-question-scorebar-container {
+  width: 100% !important;
+}
+
+/* DRAG THE WORDS  */
+
+.h5p-drag-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.h5p-drag-text .h5p-question-introduction p {
+  text-align: center !important;
+  font-size: 20px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-droppable-words {
+  order: 1 !important;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-droppable-words
+  > span {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  font-weight: 600;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-droppable-words
+  .h5p-drag-dropzone-container
+  .ui-droppable {
+  width: 140px !important;
+  height: 35px !important;
+  background: var(--bright-gray) 0% 0% no-repeat padding-box !important;
+  border-radius: 22px !important;
+  padding: 0 !important;
+  margin: 0.3em !important;
+}
+
+.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-draggables-container {
+  order: 2 !important;
+  padding: 0 !important;
+}
+
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-draggables-container
+  .ui-draggable {
+  width: 140px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 22px !important;
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  padding: 0 !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text [aria-grabbed].h5p-drag-dropped {
+  width: 140px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 22px !important;
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  padding: 0 !important;
+}
+
+.h5p-drag-text .joubel-speech-bubble .joubel-speech-bubble-inner {
+  background-color: var(--white) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+  border-radius: 22px !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-feedback.h5p-question-visible {
+  text-align: center !important;
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible.has-scorebar {
+  margin-top: 20px !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.h5p-drag-text .h5p-question-buttons.h5p-question-visible button {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  font-weight: 600;
+}
+
+.h5p-drag-text .h5p-drag-show-solution-container.incorrect {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+  border-radius: 22px !important;
+  background-color: var(--success) !important;
+  box-shadow: 0px 3px 6px #00000012 !important;
+  border: 1px solid var(--bright-gray) !important;
+}
+
+@media (max-width: 600px) {
+  .h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+
+/* DIALOG CARDS */
+
+.h5p-dialogcards .h5p-dialogcards-title .h5p-dialogcards-title-inner {
+  text-align: center !important;
+
+  font-family: 'Nunito' !important;
+  margin-bottom: 20px !important;
+  font-size: 17px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-description {
+  text-align: center !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-cardwrap-set .h5p-dialogcards-card-content {
+  border-radius: 50px !important;
+  box-shadow: 0px 3px 11px #00000031;
+  border-radius: 12px !important;
+  padding: 10px !important;
+  padding-bottom: 20px !important;
+}
+
+.h5p-dialogcards
+  .h5p-dialogcards-cardwrap-set
+  .h5p-dialogcards-card-content
+  .h5p-audio-inner
+  .h5p-audio-minimal-button {
+  width: 53px !important;
+  height: 53px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-card-text-area {
+  font-size: 17px !important;
+  font-family: 'Nunito' !important;
+
+  margin-top: 15px !important;
+}
+
+.h5p-dialogcards .h5p-dialogcards-turn {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  padding: 9px 51px !important;
+  border-radius: 36px !important;
+}
+
+/* FLASHCARDS */
+.h5p-flashcards {
+  background-color: var(--grey) !important;
+}
+
+.h5p-flashcards * {
+  font-family: 'Nunito' !important;
+}
+
+.h5p-flashcards .h5p-description {
+  border-bottom-color: transparent !important ;
+}
+
+.h5p-flashcards .h5p-card {
+  box-shadow: none !important;
+  border-radius: 20px !important;
+}
+
+.h5p-flashcards .h5p-cardholder {
+  box-shadow: none !important;
+  border-radius: 20px !important;
+}
+
+.h5p-flashcards .h5p-imageholder {
+  border-radius: 10px !important;
+}
+
+.h5p-flashcards .h5p-card .h5p-clue {
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.h5p-flashcards .h5p-button {
+  background-color: var(--main) !important;
+  border: none !important;
+}
+
+.h5p-flashcards .h5p-visual-progress {
+  background-color: var(--darkGrey) !important;
+}
+
+.h5p-flashcards .h5p-visual-progress .h5p-visual-progress-inner {
+  height: 11px !important;
+  background-color: var(--green) !important;
+}
+
+.h5p-flashcards .h5p-card > .h5p-flashcard-overlay {
+  border-radius: 20px !important;
+}
