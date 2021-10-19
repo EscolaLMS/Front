@@ -114,11 +114,14 @@ $transition: 0.5s;
     margin: 1em;
     padding: 1em;
   }
+  .course-program-player-content .course-program-player-content__wrapper {
+    width: 100%;
+  }
   .course-program-player-content {
     width: 100%;
     min-height: calc(100vh - 200px);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
