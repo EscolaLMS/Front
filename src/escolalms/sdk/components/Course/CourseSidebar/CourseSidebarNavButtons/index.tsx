@@ -27,7 +27,8 @@ export const CourseSidebarNavButtons: React.FC<{
                 : `/course/${course.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
             );
         },
-        [lessonId, topicId, program, course.id, getNextPrevTopic, history, preview]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [lessonId, topicId, program, course.id, history, preview]
     );
 
   if (!course && !program) {

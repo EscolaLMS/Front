@@ -56,7 +56,8 @@ const CourseProgram = () => {
     if (id) {
       fetchProgram(Number(id));
     }
-  }, [id, fetchProgram]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     fetchProgress();

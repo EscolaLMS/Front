@@ -25,7 +25,8 @@ const Cart = () => {
     } else {
       fetchCart();
     }
-  }, [location, user, fetchCart, push]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, user]);
 
   const priceLiteral = useCallback(
     (course) => {

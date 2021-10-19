@@ -111,7 +111,8 @@ const CoursesSidebar: React.FC<{
 
   useEffect(() => {
     onTag && onTag(multiple ? tags : tags[0]);
-  }, [tags, multiple, onTag]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tags, multiple]);
 
   useEffect(() => {
     fetchTutors();

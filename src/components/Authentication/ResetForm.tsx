@@ -46,7 +46,8 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
       .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
-  }, [user, email, history, reset, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, email, reset, token]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

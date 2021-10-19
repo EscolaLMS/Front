@@ -18,7 +18,7 @@ const StaticPage = () => {
     if (id) {
       fetchPage(String(id));
     }
-  }, [id, fetchPage]);
+  }, [id]);
 
   if (page.loading) {
     return <Loader />;

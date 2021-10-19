@@ -99,7 +99,8 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
 
   useEffect(() => {
     user && user.value && fetchProgress();
-  }, [user, fetchProgress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const userOwnThisCourse = useMemo(() => {
     return (
@@ -164,11 +165,13 @@ const SingleCourses = () => {
     if (id) {
       fetchCourse(Number(id));
     }
-  }, [id, fetchCourse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     user.value && fetchCart();
-  }, [user, fetchCart]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   if (course.loading || !course.value) {
     return <Loader />;

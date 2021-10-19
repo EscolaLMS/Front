@@ -121,7 +121,8 @@ const Navbar = () => {
 
   useEffect(() => {
     user && fetchCart();
-  }, [user, fetchCart]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
   const classTwo = menu

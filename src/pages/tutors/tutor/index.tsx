@@ -19,7 +19,8 @@ const Profile = () => {
   useEffect(() => {
     fetchTutor(Number(id));
     fetchCourses({ author_id: Number(id) });
-  }, [id, fetchCourses, fetchTutor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <Layout>
