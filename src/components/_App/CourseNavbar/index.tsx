@@ -13,8 +13,8 @@ const CourseNavbar = () => {
     courseProgress,
   } = useContext(EscolaLMSContext);
 
-  const brandLogo = 'http://localhost:3000/images/logo.svg'; // TODO
-  // const brandLogo = ''; // TODO
+  // const brandLogo = 'http://localhost:3000/images/logo.svg'; // TODO
+  const brandLogo = ''; // TODO
 
   const { t } = useTranslation();
 
