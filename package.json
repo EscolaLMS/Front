@@ -21,6 +21,8 @@
     "@types/react-router-dom": "^5.3.0",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "babel-jest": "^26.6.3",
+    "babel-preset-react-app": "^10.0.0",
     "formik": "^2.2.9",
     "i18next": "^21.2.0",
     "markdown-to-jsx": "^7.1.3",
@@ -60,9 +62,9 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  start",
-    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  build",
-    "test": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  test",
+    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired start",
+    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired build",
+    "test": "jest --no-cache",
     "eject": "react-app-rewired  eject",
     "postinstall": "husky install",
     "tsc": "tsc --project tsconfig.json --noEmit"
@@ -87,6 +89,8 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.13.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
@@ -96,6 +100,63 @@
   "lint-staged": {
     "*.{js,ts,tsx,json,md,html}": [
       "prettier --write"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "@babel/preset-typescript"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@/components/(.*)": "<rootDir>/src/components/$1",
+      "@/escolalms/sdk/(.*)": "<rootDir>/src/escolalms/sdk/$1",
+      "@/utils/(.*)": "<rootDir>/src/utils/$1"
+    },
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jest-environment-jsdom",
+    "transform": {
+      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.ts",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.ts",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.ts"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/react-toast-notifications"
+    ],
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
     ]
   }
 }
