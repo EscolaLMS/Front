@@ -6,12 +6,22 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/_App/Layout';
+import SocialButtons from '@/components/Authentication/SocialButtons';
+import { useLocation } from 'react-router-dom';
 
 const Authentication = () => {
-  const { user } = useContext(EscolaLMSContext);
+  const { search } = useLocation();
+  const { user, setToken } = useContext(EscolaLMSContext);
   const history = useHistory();
   const { t } = useTranslation();
-  if (!user.loading && user.value) {
+  const token = search.split('?token=')[1];
+
+  if (token) {
+    setToken(token);
+    history.push('/');
+  }
+
+  if (!user.loading && !token && user.value) {
     history.push('/');
   }
 
@@ -28,9 +38,9 @@ const Authentication = () => {
         <div className="profile-authentication-area ptb-100">
           <div className="container">
             <div className="row">
-              {/* <div className="col-lg-12 col-md-12">
+              <div className="col-lg-12 col-md-12">
                 <SocialButtons />
-              </div> */}
+              </div>
               <div className="col-lg-6 col-md-12">
                 <LoginForm />
               </div>

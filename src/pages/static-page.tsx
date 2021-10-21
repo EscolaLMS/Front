@@ -4,7 +4,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '../components/Preloader';
 import Sidebar from '../components/TermsOfService/Sidebar';
 import PageBanner from '../components/Common/PageBanner';
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import Layout from '../components/_App/Layout';
 
 const StaticPage = () => {

@@ -1,5 +1,4 @@
 import Layout from '../components/_App/Layout';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Custom404 = () => {
