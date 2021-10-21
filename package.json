@@ -62,9 +62,9 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  start",
-    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  build",
-    "test": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired  test",
+    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired start",
+    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired build",
+    "test": "./node_modules/.bin/jest --no-cache",
     "eject": "react-app-rewired  eject",
     "postinstall": "husky install",
     "tsc": "tsc --project tsconfig.json --noEmit"
@@ -89,6 +89,8 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.13.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
@@ -100,7 +102,19 @@
       "prettier --write"
     ]
   },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "@babel/preset-typescript"
+    ]
+  },
   "jest": {
+    "moduleNameMapper": {
+      "@/components/(.*)": "<rootDir>/src/components/$1",
+      "@/escolalms/sdk/(.*)": "<rootDir>/src/escolalms/sdk/$1",
+      "@/utils/(.*)": "<rootDir>/src/utils/$1"
+    },
     "coverageReporters": [
       "text",
       "html"
@@ -119,18 +133,14 @@
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
-    "testEnvironment": "jest-environment-jsdom-fourteen",
+    "testEnvironment": "jest-environment-jsdom",
     "transform": {
       "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.ts",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.ts",
       "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.ts"
     },
     "transformIgnorePatterns": [
-      "/node_modules/",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "testpathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/react-toast-notifications"
     ],
     "moduleFileExtensions": [
       "web.js",
