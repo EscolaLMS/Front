@@ -1,38 +1,33 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import CourseCard from '../CourseCard';
 import { useTranslation } from 'react-i18next';
+import LmsBox from "@/components/Common/LmsBox";
+import CourseCardHeader from "@/components/CourseCard/CourseCardHeader";
+import LmsProgressBar from "@/components/Common/LmsProgressBar";
 
-const UserCourse: React.FC<{ course: API.Course; progress?: number }> = ({ course, progress }) => {
-  const percProgress = progress && Math.round(progress * 100);
-
+const UserCourseCard: React.FC<{ course: API.Course; progress?: number }> = ({ course, progress = 0 }) => {
   return (
-    <div className="single-courses-box">
-      <div className="courses-image">
-        <Link to={`/courses/${course.id}`} className="d-block image">
-          {course.image_path && <Image path={course.image_path} srcSizes={[300, 600, 900]} />}
-        </Link>
+    <LmsBox className="user-course-card">
+      <CourseCardHeader
+          className="user-course-card__header"
+          course={course}
+          imgSizes={[300, 600, 900]}
+          badge={`${progress} %`}
+      />
 
-        <div className="price shadow">{percProgress} %</div>
-      </div>
-      <div className="courses-progress progress">
-        <div
-          className="progress-bar"
-          role="progressbar"
-          style={{ width: `${percProgress}%` }}
-        ></div>
-      </div>
-      <div className="courses-content">
-        <h3>
+      <LmsProgressBar className="user-course-card__progress" progress={progress} />
+
+      <LmsBox.Content className="user-course-card__content">
+        <LmsBox.Title className="user-course-card__title">
           <Link to={`/course/${course.id}`}>{course.title}</Link>
-        </h3>
+        </LmsBox.Title>
 
-        <p>{course.subtitle}</p>
-      </div>
-    </div>
+        <LmsBox.SubTitle className="user-course-card__subtitle">{course.subtitle}</LmsBox.SubTitle>
+      </LmsBox.Content>
+    </LmsBox>
   );
 };
 
@@ -48,10 +43,12 @@ const ProfileCourses = () => {
     return progress.value?.reduce((acc: object, curr: API.CourseProgressItem) => {
       return {
         ...acc,
-        [curr.course.id ? curr.course.id : -1]:
-          curr.progress.reduce((pAcc, pCurr) => {
-            return pCurr.status === 1 ? pAcc + 1 : pAcc;
-          }, 0) / curr.progress.length,
+        [curr?.course?.id ? curr.course.id : -1]: Math.round(
+            (
+                (curr?.progress || [])
+                    .reduce((pAcc, pCurr) => pCurr.status === 1 ? pAcc + 1 : pAcc, 0) / curr.progress.length
+            ) * 100
+        ),
       };
     }, {});
   }, [progress]);
@@ -96,7 +93,7 @@ const ProfileCourses = () => {
                 <div className="row">
                   {startedCourses.map((item: any) => (
                     <div className="col-lg-12 col-md-12" key={item.course.id}>
-                      <UserCourse
+                      <UserCourseCard
                         // categories={item.categories}
                         course={item.course}
                         // TODO fix this

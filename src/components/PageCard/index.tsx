@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { API } from '@escolalms/sdk/lib';
+import LmsBox from "@/components/Common/LmsBox";
 export const PageCard: React.FC<{ page: API.Page }> = ({ page }) => {
   return (
-    <div className="single-courses-box">
-      <div className="courses-content">
-        <h3>
+    <LmsBox className="page-card">
+      <LmsBox.Content className="page-card__content">
+        <LmsBox.Title className="page-card__title">
           <Link to={`/page/${page.slug}`}>{page.title}</Link>
-        </h3>
-
-        <ul className="courses-box-footer d-flex justify-content-between align-items-center"></ul>
-      </div>
-    </div>
+        </LmsBox.Title>
+      </LmsBox.Content>
+    </LmsBox>
   );
 };
 

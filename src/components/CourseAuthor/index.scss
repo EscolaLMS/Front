@@ -1,0 +1,26 @@
+@import "./src/style/scss/base/vars";
+
+.course-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .escolalms-image {
+    width: auto;
+    height: auto;
+  }
+
+  &__image {
+    object-fit: cover;
+    width: 35px;
+    height: 35px;
+  }
+
+  &__name {
+    color: $main-color;
+    font: {
+      weight: 600;
+      size: 15px;
+    }
+  }
+}
