@@ -9,7 +9,7 @@ import PageCard from '../components/PageCard';
 import Layout from '../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
 
-const Pages = () => {
+const PagesPage = () => {
   const { fetchPages, pages } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
@@ -56,4 +56,4 @@ const Pages = () => {
   );
 };
 
-export default Pages;
+export default PagesPage;
