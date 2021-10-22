@@ -11,13 +11,13 @@ import { useLocation } from 'react-router-dom';
 
 const Authentication = () => {
   const { search } = useLocation();
-  const { user, setToken } = useContext(EscolaLMSContext);
+  const { user, socialAuthorize } = useContext(EscolaLMSContext);
   const history = useHistory();
   const { t } = useTranslation();
   const token = search.split('?token=')[1];
 
   if (token) {
-    setToken(token);
+    socialAuthorize(token);
     history.push('/');
   }
 
