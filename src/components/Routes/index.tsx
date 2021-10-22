@@ -12,6 +12,7 @@ import TutorPage from '../../pages/tutors/tutor/index';
 import CoursesPage from '../../pages/courses';
 import CoursePage from '../../pages/courses/course/index';
 import CoursePreviewPage from '../../pages/courses/preview';
+import EmailVerifiedPage from '../../pages/email_verified';
 
 // privates
 import MyProfilePage from '../../pages/user/my-profile';
@@ -43,6 +44,7 @@ const Routes: React.FC = (): ReactElement => {
     cart,
     pages,
     reset,
+    emailVerified,
   } = routes;
 
   return (
@@ -58,6 +60,7 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={preview} component={CoursePreviewPage} />
         <Route exact path={pages} component={PagesPage} />
         <Route exact path={reset} component={ResetPage} />
+        <Route exact path={emailVerified} component={EmailVerifiedPage} />
 
         {/* privates pages*/}
 

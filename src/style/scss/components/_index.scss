@@ -2,6 +2,7 @@
 @import './course-program-content';
 @import './button';
 @import './progress';
+@import './social-buttons';
 
 // add component for this
 .course-program-wrapper {
@@ -22,7 +23,7 @@
   }
 
   .course-program-player-content__wrapper {
-    border: 1px solid #EEEEEE;
+    border: 1px solid #eeeeee;
     padding: 20px;
     margin: 60px auto 20px;
   }

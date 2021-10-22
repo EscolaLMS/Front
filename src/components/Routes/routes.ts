@@ -16,6 +16,7 @@ const routeRoutes = {
   cart: '/cart',
   pages: '/pages',
   contact: '/contact',
+  emailVerified: '/email-verified',
 };
 
 export default routeRoutes;
