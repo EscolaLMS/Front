@@ -147,6 +147,11 @@ const resources = {
         Available: 'Available courses',
         Finished: 'Completed courses',
       },
+      EmailVerifiedPage: {
+        Verified: 'Your email is now verified',
+        EmailText: 'Your email is now verified. Go to',
+        LoginPage: 'login page',
+      },
     },
   },
   pl: {
@@ -326,6 +331,11 @@ const resources = {
         Finish: 'Dokończ rozpoczęty kurs',
         Available: 'Dostępne kursy',
         Finished: 'Ukończone kursy',
+      },
+      EmailVerifiedPage: {
+        Verified: 'Twój email jest teraz zweryfikowany',
+        EmailText: 'Twój email został zweryfikowany. Przejdź do',
+        LoginPage: 'strony logowania',
       },
     },
   },
