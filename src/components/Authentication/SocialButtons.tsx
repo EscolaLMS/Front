@@ -7,11 +7,17 @@ const SocialButtons: React.FC<{ isRegister?: boolean }> = ({ isRegister }): Reac
 
   return (
     <div className="social-btns">
-      <a className="social-btns__button blue" href={`${apiUrl}/api/auth/social/facebook`}>
+      <a
+        className="social-btns__button social-btns__button--blue"
+        href={`${apiUrl}/api/auth/social/facebook`}
+      >
         {isRegister ? 'Register with facebook' : 'Login with facebook'}
       </a>
 
-      <a className="social-btns__button red" href={`${apiUrl}/api/auth/social/google`}>
+      <a
+        className="social-btns__button social-btns__button--red"
+        href={`${apiUrl}/api/auth/social/google`}
+      >
         {isRegister ? 'Register with Google' : 'Login with Google'}
       </a>
     </div>
