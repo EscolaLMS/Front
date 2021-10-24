@@ -1,0 +1,17 @@
+@import "./src/style/scss/base/vars";
+
+.lms-progress-bar {
+  overflow: hidden;
+  height: 1rem;
+  font-size: 0.75rem;
+  background-color: #e9ecef;
+
+  &__bar {
+    overflow: hidden;
+    height: 100%;
+    max-width: 100%;
+    background: $main-color;
+    transition: width 1s ease-out;
+    border-radius: 0;
+  }
+}

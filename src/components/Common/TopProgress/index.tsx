@@ -1,12 +1,13 @@
 import React from 'react';
 import "./index.scss";
+import LmsProgressBar from "@/components/Common/LmsProgressBar";
 
 const TopProgress: React.FC<{
   progress: number;
 }> = ({ progress = 0 }) => {
   return (
       <div className="top-progress">
-        <div className="top-progress__bar" style={{ width: `${progress}%` }} />
+        <LmsProgressBar progress={progress} />
       </div>
   );
 };

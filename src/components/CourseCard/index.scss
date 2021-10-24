@@ -1,0 +1,57 @@
+@import "./src/style/scss/base/vars";
+
+.course-card {
+  $this: &;
+
+  &__author {
+    margin-bottom: 15px;
+  }
+
+  // TODO: rewrite
+  &__footer {
+    .courses-box-footer {
+      list-style-type: none;
+      padding-left: 0;
+      margin: {
+        bottom: 0;
+        left: -7px;
+        right: -7px;
+        top: 20px;
+      }
+      li {
+        color: $optional-color;
+        font-size: 15px;
+        position: relative;
+        padding: {
+          left: 25px;
+          right: 7px;
+        }
+
+        /* Max width 767px */
+        @media only #{$media} and ($feature_max : $value_two) {
+          font-size: 14px;
+        }
+
+        i {
+          color: $main-color;
+          position: absolute;
+          left: 7px;
+          top: 0;
+
+          &.flaticon-people {
+            font-size: 18px;
+            left: 3px;
+          }
+        }
+      }
+
+
+    }
+  }
+
+  &--free {
+    .course-card-header__badge {
+      font-size: 13px;
+    }
+  }
+}

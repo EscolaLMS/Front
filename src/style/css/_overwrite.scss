@@ -15,30 +15,6 @@ $transition: 0.5s;
   height: 100%;
 }
 
-.single-courses-box .courses-image .image {
-  height: 250px;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.single-courses-box .courses-image .price {
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  line-height: 1em;
-  font-size: 20px;
-  width: 80px;
-  height: 80px;
-  &.free {
-    font-size: 13px;
-  }
-}
-
 .courses-sidebar-sticky .courses-details-info {
   padding: 12px;
   margin: 0;
