@@ -203,7 +203,7 @@ const SingleCourses = () => {
           />
         )}
 
-        <div className="courses-details-area ptb-100">
+        <div className="ptb-100">
           <div className="container">
             <div className="courses-details-header">
               <div className="row align-items-center">

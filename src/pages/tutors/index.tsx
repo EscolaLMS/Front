@@ -8,7 +8,7 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import Layout from '../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
 
-const Advisor = () => {
+const TutorsPage = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -60,4 +60,4 @@ const Advisor = () => {
   );
 };
 
-export default Advisor;
+export default TutorsPage;

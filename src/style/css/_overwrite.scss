@@ -232,32 +232,6 @@ $transition: 0.5s;
   }
 }
 
-.course-author {
-  .escolalms-image {
-    width: auto;
-    height: auto;
-  }
-  img {
-    object-fit: cover;
-  }
-}
-
-.profile-bio-summary {
-  p:nth-child(1),
-  p:nth-child(2) {
-    display: block;
-  }
-  p:nth-child(2) {
-    display: block;
-    &:after {
-      content: '...';
-    }
-  }
-  p {
-    display: none;
-  }
-}
-
 .page-title-content h3 {
   text-align: center;
 }
