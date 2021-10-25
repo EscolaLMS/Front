@@ -5,7 +5,7 @@ import routes from './routes';
 
 import HomePage from '../../pages/index';
 import AuthPage from '../../pages/authentication';
-import StaticPage from '../../pages/static-page';
+import StaticPage from '../../pages/static-page/index';
 import NotFoundPage from '../../pages/404/index';
 import TutorsPage from '../../pages/tutors/index';
 import TutorPage from '../../pages/tutors/tutor/index';

@@ -101,21 +101,6 @@
     padding-top: 150px;
     padding-bottom: 150px;
   }
-  .privacy-policy-content img {
-    margin-bottom: 25px;
-  }
-  .privacy-policy-content h3 {
-    margin-bottom: 12px;
-    font-size: 18px;
-  }
-  .privacy-policy-content ul li,
-  .privacy-policy-content ol li {
-    font-size: 14.5px;
-  }
-  .privacy-policy-content .blockquote p,
-  .privacy-policy-content blockquote p {
-    font-size: 15px !important;
-  }
   .escolalms-grid-sorting {
     text-align: center;
   }
@@ -533,9 +518,6 @@
   .profile-box .content h3 {
     font-size: 20px;
   }
-  .privacy-policy-content h3 {
-    font-size: 19px;
-  }
   .login-form {
     margin-right: 0;
   }
@@ -593,9 +575,6 @@
   }
   .login-form h2 {
     font-size: 30px;
-  }
-  .privacy-policy-content h3 {
-    font-size: 20px;
   }
   .widget-area .widget .widget-title {
     font-size: 20px;

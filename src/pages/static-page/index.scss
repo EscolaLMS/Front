@@ -1,0 +1,90 @@
+@import "./src/style/scss/base/vars";
+
+.privacy-policy-content {
+  img {
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  h3 {
+    margin: {
+      bottom: 15px;
+      top: 25px;
+    }
+    font: {
+      size: 22px;
+      weight: 800;
+    }
+  }
+  .blockquote,
+  blockquote {
+    margin-bottom: 30px;
+    background-color: #e6f2f5;
+    text-align: left !important;
+    padding: 25px !important;
+
+    p {
+      margin-bottom: 0;
+      line-height: 1.8;
+      font: {
+        size: $font-size !important;
+        weight: normal;
+      }
+    }
+    &::after {
+      display: none;
+    }
+    &::before {
+      display: none;
+    }
+  }
+  ol,
+  ul {
+    margin-top: 20px;
+
+    li {
+      margin-bottom: 10px;
+      color: $optional-color;
+      font-size: $font-size;
+      line-height: 1.8;
+    }
+  }
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    img {
+      margin-bottom: 25px;
+    }
+    h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+    ul,
+    ol {
+      li {
+        font-size: 14.5px;
+      }
+    }
+    .blockquote,
+    blockquote {
+      p {
+        font-size: 15px !important;
+      }
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    h3 {
+      font-size: 19px;
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    h3 {
+      font-size: 20px;
+    }
+  }
+}

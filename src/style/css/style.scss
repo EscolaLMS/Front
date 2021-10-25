@@ -2977,62 +2977,6 @@ Widget Sidebar CSS
 }
 
 /*================================================
-Privacy Policy Area CSS
-=================================================*/
-.privacy-policy-content {
-  // TODO: this is styles only for static-page (markdown)
-  img {
-    border-radius: 5px;
-    display: block;
-    width: 100%;
-    margin-bottom: 30px;
-  }
-  h3 {
-    margin: {
-      bottom: 15px;
-      top: 25px;
-    }
-    font: {
-      size: 22px;
-      weight: 800;
-    }
-  }
-  .blockquote,
-  blockquote {
-    margin-bottom: 30px;
-    background-color: #e6f2f5;
-    text-align: left !important;
-    padding: 25px !important;
-
-    p {
-      margin-bottom: 0;
-      line-height: 1.8;
-      font: {
-        size: $font-size !important;
-        weight: normal;
-      }
-    }
-    &::after {
-      display: none;
-    }
-    &::before {
-      display: none;
-    }
-  }
-  ol,
-  ul {
-    margin-top: 20px;
-
-    li {
-      margin-bottom: 10px;
-      color: $optional-color;
-      font-size: $font-size;
-      line-height: 1.8;
-    }
-  }
-}
-
-/*================================================
 Profile Authentication Area CSS
 =================================================*/
 .login-form {

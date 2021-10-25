@@ -3481,62 +3481,6 @@ Widget Sidebar CSS
   background-color: #fe4a55;
 }
 
-/*================================================
-Privacy Policy Area CSS
-=================================================*/
-.privacy-policy-content img {
-  border-radius: 5px;
-  display: block;
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.privacy-policy-content h3 {
-  margin-bottom: 15px;
-  margin-top: 25px;
-  font-size: 22px;
-  font-weight: 800;
-}
-
-.privacy-policy-content .blockquote,
-.privacy-policy-content blockquote {
-  margin-bottom: 30px;
-  background-color: #e6f2f5;
-  text-align: left !important;
-  padding: 25px !important;
-}
-
-.privacy-policy-content .blockquote p,
-.privacy-policy-content blockquote p {
-  margin-bottom: 0;
-  line-height: 1.8;
-  font-size: 16px !important;
-  font-weight: normal;
-}
-
-.privacy-policy-content .blockquote::after,
-.privacy-policy-content blockquote::after {
-  display: none;
-}
-
-.privacy-policy-content .blockquote::before,
-.privacy-policy-content blockquote::before {
-  display: none;
-}
-
-.privacy-policy-content ol,
-.privacy-policy-content ul {
-  margin-top: 20px;
-}
-
-.privacy-policy-content ol li,
-.privacy-policy-content ul li {
-  margin-bottom: 10px;
-  color: #606060;
-  font-size: 16px;
-  line-height: 1.8;
-}
-
 .tab .tabs-item {
   display: none;
 }
