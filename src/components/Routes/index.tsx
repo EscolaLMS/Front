@@ -15,7 +15,7 @@ import CoursePreviewPage from '../../pages/courses/preview';
 import EmailVerifiedPage from '../../pages/email_verified';
 
 // privates
-import MyProfilePage from '../../pages/user/my-profile';
+import MyProfilePage from '../../pages/user/MyProfile';
 import MyOrderPage from '../../pages/user/my-orders';
 import MyPaymentsPage from '../../pages/user/my-payments';
 import MyCoursesPage from '../../pages/user/my-courses';

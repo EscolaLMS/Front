@@ -11,8 +11,7 @@ import CourseCardHeader from "@/components/CourseCard/CourseCardHeader";
 import {EscolaLMSContext} from "@escolalms/sdk/lib/react/context";
 
 export const CourseCard: React.FC<{ course: API.Course; finishDate?: Date | undefined }> = ({
-  course,
-  finishDate,
+  course
 }) => {
   const { settings } = useContext(EscolaLMSContext);
   const { t } = useTranslation();

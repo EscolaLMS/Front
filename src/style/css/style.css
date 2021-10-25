@@ -2780,16 +2780,6 @@ Profile Area CSS
   color: #ffffff;
 }
 
-.profile-courses .title {
-  background-color: #f8f9f8;
-  color: #221638;
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: 800;
-  padding: 15px 0;
-  font-size: 22px;
-}
-
 blockquote,
 .blockquote {
   overflow: hidden;
@@ -4187,24 +4177,6 @@ Go Top CSS
 .table .btn {
   font-size: 12px;
   padding: 4px 8px;
-}
-
-/* User Profile */
-.user-profile {
-  text-align: center;
-}
-
-.user-profile img {
-  margin-bottom: 20px;
-}
-
-.user-profile h3 {
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.user-profile p {
-  margin: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
