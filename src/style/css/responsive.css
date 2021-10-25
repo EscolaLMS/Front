@@ -284,15 +284,6 @@
   .courses-sidebar-information .btn-box .default-btn i {
     font-size: 16px;
   }
-  .profile-box .image {
-    padding-right: 0;
-  }
-  .profile-box .content {
-    padding: 25px 0 0 0;
-  }
-  .profile-box .content h3 {
-    font-size: 19px;
-  }
   .cart-table table thead tr th {
     font-size: 14.5px;
     padding-left: 15px;
@@ -512,12 +503,6 @@
   .blockquote p {
     font-size: 19px !important;
   }
-  .profile-box .content {
-    padding: 0 0 0 20px;
-  }
-  .profile-box .content h3 {
-    font-size: 20px;
-  }
   .login-form {
     margin-right: 0;
   }
@@ -614,12 +599,6 @@
   }
   .courses-sidebar-information .info li {
     font-size: 16px;
-  }
-  .profile-box .content {
-    padding: 0 0 0 30px;
-  }
-  .profile-box .content h3 {
-    font-size: 21px;
   }
   .cart-totals h3 {
     font-size: 22px;

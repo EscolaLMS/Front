@@ -1,19 +1,20 @@
 import React, { useContext, useEffect, useCallback, useState } from 'react';
 
-import PageBanner from '../components/Common/PageBanner';
+import PageBanner from '@/components/Common/PageBanner';
 import { Link, useHistory } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
-import Preloader from '../components/Preloader';
+import Preloader from '@/components/Preloader';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import PaymentModal from '../components/PaymentModal';
-import Layout from '../components/_App/Layout';
+import PaymentModal from '@/components/PaymentModal';
+import Layout from '@/components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
+import "./index.scss";
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
-const Cart = () => {
+const CartPage = () => {
   const { user, cart, fetchCart, settings, removeFromCart, payWithStripe, fetchProgress } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -166,4 +167,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartPage;

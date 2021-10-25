@@ -1,3 +1,143 @@
+@import "./src/style/scss/base/vars";
+
+.profile-box {
+  max-width: 1110px;
+
+  .row {
+    margin: {
+      left: 0;
+      right: 0;
+    }
+    .col-lg-4,
+    .col-lg-8 {
+      padding: {
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+  .image {
+    border-radius: 5px;
+    padding-right: 15px;
+
+    img {
+      border-radius: 5px;
+    }
+  }
+  .content {
+    padding: 20px 0 20px 50px;
+
+    h3 {
+      margin-bottom: 7px;
+      font: {
+        size: 23px;
+        weight: 800;
+      }
+    }
+    .sub-title {
+      display: block;
+      color: $main-color;
+      margin-bottom: 15px;
+      font: {
+        size: 15px;
+        weight: 600;
+      }
+    }
+    .info {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style-type: none;
+
+      li {
+        margin-bottom: 8px;
+        font-weight: 600;
+
+        span {
+          color: $optional-color;
+          font-weight: 700;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .social-link {
+      padding-left: 0;
+      list-style-type: none;
+      margin: {
+        top: 20px;
+        bottom: 0;
+      }
+      li {
+        display: inline-block;
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+        a {
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          background-color: #e1e1e1;
+          font-size: 18px;
+          color: $black-color;
+          position: relative;
+          border-radius: 2px;
+
+          i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            right: 0;
+            transform: translateY(-48%);
+          }
+          &:hover {
+            background-color: $main-color;
+            color: $white-color;
+          }
+        }
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    .image {
+      padding-right: 0;
+    }
+    .content {
+      padding: 25px 0 0 0;
+
+      h3 {
+        font-size: 19px;
+      }
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    .content {
+      padding: 0 0 0 20px;
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    .content {
+      padding: 0 0 0 30px;
+
+      h3 {
+        font-size: 21px;
+      }
+    }
+  }
+}
+
 .tutor-courses {
   &__title {
     background-color: #f8f9f8;

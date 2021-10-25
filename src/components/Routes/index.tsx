@@ -20,7 +20,7 @@ import MyOrderPage from '../../pages/user/my-orders';
 import MyPaymentsPage from '../../pages/user/my-payments';
 import MyCoursesPage from '../../pages/user/my-courses';
 import CourseProgramPage from '../../pages/course/index';
-import CartPage from '../../pages/cart';
+import CartPage from '../../pages/cart/index';
 import PagesPage from '../../pages/pages';
 import ResetPage from '../../pages/reset-password';
 
