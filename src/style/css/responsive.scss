@@ -64,27 +64,6 @@ $value_nine: 1550px;
       }
     }
   }
-  .single-advisor-item {
-    .advisor-image {
-      .social-link {
-        bottom: 10px;
-
-        li {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
-    .advisor-content {
-      h3 {
-        font-size: 19px;
-      }
-      span {
-        font-size: 13.5px;
-      }
-    }
-  }
 
   .page-title-area {
     padding: {
@@ -618,17 +597,6 @@ $value_nine: 1550px;
 
   .shape9 {
     display: none;
-  }
-
-  .single-advisor-item {
-    .advisor-content {
-      h3 {
-        font-size: 19px;
-      }
-      span {
-        font-size: 14px;
-      }
-    }
   }
 
   .page-title-content {

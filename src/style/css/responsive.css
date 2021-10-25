@@ -44,21 +44,6 @@
   .courses-area.pt-100.pb-70 {
     padding-bottom: 60px;
   }
-  .single-advisor-item .advisor-image .social-link {
-    bottom: 10px;
-  }
-  .single-advisor-item .advisor-image .social-link li {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  .single-advisor-item .advisor-content h3 {
-    font-size: 19px;
-  }
-  .single-advisor-item .advisor-content span {
-    font-size: 13.5px;
-  }
   .page-title-area {
     padding-top: 15px;
     padding-bottom: 50px;
@@ -442,12 +427,6 @@
 
   .shape9 {
     display: none;
-  }
-  .single-advisor-item .advisor-content h3 {
-    font-size: 19px;
-  }
-  .single-advisor-item .advisor-content span {
-    font-size: 14px;
   }
   .page-title-content h2 {
     max-width: 720px;
