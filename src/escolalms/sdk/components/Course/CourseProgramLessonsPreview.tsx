@@ -78,6 +78,7 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
+                            {/* Leave it in case the business changes its mind. */}
                             {/* {topic.resources.map((resource) => (
                               <a target="_blank" href={resource.url} rel="noreferrer">
                                 {resource.name}

@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-
 import { useHistory, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
@@ -20,9 +19,15 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
   const lessonId = lessonID ? lessonID : program.lessons[0].id;
-  // TODO fix me
-  //@ts-ignore
-  const topicId = topicID ? topicID : (program && program?.lessons[0]?.topics[0]?.id) || 0;
+
+  const topicId = topicID
+    ? topicID
+    : (program &&
+        program.lessons &&
+        program.lessons[0] &&
+        program.lessons[0].topics &&
+        program?.lessons[0]?.topics[0]?.id) ||
+      0;
 
   const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
 
@@ -102,6 +107,9 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                     <div className="container-md">
                       <MarkdownReader>{topic.summary}</MarkdownReader>
                     </div>
+
+                    {/* Leave it in case the business changes its mind.  */}
+
                     {/* {topic && topic.resources && topic.resources?.length > 0 && (
                       <React.Fragment>
                         <h3>{t('CourseProgram.TopicAttachment')}</h3>

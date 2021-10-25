@@ -5,6 +5,8 @@ import CourseCard from '../../components/CourseCard';
 import Pagination from '../../components/Pagination';
 import Preloader from '../../components/Preloader';
 import { useTranslation } from 'react-i18next';
+import { API } from '@escolalms/sdk/lib';
+import { useParams } from 'react-router';
 enum Order {
   ASC = 'ASC',
   DESC = 'DESC',
@@ -14,13 +16,14 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
   className = '',
   itemCol = 6,
 }) => {
-  const { setParams, courses, onlyFree } = useContext(CoursesContext);
+  const { params, setParams, courses, onlyFree } = useContext(CoursesContext);
   const { t } = useTranslation();
-  if (courses.loading) {
+
+  if (courses && courses.loading) {
     return <Preloader />;
   }
 
-  if (!courses.list || !courses.list.data?.length) {
+  if (courses && (!courses.list || !courses.list.data?.length)) {
     return <div className="col-lg-8">{t('NoCourses')}</div>;
   }
 
@@ -29,8 +32,9 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
       <div className="escolalms-grid-sorting row align-items-center">
         <div className="col-lg-8 col-md-6 result-count">
           <p>
-            {t('Found')} <span className="count">{courses.list.meta.total}</span>{' '}
-            {t('FoundCourses', { count: courses.list.meta.total })}
+            {t('Found')}{' '}
+            <span className="count">{courses && courses.list && courses.list.meta.total}</span>{' '}
+            {t('FoundCourses', { count: courses && courses.list && courses.list.meta.total })}
           </p>
         </div>
 
@@ -40,13 +44,14 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
               className="form-control"
               onBlur={(e) => {
                 const [order_by, order] = e.target.value.split('|');
-                // @ts-ignore // TODO: fix any
-                setParams((prevParams) => ({
-                  ...prevParams,
-                  order_by,
-                  order: order as Order,
-                  free: onlyFree ? true : prevParams?.free,
-                }));
+
+                setParams &&
+                  setParams({
+                    ...params,
+                    order_by,
+                    order: order as Order,
+                    free: onlyFree ? true : params?.free,
+                  });
               }}
             >
               <option disabled>Sortuj według</option>
@@ -58,27 +63,26 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
       </div>
 
       <div className="row">
-        {
-          // @ts-ignore // TODO: fix any
+        {courses &&
+          courses.list &&
           courses.list.data.map((course) => (
             <div className={`col-lg-${itemCol} col-md-6`} key={course.id}>
               <CourseCard course={course} />
             </div>
-          ))
-        }
-        {courses.list.meta.total > courses.list.meta.per_page && (
+          ))}
+        {courses && courses.list && courses.list.meta.total > courses.list.meta.per_page && (
           <Pagination
             total={courses.list.meta.total}
             perPage={courses.list.meta.per_page}
             currentPage={courses.list.meta.current_page}
             onPage={(i) =>
-              // @ts-ignore // TODO: fix any
-              setParams((prevParams) => ({
-                ...prevParams,
+              setParams &&
+              setParams({
+                ...params,
                 page: i,
                 per_page: 6,
                 free: true,
-              }))
+              })
             }
           />
         )}
