@@ -3567,53 +3567,6 @@ Footer Area CSS
   }
 }
 
-/*================================================
-Go Top CSS
-=================================================*/
-.go-top {
-  position: fixed;
-  cursor: pointer;
-  bottom: -100px;
-  right: 15px;
-  color: $black-color;
-  background-color: $white-color;
-  z-index: 4;
-  width: 45px;
-  text-align: center;
-  height: 45px;
-  opacity: 0;
-  visibility: hidden;
-  border-radius: 50%;
-  font-size: 40px;
-  transition: 0.9s;
-  overflow: hidden;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-
-  &.active {
-    opacity: 1;
-    visibility: visible;
-    bottom: 15px;
-  }
-  i {
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 70%;
-    transform: translateY(-70%);
-    text-align: center;
-    margin: {
-      left: auto;
-      right: auto;
-    }
-  }
-  &:hover {
-    background-color: $main-color;
-    color: $white-color;
-    transition: $transition;
-    transform: translateY(-10px);
-  }
-}
-
 .table {
   .btn {
     font-size: 12px;

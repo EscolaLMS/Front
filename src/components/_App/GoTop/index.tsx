@@ -1,4 +1,5 @@
 import React from 'react';
+import "./index.scss";
 
 const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number | string }> = ({
   scrollStepInPx,

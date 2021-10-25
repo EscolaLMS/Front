@@ -434,12 +434,6 @@
   .footer-bottom-area ul li::before {
     top: 3px;
   }
-  .go-top {
-    right: 15px;
-    width: 40px;
-    height: 40px;
-    font-size: 35px;
-  }
   .hero-banner-area {
     padding-top: 60px;
     padding-bottom: 60px;
