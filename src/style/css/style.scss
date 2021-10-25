@@ -3033,42 +3033,6 @@ Privacy Policy Area CSS
 }
 
 /*================================================
-Pagination CSS
-=================================================*/
-.pagination-area {
-  margin-top: 35px;
-
-  .page-numbers {
-    width: 33px;
-    height: 33px;
-    background-color: #f3f0f0;
-    color: $optional-color;
-    text-align: center;
-    display: inline-block;
-    border-radius: 3px;
-    line-height: 34px;
-    position: relative;
-    margin: {
-      left: 3px;
-      right: 3px;
-    }
-    font: {
-      size: $font-size;
-      weight: 800;
-    }
-    &:hover,
-    &.current {
-      color: $white-color;
-      background-color: $main-color;
-    }
-    i {
-      position: relative;
-      top: 1.5px;
-    }
-  }
-}
-
-/*================================================
 Profile Authentication Area CSS
 =================================================*/
 .login-form {

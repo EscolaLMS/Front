@@ -3537,40 +3537,6 @@ Privacy Policy Area CSS
   line-height: 1.8;
 }
 
-/*================================================
-Pagination CSS
-=================================================*/
-.pagination-area {
-  margin-top: 35px;
-}
-
-.pagination-area .page-numbers {
-  width: 33px;
-  height: 33px;
-  background-color: #f3f0f0;
-  color: #606060;
-  text-align: center;
-  display: inline-block;
-  border-radius: 3px;
-  line-height: 34px;
-  position: relative;
-  margin-left: 3px;
-  margin-right: 3px;
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.pagination-area .page-numbers:hover,
-.pagination-area .page-numbers.current {
-  color: #ffffff;
-  background-color: #fe4a55;
-}
-
-.pagination-area .page-numbers i {
-  position: relative;
-  top: 1.5px;
-}
-
 .tab .tabs-item {
   display: none;
 }
