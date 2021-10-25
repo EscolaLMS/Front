@@ -96,25 +96,6 @@
     padding: 13px 30px;
     font-size: 15px;
   }
-  .register-form {
-    margin-top: 40px;
-    border-top: 1px solid #eeeeee;
-    padding-left: 0;
-    padding-top: 30px;
-  }
-  .register-form h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 25px;
-  }
-  .register-form form .lost-your-password-wrap {
-    text-align: left;
-    margin-top: 15px;
-  }
-  .register-form form button {
-    padding: 13px 30px;
-    font-size: 15px;
-  }
   .error-area {
     height: auto;
     padding-top: 150px;
@@ -577,14 +558,6 @@
   .login-form h2 {
     font-size: 30px;
   }
-  .register-form {
-    margin-top: 40px;
-    padding-top: 0;
-    padding-left: 0;
-  }
-  .register-form h2 {
-    font-size: 30px;
-  }
   .hero-banner-area {
     padding-top: 100px;
     padding-bottom: 200px;
@@ -635,12 +608,6 @@
     padding: 30px 40px;
   }
   .login-form h2 {
-    font-size: 30px;
-  }
-  .register-form {
-    padding-top: 25px;
-  }
-  .register-form h2 {
     font-size: 30px;
   }
   .privacy-policy-content h3 {

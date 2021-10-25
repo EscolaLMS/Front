@@ -3268,60 +3268,6 @@ Profile Authentication Area CSS
     }
   }
 }
-.register-form {
-  padding: {
-    top: 30px;
-    left: 30px;
-  }
-  h2 {
-    margin-bottom: 25px;
-    font: {
-      size: 36px;
-      weight: 800;
-    }
-  }
-  form {
-    .form-group {
-      margin-bottom: 25px;
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        color: $black-color;
-        font-weight: 700;
-      }
-    }
-    .description {
-      font-style: italic;
-      font-size: 13.5px;
-      margin: {
-        top: -10px;
-        bottom: 0;
-      }
-    }
-    button {
-      margin-top: 22px;
-      border: none;
-      display: block;
-      text-align: center;
-      overflow: hidden;
-      color: $white-color;
-      background-color: $main-color;
-      transition: $transition;
-      width: 100%;
-      border-radius: 5px;
-      padding: 14.5px 30px;
-      font: {
-        weight: 700;
-        size: $font-size;
-      }
-      &:hover {
-        background-color: $black-color;
-        color: $white-color;
-      }
-    }
-  }
-}
 
 .table {
   .btn {
