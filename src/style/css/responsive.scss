@@ -134,30 +134,6 @@ $value_nine: 1550px;
       }
     }
   }
-
-  .error-area {
-    height: auto;
-    padding: {
-      top: 150px;
-      bottom: 150px;
-    }
-  }
-  .error-content {
-    h3 {
-      font-size: 25px;
-    }
-    p {
-      max-width: 100%;
-    }
-    .btn-box {
-      .default-btn {
-        margin: {
-          left: 3px;
-          right: 3px;
-        }
-      }
-    }
-  }
   .privacy-policy-content {
     // TODO: this is styles only for static-page (markdown)
     img {
@@ -793,12 +769,6 @@ $value_nine: 1550px;
     // TODO: this is styles only for static-page (markdown)
     h3 {
       font-size: 19px;
-    }
-  }
-
-  .error-content {
-    h3 {
-      font-size: 36px;
     }
   }
 

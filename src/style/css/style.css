@@ -3571,51 +3571,6 @@ Pagination CSS
   top: 1.5px;
 }
 
-/*================================================
-404 Error Area CSS
-=================================================*/
-.error-area {
-  background-color: #111111;
-  height: 100vh;
-}
-
-.error-content {
-  text-align: center;
-}
-
-.error-content h3 {
-  color: #ffffff;
-  margin-bottom: 20px;
-  margin-top: 45px;
-  font-size: 40px;
-  font-weight: 800;
-}
-
-.error-content p {
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 550px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0;
-}
-
-.error-content .btn-box {
-  margin-top: 30px;
-}
-
-.error-content .btn-box .default-btn {
-  margin-left: 7px;
-  margin-right: 7px;
-}
-
-.error-content .btn-box .default-btn span {
-  background-color: #ffffff;
-}
-
-.error-content .btn-box .default-btn:hover {
-  color: #221638;
-}
-
 .tab .tabs-item {
   display: none;
 }

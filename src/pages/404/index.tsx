@@ -1,5 +1,6 @@
-import Layout from '../components/_App/Layout';
+import Layout from '@/components/_App/Layout';
 import { Link } from 'react-router-dom';
+import "./index.scss";
 
 const Custom404 = () => {
   return (

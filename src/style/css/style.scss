@@ -3069,54 +3069,6 @@ Pagination CSS
 }
 
 /*================================================
-404 Error Area CSS
-=================================================*/
-.error-area {
-  background-color: #111111;
-  height: 100vh;
-}
-.error-content {
-  text-align: center;
-
-  h3 {
-    color: $white-color;
-    margin: {
-      bottom: 20px;
-      top: 45px;
-    }
-    font: {
-      size: 40px;
-      weight: 800;
-    }
-  }
-  p {
-    color: rgba(255, 255, 255, 0.7);
-    max-width: 550px;
-    margin: {
-      left: auto;
-      right: auto;
-      bottom: 0;
-    }
-  }
-  .btn-box {
-    margin-top: 30px;
-
-    .default-btn {
-      margin: {
-        left: 7px;
-        right: 7px;
-      }
-      span {
-        background-color: $white-color;
-      }
-      &:hover {
-        color: $black-color;
-      }
-    }
-  }
-}
-
-/*================================================
 Profile Authentication Area CSS
 =================================================*/
 .login-form {

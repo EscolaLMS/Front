@@ -101,16 +101,6 @@
     padding-top: 150px;
     padding-bottom: 150px;
   }
-  .error-content h3 {
-    font-size: 25px;
-  }
-  .error-content p {
-    max-width: 100%;
-  }
-  .error-content .btn-box .default-btn {
-    margin-left: 3px;
-    margin-right: 3px;
-  }
   .privacy-policy-content img {
     margin-bottom: 25px;
   }
@@ -548,9 +538,6 @@
   }
   .privacy-policy-content h3 {
     font-size: 19px;
-  }
-  .error-content h3 {
-    font-size: 36px;
   }
   .login-form {
     margin-right: 0;
