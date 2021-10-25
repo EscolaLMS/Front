@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet';
 import { ToastProvider } from 'react-toast-notifications';
 import { Toaster } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
-import GoTop from './GoTop';
+import GoTop from '@/components/_App/GoTop';
 import Navbar from './Navbar';
-import Footer from './Footer';
+import Footer from '@/components/_App/Footer';
 import CourseNavbar from "@/components/_App/CourseNavbar";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

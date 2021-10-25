@@ -411,29 +411,6 @@
   .widget-area .tagcloud a {
     font-size: 13.5px !important;
   }
-  .footer-area {
-    padding-top: 60px;
-  }
-  .single-footer-widget h3 {
-    font-size: 20px;
-  }
-  .single-footer-widget.pl-5,
-  .single-footer-widget.px-5 {
-    padding-left: 0 !important;
-  }
-  .footer-bottom-area {
-    margin-top: 30px;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .footer-bottom-area ul {
-    text-align: center;
-    margin-top: 15px;
-  }
-  .footer-bottom-area ul li::before {
-    top: 3px;
-  }
   .hero-banner-area {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -608,16 +585,6 @@
   .register-form h2 {
     font-size: 30px;
   }
-  .footer-area {
-    padding-top: 80px;
-  }
-  .single-footer-widget h3 {
-    font-size: 21px;
-    margin-bottom: 19px;
-  }
-  .footer-bottom-area {
-    margin-top: 50px;
-  }
   .hero-banner-area {
     padding-top: 100px;
     padding-bottom: 200px;
@@ -663,10 +630,6 @@
   }
   .shape9 {
     display: none;
-  }
-  .single-footer-widget.pl-5,
-  .single-footer-widget.px-5 {
-    padding-left: 0 !important;
   }
   .login-form {
     padding: 30px 40px;
