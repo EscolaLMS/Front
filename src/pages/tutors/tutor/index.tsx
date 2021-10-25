@@ -4,7 +4,7 @@ import PageBanner from '../../../components/Common/PageBanner';
 
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useParams } from 'react-router-dom';
-import Preloader from '../../../components/Preloader';
+import Preloader from '@/components/Preloader';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import CourseCard from '../../../components/CourseCard';

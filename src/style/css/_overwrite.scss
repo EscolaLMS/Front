@@ -28,14 +28,6 @@ $transition: 0.5s;
   }
 }
 
-.img-container-xl {
-  width: 100%;
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
 .course-program-player {
   display: flex;
   flex-direction: row;
@@ -102,56 +94,6 @@ $transition: 0.5s;
   }
 }
 
-.topic-preview-modal .topic-preview-modal-content .h5p-player {
-  width: 100%;
-}
-
-.topic-preview-modal {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  left: 0;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  background: rgba($color: #000000, $alpha: 0.6);
-  z-index: 999999;
-  .topic-preview-modal-content {
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-  }
-  button {
-    position: fixed;
-    top: 20px;
-    right: 40px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: #d0d0d0;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    -moz-transition: 0.5s;
-    transition: 0.5s;
-    font-size: 50px;
-  }
-  .container-xl {
-    background: #fff;
-    padding: 30px;
-    margin: 30px;
-  }
-}
-
 .modal {
   &:after {
     content: '';
@@ -173,132 +115,6 @@ $transition: 0.5s;
 
 .page-title-content h3 {
   text-align: center;
-}
-
-.inline-loader {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999999999999;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.85);
-}
-
-.inline-loader .loader {
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.inline-loader .ldio > div {
-  -webkit-animation: ldio 1s infinite linear;
-  animation: ldio 1s infinite linear;
-  -webkit-transform-origin: 50px 50px;
-  transform-origin: 50px 50px;
-}
-
-.inline-loader .ldio > div div {
-  position: absolute;
-}
-
-.inline-loader .ldio > div div:nth-child(1),
-.inline-loader .ldio > div div:nth-child(2) {
-  width: 75px;
-  height: 75px;
-  border: 5px solid;
-  border-radius: 50%;
-  border-color: transparent #fe4a55 #fe4a55 #fe4a55;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  position: absolute;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -webkit-transform-origin: 50px 50px;
-  transform-origin: 50px 50px;
-}
-
-.inline-loader .ldio > div div:nth-child(1) {
-  -webkit-transform: rotate(45deg) translate(12.5px, 12.5px);
-  transform: rotate(45deg) translate(12.5px, 12.5px);
-}
-
-.inline-loader .ldio > div div:nth-child(2) {
-  -webkit-transform: rotate(0deg) translate(12.5px, 12.5px);
-  transform: rotate(0deg) translate(12.5px, 12.5px);
-}
-
-.inline-loader .ldio > div div:nth-child(3) {
-  width: 0;
-  height: 0;
-  border: 12px solid;
-  border-color: transparent transparent transparent #fe4a55;
-  -webkit-transform: translate(50px, 6.5px);
-  transform: translate(50px, 6.5px);
-}
-
-.inline-loader .loadingio-spinner-reload {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.inline-loader .ldio {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  -webkit-transform: translateZ(0) scale(1);
-  transform: translateZ(0) scale(1);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-
-@-webkit-keyframes ldio {
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes ldio {
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-.image-player {
-  .escolalms-image {
-    max-width: 50vw;
-    max-height: 50vh;
-    cursor: pointer;
-
-    &:hover {
-      img {
-        transform: scale(1.1);
-      }
-    }
-    img {
-      transition: transform 0.5s ease-out;
-      width: auto;
-      height: auto;
-      max-width: 50vw;
-      max-height: 50vh;
-    }
-  }
 }
 
 .__embed {
