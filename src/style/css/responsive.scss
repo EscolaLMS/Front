@@ -277,43 +277,10 @@ $value_nine: 1550px;
   .banner-shape19 {
     display: none;
   }
-
-  .navbar-area {
-    &.is-sticky {
-      &.pb-0 {
-        padding-bottom: 20px !important;
-      }
-    }
-  }
-  .escolalms-nav {
-    .navbar {
-      .navbar-nav {
-        .nav-item {
-          .col {
-            width: 100%;
-            flex-basis: inherit;
-          }
-        }
-      }
-    }
-  }
 }
 
 /* Min width 576px Max width 767px */
 @media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
-  .escolalms-nav {
-    .navbar {
-      .navbar-nav {
-        .nav-item {
-          .col {
-            width: 50%;
-            flex-basis: inherit;
-          }
-        }
-      }
-    }
-  }
-
   .container {
     max-width: 540px;
   }
@@ -453,25 +420,12 @@ $value_nine: 1550px;
   .banner-shape19 {
     display: none;
   }
-
-  .navbar-area.is-sticky {
-    &.pb-0 {
-      padding-bottom: 20px !important;
-    }
-  }
 }
 
 /* Min width 992px Max width 1199px */
 @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
   .container {
     max-width: 960px;
-  }
-
-  .navbar-area {
-    padding: {
-      top: 25px;
-      bottom: 25px;
-    }
   }
 
   .shape9 {
@@ -545,161 +499,12 @@ $value_nine: 1550px;
       padding-right: 0;
     }
   }
-
-  .navbar-area {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  .escolalms-nav {
-    .navbar {
-      .navbar-nav {
-        .nav-item {
-          a {
-            font-size: 15px;
-            margin-left: 8px;
-            margin-right: 8px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-          }
-
-          &:hover {
-            .dropdown-menu {
-              margin-top: 0;
-              width: 250px;
-              li {
-                a {
-                  font-size: 14px;
-                }
-              }
-            }
-          }
-
-          &.megamenu {
-            .dropdown-menu {
-              .megamenu-submenu {
-                li {
-                  a {
-                    font-size: 14px;
-                  }
-                }
-              }
-              .single-category-widget {
-                .icon {
-                  width: 60px;
-                  height: 60px;
-                  font-size: 30px;
-                }
-                h3 {
-                  font-size: 18px;
-                }
-                .sub-title {
-                  font-size: 14px;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .search-box {
-        margin-left: 30px;
-        width: 160px;
-        display: none;
-        .input-search {
-          height: 40px;
-          font-size: 12px;
-        }
-        button {
-          height: 40px;
-        }
-      }
-
-      .others-option {
-        margin-left: 15px;
-        .option-item {
-          margin-left: 25px;
-        }
-        .default-btn {
-          font-size: 13px;
-          padding-left: 40px;
-          padding-right: 15px;
-          i {
-            left: 20px;
-          }
-        }
-      }
-    }
-  }
 }
 
 /* Min width 1200px Max width 1355px */
 @media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
   .container {
     max-width: 1140px;
-  }
-
-  .escolalms-nav {
-    .container-fluid {
-      max-width: 1200px;
-      padding: {
-        left: 15px;
-        right: 60px;
-      }
-    }
-    .navbar {
-      .search-box {
-        display: none;
-      }
-      .others-option {
-        display: flex !important;
-      }
-      .navbar-nav {
-        .nav-item {
-          .dropdown-menu {
-            left: auto;
-            right: 0;
-
-            li {
-              .dropdown-menu {
-                left: -250px;
-                right: auto;
-
-                li {
-                  .dropdown-menu {
-                    left: 250px;
-
-                    li {
-                      .dropdown-menu {
-                        left: -250px;
-
-                        li {
-                          .dropdown-menu {
-                            left: 250px;
-
-                            li {
-                              .dropdown-menu {
-                                left: -250px;
-
-                                li {
-                                  .dropdown-menu {
-                                    left: 250px;
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 
   .hero-banner-area {
@@ -717,148 +522,9 @@ $value_nine: 1550px;
 
 /* Min width 1550px */
 @media only #{$media} and ($feature_min : $value_nine) {
-  .escolalms-nav {
-    .container-fluid {
-      padding: {
-        left: 120px;
-        right: 120px;
-      }
-    }
-    .navbar {
-      .search-box {
-        margin-left: 90px;
-      }
-    }
-  }
-
   .hero-banner-area {
     .container-fluid {
       max-width: 1480px;
-    }
-  }
-}
-
-@media only screen and (max-width: 991px) {
-  .escolalms-nav {
-    .container-fluid {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-    .navbar {
-      .search-box {
-        margin-left: 0;
-        margin-top: 0;
-        margin-bottom: 10px;
-        width: 100%;
-        .input-search {
-          height: 45px;
-          font-size: 14px;
-        }
-      }
-      .navbar-collapse {
-        max-height: 70vh;
-        overflow-y: scroll;
-        margin-top: 20px;
-        padding: 0 8px;
-
-        /* width */
-        &::-webkit-scrollbar {
-          width: 7px;
-        }
-
-        /* Track */
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1;
-        }
-
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-          background: #888;
-        }
-
-        /* Handle on hover */
-        &::-webkit-scrollbar-thumb:hover {
-          background: #555;
-        }
-      }
-
-      .navbar-nav {
-        .nav-item {
-          a {
-            font-size: 15px;
-            padding-left: 0;
-            padding-right: 0;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            margin-left: 0;
-            margin-right: 0;
-            i {
-              display: none;
-            }
-          }
-
-          .dropdown-menu {
-            border: none;
-            top: 0;
-            border-top: 1px solid #fe4a55;
-            position: relative;
-            opacity: 1;
-            visibility: visible;
-            margin-top: 0;
-            width: 95%;
-
-            li {
-              a {
-                padding: 6px 20px;
-                font-size: 14px;
-              }
-              .dropdown-menu {
-                left: 20px;
-                border: none;
-                top: 0;
-                border-top: 1px solid #fe4a55;
-                position: relative;
-                opacity: 1;
-                visibility: visible;
-                margin-top: 0;
-                width: 88%;
-              }
-            }
-          }
-
-          &.megamenu {
-            .dropdown-menu {
-              padding: 15px 0;
-              left: 0;
-              border: none;
-              top: 0;
-              border-top: 1px solid #fe4a55;
-              position: relative;
-              opacity: 1;
-              visibility: visible;
-              margin-top: 0;
-              width: 95%;
-
-              .megamenu-submenu {
-                li {
-                  a {
-                    margin-top: 10px;
-                    font-size: 13px;
-                  }
-                }
-              }
-
-              .mobile-none {
-                display: none;
-              }
-            }
-          }
-        }
-      }
-
-      .others-option {
-        margin-left: 0;
-      }
     }
   }
 }

@@ -4,7 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import { Toaster } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 import GoTop from '@/components/_App/GoTop';
-import Navbar from './Navbar';
+import Navbar from '@/components/_App//Navbar';
 import Footer from '@/components/_App/Footer';
 import CourseNavbar from "@/components/_App/CourseNavbar";
 
