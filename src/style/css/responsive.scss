@@ -65,34 +65,6 @@ $value_nine: 1550px;
     }
   }
 
-  .page-title-area {
-    padding: {
-      top: 15px;
-      bottom: 50px;
-    }
-  }
-  .page-title-content {
-    ul {
-      li {
-        margin-right: 17px;
-        font-size: 14px;
-        margin: {
-          right: 17px;
-          bottom: 8px;
-        }
-        &::before {
-          right: -11px;
-          top: 4px;
-          height: 13px;
-        }
-      }
-    }
-    h2 {
-      max-width: 100%;
-      margin-top: 50px;
-      font-size: 26px;
-    }
-  }
   .login-form {
     padding: 30px 20px;
     margin-right: 0;
@@ -328,13 +300,6 @@ $value_nine: 1550px;
 
   .shape9 {
     display: none;
-  }
-
-  .page-title-content {
-    h2 {
-      max-width: 720px;
-      font-size: 30px;
-    }
   }
 
   .widget-area {

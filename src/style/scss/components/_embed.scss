@@ -1,0 +1,16 @@
+.__embed {
+  min-width: 50vw;
+  min-height: 50vh;
+  //height: calc(100vh - 300px);
+}
+
+iframe.__embed__fallback {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  min-width: 50vw;
+  min-height: 50vh;
+  width: 100%;
+  height: calc(100vh - 300px);
+}

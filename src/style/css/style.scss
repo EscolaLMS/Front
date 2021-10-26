@@ -52,10 +52,8 @@ This files table contents are outlined below>>>>>
 Default CSS
 =================================================*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 $font-family: 'Nunito', sans-serif;
-$font-family2: 'Playfair Display', serif;
 $main-color: #fe4a55;
 $main-color2: #6ba292;
 $optional-color: #606060;
@@ -536,99 +534,6 @@ blockquote,
       duration: 10s;
       iteration-count: infinite;
       timing-function: linear;
-    }
-  }
-}
-
-/*================================================
-Page Title Area CSS
-=================================================*/
-.page-title-area {
-  background-color: #f8f9f8;
-  position: relative;
-  z-index: 1;
-  padding: {
-    top: 20px;
-    bottom: 80px;
-  }
-}
-.page-title-content {
-  ul {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style-type: none;
-
-    li {
-      display: inline-block;
-      margin-right: 20px;
-      position: relative;
-      color: $black-color;
-      font: {
-        size: $font-size;
-        weight: 600;
-      }
-      &::before {
-        content: '';
-        position: absolute;
-        right: -10px;
-        top: 5px;
-        transform: rotate(10deg);
-        background-color: #696969;
-        height: 15px;
-        width: 1px;
-      }
-      a {
-        color: $optional-color;
-        display: block;
-        font-weight: 500;
-
-        &:hover {
-          color: $main-color;
-        }
-      }
-      &:last-child {
-        margin-right: 0;
-
-        &::before {
-          display: none;
-        }
-      }
-    }
-  }
-  h2 {
-    text-align: center;
-    max-width: 800px;
-    margin: {
-      top: 80px;
-      bottom: 0;
-      left: auto;
-      right: auto;
-    }
-    font: {
-      size: 36px;
-      weight: 800;
-    }
-  }
-  .rating {
-    text-align: center;
-    font-size: 17px;
-    margin-top: 20px;
-
-    i {
-      color: #dca416;
-      display: inline-block;
-      margin: {
-        right: 3px;
-      }
-    }
-    .rating-count {
-      display: inline-block;
-      position: relative;
-      top: -2px;
-      font: {
-        size: $font-size;
-        weight: 600;
-      }
     }
   }
 }
@@ -1308,5 +1213,3 @@ Profile Authentication Area CSS
     padding: 4px 8px;
   }
 }
-
-@import 'overwrite';

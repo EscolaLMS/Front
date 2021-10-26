@@ -8,7 +8,6 @@ import '../node_modules/react-modal-video/css/modal-video.min.css';
 import './style/css/style.css';
 import './style/css/responsive.css';
 import 'react-image-lightbox/style.css';
-import './style/css/_overwrite.scss';
 import './style/scss/index.scss';
 
 const App = () => {
