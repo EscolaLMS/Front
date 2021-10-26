@@ -43,11 +43,11 @@ const CoursesProvider: React.FC<{
   const location = useLocation();
   const { push } = useHistory();
 
-  const [params, setParams] = useState<API.CourseParams>();
+  const [params, setParams] = useState<API.CourseParams | undefined>();
 
   const getApiParams = (params: API.CourseParams = {}): API.CourseParams => {
     const apiParams = { ...params };
-    // @ts-ignore TODO
+
     if (onlyFree) apiParams.free = true;
     return apiParams;
   };
@@ -68,7 +68,6 @@ const CoursesProvider: React.FC<{
   }, [location.search]);
 
   return (
-    // @ts-ignore TODO
     <CoursesContext.Provider value={{ params, setParams, courses, onlyFree }}>
       {children}
     </CoursesContext.Provider>

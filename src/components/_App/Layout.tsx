@@ -8,6 +8,17 @@ import Navbar from '@/components/_App//Navbar';
 import Footer from '@/components/_App/Footer';
 import CourseNavbar from '@/components/_App/CourseNavbar';
 
+declare global {
+  interface Window {
+    ybug_settings: Ybug;
+  }
+}
+
+interface Ybug {
+  id: string;
+}
+window.ybug_settings = window.ybug_settings || {};
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
 
@@ -16,14 +27,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     (function () {
       if (window) {
         try {
-          // @ts-ignore
           window.ybug_settings = { id: '4a30b8sn4pfpdw7wp4c0' };
           const ybug = document.createElement('script');
           ybug.type = 'text/javascript';
           ybug.async = true;
-          ybug.src =
-            // @ts-ignore
-            'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
+          ybug.src = 'https://widget.ybug.io/button/' + window.ybug_settings.id + '.js';
           const s = document.getElementsByTagName('script')[0];
           s && s.parentNode && s.parentNode.insertBefore(ybug, s);
         } catch (er) {}
@@ -54,7 +62,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {!isCourse && <Footer />}
         </div>
 
-        <GoTop scrollStepInPx="100" delayInMs="10.50" />
+        <GoTop scrollStepInPx="100" delayInMs={10} />
       </ToastProvider>
     </React.Fragment>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
+import { getTopicType } from '@/escolalms/sdk/utils/helpers';
 
 // TODO: duplicated (merge into CourseTimetable)
 const CourseProgramList: React.FC<{
@@ -36,10 +37,9 @@ const CourseProgramList: React.FC<{
                       <div className="courses-meta">
                         {topic.topicable_type && (
                           <span className="questions">
-                            {
-                              //@ts-ignore // TODO fix this
-                              t(topic.topicable_type.split('\\').pop())
-                            }
+                            {topic &&
+                              topic.topicable_type &&
+                              t(`${getTopicType(topic.topicable_type)}`)}
                           </span>
                         )}
                         {topic.preview ? (
