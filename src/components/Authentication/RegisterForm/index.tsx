@@ -4,7 +4,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import TempEmail from '../../TempEmail';
 import { useTranslation } from 'react-i18next';
-import "./index.scss";
+import './index.scss';
 
 const INITIAL_USER = {
   first_name: '',

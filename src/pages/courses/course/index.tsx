@@ -11,8 +11,8 @@ import { API } from '@escolalms/sdk/lib';
 import { useTranslation } from 'react-i18next';
 import Layout from '@/components/_App/Layout';
 import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
-import CourseProgramList from "@/escolalms/sdk/components/Course/CourseProgramList";
-import "./index.scss";
+import CourseProgramList from '@/escolalms/sdk/components/Course/CourseProgramList';
+import './index.scss';
 
 const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { t } = useTranslation();

@@ -5,8 +5,8 @@ import Logo from '../../../images/logo.svg';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
-import LangButton from "@/components/Common/LangButton";
-import "./index.scss";
+import LangButton from '@/components/Common/LangButton';
+import './index.scss';
 
 const UserNavbarItem: React.FC<{
   user?: API.UserItem;
