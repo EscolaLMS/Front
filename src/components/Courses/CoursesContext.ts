@@ -9,7 +9,7 @@ interface ReactCoursesList {
 
 export const CoursesContext: React.Context<{
   courses?: ReactCoursesList;
-  params?: API.CourseParams & { free: boolean };
+  params?: API.CourseParams;
   setParams?: (params: API.CourseParams) => void;
   onlyFree?: boolean;
 }> = React.createContext({});

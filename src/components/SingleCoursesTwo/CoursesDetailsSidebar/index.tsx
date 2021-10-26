@@ -7,7 +7,7 @@ import { API } from '@escolalms/sdk/lib';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { Spinner } from 'reactstrap';
 //@ts-ignore
-import ModalVideo from 'react-modal-video'; // TODO seems type is missing heere
+import ModalVideo from 'react-modal-video'; // TODO: seems type is missing heere
 import './index.scss';
 
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => {

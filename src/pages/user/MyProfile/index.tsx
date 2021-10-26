@@ -11,7 +11,7 @@ import Layout from '../../../components/_App/Layout';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 
-type UpdateCall = (key: keyof API.UserItem, value: any) => void;
+type UpdateCall = (key: keyof API.UserItem, value: unknown) => void;
 
 const MyProfile = () => {
   const { user, updateProfile, updateAvatar } = useContext(EscolaLMSContext);
@@ -29,8 +29,8 @@ const MyProfile = () => {
     }
   }, [history, user]);
 
-  const updateValue: UpdateCall = useCallback((key, value) => {
-    //@ts-ignore // TODO fix me
+  const updateValue: UpdateCall = useCallback((key: keyof API.UserItem, value: unknown) => {
+    // @ts-ignore TODO:fix me
     setState((prevState) => ({
       ...prevState,
       [key]: value,
