@@ -1,23 +1,24 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/base/vars';
 
 .footer {
-  background-color: #100f1f;
   position: relative;
   z-index: 1;
-  padding-top: 100px;
+  padding-top: 60px;
+  background-color: $footer-bg-color;
+  color: $footer-text-color;
 
   &__social-links {
     margin-top: 20px;
   }
 
-  /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
-    padding-top: 60px;
+  /* Min width 768px */
+  @media only #{$media} and ($feature_min : $value_three) {
+    padding-top: 80px;
   }
 
-  /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
-    padding-top: 80px;
+  /* Min width 992px */
+  @media only #{$media} and ($feature_min : $value_five) {
+    padding-top: 100px;
   }
 }
 

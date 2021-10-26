@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/base/vars';
 
 .escolalms-nav {
   .container-fluid {
@@ -998,5 +998,18 @@
   .navbar-area {
     padding-top: 15px;
     padding-bottom: 15px;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    -webkit-transform: translate3d(0, -100%, 0);
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    -webkit-transform: translateZ(0);
+    opacity: 1;
+    transform: translateZ(0);
   }
 }
