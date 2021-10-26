@@ -4,8 +4,9 @@ import { TopicType } from '@escolalms/sdk/lib/services/courses';
 import { Player } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
-import PdfPlayer from './Players/PdfPlayer';
+import PdfPlayer from './../Players/PdfPlayer';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
+import './index.scss';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PageBanner from '../components/Common/PageBanner';
 import LoginForm from '../components/Authentication/LoginForm';
-import RegisterForm from '../components/Authentication/RegisterForm';
+import RegisterForm from '@/components/Authentication/RegisterForm';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

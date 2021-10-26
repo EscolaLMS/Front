@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Loader from '../components/Preloader';
-import Sidebar from '../components/TermsOfService/Sidebar';
-import PageBanner from '../components/Common/PageBanner';
+import Loader from '@/components/Preloader';
+import Sidebar from '@/components/TermsOfService/Sidebar';
+import PageBanner from '@/components/Common/PageBanner';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
-import Layout from '../components/_App/Layout';
+import Layout from '@/components/_App/Layout';
+import './index.scss';
 
 const StaticPage = () => {
   const { pathname } = useLocation();

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../images/logo.svg';
-const Footer = () => {
+import Logo from '../../../images/logo.svg';
+import './index.scss';
+
+const Index = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -117,4 +119,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Index;

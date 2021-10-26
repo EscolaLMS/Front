@@ -8,8 +8,9 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { Spinner } from 'reactstrap';
 //@ts-ignore
 import ModalVideo from 'react-modal-video'; // TODO seems type is missing heere
+import './index.scss';
 
-const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({ course }) => {
+const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const openModal = () => {
     setIsOpen(!isOpen);
@@ -145,4 +146,4 @@ const CoursesDetailsSidebarTwo: React.FC<{ course: API.Course }> = ({ course }) 
   );
 };
 
-export default CoursesDetailsSidebarTwo;
+export default CoursesDetailsSidebar;

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../images/logo.svg';
+import Logo from '../../../images/logo.svg';
 
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
-import LangButton from "@/components/Common/LangButton";
+import LangButton from '@/components/Common/LangButton';
+import './index.scss';
 
-export const UserNavbarItem: React.FC<{
+const UserNavbarItem: React.FC<{
   user?: API.UserItem;
   logout: () => void;
   toggleNavbar: () => void;

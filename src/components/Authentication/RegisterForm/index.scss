@@ -1,0 +1,102 @@
+@import "./src/style/scss/base/vars";
+
+.register-form {
+  padding: {
+    top: 30px;
+    left: 30px;
+  }
+  h2 {
+    margin-bottom: 25px;
+    font: {
+      size: 36px;
+      weight: 800;
+    }
+  }
+  form {
+    .form-group {
+      margin-bottom: 25px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: $black-color;
+        font-weight: 700;
+      }
+    }
+    .description {
+      font-style: italic;
+      font-size: 13.5px;
+      margin: {
+        top: -10px;
+        bottom: 0;
+      }
+    }
+    button {
+      margin-top: 22px;
+      border: none;
+      display: block;
+      text-align: center;
+      overflow: hidden;
+      color: $white-color;
+      background-color: $main-color;
+      transition: $transition;
+      width: 100%;
+      border-radius: 5px;
+      padding: 14.5px 30px;
+      font: {
+        weight: 700;
+        size: $font-size;
+      }
+      &:hover {
+        background-color: $black-color;
+        color: $white-color;
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    margin-top: 40px;
+    border-top: 1px solid #eeeeee;
+    padding: {
+      left: 0;
+      top: 30px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 25px;
+    }
+    form {
+      .lost-your-password-wrap {
+        text-align: left;
+        margin-top: 15px;
+      }
+      button {
+        padding: 13px 30px;
+        font-size: 15px;
+      }
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    margin-top: 40px;
+    padding: {
+      top: 0;
+      left: 0;
+    }
+    h2 {
+      font-size: 30px;
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    padding-top: 25px;
+
+    h2 {
+      font-size: 30px;
+    }
+  }
+}

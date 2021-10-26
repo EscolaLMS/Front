@@ -4,14 +4,15 @@ import PageBanner from '../../../components/Common/PageBanner';
 
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useParams } from 'react-router-dom';
-import Preloader from '../../../components/Preloader';
+import Preloader from '@/components/Preloader';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
+import './index.scss';
 
-const Profile = () => {
+const TutorPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const { tutor, fetchTutor, courses, fetchCourses } = useContext(EscolaLMSContext);
@@ -58,8 +59,8 @@ const Profile = () => {
               </div>
             )}
 
-            <div className="profile-courses pb-70">
-              <h3 className="title">Tutor Courses</h3>
+            <div className="tutor-courses pb-70">
+              <h3 className="tutor-courses__title">Tutor Courses</h3>
               <div className="row">
                 {courses.list?.data.map((course: API.Course) => (
                   <div className="col-lg-4 col-md-6">
@@ -75,4 +76,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default TutorPage;

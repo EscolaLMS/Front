@@ -44,21 +44,6 @@
   .courses-area.pt-100.pb-70 {
     padding-bottom: 60px;
   }
-  .single-advisor-item .advisor-image .social-link {
-    bottom: 10px;
-  }
-  .single-advisor-item .advisor-image .social-link li {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  .single-advisor-item .advisor-content h3 {
-    font-size: 19px;
-  }
-  .single-advisor-item .advisor-content span {
-    font-size: 13.5px;
-  }
   .page-title-area {
     padding-top: 15px;
     padding-bottom: 50px;
@@ -96,54 +81,10 @@
     padding: 13px 30px;
     font-size: 15px;
   }
-  .register-form {
-    margin-top: 40px;
-    border-top: 1px solid #eeeeee;
-    padding-left: 0;
-    padding-top: 30px;
-  }
-  .register-form h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 25px;
-  }
-  .register-form form .lost-your-password-wrap {
-    text-align: left;
-    margin-top: 15px;
-  }
-  .register-form form button {
-    padding: 13px 30px;
-    font-size: 15px;
-  }
   .error-area {
     height: auto;
     padding-top: 150px;
     padding-bottom: 150px;
-  }
-  .error-content h3 {
-    font-size: 25px;
-  }
-  .error-content p {
-    max-width: 100%;
-  }
-  .error-content .btn-box .default-btn {
-    margin-left: 3px;
-    margin-right: 3px;
-  }
-  .privacy-policy-content img {
-    margin-bottom: 25px;
-  }
-  .privacy-policy-content h3 {
-    margin-bottom: 12px;
-    font-size: 18px;
-  }
-  .privacy-policy-content ul li,
-  .privacy-policy-content ol li {
-    font-size: 14.5px;
-  }
-  .privacy-policy-content .blockquote p,
-  .privacy-policy-content blockquote p {
-    font-size: 15px !important;
   }
   .escolalms-grid-sorting {
     text-align: center;
@@ -156,189 +97,6 @@
   }
   .escolalms-grid-sorting .ordering label {
     font-size: 14px;
-  }
-  .pagination-area {
-    margin-top: 20px;
-  }
-  .courses-details-info {
-    margin-left: 0;
-    margin-top: 30px;
-  }
-  .courses-details-info .image .content i {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 20px;
-  }
-  .courses-details-info .image .content span {
-    font-size: 14.5px;
-  }
-  .courses-details-info .info {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 30px;
-  }
-  .courses-details-info .info li {
-    font-size: 15px;
-    padding-top: 13px;
-    padding-bottom: 12px;
-  }
-  .courses-details-info .info li.price {
-    font-size: 20px;
-  }
-  .courses-details-info .info li.price span {
-    font-size: 15px;
-  }
-  .courses-details-info .btn-box {
-    margin-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .courses-details-info .courses-share {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .courses-details-info .courses-share .share-info span {
-    font-size: 15px;
-  }
-  .courses-details-info .courses-share .share-info .social-link {
-    bottom: -44px;
-    opacity: 1;
-    visibility: visible;
-  }
-  .courses-details-header .courses-title p {
-    font-size: 15px;
-  }
-  .courses-details-header .courses-meta ul li {
-    display: block;
-    border-right: none;
-    font-size: 14px;
-    padding-right: 0;
-    margin-bottom: 15px;
-    margin-right: 0;
-  }
-  .courses-details-header .courses-meta ul li:last-child {
-    margin-bottom: 0;
-  }
-  .courses-details-header .courses-meta ul li span {
-    margin-bottom: 2px;
-    font-size: 13px;
-  }
-  .courses-details-header .courses-price {
-    text-align: left;
-    margin-top: 22px;
-  }
-  .courses-details-header .courses-price .courses-review .review-stars i {
-    font-size: 16px;
-  }
-  .courses-details-desc-style-two h3 {
-    margin-bottom: 12px;
-    font-size: 19px;
-  }
-  .courses-details-desc-style-two .courses-curriculum {
-    padding: 20px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .courses-details-desc-style-two .courses-curriculum h3 {
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a {
-    display: block !important;
-    padding-left: 45px;
-    padding-right: 20px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a::before {
-    left: 20px;
-    top: 13px;
-    font-size: 15px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a .courses-name {
-    font-size: 15px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a .courses-meta {
-    text-align: left;
-    margin-top: 5px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .questions {
-    font-size: 13.5px;
-    margin-top: 7px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .duration {
-    font-size: 13.5px;
-    margin-top: 7px;
-  }
-  .courses-details-desc-style-two .courses-curriculum ul li a .courses-meta .status {
-    font-size: 13.5px;
-    margin-top: 7px;
-  }
-  .courses-details-desc-style-two .why-you-learn ul li {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 100%;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-  .courses-details-desc-style-two
-    .courses-author
-    .author-profile
-    .author-profile-title
-    .author-profile-title-details
-    .author-profile-details
-    h4 {
-    font-size: 18px;
-  }
-  .courses-details-desc-style-two .courses-reviews h3 {
-    font-size: 19px;
-  }
-  .courses-details-desc-style-two .courses-reviews .rating {
-    top: 2px;
-  }
-  .courses-details-desc-style-two .courses-reviews .rating span {
-    font-size: 17px;
-  }
-  .courses-details-desc-style-two .courses-reviews .side {
-    width: 20%;
-  }
-  .courses-details-desc-style-two .courses-reviews .side div {
-    font-size: 15px;
-  }
-  .courses-details-desc-style-two .courses-reviews .middle {
-    width: 60%;
-  }
-  .courses-sidebar-information {
-    margin-top: 40px;
-    padding: 15px;
-  }
-  .courses-sidebar-information .info li {
-    font-size: 15px;
-    padding-top: 13px;
-    padding-bottom: 12px;
-  }
-  .courses-sidebar-information .info li.price {
-    font-size: 20px;
-  }
-  .courses-sidebar-information .info li.price span {
-    font-size: 15px;
-  }
-  .courses-sidebar-information .btn-box {
-    margin-top: 30px;
-  }
-  .courses-sidebar-information .btn-box .default-btn i {
-    font-size: 16px;
-  }
-  .profile-box .image {
-    padding-right: 0;
-  }
-  .profile-box .content {
-    padding: 25px 0 0 0;
-  }
-  .profile-box .content h3 {
-    font-size: 19px;
   }
   .cart-table table thead tr th {
     font-size: 14.5px;
@@ -411,35 +169,6 @@
   .widget-area .tagcloud a {
     font-size: 13.5px !important;
   }
-  .footer-area {
-    padding-top: 60px;
-  }
-  .single-footer-widget h3 {
-    font-size: 20px;
-  }
-  .single-footer-widget.pl-5,
-  .single-footer-widget.px-5 {
-    padding-left: 0 !important;
-  }
-  .footer-bottom-area {
-    margin-top: 30px;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .footer-bottom-area ul {
-    text-align: center;
-    margin-top: 15px;
-  }
-  .footer-bottom-area ul li::before {
-    top: 3px;
-  }
-  .go-top {
-    right: 15px;
-    width: 40px;
-    height: 40px;
-    font-size: 35px;
-  }
   .hero-banner-area {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -469,23 +198,10 @@
   .banner-shape19 {
     display: none;
   }
-  .navbar-area.is-sticky.pb-0 {
-    padding-bottom: 20px !important;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .col {
-    width: 100%;
-    -ms-flex-preferred-size: inherit;
-    flex-basis: inherit;
-  }
 }
 
 /* Min width 576px Max width 767px */
 @media only screen and (min-width: 576px) and (max-width: 767px) {
-  .escolalms-nav .navbar .navbar-nav .nav-item .col {
-    width: 50%;
-    -ms-flex-preferred-size: inherit;
-    flex-basis: inherit;
-  }
   .container {
     max-width: 540px;
   }
@@ -528,41 +244,9 @@
   .shape9 {
     display: none;
   }
-  .single-advisor-item .advisor-content h3 {
-    font-size: 19px;
-  }
-  .single-advisor-item .advisor-content span {
-    font-size: 14px;
-  }
   .page-title-content h2 {
     max-width: 720px;
     font-size: 30px;
-  }
-  .courses-details-header .courses-price {
-    text-align: left;
-    margin-top: 25px;
-  }
-  .courses-details-info {
-    margin-left: 0;
-    margin-top: 30px;
-  }
-  .courses-details-desc-style-two h3 {
-    font-size: 21px;
-  }
-  .courses-details-desc-style-two .courses-curriculum h3 {
-    font-size: 17px;
-  }
-  .courses-details-desc-style-two
-    .courses-author
-    .author-profile
-    .author-profile-title
-    .author-profile-title-details
-    .author-profile-details
-    h4 {
-    font-size: 19px;
-  }
-  .courses-details-desc-style-two .courses-reviews h3 {
-    font-size: 22px;
   }
   .widget-area {
     margin-top: 40px;
@@ -588,41 +272,11 @@
   .blockquote p {
     font-size: 19px !important;
   }
-  .profile-box .content {
-    padding: 0 0 0 20px;
-  }
-  .profile-box .content h3 {
-    font-size: 20px;
-  }
-  .privacy-policy-content h3 {
-    font-size: 19px;
-  }
-  .error-content h3 {
-    font-size: 36px;
-  }
   .login-form {
     margin-right: 0;
   }
   .login-form h2 {
     font-size: 30px;
-  }
-  .register-form {
-    margin-top: 40px;
-    padding-top: 0;
-    padding-left: 0;
-  }
-  .register-form h2 {
-    font-size: 30px;
-  }
-  .footer-area {
-    padding-top: 80px;
-  }
-  .single-footer-widget h3 {
-    font-size: 21px;
-    margin-bottom: 19px;
-  }
-  .footer-bottom-area {
-    margin-top: 50px;
   }
   .hero-banner-area {
     padding-top: 100px;
@@ -653,9 +307,6 @@
   .banner-shape19 {
     display: none;
   }
-  .navbar-area.is-sticky.pb-0 {
-    padding-bottom: 20px !important;
-  }
 }
 
 /* Min width 992px Max width 1199px */
@@ -663,31 +314,14 @@
   .container {
     max-width: 960px;
   }
-  .navbar-area {
-    padding-top: 25px;
-    padding-bottom: 25px;
-  }
   .shape9 {
     display: none;
-  }
-  .single-footer-widget.pl-5,
-  .single-footer-widget.px-5 {
-    padding-left: 0 !important;
   }
   .login-form {
     padding: 30px 40px;
   }
   .login-form h2 {
     font-size: 30px;
-  }
-  .register-form {
-    padding-top: 25px;
-  }
-  .register-form h2 {
-    font-size: 30px;
-  }
-  .privacy-policy-content h3 {
-    font-size: 20px;
   }
   .widget-area .widget .widget-title {
     font-size: 20px;
@@ -701,38 +335,6 @@
   .widget-area .tagcloud a {
     padding: 7px 10px;
     font-size: 13.5px !important;
-  }
-  .courses-details-info {
-    margin-left: 0;
-    margin-top: -190px;
-  }
-  .courses-details-info .info {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .courses-details-info .info li {
-    font-size: 16px;
-  }
-  .courses-details-info .info li.price {
-    font-size: 25px;
-  }
-  .courses-details-desc-style-two h3 {
-    font-size: 22px;
-  }
-  .courses-details-desc-style-two .courses-reviews h3 {
-    font-size: 22px;
-  }
-  .courses-sidebar-information {
-    padding: 20px;
-  }
-  .courses-sidebar-information .info li {
-    font-size: 16px;
-  }
-  .profile-box .content {
-    padding: 0 0 0 30px;
-  }
-  .profile-box .content h3 {
-    font-size: 21px;
   }
   .cart-totals h3 {
     font-size: 22px;
@@ -759,170 +361,12 @@
   .hero-banner-content p {
     padding-right: 0;
   }
-  .navbar-area {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item a {
-    font-size: 15px;
-    margin-left: 8px;
-    margin-right: 8px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item:hover .dropdown-menu {
-    margin-top: 0;
-    width: 250px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item:hover .dropdown-menu li a {
-    font-size: 14px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a {
-    font-size: 14px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item.megamenu
-    .dropdown-menu
-    .single-category-widget
-    .icon {
-    width: 60px;
-    height: 60px;
-    font-size: 30px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .single-category-widget h3 {
-    font-size: 18px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item.megamenu
-    .dropdown-menu
-    .single-category-widget
-    .sub-title {
-    font-size: 14px;
-  }
-  .escolalms-nav .navbar .search-box {
-    margin-left: 30px;
-    width: 160px;
-    display: none;
-  }
-  .escolalms-nav .navbar .search-box .input-search {
-    height: 40px;
-    font-size: 12px;
-  }
-  .escolalms-nav .navbar .search-box button {
-    height: 40px;
-  }
-  .escolalms-nav .navbar .others-option {
-    margin-left: 15px;
-  }
-  .escolalms-nav .navbar .others-option .option-item {
-    margin-left: 25px;
-  }
-  .escolalms-nav .navbar .others-option .default-btn {
-    font-size: 13px;
-    padding-left: 40px;
-    padding-right: 15px;
-  }
-  .escolalms-nav .navbar .others-option .default-btn i {
-    left: 20px;
-  }
 }
 
 /* Min width 1200px Max width 1355px */
 @media only screen and (min-width: 1200px) and (max-width: 1355px) {
   .container {
     max-width: 1140px;
-  }
-  .escolalms-nav .container-fluid {
-    max-width: 1200px;
-    padding-left: 15px;
-    padding-right: 60px;
-  }
-  .escolalms-nav .navbar .search-box {
-    display: none;
-  }
-  .escolalms-nav .navbar .others-option {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
-    display: flex !important;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu {
-    left: auto;
-    right: 0;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu {
-    left: -250px;
-    right: auto;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu {
-    left: 250px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu {
-    left: -250px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu {
-    left: 250px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu {
-    left: -250px;
-  }
-  .escolalms-nav
-    .navbar
-    .navbar-nav
-    .nav-item
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu
-    li
-    .dropdown-menu {
-    left: 250px;
   }
   .hero-banner-area .container-fluid {
     max-width: 1200px;
@@ -935,113 +379,9 @@
 
 /* Min width 1550px */
 @media only screen and (min-width: 1550px) {
-  .escolalms-nav .container-fluid {
-    padding-left: 120px;
-    padding-right: 120px;
-  }
-  .escolalms-nav .navbar .search-box {
-    margin-left: 90px;
-  }
   .hero-banner-area .container-fluid {
     max-width: 1480px;
   }
 }
 
-@media only screen and (max-width: 991px) {
-  .escolalms-nav .container-fluid {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .escolalms-nav .navbar .search-box {
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-  .escolalms-nav .navbar .search-box .input-search {
-    height: 45px;
-    font-size: 14px;
-  }
-  .escolalms-nav .navbar .navbar-collapse {
-    max-height: 70vh;
-    overflow-y: scroll;
-    margin-top: 20px;
-    padding: 0 8px;
-    /* width */
-    /* Track */
-    /* Handle */
-    /* Handle on hover */
-  }
-  .escolalms-nav .navbar .navbar-collapse::-webkit-scrollbar {
-    width: 7px;
-  }
-  .escolalms-nav .navbar .navbar-collapse::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  .escolalms-nav .navbar .navbar-collapse::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  .escolalms-nav .navbar .navbar-collapse::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item a {
-    font-size: 15px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item a i {
-    display: none;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu {
-    border: none;
-    top: 0;
-    border-top: 1px solid #fe4a55;
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 0;
-    width: 95%;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
-    padding: 6px 20px;
-    font-size: 14px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu {
-    left: 20px;
-    border: none;
-    top: 0;
-    border-top: 1px solid #fe4a55;
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 0;
-    width: 88%;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu {
-    padding: 15px 0;
-    left: 0;
-    border: none;
-    top: 0;
-    border-top: 1px solid #fe4a55;
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 0;
-    width: 95%;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .megamenu-submenu li a {
-    margin-top: 10px;
-    font-size: 13px;
-  }
-  .escolalms-nav .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .mobile-none {
-    display: none;
-  }
-  .escolalms-nav .navbar .others-option {
-    margin-left: 0;
-  }
-}
 /*# sourceMappingURL=responsive.css.map */

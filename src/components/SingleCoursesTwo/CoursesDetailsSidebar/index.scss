@@ -1,0 +1,516 @@
+@import "./src/style/scss/base/vars";
+
+.courses-details-info {
+  background-color: #f8f9f8;
+  border-radius: 5px;
+  padding: 12px;
+  margin: 0;
+
+  .image {
+    text-align: center;
+    position: relative;
+
+    .link-btn {
+      display: block;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      position: absolute;
+      left: 0;
+      top: 0;
+      cursor: pointer;
+    }
+    .content {
+      position: absolute;
+      left: 0;
+      z-index: 2;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+
+      i {
+        display: block;
+        width: 60px;
+        height: 60px;
+        background-color: $main-color;
+        color: $white-color;
+        border-radius: 50%;
+        line-height: 60px;
+        font-size: 25px;
+        margin: {
+          left: auto;
+          right: auto;
+          bottom: 15px;
+        }
+      }
+      span {
+        display: inline-block;
+        color: $white-color;
+        border-radius: 5px;
+        padding: 4px 20px;
+        background-color: $black-color;
+        font: {
+          size: 17px;
+          weight: 700;
+        }
+      }
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      background-color: $black-color;
+      opacity: 0.25;
+    }
+  }
+  .info {
+    margin-bottom: 0;
+    list-style-type: none;
+    padding: {
+      left: 25px;
+      right: 25px;
+      top: 35px;
+    }
+    li {
+      border-bottom: 1px solid #e5e5e7;
+      color: $optional-color;
+      font: {
+        size: 17px;
+        weight: 600;
+      }
+      padding: {
+        top: 15px;
+        bottom: 14px;
+      }
+      span {
+        font-weight: 800;
+        color: $black-color;
+        position: relative;
+        padding-left: 28px;
+
+        i {
+          color: $main-color;
+          position: absolute;
+          left: 0;
+          font-weight: normal;
+          top: -2px;
+          font-size: 20px;
+        }
+      }
+      &.price {
+        padding-bottom: 10px;
+        color: $main-color;
+        font: {
+          size: 28px;
+          weight: 800;
+        }
+        span {
+          color: $black-color;
+          font: {
+            size: 17px;
+            weight: 800;
+          }
+        }
+      }
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+  .btn-box {
+    margin-top: 35px;
+    padding: {
+      left: 25px;
+      right: 25px;
+    }
+    .default-btn {
+      display: block;
+      width: 100%;
+      padding: {
+        right: 30px;
+        left: 30px;
+        top: 12px;
+        bottom: 12px;
+      }
+      i {
+        position: relative;
+        left: 0;
+        top: 2px;
+        margin-right: 8px;
+        line-height: 1;
+        font: {
+          weight: normal;
+          size: 20px;
+        }
+      }
+      &:not(:first-child) {
+        margin-top: 15px;
+        background-color: transparent;
+        color: $black-color;
+        border: 1px solid $black-color;
+
+        &:hover {
+          color: $white-color;
+          border-color: $black-color;
+        }
+      }
+    }
+  }
+  .courses-share {
+    text-align: center;
+    margin-top: 20px;
+    padding: {
+      left: 25px;
+      right: 25px;
+    }
+    .share-info {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+
+      span {
+        display: inline-block;
+        color: $main-color;
+        line-height: 1;
+        font: {
+          size: $font-size;
+          weight: 700;
+        }
+        i {
+          color: $black-color;
+        }
+      }
+      .social-link {
+        padding-left: 0;
+        list-style-type: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -35px;
+        opacity: 0;
+        visibility: hidden;
+        transition: $transition;
+        margin: {
+          bottom: 0;
+        }
+        li {
+          display: inline-block;
+          margin-right: 3px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+          a {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            background-color: #e1e1e1;
+            font-size: 18px;
+            color: $black-color;
+            position: relative;
+            border-radius: 2px;
+
+            i {
+              position: absolute;
+              left: 0;
+              top: 50%;
+              right: 0;
+              transform: translateY(-48%);
+            }
+            &:hover {
+              background-color: $main-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+      &:hover {
+        .social-link {
+          opacity: 1;
+          visibility: visible;
+          bottom: -42px;
+        }
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    .image {
+      .content {
+        i {
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 20px;
+        }
+        span {
+          font-size: 14.5px;
+        }
+      }
+    }
+    .info {
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 30px;
+      }
+      li {
+        font-size: 15px;
+        padding: {
+          top: 13px;
+          bottom: 12px;
+        }
+        &.price {
+          font-size: 20px;
+
+          span {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    .btn-box {
+      margin-top: 30px;
+      padding: {
+        left: 10px;
+        right: 10px;
+      }
+    }
+    .courses-share {
+      padding: {
+        left: 10px;
+        right: 10px;
+      }
+      .share-info {
+        span {
+          font-size: 15px;
+        }
+        .social-link {
+          bottom: -44px;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    .info {
+      padding: {
+        left: 15px;
+        right: 15px;
+      }
+      li {
+        font-size: 16px;
+
+        &.price {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+}
+
+.courses-sidebar-information {
+  background-color: $white-color;
+  box-shadow: 0px 8px 16px 0px rgba(146, 184, 255, 0.2);
+  padding: 30px;
+
+  .info {
+    margin-bottom: 0;
+    list-style-type: none;
+    padding: {
+      left: 0;
+    }
+    li {
+      border-bottom: 1px dashed #eeeeee;
+      color: $optional-color;
+      font: {
+        size: 17px;
+        weight: 600;
+      }
+      padding: {
+        top: 15px;
+        bottom: 13px;
+      }
+      span {
+        font-weight: 800;
+        color: $black-color;
+        position: relative;
+        padding-left: 28px;
+
+        i {
+          color: $main-color;
+          position: absolute;
+          left: 0;
+          font-weight: normal;
+          top: -2px;
+          font-size: 20px;
+        }
+      }
+      &.price {
+        padding-bottom: 10px;
+        color: $main-color;
+        font: {
+          size: 28px;
+          weight: 800;
+        }
+        span {
+          color: $black-color;
+          font: {
+            size: 17px;
+            weight: 800;
+          }
+        }
+      }
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+  .btn-box {
+    margin-top: 35px;
+
+    .default-btn {
+      display: block;
+      padding: {
+        right: 30px;
+        left: 30px;
+        top: 12px;
+        bottom: 12px;
+      }
+      i {
+        position: relative;
+        left: 0;
+        top: 2px;
+        margin-right: 8px;
+        line-height: 1;
+        font: {
+          weight: normal;
+          size: 20px;
+        }
+      }
+      &:not(:first-child) {
+        margin-top: 15px;
+        background-color: transparent;
+        color: $black-color;
+        border: 1px solid $black-color;
+
+        &:hover {
+          color: $white-color;
+          border-color: $black-color;
+        }
+      }
+    }
+  }
+  .courses-share {
+    text-align: center;
+    margin-top: 25px;
+
+    .share-info {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+
+      span {
+        display: inline-block;
+        color: $main-color;
+        line-height: 1;
+        font: {
+          size: $font-size;
+          weight: 700;
+        }
+        i {
+          color: $black-color;
+        }
+      }
+      .social-link {
+        padding-left: 0;
+        list-style-type: none;
+        margin: {
+          bottom: 0;
+          top: 12px;
+        }
+        li {
+          display: inline-block;
+          margin-right: 3px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+          a {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            background-color: #e1e1e1;
+            font-size: 18px;
+            color: $black-color;
+            position: relative;
+            border-radius: 2px;
+
+            i {
+              position: absolute;
+              left: 0;
+              top: 50%;
+              right: 0;
+              transform: translateY(-48%);
+            }
+            &:hover {
+              background-color: $main-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    margin-top: 40px;
+    padding: 15px;
+
+    .info {
+      li {
+        font-size: 15px;
+        padding: {
+          top: 13px;
+          bottom: 12px;
+        }
+        &.price {
+          font-size: 20px;
+
+          span {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    .btn-box {
+      margin-top: 30px;
+
+      .default-btn {
+        i {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    padding: 20px;
+
+    .info {
+      li {
+        font-size: 16px;
+      }
+    }
+  }
+}

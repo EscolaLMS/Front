@@ -7,6 +7,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import Layout from '../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
+import './index.scss';
 
 const TutorsPage = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
