@@ -1,0 +1,39 @@
+@import "./src/style/scss/base/vars";
+
+.social-link {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  font-size: 18px;
+  text-align: center;
+  color: $white-color;
+  background-color: #1e1d2f;
+
+  i {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    right: 0;
+    transform: translateY(-48%);
+  }
+
+  &:hover {
+    background-color: $main-color;
+    color: $white-color;
+  }
+}
+
+.social-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  flex-direction: row;
+  gap: 10px;
+
+  &__item {
+    display: inline-block;
+  }
+}

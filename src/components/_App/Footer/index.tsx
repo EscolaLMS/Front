@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logo.svg';
 import "./index.scss";
+import SocialLinks from "@/components/SocialLinks";
 
-const Index = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-area">
+    <footer className="footer">
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-6 col-sm-6">
@@ -22,28 +23,7 @@ const Index = () => {
                 to the flexible education!
               </p>
 
-              <ul className="social-link">
-                <li>
-                  <a href="#facebook" className="d-block" target="_blank">
-                    <i className="bx bxl-facebook"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#twitter" className="d-block" target="_blank">
-                    <i className="bx bxl-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#instagram" className="d-block" target="_blank">
-                    <i className="bx bxl-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#linkedin" className="d-block" target="_blank">
-                    <i className="bx bxl-linkedin"></i>
-                  </a>
-                </li>
-              </ul>
+              <SocialLinks className="footer__social-links" />
             </div>
           </div>
 
@@ -119,4 +99,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Footer;

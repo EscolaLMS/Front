@@ -160,83 +160,6 @@
       }
     }
   }
-  .courses-share {
-    text-align: center;
-    margin-top: 20px;
-    padding: {
-      left: 25px;
-      right: 25px;
-    }
-    .share-info {
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-
-      span {
-        display: inline-block;
-        color: $main-color;
-        line-height: 1;
-        font: {
-          size: $font-size;
-          weight: 700;
-        }
-        i {
-          color: $black-color;
-        }
-      }
-      .social-link {
-        padding-left: 0;
-        list-style-type: none;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -35px;
-        opacity: 0;
-        visibility: hidden;
-        transition: $transition;
-        margin: {
-          bottom: 0;
-        }
-        li {
-          display: inline-block;
-          margin-right: 3px;
-
-          &:last-child {
-            margin-right: 0;
-          }
-          a {
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            background-color: #e1e1e1;
-            font-size: 18px;
-            color: $black-color;
-            position: relative;
-            border-radius: 2px;
-
-            i {
-              position: absolute;
-              left: 0;
-              top: 50%;
-              right: 0;
-              transform: translateY(-48%);
-            }
-            &:hover {
-              background-color: $main-color;
-              color: $white-color;
-            }
-          }
-        }
-      }
-      &:hover {
-        .social-link {
-          opacity: 1;
-          visibility: visible;
-          bottom: -42px;
-        }
-      }
-    }
-  }
 
   /* Max width 767px */
   @media only #{$media} and ($feature_max : $value_two) {
@@ -279,22 +202,6 @@
       padding: {
         left: 10px;
         right: 10px;
-      }
-    }
-    .courses-share {
-      padding: {
-        left: 10px;
-        right: 10px;
-      }
-      .share-info {
-        span {
-          font-size: 15px;
-        }
-        .social-link {
-          bottom: -44px;
-          opacity: 1;
-          visibility: visible;
-        }
       }
     }
   }
@@ -405,67 +312,6 @@
         &:hover {
           color: $white-color;
           border-color: $black-color;
-        }
-      }
-    }
-  }
-  .courses-share {
-    text-align: center;
-    margin-top: 25px;
-
-    .share-info {
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-
-      span {
-        display: inline-block;
-        color: $main-color;
-        line-height: 1;
-        font: {
-          size: $font-size;
-          weight: 700;
-        }
-        i {
-          color: $black-color;
-        }
-      }
-      .social-link {
-        padding-left: 0;
-        list-style-type: none;
-        margin: {
-          bottom: 0;
-          top: 12px;
-        }
-        li {
-          display: inline-block;
-          margin-right: 3px;
-
-          &:last-child {
-            margin-right: 0;
-          }
-          a {
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            background-color: #e1e1e1;
-            font-size: 18px;
-            color: $black-color;
-            position: relative;
-            border-radius: 2px;
-
-            i {
-              position: absolute;
-              left: 0;
-              top: 50%;
-              right: 0;
-              transform: translateY(-48%);
-            }
-            &:hover {
-              background-color: $main-color;
-              color: $white-color;
-            }
-          }
         }
       }
     }

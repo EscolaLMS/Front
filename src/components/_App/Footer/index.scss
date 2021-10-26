@@ -1,10 +1,14 @@
 @import "./src/style/scss/base/vars";
 
-.footer-area {
+.footer {
   background-color: #100f1f;
   position: relative;
   z-index: 1;
   padding-top: 100px;
+
+  &__social-links {
+    margin-top: 20px;
+  }
 
   /* Max width 767px */
   @media only #{$media} and ($feature_max : $value_two) {
@@ -58,48 +62,7 @@
       }
     }
   }
-  .social-link {
-    padding-left: 0;
-    list-style-type: none;
-    margin: {
-      top: 20px;
-      bottom: 0;
-    }
-    li {
-      display: inline-block;
-      margin-right: 10px;
 
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-      a {
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        color: $white-color;
-        background-color: #1e1d2f;
-        font-size: 18px;
-        position: relative;
-        border-radius: 2px;
-
-        i {
-          position: absolute;
-          left: 0;
-          top: 50%;
-          right: 0;
-          transform: translateY(-48%);
-        }
-        &:hover {
-          background-color: $main-color;
-          color: $white-color;
-        }
-      }
-    }
-  }
   .footer-contact-info {
     padding-left: 0;
     margin-bottom: 0;

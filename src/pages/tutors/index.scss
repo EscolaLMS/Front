@@ -14,70 +14,6 @@
     img {
       border-radius: 5px 5px 0 0;
     }
-    .social-link {
-      padding-left: 0;
-      list-style-type: none;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 15px;
-      margin: {
-        left: auto;
-        right: auto;
-        bottom: 0;
-      }
-      li {
-        display: inline-block;
-        transform: translateY(30px);
-        transition: all 0.3s ease-in-out 0s;
-        opacity: 0;
-        visibility: hidden;
-        margin: {
-          left: 5px;
-          right: 5px;
-        }
-        a {
-          display: block;
-          width: 33px;
-          height: 33px;
-          background-color: $white-color;
-          text-align: center;
-          position: relative;
-          font-size: 20px;
-          color: $black-color;
-          border-radius: 2px;
-          transition: $transition;
-
-          i {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            margin: {
-              left: auto;
-              right: auto;
-            }
-          }
-          &:hover {
-            color: $white-color;
-            background-color: $main-color;
-          }
-        }
-        &:nth-child(1) {
-          transition-delay: 0.1s;
-        }
-        &:nth-child(2) {
-          transition-delay: 0.2s;
-        }
-        &:nth-child(3) {
-          transition-delay: 0.3s;
-        }
-        &:nth-child(4) {
-          transition-delay: 0.4s;
-        }
-      }
-    }
   }
   .advisor-content {
     padding: 22px;
@@ -99,31 +35,9 @@
       }
     }
   }
-  &:hover {
-    .advisor-image {
-      .social-link {
-        li {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
-  }
 
   /* Max width 767px */
   @media only #{$media} and ($feature_max : $value_two) {
-    .advisor-image {
-      .social-link {
-        bottom: 10px;
-
-        li {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
     .advisor-content {
       h3 {
         font-size: 19px;

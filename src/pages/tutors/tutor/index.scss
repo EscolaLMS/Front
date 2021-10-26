@@ -61,44 +61,6 @@
         }
       }
     }
-    .social-link {
-      padding-left: 0;
-      list-style-type: none;
-      margin: {
-        top: 20px;
-        bottom: 0;
-      }
-      li {
-        display: inline-block;
-        margin-right: 8px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-        a {
-          width: 30px;
-          height: 30px;
-          text-align: center;
-          background-color: #e1e1e1;
-          font-size: 18px;
-          color: $black-color;
-          position: relative;
-          border-radius: 2px;
-
-          i {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            right: 0;
-            transform: translateY(-48%);
-          }
-          &:hover {
-            background-color: $main-color;
-            color: $white-color;
-          }
-        }
-      }
-    }
   }
 
   /* Max width 767px */
