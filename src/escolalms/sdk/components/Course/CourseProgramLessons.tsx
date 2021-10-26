@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { useHistory, useParams } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
 import CourseProgramContent from './CourseProgramContent';
 import CourseSidebar from './CourseSidebar';
 import MarkdownReader from '../Markdown/MarkdownReader';
@@ -30,8 +29,6 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
       0;
 
   const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

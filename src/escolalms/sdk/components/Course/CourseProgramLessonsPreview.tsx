@@ -15,9 +15,15 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
 
   const lessonId = lessonID ? lessonID : program.lessons[0].id;
-  // TODO FIX_ME
-  //@ts-ignore
-  const topicId = topicID ? topicID : program?.lessons[0]?.topics[0]?.id;
+
+  const topicId = topicID
+    ? topicID
+    : (program &&
+        program.lessons &&
+        program.lessons[0] &&
+        program.lessons[0].topics &&
+        program?.lessons[0]?.topics[0]?.id) ||
+      0;
 
   const lesson = useMemo(
     () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),

@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-
 import { CoursesContext } from '../../components/Courses/CoursesContext';
 import CourseCard from '../../components/CourseCard';
 import Pagination from '../../components/Pagination';
 import Preloader from '../../components/Preloader';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
-import { useParams } from 'react-router';
+
 enum Order {
   ASC = 'ASC',
   DESC = 'DESC',
@@ -16,7 +15,7 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
   className = '',
   itemCol = 6,
 }) => {
-  const { params, setParams, courses, onlyFree } = useContext(CoursesContext);
+  const { params, setParams, courses } = useContext(CoursesContext);
   const { t } = useTranslation();
 
   if (courses && courses.loading) {
@@ -50,7 +49,6 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
                     ...params,
                     order_by,
                     order: order as Order,
-                    free: onlyFree ? true : params?.free,
                   });
               }}
             >
@@ -65,7 +63,7 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
       <div className="row">
         {courses &&
           courses.list &&
-          courses.list.data.map((course) => (
+          courses.list.data.map((course: API.CourseListItem) => (
             <div className={`col-lg-${itemCol} col-md-6`} key={course.id}>
               <CourseCard course={course} />
             </div>
@@ -81,7 +79,6 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
                 ...params,
                 page: i,
                 per_page: 6,
-                free: true,
               })
             }
           />
