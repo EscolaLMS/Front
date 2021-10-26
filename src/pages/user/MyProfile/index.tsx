@@ -9,7 +9,7 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import Layout from '../../../components/_App/Layout';
 import { useTranslation } from 'react-i18next';
-import "./index.scss";
+import './index.scss';
 
 type UpdateCall = (key: keyof API.UserItem, value: any) => void;
 

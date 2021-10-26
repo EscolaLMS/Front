@@ -10,7 +10,7 @@ import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
-import "./index.scss";
+import './index.scss';
 
 const TutorPage = () => {
   const { id } = useParams<{ id: string }>();

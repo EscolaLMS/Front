@@ -176,7 +176,7 @@ const CoursesSidebar: React.FC<{
             <a
               href={`!#tag-${tag.title}`}
               key={tag.title}
-              className={params?.tag ? (params?.tag === tag.title ? 'active' : '') : ''}
+              className={params?.tag ? (params?.tag === tag?.title ? 'active' : '') : ''}
               onClick={(e) => {
                 e.preventDefault();
                 toggleTag(tag);

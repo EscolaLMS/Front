@@ -6,7 +6,7 @@ import Sidebar from '@/components/TermsOfService/Sidebar';
 import PageBanner from '@/components/Common/PageBanner';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import Layout from '@/components/_App/Layout';
-import "./index.scss";
+import './index.scss';
 
 const StaticPage = () => {
   const { pathname } = useLocation();
@@ -19,6 +19,7 @@ const StaticPage = () => {
     if (id) {
       fetchPage(String(id));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (page.loading) {

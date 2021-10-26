@@ -10,7 +10,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import PaymentModal from '@/components/PaymentModal';
 import Layout from '@/components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
-import "./index.scss";
+import './index.scss';
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 

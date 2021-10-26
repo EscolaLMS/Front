@@ -6,7 +6,7 @@ import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
 import PdfPlayer from './../Players/PdfPlayer';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
-import "./index.scss";
+import './index.scss';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;

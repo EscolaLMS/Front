@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logo.svg';
-import "./index.scss";
+import './index.scss';
 
 const Index = () => {
   const currentYear = new Date().getFullYear();
