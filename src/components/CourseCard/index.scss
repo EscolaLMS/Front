@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/base/vars';
 
 .course-card {
   $this: &;
@@ -12,6 +12,7 @@
     .courses-box-footer {
       list-style-type: none;
       padding-left: 0;
+      flex-wrap: wrap;
       margin: {
         bottom: 0;
         left: -7px;
@@ -22,6 +23,9 @@
         color: $optional-color;
         font-size: 15px;
         position: relative;
+        margin : {
+          bottom: 5px;
+        }
         padding: {
           left: 25px;
           right: 7px;
@@ -44,8 +48,6 @@
           }
         }
       }
-
-
     }
   }
 
