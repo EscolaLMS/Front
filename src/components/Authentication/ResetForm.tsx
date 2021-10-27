@@ -36,8 +36,7 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
       token,
     })
       .then(() => {
-        // TODO:translate
-        setState({ state: 'success', message: 'Password has been changed' });
+        setState({ state: 'success', message: t('ResetPage.Changed') });
         setTimeout(() => {
           history.push('/authentication');
         }, 1500);
