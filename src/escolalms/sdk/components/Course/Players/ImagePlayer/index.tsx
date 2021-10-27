@@ -16,7 +16,7 @@ const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
     onLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  // TODO: REMOVE FROM SDK
   return (
     <div className="image-player">
       <Image

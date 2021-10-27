@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { API } from '@escolalms/sdk/lib';
-import LmsBox from "@/components/Common/LmsBox";
+import LmsBox from '@/components/Common/LmsBox';
+
 export const PageCard: React.FC<{ page: API.Page }> = ({ page }) => {
   return (
     <LmsBox className="page-card">

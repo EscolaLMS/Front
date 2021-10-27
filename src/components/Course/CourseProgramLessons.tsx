@@ -1,57 +1,28 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
+import React, { useEffect } from 'react';
 import { API } from '@escolalms/sdk/lib';
-import CourseProgramContent from './CourseProgramContent';
-import CourseSidebar from './CourseSidebar';
-import MarkdownReader from '../Markdown/MarkdownReader';
-import { fixContentForMarkdown } from '../../utils/markdown';
+import CourseProgramContent from '../../escolalms/sdk/components/Course/CourseProgramContent';
+import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
+import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
+import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
+import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
 export const courseInProgress = 2;
 
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-  const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
-
-  const { push } = useHistory();
-  const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
-
-  const lessonId = lessonID ? lessonID : program.lessons[0].id;
-
-  const topicId = topicID
-    ? topicID
-    : (program &&
-        program.lessons &&
-        program.lessons[0] &&
-        program.lessons[0].topics &&
-        program?.lessons[0]?.topics[0]?.id) ||
-      0;
-
-  const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
+  const [
+    topic,
+    lesson,
+    onNextTopic,
+    getNextPrevTopic,
+    isDisabledNextTopicButton,
+    setIsDisabledNextTopicButton,
+  ] = useLessonProgram(program, `/course/`);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [lessonId, topicId]);
-
-  const lesson = useMemo(
-    () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),
-    [program, lessonId],
-  );
-
-  const topic = useMemo(
-    () => lesson && lesson.topics && lesson.topics.find((topic) => topic.id === Number(topicId)),
-    [lesson, topicId],
-  );
-
-  const onNextTopic = useCallback(() => {
-    program.id &&
-      sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(() => {
-        const nextTopic = getNextPrevTopic(Number(topicId));
-
-        nextTopic && push(`/course/${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
-      });
-  }, [topicId, program, push, getNextPrevTopic, sendProgress]);
+  }, [lesson?.id, topic?.id]);
 
   const columnWidth =
     lesson &&
@@ -69,7 +40,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
         <div className="course-program-wrapper">
           <div className="course-program-player">
             <div className="course-program-player-content">
-              <h2>{topic?.title}</h2>
+              <h2>{topic && topic?.title}</h2>
               {topic &&
                 topic.introduction &&
                 fixContentForMarkdown(`${topic.introduction}`) !== '' && (
@@ -81,8 +52,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 )}
               <div className="course-program-player-content__wrapper">
                 <CourseProgramContent
-                  lessonId={Number(lessonId)}
-                  topicId={Number(topicId)}
+                  lessonId={Number(lesson?.id)}
+                  topicId={topic && Number(topic.id)}
                   setIsDisabledNextTopicButton={setIsDisabledNextTopicButton}
                 />
               </div>
@@ -123,7 +94,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 </div>
               )}
             </div>
-            {getNextPrevTopic(Number(topicId)) && (
+            {getNextPrevTopic(Number(topic?.id)) && (
               <div className="course-program-player-next">
                 <button
                   disabled={topic && topic.can_skip ? false : isDisabledNextTopicButton}
@@ -139,7 +110,11 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
             )}
           </div>
 
-          <CourseSidebar course={program} lessonId={Number(lessonId)} topicId={Number(topicId)} />
+          <CourseSidebar
+            course={program}
+            lessonId={Number(lesson?.id)}
+            topicId={Number(topic?.id)}
+          />
         </div>
       </div>
     </React.Fragment>

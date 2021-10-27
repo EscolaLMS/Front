@@ -47,6 +47,7 @@ export const CourseProgramContent: React.FC<{
       setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);
 
       if (event?.statement) {
+        // TODO: sdk should accept a list of h5p items that do not send termination events
         if (
           completed.includes(event?.statement?.verb?.id) ||
           [...noCompletedEventsIds, 'http://h5p.org/libraries/H5P.InteractiveVideo-1.22'].includes(
@@ -83,6 +84,8 @@ export const CourseProgramContent: React.FC<{
   }
 
   if (topic.topicable_type) {
+    // TODO: specific interface for advanced topic players -> example: ImagePlayer
+
     switch (topic.topicable_type) {
       case TopicType.H5P:
         return (
@@ -91,7 +94,7 @@ export const CourseProgramContent: React.FC<{
             id={topic?.topicable?.value}
             styles={[`${window.location.origin}/h5p_overwrite.css`]}
           />
-        ); // TODO can't be any
+        ); // TODO: can't be any
       case TopicType.OEmbed:
         return (
           <Embed
@@ -100,7 +103,7 @@ export const CourseProgramContent: React.FC<{
             key={topicId}
             FallbackElement={
               <Player onXAPI={(e: any) => onXAPI(e)} id={topic?.topicable?.value} /> // TODO can't be any
-            }
+            } // TODO: can't be any
           />
         );
       case TopicType.RichText:

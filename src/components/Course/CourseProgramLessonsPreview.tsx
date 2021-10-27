@@ -1,45 +1,19 @@
-import React, { useMemo, useEffect } from 'react';
-
-import { useParams } from 'react-router-dom';
-
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
 import { API } from '@escolalms/sdk/lib';
-import CourseProgramContent from './CourseProgramContent';
-import CourseSidebar from './CourseSidebar';
-import MarkdownReader from '../Markdown/MarkdownReader';
-import { fixContentForMarkdown } from '../../utils/markdown';
+import CourseProgramContent from '../../escolalms/sdk/components/Course/CourseProgramContent';
+import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
+import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
+import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
+import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 
 export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({
   program,
 }) => {
-  const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
-
-  const lessonId = lessonID ? lessonID : program.lessons[0].id;
-
-  const topicId = topicID
-    ? topicID
-    : (program &&
-        program.lessons &&
-        program.lessons[0] &&
-        program.lessons[0].topics &&
-        program?.lessons[0]?.topics[0]?.id) ||
-      0;
-
-  const lesson = useMemo(
-    () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),
-    [program, lessonId],
-  );
-
-  const topic = useMemo(
-    () => lesson && lesson.topics && lesson.topics.find((topic) => topic.id === Number(topicId)),
-    [lesson, topicId],
-  );
-
-  const { t } = useTranslation();
+  const [topic, lesson] = useLessonProgram(program);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [lessonId, topicId]);
+  }, [topic?.id, lesson?.id]);
 
   return (
     <React.Fragment>
@@ -61,8 +35,8 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                 <div className="course-program-player-content__wrapper">
                   <CourseProgramContent
                     preview={true}
-                    lessonId={Number(lessonId)}
-                    topicId={Number(topicId)}
+                    lessonId={Number(lesson?.id)}
+                    topicId={Number(topic?.id)}
                   />
                 </div>
               </div>
@@ -79,20 +53,19 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                   <div className={`col-lg-12 col-md-12 col-sm-12`}>
                     <div className="course-program-summary">
                       <MarkdownReader>{topic.summary}</MarkdownReader>
-
-                      {topic && topic.resources && topic.resources?.length > 0 && (
+                      {/* Leave it in case the business changes its mind. */}
+                      {/* {topic && topic.resources && topic.resources?.length > 0 && (
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
-                            {/* Leave it in case the business changes its mind. */}
-                            {/* {topic.resources.map((resource) => (
+                            {topic.resources.map((resource) => (
                               <a target="_blank" href={resource.url} rel="noreferrer">
                                 {resource.name}
                               </a>
-                            ))} */}
+                            ))}
                           </div>
                         </React.Fragment>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 )}
@@ -102,8 +75,8 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
             <CourseSidebar
               preview={true}
               course={program}
-              lessonId={Number(lessonId)}
-              topicId={Number(topicId)}
+              lessonId={Number(lesson?.id)}
+              topicId={Number(topic?.id)}
             />
           </div>
         </div>
