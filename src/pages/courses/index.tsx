@@ -1,12 +1,12 @@
 import React from 'react';
 
-import CoursesSidebar from '../../components/Courses/CoursesSidebar';
-import Layout from '../../components/_App/Layout';
+import CoursesSidebar from '@/components/Courses/CoursesSidebar';
+import Layout from '@/components/_App/Layout';
 import { useTranslation } from 'react-i18next';
-import CoursesCollection from '../../components/Courses/CoursesCollection';
-import CoursesProvider from '../../components/Courses/CoursesProvider';
-import { CoursesContext } from '../../components/Courses/CoursesContext';
-import PageBanner from '../../components/Common/PageBanner';
+import CoursesCollection from '@/components/Courses/CoursesCollection';
+import CoursesProvider from '@/components/Courses/CoursesProvider';
+import { CoursesContext } from '@/components/Courses/CoursesContext';
+import PageBanner from '@/components/Common/PageBanner';
 import { API } from '@escolalms/sdk/lib';
 
 const CoursesRightSidebar = () => {

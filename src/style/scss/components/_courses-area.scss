@@ -1,0 +1,15 @@
+.courses-area {
+  position: relative;
+  z-index: 1;
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .courses-area {
+    &.pt-100 {
+      &.pb-70 {
+        padding-bottom: 60px;
+      }
+    }
+  }
+}

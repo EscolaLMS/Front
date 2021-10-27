@@ -1,0 +1,36 @@
+.shape9 {
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  z-index: -1;
+
+  img {
+    animation: {
+      name: rotateme;
+      duration: 10s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .shape9 {
+    display: none;
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  .shape9 {
+    display: none;
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  .shape9 {
+    display: none;
+  }
+}
