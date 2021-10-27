@@ -1,0 +1,144 @@
+@import './src/style/scss/base/vars';
+
+.escolalms-grid-sorting {
+  margin-bottom: 40px;
+
+  .result-count {
+    p {
+      .count {
+        font-weight: 700;
+        color: $black-color;
+      }
+    }
+  }
+  .ordering {
+    text-align: right;
+
+    label {
+      display: inline-block;
+      margin-bottom: 0;
+      color: #ababab;
+      margin-right: 5px;
+      font: {
+        size: $font-size;
+        weight: 700;
+      }
+    }
+    .nice-select {
+      display: inline-block;
+      width: 215px;
+      background: #f8f8f8;
+      border-color: #eeeeee;
+      color: $black-color;
+      transition: $transition;
+      padding: 0 0 0 12px;
+      height: 45px;
+      line-height: 45px;
+      font: {
+        size: $font-size;
+        weight: 700;
+      }
+      .list {
+        background-color: $white-color;
+        border-radius: 5px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        list-style-type: none;
+        border: none;
+        width: 100%;
+        margin: {
+          bottom: 0;
+          top: 0;
+        }
+        padding: {
+          left: 0;
+          top: 10px;
+          bottom: 10px;
+        }
+        .option {
+          line-height: 38px;
+          min-height: 38px;
+          color: $black-color;
+          position: relative;
+          transition: $transition;
+          padding: {
+            left: 32px;
+            right: 25px;
+          }
+          font: {
+            size: $font-size;
+            weight: 700;
+          }
+          &:hover {
+            background-color: $main-color !important;
+            color: $white-color;
+
+            &::before {
+              color: $white-color;
+            }
+          }
+          &.focus,
+          &.selected.focus {
+            background-color: transparent !important;
+            color: $black-color;
+          }
+          &::before {
+            content: '\f11f';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: $transition;
+            color: $main-color;
+            font: {
+              family: Flaticon;
+              size: 11px;
+            }
+          }
+          &.selected {
+            &::before {
+              opacity: 1;
+              visibility: visible;
+            }
+            &:hover {
+              background-color: $main-color !important;
+              color: $white-color;
+
+              &::before {
+                color: $white-color;
+              }
+            }
+          }
+        }
+      }
+      &:after {
+        border-color: $black-color;
+        height: 8px;
+        width: 8px;
+        margin-top: -5px;
+      }
+      &:hover {
+        border-color: $main-color;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .escolalms-grid-sorting {
+    text-align: center;
+
+    .result-count {
+      margin-bottom: 13px;
+    }
+    .ordering {
+      text-align: center;
+
+      label {
+        font-size: 14px;
+      }
+    }
+  }
+}

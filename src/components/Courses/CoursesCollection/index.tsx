@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { CoursesContext } from '@/components/Courses/CoursesContext';
-import CourseCard from '../../components/CourseCard';
-import Pagination from '../../components/Pagination';
+import CourseCard from '@/components/CourseCard';
+import Pagination from '@/components/Pagination';
 import Preloader from '@/components/Preloader';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
+import './index.scss';
 
 enum Order {
   ASC = 'ASC',

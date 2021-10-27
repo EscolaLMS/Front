@@ -35,8 +35,6 @@ const PagesPage = () => {
               {pages.loading && <Preloader />}
               {pages.list ? (
                 <div className="col-lg-8 col-md-12">
-                  <div className="escolalms-grid-sorting row align-items-center"></div>
-
                   <div className="row">
                     {pages.list.data.map((page: API.PageListItem) => (
                       <div className="col-lg-6 col-md-6" key={page.id}>

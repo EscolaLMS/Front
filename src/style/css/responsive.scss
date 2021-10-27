@@ -48,127 +48,6 @@ $value_nine: 1550px;
       left: 20px;
     }
   }
-  .form-control {
-    height: 48px;
-    font-size: 14.5px;
-  }
-
-  .shape9 {
-    display: none;
-  }
-
-  .courses-area {
-    &.pt-100 {
-      &.pb-70 {
-        padding-bottom: 60px;
-      }
-    }
-  }
-
-  .login-form {
-    padding: 30px 20px;
-    margin-right: 0;
-
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 25px;
-    }
-    form {
-      .lost-your-password-wrap {
-        text-align: left;
-        margin-top: 15px;
-      }
-      button {
-        padding: 13px 30px;
-        font-size: 15px;
-      }
-    }
-  }
-
-  .escolalms-grid-sorting {
-    text-align: center;
-
-    .result-count {
-      margin-bottom: 13px;
-    }
-    .ordering {
-      text-align: center;
-
-      label {
-        font-size: 14px;
-      }
-    }
-  }
-
-  .cart-table {
-    table {
-      thead {
-        tr {
-          th {
-            font-size: 14.5px;
-            padding: {
-              left: 15px;
-              right: 15px;
-            }
-            &:first-child {
-              padding-left: 0;
-            }
-          }
-        }
-      }
-      tbody {
-        tr {
-          td {
-            font-size: 14.5px;
-            padding: {
-              left: 15px;
-              right: 15px;
-            }
-            &:first-child {
-              padding-left: 0;
-            }
-          }
-        }
-      }
-    }
-  }
-  .cart-buttons {
-    .shopping-coupon-code {
-      text-align: center;
-
-      button {
-        position: relative;
-        right: 0;
-        top: 0;
-        height: auto;
-        padding: 12px 25px;
-        line-height: initial;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-top: 15px;
-      }
-    }
-  }
-  .cart-totals {
-    padding: 20px;
-    max-width: 100%;
-    margin: {
-      top: 40px;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    ul {
-      margin-bottom: 20px;
-
-      li {
-        &:last-child {
-          font-size: 18px;
-        }
-      }
-    }
-  }
 
   blockquote,
   .blockquote {
@@ -178,89 +57,12 @@ $value_nine: 1550px;
       font-size: 17px !important;
     }
   }
-  .widget-area {
-    margin-top: 40px;
-    padding-left: 0;
-
-    .widget {
-      .widget-title {
-        font-size: 19px;
-      }
-    }
-    .widget_insight {
-      ul {
-        li {
-          a {
-            font-size: 15px;
-          }
-        }
-      }
-    }
-    .widget_recent_courses {
-      .item {
-        .info {
-          span {
-            font-size: 15px;
-          }
-          .title {
-            font-size: 14.5px;
-          }
-        }
-      }
-    }
-    .tagcloud {
-      a {
-        font-size: 13.5px !important;
-      }
-    }
-  }
-
-  .hero-banner-area {
-    padding: {
-      top: 60px;
-      bottom: 60px;
-    }
-    .container-fluid {
-      max-width: 100%;
-    }
-  }
-  .hero-banner-content {
-    text-align: center;
-
-    p {
-      padding-right: 0;
-      font: {
-        weight: 500;
-        size: 15px;
-      }
-    }
-    h1 {
-      margin-bottom: 15px;
-      line-height: 1.3;
-      font-size: 28px;
-    }
-    .default-btn {
-      margin-top: 5px;
-    }
-  }
-  .hero-banner-image {
-    margin-top: 30px;
-  }
-  .banner-shape19 {
-    display: none;
-  }
 }
 
 /* Min width 576px Max width 767px */
 @media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
   .container {
     max-width: 540px;
-  }
-
-  .hero-banner-area {
-    .container-fluid {
-      max-width: 540px;
-    }
   }
 }
 
@@ -298,42 +100,6 @@ $value_nine: 1550px;
     }
   }
 
-  .shape9 {
-    display: none;
-  }
-
-  .widget-area {
-    margin-top: 40px;
-    padding-left: 0;
-
-    .widget {
-      .widget-title {
-        font-size: 19px;
-      }
-    }
-  }
-
-  .cart-table {
-    table {
-      thead {
-        tr {
-          th {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
-  .cart-totals {
-    h3 {
-      font-size: 20px;
-
-      &:last-child {
-        font-size: 18px;
-      }
-    }
-  }
-
   blockquote,
   .blockquote {
     padding: 30px !important;
@@ -342,99 +108,12 @@ $value_nine: 1550px;
       font-size: 19px !important;
     }
   }
-
-  .login-form {
-    margin-right: 0;
-
-    h2 {
-      font-size: 30px;
-    }
-  }
-
-  .hero-banner-area {
-    padding: {
-      top: 100px;
-      bottom: 200px;
-    }
-    .container-fluid {
-      max-width: 720px;
-    }
-  }
-  .hero-banner-content {
-    max-width: 595px;
-    text-align: center;
-    margin: 0 auto;
-
-    h1 {
-      margin-bottom: 15px;
-      font-size: 35px;
-    }
-    p {
-      max-width: 515px;
-      font-size: 15px;
-      padding-right: 0;
-      margin: {
-        left: auto;
-        right: auto;
-      }
-    }
-  }
-  .hero-banner-image {
-    margin-top: 30px;
-  }
-  .banner-shape19 {
-    display: none;
-  }
 }
 
 /* Min width 992px Max width 1199px */
 @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
   .container {
     max-width: 960px;
-  }
-
-  .shape9 {
-    display: none;
-  }
-
-  .login-form {
-    padding: 30px 40px;
-
-    h2 {
-      font-size: 30px;
-    }
-  }
-
-  .widget-area {
-    .widget {
-      .widget-title {
-        font-size: 20px;
-      }
-    }
-    .widget_recent_courses {
-      .item {
-        .info {
-          span {
-            font-size: 15px;
-          }
-          .title {
-            font-size: 15px;
-          }
-        }
-      }
-    }
-    .tagcloud {
-      a {
-        padding: 7px 10px;
-        font-size: 13.5px !important;
-      }
-    }
-  }
-
-  .cart-totals {
-    h3 {
-      font-size: 22px;
-    }
   }
 
   blockquote,
@@ -445,51 +124,11 @@ $value_nine: 1550px;
       font-size: 20px !important;
     }
   }
-
-  .hero-banner-area {
-    padding: {
-      bottom: 230px;
-      top: 100px;
-    }
-    .container-fluid {
-      max-width: 960px;
-    }
-  }
-  .hero-banner-content {
-    h1 {
-      margin-bottom: 20px;
-      font-size: 38px;
-    }
-    p {
-      padding-right: 0;
-    }
-  }
 }
 
 /* Min width 1200px Max width 1355px */
 @media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
   .container {
     max-width: 1140px;
-  }
-
-  .hero-banner-area {
-    .container-fluid {
-      max-width: 1200px;
-    }
-  }
-  .hero-banner-content {
-    h1 {
-      margin-bottom: 20px;
-      font-size: 39px;
-    }
-  }
-}
-
-/* Min width 1550px */
-@media only #{$media} and ($feature_min : $value_nine) {
-  .hero-banner-area {
-    .container-fluid {
-      max-width: 1480px;
-    }
   }
 }

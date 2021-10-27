@@ -1,0 +1,386 @@
+.widget-area {
+  padding-left: 15px;
+
+  .widget {
+    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .widget-title {
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 7px;
+      border-bottom: 1px solid #eeeeee;
+      font: {
+        size: 22px;
+        weight: 800;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 1px;
+        bottom: -1px;
+        background-color: $main-color;
+      }
+    }
+  }
+  .widget_search {
+    form {
+      position: relative;
+
+      .screen-reader-text {
+        display: none;
+      }
+      label {
+        display: block;
+        margin-bottom: 0;
+      }
+      .search-field {
+        height: 50px;
+        color: $black-color;
+        background-color: #f2f4f5;
+        display: block;
+        width: 100%;
+        border-radius: 5px;
+        padding: 0 0 0 15px;
+        border: none;
+        transition: $transition;
+        font: {
+          size: $font-size;
+          weight: 500;
+        }
+        &::placeholder {
+          color: $optional-color;
+          transition: $transition;
+        }
+        &:focus {
+          &::placeholder {
+            color: transparent;
+          }
+        }
+      }
+      button {
+        border: none;
+        background-color: transparent;
+        color: $main-color;
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        right: 5px;
+        padding: 0;
+        transition: $transition;
+        top: 5px;
+        font-size: 20px;
+
+        i {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        &:hover,
+        &:focus {
+          border-radius: 5px;
+          background-color: $main-color;
+          color: $white-color;
+        }
+      }
+    }
+  }
+
+  .widget_tag_cloud {
+    .widget-title {
+      margin-bottom: 17px;
+    }
+  }
+  .tagcloud {
+    a {
+      display: inline-block;
+      background: #f5f5f5;
+      color: $black-color;
+      padding: 7px 15px;
+      border: none;
+      border-radius: 3px;
+      font: {
+        weight: 700;
+        size: 14px !important;
+      }
+      margin: {
+        top: 8px;
+        right: 4px;
+      }
+      &:hover,
+      &:focus {
+        color: $white-color;
+        background-color: $main-color;
+      }
+    }
+  }
+  .widget_insight {
+    ul {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style-type: none;
+
+      li {
+        margin-bottom: -1px;
+
+        a {
+          position: relative;
+          display: block;
+          padding: 15px 25px 15px 40px;
+          color: $optional-color;
+          border: 1px solid #eeeeee;
+          font: {
+            size: $font-size;
+            weight: 700;
+          }
+          &::before {
+            width: 5px;
+            height: 5px;
+            transition: $transition;
+            background-color: $optional-color;
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+          }
+          &:hover,
+          &.active {
+            border-color: $main-color;
+            background-color: $main-color;
+            color: $white-color;
+
+            &::before {
+              background-color: $white-color;
+            }
+          }
+        }
+        &.active {
+          a {
+            border-color: $main-color;
+            background-color: $main-color;
+            color: $white-color;
+
+            &::before {
+              background-color: $white-color;
+            }
+          }
+        }
+      }
+    }
+  }
+  .widget_recent_courses {
+    position: relative;
+    overflow: hidden;
+
+    .widget-title {
+      margin-bottom: 30px;
+    }
+    .item {
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eeeeee;
+      padding-bottom: 20px;
+
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .thumb {
+        float: left;
+        height: 80px;
+        overflow: hidden;
+        display: block;
+        position: relative;
+        width: 80px;
+        margin-right: 15px;
+        z-index: 1;
+
+        .fullimage {
+          width: 80px;
+          height: 80px;
+          display: inline-block;
+          border-radius: 3px;
+          background: {
+            size: cover !important;
+            repeat: no-repeat;
+            position: center center !important;
+          }
+          &.bg1 {
+            background-image: url(/images/courses/courses1.jpg);
+          }
+          &.bg2 {
+            background-image: url(/images/courses/courses2.jpg);
+          }
+          &.bg3 {
+            background-image: url(/images/courses/courses3.jpg);
+          }
+        }
+        &::before,
+        &::after {
+          transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
+          content: '';
+          background-color: $white-color;
+          position: absolute;
+          z-index: 1;
+          top: 50%;
+          left: 50%;
+          opacity: 0;
+          transform: translate(-50%, -50%);
+        }
+        &::before {
+          width: 40px;
+          height: 1px;
+          left: 100%;
+        }
+        &::after {
+          height: 40px;
+          width: 1px;
+          top: 0;
+        }
+      }
+      .info {
+        overflow: hidden;
+        margin-top: 5px;
+
+        span {
+          display: block;
+          color: $main-color;
+          text-transform: uppercase;
+          margin: {
+            bottom: 6px;
+            top: -5px;
+          }
+          font: {
+            size: 18px;
+            weight: 800;
+            style: italic;
+          }
+        }
+        .title {
+          margin-bottom: 0;
+          line-height: 1.4;
+          font: {
+            size: $font-size;
+            weight: 700;
+          }
+          a {
+            display: inline-block;
+          }
+        }
+      }
+      &:hover {
+        .thumb {
+          &::before,
+          &::after {
+            opacity: 1;
+            top: 50%;
+            left: 50%;
+          }
+        }
+      }
+    }
+  }
+  .filter_by_price {
+    .irs--flat {
+      .irs-bar {
+        background-color: $main-color;
+      }
+      .irs-handle > i:first-child {
+        background-color: $main-color;
+      }
+    }
+  }
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .widget-area {
+    margin-top: 40px;
+    padding-left: 0;
+
+    .widget {
+      .widget-title {
+        font-size: 19px;
+      }
+    }
+    .widget_insight {
+      ul {
+        li {
+          a {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    .widget_recent_courses {
+      .item {
+        .info {
+          span {
+            font-size: 15px;
+          }
+          .title {
+            font-size: 14.5px;
+          }
+        }
+      }
+    }
+    .tagcloud {
+      a {
+        font-size: 13.5px !important;
+      }
+    }
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  .widget-area {
+    margin-top: 40px;
+    padding-left: 0;
+
+    .widget {
+      .widget-title {
+        font-size: 19px;
+      }
+    }
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  .widget-area {
+    .widget {
+      .widget-title {
+        font-size: 20px;
+      }
+    }
+    .widget_recent_courses {
+      .item {
+        .info {
+          span {
+            font-size: 15px;
+          }
+          .title {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    .tagcloud {
+      a {
+        padding: 7px 10px;
+        font-size: 13.5px !important;
+      }
+    }
+  }
+}

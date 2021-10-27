@@ -33,95 +33,13 @@
   .default-btn i {
     left: 20px;
   }
-  .form-control {
-    height: 48px;
-    font-size: 14.5px;
-  }
 
-  .shape9 {
-    display: none;
-  }
-  .courses-area.pt-100.pb-70 {
-    padding-bottom: 60px;
-  }
-  .login-form {
-    padding: 30px 20px;
-    margin-right: 0;
-  }
-  .login-form h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 25px;
-  }
-  .login-form form .lost-your-password-wrap {
-    text-align: left;
-    margin-top: 15px;
-  }
-  .login-form form button {
-    padding: 13px 30px;
-    font-size: 15px;
-  }
   .error-area {
     height: auto;
     padding-top: 150px;
     padding-bottom: 150px;
   }
-  .escolalms-grid-sorting {
-    text-align: center;
-  }
-  .escolalms-grid-sorting .result-count {
-    margin-bottom: 13px;
-  }
-  .escolalms-grid-sorting .ordering {
-    text-align: center;
-  }
-  .escolalms-grid-sorting .ordering label {
-    font-size: 14px;
-  }
-  .cart-table table thead tr th {
-    font-size: 14.5px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .cart-table table thead tr th:first-child {
-    padding-left: 0;
-  }
-  .cart-table table tbody tr td {
-    font-size: 14.5px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .cart-table table tbody tr td:first-child {
-    padding-left: 0;
-  }
-  .cart-buttons .shopping-coupon-code {
-    text-align: center;
-  }
-  .cart-buttons .shopping-coupon-code button {
-    position: relative;
-    right: 0;
-    top: 0;
-    height: auto;
-    padding: 12px 25px;
-    line-height: initial;
-    font-size: 15px;
-    border-radius: 5px;
-    margin-top: 15px;
-  }
-  .cart-totals {
-    padding: 20px;
-    max-width: 100%;
-    margin-top: 40px;
-  }
-  .cart-totals h3 {
-    font-size: 18px;
-  }
-  .cart-totals ul {
-    margin-bottom: 20px;
-  }
-  .cart-totals ul li:last-child {
-    font-size: 18px;
-  }
+
   blockquote,
   .blockquote {
     padding: 20px !important;
@@ -130,62 +48,11 @@
   .blockquote p {
     font-size: 17px !important;
   }
-  .widget-area {
-    margin-top: 40px;
-    padding-left: 0;
-  }
-  .widget-area .widget .widget-title {
-    font-size: 19px;
-  }
-  .widget-area .widget_insight ul li a {
-    font-size: 15px;
-  }
-  .widget-area .widget_recent_courses .item .info span {
-    font-size: 15px;
-  }
-  .widget-area .widget_recent_courses .item .info .title {
-    font-size: 14.5px;
-  }
-  .widget-area .tagcloud a {
-    font-size: 13.5px !important;
-  }
-  .hero-banner-area {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  .hero-banner-area .container-fluid {
-    max-width: 100%;
-  }
-  .hero-banner-content {
-    text-align: center;
-  }
-  .hero-banner-content p {
-    padding-right: 0;
-    font-weight: 500;
-    font-size: 15px;
-  }
-  .hero-banner-content h1 {
-    margin-bottom: 15px;
-    line-height: 1.3;
-    font-size: 28px;
-  }
-  .hero-banner-content .default-btn {
-    margin-top: 5px;
-  }
-  .hero-banner-image {
-    margin-top: 30px;
-  }
-  .banner-shape19 {
-    display: none;
-  }
 }
 
 /* Min width 576px Max width 767px */
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .container {
-    max-width: 540px;
-  }
-  .hero-banner-area .container-fluid {
     max-width: 540px;
   }
 }
@@ -221,25 +88,6 @@
     top: 11px;
   }
 
-  .shape9 {
-    display: none;
-  }
-  .widget-area {
-    margin-top: 40px;
-    padding-left: 0;
-  }
-  .widget-area .widget .widget-title {
-    font-size: 19px;
-  }
-  .cart-table table thead tr th {
-    font-size: 14px;
-  }
-  .cart-totals h3 {
-    font-size: 20px;
-  }
-  .cart-totals h3:last-child {
-    font-size: 18px;
-  }
   blockquote,
   .blockquote {
     padding: 30px !important;
@@ -248,41 +96,6 @@
   .blockquote p {
     font-size: 19px !important;
   }
-  .login-form {
-    margin-right: 0;
-  }
-  .login-form h2 {
-    font-size: 30px;
-  }
-  .hero-banner-area {
-    padding-top: 100px;
-    padding-bottom: 200px;
-  }
-  .hero-banner-area .container-fluid {
-    max-width: 720px;
-  }
-  .hero-banner-content {
-    max-width: 595px;
-    text-align: center;
-    margin: 0 auto;
-  }
-  .hero-banner-content h1 {
-    margin-bottom: 15px;
-    font-size: 35px;
-  }
-  .hero-banner-content p {
-    max-width: 515px;
-    font-size: 15px;
-    padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .hero-banner-image {
-    margin-top: 30px;
-  }
-  .banner-shape19 {
-    display: none;
-  }
 }
 
 /* Min width 992px Max width 1199px */
@@ -290,31 +103,7 @@
   .container {
     max-width: 960px;
   }
-  .shape9 {
-    display: none;
-  }
-  .login-form {
-    padding: 30px 40px;
-  }
-  .login-form h2 {
-    font-size: 30px;
-  }
-  .widget-area .widget .widget-title {
-    font-size: 20px;
-  }
-  .widget-area .widget_recent_courses .item .info span {
-    font-size: 15px;
-  }
-  .widget-area .widget_recent_courses .item .info .title {
-    font-size: 15px;
-  }
-  .widget-area .tagcloud a {
-    padding: 7px 10px;
-    font-size: 13.5px !important;
-  }
-  .cart-totals h3 {
-    font-size: 22px;
-  }
+
   blockquote,
   .blockquote {
     padding: 40px !important;
@@ -323,40 +112,12 @@
   .blockquote p {
     font-size: 20px !important;
   }
-  .hero-banner-area {
-    padding-bottom: 230px;
-    padding-top: 100px;
-  }
-  .hero-banner-area .container-fluid {
-    max-width: 960px;
-  }
-  .hero-banner-content h1 {
-    margin-bottom: 20px;
-    font-size: 38px;
-  }
-  .hero-banner-content p {
-    padding-right: 0;
-  }
 }
 
 /* Min width 1200px Max width 1355px */
 @media only screen and (min-width: 1200px) and (max-width: 1355px) {
   .container {
     max-width: 1140px;
-  }
-  .hero-banner-area .container-fluid {
-    max-width: 1200px;
-  }
-  .hero-banner-content h1 {
-    margin-bottom: 20px;
-    font-size: 39px;
-  }
-}
-
-/* Min width 1550px */
-@media only screen and (min-width: 1550px) {
-  .hero-banner-area .container-fluid {
-    max-width: 1480px;
   }
 }
 

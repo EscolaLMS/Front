@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Layout from '../components/_App/Layout';
-import CoursesProvider from '../components/Courses/CoursesProvider';
-import CoursesCollection from '../components/Courses/CoursesCollection';
+import Layout from '@/components/_App/Layout';
+import CoursesProvider from '@/components/Courses/CoursesProvider';
+import CoursesCollection from '@/components/Courses/CoursesCollection';
+import './index.scss';
 
 const Index = () => {
   const { t } = useTranslation();
