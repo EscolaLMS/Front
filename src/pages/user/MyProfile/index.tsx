@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState, ChangeEvent } from 'react';
-
 import PageBanner from '../../../components/Common/PageBanner';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
@@ -30,8 +29,7 @@ const MyProfile = () => {
   }, [history, user]);
 
   const updateValue: UpdateCall = useCallback((key: keyof API.UserItem, value: unknown) => {
-    // @ts-ignore TODO:fix me
-    setState((prevState) => ({
+    setState((prevState: any) => ({
       ...prevState,
       [key]: value,
     }));
