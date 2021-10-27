@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { API } from '@escolalms/sdk/lib';
-import CourseProgramContent from './CourseProgramContent';
-import CourseSidebar from './CourseSidebar';
-import MarkdownReader from '../Markdown/MarkdownReader';
-import { fixContentForMarkdown } from '../../utils/markdown';
-import { useLessonProgram } from '../../../hooks/useLessonProgram';
+import CourseProgramContent from '../../escolalms/sdk/components/Course/CourseProgramContent';
+import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
+import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
+import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
+import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
