@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 
 import { TopicType, completed, noCompletedEventsIds } from '@escolalms/sdk/lib/services/courses';
-import { Player } from '@escolalms/h5p-react';
+import { Player, XAPIEvent } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
-import ImagePlayer from './Players/ImagePlayer';
+import ImagePlayer from '../../../../components/Course/ImagePlayer';
 import VideoPlayer from './Players/VideoPlayer';
 import AudioPlayer from './Players/AudioPlayer';
 import TextPlayer from './Players/TextPlayer';
@@ -16,8 +16,15 @@ export const CourseProgramContent: React.FC<{
   lessonId: number;
   topicId?: number;
   preview?: boolean;
+  customNoCompletedEventsIds?: string[];
   setIsDisabledNextTopicButton?: (b: boolean) => void;
-}> = ({ lessonId, topicId, preview = false, setIsDisabledNextTopicButton }) => {
+}> = ({
+  lessonId,
+  topicId,
+  preview = false,
+  setIsDisabledNextTopicButton,
+  customNoCompletedEventsIds = [],
+}) => {
   const { program, topicPing, topicIsFinished, fontSize, sendProgress, h5pProgress } =
     useContext(EscolaLMSContext);
 
@@ -47,10 +54,9 @@ export const CourseProgramContent: React.FC<{
       setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);
 
       if (event?.statement) {
-        // TODO: sdk should accept a list of h5p items that do not send termination events
         if (
           completed.includes(event?.statement?.verb?.id) ||
-          [...noCompletedEventsIds, 'http://h5p.org/libraries/H5P.InteractiveVideo-1.22'].includes(
+          [...noCompletedEventsIds, ...customNoCompletedEventsIds].includes(
             event?.statement?.context?.contextActivities?.category &&
               event?.statement?.context?.contextActivities?.category[0]?.id,
           )
@@ -61,7 +67,7 @@ export const CourseProgramContent: React.FC<{
         h5pProgress(String(program?.value?.id), Number(topicId), event?.statement);
       }
     },
-    [program, topicId, h5pProgress, setIsDisabledNextTopicButton],
+    [program, topicId, h5pProgress, setIsDisabledNextTopicButton, customNoCompletedEventsIds],
   );
 
   useEffect(() => {
@@ -90,11 +96,11 @@ export const CourseProgramContent: React.FC<{
       case TopicType.H5P:
         return (
           <Player
-            onXAPI={(e: any) => onXAPI(e)}
+            onXAPI={(e: XAPIEvent) => onXAPI(e)}
             id={topic?.topicable?.value}
             styles={[`${window.location.origin}/h5p_overwrite.css`]}
           />
-        ); // TODO: can't be any
+        );
       case TopicType.OEmbed:
         return (
           <Embed
@@ -102,8 +108,8 @@ export const CourseProgramContent: React.FC<{
             url={topic.topicable.value}
             key={topicId}
             FallbackElement={
-              <Player onXAPI={(e: any) => onXAPI(e)} id={topic?.topicable?.value} /> // TODO can't be any
-            } // TODO: can't be any
+              <Player onXAPI={(e: XAPIEvent) => onXAPI(e)} id={topic?.topicable?.value} /> // TODO can't be any
+            }
           />
         );
       case TopicType.RichText:
