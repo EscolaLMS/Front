@@ -1,4 +1,12 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/base/vars';
+
+.d-table {
+  width: 100%;
+  height: 100%;
+}
+.d-table-cell {
+  vertical-align: middle;
+}
 
 .error-area {
   background-color: #111111;

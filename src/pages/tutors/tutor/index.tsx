@@ -34,7 +34,7 @@ const TutorPage = () => {
             {tutor.loading && <Preloader />}
 
             {tutor.value && (
-              <div className="profile-box ptb-100">
+              <div className="profile-box">
                 <div className="row align-items-center">
                   <div className="col-lg-4 col-md-4">
                     {tutor.value.path_avatar && (
@@ -59,7 +59,7 @@ const TutorPage = () => {
               </div>
             )}
 
-            <div className="tutor-courses pb-70">
+            <div className="tutor-courses">
               <h3 className="tutor-courses__title">Tutor Courses</h3>
               <div className="row">
                 {courses.list?.data.map((course: API.Course) => (

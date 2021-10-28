@@ -21,7 +21,7 @@ const CoursesRightSidebar = () => {
           activePageText={t('Courses')}
         />
         <CoursesProvider onlyFree={false}>
-          <div className="courses-area ptb-100">
+          <div className="courses-area">
             <div className="container">
               <div className="row">
                 <CoursesCollection className="col-lg-8 col-md-12" />

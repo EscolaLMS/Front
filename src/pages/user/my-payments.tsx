@@ -30,7 +30,7 @@ const Orders = () => {
           activePageText={t('PaymentsPage.MyPayments')}
         />
 
-        <div className="cart-area ptb-100">
+        <div className="cart-area">
           <div className="container">
             {payments.loading && <Preloader />}
 

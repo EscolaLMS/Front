@@ -1,15 +1,24 @@
 .courses-area {
   position: relative;
   z-index: 1;
-}
+  padding: {
+    top: 100px;
+    bottom: 100px;
+  }
 
-/* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
-  .courses-area {
-    &.pt-100 {
-      &.pb-70 {
-        padding-bottom: 60px;
-      }
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    padding: {
+      top: 60px;
+      bottom: 60px;
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    padding: {
+      top: 80px;
+      bottom: 80px;
     }
   }
 }

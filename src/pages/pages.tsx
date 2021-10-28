@@ -29,7 +29,7 @@ const PagesPage = () => {
           activePageText={t('Pages')}
         />
 
-        <div className="courses-area ptb-100">
+        <div className="courses-area">
           <div className="container">
             <div className="row">
               {pages.loading && <Preloader />}

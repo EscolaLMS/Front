@@ -71,7 +71,7 @@ const MyProfile = () => {
           activePageText={t('Navbar.MyProfile')}
         />
 
-        <div className="ptb-100">
+        <div className="my-profile">
           <div className="container">
             <div className="row">
               <div className="col-lg-4">
@@ -106,7 +106,7 @@ const MyProfile = () => {
                 <form onSubmit={onSubmit}>
                   <div className="user-profile-table">
                     <div className="table-responsive">
-                      <table className="table table-bordered vertical-align-top">
+                      <table className="table table-bordered">
                         <tbody>
                           <tr>
                             <td>{t('MyProfilePage.FirstName')}</td>

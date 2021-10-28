@@ -1,21 +1,3 @@
-/*
-@File: eDemy Template Styles
-
-* This file contains the styling for the actual template, this
-is the file you need to edit to change the look of the
-template.
-
-This files table contents are outlined below>>>>>
-
-*******************************************
-*******************************************
-
-** - Default CSS
-*/
-
-/*================================================
-Default CSS
-=================================================*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
 
 $font-family: 'Nunito', sans-serif;
@@ -27,6 +9,24 @@ $black-color: #221638;
 $font-size: 16px;
 $transition: 0.5s;
 
+$media: screen;
+$feature_min: min-width;
+$feature_max: max-width;
+$value_one: 576px;
+$value_two: 767px;
+$value_three: 768px;
+$value_four: 991px;
+$value_five: 992px;
+$value_six: 1199px;
+$value_seven: 1200px;
+$value_eight: 1355px;
+$value_nine: 1550px;
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -34,11 +34,6 @@ body {
     size: $font-size;
     family: $font-family;
   }
-}
-
-img {
-  max-width: 100%;
-  height: auto;
 }
 
 p {
@@ -51,8 +46,27 @@ p {
     margin-bottom: 0;
   }
 }
-:focus {
-  outline: 0 !important;
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  body {
+    font-size: 14.5px;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  body {
+    font-size: 15px;
+  }
+  p {
+    font-size: 15px;
+  }
 }
 
 .h1,
@@ -71,26 +85,6 @@ h6 {
   font-family: $font-family;
 }
 
-.container {
-  max-width: 1230px;
-}
-
-.ptb-100 {
-  padding: {
-    top: 100px;
-    bottom: 100px;
-  }
-}
-.pt-100 {
-  padding-top: 100px;
-}
-.pt-70 {
-  padding-top: 70px;
-}
-.pb-70 {
-  padding-bottom: 70px;
-}
-
 a {
   color: $black-color;
   transition: $transition;
@@ -102,72 +96,50 @@ a {
   }
 }
 
-.d-table {
-  width: 100%;
-  height: 100%;
-}
-.d-table-cell {
-  vertical-align: middle;
+// ------------ container
+
+.container {
+  max-width: 1230px;
 }
 
-.vertical-align-top {
-  td,
-  th {
-    vertical-align: middle;
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .container {
+    max-width: 100%;
   }
-}
-.text-center {
-  text-align: center;
 }
 
-/* default-btn */
-.default-btn {
-  border: none;
-  position: relative;
-  display: inline-block;
-  text-align: center;
-  overflow: hidden;
-  z-index: 1;
-  color: $white-color;
-  background-color: $main-color;
-  transition: $transition;
-  border-radius: 5px;
-  font: {
-    weight: 700;
-    size: $font-size;
-  }
-  padding: {
-    left: 55px;
-    right: 30px;
-    top: 11px;
-    bottom: 11px;
-  }
-  span {
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background-color: $black-color;
-    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    border-radius: 5px;
-  }
-  i {
-    position: absolute;
-    left: 30px;
-    top: 10px;
-  }
-  &:hover {
-    color: $white-color;
-
-    span {
-      width: 225%;
-      height: 562.5px;
-    }
+/* Min width 576px Max width 767px */
+@media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
+  .container {
+    max-width: 540px;
   }
 }
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Min width 1200px Max width 1355px */
+@media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+// ------------ container end
+
+// ------------ blockquote
 
 blockquote,
 .blockquote {
@@ -221,3 +193,43 @@ blockquote,
     }
   }
 }
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  blockquote,
+  .blockquote {
+    padding: 20px !important;
+
+    p {
+      font-size: 17px !important;
+    }
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  blockquote,
+  .blockquote {
+    padding: 30px !important;
+
+    p {
+      font-size: 19px !important;
+    }
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  blockquote,
+  .blockquote {
+    padding: 40px !important;
+
+    p {
+      font-size: 20px !important;
+    }
+  }
+}
+
+// ------------ blockquote end
+
+// TODO: to co pozostało powyżej wrzucić (podzielić) do base, potem może uda się pogromić bootstrapa i typebase

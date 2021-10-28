@@ -28,7 +28,7 @@ const TutorsPage = () => {
           activePageText="Tutors"
         />
 
-        <div className="advisor-area pt-100 pb-70">
+        <div className="advisor-area">
           <div className="container">
             <div className="row">
               {tutors.list?.map((tutor: API.UserItem) => (

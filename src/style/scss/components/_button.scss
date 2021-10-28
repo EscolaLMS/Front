@@ -1,4 +1,77 @@
 .default-btn {
+  border: none;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+  color: $white-color;
+  background-color: $main-color;
+  transition: $transition;
+  border-radius: 5px;
+  font: {
+    weight: 700;
+    size: $font-size;
+  }
+  padding: {
+    left: 55px;
+    right: 30px;
+    top: 11px;
+    bottom: 11px;
+  }
+  span {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: $black-color;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    border-radius: 5px;
+  }
+  i {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+  }
+  &:hover {
+    color: $white-color;
+
+    span {
+      width: 225%;
+      height: 562.5px;
+    }
+  }
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .default-btn {
+    font-size: 13px;
+    padding-left: 45px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    i {
+      left: 20px;
+    }
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  .default-btn {
+    font-size: 15px;
+
+    i {
+      top: 11px;
+    }
+  }
+}
+
+.default-btn {
   color: $white-color !important;
   &:disabled {
     opacity: 0.4;

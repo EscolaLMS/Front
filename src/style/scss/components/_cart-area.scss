@@ -1,27 +1,4 @@
-@import './src/style/scss/base/vars';
-
-.user-profile {
-  text-align: center;
-  img {
-    margin-bottom: 20px;
-  }
-  h3 {
-    font-size: 22px;
-    font-weight: 700;
-  }
-  p {
-    margin: 0;
-  }
-}
-
-.user-profile-table {
-  td,
-  th {
-    vertical-align: middle;
-  }
-}
-
-.my-profile {
+.cart-area {
   padding: {
     top: 100px;
     bottom: 100px;

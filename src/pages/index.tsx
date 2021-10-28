@@ -41,7 +41,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="courses-area ptb-100">
+        <div className="courses-area">
           <div className="container">
             <div className="row">
               <CoursesProvider onlyFree={false}>

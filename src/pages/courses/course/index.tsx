@@ -131,7 +131,7 @@ const CoursePage = () => {
           />
         )}
 
-        <div className="ptb-100">
+        <div className="course-page">
           <div className="container">
             <div className="courses-details-header">
               <div className="row align-items-center">

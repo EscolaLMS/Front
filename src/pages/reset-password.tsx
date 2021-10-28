@@ -24,7 +24,7 @@ const ResetPassword: React.FC = () => {
           homePageText="Home"
           activePageText="Reset password"
         />
-        <div className="profile-authentication-area ptb-100">
+        <div className="profile-authentication-area">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-12">

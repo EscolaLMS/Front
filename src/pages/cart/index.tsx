@@ -59,7 +59,7 @@ const CartPage = () => {
           activePageText={t('Cart.Cart')}
         />
 
-        <div className="cart-area ptb-100">
+        <div className="cart-area">
           <div className="container">
             {cart.loading && <Preloader />}
 

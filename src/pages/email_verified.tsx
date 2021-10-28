@@ -16,7 +16,7 @@ const EmailVerified = () => {
           activePageText={t('EmailVerifiedPage.Verified')}
         />
 
-        <div className="privacy-policy-area ptb-100">
+        <div className="privacy-policy-area">
           <div className="container">
             <div className="row">
               <div className="col-lg-8 col-md-12">

@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
-import PageBanner from '../components/Common/PageBanner';
-import LoginForm from '../components/Authentication/LoginForm';
+import PageBanner from '@/components/Common/PageBanner';
+import LoginForm from '@/components/Authentication/LoginForm';
 import RegisterForm from '@/components/Authentication/RegisterForm';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Layout from '../components/_App/Layout';
+import Layout from '@/components/_App/Layout';
 import SocialButtons from '@/components/Authentication/SocialButtons';
 import { useLocation } from 'react-router-dom';
+import './index.scss';
 
 const Authentication = () => {
   const { search } = useLocation();
@@ -35,7 +36,7 @@ const Authentication = () => {
           activePageText={t('Authentication')}
         />
 
-        <div className="profile-authentication-area ptb-100">
+        <div className="profile-authentication-area">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 col-md-12">

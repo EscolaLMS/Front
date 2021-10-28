@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
-import CourseCard from '../CourseCard';
+import CourseCard from '../../CourseCard';
 import { useTranslation } from 'react-i18next';
 import UserCourseCard from '@/components/Profile/UserCourseCard';
+import './index.scss';
 
 const ProfileCourses = () => {
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
@@ -61,7 +62,7 @@ const ProfileCourses = () => {
       ) : (
         <React.Fragment>
           {!!startedCourses.length && (
-            <div className="profile-courses pt-100 margin-bottom-50">
+            <div className="profile-courses profile-courses--with-data">
               <h2>{t('MyCoursesPage.Finish')}</h2>
               <div className="row">
                 {startedCourses.map((item: API.CourseProgressItem) => (
@@ -81,7 +82,7 @@ const ProfileCourses = () => {
           )}
 
           {!!availableCourses.length && (
-            <div className="ended-courses available margin-bottom-50 pt-70">
+            <div className="ended-courses available">
               <div>
                 <h2>{t('MyCoursesPage.Available')}</h2>
                 <div className="row">
@@ -96,7 +97,7 @@ const ProfileCourses = () => {
           )}
 
           {!!finishedCourses.length && (
-            <div className="ended-courses pt-70">
+            <div className="ended-courses">
               <div>
                 <h2>{t('MyCoursesPage.Finished')}</h2>
                 <div className="row">

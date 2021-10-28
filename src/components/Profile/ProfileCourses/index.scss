@@ -1,0 +1,29 @@
+@import "./src/style/scss/base/vars";
+
+.profile-courses--with-data {
+  padding-top: 100px;
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    padding-top: 60px;
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    padding-top: 80px;
+  }
+}
+
+.ended-courses {
+  padding-top: 70px;
+
+  /* Max width 767px */
+  @media only #{$media} and ($feature_max : $value_two) {
+    padding-top: 30px;
+  }
+
+  /* Min width 768px Max width 991px */
+  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    padding-top: 50px;
+  }
+}

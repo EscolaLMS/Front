@@ -4,7 +4,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import routes from './routes';
 
 import HomePage from '../../pages/index';
-import AuthPage from '../../pages/authentication';
+import AuthPage from '../../pages/authentication/index';
 import StaticPage from '../../pages/static-page/index';
 import NotFoundPage from '../../pages/404/index';
 import TutorsPage from '../../pages/tutors/index';
