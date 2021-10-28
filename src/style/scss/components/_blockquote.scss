@@ -1,0 +1,88 @@
+blockquote,
+.blockquote {
+  overflow: hidden;
+  background-color: #fafafa;
+  padding: 50px !important;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  margin: {
+    bottom: 20px;
+    top: 20px;
+  }
+  p {
+    color: $black-color;
+    line-height: 1.6;
+    margin-bottom: 0;
+    font: {
+      style: italic;
+      weight: 700;
+      size: 22px !important;
+    }
+  }
+  cite {
+    display: none;
+  }
+  &::before {
+    color: #efefef;
+    position: absolute;
+    animation: fade-up 1.5s infinite linear;
+    left: 50px;
+    top: -50px;
+    z-index: -1;
+    content: '\f10a';
+    font: {
+      family: Flaticon;
+      size: 135px;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: $main-color;
+    margin: {
+      top: 20px;
+      bottom: 20px;
+    }
+  }
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  blockquote,
+  .blockquote {
+    padding: 20px !important;
+
+    p {
+      font-size: 17px !important;
+    }
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  blockquote,
+  .blockquote {
+    padding: 30px !important;
+
+    p {
+      font-size: 19px !important;
+    }
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  blockquote,
+  .blockquote {
+    padding: 40px !important;
+
+    p {
+      font-size: 20px !important;
+    }
+  }
+}

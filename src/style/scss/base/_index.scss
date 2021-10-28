@@ -1,2 +1,24 @@
-@import 'vars.scss';
-@import 'typo.scss';
+@import 'vars';
+
+// TODO: move to base/base
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  color: $optional-color;
+  margin-bottom: 15px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@import 'typography';
+@import 'typo';

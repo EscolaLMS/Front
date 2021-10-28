@@ -1,0 +1,38 @@
+.container {
+  max-width: 1230px;
+}
+
+/* Max width 767px */
+@media only #{$media} and ($feature_max : $value_two) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* Min width 576px Max width 767px */
+@media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Min width 1200px Max width 1355px */
+@media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
+  .container {
+    max-width: 1140px;
+  }
+}

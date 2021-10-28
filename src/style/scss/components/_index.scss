@@ -1,5 +1,7 @@
+@import './container'; // overwrite bootstrap styles
 @import './form-control'; // overwrite bootstrap styles
 @import './table'; // overwrite bootstrap styles
+@import './blockquote';
 @import './shape';
 @import './courses-area';
 @import './cart-table';
