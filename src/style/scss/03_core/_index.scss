@@ -1,12 +1,15 @@
-@import './../01_abstracts';
-
 // The Core partial contains files like typography, resets, and boilerplate code, used across the whole website.
 // Once you write this code, there is no further overwriting.
+
+@import './../01_abstracts';
+
+// TODO: sprawdzić czy font-size wszędzie jest poprawny
+// TODO: podzielić poprawnie ten plik
 
 // reset
 // typography
 html {
-  font-size: $font-size-base;
+  font-size: pixelToEm($font-size-base-in-px, 16); // 16px is font-size-browsers-default
 }
 body {
   font-family: $font-family-base;

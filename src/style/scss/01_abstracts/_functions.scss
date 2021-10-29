@@ -2,9 +2,9 @@
 @import './variables/fonts';
 
 @function pixelToRem($pixels, $base: $font-size-base-in-px) {
-  @return math.div($pixels * 1px, $base) + rem;
+  @return math.div($pixels * 1px, $base * 1px) + rem;
 }
 
 @function pixelToEm($pixels, $base) {
-  @return math.div($pixels * 1px, $base) + em;
+  @return math.div($pixels * 1px, $base * 1px) + em;
 }
