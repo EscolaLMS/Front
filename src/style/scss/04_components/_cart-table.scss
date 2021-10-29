@@ -12,7 +12,7 @@
           border: none;
           white-space: nowrap;
           font: {
-            size: $font-size;
+            size: $font-size-base;
             weight: 800;
           }
         }
@@ -22,7 +22,7 @@
       tr {
         td {
           vertical-align: middle;
-          color: $optional-color;
+          color: $color-text-primary;
           white-space: nowrap;
           font: {
             weight: 700;
@@ -88,12 +88,12 @@
                   right: 0;
                 }
                 &:hover {
-                  color: $main-color;
+                  color: $color-primary;
                 }
               }
               input {
                 height: 45px;
-                color: $black-color;
+                color: $color-blackish;
                 outline: 0;
                 display: block;
                 border: none;
@@ -105,7 +105,7 @@
                   weight: 600;
                 }
                 &::placeholder {
-                  color: $black-color;
+                  color: $color-blackish;
                 }
               }
             }
@@ -120,7 +120,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .cart-table {
     table {
       thead {
@@ -156,7 +156,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .cart-table {
     table {
       thead {

@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .privacy-policy-content {
   img {
@@ -28,7 +28,7 @@
       margin-bottom: 0;
       line-height: 1.8;
       font: {
-        size: $font-size !important;
+        size: $font-size-base !important;
         weight: normal;
       }
     }
@@ -45,14 +45,14 @@
 
     li {
       margin-bottom: 10px;
-      color: $optional-color;
-      font-size: $font-size;
+      color: $color-text-primary;
+      font-size: $font-size-base;
       line-height: 1.8;
     }
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     img {
       margin-bottom: 25px;
     }
@@ -75,14 +75,14 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     h3 {
       font-size: 19px;
     }
   }
 
   /* Min width 992px Max width 1199px */
-  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  @media screen and ($viewport-9) and ($max-viewport-12) {
     h3 {
       font-size: 20px;
     }

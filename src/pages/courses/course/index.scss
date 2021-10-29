@@ -1,4 +1,4 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .courses-details-header {
   margin-bottom: 20px;
@@ -39,7 +39,7 @@
         }
         span {
           display: block;
-          color: $main-color;
+          color: $color-primary;
           text-transform: uppercase;
           margin-bottom: 1px;
           font: {
@@ -49,11 +49,11 @@
         }
         a {
           display: inline-block;
-          color: $black-color;
+          color: $color-blackish;
 
           &:hover,
           &:focus {
-            color: $main-color;
+            color: $color-primary;
           }
         }
         &:last-child {
@@ -94,7 +94,7 @@
       }
       .reviews-total {
         position: relative;
-        color: $optional-color;
+        color: $color-text-primary;
         position: relative;
         top: -1px;
         margin-left: 2px;
@@ -104,7 +104,7 @@
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     .courses-title {
       p {
         font-size: 15px;
@@ -146,7 +146,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     .courses-price {
       text-align: left;
       margin-top: 25px;
@@ -220,7 +220,7 @@
         }
         span {
           display: block;
-          color: $black-color;
+          color: $color-blackish;
           position: relative;
           padding-left: 22px;
           line-height: 1.7;
@@ -231,7 +231,7 @@
             position: absolute;
             left: 0;
             top: 3px;
-            color: $main-color;
+            color: $color-primary;
             font-size: 13px;
           }
         }
@@ -268,7 +268,7 @@
 
         a {
           background-color: #f8f9f8;
-          color: $black-color;
+          color: $color-blackish;
           position: relative;
           padding: {
             left: 55px;
@@ -284,7 +284,7 @@
             content: '\f104';
             position: absolute;
             left: 30px;
-            color: $main-color;
+            color: $color-primary;
             top: 14px;
             font: {
               size: 18px;
@@ -316,7 +316,7 @@
             .duration {
               display: inline-block;
               background: #f7e7e8;
-              color: $main-color;
+              color: $color-primary;
               text-transform: lowercase;
               border-radius: 3px;
               padding: 2px 10px 1.5px;
@@ -327,8 +327,8 @@
             }
             .status {
               display: inline-block;
-              background: $black-color;
-              color: $white-color;
+              background: $color-blackish;
+              color: $color-whitish;
               border-radius: 3px;
               margin-left: 6px;
               padding: 2px 10px 1.5px;
@@ -337,7 +337,7 @@
                 weight: 700;
               }
               &.locked {
-                color: $black-color;
+                color: $color-blackish;
                 background-color: transparent;
                 padding: 0;
                 margin-left: 8px;
@@ -352,12 +352,12 @@
             }
           }
           &:hover {
-            color: $main-color;
+            color: $color-primary;
           }
         }
         &:nth-child(even) {
           a {
-            background-color: $white-color;
+            background-color: $color-whitish;
           }
         }
       }
@@ -369,7 +369,7 @@
     list-style-type: none;
 
     li {
-      color: $optional-color;
+      color: $color-text-primary;
       margin-bottom: 10px;
       position: relative;
       padding-left: 17px;
@@ -382,7 +382,7 @@
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background-color: $black-color;
+        background-color: $color-blackish;
       }
       &:last-child {
         margin-bottom: 0;
@@ -391,7 +391,7 @@
   }
   p {
     strong {
-      color: $black-color;
+      color: $color-blackish;
     }
   }
   .audience-list {
@@ -400,7 +400,7 @@
     list-style-type: none;
 
     li {
-      color: $optional-color;
+      color: $color-text-primary;
       margin-bottom: 10px;
       position: relative;
       padding-left: 17px;
@@ -414,10 +414,10 @@
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background-color: $black-color;
+        background-color: $color-blackish;
       }
       strong {
-        color: $black-color;
+        color: $color-blackish;
       }
       &:last-child {
         margin-bottom: 0;
@@ -433,7 +433,7 @@
       height: 115px;
       border-radius: 5px 5px 0 0;
       background: {
-        color: $main-color;
+        color: $color-primary;
         image: url(/images/bg.jpg);
         position: center center;
         size: cover;
@@ -452,7 +452,7 @@
         }
         img {
           display: inline-block;
-          border: 3px solid $white-color;
+          border: 3px solid $color-whitish;
           width: 100px;
           height: 100px;
         }
@@ -468,7 +468,7 @@
               }
             }
             span {
-              color: $optional-color;
+              color: $color-text-primary;
             }
           }
         }
@@ -507,8 +507,8 @@
       }
       span {
         display: block;
-        font-size: $font-size;
-        color: $optional-color;
+        font-size: $font-size-base;
+        color: $color-text-primary;
       }
     }
     .row {
@@ -525,7 +525,7 @@
 
       div {
         font: {
-          size: $font-size;
+          size: $font-size-base;
           weight: 700;
         }
       }
@@ -542,7 +542,7 @@
       width: 100%;
       background-color: #f1f1f1;
       text-align: center;
-      color: $white-color;
+      color: $color-whitish;
       border-radius: 5px;
     }
     .bar-5 {
@@ -579,7 +579,7 @@
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     h3 {
       margin-bottom: 12px;
       font-size: 19px;
@@ -683,7 +683,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     h3 {
       font-size: 21px;
     }
@@ -711,7 +711,7 @@
   }
 
   /* Min width 992px Max width 1199px */
-  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  @media screen and ($viewport-9) and ($max-viewport-12) {
     h3 {
       font-size: 22px;
     }
@@ -744,7 +744,7 @@
     }
     div.anchor {
       background-color: transparent;
-      color: $black-color;
+      color: $color-blackish;
       position: relative;
       padding: {
         left: 55px;
@@ -760,7 +760,7 @@
         content: '\f104';
         position: absolute;
         left: 30px;
-        color: $main-color;
+        color: $color-primary;
         top: 14px;
         font: {
           size: 18px;
@@ -799,7 +799,7 @@
         .duration {
           display: inline-block;
           background: #f7e7e8;
-          color: $main-color;
+          color: $color-primary;
           text-transform: lowercase;
           border-radius: 3px;
           padding: 2px 10px 1.5px;
@@ -810,8 +810,8 @@
         }
         .status {
           display: inline-block;
-          background: $black-color;
-          color: $white-color;
+          background: $color-blackish;
+          color: $color-whitish;
           border-radius: 3px;
           margin-left: 6px;
           padding: 2px 10px 1.5px;
@@ -820,7 +820,7 @@
             weight: 700;
           }
           &.locked {
-            color: $black-color;
+            color: $color-blackish;
             background-color: transparent;
             padding: 0;
             margin-left: 8px;
@@ -835,7 +835,7 @@
         }
       }
       &:hover {
-        color: $main-color;
+        color: $color-primary;
       }
     }
   }
@@ -852,7 +852,7 @@
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding: {
       top: 60px;
       bottom: 60px;
@@ -860,7 +860,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding: {
       top: 80px;
       bottom: 80px;

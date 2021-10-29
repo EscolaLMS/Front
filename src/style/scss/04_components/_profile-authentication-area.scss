@@ -1,13 +1,11 @@
-.courses-area {
-  position: relative;
-  z-index: 1;
+.profile-authentication-area {
   padding: {
     top: 100px;
     bottom: 100px;
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding: {
       top: 60px;
       bottom: 60px;
@@ -15,7 +13,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding: {
       top: 80px;
       bottom: 80px;

@@ -1,7 +1,7 @@
 .login-form {
   padding: 40px 50px;
   border-radius: 5px;
-  background-color: $white-color;
+  background-color: $color-whitish;
   box-shadow: 0 0 10px rgba(51, 51, 51, 0.1);
   margin-right: 30px;
 
@@ -19,7 +19,7 @@
       label {
         display: block;
         margin-bottom: 8px;
-        color: $black-color;
+        color: $color-blackish;
         font-weight: 700;
       }
     }
@@ -38,7 +38,7 @@
         line-height: 20px;
         display: inline-block;
         margin-bottom: 0;
-        color: $optional-color;
+        color: $color-text-primary;
         font: {
           weight: 600;
         }
@@ -61,7 +61,7 @@
         content: '';
         width: 8px;
         height: 8px;
-        background: $main-color;
+        background: $color-primary;
         position: absolute;
         top: 5.5px;
         left: 6px;
@@ -79,10 +79,10 @@
         transform: scale(1);
       }
       [type='checkbox']:hover + label:before {
-        border-color: $main-color;
+        border-color: $color-primary;
       }
       [type='checkbox']:checked + label:before {
-        border-color: $main-color;
+        border-color: $color-primary;
       }
     }
     .lost-your-password-wrap {
@@ -112,7 +112,7 @@
           transition: $transition;
           bottom: 0;
           content: '';
-          background-color: $main-color;
+          background-color: $color-primary;
         }
         &:hover {
           &::before {
@@ -130,26 +130,26 @@
       display: block;
       text-align: center;
       overflow: hidden;
-      color: $white-color;
-      background-color: $main-color;
+      color: $color-whitish;
+      background-color: $color-primary;
       transition: $transition;
       width: 100%;
       border-radius: 5px;
       padding: 14.5px 30px;
       font: {
         weight: 700;
-        size: $font-size;
+        size: $font-size-base;
       }
       &:hover {
-        background-color: $black-color;
-        color: $white-color;
+        background-color: $color-blackish;
+        color: $color-whitish;
       }
     }
   }
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .login-form {
     padding: 30px 20px;
     margin-right: 0;
@@ -173,7 +173,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .login-form {
     margin-right: 0;
 
@@ -184,7 +184,7 @@
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .login-form {
     padding: 30px 40px;
 

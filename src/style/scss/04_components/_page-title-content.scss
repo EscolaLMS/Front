@@ -8,9 +8,9 @@
       display: inline-block;
       margin-right: 20px;
       position: relative;
-      color: $black-color;
+      color: $color-blackish;
       font: {
-        size: $font-size;
+        size: $font-size-base;
         weight: 600;
       }
       &::before {
@@ -24,12 +24,12 @@
         width: 1px;
       }
       a {
-        color: $optional-color;
+        color: $color-text-primary;
         display: block;
         font-weight: 500;
 
         &:hover {
-          color: $main-color;
+          color: $color-primary;
         }
       }
       &:last-child {
@@ -72,7 +72,7 @@
       position: relative;
       top: -2px;
       font: {
-        size: $font-size;
+        size: $font-size-base;
         weight: 600;
       }
     }
@@ -80,7 +80,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .page-title-content {
     ul {
       li {
@@ -106,7 +106,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .page-title-content {
     h2 {
       max-width: 720px;

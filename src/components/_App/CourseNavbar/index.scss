@@ -1,7 +1,7 @@
-@import "../../../style/scss/base/vars";
+@import '../../../style/scss/01_abstracts';
 
 .course-navbar {
-  color: $black-color;
+  color: $color-blackish;
   width: 100%;
   background: #fff;
   z-index: 9999;
@@ -75,7 +75,7 @@
     font-size: 1.75rem;
     font-weight: 500;
     line-height: 1.2;
-    color: $black-color;
+    color: $color-blackish;
     margin: 0 0 0.5rem;
   }
 
@@ -84,7 +84,7 @@
     font-size: 1.2rem;
     font-weight: 400;
     line-height: 1.2;
-    color: $black-color;
+    color: $color-blackish;
   }
 
   &__links {
@@ -112,7 +112,8 @@
     }
   }
 
-  &__lang-button {}
+  &__lang-button {
+  }
 
   &__close-link + &__lang-button {
     position: relative;

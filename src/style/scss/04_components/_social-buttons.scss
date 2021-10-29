@@ -10,8 +10,8 @@
     display: block;
     text-align: center;
     overflow: hidden;
-    color: $white-color;
-    background-color: $main-color;
+    color: $color-whitish;
+    background-color: $color-primary;
     transition: 0.5s;
     width: 100%;
     border-radius: 5px;
@@ -29,8 +29,8 @@
     }
 
     &:hover {
-      color: $white-color;
-      background-color: $main-color;
+      color: $color-whitish;
+      background-color: $color-primary;
     }
   }
 

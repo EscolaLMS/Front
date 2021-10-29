@@ -1,4 +1,4 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .d-table {
   width: 100%;
@@ -13,7 +13,7 @@
   height: 100vh;
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     height: auto;
     padding: {
       top: 150px;
@@ -25,7 +25,7 @@
   text-align: center;
 
   h3 {
-    color: $white-color;
+    color: $color-whitish;
     margin: {
       bottom: 20px;
       top: 45px;
@@ -53,16 +53,16 @@
         right: 7px;
       }
       span {
-        background-color: $white-color;
+        background-color: $color-whitish;
       }
       &:hover {
-        color: $black-color;
+        color: $color-blackish;
       }
     }
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     h3 {
       font-size: 25px;
     }
@@ -80,7 +80,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     h3 {
       font-size: 36px;
     }

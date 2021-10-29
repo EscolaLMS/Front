@@ -9,7 +9,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .page-title-area {
     padding: {
       top: 15px;

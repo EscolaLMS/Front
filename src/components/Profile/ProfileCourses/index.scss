@@ -1,15 +1,15 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .profile-courses--with-data {
   padding-top: 100px;
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding-top: 60px;
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding-top: 80px;
   }
 }
@@ -18,12 +18,12 @@
   padding-top: 70px;
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding-top: 30px;
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding-top: 50px;
   }
 }

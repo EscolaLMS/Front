@@ -15,21 +15,21 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .shape9 {
     display: none;
   }
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .shape9 {
     display: none;
   }
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .shape9 {
     display: none;
   }

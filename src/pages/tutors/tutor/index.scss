@@ -1,4 +1,4 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .profile-box {
   max-width: 1110px;
@@ -40,7 +40,7 @@
     }
     .sub-title {
       display: block;
-      color: $main-color;
+      color: $color-primary;
       margin-bottom: 15px;
       font: {
         size: 15px;
@@ -57,7 +57,7 @@
         font-weight: 600;
 
         span {
-          color: $optional-color;
+          color: $color-text-primary;
           font-weight: 700;
         }
         &:last-child {
@@ -68,7 +68,7 @@
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding: {
       top: 60px;
       bottom: 60px;
@@ -87,7 +87,7 @@
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding: {
       top: 80px;
       bottom: 80px;
@@ -103,7 +103,7 @@
   }
 
   /* Min width 992px Max width 1199px */
-  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  @media screen and ($viewport-9) and ($max-viewport-12) {
     .content {
       padding: 0 0 0 30px;
 
@@ -131,12 +131,12 @@
   padding-bottom: 70px;
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding-bottom: 30px;
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding-bottom: 50px;
   }
 }
@@ -145,12 +145,12 @@
   padding-top: 100px;
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     padding-top: 60px;
   }
 
   /* Min width 768px Max width 991px */
-  @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+  @media screen and ($viewport-7) and ($max-viewport-9) {
     padding-top: 80px;
   }
 }

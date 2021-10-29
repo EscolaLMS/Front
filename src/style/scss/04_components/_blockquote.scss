@@ -11,7 +11,7 @@ blockquote,
     top: 20px;
   }
   p {
-    color: $black-color;
+    color: $color-blackish;
     line-height: 1.6;
     margin-bottom: 0;
     font: {
@@ -43,7 +43,7 @@ blockquote,
     top: 0;
     bottom: 0;
     width: 3px;
-    background-color: $main-color;
+    background-color: $color-primary;
     margin: {
       top: 20px;
       bottom: 20px;
@@ -52,7 +52,7 @@ blockquote,
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   blockquote,
   .blockquote {
     padding: 20px !important;
@@ -64,7 +64,7 @@ blockquote,
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   blockquote,
   .blockquote {
     padding: 30px !important;
@@ -76,7 +76,7 @@ blockquote,
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   blockquote,
   .blockquote {
     padding: 40px !important;

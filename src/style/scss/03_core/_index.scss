@@ -1,0 +1,79 @@
+@import './../01_abstracts';
+
+// The Core partial contains files like typography, resets, and boilerplate code, used across the whole website.
+// Once you write this code, there is no further overwriting.
+
+// reset
+// typography
+html {
+  font-size: $font-size-base;
+}
+body {
+  font-family: $font-family-base;
+  font-size: pixelToRem(14.5);
+
+  @include media-screen($viewport-7) {
+    font-size: pixelToRem(15);
+  }
+
+  @include media-screen($viewport-9) {
+    font-size: pixelToRem(16);
+  }
+}
+
+p {
+  line-height: 1.6;
+  //font-size: pixelToRem(16); // TODO: must exist?
+}
+
+// colors
+
+body {
+  color: $color-text-primary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $color-text-second;
+}
+
+a {
+  color: $color-link;
+
+  &:hover {
+    color: $color-link-hover;
+  }
+}
+
+// other?
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  margin-bottom: pixelToRem(15);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  transition: $transition; // TODO: wtf???
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

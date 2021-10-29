@@ -1,4 +1,4 @@
-@import "../../../../../../style/scss/base/vars";
+@import '../../../../../../style/scss/01_abstracts';
 
 .course-timetable-topic {
   display: flex;
@@ -27,8 +27,8 @@
     border-radius: 50%;
     font-size: 16px;
     transition: 0.5s;
-    background-color: $main-color;
-    color: $main-color;
+    background-color: $color-primary;
+    color: $color-primary;
     position: relative;
     display: inline-flex !important; // TODO
     align-items: center;
@@ -37,25 +37,25 @@
     flex-grow: 0;
     margin: 0 5px;
 
-      &::before {
-        text-decoration: none;
-        display: inline-block;
-        position: absolute;
-      }
+    &::before {
+      text-decoration: none;
+      display: inline-block;
+      position: absolute;
+    }
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        border-radius: 50%;
-        z-index: -1;
-        margin: 2px 1px 1px 2px;
-        transition: $transition;
-        background-color: $white-color;
-      }
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 50%;
+      z-index: -1;
+      margin: 2px 1px 1px 2px;
+      transition: $transition;
+      background-color: $color-whitish;
+    }
   }
 
   &__meta {
@@ -75,29 +75,29 @@
 
   &:hover {
     .course-timetable-topic__title {
-      color: $main-color;
+      color: $color-primary;
     }
   }
 
   &.active,
   &:hover {
     .course-timetable-topic__title-icon {
-      color: $white-color;
+      color: $color-whitish;
       background-color: #a3c5bb;
 
       &::after {
-        background-color: $main-color2;
+        background-color: $color-second;
       }
     }
   }
 
   &.finished {
     .course-timetable-topic__title-icon {
-      color: $white-color;
-      background-color: $main-color;
+      color: $color-whitish;
+      background-color: $color-primary;
 
       &::after {
-        background-color: $main-color;
+        background-color: $color-primary;
       }
     }
   }

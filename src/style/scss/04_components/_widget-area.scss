@@ -24,7 +24,7 @@
         width: 50px;
         height: 1px;
         bottom: -1px;
-        background-color: $main-color;
+        background-color: $color-primary;
       }
     }
   }
@@ -41,7 +41,7 @@
       }
       .search-field {
         height: 50px;
-        color: $black-color;
+        color: $color-blackish;
         background-color: #f2f4f5;
         display: block;
         width: 100%;
@@ -50,11 +50,11 @@
         border: none;
         transition: $transition;
         font: {
-          size: $font-size;
+          size: $font-size-base;
           weight: 500;
         }
         &::placeholder {
-          color: $optional-color;
+          color: $color-text-primary;
           transition: $transition;
         }
         &:focus {
@@ -66,7 +66,7 @@
       button {
         border: none;
         background-color: transparent;
-        color: $main-color;
+        color: $color-primary;
         height: 40px;
         width: 40px;
         position: absolute;
@@ -86,8 +86,8 @@
         &:hover,
         &:focus {
           border-radius: 5px;
-          background-color: $main-color;
-          color: $white-color;
+          background-color: $color-primary;
+          color: $color-whitish;
         }
       }
     }
@@ -102,7 +102,7 @@
     a {
       display: inline-block;
       background: #f5f5f5;
-      color: $black-color;
+      color: $color-blackish;
       padding: 7px 15px;
       border: none;
       border-radius: 3px;
@@ -116,8 +116,8 @@
       }
       &:hover,
       &:focus {
-        color: $white-color;
-        background-color: $main-color;
+        color: $color-whitish;
+        background-color: $color-primary;
       }
     }
   }
@@ -134,17 +134,17 @@
           position: relative;
           display: block;
           padding: 15px 25px 15px 40px;
-          color: $optional-color;
+          color: $color-text-primary;
           border: 1px solid #eeeeee;
           font: {
-            size: $font-size;
+            size: $font-size-base;
             weight: 700;
           }
           &::before {
             width: 5px;
             height: 5px;
             transition: $transition;
-            background-color: $optional-color;
+            background-color: $color-text-primary;
             content: '';
             position: absolute;
             left: 25px;
@@ -154,23 +154,23 @@
           }
           &:hover,
           &.active {
-            border-color: $main-color;
-            background-color: $main-color;
-            color: $white-color;
+            border-color: $color-primary;
+            background-color: $color-primary;
+            color: $color-whitish;
 
             &::before {
-              background-color: $white-color;
+              background-color: $color-whitish;
             }
           }
         }
         &.active {
           a {
-            border-color: $main-color;
-            background-color: $main-color;
-            color: $white-color;
+            border-color: $color-primary;
+            background-color: $color-primary;
+            color: $color-whitish;
 
             &::before {
-              background-color: $white-color;
+              background-color: $color-whitish;
             }
           }
         }
@@ -229,7 +229,7 @@
         &::after {
           transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
           content: '';
-          background-color: $white-color;
+          background-color: $color-whitish;
           position: absolute;
           z-index: 1;
           top: 50%;
@@ -254,7 +254,7 @@
 
         span {
           display: block;
-          color: $main-color;
+          color: $color-primary;
           text-transform: uppercase;
           margin: {
             bottom: 6px;
@@ -270,7 +270,7 @@
           margin-bottom: 0;
           line-height: 1.4;
           font: {
-            size: $font-size;
+            size: $font-size-base;
             weight: 700;
           }
           a {
@@ -293,17 +293,17 @@
   .filter_by_price {
     .irs--flat {
       .irs-bar {
-        background-color: $main-color;
+        background-color: $color-primary;
       }
       .irs-handle > i:first-child {
-        background-color: $main-color;
+        background-color: $color-primary;
       }
     }
   }
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .widget-area {
     margin-top: 40px;
     padding-left: 0;
@@ -343,7 +343,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .widget-area {
     margin-top: 40px;
     padding-left: 0;
@@ -357,7 +357,7 @@
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .widget-area {
     .widget {
       .widget-title {

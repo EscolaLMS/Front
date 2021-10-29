@@ -1,3 +1,7 @@
+// The Components partial contains styles for all components that are to be created for one website,
+// including buttons, carousels, tabs, modals, and the like.
+
+@import './typebase'; // only for TextPlayer
 @import './container'; // overwrite bootstrap styles
 @import './form-control'; // overwrite bootstrap styles
 @import './table'; // overwrite bootstrap styles

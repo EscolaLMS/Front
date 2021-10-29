@@ -5,13 +5,13 @@
   text-align: center;
   overflow: hidden;
   z-index: 1;
-  color: $white-color;
-  background-color: $main-color;
+  color: $color-whitish;
+  background-color: $color-primary;
   transition: $transition;
   border-radius: 5px;
   font: {
     weight: 700;
-    size: $font-size;
+    size: $font-size-base;
   }
   padding: {
     left: 55px;
@@ -25,7 +25,7 @@
     width: 0;
     height: 0;
     border-radius: 50%;
-    background-color: $black-color;
+    background-color: $color-blackish;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     transform: translate(-50%, -50%);
     z-index: -1;
@@ -37,7 +37,7 @@
     top: 10px;
   }
   &:hover {
-    color: $white-color;
+    color: $color-whitish;
 
     span {
       width: 225%;
@@ -47,7 +47,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .default-btn {
     font-size: 13px;
     padding-left: 45px;
@@ -61,7 +61,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .default-btn {
     font-size: 15px;
 
@@ -72,7 +72,7 @@
 }
 
 .default-btn {
-  color: $white-color !important;
+  color: $color-whitish !important;
   &:disabled {
     opacity: 0.4;
   }

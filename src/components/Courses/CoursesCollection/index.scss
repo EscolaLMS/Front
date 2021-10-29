@@ -1,4 +1,4 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .escolalms-grid-sorting {
   margin-bottom: 40px;
@@ -7,7 +7,7 @@
     p {
       .count {
         font-weight: 700;
-        color: $black-color;
+        color: $color-blackish;
       }
     }
   }
@@ -20,7 +20,7 @@
       color: #ababab;
       margin-right: 5px;
       font: {
-        size: $font-size;
+        size: $font-size-base;
         weight: 700;
       }
     }
@@ -29,17 +29,17 @@
       width: 215px;
       background: #f8f8f8;
       border-color: #eeeeee;
-      color: $black-color;
+      color: $color-blackish;
       transition: $transition;
       padding: 0 0 0 12px;
       height: 45px;
       line-height: 45px;
       font: {
-        size: $font-size;
+        size: $font-size-base;
         weight: 700;
       }
       .list {
-        background-color: $white-color;
+        background-color: $color-whitish;
         border-radius: 5px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         list-style-type: none;
@@ -57,7 +57,7 @@
         .option {
           line-height: 38px;
           min-height: 38px;
-          color: $black-color;
+          color: $color-blackish;
           position: relative;
           transition: $transition;
           padding: {
@@ -65,21 +65,21 @@
             right: 25px;
           }
           font: {
-            size: $font-size;
+            size: $font-size-base;
             weight: 700;
           }
           &:hover {
-            background-color: $main-color !important;
-            color: $white-color;
+            background-color: $color-primary !important;
+            color: $color-whitish;
 
             &::before {
-              color: $white-color;
+              color: $color-whitish;
             }
           }
           &.focus,
           &.selected.focus {
             background-color: transparent !important;
-            color: $black-color;
+            color: $color-blackish;
           }
           &::before {
             content: '\f11f';
@@ -89,7 +89,7 @@
             opacity: 0;
             visibility: hidden;
             transition: $transition;
-            color: $main-color;
+            color: $color-primary;
             font: {
               family: Flaticon;
               size: 11px;
@@ -101,24 +101,24 @@
               visibility: visible;
             }
             &:hover {
-              background-color: $main-color !important;
-              color: $white-color;
+              background-color: $color-primary !important;
+              color: $color-whitish;
 
               &::before {
-                color: $white-color;
+                color: $color-whitish;
               }
             }
           }
         }
       }
       &:after {
-        border-color: $black-color;
+        border-color: $color-blackish;
         height: 8px;
         width: 8px;
         margin-top: -5px;
       }
       &:hover {
-        border-color: $main-color;
+        border-color: $color-primary;
         background-color: transparent;
       }
     }
@@ -126,7 +126,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .escolalms-grid-sorting {
     text-align: center;
 

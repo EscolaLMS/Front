@@ -1,8 +1,8 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .home-banner-area {
   background: {
-    color: $main-color;
+    color: $color-primary;
     position: center center;
     size: cover;
     image: url(/images/main-banner2.jpg);
@@ -21,7 +21,7 @@
   h1 {
     margin-bottom: 12px;
     max-width: 600px;
-    color: $white-color;
+    color: $color-whitish;
     font: {
       size: 48px;
       weight: 800;
@@ -29,7 +29,7 @@
   }
   p {
     max-width: 500px;
-    color: $white-color;
+    color: $color-whitish;
     font: {
       weight: 600;
       size: 18px;
@@ -101,7 +101,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .hero-banner-area {
     padding: {
       top: 60px;
@@ -140,7 +140,7 @@
 }
 
 /* Min width 576px Max width 767px */
-@media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
+@media screen and ($viewport-5) and ($max-viewport-7) {
   .hero-banner-area {
     .container-fluid {
       max-width: 540px;
@@ -149,7 +149,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .hero-banner-area {
     padding: {
       top: 100px;
@@ -188,7 +188,7 @@
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .hero-banner-area {
     padding: {
       bottom: 230px;
@@ -210,7 +210,7 @@
 }
 
 /* Min width 1200px Max width 1355px */
-@media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
+@media screen and ($viewport-12) and ($max-viewport-13) {
   .hero-banner-area {
     .container-fluid {
       max-width: 1200px;
@@ -225,7 +225,7 @@
 }
 
 /* Min width 1550px */
-@media only #{$media} and ($feature_min : $value_nine) {
+@media screen and ($viewport-16) {
   .hero-banner-area {
     .container-fluid {
       max-width: 1480px;

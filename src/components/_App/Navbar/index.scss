@@ -1,4 +1,4 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .escolalms-nav {
   .container-fluid {
@@ -44,9 +44,9 @@
         border-radius: 5px;
         background-color: #f5f5f5;
         transition: $transition;
-        color: $black-color;
+        color: $color-blackish;
         font: {
-          size: $font-size;
+          size: $font-size-base;
           weight: 400;
         }
         padding: {
@@ -60,7 +60,7 @@
           transition: $transition;
         }
         &:focus {
-          border-color: $main-color;
+          border-color: $color-primary;
 
           &::placeholder {
             color: transparent;
@@ -74,7 +74,7 @@
         height: 48px;
         background-color: transparent;
         border: none;
-        color: $main-color;
+        color: $color-primary;
         border-radius: 5px;
         padding: 0 15px;
       }
@@ -87,7 +87,7 @@
         position: relative;
 
         a {
-          color: $black-color;
+          color: $color-blackish;
           font: {
             size: 16.5px;
             weight: 700;
@@ -115,7 +115,7 @@
           &:hover,
           &:focus,
           &.active {
-            color: $main-color;
+            color: $color-primary;
           }
         }
         &:last-child {
@@ -131,7 +131,7 @@
         &:hover,
         &.active {
           a {
-            color: $main-color;
+            color: $color-primary;
           }
         }
         .dropdown-menu {
@@ -147,9 +147,9 @@
           margin-top: 15px;
           position: absolute;
           visibility: hidden;
-          background: $white-color;
+          background: $color-whitish;
           transition: all 0.2s ease-in-out;
-          border-top: 3px solid $main-color;
+          border-top: 3px solid $color-primary;
           box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 
           li {
@@ -158,7 +158,7 @@
               margin: 0;
               position: relative;
               display: block;
-              color: $black-color;
+              color: $color-blackish;
               font: {
                 size: 16px;
                 weight: 700;
@@ -174,7 +174,7 @@
               &:hover,
               &:focus,
               &.active {
-                color: $main-color;
+                color: $color-primary;
               }
             }
             .dropdown-menu {
@@ -186,12 +186,12 @@
 
               li {
                 a {
-                  color: $black-color;
+                  color: $color-blackish;
 
                   &:hover,
                   &:focus,
                   &.active {
-                    color: $main-color;
+                    color: $color-primary;
                   }
                 }
                 .dropdown-menu {
@@ -202,12 +202,12 @@
 
                   li {
                     a {
-                      color: $black-color;
+                      color: $color-blackish;
 
                       &:hover,
                       &:focus,
                       &.active {
-                        color: $main-color;
+                        color: $color-primary;
                       }
                     }
                     .dropdown-menu {
@@ -218,12 +218,12 @@
 
                       li {
                         a {
-                          color: $black-color;
+                          color: $color-blackish;
 
                           &:hover,
                           &:focus,
                           &.active {
-                            color: $main-color;
+                            color: $color-primary;
                           }
                         }
                         .dropdown-menu {
@@ -235,12 +235,12 @@
 
                           li {
                             a {
-                              color: $black-color;
+                              color: $color-blackish;
 
                               &:hover,
                               &:focus,
                               &.active {
-                                color: $main-color;
+                                color: $color-primary;
                               }
                             }
                             .dropdown-menu {
@@ -252,12 +252,12 @@
 
                               li {
                                 a {
-                                  color: $black-color;
+                                  color: $color-blackish;
 
                                   &:hover,
                                   &:focus,
                                   &.active {
-                                    color: $main-color;
+                                    color: $color-primary;
                                   }
                                 }
                                 .dropdown-menu {
@@ -268,19 +268,19 @@
 
                                   li {
                                     a {
-                                      color: $black-color;
+                                      color: $color-blackish;
 
                                       &:hover,
                                       &:focus,
                                       &.active {
-                                        color: $main-color;
+                                        color: $color-primary;
                                       }
                                     }
                                   }
                                 }
                                 &.active {
                                   a {
-                                    color: $main-color;
+                                    color: $color-primary;
                                   }
                                 }
                                 &:hover {
@@ -293,7 +293,7 @@
                             }
                             &.active {
                               a {
-                                color: $main-color;
+                                color: $color-primary;
                               }
                             }
                             &:hover {
@@ -306,7 +306,7 @@
                         }
                         &.active {
                           a {
-                            color: $main-color;
+                            color: $color-primary;
                           }
                         }
                         &:hover {
@@ -319,7 +319,7 @@
                     }
                     &.active {
                       a {
-                        color: $main-color;
+                        color: $color-primary;
                       }
                     }
                     &:hover {
@@ -332,7 +332,7 @@
                 }
                 &.active {
                   a {
-                    color: $main-color;
+                    color: $color-primary;
                   }
                 }
                 &:hover {
@@ -345,7 +345,7 @@
             }
             &.active {
               a {
-                color: $main-color;
+                color: $color-primary;
               }
             }
             &:hover {
@@ -386,7 +386,7 @@
               li {
                 a {
                   margin-top: 14px;
-                  color: $black-color;
+                  color: $color-blackish;
                   padding: 0;
                   display: block;
                   font: {
@@ -395,7 +395,7 @@
                   }
                   &:hover,
                   &.active {
-                    color: $main-color;
+                    color: $color-primary;
                   }
                 }
                 &:first-child {
@@ -420,7 +420,7 @@
                 text-align: center;
                 font-size: 40px;
                 transition: $transition;
-                color: $black-color;
+                color: $color-blackish;
                 margin-bottom: 15px;
                 border: {
                   width: 1.5px;
@@ -446,7 +446,7 @@
               .sub-title {
                 display: block;
                 margin-top: 5px;
-                color: $main-color;
+                color: $color-primary;
                 font: {
                   weight: 600;
                   size: 15px;
@@ -463,9 +463,9 @@
               }
               &:hover {
                 .icon {
-                  background-color: $main-color;
-                  border-color: $white-color;
-                  color: $white-color;
+                  background-color: $color-primary;
+                  border-color: $color-whitish;
+                  color: $color-whitish;
                 }
               }
             }
@@ -491,7 +491,7 @@
         a {
           display: inline-block;
           position: relative;
-          color: $black-color;
+          color: $color-blackish;
 
           span {
             position: absolute;
@@ -502,15 +502,15 @@
             text-align: center;
             line-height: 14px;
             border-radius: 50%;
-            color: $white-color;
-            background-color: $main-color;
+            color: $color-whitish;
+            background-color: $color-primary;
             font: {
               size: 10px;
               weight: 600;
             }
           }
           &:hover {
-            color: $main-color;
+            color: $color-primary;
           }
         }
       }
@@ -531,9 +531,9 @@
           margin-top: 15px;
           position: absolute;
           visibility: hidden;
-          background: $white-color;
+          background: $color-whitish;
           transition: all 0.2s ease-in-out;
-          border-top: 3px solid $main-color;
+          border-top: 3px solid $color-primary;
           box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 
           li {
@@ -542,7 +542,7 @@
               margin: 0;
               position: relative;
               display: block;
-              color: $black-color;
+              color: $color-blackish;
               font: {
                 size: 16px;
                 weight: 700;
@@ -558,7 +558,7 @@
               &:hover,
               &:focus,
               &.active {
-                color: $main-color;
+                color: $color-primary;
               }
             }
           }
@@ -575,7 +575,7 @@
   }
 
   /* Max width 767px */
-  @media only #{$media} and ($feature_max : $value_two) {
+  @media screen and ($max-viewport-7) {
     .navbar {
       .navbar-nav {
         .nav-item {
@@ -589,7 +589,7 @@
   }
 
   /* Min width 576px Max width 767px */
-  @media only #{$media} and ($feature_min : $value_one) and ($feature_max : $value_two) {
+  @media screen and ($viewport-5) and ($max-viewport-7) {
     .navbar {
       .navbar-nav {
         .nav-item {
@@ -603,7 +603,7 @@
   }
 
   /* Min width 992px Max width 1199px */
-  @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+  @media screen and ($viewport-9) and ($max-viewport-12) {
     .navbar {
       .navbar-nav {
         .nav-item {
@@ -685,7 +685,7 @@
   }
 
   /* Min width 1200px Max width 1355px */
-  @media only #{$media} and ($feature_min : $value_seven) and ($feature_max : $value_eight) {
+  @media screen and ($viewport-12) and ($max-viewport-13) {
     .container-fluid {
       max-width: 1200px;
       padding: {
@@ -749,7 +749,7 @@
   }
 
   /* Min width 1550px */
-  @media only #{$media} and ($feature_min : $value_nine) {
+  @media screen and ($viewport-16) {
     .container-fluid {
       padding: {
         left: 120px;
@@ -897,7 +897,7 @@
 
 .navbar-area {
   position: relative;
-  background-color: $white-color;
+  background-color: $color-whitish;
   padding: {
     top: 5px;
     bottom: 5px;
@@ -909,7 +909,7 @@
     width: 100%;
     z-index: 999;
     box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
-    background-color: $white-color !important;
+    background-color: $color-whitish !important;
     animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
 
     &.pb-0 {
@@ -974,7 +974,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .navbar-area {
     &.is-sticky {
       &.pb-0 {
@@ -985,7 +985,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .navbar-area.is-sticky {
     &.pb-0 {
       padding-bottom: 20px !important;
@@ -994,7 +994,7 @@
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .navbar-area {
     padding-top: 15px;
     padding-bottom: 15px;

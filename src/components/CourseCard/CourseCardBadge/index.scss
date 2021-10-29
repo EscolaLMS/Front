@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .course-card-badge {
   display: flex;
@@ -16,6 +16,6 @@
   }
   line-height: 1em;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: $main-color;
-  color: $white-color;
+  background-color: $color-primary;
+  color: $color-whitish;
 }

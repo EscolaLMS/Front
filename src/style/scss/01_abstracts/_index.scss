@@ -1,0 +1,7 @@
+// This is a file containing all variables, mixins, functions and other elements that are not compiled into css.
+@import './variables';
+@import './functions';
+@import './mixins';
+
+// old variables TODO: remove
+$transition: 0.5s; //TODO: look at this and optimize/remove

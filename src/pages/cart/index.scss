@@ -1,7 +1,7 @@
-@import './src/style/scss/base/vars';
+@import './src/style/scss/01_abstracts';
 
 .cart-totals {
-  background: $white-color;
+  background: $color-whitish;
   padding: 40px;
   max-width: 500px;
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
@@ -26,7 +26,7 @@
     li {
       border: 1px solid #eaedff;
       padding: 10px 15px;
-      color: $black-color;
+      color: $color-blackish;
       overflow: hidden;
       font: {
         weight: 700;
@@ -42,13 +42,13 @@
           top: none;
         }
         span {
-          color: $black-color;
+          color: $color-blackish;
           font-weight: 600;
         }
       }
       span {
         float: right;
-        color: $optional-color;
+        color: $color-text-primary;
         font: {
           weight: normal;
         }
@@ -58,7 +58,7 @@
 }
 
 /* Max width 767px */
-@media only #{$media} and ($feature_max : $value_two) {
+@media screen and ($max-viewport-7) {
   .cart-totals {
     padding: 20px;
     max-width: 100%;
@@ -81,7 +81,7 @@
 }
 
 /* Min width 768px Max width 991px */
-@media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+@media screen and ($viewport-7) and ($max-viewport-9) {
   .cart-totals {
     h3 {
       font-size: 20px;
@@ -94,7 +94,7 @@
 }
 
 /* Min width 992px Max width 1199px */
-@media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+@media screen and ($viewport-9) and ($max-viewport-12) {
   .cart-totals {
     h3 {
       font-size: 22px;
