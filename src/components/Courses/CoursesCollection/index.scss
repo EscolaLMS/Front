@@ -20,7 +20,7 @@
       color: #ababab;
       margin-right: 5px;
       font: {
-        size: $font-size-base;
+        size: 1rem;
         weight: 700;
       }
     }
@@ -35,7 +35,7 @@
       height: 45px;
       line-height: 45px;
       font: {
-        size: $font-size-base;
+        size: 1rem;
         weight: 700;
       }
       .list {
@@ -65,7 +65,7 @@
             right: 25px;
           }
           font: {
-            size: $font-size-base;
+            size: 1rem;
             weight: 700;
           }
           &:hover {

@@ -28,7 +28,7 @@
       margin-bottom: 0;
       line-height: 1.8;
       font: {
-        size: $font-size-base !important;
+        size: 1rem !important;
         weight: normal;
       }
     }
@@ -46,7 +46,7 @@
     li {
       margin-bottom: 10px;
       color: $color-text-primary;
-      font-size: $font-size-base;
+      font-size: 1rem;
       line-height: 1.8;
     }
   }

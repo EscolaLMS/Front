@@ -50,7 +50,7 @@
         border: none;
         transition: $transition;
         font: {
-          size: $font-size-base;
+          size: 1rem;
           weight: 500;
         }
         &::placeholder {
@@ -137,7 +137,7 @@
           color: $color-text-primary;
           border: 1px solid #eeeeee;
           font: {
-            size: $font-size-base;
+            size: 1rem;
             weight: 700;
           }
           &::before {
@@ -270,7 +270,7 @@
           margin-bottom: 0;
           line-height: 1.4;
           font: {
-            size: $font-size-base;
+            size: 1rem;
             weight: 700;
           }
           a {

@@ -10,7 +10,7 @@
       position: relative;
       color: $color-blackish;
       font: {
-        size: $font-size-base;
+        size: 1rem;
         weight: 600;
       }
       &::before {
@@ -72,7 +72,7 @@
       position: relative;
       top: -2px;
       font: {
-        size: $font-size-base;
+        size: 1rem;
         weight: 600;
       }
     }
