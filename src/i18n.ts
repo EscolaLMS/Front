@@ -48,6 +48,7 @@ const resources = {
       'Buy now': 'Buy now',
       RecentCourses: 'Recent courses',
       LessonSummary: 'Lesson summary',
+      'Next Topic': 'Next topic',
       TopicSummary: 'Topic summary',
       Pages: 'Pages',
       FREE: 'FREE',
