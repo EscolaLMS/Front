@@ -17,7 +17,7 @@ export const CourseSidebarNavButtons: React.FC<{
 
   const { onNextTopicPreview } = useLessonProgram(
     course,
-    preview ? `/courses/` : `/course/`,
+    preview ? `/courses/preview` : `/course/`,
     preview,
   );
 
