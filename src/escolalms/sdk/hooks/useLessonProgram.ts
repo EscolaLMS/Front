@@ -56,7 +56,7 @@ export function useLessonProgram(
         );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lessonId, topicId, program, program.id, push, isPreview],
+    [lessonId, topicId, program, program.id, push, isPreview, courseRouteName],
   );
 
   return {
