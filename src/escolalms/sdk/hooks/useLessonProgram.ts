@@ -3,7 +3,11 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-export function useLessonProgram(program: API.CourseProgram, courseRouteName?: string) {
+export function useLessonProgram(
+  program: API.CourseProgram,
+  courseRouteName?: string,
+  isPreview?: boolean,
+) {
   const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
   const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
@@ -40,12 +44,28 @@ export function useLessonProgram(program: API.CourseProgram, courseRouteName?: s
       });
   }, [topicId, program, push, getNextPrevTopic, sendProgress, courseRouteName]);
 
-  return [
+  const onNextTopicPreview = useCallback(
+    (next = true) => {
+      const nextTopic = getNextPrevTopic(Number(topicId), next);
+
+      nextTopic &&
+        push(
+          isPreview
+            ? `${courseRouteName}preview/${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
+            : `${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`,
+        );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lessonId, topicId, program, program.id, push, isPreview],
+  );
+
+  return {
     topic,
     lesson,
     onNextTopic,
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
-  ] as const;
+    onNextTopicPreview,
+  } as const;
 }

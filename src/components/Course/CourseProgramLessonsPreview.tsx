@@ -9,7 +9,7 @@ import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({
   program,
 }) => {
-  const [topic, lesson] = useLessonProgram(program);
+  const { topic, lesson, onNextTopicPreview } = useLessonProgram(program, `/course/`, true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,6 +69,15 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                     </div>
                   </div>
                 )}
+              </div>
+
+              <div className="course-program-player-next">
+                <button className={`default-btn`} onClick={onNextTopicPreview}>
+                  <div className="course-program-player-next-button__wrapper">
+                    Następna lekcja &gt;
+                  </div>
+                  <span></span>
+                </button>
               </div>
             </div>
 

@@ -11,14 +11,14 @@ export const courseComplete = 1;
 export const courseInProgress = 2;
 
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-  const [
+  const {
     topic,
     lesson,
     onNextTopic,
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
-  ] = useLessonProgram(program, `/course/`);
+  } = useLessonProgram(program, `/course/`);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
