@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Front/static/css/main.8e2a8305.chunk.css",
+    "main.css": "/Front/static/css/main.6553ca1b.chunk.css",
     "main.js": "/Front/static/js/main.ecb09ca6.chunk.js",
     "main.js.map": "/Front/static/js/main.ecb09ca6.chunk.js.map",
     "runtime-main.js": "/Front/static/js/runtime-main.04efc241.js",
@@ -12,7 +12,7 @@
     "static/js/3.e2d0a8c5.chunk.js.map": "/Front/static/js/3.e2d0a8c5.chunk.js.map",
     "index.html": "/Front/index.html",
     "static/css/2.2b8b1e5d.chunk.css.map": "/Front/static/css/2.2b8b1e5d.chunk.css.map",
-    "static/css/main.8e2a8305.chunk.css.map": "/Front/static/css/main.8e2a8305.chunk.css.map",
+    "static/css/main.6553ca1b.chunk.css.map": "/Front/static/css/main.6553ca1b.chunk.css.map",
     "static/js/2.79048b88.chunk.js.LICENSE.txt": "/Front/static/js/2.79048b88.chunk.js.LICENSE.txt",
     "static/media/flaticon.css": "/Front/static/media/Flaticon.b113230c.svg",
     "static/media/index.scss": "/Front/static/media/main-banner2.3402f516.jpg",
@@ -23,7 +23,7 @@
     "static/js/runtime-main.04efc241.js",
     "static/css/2.2b8b1e5d.chunk.css",
     "static/js/2.79048b88.chunk.js",
-    "static/css/main.8e2a8305.chunk.css",
+    "static/css/main.6553ca1b.chunk.css",
     "static/js/main.ecb09ca6.chunk.js"
   ]
 }
