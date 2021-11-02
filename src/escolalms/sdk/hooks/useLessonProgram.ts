@@ -51,7 +51,7 @@ export function useLessonProgram(
       nextTopic &&
         push(
           isPreview
-            ? `${courseRouteName}/${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
+            ? `${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
             : `${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`,
         );
     },
