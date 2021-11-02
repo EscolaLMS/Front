@@ -5,20 +5,23 @@ import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
 import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
 import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
+import { useTranslation } from 'react-i18next';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
 export const courseInProgress = 2;
 
 export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-  const [
+  const {
     topic,
     lesson,
     onNextTopic,
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
-  ] = useLessonProgram(program, `/course/`);
+  } = useLessonProgram(program);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -102,7 +105,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                   onClick={onNextTopic}
                 >
                   <div className="course-program-player-next-button__wrapper">
-                    Następna lekcja &gt;
+                    {t('Next Topic')} &gt;
                   </div>
                   <span></span>
                 </button>

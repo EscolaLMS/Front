@@ -5,12 +5,13 @@ import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
 import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
 import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
 import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
+import { useTranslation } from 'react-i18next';
 
 export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({
   program,
 }) => {
-  const [topic, lesson] = useLessonProgram(program);
-
+  const { topic, lesson, onNextTopicPreview } = useLessonProgram(program, `/courses/preview/`);
+  const { t } = useTranslation();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [topic?.id, lesson?.id]);
@@ -23,6 +24,7 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
             <div className="course-program-player">
               <div className="course-program-player-content">
                 <h2>{topic?.title}</h2>
+
                 {topic &&
                   topic.introduction &&
                   fixContentForMarkdown(`${topic.introduction}`) !== '' && (
@@ -69,6 +71,15 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                     </div>
                   </div>
                 )}
+              </div>
+
+              <div className="course-program-player-next">
+                <button className={`default-btn`} onClick={onNextTopicPreview}>
+                  <div className="course-program-player-next-button__wrapper">
+                    {t('Next Topic')} &gt;
+                  </div>
+                  <span></span>
+                </button>
               </div>
             </div>
 

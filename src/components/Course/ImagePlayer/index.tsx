@@ -24,6 +24,7 @@ const ImagePlayer: React.FC<{ topic: API.TopicImage; onLoad: () => void }> = ({
         srcSizes={[500, 750, 1000]}
         onClick={() => setOpen(true)}
       />
+
       {open && <Lightbox mainSrc={topic.topicable.url} onCloseRequest={onCloseRequest} />}
     </div>
   );
