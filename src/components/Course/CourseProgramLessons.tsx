@@ -18,7 +18,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
-  } = useLessonProgram(program, `/course/`);
+  } = useLessonProgram(program);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

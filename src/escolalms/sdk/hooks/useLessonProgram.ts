@@ -3,11 +3,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-export function useLessonProgram(
-  program: API.CourseProgram,
-  courseRouteName?: string,
-  isPreview?: boolean,
-) {
+export function useLessonProgram(program: API.CourseProgram, courseRouteName: string = '/course/') {
   const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
   const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
@@ -38,8 +34,7 @@ export function useLessonProgram(
       sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(() => {
         const nextTopic = getNextPrevTopic(Number(topicId));
 
-        courseRouteName &&
-          nextTopic &&
+        nextTopic &&
           push(`${courseRouteName}${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`, null);
       });
   }, [topicId, program, push, getNextPrevTopic, sendProgress, courseRouteName]);
@@ -48,15 +43,10 @@ export function useLessonProgram(
     (next = true) => {
       const nextTopic = getNextPrevTopic(Number(topicId), next);
 
-      nextTopic &&
-        push(
-          isPreview
-            ? `${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`
-            : `${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`,
-        );
+      nextTopic && push(`${courseRouteName}${program.id}/${nextTopic?.lesson_id}/${nextTopic?.id}`);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lessonId, topicId, program, program.id, push, isPreview, courseRouteName],
+    [lessonId, topicId, program, program.id, push, courseRouteName],
   );
 
   return {
