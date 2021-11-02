@@ -89,7 +89,7 @@
           border: none;
           top: 70px;
           left: 0;
-          z-index: 99;
+          z-index: $z-index-navbar-dropdown;
           opacity: 0;
           width: 270px;
           display: block;
@@ -409,7 +409,7 @@
           top: 58px;
           left: auto;
           right: 0;
-          z-index: 99;
+          z-index: $z-index-navbar-dropdown;
           opacity: 0;
           width: 250px;
           display: block;
@@ -750,7 +750,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 999;
+    z-index: $z-index-navbar;
     box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
     background-color: $color-whitish !important;
     animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;

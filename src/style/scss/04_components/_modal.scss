@@ -1,3 +1,5 @@
+@import './src/style/scss/01_abstracts';
+
 .modal {
   &:after {
     content: '';
@@ -7,10 +9,10 @@
     left: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 99998;
+    z-index: $z-index-modal;
   }
   > div {
-    z-index: 99999;
+    z-index: $z-index-modal-overlay;
   }
   &.show {
     display: block;

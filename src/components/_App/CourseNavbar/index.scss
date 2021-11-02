@@ -4,7 +4,7 @@
   color: $color-blackish;
   width: 100%;
   background: #fff;
-  z-index: 9999;
+  z-index: $z-index-course-navbar;
   margin-bottom: 50px;
   box-shadow: 0 2px 28px 0 rgb(0 0 0 / 9%);
 

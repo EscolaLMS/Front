@@ -2,7 +2,7 @@
 
 .go-top {
   position: fixed;
-  z-index: 4;
+  z-index: $z-index-scroll-top-btn;
   bottom: -100px;
   right: 15px;
   width: 45px;
