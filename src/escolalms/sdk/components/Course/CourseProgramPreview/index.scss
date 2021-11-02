@@ -26,7 +26,8 @@
   align-items: center;
   align-content: center;
   background: rgba($color: #000000, $alpha: 0.6);
-  z-index: 999999;
+  z-index: $z-index-course-preview-modal;
+
   .topic-preview-modal-content {
     width: 80%;
     display: flex;

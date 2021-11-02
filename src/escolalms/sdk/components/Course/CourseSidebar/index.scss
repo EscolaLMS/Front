@@ -8,7 +8,7 @@
   max-height: calc(100vh - 100px);
   overflow: auto;
   overflow-x: hidden;
-  z-index: 99999;
+  z-index: $z-index-course-sidebar;
   background: #fff;
   border: 1px solid #e8e9eb;
   flex: 0 1 auto;
