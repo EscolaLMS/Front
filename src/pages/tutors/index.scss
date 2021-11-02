@@ -1,0 +1,62 @@
+@import './src/style/scss/01_abstracts';
+
+.single-advisor-item {
+  margin-bottom: 30px;
+  border-radius: 5px 5px 0 0;
+  background-color: $color-whitish;
+  box-shadow: 0px 8px 16px 0px rgba(146, 184, 255, 0.1);
+  text-align: center;
+
+  .advisor-image {
+    border-radius: 5px 5px 0 0;
+    position: relative;
+
+    img {
+      border-radius: 5px 5px 0 0;
+    }
+  }
+  .advisor-content {
+    padding: 22px;
+
+    h3 {
+      margin-bottom: 0;
+      font: {
+        size: 23px;
+        weight: 800;
+      }
+    }
+    span {
+      display: block;
+      color: $color-primary;
+      margin-top: 7px;
+      font: {
+        size: 15px;
+        weight: 600;
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media screen and ($max-viewport-7) {
+    .advisor-content {
+      h3 {
+        font-size: 19px;
+      }
+      span {
+        font-size: 13.5px;
+      }
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media screen and ($viewport-7) and ($max-viewport-9) {
+    .advisor-content {
+      h3 {
+        font-size: 19px;
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+@import './src/style/scss/01_abstracts';
+
+.register-form {
+  padding: {
+    top: 30px;
+    left: 30px;
+  }
+  h2 {
+    margin-bottom: 25px;
+    font: {
+      size: 36px;
+      weight: 800;
+    }
+  }
+  form {
+    .form-group {
+      margin-bottom: 25px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: $color-blackish;
+        font-weight: 700;
+      }
+    }
+    .description {
+      font-style: italic;
+      font-size: 13.5px;
+      margin: {
+        top: -10px;
+        bottom: 0;
+      }
+    }
+    button {
+      margin-top: 22px;
+      border: none;
+      display: block;
+      text-align: center;
+      overflow: hidden;
+      color: $color-whitish;
+      background-color: $color-primary;
+      transition: color 0.5s, background-color 0.5s;
+      width: 100%;
+      border-radius: 5px;
+      padding: 14.5px 30px;
+      font: {
+        weight: 700;
+        size: 1rem;
+      }
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-blackish;
+      }
+    }
+  }
+
+  /* Max width 767px */
+  @media screen and ($max-viewport-7) {
+    margin-top: 40px;
+    border-top: 1px solid #eeeeee;
+    padding: {
+      left: 0;
+      top: 30px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 25px;
+    }
+    form {
+      .lost-your-password-wrap {
+        text-align: left;
+        margin-top: 15px;
+      }
+      button {
+        padding: 13px 30px;
+        font-size: 15px;
+      }
+    }
+  }
+
+  /* Min width 768px Max width 991px */
+  @media screen and ($viewport-7) and ($max-viewport-9) {
+    margin-top: 40px;
+    padding: {
+      top: 0;
+      left: 0;
+    }
+    h2 {
+      font-size: 30px;
+    }
+  }
+
+  /* Min width 992px Max width 1199px */
+  @media screen and ($viewport-9) and ($max-viewport-12) {
+    padding-top: 25px;
+
+    h2 {
+      font-size: 30px;
+    }
+  }
+}

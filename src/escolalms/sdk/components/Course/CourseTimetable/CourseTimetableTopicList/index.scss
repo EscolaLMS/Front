@@ -1,4 +1,4 @@
-@import "../../../../../../style/scss/base/vars";
+@import '../../../../../../style/scss/01_abstracts';
 
 .course-timetable-topic-list {
   padding-left: 0;
@@ -8,9 +8,9 @@
   &__topic {
     display: block;
 
-    &:nth-child(even)  {
+    &:nth-child(even) {
       a {
-        background-color: $white-color;
+        background-color: $color-whitish;
       }
     }
   }

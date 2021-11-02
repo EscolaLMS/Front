@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .course-card {
   $this: &;
@@ -12,6 +12,7 @@
     .courses-box-footer {
       list-style-type: none;
       padding-left: 0;
+      flex-wrap: wrap;
       margin: {
         bottom: 0;
         left: -7px;
@@ -19,21 +20,24 @@
         top: 20px;
       }
       li {
-        color: $optional-color;
+        color: $color-text-primary;
         font-size: 15px;
         position: relative;
+        margin : {
+          bottom: 5px;
+        }
         padding: {
           left: 25px;
           right: 7px;
         }
 
         /* Max width 767px */
-        @media only #{$media} and ($feature_max : $value_two) {
+        @media screen and ($max-viewport-7) {
           font-size: 14px;
         }
 
         i {
-          color: $main-color;
+          color: $color-primary;
           position: absolute;
           left: 7px;
           top: 0;
@@ -44,8 +48,6 @@
           }
         }
       }
-
-
     }
   }
 

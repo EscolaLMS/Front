@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import PageBanner from '../../components/Common/PageBanner';
 import { Link, useHistory } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Preloader from '../../components/Preloader';
+import Preloader from '@/components/Preloader';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
@@ -32,7 +32,7 @@ const Orders = () => {
           activePageText={t('OrdersPage.MyOrders')}
         />
 
-        <div className="cart-area ptb-100">
+        <div className="cart-area">
           <div className="container">
             {orders.loading && <Preloader />}
 

@@ -1,0 +1,44 @@
+.social-btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &__button {
+    max-width: 400px;
+    border: none;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    color: $color-whitish;
+    background-color: $color-primary;
+    transition: 0.5s;
+    width: 100%;
+    border-radius: 5px;
+    padding: 14.5px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 15px;
+
+    &--blue {
+      background-color: #3b5998;
+    }
+
+    &--red {
+      background-color: #de5246;
+    }
+
+    &:hover {
+      color: $color-whitish;
+      background-color: $color-primary;
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+
+    &__button {
+      max-width: 100%;
+    }
+  }
+}

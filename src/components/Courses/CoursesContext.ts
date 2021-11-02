@@ -1,11 +1,15 @@
 import React from 'react';
 import { API } from '@escolalms/sdk/lib';
 
+interface ReactCoursesList {
+  loading: boolean;
+  list?: API.PaginatedMetaList<API.CourseListItem>;
+  error?: API.DefaultResponseError;
+}
+
 export const CoursesContext: React.Context<{
-  params?: API.CourseParams & { free: boolean };
-  // @ts-ignore TODO
-  setParams?;
-  // @ts-ignore TODO
-  courses?; // TODO
+  courses?: ReactCoursesList;
+  params?: API.CourseParams;
+  setParams?: (params: API.CourseParams) => void;
   onlyFree?: boolean;
 }> = React.createContext({});

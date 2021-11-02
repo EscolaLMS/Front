@@ -1,4 +1,4 @@
-@import "../../../style/scss/base/vars";
+@import '../../../style/scss/01_abstracts';
 
 // TODO: this is old `question` class; replace all `question`
 .meta-tag {
@@ -13,7 +13,10 @@
     weight: 700;
   }
 
-  &, &:hover, &:active, &:focus {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
     text-decoration: none;
   }
 
@@ -23,6 +26,6 @@
 
   &--red {
     background: #f7e7e8;
-    color: $main-color;
+    color: $color-primary;
   }
 }

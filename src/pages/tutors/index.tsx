@@ -7,6 +7,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import Layout from '../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
+import './index.scss';
 
 const TutorsPage = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
@@ -27,7 +28,7 @@ const TutorsPage = () => {
           activePageText="Tutors"
         />
 
-        <div className="advisor-area pt-100 pb-70">
+        <div className="advisor-area">
           <div className="container">
             <div className="row">
               {tutors.list?.map((tutor: API.UserItem) => (

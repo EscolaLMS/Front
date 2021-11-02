@@ -4,9 +4,9 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import routes from './routes';
 
 import HomePage from '../../pages/index';
-import AuthPage from '../../pages/authentication';
-import StaticPage from '../../pages/static-page';
-import NotFoundPage from '../../pages/404';
+import AuthPage from '../../pages/authentication/index';
+import StaticPage from '../../pages/static-page/index';
+import NotFoundPage from '../../pages/404/index';
 import TutorsPage from '../../pages/tutors/index';
 import TutorPage from '../../pages/tutors/tutor/index';
 import CoursesPage from '../../pages/courses';
@@ -15,12 +15,12 @@ import CoursePreviewPage from '../../pages/courses/preview';
 import EmailVerifiedPage from '../../pages/email_verified';
 
 // privates
-import MyProfilePage from '../../pages/user/my-profile';
+import MyProfilePage from '../../pages/user/MyProfile';
 import MyOrderPage from '../../pages/user/my-orders';
 import MyPaymentsPage from '../../pages/user/my-payments';
 import MyCoursesPage from '../../pages/user/my-courses';
 import CourseProgramPage from '../../pages/course/index';
-import CartPage from '../../pages/cart';
+import CartPage from '../../pages/cart/index';
 import PagesPage from '../../pages/pages';
 import ResetPage from '../../pages/reset-password';
 

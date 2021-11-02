@@ -1,12 +1,12 @@
 import React from 'react';
 import PageBanner from '../components/Common/PageBanner';
 import ResetForm from '../components/Authentication/ResetForm';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Layout from '@/components/_App/Layout';
 
 const ResetPassword: React.FC = () => {
-  //@ts-ignore //TODO fix this
-  const { push, search } = useLocation();
+  const { push } = useHistory();
+  const { search } = useLocation();
   const email = search.split('&')[0].split('=')[1];
   const token = search.split('&')[1].split('=')[1];
 
@@ -24,7 +24,7 @@ const ResetPassword: React.FC = () => {
           homePageText="Home"
           activePageText="Reset password"
         />
-        <div className="profile-authentication-area ptb-100">
+        <div className="profile-authentication-area">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-12">

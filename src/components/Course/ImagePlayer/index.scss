@@ -1,0 +1,22 @@
+@import './src/style/scss/01_abstracts';
+
+.image-player {
+  .escolalms-image {
+    max-width: 50vw;
+    max-height: 50vh;
+    cursor: pointer;
+
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+    img {
+      transition: transform 0.5s ease-out;
+      width: auto;
+      height: auto;
+      max-width: 50vw;
+      max-height: 50vh;
+    }
+  }
+}

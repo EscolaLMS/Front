@@ -1,0 +1,36 @@
+.shape9 {
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  z-index: -1;
+
+  img {
+    animation: {
+      name: rotateme;
+      duration: 10s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}
+
+/* Max width 767px */
+@media screen and ($max-viewport-7) {
+  .shape9 {
+    display: none;
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media screen and ($viewport-7) and ($max-viewport-9) {
+  .shape9 {
+    display: none;
+  }
+}
+
+/* Min width 992px Max width 1199px */
+@media screen and ($viewport-9) and ($max-viewport-12) {
+  .shape9 {
+    display: none;
+  }
+}

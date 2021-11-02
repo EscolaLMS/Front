@@ -1,0 +1,10 @@
+@use 'sass:math';
+@import './variables/fonts';
+
+@function pixelToRem($pixels, $base: $font-size-base-in-px) {
+  @return math.div($pixels, $base) + rem;
+}
+
+@function pixelToEm($pixels, $base-in-px) {
+  @return math.div($pixels, $base-in-px) + em;
+}

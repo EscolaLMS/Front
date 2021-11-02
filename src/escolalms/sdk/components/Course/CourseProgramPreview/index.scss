@@ -1,0 +1,59 @@
+@import './src/style/scss/01_abstracts';
+
+.img-container-xl {
+  width: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.topic-preview-modal .topic-preview-modal-content .h5p-player {
+  width: 100%;
+}
+
+.topic-preview-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background: rgba($color: #000000, $alpha: 0.6);
+  z-index: 999999;
+  .topic-preview-modal-content {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  button {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #d0d0d0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    -moz-transition: 0.5s;
+    transition: 0.5s;
+    font-size: 50px;
+  }
+  .container-xl {
+    background: #fff;
+    padding: 30px;
+    margin: 30px;
+  }
+}

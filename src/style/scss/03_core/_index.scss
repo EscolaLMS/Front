@@ -1,0 +1,7 @@
+// The Core partial contains files like typography, resets, and boilerplate code, used across the whole website.
+// Once you write this code, there is no further overwriting.
+
+@import './reset';
+@import './typography';
+@import './colors';
+@import './base';

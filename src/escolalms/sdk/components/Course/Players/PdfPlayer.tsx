@@ -20,6 +20,7 @@ const PdfPlayer: FunctionComponent<{
     if (currentPage === allPages) {
       onLoad && onLoad();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allPages, currentPage]);
 
   if (!url) {

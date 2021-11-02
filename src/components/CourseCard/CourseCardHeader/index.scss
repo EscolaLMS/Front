@@ -1,4 +1,4 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .course-card-header {
   position: relative;
@@ -22,7 +22,7 @@
     transform: translate(0, 50%);
 
     /* Max width 767px */
-    @media only #{$media} and ($feature_max : $value_two) {
+    @media screen and ($max-viewport-7) {
       right: 15px;
       width: 50px;
       height: 50px;

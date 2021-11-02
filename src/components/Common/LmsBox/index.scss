@@ -1,25 +1,26 @@
-@import "./src/style/scss/base/vars";
+@import './src/style/scss/01_abstracts';
 
 .lms-box {
   margin-bottom: 30px; // TODO: remove
   position: relative;
   border-radius: 5px;
-  background-color: $white-color;
+  background-color: $color-whitish;
   box-shadow: 0 8px 16px 0 rgba(146, 184, 255, 0.2);
   overflow: hidden;
 
-  &__header {}
+  &__header {
+  }
 
   &__content {
     padding: 30px;
 
     /* Max width 767px */
-    @media only #{$media} and ($feature_max : $value_two) {
+    @media screen and ($max-viewport-7) {
       padding: 20px;
     }
 
     /* Min width 768px Max width 991px */
-    @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    @media screen and ($viewport-7) and ($max-viewport-9) {
       padding: 20px;
     }
   }
@@ -33,18 +34,18 @@
     }
 
     /* Max width 767px */
-    @media only #{$media} and ($feature_max : $value_two) {
+    @media screen and ($max-viewport-7) {
       font-size: 18px;
     }
 
     /* Min width 768px Max width 991px */
-    @media only #{$media} and ($feature_min : $value_three) and ($feature_max : $value_four) {
+    @media screen and ($viewport-7) and ($max-viewport-9) {
       margin-bottom: 12px;
       font-size: 19px;
     }
 
     /* Min width 992px Max width 1199px */
-    @media only #{$media} and ($feature_min : $value_five) and ($feature_max : $value_six) {
+    @media screen and ($viewport-9) and ($max-viewport-12) {
       font-size: 20px;
     }
 

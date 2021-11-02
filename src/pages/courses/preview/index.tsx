@@ -5,7 +5,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '@/components/Preloader';
 import Layout from '@/components/_App/Layout';
 
-import CourseProgramLessonsPreview from '@/escolalms/sdk/components/Course/CourseProgramLessonsPreview';
+import CourseProgramLessonsPreview from '@/components/Course/CourseProgramLessonsPreview';
 
 // TODO: 99% same as: src/pages/course/index.tsx
 

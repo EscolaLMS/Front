@@ -1,0 +1,19 @@
+.page-title-area {
+  background-color: #f8f9f8;
+  position: relative;
+  z-index: 1;
+  padding: {
+    top: 20px;
+    bottom: 80px;
+  }
+}
+
+/* Max width 767px */
+@media screen and ($max-viewport-7) {
+  .page-title-area {
+    padding: {
+      top: 15px;
+      bottom: 50px;
+    }
+  }
+}

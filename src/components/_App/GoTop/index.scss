@@ -1,0 +1,52 @@
+@import './src/style/scss/01_abstracts';
+
+.go-top {
+  position: fixed;
+  z-index: 4;
+  bottom: -100px;
+  right: 15px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 40px;
+  text-align: center;
+  cursor: pointer;
+  color: $color-blackish;
+  background-color: $color-whitish;
+  opacity: 0;
+  transition-property: background-color, color, transform, opacity, bottom;
+  transition-duration: 0.9s;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  i {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 70%;
+    transform: translateY(-70%);
+    text-align: center;
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    bottom: 15px;
+  }
+  &:hover {
+    background-color: $color-primary;
+    color: $color-whitish;
+    transform: translateY(-10px);
+  }
+
+  /* Max width 767px */
+  @media screen and ($max-viewport-7) {
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+  }
+}

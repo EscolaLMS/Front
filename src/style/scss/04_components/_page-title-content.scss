@@ -1,0 +1,120 @@
+.page-title-content {
+  ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin-right: 20px;
+      position: relative;
+      color: $color-blackish;
+      font: {
+        size: 1rem;
+        weight: 600;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        right: -10px;
+        top: 5px;
+        transform: rotate(10deg);
+        background-color: #696969;
+        height: 15px;
+        width: 1px;
+      }
+      a {
+        color: $color-text-primary;
+        display: block;
+        font-weight: 500;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+      &:last-child {
+        margin-right: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+  h2 {
+    text-align: center;
+    max-width: 800px;
+    margin: {
+      top: 80px;
+      bottom: 0;
+      left: auto;
+      right: auto;
+    }
+    font: {
+      size: 36px;
+      weight: 800;
+    }
+  }
+  .rating {
+    text-align: center;
+    font-size: 17px;
+    margin-top: 20px;
+
+    i {
+      color: #dca416;
+      display: inline-block;
+      margin: {
+        right: 3px;
+      }
+    }
+    .rating-count {
+      display: inline-block;
+      position: relative;
+      top: -2px;
+      font: {
+        size: 1rem;
+        weight: 600;
+      }
+    }
+  }
+}
+
+/* Max width 767px */
+@media screen and ($max-viewport-7) {
+  .page-title-content {
+    ul {
+      li {
+        margin-right: 17px;
+        font-size: 14px;
+        margin: {
+          right: 17px;
+          bottom: 8px;
+        }
+        &::before {
+          right: -11px;
+          top: 4px;
+          height: 13px;
+        }
+      }
+    }
+    h2 {
+      max-width: 100%;
+      margin-top: 50px;
+      font-size: 26px;
+    }
+  }
+}
+
+/* Min width 768px Max width 991px */
+@media screen and ($viewport-7) and ($max-viewport-9) {
+  .page-title-content {
+    h2 {
+      max-width: 720px;
+      font-size: 30px;
+    }
+  }
+}
+
+.page-title-content h3 {
+  text-align: center;
+}

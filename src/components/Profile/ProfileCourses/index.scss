@@ -1,0 +1,29 @@
+@import './src/style/scss/01_abstracts';
+
+.profile-courses--with-data {
+  padding-top: 100px;
+
+  /* Max width 767px */
+  @media screen and ($max-viewport-7) {
+    padding-top: 60px;
+  }
+
+  /* Min width 768px Max width 991px */
+  @media screen and ($viewport-7) and ($max-viewport-9) {
+    padding-top: 80px;
+  }
+}
+
+.ended-courses {
+  padding-top: 70px;
+
+  /* Max width 767px */
+  @media screen and ($max-viewport-7) {
+    padding-top: 30px;
+  }
+
+  /* Min width 768px Max width 991px */
+  @media screen and ($viewport-7) and ($max-viewport-9) {
+    padding-top: 50px;
+  }
+}
