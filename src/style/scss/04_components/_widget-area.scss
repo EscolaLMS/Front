@@ -48,16 +48,19 @@
         border-radius: 5px;
         padding: 0 0 0 15px;
         border: none;
-        transition: $transition;
+        transition-property: color, border-color, background-color;
+        transition-duration: 0.5s;
         font: {
           size: 1rem;
           weight: 500;
         }
         &::placeholder {
           color: $color-text-primary;
-          transition: $transition;
+          transition: color 0.5s;
         }
         &:focus {
+          outline: none;
+
           &::placeholder {
             color: transparent;
           }
@@ -72,7 +75,8 @@
         position: absolute;
         right: 5px;
         padding: 0;
-        transition: $transition;
+        transition-property: color, background-color;
+        transition-duration: 0.5s;
         top: 5px;
         font-size: 20px;
 
@@ -83,6 +87,7 @@
           top: 50%;
           transform: translateY(-50%);
         }
+
         &:hover,
         &:focus {
           border-radius: 5px;
@@ -143,7 +148,8 @@
           &::before {
             width: 5px;
             height: 5px;
-            transition: $transition;
+            transition-property: background-color;
+            transition-duration: 0.5s;
             background-color: $color-text-primary;
             content: '';
             position: absolute;

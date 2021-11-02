@@ -1,0 +1,28 @@
+@import './../01_abstracts';
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  margin-bottom: pixelToRem(15px);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  transition: color 0.5s;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

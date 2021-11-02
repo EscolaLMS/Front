@@ -53,7 +53,8 @@
       border-radius: 50%;
       z-index: -1;
       margin: 2px 1px 1px 2px;
-      transition: $transition;
+      transition-property: background-color;
+      transition-duration: 0.5s;
       background-color: $color-whitish;
     }
   }

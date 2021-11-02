@@ -2,28 +2,23 @@
 
 .go-top {
   position: fixed;
-  cursor: pointer;
+  z-index: 4;
   bottom: -100px;
   right: 15px;
-  color: $color-blackish;
-  background-color: $color-whitish;
-  z-index: 4;
   width: 45px;
-  text-align: center;
   height: 45px;
-  opacity: 0;
-  visibility: hidden;
   border-radius: 50%;
   font-size: 40px;
-  transition: 0.9s;
+  text-align: center;
+  cursor: pointer;
+  color: $color-blackish;
+  background-color: $color-whitish;
+  opacity: 0;
+  transition-property: background-color, color, transform, opacity, bottom;
+  transition-duration: 0.9s;
   overflow: hidden;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 
-  &.active {
-    opacity: 1;
-    visibility: visible;
-    bottom: 15px;
-  }
   i {
     position: absolute;
     right: 0;
@@ -36,10 +31,14 @@
       right: auto;
     }
   }
+
+  &.active {
+    opacity: 1;
+    bottom: 15px;
+  }
   &:hover {
     background-color: $color-primary;
     color: $color-whitish;
-    transition: $transition;
     transform: translateY(-10px);
   }
 

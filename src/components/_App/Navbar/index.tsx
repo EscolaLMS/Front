@@ -18,17 +18,15 @@ const UserNavbarItem: React.FC<{
     <div className="option-item">
       {user ? (
         <div className="user-dropdown">
-          <Link to="/">
-            <a
-              onClick={(e) => e.preventDefault()}
-              onKeyDown={(e) => e.preventDefault()}
-              className="default-btn"
-              href="#/profile"
-              role="button"
-            >
-              <i className="flaticon-user"></i> {user.first_name} <span></span>
-            </a>
-          </Link>
+          <a
+            onClick={(e) => e.preventDefault()}
+            onKeyDown={(e) => e.preventDefault()}
+            className="default-btn"
+            href="#/profile"
+            role="button"
+          >
+            <i className="flaticon-user"></i> {user.first_name} <span></span>
+          </a>
 
           <ul className="dropdown-menu">
             <li className="nav-item">
@@ -87,7 +85,7 @@ const UserNavbarItem: React.FC<{
         </div>
       ) : (
         <Link to="/authentication" className="default-btn">
-          <i className="flaticon-user"></i> {t('Login')}/{t('Register')} <span></span>
+          <i className="flaticon-user" /> {t('Login')}/{t('Register')}
         </Link>
       )}
     </div>
@@ -148,9 +146,9 @@ const Navbar = () => {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span className="icon-bar top-bar"></span>
-                <span className="icon-bar middle-bar"></span>
-                <span className="icon-bar bottom-bar"></span>
+                <span className="icon-bar top-bar" />
+                <span className="icon-bar middle-bar" />
+                <span className="icon-bar bottom-bar" />
               </button>
 
               <div className={classOne} id="navbarSupportedContent">
