@@ -739,25 +739,17 @@
 }
 
 .navbar-area {
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
   background-color: $color-whitish;
+  z-index: $z-index-navbar;
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  top: 0;
+  left: 0;
+  width: 100%;
   padding: {
     top: 5px;
     bottom: 5px;
-  }
-  &.is-sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: $z-index-navbar;
-    box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
-    background-color: $color-whitish !important;
-    animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
-
-    &.pb-0 {
-      padding-bottom: 5px !important;
-    }
   }
 }
 
