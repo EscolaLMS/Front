@@ -10,7 +10,7 @@ const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number }> = 
 
   React.useEffect(() => {
     document.addEventListener('scroll', () => {
-      if (window.scrollY > 84) {
+      if (window.scrollY > 170) {
         setThePosition(true);
       } else {
         setThePosition(false);

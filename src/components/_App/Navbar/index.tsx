@@ -104,20 +104,6 @@ const Navbar = () => {
     setMenu(!menu);
   };
 
-  React.useEffect(() => {
-    let elementId = document.getElementById('navbar');
-    const listener = () => {
-      if (window.scrollY > 84) {
-        elementId && elementId.classList.add('is-sticky');
-      } else {
-        elementId && elementId.classList.remove('is-sticky');
-      }
-    };
-    document.addEventListener('scroll', listener);
-    window.scrollTo(0, 0);
-    return () => document.removeEventListener('scroll', listener);
-  }, []);
-
   useEffect(() => {
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
