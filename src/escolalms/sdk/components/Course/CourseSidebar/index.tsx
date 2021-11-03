@@ -21,7 +21,7 @@ export const CourseSidebar: React.FC<{
 
   return (
     <div className="course-program-sidebar">
-      <CourseSidebarNavButtons course={course} preview={preview} />
+      <CourseSidebarNavButtons course={course} topicId={topicId} preview={preview} />
       <CourseTimetable course={course} lessonId={lessonId} topicId={topicId} preview={preview} />
     </div>
   );
