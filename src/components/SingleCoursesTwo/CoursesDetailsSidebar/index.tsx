@@ -48,10 +48,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
                 className="link-btn popup-youtube"
                 role="button"
                 tabIndex={-1}
-              ></div>
+              />
 
               <div className="content">
-                <i className="flaticon-play"></i>
+                <i className="flaticon-play" />
                 <span>{t('Course Preview')}</span>
               </div>
             </React.Fragment>
@@ -65,7 +65,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-teacher"></i> {t('Tutor')}
+                  <i className="flaticon-teacher" /> {t('Tutor')}
                 </span>
                 <Link to={`/tutors/${course.author.id}`}>
                   {course.author?.first_name} {course.author?.last_name}
@@ -76,27 +76,27 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-time"></i> {t('Duration')}
+                <i className="flaticon-time" /> {t('Duration')}
               </span>
               {course.duration}
             </div>
           </li>
-          {course.lessons && (
+          {!!course.lessons?.length && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-distance-learning"></i>{' '}
+                  <i className="flaticon-distance-learning" />{' '}
                   {t('Lesson', { count: course.lessons.length })}
                 </span>
                 {course.lessons.length}
               </div>
             </li>
           )}
-          {course.users_count && course.users_count > 0 && (
+          {!!course.users_count && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-web"></i> {t('Student', { count: course.users_count })}
+                  <i className="flaticon-web" /> {t('Student', { count: course.users_count })}
                 </span>
                 {course.users_count}
               </div>
@@ -105,7 +105,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-html"></i> {t('Language')}
+                <i className="flaticon-html" /> {t('Language')}
               </span>
               {course.language}
             </div>
@@ -113,7 +113,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-caption"></i> {t('Level')}
+                <i className="flaticon-caption" /> {t('Level')}
               </span>
               {course.level}
             </div>
@@ -121,7 +121,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-lock"></i> {t('Access')}
+                <i className="flaticon-lock" /> {t('Access')}
               </span>
               {t('Lifetime')}
             </div>
@@ -131,11 +131,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
         <div className="btn-box">
           {course.base_price === 0 ? (
             <Link to={`/course/${course.id}`} className="default-btn">
-              <i className="flaticon-user"></i> {t('Attend to Course')} <span></span>
+              <i className="flaticon-user" /> {t('Attend to Course')} <span />
             </Link>
           ) : (
             <button onClick={() => addToCart(Number(course.id))} className="default-btn">
-              <i className="flaticon-shopping-cart"></i> {t('Add to Cart')} <span></span>
+              <i className="flaticon-shopping-cart" /> {t('Add to Cart')} <span />
               {cart.loading ? <Spinner color="success" /> : ''}
             </button>
           )}

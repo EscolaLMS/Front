@@ -48,22 +48,24 @@ export const CourseCard: React.FC<{ course: API.Course; finishDate?: Date | unde
 
         <div className="course-card__footer">
           <ul className="courses-box-footer d-flex justify-content-between align-items-center">
-            {course.scorm_id && (
+            {!!course.scorm_id && (
               <li>
-                <i className="flaticon-agenda"></i> SCORM
+                <i className="flaticon-agenda" /> SCORM
               </li>
             )}
-            {course.lessons_count && course.lessons_count > 0 && (
+            {!!course.lessons_count && (
               <li>
-                <i className="flaticon-agenda"></i> {course.lessons_count}{' '}
-                {t('Lesson', { count: course.lessons_count })}, {course.topic_count}{' '}
-                {t('Topic', { count: course.topic_count })}
+                <i className="flaticon-agenda" /> {course.lessons_count}{' '}
+                {/*@ts-ignore TODO: remove when sdk will be fixed*/}
+                {t('Lesson', { count: course.lessons_count })}, {course.topics_count || 0}{' '}
+                {/*@ts-ignore TODO: remove when sdk will be fixed*/}
+                {t('Topic', { count: course.topics_count || 0 })}
               </li>
             )}
 
-            {course.users_count && course.users_count > 0 && (
+            {!!course.users_count && (
               <li>
-                <i className="flaticon-people"></i> {course.users_count}{' '}
+                <i className="flaticon-people" /> {course.users_count}{' '}
                 {t('Student', { count: course.users_count })}
               </li>
             )}
