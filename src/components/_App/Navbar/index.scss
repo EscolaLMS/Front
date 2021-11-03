@@ -753,7 +753,7 @@
     z-index: $z-index-navbar;
     box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
     background-color: $color-whitish !important;
-    animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+    // animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
 
     &.pb-0 {
       padding-bottom: 5px !important;
