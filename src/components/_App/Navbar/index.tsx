@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import LangButton from '@/components/Common/LangButton';
 import './index.scss';
+import routes from '@/components/Routes/routes';
 
 const UserNavbarItem: React.FC<{
   user?: API.UserItem;
@@ -141,30 +142,26 @@ const Navbar = () => {
                 {/* <SearchForm /> */}
 
                 <ul className="navbar-nav">
-                  <li className="nav-item ">
-                    <NavLink className="nav-link" to="/">
+                  <li className="nav-item">
+                    <NavLink exact={true} className="nav-link" to={routes.home}>
                       {t('Home')}
                     </NavLink>
                   </li>
 
-                  <li className="nav-item ">
-                    <NavLink className="nav-link" to="/courses">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.courses}>
                       {t('Courses')}
                     </NavLink>
                   </li>
 
-                  <li className="nav-item ">
-                    <NavLink className="nav-link" to="/tutors">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.tutors}>
                       {t('Tutors')}
                     </NavLink>
                   </li>
+
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/pages">
-                      {t('Pages')}
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/contact">
+                    <NavLink className="nav-link" to={routes.contact}>
                       {t('Contact Us')}
                     </NavLink>
                   </li>

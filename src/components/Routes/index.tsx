@@ -13,6 +13,7 @@ import CoursesPage from '../../pages/courses';
 import CoursePage from '../../pages/courses/course/index';
 import CoursePreviewPage from '../../pages/courses/preview';
 import EmailVerifiedPage from '../../pages/email_verified';
+import ResetPage from '../../pages/reset-password';
 
 // privates
 import MyProfilePage from '../../pages/user/MyProfile';
@@ -21,8 +22,6 @@ import MyPaymentsPage from '../../pages/user/my-payments';
 import MyCoursesPage from '../../pages/user/my-courses';
 import CourseProgramPage from '../../pages/course/index';
 import CartPage from '../../pages/cart/index';
-import PagesPage from '../../pages/pages';
-import ResetPage from '../../pages/reset-password';
 
 import PrivateRoute from './private';
 
@@ -42,9 +41,9 @@ const Routes: React.FC = (): ReactElement => {
     preview,
     courseProgram,
     cart,
-    pages,
     reset,
     emailVerified,
+    notFound,
   } = routes;
 
   return (
@@ -52,13 +51,11 @@ const Routes: React.FC = (): ReactElement => {
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
-        <Route exact path={page} component={StaticPage} />
         <Route exact path={tutors} component={TutorsPage} />
         <Route exact path={tutor} component={TutorPage} />
         <Route exact path={courses} component={CoursesPage} />
         <Route exact path={course} component={CoursePage} />
         <Route exact path={preview} component={CoursePreviewPage} />
-        <Route exact path={pages} component={PagesPage} />
         <Route exact path={reset} component={ResetPage} />
         <Route exact path={emailVerified} component={EmailVerifiedPage} />
 
@@ -70,6 +67,11 @@ const Routes: React.FC = (): ReactElement => {
         <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
         <PrivateRoute exact path={courseProgram} component={CourseProgramPage} />
         <PrivateRoute exact path={cart} component={CartPage} />
+
+        <Route exact path={notFound} component={NotFoundPage} />
+
+        {/* must be last */}
+        <Route exact path={page} component={StaticPage} />
 
         <Route exact component={NotFoundPage} />
       </Switch>
