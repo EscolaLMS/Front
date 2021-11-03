@@ -22,6 +22,7 @@ const resources = {
       NoCoursesYet: 'You have no courses yet. Find one on ',
       NoCourses: 'No courses found',
       Tutors: 'Tutors',
+      Tutor: 'Tutor',
       'Contact Us': 'Contact Us',
       'Back to website': 'Back to website',
       Lesson_one: 'Lesson',

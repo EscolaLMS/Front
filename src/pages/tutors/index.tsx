@@ -8,9 +8,12 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import Layout from '../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 const TutorsPage = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchTutors();
@@ -22,10 +25,10 @@ const TutorsPage = () => {
       <React.Fragment>
         {/* <Navbar /> */}
         <PageBanner
-          pageTitle="Tutors"
+          pageTitle={t('Tutors')}
           homePageUrl="/"
           homePageText="Home"
-          activePageText="Tutors"
+          activePageText={t('Tutors')}
         />
 
         <div className="advisor-area">
@@ -48,7 +51,7 @@ const TutorsPage = () => {
                           {tutor.first_name} {tutor.last_name}
                         </Link>
                       </h3>
-                      <span>Tutor</span>
+                      <span>{t('Tutor')}</span>
                     </div>
                   </div>
                 </div>
