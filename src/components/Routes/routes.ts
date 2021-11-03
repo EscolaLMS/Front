@@ -5,7 +5,7 @@ const routeRoutes = {
   authentication: '/authentication',
   reset: '/reset-password',
   courses: '/courses',
-  page: '/page/:slug',
+  page: '/:slug',
   myProfile: '/user/my-profile',
   myOrders: '/user/my-orders',
   myPayments: '/user/my-payments',
@@ -14,9 +14,9 @@ const routeRoutes = {
   tutor: '/tutors/:id',
   preview: '/courses/preview/:id/:lessonID?/:topicID?',
   cart: '/cart',
-  pages: '/pages',
   contact: '/contact',
   emailVerified: '/email-verified',
+  notFound: '/404',
 };
 
 export default routeRoutes;

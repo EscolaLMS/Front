@@ -159,6 +159,9 @@ const resources = {
         EmailText: 'Your email is now verified. Go to',
         LoginPage: 'login page',
       },
+      StaticPages: {
+        Contact: 'Contact',
+      },
     },
   },
   pl: {
@@ -344,6 +347,9 @@ const resources = {
         Verified: 'Twój email jest teraz zweryfikowany',
         EmailText: 'Twój email został zweryfikowany. Przejdź do',
         LoginPage: 'strony logowania',
+      },
+      StaticPages: {
+        Contact: 'Kontakt',
       },
     },
   },
