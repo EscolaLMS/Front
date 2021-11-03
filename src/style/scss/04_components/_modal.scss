@@ -9,7 +9,7 @@
     left: 0;
     top: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: $z-index-modal;
+    z-index: $z-index-modal - 2;
   }
   > div {
     z-index: $z-index-modal-overlay;
