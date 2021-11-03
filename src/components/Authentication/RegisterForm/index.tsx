@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
-import TempEmail from '../../TempEmail';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 
@@ -58,7 +57,6 @@ const RegisterForm = () => {
   return (
     <div className="register-form">
       <h2>{t('Register')}</h2>
-      <TempEmail />
       {success && (
         <Alert color="success">
           Account registered successfully. Please check your <code>{user.email}</code> for
