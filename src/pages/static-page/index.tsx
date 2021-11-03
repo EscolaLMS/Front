@@ -8,6 +8,7 @@ import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import usePrevious from '../../hooks/usePrevious';
 import Preloader from '../../components/Preloader';
 import Layout from '@/components/_App/Layout';
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 
 const StaticPage = () => {
@@ -16,6 +17,8 @@ const StaticPage = () => {
   const { fetchPage, page } = useContext(EscolaLMSContext);
 
   const prevSlug = usePrevious(slug);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (
@@ -55,10 +58,10 @@ const StaticPage = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={page?.value?.title || ''}
+          pageTitle={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
           homePageUrl="/"
           homePageText="Home"
-          activePageText={page?.value?.title || ''}
+          activePageText={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
         />
 
         <div className="privacy-policy-area">
@@ -66,7 +69,6 @@ const StaticPage = () => {
             <div className="row">
               <div className="col-lg-8 col-md-12">
                 <div className="privacy-policy-content">
-                  <img src="/images/courses/courses1.jpg" alt="Course" />
                   <MarkdownReader>{page?.value?.content || ''}</MarkdownReader>
                 </div>
               </div>
