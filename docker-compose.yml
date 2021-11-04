@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 volumes:
   frontend-node-modules: ~
@@ -10,4 +10,4 @@ services:
       - ./:/srv/app
       - frontend-node-modules:/srv/app/node_modules/
     working_dir: /srv/app
-    command: "sh -c 'yarn && REACT_APP_PUBLIC_API_URL=https://awflms.wfzawf.pl yarn build'"
+    command: "sh -c 'yarn && REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl yarn build'"
