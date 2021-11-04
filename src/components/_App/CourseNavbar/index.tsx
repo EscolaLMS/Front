@@ -4,8 +4,8 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import TopProgress from '@/components/Common/TopProgress';
 import { useTranslation } from 'react-i18next';
-import './index.scss';
 import LangButton from '@/components/Common/LangButton';
+import './index.scss';
 
 const CourseNavbar = () => {
   const { program, courseProgress } = useContext(EscolaLMSContext);
