@@ -26,7 +26,7 @@ const Orders = () => {
         <PageBanner
           pageTitle={t('PaymentsPage.MyPayments')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('PaymentsPage.MyPayments')}
         />
 

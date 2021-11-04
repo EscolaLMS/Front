@@ -32,7 +32,7 @@ const Authentication = () => {
         <PageBanner
           pageTitle={t('Authentication')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('Authentication')}
         />
 

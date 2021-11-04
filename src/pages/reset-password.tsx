@@ -3,8 +3,10 @@ import PageBanner from '../components/Common/PageBanner';
 import ResetForm from '../components/Authentication/ResetForm';
 import { useLocation, useHistory } from 'react-router-dom';
 import Layout from '@/components/_App/Layout';
+import { useTranslation } from 'react-i18next';
 
 const ResetPassword: React.FC = () => {
+  const { t } = useTranslation();
   const { push } = useHistory();
   const { search } = useLocation();
   const email = search.split('&')[0].split('=')[1];
@@ -19,9 +21,9 @@ const ResetPassword: React.FC = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle="Reset your password"
+          pageTitle={t('LoginPage.Reset')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText="Reset password"
         />
         <div className="profile-authentication-area">

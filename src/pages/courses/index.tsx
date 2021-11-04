@@ -17,7 +17,7 @@ const CoursesRightSidebar = () => {
         <PageBanner
           pageTitle={t('Courses')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('Courses')}
         />
         <CoursesProvider onlyFree={false}>

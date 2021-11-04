@@ -60,7 +60,7 @@ const StaticPage = () => {
         <PageBanner
           pageTitle={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
         />
 
