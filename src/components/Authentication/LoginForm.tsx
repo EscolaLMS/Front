@@ -114,19 +114,21 @@ const LoginForm = () => {
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">
-            <span
-              tabIndex={-1}
-              role="button"
-              className="lost-your-password"
+            <button
               onClick={() => [setIsForgoten(!isForgoten)]}
-              onKeyDown={() => [setIsForgoten(!isForgoten)]}
+              type="button"
+              className="login-form__lost-password-button"
             >
               {isForgoten ? t('Back') : t('LoginPage.Lost')}
-            </span>
+            </button>
           </div>
         </div>
 
-        <button type="submit" disabled={state.state === 'disabled'}>
+        <button
+          type="submit"
+          className="login-form__submit-button"
+          disabled={state.state === 'disabled'}
+        >
           {isForgoten ? t('Send') : t('LogIn')}
           {state.state === 'loading' ? <Spinner color="success" /> : ''}
         </button>
