@@ -41,7 +41,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, []);
 
   const isCourse = pathname.includes('/course/');
-  const isPreview = pathname.includes('/preview');
+  const isPreview = pathname.includes('/preview/');
 
   return (
     <React.Fragment>
