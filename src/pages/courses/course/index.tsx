@@ -218,7 +218,7 @@ const CoursePage = () => {
                     <MarkdownReader>{course.value.description}</MarkdownReader>
                   )}
 
-                  <h3>{t('Meet Your Instructors')}</h3>
+                  <h3>{t('Meet your instructor')}</h3>
                   {course.value.author && (
                     <div className="courses-author">
                       <div className="author-profile-header"></div>

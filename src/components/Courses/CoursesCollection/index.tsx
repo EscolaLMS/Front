@@ -3,7 +3,7 @@ import { CoursesContext } from '@/components/Courses/CoursesContext';
 import CourseCard from '@/components/CourseCard';
 import Pagination from '@/components/Pagination';
 import Preloader from '@/components/Preloader';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import './index.scss';
 
@@ -32,9 +32,11 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
       <div className="escolalms-grid-sorting row align-items-center">
         <div className="col-lg-8 col-md-6 result-count">
           <p>
-            {t('Found')}{' '}
-            <span className="count">{courses && courses.list && courses.list.meta.total}</span>{' '}
-            {t('FoundCourses', { count: courses && courses.list && courses.list.meta.total })}
+            <Trans
+              i18nKey="FoundCourses"
+              values={{ count: courses?.list?.meta.total || 0 }}
+              components={{ strong: <span className="count" /> }}
+            />
           </p>
         </div>
 
@@ -53,9 +55,9 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
                   });
               }}
             >
-              <option disabled>Sortuj według</option>
-              <option value="title|ASC">Tytuł</option>
-              <option value="created_at|ASC">Data dodania</option>
+              <option disabled>{t('SortBy')}</option>
+              <option value="title|ASC">{t('Title')}</option>
+              <option value="created_at|ASC">{t('DateAdded')}</option>
             </select>
           </div>
         </div>
