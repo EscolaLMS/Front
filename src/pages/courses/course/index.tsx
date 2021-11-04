@@ -185,7 +185,7 @@ const CoursePage = () => {
                       </li>
                       <li>
                         <i className="bx bx-tag"></i>
-                        <span>Tagi</span>
+                        <span>{t('Tags')}</span>
                         {course.value.tags && course.value.tags.length > 0 && (
                           <div className="course-card__tags">
                             {course.value.tags.map((tag: API.Tag | string) => {
