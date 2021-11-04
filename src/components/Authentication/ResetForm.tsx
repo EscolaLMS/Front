@@ -82,7 +82,11 @@ const ResetForm: React.FC<{ token: string; email: string }> = ({ token, email })
           />
         </div>
 
-        <button type="submit" disabled={state.state === 'disabled'}>
+        <button
+          type="submit"
+          className="login-form__submit-button"
+          disabled={state.state === 'disabled'}
+        >
           {t('ResetPage.Reset')}
           {state.state === 'loading' ? <Spinner color="success" /> : ''}
         </button>
