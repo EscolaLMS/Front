@@ -80,7 +80,7 @@ const resources = {
       Tutor: 'Tutor',
       Tutors: 'Tutors',
       Video: 'Video',
-
+      CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
       Cart: {
         Cart: 'Cart',
         PayWithStripe: 'Pay with stripe Checkout',
@@ -270,6 +270,7 @@ const resources = {
       Tutor: 'Instruktor',
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
+      CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji, lub kup ten kurs.',
 
       Cart: {
         Cart: 'Koszyk',

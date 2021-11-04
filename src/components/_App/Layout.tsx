@@ -7,6 +7,7 @@ import GoTop from '@/components/_App/GoTop';
 import Navbar from '@/components/_App//Navbar';
 import Footer from '@/components/_App/Footer';
 import CourseNavbar from '@/components/_App/CourseNavbar';
+import CoursePreviewNavbar from './CoursePreviewNavbar';
 
 declare global {
   interface Window {
@@ -40,6 +41,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, []);
 
   const isCourse = pathname.includes('/course/');
+  const isPreview = pathname.includes('/preview');
+
+  console.log({ isPreview });
 
   return (
     <React.Fragment>
@@ -55,7 +59,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       <ToastProvider placement="bottom-left" autoDismissTimeout={10000} autoDismiss>
         <div className="site-wrapper">
-          {isCourse ? <CourseNavbar /> : <Navbar />}
+          {isCourse ? <CourseNavbar /> : isPreview ? <CoursePreviewNavbar /> : <Navbar />}
 
           {children}
 
