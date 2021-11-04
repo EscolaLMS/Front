@@ -183,6 +183,23 @@ const CoursePage = () => {
                             format(new Date(course.value.updated_at), 'dd/MM/yyyy')}
                         </Link>
                       </li>
+                      <li>
+                        <i className="bx bx-tag"></i>
+                        <span>Tagi</span>
+                        {course.value.tags && course.value.tags.length > 0 && (
+                          <div className="course-card__tags">
+                            {course.value.tags.map((tag: API.Tag | string) => {
+                              if (typeof tag === 'object') {
+                                return (
+                                  <Link to={`/courses?tag=${tag.title}`} key={tag.id}>
+                                    {tag.title}
+                                  </Link>
+                                );
+                              } else return null;
+                            })}
+                          </div>
+                        )}
+                      </li>
                     </ul>
                   </div>
                 </div>

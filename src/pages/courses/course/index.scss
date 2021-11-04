@@ -50,7 +50,7 @@
         a {
           display: inline-block;
           color: $color-blackish;
-
+          margin-right: 3px;
           &:hover,
           &:focus {
             color: $color-primary;
@@ -60,6 +60,7 @@
           padding-right: 0;
           margin-right: 0;
           border-right: none;
+          margin-top: 10px;
         }
       }
     }
