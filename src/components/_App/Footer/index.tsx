@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logo.svg';
-import "./index.scss";
-import SocialLinks from "@/components/SocialLinks";
+import SocialLinks from '@/components/SocialLinks';
+import { chunks } from '@/utils/array';
+import { usePages } from '@/escolalms/sdk/hooks/usePages';
+import './index.scss';
+
+// TODO: This is not a universal solution. Problem with translation of slugs (in url).
+const seperatedPagesSlugs = ['privacy-policy', 'terms-of-service'];
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const { collection } = usePages();
+
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
+  const dividedPages = useMemo(() => {
+    return chunks(
+      collection.filter((page) => !seperatedPagesSlugs.includes(page.slug)),
+      5,
+    );
+  }, [collection]);
+
+  const seperatedPages = useMemo(() => {
+    return collection.filter((page) => seperatedPagesSlugs.includes(page.slug));
+  }, [collection]);
 
   return (
     <footer className="footer">
@@ -30,12 +48,30 @@ const Footer = () => {
           <div className="col-lg-2 col-md-6 col-sm-6">
             <div className="single-footer-widget pl-5">
               <h3>Escola</h3>
+              {!!collection.length && (
+                <ul className="footer__page-list">
+                  {dividedPages[0].map((page) => (
+                    <li className="footer__page-list-item">
+                      <Link to={`/${page.slug}`}>{page.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
 
           <div className="col-lg-2 col-md-6 col-sm-6">
             <div className="single-footer-widget">
               <h3>Learning Management System</h3>
+              {!!dividedPages[1] && (
+                <ul className="footer__page-list">
+                  {dividedPages[1].map((page) => (
+                    <li className="footer__page-list-item">
+                      <Link to={`/${page.slug}`}>{page.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
 
@@ -44,19 +80,19 @@ const Footer = () => {
               <h3>Address</h3>
               <ul className="footer-contact-info">
                 <li>
-                  <i className="bx bx-map"></i>
+                  <i className="bx bx-map" />
                   2750 Quadra Street Golden Victoria Road, New York, USA
                 </li>
                 <li>
-                  <i className="bx bx-phone-call"></i>
+                  <i className="bx bx-phone-call" />
                   <a href="tel:+44587154756">+1 (123) 456 7890</a>
                 </li>
                 <li>
-                  <i className="bx bx-envelope"></i>
+                  <i className="bx bx-envelope" />
                   <a href="mailto:hello@escolalms.com">hello@escolalms.com</a>
                 </li>
                 <li>
-                  <i className="bx bxs-inbox"></i>
+                  <i className="bx bxs-inbox" />
                   <a href="tel:+557854578964">+55 785 4578964</a>
                 </li>
               </ul>
@@ -68,7 +104,7 @@ const Footer = () => {
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-6">
               <p>
-                <i className="bx bx-copyright"></i>
+                <i className="bx bx-copyright" />
                 {currentYear} EscolaLMS is Proudly Powered by{' '}
                 <a target="_blank" href="https://escolasoft.com/" rel="noreferrer">
                   EscolaSoft
@@ -77,14 +113,15 @@ const Footer = () => {
             </div>
 
             <div className="col-lg-6 col-md-6">
-              <ul>
-                <li>
-                  <Link to="/privacy-policy">Privacy Policy</Link>
-                </li>
-                <li>
-                  <Link to="/terms-of-service">Terms & Conditions</Link>
-                </li>
-              </ul>
+              {!!seperatedPages.length && (
+                <ul>
+                  {seperatedPages.map((page) => (
+                    <li>
+                      <Link to={`/${page.slug}`}>{page.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
