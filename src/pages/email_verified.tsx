@@ -12,7 +12,7 @@ const EmailVerified = () => {
         <PageBanner
           pageTitle={t('EmailVerifiedPage.Verified')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('EmailVerifiedPage.Verified')}
         />
 

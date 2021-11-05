@@ -14,7 +14,7 @@ const MyCourses = () => {
         <PageBanner
           pageTitle={t('Navbar.MyCourses')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('Navbar.MyCourses')}
         />
 

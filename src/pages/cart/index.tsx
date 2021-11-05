@@ -55,7 +55,7 @@ const CartPage = () => {
         <PageBanner
           pageTitle={t('Cart.Cart')}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           activePageText={t('Cart.Cart')}
         />
 

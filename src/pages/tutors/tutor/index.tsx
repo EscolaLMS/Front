@@ -11,9 +11,11 @@ import CourseCard from '../../../components/CourseCard';
 import Layout from '../../../components/_App/Layout';
 import { API } from '@escolalms/sdk/lib';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 const TutorPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { t } = useTranslation();
 
   const { tutor, fetchTutor, courses, fetchCourses } = useContext(EscolaLMSContext);
 
@@ -27,7 +29,12 @@ const TutorPage = () => {
     <Layout>
       <React.Fragment>
         {/* <Navbar /> */}
-        <PageBanner pageTitle="Tutor" homePageUrl="/" homePageText="Home" activePageText="Tutor" />
+        <PageBanner
+          pageTitle={t('Tutor')}
+          homePageUrl="/"
+          homePageText={t('Home')}
+          activePageText={t('Tutor')}
+        />
 
         <div className="profile-area">
           <div className="container">

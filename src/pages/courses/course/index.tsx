@@ -116,7 +116,7 @@ const CoursePage = () => {
           pageTitle={course.value.title || ''}
           subtitle={course.value.subtitle}
           homePageUrl="/"
-          homePageText="Home"
+          homePageText={t('Home')}
           innerPageUrl={`/courses`}
           innerPageText={t('Courses')}
           activePageText={course.value.title || ''}
