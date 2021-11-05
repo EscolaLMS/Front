@@ -9,7 +9,7 @@ import { CoursesContext } from '@/components/Courses/CoursesContext';
 import PageBanner from '@/components/Common/PageBanner';
 import { API } from '@escolalms/sdk/lib';
 
-const CoursesRightSidebar = () => {
+const CoursesPage = () => {
   const { t } = useTranslation();
   return (
     <Layout>
@@ -86,4 +86,4 @@ const CoursesRightSidebar = () => {
   );
 };
 
-export default CoursesRightSidebar;
+export default CoursesPage;
