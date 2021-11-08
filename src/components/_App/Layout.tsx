@@ -28,7 +28,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     (function () {
       if (window) {
         try {
-          window.ybug_settings = { id: '4a30b8sn4pfpdw7wp4c0' };
+          window.ybug_settings = { id: process.env.REACT_APP_YBUG_ID || '' };
           const ybug = document.createElement('script');
           ybug.type = 'text/javascript';
           ybug.async = true;
