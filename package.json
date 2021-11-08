@@ -1,7 +1,6 @@
 {
   "name": "escolalms-demo",
   "version": "0.1.0",
-  "homepage": "https://demo-stage.escolalms.com/",
   "dependencies": {
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0",
@@ -54,8 +53,8 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
-    "start": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired start",
-    "build": "REACT_APP_PUBLIC_API_URL=https://escola-lms-api.stage.etd24.pl react-app-rewired build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "jest --no-cache",
     "eject": "react-app-rewired  eject",
     "postinstall": "husky install",

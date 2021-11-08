@@ -272,7 +272,7 @@ const resources = {
       Tutor: 'Instruktor',
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
-      CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji, lub kup ten kurs.',
+      CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
 
       Cart: {
         Cart: 'Koszyk',

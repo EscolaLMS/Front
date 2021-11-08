@@ -14,9 +14,13 @@ jobs:
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         env:
           CI: false
+          REACT_APP_PUBLIC_URL: https://demo-stage.escolalms.com/
+          REACT_APP_YBUG_ID: 4a30b8sn4pfpdw7wp4c0
+          REACT_APP_PUBLIC_API_URL: https://escola-lms-api.stage.etd24.pl
+          REACT_APP_ROUTING_TYPE: HashRouter
         run: |
           npm i
-          PUBLIC_URL=/ npm run build
+          npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
