@@ -58,10 +58,10 @@ const StaticPage = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
+          pageTitle={page?.value?.title || ''}
           homePageUrl="/"
           homePageText={t('Home')}
-          activePageText={`${t(`StaticPages.${page?.value?.title}`)}` || ''}
+          activePageText={page?.value?.title || ''}
         />
 
         <div className="privacy-policy-area">

@@ -16,35 +16,6 @@ const Sidebar = () => {
 
   return (
     <div className="widget-area">
-      <div className="widget widget_insight">
-        <ul>
-          <li className="nav-item">
-            {/* activeClassName="active */}
-            <Link to="/" className="nav-link">
-              {t('Home')}
-            </Link>
-          </li>
-
-          <li className="nav-item megamenu">
-            <Link to="/courses" className="nav-link">
-              {t('Courses')}
-            </Link>
-          </li>
-
-          <li className="nav-item megamenu">
-            <Link to="/tutors" className="nav-link">
-              {t('Tutors')}
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to="/contact" className="nav-link">
-              {t('Contact Us')}
-            </Link>
-          </li>
-        </ul>
-      </div>
-
       <div className="widget widget_recent_courses">
         <h3 className="widget-title">{t('RecentCourses')}</h3>
         {courses &&
@@ -65,7 +36,7 @@ const Sidebar = () => {
                   <Link to={`/courses/${course.id}`}>{course.title}</Link>
                 </h4>
               </div>
-              <div className="clear"></div>
+              <div className="clear" />
             </div>
           ))}
       </div>
