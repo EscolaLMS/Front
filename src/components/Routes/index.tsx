@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import routes from './routes';
 
@@ -25,6 +25,9 @@ import CartPage from '../../pages/cart/index';
 
 import PrivateRoute from './private';
 
+// Split to files for better tree shaking
+const Router = require(`./${process.env.REACT_APP_ROUTING_TYPE || 'BrowserRouter'}`).default;
+
 const Routes: React.FC = (): ReactElement => {
   const {
     home,
@@ -47,7 +50,7 @@ const Routes: React.FC = (): ReactElement => {
   } = routes;
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
@@ -75,7 +78,7 @@ const Routes: React.FC = (): ReactElement => {
 
         <Route exact component={NotFoundPage} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
