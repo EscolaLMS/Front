@@ -436,3 +436,8 @@
 .h5p-container.h5p-standalone.h5p-question.h5p-blanks .h5p-question-scorebar.h5p-question-visible {
   margin: 30px 0 !important;
 }
+
+/* TEMPORARY SOLUTION */
+.h5p-iframe * {
+  font-family: 'Nunito' !important;
+}
