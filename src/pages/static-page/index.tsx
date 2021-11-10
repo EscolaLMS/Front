@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import routes from '@/components/Routes/routes';
-import Sidebar from '@/components/TermsOfService/Sidebar';
 import PageBanner from '@/components/Common/PageBanner';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import usePrevious from '../../hooks/usePrevious';
@@ -71,10 +70,6 @@ const StaticPage = () => {
                 <div className="privacy-policy-content">
                   <MarkdownReader>{page?.value?.content || ''}</MarkdownReader>
                 </div>
-              </div>
-
-              <div className="col-lg-4 col-md-12">
-                <Sidebar />
               </div>
             </div>
           </div>
