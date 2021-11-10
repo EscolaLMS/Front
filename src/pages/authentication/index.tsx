@@ -39,11 +39,10 @@ const Authentication = () => {
         <div className="profile-authentication-area">
           <div className="container">
             <div className="row">
-              <div className="col-lg-12 col-md-12">
-                <SocialButtons />
-              </div>
               <div className="col-lg-6 col-md-12">
                 <LoginForm />
+
+                <SocialButtons />
               </div>
 
               <div className="col-lg-6 col-md-12">
