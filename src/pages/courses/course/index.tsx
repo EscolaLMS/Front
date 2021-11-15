@@ -13,6 +13,7 @@ import Layout from '@/components/_App/Layout';
 import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
 import CourseProgramList from '@/escolalms/sdk/components/Course/CourseProgramList';
 import './index.scss';
+import LmsTag from '@/components/Common/LmsTag';
 
 const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { t } = useTranslation();
@@ -186,15 +187,12 @@ const CoursePage = () => {
                       <li>
                         <i className="bx bx-tag"></i>
                         <span>{t('Tags')}</span>
+
                         {course.value.tags && course.value.tags.length > 0 && (
                           <div className="course-card__tags">
                             {course.value.tags.map((tag: API.Tag | string) => {
                               if (typeof tag === 'object') {
-                                return (
-                                  <Link to={`/courses?tag=${tag.title}`} key={tag.id}>
-                                    {tag.title}
-                                  </Link>
-                                );
+                                return <LmsTag key={tag.title} tag={tag} />;
                               } else return null;
                             })}
                           </div>

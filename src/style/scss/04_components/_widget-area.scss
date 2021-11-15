@@ -104,27 +104,27 @@
     }
   }
   .tagcloud {
-    a {
-      display: inline-block;
-      background: #f5f5f5;
-      color: $color-blackish;
-      padding: 7px 15px;
-      border: none;
-      border-radius: 3px;
-      font: {
-        weight: 700;
-        size: 14px !important;
-      }
-      margin: {
-        top: 8px;
-        right: 4px;
-      }
-      &:hover,
-      &:focus {
-        color: $color-whitish;
-        background-color: $color-primary;
-      }
-    }
+    // a {
+    //   display: inline-block;
+    //   background: #f5f5f5;
+    //   color: $color-blackish;
+    //   padding: 7px 15px;
+    //   border: none;
+    //   border-radius: 3px;
+    //   font: {
+    //     weight: 700;
+    //     size: 14px !important;
+    //   }
+    //   margin: {
+    //     top: 8px;
+    //     right: 4px;
+    //   }
+    //   &:hover,
+    //   &:focus {
+    //     color: $color-whitish;
+    //     background-color: $color-primary;
+    //   }
+    // }
   }
   .widget_insight {
     ul {

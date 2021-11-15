@@ -437,7 +437,56 @@
   margin: 30px 0 !important;
 }
 
+/* CROSS WORDS */
+
+.h5p-crossword .h5p-question-scorebar {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.h5p-crossword .h5p-question-scorebar-container {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.h5p-crossword .h5p-joubelui-score-bar {
+  width: 13em !important;
+}
+
 /* TEMPORARY SOLUTION */
 .h5p-iframe * {
   font-family: 'Nunito' !important;
+}
+
+.h5p-joubelui-button,
+.h5p-audio-minimal-play {
+  background-color: var(--main) !important;
+}
+
+/* .h5p-question-next,
+.h5p-question-previous {
+  transform: rotate(180deg) !important;
+} */
+
+.h5p-question-buttons {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+}
+
+.h5p-question-buttons .h5p-question-next,
+.h5p-question-previous {
+  margin: 0 !important;
+  margin: 0px 2px !important;
+}
+
+.button-container {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.h5p-audio-minimal-play,
+.h5p-audio-minimal-slow {
+  background: var(--main) !important;
 }

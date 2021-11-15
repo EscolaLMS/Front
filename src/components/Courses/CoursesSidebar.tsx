@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useRef, useState, useEffect } from 'rea
 import { API } from '@escolalms/sdk/lib';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
+import LmsTag from '../Common/LmsTag';
 
 const CategoryTreeOptions: React.FC<{
   categories: API.Category[];
@@ -91,9 +92,11 @@ const CoursesSidebar: React.FC<{
 }> = ({ onSearch, onTag, onCategory, onTutor, multiple = false, params }) => {
   const { uniqueTags, fetchTutors } = useContext(EscolaLMSContext);
   const [tags, setTags] = useState<API.Tag[]>([]);
+
   const hasTags = useCallback((tags: API.Tag[], tag) => {
     return tags.findIndex((stag) => stag.title === tag.title) !== -1;
   }, []);
+
   const toggleTag = useCallback(
     (tag: API.Tag) => {
       setTags((prevState) => {
@@ -173,17 +176,7 @@ const CoursesSidebar: React.FC<{
 
         <div className="tagcloud">
           {uniqueTags?.list?.map((tag: API.Tag) => (
-            <a
-              href={`!#tag-${tag.title}`}
-              key={tag.title}
-              className={params?.tag ? (params?.tag === tag?.title ? 'active' : '') : ''}
-              onClick={(e) => {
-                e.preventDefault();
-                toggleTag(tag);
-              }}
-            >
-              {tag.title}
-            </a>
+            <LmsTag key={tag.title} tag={tag} param={params?.tag} toggleTag={toggleTag} />
           ))}
         </div>
       </div>
