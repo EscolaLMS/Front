@@ -101,7 +101,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
               <div className="course-program-player-next">
                 <button
                   disabled={topic && topic.can_skip ? false : isDisabledNextTopicButton}
-                  className={`default-btn`}
+                  className={`default-btn default-btn-equal`}
                   onClick={onNextTopic}
                 >
                   <div className="course-program-player-next-button__wrapper">

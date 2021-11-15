@@ -43,7 +43,7 @@
 
 .course-program-player-content {
   width: 100%;
-  min-height: calc(100vh - 200px);
+  // min-height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -117,7 +117,6 @@
   }
 
   .course-program-player-content__wrapper {
-    border: 1px solid #eeeeee;
     padding: 20px;
     margin: 60px auto 20px;
   }

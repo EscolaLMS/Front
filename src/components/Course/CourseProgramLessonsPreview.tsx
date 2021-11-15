@@ -74,7 +74,7 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
               </div>
 
               <div className="course-program-player-next">
-                <button className={`default-btn`} onClick={onNextTopicPreview}>
+                <button className={`default-btn default-btn-equal`} onClick={onNextTopicPreview}>
                   <div className="course-program-player-next-button__wrapper">
                     {t('Next Topic')} &gt;
                   </div>
