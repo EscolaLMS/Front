@@ -61,27 +61,27 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                 />
               </div>
             </div>
-
-            <div className="row">
-              {lesson && lesson.summary && fixContentForMarkdown(`${lesson.summary}`) !== '' && (
-                <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
-                  <div className="course-program-summary">
-                    <div className="container-md">
-                      <MarkdownReader>{lesson.summary}</MarkdownReader>
+            <div className="course-program-content__container">
+              <div className="row">
+                {lesson && lesson.summary && fixContentForMarkdown(`${lesson.summary}`) !== '' && (
+                  <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
+                    <div className="course-program-summary">
+                      <div className="container-md">
+                        <MarkdownReader>{lesson.summary}</MarkdownReader>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-              {topic && topic.summary && fixContentForMarkdown(`${topic.summary}`) !== '' && (
-                <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
-                  <div className="course-program-summary">
-                    <div className="container-md">
-                      <MarkdownReader>{topic.summary}</MarkdownReader>
-                    </div>
+                )}
+                {topic && topic.summary && fixContentForMarkdown(`${topic.summary}`) !== '' && (
+                  <div className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}>
+                    <div className="course-program-summary">
+                      <div className="container-md">
+                        <MarkdownReader>{topic.summary}</MarkdownReader>
+                      </div>
 
-                    {/* Leave it in case the business changes its mind.  */}
+                      {/* Leave it in case the business changes its mind.  */}
 
-                    {/* {topic && topic.resources && topic.resources?.length > 0 && (
+                      {/* {topic && topic.resources && topic.resources?.length > 0 && (
                       <React.Fragment>
                         <h3>{t('CourseProgram.TopicAttachment')}</h3>
                         <div className="file-list">
@@ -93,10 +93,12 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                         </div>
                       </React.Fragment>
                     )} */}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
+
             {getNextPrevTopic(Number(topic?.id)) && (
               <div className="course-program-player-next">
                 <button

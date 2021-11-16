@@ -50,7 +50,9 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-
+  > h2 {
+    font-weight: 800;
+  }
   > .h5p-player {
     width: 100%;
   }
@@ -65,15 +67,22 @@
   }
 }
 
+.course-program-content__container {
+  width: 100%;
+  border-top: 1px solid #eeeeee;
+}
+
 .course-program-summary {
   margin-top: 10px;
   margin-right: auto;
   padding: 10px;
-  border-top: 1px solid #eeeeee;
 
   .file-list {
     display: flex;
     flex-direction: column;
+  }
+  a {
+    color: $color-primary;
   }
 }
 
@@ -117,6 +126,7 @@
   }
 
   .course-program-player-content__wrapper {
+    text-align: center;
     padding: 20px;
     margin: 60px auto 20px;
   }

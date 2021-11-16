@@ -91,7 +91,7 @@
           left: 0;
           z-index: $z-index-navbar-dropdown;
           opacity: 0;
-          width: 270px;
+          width: 200px;
           display: block;
           border-radius: 0;
           padding: 10px 0;
@@ -411,7 +411,7 @@
           right: 0;
           z-index: $z-index-navbar-dropdown;
           opacity: 0;
-          width: 250px;
+          width: 200px;
           display: block;
           border-radius: 0;
           padding: 10px 0;
@@ -446,6 +446,20 @@
               &:focus,
               &.active {
                 color: $color-primary;
+              }
+            }
+          }
+          &.lang {
+            width: 120px;
+            top: 45px;
+            min-width: 40px;
+            .nav-item {
+              a {
+                background-color: transparent;
+                text-transform: uppercase;
+                span {
+                  margin-right: 10px;
+                }
               }
             }
           }
@@ -623,8 +637,6 @@
     }
     .navbar {
       .navbar-collapse {
-        max-height: 70vh;
-        overflow-y: scroll;
         margin-top: 20px;
         padding: 0 8px;
 
