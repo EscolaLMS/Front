@@ -12,11 +12,17 @@ export const TutorCard: React.FC<{ tutor: API.UserItem }> = ({ tutor }) => {
   return (
     <LmsBox className="tutor-card">
       <div className="tutor-card__header">
-        {tutor.path_avatar && (
-          <Link to={`/tutors/${tutor.id}`} className="tutor-card__image d-block">
+        <Link to={`/tutors/${tutor.id}`} className="tutor-card__image d-block">
+          {tutor.path_avatar ? (
             <Image path={tutor.path_avatar} srcSizes={[380, 380 * 2]} />
-          </Link>
-        )}
+          ) : (
+            <img
+              className="tutor-card__avatar"
+              src={`${process.env.PUBLIC_URL}/images/tutorblind.png`}
+              alt="tutor_avatar"
+            />
+          )}
+        </Link>
       </div>
 
       <LmsBox.Content className="tutor-card__content">
