@@ -1,16 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
 
 const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
   const { i18n } = useTranslation();
-  const languages = [
-    {
-      lang: 'pl',
-      icon: '🇵🇱',
-    },
-    { lang: 'en', icon: '🇺🇸' },
-  ];
 
   const onChangeLang = useCallback(
     (lang) => {
@@ -19,6 +12,23 @@ const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
       }
     },
     [i18n],
+  );
+
+  const languages = useMemo(
+    () => [
+      {
+        lang: 'pl',
+        icon: '🇵🇱',
+        label: 'Polish',
+      },
+      { lang: 'en', icon: '🇺🇸', label: 'English' },
+    ],
+    [],
+  );
+
+  const selectedLang = useMemo(
+    () => languages.find((lang) => lang.lang === i18n.language),
+    [languages, i18n.language],
   );
 
   return (
@@ -31,8 +41,8 @@ const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
           onClick={(e) => e.preventDefault()}
           onKeyDown={(e) => e.preventDefault()}
         >
-          <span role="img" aria-label="English">
-            {languages.filter((lang) => lang.lang === i18n.language)[0].icon} {i18n.language}
+          <span role="img" aria-label={selectedLang && selectedLang.label}>
+            {selectedLang && selectedLang.icon} {i18n.language}
           </span>
         </button>
         <ul className="dropdown-menu lang">
@@ -43,7 +53,7 @@ const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
                 onKeyDown={(e) => e.preventDefault()}
                 href="#/profile"
               >
-                <span role="img" aria-label="English">
+                <span role="img" aria-label={lang.label}>
                   {lang.icon}
                 </span>
                 <span>{lang.lang}</span>
