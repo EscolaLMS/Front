@@ -139,7 +139,7 @@ const CoursePage = () => {
                 <div className="col-lg-8 col-md-12">
                   <div className="courses-meta">
                     <ul>
-                      {course.value.categories && course.value.categories.length > 0 && (
+                      {course.value.categories && !!course.value.categories.length && (
                         <li>
                           <i className="bx bx-folder-open"></i>
                           <span>{t('Category')}</span>
@@ -165,7 +165,7 @@ const CoursePage = () => {
                           )}
                         </li>
                       )}
-                      {course.value.users_count && course.value.users_count > 0 && (
+                      {!!course.value.users_count && (
                         <li>
                           <i className="bx bx-group"></i>
                           <span>
@@ -184,20 +184,22 @@ const CoursePage = () => {
                             format(new Date(course.value.updated_at), 'dd/MM/yyyy')}
                         </Link>
                       </li>
-                      <li>
-                        <i className="bx bx-tag"></i>
-                        <span>{t('Tags')}</span>
+                      {!!course.value.tags?.length && (
+                        <li>
+                          <i className="bx bx-tag"></i>
+                          <span>{t('Tags')}</span>
 
-                        {course.value.tags && course.value.tags.length > 0 && (
-                          <div className="course-card__tags">
-                            {course.value.tags.map((tag: API.Tag | string) => {
-                              if (typeof tag === 'object') {
-                                return <LmsTag key={tag.title} tag={tag} />;
-                              } else return null;
-                            })}
-                          </div>
-                        )}
-                      </li>
+                          {course.value.tags && course.value.tags.length > 0 && (
+                            <div className="course-card__tags">
+                              {course.value.tags.map((tag: API.Tag | string) => {
+                                if (typeof tag === 'object') {
+                                  return <LmsTag key={tag.title} tag={tag} />;
+                                } else return null;
+                              })}
+                            </div>
+                          )}
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>
