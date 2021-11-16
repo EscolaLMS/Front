@@ -48,6 +48,9 @@
   &.default-btn-equal {
     padding-left: 30px;
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 /* Max width 767px */

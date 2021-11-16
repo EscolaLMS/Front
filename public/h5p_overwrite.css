@@ -154,6 +154,10 @@
   align-items: center !important;
 }
 
+.h5p-speak-the-words-set .h5p-question-content {
+  border: none !important;
+}
+
 .h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-droppable-words {
   order: 1 !important;
 }
@@ -289,7 +293,7 @@
 .h5p-accordion .h5p-panel-title::before {
   color: var(--blue) !important;
   font-size: 40px !important;
-  left: 20px !important;
+  left: 10px !important;
 }
 
 .h5p-accordion .h5p-panel-content {
@@ -309,6 +313,10 @@
   background: var(--white) 0% 0% no-repeat padding-box !important;
   box-shadow: 0px 4px 15px #00000036 !important;
   border-radius: 8px !important;
+}
+
+.recording-indicator-wrapper {
+  height: 6em !important;
 }
 
 /* DIALOG CARDS */
@@ -463,6 +471,28 @@
 .h5p-joubelui-button,
 .h5p-audio-minimal-play {
   background-color: var(--main) !important;
+}
+
+/* ARITMETIC QUIZ */
+.h5p-baq-score-widget .timer {
+  right: 10px !important;
+}
+
+/* IMAGE SEQUENCING */
+.h5p-image-sequencing .sequencing-status {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.h5p-image-sequencing .sequencing-status span {
+  font-weight: 800;
+  margin: 0px 5px;
+}
+
+.h5p-image-sequencing .sequencing-feedback-show {
+  text-align: center !important;
 }
 
 /* .h5p-question-next,
