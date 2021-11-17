@@ -34,7 +34,12 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                       </div>
                     </div>
                   )}
-                <div className="course-program-player-content__wrapper">
+                <div
+                  className="course-program-player-content__wrapper"
+                  style={{
+                    ...((topic?.json?.wrapperStyle as object) || {}),
+                  }}
+                >
                   <CourseProgramContent
                     preview={true}
                     lessonId={Number(lesson?.id)}

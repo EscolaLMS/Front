@@ -53,7 +53,12 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                     </div>
                   </div>
                 )}
-              <div className="course-program-player-content__wrapper">
+              <div
+                className="course-program-player-content__wrapper"
+                style={{
+                  ...((topic?.json?.wrapperStyle as object) || {}),
+                }}
+              >
                 <CourseProgramContent
                   lessonId={Number(lesson?.id)}
                   topicId={topic && Number(topic.id)}
