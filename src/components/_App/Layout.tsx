@@ -46,11 +46,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <React.Fragment>
       <Helmet>
-        <title>Escola LMS</title>
+        <title>Worlds first Headless LMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="WF z AWF" />
-        <meta name="og:title" property="og:title" content="WF z AWF"></meta>
-        <meta name="twitter:card" content="WF z AWF"></meta>
+        <meta name="description" content="Worlds first Headless LMS" />
+        <meta name="og:title" property="og:title" content="Worlds first Headless LMS"></meta>
+        <meta name="twitter:card" content="Worlds first Headless LMS"></meta>
       </Helmet>
 
       <Toaster position="top-left" reverseOrder={false} />
