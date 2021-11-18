@@ -48,18 +48,17 @@ const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
         <ul className="dropdown-menu lang">
           {languages.map((lang) => (
             <li key={lang.lang} className="nav-item">
-              <a
+              <span
                 role="button"
                 tabIndex={0}
                 onClick={() => onChangeLang(lang.lang)}
                 onKeyDown={(e) => e.preventDefault()}
-                href="#/"
               >
                 <span role="img" aria-label={lang.label}>
                   {lang.icon}
                 </span>
                 <span>{lang.lang}</span>
-              </a>
+              </span>
             </li>
           ))}
         </ul>

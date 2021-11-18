@@ -424,7 +424,8 @@
           box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 
           li {
-            a {
+            a,
+            > span {
               padding: 8px 20px;
               margin: 0;
               position: relative;
@@ -454,7 +455,8 @@
             top: 45px;
             min-width: 40px;
             .nav-item {
-              a {
+              a,
+              > span {
                 background-color: transparent;
                 text-transform: uppercase;
                 span {
