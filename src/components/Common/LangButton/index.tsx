@@ -49,9 +49,11 @@ const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
           {languages.map((lang) => (
             <li key={lang.lang} className="nav-item">
               <a
+                role="button"
+                tabIndex={0}
                 onClick={() => onChangeLang(lang.lang)}
                 onKeyDown={(e) => e.preventDefault()}
-                href="#/profile"
+                href="#/"
               >
                 <span role="img" aria-label={lang.label}>
                   {lang.icon}
