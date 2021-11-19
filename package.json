@@ -5,6 +5,7 @@
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0",
     "@sentry/react": "^6.15.0",
+    "@sentry/tracing": "^6.15.0",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.19.1",
     "@testing-library/jest-dom": "^5.11.4",
