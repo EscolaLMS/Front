@@ -17,6 +17,7 @@ jobs:
           REACT_APP_PUBLIC_URL: https://demo-stage.escolalms.com/
           REACT_APP_YBUG_ID: 4a30b8sn4pfpdw7wp4c0
           REACT_APP_PUBLIC_API_URL: https://escola-lms-api.stage.etd24.pl
+          REACT_APP_SENTRYDSN: https://4c64b083e7ad4b6a9a79bdfb0fd659f7@sentry.etd24.pl/62
           REACT_APP_ROUTING_TYPE: HashRouter
         run: |
           npm i

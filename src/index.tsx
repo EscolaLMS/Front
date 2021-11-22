@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import WebFont from 'webfontloader';
 
 import './i18n';
+import './sentry';
 
 WebFont.load({
   google: {
