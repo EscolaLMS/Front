@@ -79,9 +79,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-react": "^7.12.13",
-    "@babel/preset-typescript": "^7.13.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
@@ -91,13 +92,6 @@
   "lint-staged": {
     "*.{js,ts,tsx,json,md,html}": [
       "prettier --write"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript"
     ]
   },
   "jest": {
