@@ -12,6 +12,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
+    "@types/lodash.flow": "^3.5.6",
     "@types/node": "^12.0.0",
     "@types/query-string": "^6.3.0",
     "@types/react": "^17.0.0",
@@ -27,6 +28,7 @@
     "babel-preset-react-app": "^10.0.0",
     "formik": "^2.2.9",
     "i18next": "^21.4.0",
+    "lodash.flow": "^3.5.0",
     "markdown-to-jsx": "^7.1.3",
     "react": "^17.0.2",
     "react-app-rewire-alias": "^1.1.3",
@@ -81,9 +83,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-react": "^7.12.13",
-    "@babel/preset-typescript": "^7.13.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
@@ -93,13 +96,6 @@
   "lint-staged": {
     "*.{js,ts,tsx,json,md,html}": [
       "prettier --write"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript"
     ]
   },
   "jest": {
