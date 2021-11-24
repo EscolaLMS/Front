@@ -51,12 +51,11 @@ const Footer = () => {
               <h3>Escola</h3>
               {!!collection && (
                 <ul className="footer__page-list">
-                  {dividedPages &&
-                    dividedPages[0].map((page) => (
-                      <li className="footer__page-list-item">
-                        <Link to={`/${page.slug}`}>{page.title}</Link>
-                      </li>
-                    ))}
+                  {dividedPages[0].map((page) => (
+                    <li className="footer__page-list-item">
+                      <Link to={`/${page.slug}`}>{page.title}</Link>
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
