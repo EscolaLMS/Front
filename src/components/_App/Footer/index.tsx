@@ -49,7 +49,7 @@ const Footer = () => {
           <div className="col-lg-2 col-md-6 col-sm-6">
             <div className="single-footer-widget pl-5">
               <h3>Escola</h3>
-              {!!dividedPages[0] && (
+              {!!collection && (
                 <ul className="footer__page-list">
                   {dividedPages &&
                     dividedPages[0].map((page) => (
