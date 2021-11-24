@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../../images/logo.svg';
 import SocialLinks from '@/components/SocialLinks';
 import { chunks } from '@/utils/array';
+import { API } from '@escolalms/sdk/lib';
 import { usePages } from '@/escolalms/sdk/hooks/usePages';
 import './index.scss';
 
@@ -16,13 +17,13 @@ const Footer = () => {
 
   const dividedPages = useMemo(() => {
     return chunks(
-      collection.filter((page) => !seperatedPagesSlugs.includes(page.slug)),
+      collection.filter((page: API.PageListItem) => !seperatedPagesSlugs.includes(page.slug)),
       5,
     );
   }, [collection]);
 
   const seperatedPages = useMemo(() => {
-    return collection.filter((page) => seperatedPagesSlugs.includes(page.slug));
+    return collection.filter((page: API.PageListItem) => seperatedPagesSlugs.includes(page.slug));
   }, [collection]);
 
   return (
@@ -48,13 +49,14 @@ const Footer = () => {
           <div className="col-lg-2 col-md-6 col-sm-6">
             <div className="single-footer-widget pl-5">
               <h3>Escola</h3>
-              {!!collection.length && (
+              {!!dividedPages[0] && (
                 <ul className="footer__page-list">
-                  {dividedPages[0].map((page) => (
-                    <li className="footer__page-list-item">
-                      <Link to={`/${page.slug}`}>{page.title}</Link>
-                    </li>
-                  ))}
+                  {dividedPages &&
+                    dividedPages[0].map((page) => (
+                      <li className="footer__page-list-item">
+                        <Link to={`/${page.slug}`}>{page.title}</Link>
+                      </li>
+                    ))}
                 </ul>
               )}
             </div>
@@ -115,7 +117,7 @@ const Footer = () => {
             <div className="col-lg-6 col-md-6">
               {!!seperatedPages.length && (
                 <ul>
-                  {seperatedPages.map((page) => (
+                  {seperatedPages.map((page: API.Page) => (
                     <li>
                       <Link to={`/${page.slug}`}>{page.title}</Link>
                     </li>
