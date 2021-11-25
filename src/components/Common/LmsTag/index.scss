@@ -15,7 +15,16 @@
     top: 8px;
     right: 4px;
   }
-  &:hover,
+  &:not(.noninteractive) {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover:not(.noninteractive),
+  &:focus-visible,
   &.active {
     color: $color-whitish !important;
     background-color: $color-primary;

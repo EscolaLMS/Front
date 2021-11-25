@@ -82,6 +82,10 @@ export const Tutors: React.FC<{
   );
 };
 
+const hasTag = (tags: API.Tag[], tag: API.Tag) => {
+  return tags.some((stag) => stag.title === tag.title);
+};
+
 const CoursesSidebar: React.FC<{
   onSearch: (value: string) => void;
   onTag: (value: API.Tag | API.Tag[]) => void;
@@ -93,23 +97,18 @@ const CoursesSidebar: React.FC<{
   const { uniqueTags, fetchTutors } = useContext(EscolaLMSContext);
   const [tags, setTags] = useState<API.Tag[]>([]);
 
-  const hasTags = useCallback((tags: API.Tag[], tag) => {
-    return tags.findIndex((stag) => stag.title === tag.title) !== -1;
-  }, []);
-
   const toggleTag = useCallback(
     (tag: API.Tag) => {
       setTags((prevState) => {
         if (multiple) {
-          return hasTags(tags, tag)
+          return hasTag(tags, tag)
             ? prevState.filter((stag) => stag.title !== tag.title)
             : [...prevState, tag];
-        } else {
-          return hasTags(tags, tag) ? [] : [tag];
         }
+        return hasTag(tags, tag) ? [] : [tag];
       });
     },
-    [tags, hasTags, multiple],
+    [tags, multiple],
   );
 
   useEffect(() => {
@@ -154,7 +153,7 @@ const CoursesSidebar: React.FC<{
             />
           </label>
           <button type="submit">
-            <i className="bx bx-search-alt"></i>
+            <i className="bx bx-search-alt" />
           </button>
         </form>
       </div>
@@ -176,7 +175,12 @@ const CoursesSidebar: React.FC<{
 
         <div className="tagcloud">
           {uniqueTags?.list?.map((tag: API.Tag) => (
-            <LmsTag key={tag.title} tag={tag} param={params?.tag} toggleTag={toggleTag} />
+            <LmsTag
+              key={tag.title}
+              tag={tag}
+              isActive={params?.tag === tag.title}
+              onClick={toggleTag}
+            />
           ))}
         </div>
       </div>

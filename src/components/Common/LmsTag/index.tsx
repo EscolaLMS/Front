@@ -1,26 +1,35 @@
 import { API } from '@escolalms/sdk/lib';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss';
 
 const LmsTag: React.FC<{
   tag: API.Tag;
-  param?: string | undefined;
-  toggleTag?: (tag: API.Tag) => void;
-}> = ({ tag, param, toggleTag }) => {
+  to?: string;
+  onClick?: (tag: API.Tag) => void;
+  className?: string;
+  isActive?: boolean;
+}> = ({ tag, to, onClick, className = '', isActive = false }) => {
+  const TagElement = useMemo(
+    () => (to ? Link : onClick ? 'button' : 'span') as keyof JSX.IntrinsicElements,
+    [to, onClick],
+  );
+  const buttonType = useMemo(() => (TagElement === 'button' ? 'button' : undefined), [TagElement]);
+  const isNonInteractive = useMemo(() => TagElement === 'span', [TagElement]);
   return (
-    <Link to={`/courses?tag=${tag.title}`} key={tag.title}>
-      <a
-        href={`!#tag-${tag.title}`}
-        onClick={(e) => {
-          toggleTag && e.preventDefault();
-          toggleTag && toggleTag(tag);
-        }}
-        className={param ? (param === tag.title ? 'lms-tag active' : 'lms-tag') : 'lms-tag'}
-      >
-        {tag.title}
-      </a>
-    </Link>
+    <TagElement
+      // @ts-ignore
+      type={buttonType}
+      to={to}
+      onClick={() => {
+        onClick && onClick(tag);
+      }}
+      className={`lms-tag${isActive ? ' active' : ''}${
+        isNonInteractive ? ' noninteractive' : ''
+      } ${className}`.trim()}
+    >
+      {tag.title}
+    </TagElement>
   );
 };
 
