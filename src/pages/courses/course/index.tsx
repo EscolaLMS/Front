@@ -193,7 +193,13 @@ const CoursePage = () => {
                             <div className="course-card__tags">
                               {course.value.tags.map((tag: API.Tag | string) => {
                                 if (typeof tag === 'object') {
-                                  return <LmsTag key={tag.title} tag={tag} />;
+                                  return (
+                                    <LmsTag
+                                      key={tag.title}
+                                      tag={tag}
+                                      to={`/courses?tag=${tag.title}`}
+                                    />
+                                  );
                                 } else return null;
                               })}
                             </div>
