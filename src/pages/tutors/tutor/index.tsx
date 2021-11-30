@@ -42,7 +42,7 @@ const TutorPage = () => {
 
             {tutor.value && (
               <div className="profile-box">
-                <div className="row align-items-center">
+                <div className="row align-items-start">
                   <div className="col-lg-4 col-md-4">
                     {tutor.value.path_avatar && (
                       <div className="image">

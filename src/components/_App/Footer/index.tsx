@@ -30,24 +30,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-6 col-sm-6">
-            <div className="single-footer-widget">
-              <Link className="logo" to="/">
-                <img src={Logo} alt="logo" />
-              </Link>
-
-              <p>
-                Working to bring significant changes in online-based learning by doing extensive
-                research for course curriculum preparation, student engagements, and looking forward
-                to the flexible education!
-              </p>
-
-              <SocialLinks className="footer__social-links" />
-            </div>
-          </div>
-
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="single-footer-widget pl-5">
+          <div className="col-lg-6 col-md-6 col-sm-6">
+            <div className="single-footer-widget ">
               <h3>Escola</h3>
               {!!collection?.length && (
                 <ul className="footer__page-list">
@@ -61,7 +45,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="col-lg-2 col-md-6 col-sm-6">
+          <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="single-footer-widget">
               <h3>Learning Management System</h3>
               {!!dividedPages[1] && (
@@ -75,8 +59,7 @@ const Footer = () => {
               )}
             </div>
           </div>
-
-          <div className="col-lg-4 col-md-6 col-sm-6">
+          <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="single-footer-widget">
               <h3>Address</h3>
               <ul className="footer-contact-info">
@@ -97,6 +80,21 @@ const Footer = () => {
                   <a href="tel:+557854578964">+55 785 4578964</a>
                 </li>
               </ul>
+            </div>
+          </div>
+          <div className="col-lg-6 col-md-6 col-sm-6">
+            <div className="single-footer-widget">
+              <Link className="logo" to="/">
+                <img src={Logo} alt="logo" />
+              </Link>
+
+              <p>
+                Working to bring significant changes in online-based learning by doing extensive
+                research for course curriculum preparation, student engagements, and looking forward
+                to the flexible education!
+              </p>
+
+              <SocialLinks className="footer__social-links" />
             </div>
           </div>
         </div>
