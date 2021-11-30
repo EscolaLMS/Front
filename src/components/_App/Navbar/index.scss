@@ -457,6 +457,7 @@
             .nav-item {
               a,
               > span {
+                cursor: pointer;
                 background-color: transparent;
                 text-transform: uppercase;
                 span {

@@ -11,6 +11,7 @@ import AudioPlayer from './Players/AudioPlayer';
 import TextPlayer from './Players/TextPlayer';
 import PdfPlayer from './Players/PdfPlayer';
 import { API } from '@escolalms/sdk/lib';
+import VideoPlayButton from '@/components/Common/LmsVideoPlay';
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -116,7 +117,9 @@ export const CourseProgramContent: React.FC<{
         return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
       case TopicType.Video:
         return (
-          <VideoPlayer topicUrl={topic.topicable.url} onFinish={(): void => onCompleteTopic()} />
+          <VideoPlayer topicUrl={topic.topicable.url} onFinish={(): void => onCompleteTopic()}>
+            <VideoPlayButton />
+          </VideoPlayer>
         );
       case TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
