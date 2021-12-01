@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PageBanner from '@/components/SingleCoursesTwo/PageBanner';
 import CoursesDetailsSidebar from '@/components/SingleCoursesTwo/CoursesDetailsSidebar/index';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Loader from '@/components/Preloader';
 import { format } from 'date-fns';
@@ -12,8 +12,11 @@ import { useTranslation } from 'react-i18next';
 import Layout from '@/components/_App/Layout';
 import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
 import CourseProgramList from '@/escolalms/sdk/components/Course/CourseProgramList';
-import './index.scss';
 import LmsTag from '@/components/Common/LmsTag';
+import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import './index.scss';
+
+resetIdCounter();
 
 const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { t } = useTranslation();
@@ -82,6 +85,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
 };
 
 const CoursePage = () => {
+  const [tabIndex, setTabIndex] = useState(0);
   const { t } = useTranslation();
 
   const { id } = useParams<{ id: string }>();
@@ -89,7 +93,8 @@ const CoursePage = () => {
   const { course, fetchCourse, fetchCart, user } = useContext(EscolaLMSContext);
 
   const [previewTopic, setPreviewTopic] = useState<API.Topic>();
-
+  const history = useHistory();
+  const location = useLocation();
   useEffect(() => {
     if (id) {
       fetchCourse(Number(id));
@@ -101,6 +106,12 @@ const CoursePage = () => {
     user.value && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    const selectedTab = location.search.split('tab=')[1];
+
+    setTabIndex(Number(selectedTab));
+  }, [location]);
 
   if (course.loading || !course.value) {
     return <Loader />;
@@ -223,54 +234,75 @@ const CoursePage = () => {
                     <Image path={course.value.image_path} srcSizes={[790 * 0.5, 790, 2 * 790]} />
                   </div>
                 )}
-
-                <div className="courses-details-desc-style-two">
-                  <h3>{t('Summary')}</h3>
-                  {course.value.summary && <MarkdownReader>{course.value.summary}</MarkdownReader>}
-
-                  <h3>{t('Course Program')}</h3>
-                  {course.value.lessons && (
-                    <CourseProgramList
-                      program={course.value.lessons}
-                      onPreview={(topic) => setPreviewTopic(topic)}
-                    />
-                  )}
-
-                  <h3>{t('Description')}</h3>
-                  {course.value.description && (
-                    <MarkdownReader>{course.value.description}</MarkdownReader>
-                  )}
-
-                  <h3>{t('Meet your instructor')}</h3>
-                  {course.value.author && (
-                    <div className="courses-author">
-                      <div className="author-profile-header"></div>
-                      <div className="author-profile">
-                        <Link to={`/tutors/${course.value.author.id}`}>
-                          <div className="author-profile-title">
-                            {course.value.author?.path_avatar && (
-                              <Image
-                                path={course.value.author?.path_avatar}
-                                className="shadow-sm rounded-circle"
-                                srcSizes={[94, 94 * 2]}
-                              />
-                            )}
-                            <div className="author-profile-title-details">
-                              <div className="author-profile-details">
-                                <h4>
-                                  {course.value.author.first_name} {course.value.author.last_name}
-                                </h4>
-                                <span className="d-block">Tutor</span>
+                {/* (index) => setTabIndex(index) */}
+                <div className="courses-details-desc">
+                  <Tabs
+                    selectedIndex={tabIndex}
+                    onSelect={(index) => history.push(`${location.pathname}?tab=${index}`)}
+                  >
+                    <TabList>
+                      <Tab>{t('CoursePage.Tabs.Summary')}</Tab>
+                      <Tab>{t('CoursePage.Tabs.Program')}</Tab>
+                      <Tab>{t('CoursePage.Tabs.Instructor')}</Tab>
+                      <Tab>{t('CoursePage.Tabs.Description')}</Tab>
+                    </TabList>
+                    <div className="courses-details-desc-style-two">
+                      <TabPanel>
+                        <h3>{t('Summary')}</h3>
+                        {course.value.summary && (
+                          <MarkdownReader>{course.value.summary}</MarkdownReader>
+                        )}
+                      </TabPanel>
+                      <TabPanel>
+                        <h3>{t('Course Program')}</h3>
+                        {course.value.lessons && (
+                          <CourseProgramList
+                            program={course.value.lessons}
+                            onPreview={(topic) => setPreviewTopic(topic)}
+                          />
+                        )}
+                      </TabPanel>
+                      <TabPanel>
+                        <h3>{t('Meet your instructor')}</h3>
+                        {course.value.author && (
+                          <div className="courses-author">
+                            <div className="author-profile-header"></div>
+                            <div className="author-profile">
+                              <Link to={`/tutors/${course.value.author.id}`}>
+                                <div className="author-profile-title">
+                                  {course.value.author?.path_avatar && (
+                                    <Image
+                                      path={course.value.author?.path_avatar}
+                                      className="shadow-sm rounded-circle"
+                                      srcSizes={[94, 94 * 2]}
+                                    />
+                                  )}
+                                  <div className="author-profile-title-details">
+                                    <div className="author-profile-details">
+                                      <h4>
+                                        {course.value.author.first_name}{' '}
+                                        {course.value.author.last_name}
+                                      </h4>
+                                      <span className="d-block">Tutor</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Link>
+                              <div className="bio">
+                                <MarkdownReader>{course.value.author?.bio || ''}</MarkdownReader>
                               </div>
                             </div>
                           </div>
-                        </Link>
-                        <div className="bio">
-                          <MarkdownReader>{course.value.author?.bio || ''}</MarkdownReader>
-                        </div>
-                      </div>
+                        )}{' '}
+                      </TabPanel>
+                      <TabPanel>
+                        <h3>{t('Description')}</h3>
+                        {course.value.description && (
+                          <MarkdownReader>{course.value.description}</MarkdownReader>
+                        )}
+                      </TabPanel>
                     </div>
-                  )}
+                  </Tabs>
                 </div>
               </div>
 

@@ -5,6 +5,8 @@ import CourseCardHeader from '@/components/CourseCard/CourseCardHeader';
 import LmsProgressBar from '@/components/Common/LmsProgressBar';
 import { Link } from 'react-router-dom';
 
+import './index.scss';
+
 const UserCourseCard: React.FC<{ course: API.Course; progress?: number }> = ({
   course,
   progress = 0,
