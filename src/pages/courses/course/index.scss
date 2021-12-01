@@ -203,7 +203,6 @@
     padding: {
       left: 30px;
       right: 30px;
-      bottom: 3px;
     }
     .react-tabs__tab {
       cursor: pointer;
@@ -245,6 +244,11 @@
 
       &:last-child {
         margin-right: 0;
+      }
+    }
+    @media screen and ($max-viewport-7) {
+      padding: {
+        bottom: 3px;
       }
     }
   }

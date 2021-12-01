@@ -246,17 +246,14 @@ const CoursePage = () => {
                       <Tab>{t('CoursePage.Tabs.Instructor')}</Tab>
                       <Tab>{t('CoursePage.Tabs.Description')}</Tab>
                     </TabList>
-
-                    <TabPanel>
-                      <div className="courses-details-desc-style-two">
+                    <div className="courses-details-desc-style-two">
+                      <TabPanel>
                         <h3>{t('Summary')}</h3>
                         {course.value.summary && (
                           <MarkdownReader>{course.value.summary}</MarkdownReader>
                         )}
-                      </div>
-                    </TabPanel>
-                    <TabPanel>
-                      <div className="courses-details-desc-style-two">
+                      </TabPanel>
+                      <TabPanel>
                         <h3>{t('Course Program')}</h3>
                         {course.value.lessons && (
                           <CourseProgramList
@@ -264,10 +261,8 @@ const CoursePage = () => {
                             onPreview={(topic) => setPreviewTopic(topic)}
                           />
                         )}
-                      </div>
-                    </TabPanel>
-                    <TabPanel>
-                      <div className="courses-details-desc-style-two">
+                      </TabPanel>
+                      <TabPanel>
                         <h3>{t('Meet your instructor')}</h3>
                         {course.value.author && (
                           <div className="courses-author">
@@ -299,16 +294,14 @@ const CoursePage = () => {
                             </div>
                           </div>
                         )}{' '}
-                      </div>
-                    </TabPanel>
-                    <TabPanel>
-                      <div className="courses-details-desc-style-two">
+                      </TabPanel>
+                      <TabPanel>
                         <h3>{t('Description')}</h3>
                         {course.value.description && (
                           <MarkdownReader>{course.value.description}</MarkdownReader>
                         )}
-                      </div>
-                    </TabPanel>
+                      </TabPanel>
+                    </div>
                   </Tabs>
                 </div>
               </div>
