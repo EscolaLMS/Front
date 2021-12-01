@@ -5,6 +5,7 @@ import CourseCard from '../../CourseCard';
 import { useTranslation } from 'react-i18next';
 import UserCourseCard from '@/components/Profile/UserCourseCard';
 import './index.scss';
+import Preloader from '@/components/Preloader';
 
 const ProfileCourses = () => {
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
@@ -53,64 +54,70 @@ const ProfileCourses = () => {
 
   return (
     <div className="my-courses-page">
-      {!(progress.value || []).length ? (
+      <React.Fragment>
+        {progress.loading ? (
+          <Preloader />
+        ) : (
+          <React.Fragment>
+            {!!startedCourses.length && (
+              <div className="profile-courses profile-courses--with-data">
+                <h2>{t('MyCoursesPage.Finish')}</h2>
+                <hr />
+                <div className="row">
+                  {startedCourses.map((item: API.CourseProgressItem) => (
+                    <div className="col-lg-6 col-md-6" key={item.course.id}>
+                      <UserCourseCard
+                        course={item.course}
+                        progress={
+                          item.course.id && progressMap[item.course.id]
+                            ? progressMap[item.course.id]
+                            : 0
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {!!availableCourses.length && (
+              <div className="ended-courses available">
+                <div>
+                  <h2>{t('MyCoursesPage.Available')}</h2>
+                  <div className="row">
+                    {availableCourses.map((item: API.CourseProgressItem) => (
+                      <div className="col-lg-4 col-md-12" key={item.course.id}>
+                        <CourseCard course={item.course} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {!!finishedCourses.length && (
+              <div className="ended-courses">
+                <div>
+                  <h2>{t('MyCoursesPage.Finished')}</h2>
+                  <div className="row">
+                    {finishedCourses.map((item: API.CourseProgressItem) => (
+                      <div className="col-lg-4 col-md-12" key={item.course.id}>
+                        <CourseCard course={item.course} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </React.Fragment>
+        )}
+      </React.Fragment>
+      {!(progress.value || []).length && (
         <div className="profile-courses no-data">
           <div className="">
             <p>Nie masz kursów.</p>
           </div>
         </div>
-      ) : (
-        <React.Fragment>
-          {!!startedCourses.length && (
-            <div className="profile-courses profile-courses--with-data">
-              <h2>{t('MyCoursesPage.Finish')}</h2>
-              <div className="row">
-                {startedCourses.map((item: API.CourseProgressItem) => (
-                  <div className="col-lg-12 col-md-12" key={item.course.id}>
-                    <UserCourseCard
-                      course={item.course}
-                      progress={
-                        item.course.id && progressMap[item.course.id]
-                          ? progressMap[item.course.id]
-                          : 0
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {!!availableCourses.length && (
-            <div className="ended-courses available">
-              <div>
-                <h2>{t('MyCoursesPage.Available')}</h2>
-                <div className="row">
-                  {availableCourses.map((item: API.CourseProgressItem) => (
-                    <div className="col-lg-4 col-md-12" key={item.course.id}>
-                      <CourseCard course={item.course} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {!!finishedCourses.length && (
-            <div className="ended-courses">
-              <div>
-                <h2>{t('MyCoursesPage.Finished')}</h2>
-                <div className="row">
-                  {finishedCourses.map((item: API.CourseProgressItem) => (
-                    <div className="col-lg-4 col-md-12" key={item.course.id}>
-                      <CourseCard course={item.course} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </React.Fragment>
       )}
     </div>
   );

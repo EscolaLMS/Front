@@ -82,6 +82,14 @@ const resources = {
       Tutors: 'Tutors',
       Video: 'Video',
       CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
+      CoursePage: {
+        Tabs: {
+          Summary: 'Summary',
+          Program: 'Program',
+          Instructor: 'Instructor',
+          Description: 'Description',
+        },
+      },
       Cart: {
         Cart: 'Cart',
         PayWithStripe: 'Pay with stripe Checkout',
@@ -273,7 +281,14 @@ const resources = {
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
-
+      CoursePage: {
+        Tabs: {
+          Summary: 'Podsumowanie',
+          Program: 'Program',
+          Instructor: 'Nauczyciel',
+          Description: 'Opis',
+        },
+      },
       Cart: {
         Cart: 'Koszyk',
         PayWithStripe: 'Płać za pomocą stripe Checkout',

@@ -185,9 +185,72 @@
   }
 }
 
-.courses-details-desc-style-two {
-  margin-top: 35px;
+.courses-details-desc {
+  margin-top: 30px;
+  padding-right: 15px;
 
+  .react-tabs__tab-list {
+    margin-bottom: 0;
+    list-style-type: none;
+    background-color: #f8f9f8;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: {
+      left: 30px;
+      right: 30px;
+      bottom: 3px;
+    }
+    .react-tabs__tab {
+      cursor: pointer;
+      margin: {
+        bottom: 0;
+        right: 40px;
+      }
+      border-radius: 0;
+      border: none;
+      padding: 0;
+      transition: 0.5s;
+      padding: 14px 0;
+      background-color: transparent;
+      position: relative;
+      border-radius: 5px;
+      font: {
+        size: 18px;
+        weight: 800;
+      }
+      &::before {
+        content: '';
+        bottom: 1px;
+        height: 2px;
+        background-color: $color-primary;
+        position: absolute;
+        transition: 0.5s;
+        left: 0;
+        width: 100%;
+        transform: scaleX(0);
+      }
+      &:hover,
+      &.react-tabs__tab--selected {
+        color: $color-blackish;
+
+        &::before {
+          transform: scaleX(1);
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.courses-details-desc-style-two {
   h3 {
     margin-bottom: 15px;
     font: {

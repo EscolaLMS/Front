@@ -56,4 +56,22 @@
       font-size: 13px;
     }
   }
+
+  &:hover {
+    .course-card-header__image {
+      img {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+    }
+  }
+}
+
+.user-course-card {
+  &:hover {
+    .course-card-header__image {
+      img {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+    }
+  }
 }

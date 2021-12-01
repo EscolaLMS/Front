@@ -68,6 +68,7 @@
   position: relative;
   transform: translateZ(0) scale(1);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transform-origin: 0 0;
 }
 
