@@ -19,6 +19,8 @@ jobs:
           REACT_APP_SENTRYDSN: https://4c64b083e7ad4b6a9a79bdfb0fd659f7@sentry.etd24.pl/62
           REACT_APP_ROUTING_TYPE: HashRouter
         run: |
+          rm -rf ./node_modules
+          rm -r package-lock.json
           npm i
           npm run build
       - name: Deploy 🚀
