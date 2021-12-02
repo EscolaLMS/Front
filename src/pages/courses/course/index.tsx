@@ -98,6 +98,7 @@ const CoursePage = () => {
   useEffect(() => {
     if (id) {
       fetchCourse(Number(id));
+      history.push(`${location.pathname}?tab=${0}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
