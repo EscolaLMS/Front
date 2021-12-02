@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install and Build
-        run: rm -rf ./node_modules && npm i
+        run: rm -rf ./node_modules && rm -f package-lock.json && npm i
 
       - name: ESLint
         run: ./node_modules/.bin/eslint --fix --max-warnings 25 src
