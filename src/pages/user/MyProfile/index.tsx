@@ -3,7 +3,7 @@ import PageBanner from '../../../components/Common/PageBanner';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useHistory } from 'react-router-dom';
 import { useCallback } from 'react';
-import Editor from 'rich-markdown-editor';
+// import Editor from 'rich-markdown-editor';
 import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import Layout from '../../../components/_App/Layout';
@@ -18,6 +18,7 @@ const MyProfile = () => {
   const history = useHistory();
   const [editorKey, setEditorKey] = useState<string>(Math.random().toString());
   const { t } = useTranslation();
+  console.log(editorKey);
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -138,11 +139,11 @@ const MyProfile = () => {
                             <td>Bio</td>
                             <td>
                               <div className="form-group">
-                                <Editor
-                                  key={editorKey}
-                                  defaultValue={state?.bio ? state?.bio : ''}
-                                  onChange={(value) => updateValue('bio', value())}
-                                />
+                                {/*<Editor*/}
+                                {/*  key={editorKey}*/}
+                                {/*  defaultValue={state?.bio ? state?.bio : ''}*/}
+                                {/*  onChange={(value) => updateValue('bio', value())}*/}
+                                {/*/>*/}
                               </div>
                             </td>
                           </tr>
