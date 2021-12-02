@@ -20,7 +20,7 @@ jobs:
           REACT_APP_ROUTING_TYPE: HashRouter
         run: |
           rm -rf ./node_modules
-          rm -r package-lock.json
+          rm -r ./package-lock.json
           npm i
           npm run build
       - name: Deploy 🚀
