@@ -198,6 +198,11 @@ const resources = {
       StaticPages: {
         Contact: 'Contact',
       },
+      Notifications: {
+        NoNotifications: 'You have no notification',
+        OrderPaid: 'Order paid',
+        UserLogged: 'User logged in',
+      },
     },
   },
   pl: {
@@ -400,6 +405,11 @@ const resources = {
       },
       StaticPages: {
         Contact: 'Kontakt',
+      },
+      Notifications: {
+        NoNotifications: 'Nie masz notyfikacji',
+        OrderPaid: 'Zamówienie opłacone',
+        UserLogged: 'Użytkownik zalogowany',
       },
     },
   },

@@ -6,8 +6,9 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { useTranslation } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import LangButton from '@/components/Common/LangButton';
-import './index.scss';
 import routes from '@/components/Routes/routes';
+import { format } from 'date-fns';
+import './index.scss';
 
 const UserNavbarItem: React.FC<{
   user?: API.UserItem;
@@ -93,11 +94,59 @@ const UserNavbarItem: React.FC<{
   );
 };
 
+const UserNotifications = () => {
+  const {
+    notifications,
+
+    readNotify,
+  } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
+  const getEventType = (event: string) => event.split('\\').pop() as String;
+
+  return (
+    <div className="option-item">
+      <div className="user-dropdown">
+        <div className="notify">
+          <i className="bx bx-bell" />
+          {!!notifications.list?.length && <span>{notifications.list.length}</span>}
+        </div>
+
+        <ul className="dropdown-menu notify-list">
+          {notifications && notifications.list && notifications.list.length > 0 ? (
+            notifications.list.map((notification: API.Notification) => {
+              return (
+                <li className="notify-list__item">
+                  <div>
+                    <p>{t(`Notifications.${getEventType(notification.event)}`)}</p>
+                    <small>{format(new Date(notification.created_at), 'dd/MM/yyyy')}</small>
+                  </div>
+                  <button type="button" onClick={() => readNotify(notification.id)}>
+                    <i className="bx bx-trash"></i>
+                  </button>
+                </li>
+              );
+            })
+          ) : (
+            <li className="notify-list__item">{t('Notifications.NoNotifications')}</li>
+          )}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const Navbar = () => {
   const { t } = useTranslation();
 
   const [menu, setMenu] = React.useState(true);
-  const { user: userObj, logout, cart, fetchCart } = useContext(EscolaLMSContext);
+
+  const {
+    user: userObj,
+    logout,
+    cart,
+    fetchCart,
+    fetchNotifications,
+  } = useContext(EscolaLMSContext);
 
   const user = userObj.value;
 
@@ -107,6 +156,7 @@ const Navbar = () => {
 
   useEffect(() => {
     user && fetchCart();
+    user && fetchNotifications();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -180,7 +230,7 @@ const Navbar = () => {
                       </div>
                     </div>
                   )}
-
+                  {user && <UserNotifications />}
                   <UserNavbarItem user={user} toggleNavbar={toggleNavbar} logout={logout} />
 
                   <LangButton />
