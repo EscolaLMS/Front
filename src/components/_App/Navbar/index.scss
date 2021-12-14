@@ -404,6 +404,28 @@
 
       .user-dropdown {
         position: relative;
+        .notify {
+          position: relative;
+          .bx-bell {
+            font-size: 24px;
+            margin-top: 6px;
+          }
+          span {
+            position: absolute;
+            right: -4px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            text-align: center;
+            line-height: 14px;
+            border-radius: 50%;
+            color: #ffffff;
+            background-color: $color-primary;
+            font-size: 10px;
+            font-weight: 600;
+          }
+        }
+
         .dropdown-menu {
           border: none;
           top: 58px;
@@ -463,6 +485,40 @@
                 span {
                   margin-right: 10px;
                 }
+              }
+            }
+          }
+
+          &.notify-list {
+            width: 320px;
+            .notify-list__item {
+              padding: 5px 10px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+
+              > div {
+                p {
+                  margin-bottom: 0;
+                }
+              }
+              button {
+                background: transparent;
+                border: none;
+                &:hover {
+                  i {
+                    color: $color-primary;
+                    cursor: pointer;
+                  }
+                }
+              }
+              &.clear {
+                border-top: 3px solid $color-primary;
+                text-align: center;
+                justify-content: center;
+                padding-bottom: 0px;
+                cursor: pointer;
               }
             }
           }
