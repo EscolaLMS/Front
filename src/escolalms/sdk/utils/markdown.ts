@@ -60,6 +60,7 @@ const fixNoticeForMarkdown = (content = ''): string => {
 };
 
 export const fixContentForMarkdown = (content = ''): string => {
+  if (content === null || content === 'null') return '';
   return flow([
     trimContentForMarkdown,
     fixInlineStylesSyntaxForMarkdown,
