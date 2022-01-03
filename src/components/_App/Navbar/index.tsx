@@ -27,7 +27,7 @@ const UserNavbarItem: React.FC<{
             href="#/profile"
             role="button"
           >
-            <i className="flaticon-user"></i> {user.first_name} <span></span>
+            <i className="flaticon-user" /> {user.first_name} <span></span>
           </a>
 
           <ul className="dropdown-menu">
@@ -121,7 +121,7 @@ const UserNotifications = () => {
                     <small>{format(new Date(notification.created_at), 'dd/MM/yyyy')}</small>
                   </div>
                   <button type="button" onClick={() => readNotify(notification.id)}>
-                    <i className="bx bx-trash"></i>
+                    <i className="bx bx-trash" />
                   </button>
                 </li>
               );
@@ -146,7 +146,10 @@ const Navbar = () => {
     cart,
     fetchCart,
     fetchNotifications,
+    settings,
   } = useContext(EscolaLMSContext);
+
+  const customLogo = settings.global?.logo || Logo;
 
   const user = userObj.value;
 
@@ -172,7 +175,7 @@ const Navbar = () => {
           <div className="container-fluid">
             <div className="navbar navbar-expand-lg navbar-light">
               <Link to="/" onClick={toggleNavbar} className="navbar-brand">
-                <img src={Logo} alt="logo" />
+                <img src={customLogo} alt="logo" />
               </Link>
 
               <button
