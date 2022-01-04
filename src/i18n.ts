@@ -157,6 +157,7 @@ const resources = {
       Navbar: {
         MyProfile: 'My Profile',
         MyCourses: 'My Courses',
+        MyCertificates: 'My Certificates',
         MyOrders: 'My Orders',
         MyPayments: 'My Payments',
         Logout: 'Logout',
@@ -365,6 +366,7 @@ const resources = {
       Navbar: {
         MyProfile: 'Mój Profil',
         MyCourses: 'Moje Kursy',
+        MyCertificates: 'Moje Certyfikaty',
         MyOrders: 'Moje zamówienia',
         MyPayments: 'Płatności',
         Logout: 'Wyloguj',

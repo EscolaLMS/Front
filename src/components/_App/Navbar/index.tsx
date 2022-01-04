@@ -50,7 +50,15 @@ const UserNavbarItem: React.FC<{
                 {t('Navbar.MyCourses')}
               </Link>
             </li>
-
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/user/my-certificates"
+                onClick={() => toggleNavbar && toggleNavbar()}
+              >
+                {t('Navbar.MyCertificates')}
+              </Link>
+            </li>
             <li className="nav-item">
               <Link
                 to="/user/my-orders"
@@ -95,11 +103,7 @@ const UserNavbarItem: React.FC<{
 };
 
 const UserNotifications = () => {
-  const {
-    notifications,
-
-    readNotify,
-  } = useContext(EscolaLMSContext);
+  const { notifications, readNotify } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const getEventType = (event: string) => event.split('\\').pop() as String;
 

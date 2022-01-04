@@ -19,6 +19,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
+    sendProgress,
   } = useLessonProgram(program);
 
   const { t } = useTranslation();
@@ -26,6 +27,15 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [lesson?.id, topic?.id]);
+
+  useEffect(() => {
+    // if last topic send progress
+    console.log(getNextPrevTopic(Number(topic?.id)));
+    if (!getNextPrevTopic(Number(topic?.id))) {
+      sendProgress(program.id, [{ topic_id: Number(topic?.id), status: 1 }]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topic?.id, program]);
 
   const columnWidth =
     lesson &&

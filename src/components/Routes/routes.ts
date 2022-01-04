@@ -10,6 +10,7 @@ const routeRoutes = {
   myOrders: '/user/my-orders',
   myPayments: '/user/my-payments',
   myCourses: '/user/my-courses',
+  myCertificates: '/user/my-certificates',
   tutors: '/tutors',
   tutor: '/tutors/:id',
   preview: '/courses/preview/:id/:lessonID?/:topicID?',

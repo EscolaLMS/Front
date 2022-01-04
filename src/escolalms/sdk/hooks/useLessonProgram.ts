@@ -57,5 +57,6 @@ export function useLessonProgram(program: API.CourseProgram, courseRouteName: st
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
     onNextTopicPreview,
+    sendProgress,
   } as const;
 }
