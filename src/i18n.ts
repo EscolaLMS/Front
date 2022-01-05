@@ -200,6 +200,7 @@ const resources = {
         Contact: 'Contact',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Topic finished',
         NoNotifications: 'You have no notification',
         OrderPaid: 'Order paid',
         UserLogged: 'User logged in',
@@ -409,6 +410,7 @@ const resources = {
         Contact: 'Kontakt',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Temat zakończony',
         NoNotifications: 'Nie masz notyfikacji',
         OrderPaid: 'Zamówienie opłacone',
         UserLogged: 'Użytkownik zalogowany',

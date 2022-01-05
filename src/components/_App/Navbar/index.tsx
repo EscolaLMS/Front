@@ -52,15 +52,6 @@ const UserNavbarItem: React.FC<{
             </li>
             <li className="nav-item">
               <Link
-                className="nav-link"
-                to="/user/my-certificates"
-                onClick={() => toggleNavbar && toggleNavbar()}
-              >
-                {t('Navbar.MyCertificates')}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
                 to="/user/my-orders"
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"

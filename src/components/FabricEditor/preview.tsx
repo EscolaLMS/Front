@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { jsPDF } from 'jspdf';
 import 'svg2pdf.js';
 import { FabricJSCanvas, useFabricJSEditor } from 'fabricjs-react';
 import { fabric } from 'fabric';
 
 import './index.css';
+
+// TODO: create a package for this to minimize front bundle size
 
 export const FabricPreview: React.FC<{
   onRendered: () => void;

@@ -1,0 +1,20 @@
+.certificates {
+  padding-bottom: 100px;
+  .title {
+    // TODO:create component for this
+    background-color: #f8f9f8;
+    color: #221638;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 800;
+    padding: 15px 0;
+    font-size: 22px;
+  }
+  .default-btn {
+    padding: 10px 30px;
+  }
+  .fabric-preview-wrapper {
+    position: absolute;
+    top: -100000px;
+  }
+}

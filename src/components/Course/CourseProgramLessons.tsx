@@ -30,7 +30,7 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
 
   useEffect(() => {
     // if last topic send progress
-    console.log(getNextPrevTopic(Number(topic?.id)));
+
     if (!getNextPrevTopic(Number(topic?.id))) {
       sendProgress(program.id, [{ topic_id: Number(topic?.id), status: 1 }]);
     }

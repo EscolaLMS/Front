@@ -26,7 +26,7 @@ const RegisterForm = () => {
 
   React.useEffect(() => {
     fetchConfig();
-  }, []);
+  }, [fetchConfig]);
 
   React.useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
