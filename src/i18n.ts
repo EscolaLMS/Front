@@ -81,6 +81,7 @@ const resources = {
       Tutor: 'Tutor',
       Tutors: 'Tutors',
       Video: 'Video',
+      Download: 'Download',
       CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
       CoursePage: {
         Tabs: {
@@ -153,6 +154,7 @@ const resources = {
         FirstName: 'First Name',
         LastName: 'Last Name',
         Update: 'Update',
+        EmptyCertificates: 'Certificates list is empty!',
       },
       Navbar: {
         MyProfile: 'My Profile',
@@ -287,6 +289,7 @@ const resources = {
       Tutor: 'Instruktor',
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
+      Download: 'Pobierz',
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
       CoursePage: {
         Tabs: {
@@ -363,6 +366,7 @@ const resources = {
         FirstName: 'Imię',
         LastName: 'Nazwisko',
         Update: 'Zaktualizuj',
+        EmptyCertificates: 'Lista certyfikatów jest pusta!',
       },
       Navbar: {
         MyProfile: 'Mój Profil',

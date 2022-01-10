@@ -5,6 +5,7 @@ import { API } from '@escolalms/sdk/lib';
 import { FabricPreview } from '@/components/FabricEditor/preview';
 
 import './index.scss';
+import LmsBoxHeader from '@/components/Common/LmsBoxHeader';
 
 // TODO: update sdk api certificate with titile field
 type CertType = API.Certificate & { title?: string };
@@ -28,13 +29,11 @@ const ProfileCertificates = () => {
 
   return (
     <React.Fragment>
-      {/* TODO: add translations to all profile pages */}
       <div className="certificates">
         <div className="container">
-          {/* TODO:it should be a component wrapper */}
-          <h3 className="title">{t('Navbar.MyCertificates')}</h3>
+          <LmsBoxHeader text={t('Navbar.MyCertificates')} />
           {certificates?.list?.data?.length === 0 ? (
-            <p className="text-center">Certificates list is empty!</p>
+            <p className="text-center">{t('MyProfilePage.EmptyCertificates')}</p>
           ) : (
             <form>
               <div className="cart-table table-responsive">
@@ -49,20 +48,25 @@ const ProfileCertificates = () => {
 
                   <tbody>
                     {certificates &&
-                      certificates?.list?.data?.map((cert: CertType) => (
-                        <tr key={cert.id}>
-                          <td className="order-created">
-                            {new Date().toLocaleDateString('en-US')}
-                          </td>
-                          <td className="order-price">{cert.title}</td>
-                          <td className="order-items">
-                            <button className="default-btn" onClick={() => handlePreview(cert.id)}>
-                              {t('Preview')}
-                              <span></span>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      certificates?.list?.data
+                        ?.filter((cert: CertType) => cert.title)
+                        .map((cert: CertType) => (
+                          <tr key={cert.id}>
+                            <td className="order-created">
+                              {new Date().toLocaleDateString('en-US')}
+                            </td>
+                            <td className="order-price">{cert.title}</td>
+                            <td className="order-items">
+                              <button
+                                className="default-btn"
+                                onClick={() => handlePreview(cert.id)}
+                              >
+                                {t('Download')}
+                                <span></span>
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>
