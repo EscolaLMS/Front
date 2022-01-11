@@ -110,7 +110,7 @@ const PaymentModal: React.FC<{
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLongTitle">
-              {t('Pay')} <strong>{total}</strong> with Stripe
+              {t('Pay')} <strong>{total}</strong> {t('with Stripe')}
             </h5>
             <button type="button" className="close" onClick={onClose}>
               <span aria-hidden="true">&times;</span>
@@ -159,9 +159,9 @@ const PaymentModal: React.FC<{
                 <div className="alert alert-info">
                   {t('Use')}{' '}
                   <a href="https://stripe.com/docs/testing" target="_blank" rel="noreferrer">
-                    stripe testing card numbers
+                    {t('stripe testing card numbers')}
                   </a>
-                  , eg <code>4242 4242 4242 4242</code>
+                  , {t('eg')} <code>4242 4242 4242 4242</code>
                 </div>
               </div>
             </div>

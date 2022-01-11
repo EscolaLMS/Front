@@ -87,6 +87,9 @@ const resources = {
       'Card number': 'Card number',
       'Name on card': 'Name on card',
       'Expiration date': 'Expiration date',
+      'with Stripe': 'with Stripe',
+      'stripe testing card numbers': 'stripe testing card numbers',
+      Eg: 'eg',
       Use: 'Use',
       Close: 'Close',
       Pay: 'Pay',
@@ -315,6 +318,9 @@ const resources = {
       'Card number': 'Numer karty',
       'Name on card': 'Nazwa na karcie',
       'Expiration date': 'Data ważności',
+      'with Stripe': 'przez Stripe',
+      'stripe testing card numbers': 'stripe testowy numer karty',
+      Eg: 'np.',
       Use: 'Użyj',
       Close: 'Zamknij',
       Pay: 'Zapłać',
@@ -452,7 +458,7 @@ const resources = {
       },
       Custom404Page: {
         NotFound: 'Error 404 : Nie znaleziono strony',
-        Info: 'Strona, której szukasz, mogła zostać usunięta lub jest chwilowo niedostępna.',
+        Info: 'Strona której szukasz może być usunięta albo zmienione jej nazwę albo jest czasowo niedostępna',
       },
       Notifications: {
         NoNotifications: 'Nie masz notyfikacji',
