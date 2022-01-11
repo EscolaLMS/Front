@@ -81,6 +81,7 @@ const resources = {
       Tutor: 'Tutor',
       Tutors: 'Tutors',
       Video: 'Video',
+      Download: 'Download',
       CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
       CoursePage: {
         Tabs: {
@@ -153,10 +154,12 @@ const resources = {
         FirstName: 'First Name',
         LastName: 'Last Name',
         Update: 'Update',
+        EmptyCertificates: 'Certificates list is empty!',
       },
       Navbar: {
         MyProfile: 'My Profile',
         MyCourses: 'My Courses',
+        MyCertificates: 'My Certificates',
         MyOrders: 'My Orders',
         MyPayments: 'My Payments',
         Logout: 'Logout',
@@ -199,6 +202,7 @@ const resources = {
         Contact: 'Contact',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Topic finished',
         NoNotifications: 'You have no notification',
         OrderPaid: 'Order paid',
         UserLogged: 'User logged in',
@@ -285,6 +289,7 @@ const resources = {
       Tutor: 'Instruktor',
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
+      Download: 'Pobierz',
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
       CoursePage: {
         Tabs: {
@@ -361,10 +366,12 @@ const resources = {
         FirstName: 'Imię',
         LastName: 'Nazwisko',
         Update: 'Zaktualizuj',
+        EmptyCertificates: 'Lista certyfikatów jest pusta!',
       },
       Navbar: {
         MyProfile: 'Mój Profil',
         MyCourses: 'Moje Kursy',
+        MyCertificates: 'Moje Certyfikaty',
         MyOrders: 'Moje zamówienia',
         MyPayments: 'Płatności',
         Logout: 'Wyloguj',
@@ -407,6 +414,7 @@ const resources = {
         Contact: 'Kontakt',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Temat zakończony',
         NoNotifications: 'Nie masz notyfikacji',
         OrderPaid: 'Zamówienie opłacone',
         UserLogged: 'Użytkownik zalogowany',
