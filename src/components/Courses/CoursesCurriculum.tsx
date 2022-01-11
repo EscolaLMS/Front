@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const CoursesCurriculum: React.FC<{
   videos: {
@@ -7,9 +8,11 @@ const CoursesCurriculum: React.FC<{
     name: string;
   }[];
 }> = ({ videos }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="courses-curriculum">
-      <h3>Course Videos</h3>
+      <h3>{t('Video Coursers')}</h3>
       {videos ? (
         <ul>
           {videos.map((video) => (
@@ -30,7 +33,7 @@ const CoursesCurriculum: React.FC<{
           ))}
         </ul>
       ) : (
-        <h3>No Videos</h3>
+        <h3>{t('No Videos')}</h3>
       )}
     </div>
   );

@@ -35,7 +35,7 @@ const Orders = () => {
             {payments.loading && <Preloader />}
 
             {payments?.list?.data?.length === 0 ? (
-              <p className="text-center">Payment list is empty!</p>
+              <p className="text-center">{t('PaymentsPage.ListEmpty')}</p>
             ) : (
               <form>
                 <div className="cart-table table-responsive">
@@ -45,7 +45,7 @@ const Orders = () => {
                         <th scope="col">{t('PaymentsPage.TableCols.PaymentId')}</th>
                         <th scope="col">{t('PaymentsPage.TableCols.Created')}</th>
                         <th scope="col">{t('PaymentsPage.TableCols.Price')}</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">{t('PaymentsPage.TableCols.Status')}</th>
                       </tr>
                     </thead>
 

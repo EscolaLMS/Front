@@ -115,7 +115,7 @@ const ProfileCourses = () => {
       {!(progress.value || []).length && (
         <div className="profile-courses no-data">
           <div className="">
-            <p>Nie masz kursów.</p>
+            <p>{t('MyCoursesPage.NoData')}</p>
           </div>
         </div>
       )}

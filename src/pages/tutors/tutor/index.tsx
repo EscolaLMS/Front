@@ -56,7 +56,7 @@ const TutorPage = () => {
                       <h3>
                         {tutor.value.first_name} {tutor.value.last_name}
                       </h3>
-                      <span className="sub-title">Tutor</span>
+                      <span className="sub-title">{t('Tutor')}</span>
                       <div>
                         <MarkdownReader>{tutor.value.bio || ''}</MarkdownReader>
                       </div>
@@ -67,7 +67,7 @@ const TutorPage = () => {
             )}
 
             <div className="tutor-courses">
-              <h3 className="tutor-courses__title">Tutor Courses</h3>
+              <h3 className="tutor-courses__title">Tutor Courses{t('TutorPage.Courses')}</h3>
               <div className="row">
                 {courses.list?.data.map((course: API.Course) => (
                   <div className="col-lg-4 col-md-6">
