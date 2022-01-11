@@ -14,7 +14,7 @@ const INITIAL_USER = {
 };
 
 const RegisterForm = () => {
-  const { register } = useContext(EscolaLMSContext);
+  const { register, fetchConfig, config } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const [user, setUser] = React.useState(INITIAL_USER);
   const [disabled, setDisabled] = React.useState(true);
@@ -23,6 +23,10 @@ const RegisterForm = () => {
   const [success, setSuccess] = React.useState<boolean>(false);
 
   const onDismiss = () => setError(undefined);
+
+  React.useEffect(() => {
+    fetchConfig();
+  }, [fetchConfig]);
 
   React.useEffect(() => {
     const isUser = Object.values(user).every((el) => Boolean(el));
@@ -144,6 +148,21 @@ const RegisterForm = () => {
           </div>
 
           <p className="description">{t('RegisterPage.PassInfo')}</p>
+          {/* TODO: add validation if needed */}
+          {config &&
+            config.escola_auth.additional_fields.map((item: string) => (
+              <div className="form-group">
+                <label htmlFor="register-">{item}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={item}
+                  name={item}
+                  required={config.escola_auth.additional_fields_required.includes(item)}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
 
           <button type="submit" disabled={disabled}>
             {t('Register')}

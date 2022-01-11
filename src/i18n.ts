@@ -93,6 +93,7 @@ const resources = {
       Use: 'Use',
       Close: 'Close',
       Pay: 'Pay',
+      Download: 'Download',
       CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
       CoursePage: {
         Tabs: {
@@ -173,10 +174,12 @@ const resources = {
         LastName: 'Last Name',
         Update: 'Update',
         Bio: 'Bio',
+        EmptyCertificates: 'Certificates list is empty!',
       },
       Navbar: {
         MyProfile: 'My Profile',
         MyCourses: 'My Courses',
+        MyCertificates: 'My Certificates',
         MyOrders: 'My Orders',
         MyPayments: 'My Payments',
         Logout: 'Logout',
@@ -226,6 +229,7 @@ const resources = {
         Info: 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Topic finished',
         NoNotifications: 'You have no notification',
         OrderPaid: 'Order paid',
         UserLogged: 'User logged in',
@@ -324,6 +328,7 @@ const resources = {
       Use: 'Użyj',
       Close: 'Zamknij',
       Pay: 'Zapłać',
+      Download: 'Pobierz',
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
       CoursePage: {
         Tabs: {
@@ -408,10 +413,12 @@ const resources = {
         LastName: 'Nazwisko',
         Update: 'Zaktualizuj',
         Bio: 'Bio',
+        EmptyCertificates: 'Lista certyfikatów jest pusta!',
       },
       Navbar: {
         MyProfile: 'Mój Profil',
         MyCourses: 'Moje Kursy',
+        MyCertificates: 'Moje Certyfikaty',
         MyOrders: 'Moje zamówienia',
         MyPayments: 'Płatności',
         Logout: 'Wyloguj',
@@ -461,6 +468,7 @@ const resources = {
         Info: 'Strona której szukasz może być usunięta albo zmienione jej nazwę albo jest czasowo niedostępna',
       },
       Notifications: {
+        EscolaLmsTopicFinishedTemplateEvent: 'Temat zakończony',
         NoNotifications: 'Nie masz notyfikacji',
         OrderPaid: 'Zamówienie opłacone',
         UserLogged: 'Użytkownik zalogowany',

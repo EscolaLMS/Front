@@ -1,0 +1,11 @@
+@import '../../../style/scss/01_abstracts';
+
+.title {
+  background-color: $color-section-light-bg;
+  color: $color-blackish;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 800;
+  padding: 15px 0;
+  font-size: 22px;
+}

@@ -8,6 +8,7 @@ import { API } from '@escolalms/sdk/lib';
 import Layout from '../../../components/_App/Layout';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
+import ProfileCertificates from '@/components/Profile/ProfileCertificates';
 
 type UpdateCall = (key: keyof API.UserItem, value: unknown) => void;
 
@@ -160,6 +161,8 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
+
+        <ProfileCertificates />
       </React.Fragment>
     </Layout>
   );

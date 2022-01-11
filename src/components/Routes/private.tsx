@@ -14,7 +14,7 @@ any) => {
     <Route
       {...rest}
       render={(props) =>
-        user ? (
+        user.value && user.value.id ? (
           <Component {...props} />
         ) : (
           <Redirect
