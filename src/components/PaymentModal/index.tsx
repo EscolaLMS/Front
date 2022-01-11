@@ -1,4 +1,6 @@
 import React, { ReactElement, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   useStripe,
   useElements,
@@ -45,6 +47,8 @@ const PaymentModal: React.FC<{
   onClose?: () => void;
   onPaymentId: (paymentId: string) => void;
 }> = ({ active, onClose, onPaymentId, total }): ReactElement => {
+  const { t } = useTranslation();
+
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
@@ -106,7 +110,7 @@ const PaymentModal: React.FC<{
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLongTitle">
-              Pay <strong>{total}</strong> with Stripe
+              {t('Pay')} <strong>{total}</strong> with Stripe
             </h5>
             <button type="button" className="close" onClick={onClose}>
               <span aria-hidden="true">&times;</span>
@@ -115,12 +119,12 @@ const PaymentModal: React.FC<{
           <form className="profile-form" onSubmit={handleSubmit}>
             <div className="modal-body">
               <div className="form-group">
-                <label htmlFor="card-number">Card number</label>
+                <label htmlFor="card-number">{t('Card number')}</label>
                 <CardNumberElement options={options} className="form-control" />
               </div>
 
               <div className="form-group">
-                <label htmlFor="card_holder">Name on card</label>
+                <label htmlFor="card_holder">{t('Name on card')}</label>
                 <input
                   className="form-control"
                   id="card_holder"
@@ -138,7 +142,7 @@ const PaymentModal: React.FC<{
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label htmlFor="card_expiry">Expiration date</label>
+                  <label htmlFor="card_expiry">{t('Expiration date')}</label>
                   <CardExpiryElement options={options} className="form-control" />
                 </div>
 
@@ -153,7 +157,7 @@ const PaymentModal: React.FC<{
                   </div>
                 )}
                 <div className="alert alert-info">
-                  Use{' '}
+                  {t('Use')}{' '}
                   <a href="https://stripe.com/docs/testing" target="_blank" rel="noreferrer">
                     stripe testing card numbers
                   </a>
@@ -169,11 +173,11 @@ const PaymentModal: React.FC<{
                 onClick={onClose}
                 disabled={processing}
               >
-                Close
+                {t('Close')}
               </button>
 
               <button className="default-btn" type="submit" disabled={processing}>
-                Pay {total}! {processing && <Spinner color="success" />}
+                {t('Pay')} {total}! {processing && <Spinner color="success" />}
               </button>
             </div>
           </form>

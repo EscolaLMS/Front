@@ -134,7 +134,7 @@ const MyProfile = () => {
                             </td>
                           </tr>
                           <tr>
-                            <td>Bio</td>
+                            <td>{t('MyProfilePage.Bio')}</td>
                             <td>
                               <div className="form-group">
                                 <textarea

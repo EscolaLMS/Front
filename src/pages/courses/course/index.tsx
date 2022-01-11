@@ -284,7 +284,7 @@ const CoursePage = () => {
                                         {course.value.author.first_name}{' '}
                                         {course.value.author.last_name}
                                       </h4>
-                                      <span className="d-block">Tutor</span>
+                                      <span className="d-block">{t('Tutor')}</span>
                                     </div>
                                   </div>
                                 </div>

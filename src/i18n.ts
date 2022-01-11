@@ -81,6 +81,15 @@ const resources = {
       Tutor: 'Tutor',
       Tutors: 'Tutors',
       Video: 'Video',
+      'Video Coursers': 'Video Coursers',
+      'No Videos': 'No Videos',
+      Payment: 'Payment',
+      'Card number': 'Card number',
+      'Name on card': 'Name on card',
+      'Expiration date': 'Expiration date',
+      Use: 'Use',
+      Close: 'Close',
+      Pay: 'Pay',
       CoursePreviewNavbar: 'This is course preview. Back to app, or purchase this course.',
       CoursePage: {
         Tabs: {
@@ -88,6 +97,9 @@ const resources = {
           Program: 'Program',
           Instructor: 'Instructor',
           Description: 'Description',
+        },
+        Preview: {
+          SeeOther: 'See other',
         },
       },
       Cart: {
@@ -127,6 +139,9 @@ const resources = {
         EmailText: 'Your email is now verified. Go to',
         LoginPage: 'login page',
       },
+      TutorPage: {
+        Courses: 'Tutor Courses',
+      },
       Homepage: {
         heading: 'Digital Wellbeing',
         headingText: `Modern information and communication technologies have changed the way we live and function forever. Learn how to take control of them to reach their full potential. It's up to you to have power over them, not over you.`,
@@ -147,12 +162,14 @@ const resources = {
         Finish: 'Finish the course you started',
         Available: 'Available courses',
         Finished: 'Completed courses',
+        NoData: 'No courses',
       },
       MyProfilePage: {
         Avatar: 'Select file to replace Avatar',
         FirstName: 'First Name',
         LastName: 'Last Name',
         Update: 'Update',
+        Bio: 'Bio',
       },
       Navbar: {
         MyProfile: 'My Profile',
@@ -163,6 +180,7 @@ const resources = {
       },
       OrdersPage: {
         MyOrders: 'My Orders',
+        ListEmpty: 'Order list is empty!',
         Price: {
           Subtotal: 'Subtotal',
           Tax: 'Tax',
@@ -171,12 +189,14 @@ const resources = {
       },
       PaymentsPage: {
         MyPayments: 'My payments',
+        ListEmpty: 'Payment list is empty!',
         TableCols: {
           OrderId: 'ORDER ID',
           PaymentId: 'PAYMENT ID',
           Created: 'CREATED',
           Price: 'PRICE',
           Items: 'Items',
+          Status: 'Status',
         },
         PaymentStatus: {
           new: 'New',
@@ -197,6 +217,10 @@ const resources = {
       },
       StaticPages: {
         Contact: 'Contact',
+      },
+      Custom404Page: {
+        NotFound: 'Error 404 : Page Not Found',
+        Info: 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.',
       },
       Notifications: {
         NoNotifications: 'You have no notification',
@@ -285,6 +309,15 @@ const resources = {
       Tutor: 'Instruktor',
       Tutors: 'Instruktorzy',
       Video: 'Wideo',
+      'Video Coursers': 'Kursy wideo',
+      'No Videos': 'Brak wideo',
+      Payment: 'Płatność',
+      'Card number': 'Numer karty',
+      'Name on card': 'Nazwa na karcie',
+      'Expiration date': 'Data ważności',
+      Use: 'Użyj',
+      Close: 'Zamknij',
+      Pay: 'Zapłać',
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
       CoursePage: {
         Tabs: {
@@ -292,6 +325,9 @@ const resources = {
           Program: 'Program',
           Instructor: 'Nauczyciel',
           Description: 'Opis',
+        },
+        Preview: {
+          SeeOther: 'Zobacz inne',
         },
       },
       Cart: {
@@ -331,6 +367,9 @@ const resources = {
         EmailText: 'Twój email został zweryfikowany. Przejdź do',
         LoginPage: 'strony logowania',
       },
+      TutorPage: {
+        Courses: 'Kursy instruktorów',
+      },
       Homepage: {
         heading: 'Cyfrowy Dobrostan',
         headingText: `Nowoczesne technologie informacyjno-komunikacyjne na zawsze
@@ -355,12 +394,14 @@ const resources = {
         Finish: 'Dokończ rozpoczęty kurs',
         Available: 'Dostępne kursy',
         Finished: 'Ukończone kursy',
+        NoData: 'Nie masz kursów.',
       },
       MyProfilePage: {
         Avatar: 'Wybierz plik do Avatara',
         FirstName: 'Imię',
         LastName: 'Nazwisko',
         Update: 'Zaktualizuj',
+        Bio: 'Bio',
       },
       Navbar: {
         MyProfile: 'Mój Profil',
@@ -371,6 +412,7 @@ const resources = {
       },
       OrdersPage: {
         MyOrders: 'Moje zamówienia',
+        ListEmpty: 'Lista zamówień jest pusta!',
         Price: {
           Subtotal: 'Suma',
           Tax: 'Podatek',
@@ -379,12 +421,14 @@ const resources = {
       },
       PaymentsPage: {
         MyPayments: 'Moje płatności',
+        ListEmpty: 'Lista płatności jest pusta!',
         TableCols: {
           OrderId: 'ID ZAMÓWIENIA',
           PaymentId: 'ID Płatności',
           Created: 'Utworzono',
           Price: 'Cena',
           Items: 'Kursy',
+          Status: 'Status',
         },
         PaymentStatus: {
           new: 'Nowe',
@@ -405,6 +449,10 @@ const resources = {
       },
       StaticPages: {
         Contact: 'Kontakt',
+      },
+      Custom404Page: {
+        NotFound: 'Error 404 : Nie znaleziono strony',
+        Info: 'Strona, której szukasz, mogła zostać usunięta lub jest chwilowo niedostępna.',
       },
       Notifications: {
         NoNotifications: 'Nie masz notyfikacji',

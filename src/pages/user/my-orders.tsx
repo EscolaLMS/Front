@@ -37,7 +37,7 @@ const Orders = () => {
             {orders.loading && <Preloader />}
 
             {orders.list?.length === 0 ? (
-              <p className="text-center">Order list is empty!</p>
+              <p className="text-center">{t('OrdersPage.ListEmpty')}</p>
             ) : (
               <form>
                 <div className="cart-table table-responsive">
