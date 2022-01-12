@@ -57,4 +57,20 @@
     padding: 30px;
     margin: 30px;
   }
+
+  .nav-btn-modal {
+    position: fixed;
+    top: 20px;
+    right: 100px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #d0d0d0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    -moz-transition: 0.5s;
+    transition: 0.5s;
+    font-size: 30px;
+  }
 }

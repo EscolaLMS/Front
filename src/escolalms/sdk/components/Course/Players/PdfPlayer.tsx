@@ -45,17 +45,15 @@ const PdfPlayer: FunctionComponent<{
             <strong>{currentPage}</strong> of <strong>{allPages}</strong>
           </p>
           {currentPage > 1 && (
-            <button
-              className="default-btn"
-              onClick={() => setCurrentPage(currentPage - 1)}
-            ></button>
+            <button className="nav-btn-modal" onClick={() => setCurrentPage(currentPage - 1)}>
+              next
+            </button>
           )}
 
           {allPages > currentPage && (
-            <button
-              className="default-btn"
-              onClick={() => setCurrentPage(currentPage + 1)}
-            ></button>
+            <button className="nav-btn-modal" onClick={() => setCurrentPage(currentPage + 1)}>
+              prev
+            </button>
           )}
         </div>
       )}
