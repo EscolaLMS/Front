@@ -11,7 +11,6 @@ import CourseProgramLessons from '@/components/Course/CourseProgramLessons';
 // TODO: 99% same as: src/pages/courses/preview/index.tsx
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-  console.log(program);
   const sco = program?.scorm_sco;
   const uuid = sco?.uuid;
   const iframeRef = useRef<HTMLIFrameElement>(null);
