@@ -58,10 +58,53 @@
     margin: 30px;
   }
 
-  .nav-btn-modal {
+  .pdf-wrapper {
+    max-width: 90%;
+
+    .pagination-area {
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      color: #d0d0d0;
+      font: {
+        size: 1rem;
+        weight: 700;
+      }
+
+      .nav-btn-modal {
+        width: 33px;
+        height: 33px;
+        background-color: #f3f0f0;
+        color: $color-text-primary;
+        text-align: center;
+        display: inline-block;
+        border-radius: 3px;
+        line-height: 34px;
+        position: static;
+        margin: {
+          left: 6px;
+        }
+        font: {
+          size: 1rem;
+          weight: 800;
+        }
+        &:hover,
+        &.current {
+          color: $color-whitish;
+          background-color: $color-primary;
+        }
+        i {
+          position: relative;
+          top: 1.5px;
+        }
+      }
+    }
+  }
+
+  .close-btn-modal {
     position: fixed;
     top: 20px;
-    right: 100px;
+    right: 40px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -71,6 +114,6 @@
     line-height: 50px;
     -moz-transition: 0.5s;
     transition: 0.5s;
-    font-size: 30px;
+    font-size: 50px;
   }
 }

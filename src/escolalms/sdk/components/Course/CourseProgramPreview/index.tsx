@@ -52,7 +52,7 @@ export const CourseProgramPreview: React.FC<{
 
   return (
     <div className="topic-preview-modal">
-      <button onClick={onClose}>
+      <button className="close-btn-modal" onClick={onClose}>
         <i className="bx bx-x"></i>
       </button>
       <div className="topic-preview-modal-content">{topicRender}</div>
