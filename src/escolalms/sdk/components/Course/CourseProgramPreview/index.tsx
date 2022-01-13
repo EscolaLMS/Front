@@ -61,7 +61,7 @@ export const CourseProgramPreview: React.FC<{
       }
     }
     return <React.Fragment />;
-  }, [topic]);
+  }, [topic, apiUrl]);
 
   return (
     <div className="topic-preview-modal">
