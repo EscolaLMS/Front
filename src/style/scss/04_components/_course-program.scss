@@ -70,7 +70,7 @@
     margin-top: 5px;
     display: flex;
     justify-content: space-between;
-    color: #d0d0d0;
+    color: $color-text-primary-light;
     font: {
       size: 1rem;
       weight: 700;
@@ -79,7 +79,7 @@
     .nav-btn-modal {
       width: 33px;
       height: 33px;
-      background-color: #f3f0f0;
+      background-color: $color-section-light-bg;
       border: none;
       color: $color-text-primary;
       text-align: center;

@@ -65,7 +65,7 @@
       margin-top: 5px;
       display: flex;
       justify-content: space-between;
-      color: #d0d0d0;
+      color: $color-text-primary-light;
       font: {
         size: 1rem;
         weight: 700;
@@ -74,7 +74,7 @@
       .nav-btn-modal {
         width: 33px;
         height: 33px;
-        background-color: #f3f0f0;
+        background-color: $color-section-light-bg;
         color: $color-text-primary;
         text-align: center;
         display: inline-block;
@@ -108,7 +108,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: #d0d0d0;
+    color: $color-text-primary-light;
     width: 50px;
     height: 50px;
     line-height: 50px;
