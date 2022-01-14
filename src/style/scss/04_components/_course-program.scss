@@ -66,6 +66,46 @@
   &__wrapper {
     width: 100%;
   }
+
+  .pagination-area {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: $color-text-primary-light;
+    font: {
+      size: 1rem;
+      weight: 700;
+    }
+
+    .nav-btn-modal {
+      width: 33px;
+      height: 33px;
+      background-color: $color-section-light-bg;
+      border: none;
+      color: $color-text-primary;
+      text-align: center;
+      display: inline-block;
+      border-radius: 3px;
+      line-height: 34px;
+      position: static;
+      margin: {
+        left: 6px;
+      }
+      font: {
+        size: 1rem;
+        weight: 800;
+      }
+      &:hover,
+      &.current {
+        color: $color-whitish;
+        background-color: $color-primary;
+      }
+      i {
+        position: relative;
+        top: 1.5px;
+      }
+    }
+  }
 }
 
 .course-program-content__container {

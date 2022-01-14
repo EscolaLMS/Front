@@ -40,23 +40,27 @@ const PdfPlayer: FunctionComponent<{
       )}
 
       {allPages && allPages > 1 && (
-        <div className="pdf-wrapper__buttons">
+        <div className="pagination-area">
           <p>
             <strong>{currentPage}</strong> of <strong>{allPages}</strong>
           </p>
-          {currentPage > 1 && (
-            <button
-              className="default-btn"
-              onClick={() => setCurrentPage(currentPage - 1)}
-            ></button>
-          )}
 
-          {allPages > currentPage && (
+          <div>
             <button
-              className="default-btn"
+              disabled={!(currentPage > 1)}
+              className="nav-btn-modal"
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <i className="bx bx-chevrons-left"></i>
+            </button>
+            <button
+              disabled={!(allPages > currentPage)}
+              className="nav-btn-modal"
               onClick={() => setCurrentPage(currentPage + 1)}
-            ></button>
-          )}
+            >
+              <i className="bx bx-chevrons-right"></i>
+            </button>
+          </div>
         </div>
       )}
     </div>

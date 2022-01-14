@@ -57,4 +57,63 @@
     padding: 30px;
     margin: 30px;
   }
+
+  .pdf-wrapper {
+    max-width: 90%;
+
+    .pagination-area {
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      color: $color-text-primary-light;
+      font: {
+        size: 1rem;
+        weight: 700;
+      }
+
+      .nav-btn-modal {
+        width: 33px;
+        height: 33px;
+        background-color: $color-section-light-bg;
+        color: $color-text-primary;
+        text-align: center;
+        display: inline-block;
+        border-radius: 3px;
+        line-height: 34px;
+        position: static;
+        margin: {
+          left: 6px;
+        }
+        font: {
+          size: 1rem;
+          weight: 800;
+        }
+        &:hover,
+        &.current {
+          color: $color-whitish;
+          background-color: $color-primary;
+        }
+        i {
+          position: relative;
+          top: 1.5px;
+        }
+      }
+    }
+  }
+
+  .close-btn-modal {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: $color-text-primary-light;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    -moz-transition: 0.5s;
+    transition: 0.5s;
+    font-size: 50px;
+  }
 }
