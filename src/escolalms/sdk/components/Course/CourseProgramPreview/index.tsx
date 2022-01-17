@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { API } from '@escolalms/sdk/lib';
 import { TopicType } from '@escolalms/sdk/lib/services/courses';
 import { Player } from '@escolalms/h5p-react';
@@ -6,12 +6,15 @@ import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
 import PdfPlayer from './../Players/PdfPlayer';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import './index.scss';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
   onClose: () => void;
 }> = ({ topic, onClose }) => {
+  const { apiUrl } = useContext(EscolaLMSContext);
+
   const topicRender = useMemo(() => {
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
@@ -43,16 +46,26 @@ export const CourseProgramPreview: React.FC<{
           return <audio src={topic.topicable.url} controls />;
         case TopicType.Pdf:
           return <PdfPlayer url={topic.topicable.url} />;
+        case TopicType.Scorm:
+          return (
+            <div className="scorm-wrapper">
+              <iframe
+                title={topic.topicable.value}
+                src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
+              />
+              ;
+            </div>
+          );
         default:
           return <pre>{topic.topicable_type}</pre>;
       }
     }
     return <React.Fragment />;
-  }, [topic]);
+  }, [topic, apiUrl]);
 
   return (
     <div className="topic-preview-modal">
-      <button onClick={onClose}>
+      <button className="close-btn-modal" onClick={onClose}>
         <i className="bx bx-x"></i>
       </button>
       <div className="topic-preview-modal-content">{topicRender}</div>

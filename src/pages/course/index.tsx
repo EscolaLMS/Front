@@ -11,7 +11,7 @@ import CourseProgramLessons from '@/components/Course/CourseProgramLessons';
 // TODO: 99% same as: src/pages/courses/preview/index.tsx
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
-  const sco = program?.scorm?.scos?.find((sco) => sco?.entry_url !== undefined);
+  const sco = program?.scorm_sco;
   const uuid = sco?.uuid;
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = useState(0);
@@ -89,7 +89,7 @@ const CourseProgram = () => {
     );
   }
 
-  if (program.value && program?.value?.scorm?.id) {
+  if (program.value && program?.value?.scorm_sco_id) {
     return (
       <Layout>
         <CourseProgramScorm program={program.value} />

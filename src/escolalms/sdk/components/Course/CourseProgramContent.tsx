@@ -26,7 +26,7 @@ export const CourseProgramContent: React.FC<{
   setIsDisabledNextTopicButton,
   customNoCompletedEventsIds = [],
 }) => {
-  const { program, topicPing, topicIsFinished, fontSize, sendProgress, h5pProgress } =
+  const { program, topicPing, topicIsFinished, fontSize, sendProgress, h5pProgress, apiUrl } =
     useContext(EscolaLMSContext);
 
   const topic = useMemo(() => {
@@ -129,6 +129,17 @@ export const CourseProgramContent: React.FC<{
 
       case TopicType.Pdf:
         return <PdfPlayer url={topic.topicable.url} />;
+
+      case TopicType.Scorm:
+        return (
+          <div className="scorm-wrapper">
+            <iframe
+              title={topic.topicable.value}
+              src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
+            />
+            ;
+          </div>
+        );
       default:
         return <pre>{topic.topicable_type}</pre>;
     }

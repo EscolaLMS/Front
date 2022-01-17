@@ -14,7 +14,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: center;
+  align-content: flex-start;
   min-height: calc(100vh - 100px);
   max-width: calc(100vw - 350px);
   position: relative;
@@ -25,6 +25,7 @@
     border: none;
     margin: 0;
     padding: 0;
+    margin-top: 220px;
   }
   &.scorm {
     iframe {
@@ -64,6 +65,46 @@
 
   &__wrapper {
     width: 100%;
+  }
+
+  .pagination-area {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: $color-text-primary-light;
+    font: {
+      size: 1rem;
+      weight: 700;
+    }
+
+    .nav-btn-modal {
+      width: 33px;
+      height: 33px;
+      background-color: $color-section-light-bg;
+      border: none;
+      color: $color-text-primary;
+      text-align: center;
+      display: inline-block;
+      border-radius: 3px;
+      line-height: 34px;
+      position: static;
+      margin: {
+        left: 6px;
+      }
+      font: {
+        size: 1rem;
+        weight: 800;
+      }
+      &:hover,
+      &.current {
+        color: $color-whitish;
+        background-color: $color-primary;
+      }
+      i {
+        position: relative;
+        top: 1.5px;
+      }
+    }
   }
 }
 
@@ -116,7 +157,7 @@
 // TODO: tmp, class change this
 .course-program-page {
   .course-program-player {
-    margin-top: 200px;
+    margin-top: 150px;
     width: calc(100vw - 450px);
     margin-right: 50px;
   }
@@ -129,6 +170,12 @@
     text-align: center;
     padding: 20px;
     margin: 60px auto 20px;
+    .scorm-wrapper {
+      > iframe {
+        min-height: 600px;
+        width: 100%;
+      }
+    }
   }
 
   .course-program-wrapper-preview {
