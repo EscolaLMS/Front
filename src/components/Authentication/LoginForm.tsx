@@ -27,6 +27,11 @@ const LoginForm = () => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // const handleCheck = (e: React.FormEvent<HTMLInputElement>) => {
+  //   const { name, value, checked } = e.target as HTMLInputElement;
+  //   setUser((prevState) => ({ ...prevState, [name]: checked }));
+  // };
+
   const loginHandler = React.useCallback(() => {
     login({ ...user })
       .then(() => {
@@ -105,12 +110,18 @@ const LoginForm = () => {
 
         <div className="row align-items-center">
           <div className="col-lg-6 col-md-6 col-sm-6 remember-me-wrap">
-            {!isForgoten && (
+            {/* {!isForgoten && (
               <p>
-                <input type="checkbox" id="test2" />
-                <label htmlFor="test2">{t('LoginPage.RememberMe')}</label>
+                <input
+                  type="checkbox"
+                  id="remember-me"
+                  name="remember"
+                  checked={user?.remember}
+                  onChange={handleCheck}
+                />
+                <label htmlFor="remember-me">{t('LoginPage.RememberMe')}</label>
               </p>
-            )}
+            )} */}
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">

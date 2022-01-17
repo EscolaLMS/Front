@@ -61,7 +61,7 @@ const CourseNavbar = () => {
         </div>
 
         <div className="course-navbar__links">
-          <Link to="/" className="course-navbar__close-link">
+          <Link to="/user/my-courses" className="course-navbar__close-link">
             <i className="bx bx-chevron-left" />
             {t('Back to website')}
           </Link>

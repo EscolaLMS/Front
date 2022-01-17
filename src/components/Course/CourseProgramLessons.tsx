@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { API } from '@escolalms/sdk/lib';
 import CourseProgramContent from '../../escolalms/sdk/components/Course/CourseProgramContent';
 import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
@@ -6,12 +6,16 @@ import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownRead
 import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
 import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
 export const courseInProgress = 2;
 
-export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
+export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; courseId?: number }> = ({
+  program,
+  courseId,
+}) => {
   const {
     topic,
     lesson,
@@ -20,9 +24,48 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
     sendProgress,
+    progress,
   } = useLessonProgram(program);
 
+  const { push } = useHistory();
   const { t } = useTranslation();
+
+  const getCourseProgress = useMemo(() => {
+    return (
+      progress &&
+      progress.value &&
+      progress.value.find(
+        (courseProgress: API.CourseProgressItem) => courseProgress.course.id === Number(courseId),
+      )
+    );
+  }, [progress, courseId]);
+
+  const topicBreakPoint = useMemo(() => {
+    return (
+      getCourseProgress &&
+      getCourseProgress.progress.find(
+        (lesson: API.CourseProgressItemElement) => lesson.status === 0,
+      )
+    );
+  }, [getCourseProgress]);
+
+  const findLessonBreakPoint = useMemo(() => {
+    return (
+      topicBreakPoint &&
+      program.lessons.find(
+        (lesson: API.Lesson) =>
+          lesson &&
+          lesson.topics &&
+          lesson.topics.some((topic: API.Topic) => topic.id === topicBreakPoint.topic_id),
+      )
+    );
+  }, [program, topicBreakPoint]);
+
+  useEffect(() => {
+    if (findLessonBreakPoint && topicBreakPoint) {
+      push(`/course/${program.id}/${findLessonBreakPoint.id}/${topicBreakPoint.topic_id}`, null);
+    }
+  }, [findLessonBreakPoint, program, push, topicBreakPoint]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -94,20 +137,18 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram }> = ({
                         <MarkdownReader>{topic.summary}</MarkdownReader>
                       </div>
 
-                      {/* Leave it in case the business changes its mind.  */}
-
-                      {/* {topic && topic.resources && topic.resources?.length > 0 && (
-                      <React.Fragment>
-                        <h3>{t('CourseProgram.TopicAttachment')}</h3>
-                        <div className="file-list">
-                          {topic.resources.map((resource) => (
-                            <a target="_blank" href={resource.url} rel="noreferrer">
-                              {resource.name}
-                            </a>
-                          ))}
-                        </div>
-                      </React.Fragment>
-                    )} */}
+                      {topic && topic.resources && topic.resources?.length > 0 && (
+                        <React.Fragment>
+                          <h3>{t('CourseProgram.TopicAttachment')}</h3>
+                          <div className="file-list">
+                            {topic.resources.map((resource) => (
+                              <a target="_blank" href={resource.url} rel="noreferrer">
+                                {resource.name}
+                              </a>
+                            ))}
+                          </div>
+                        </React.Fragment>
+                      )}
                     </div>
                   </div>
                 )}

@@ -126,6 +126,17 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               {t('Lifetime')}
             </div>
           </li>
+          {!!course.users_count && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-lock" /> {t('group_access')}
+                </span>
+
+                {course.target_group}
+              </div>
+            </li>
+          )}
         </ul>
 
         <div className="btn-box">

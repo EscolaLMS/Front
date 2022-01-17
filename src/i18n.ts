@@ -8,6 +8,7 @@ const resources = {
   en: {
     translation: {
       Access: 'Access',
+
       'Add to Cart': 'Add to Cart',
       'All Categories': 'All categories',
       'All Tutors': 'All tutors',
@@ -32,6 +33,7 @@ const resources = {
       FoundCourses_one: 'We found <strong>{{count}}</strong> course available for you',
       FoundCourses_other: 'We found <strong>{{count}}</strong> courses available for you',
       FREE: 'FREE',
+      group_access: 'Group access',
       H5P: 'Interactive element',
       Home: 'Home',
       Image: 'Image',
@@ -264,6 +266,7 @@ const resources = {
       FoundCourses_many: 'Znaleźliśmy <strong>{{count}}</strong> kursów dostępnych dla Ciebie',
       FoundCourses_one: 'Znaleźliśmy <strong>{{count}}</strong> kurs dostępny dla Ciebie',
       FREE: 'DARMOWY',
+      group_access: 'Dostęp grupowy',
       H5P: 'Element interaktywny',
       Home: 'Strona główna',
       Image: 'Obraz',
