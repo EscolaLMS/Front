@@ -28,6 +28,8 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
     return <React.Fragment />;
   }
 
+  console.log(program);
+
   return (
     <React.Fragment>
       <div className="container-fluid course-program">

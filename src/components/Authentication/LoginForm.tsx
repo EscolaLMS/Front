@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 const INITIAL_USER = {
   email: '',
   password: '',
-  remember: false,
 };
 
 const LoginForm = () => {
@@ -111,7 +110,7 @@ const LoginForm = () => {
 
         <div className="row align-items-center">
           <div className="col-lg-6 col-md-6 col-sm-6 remember-me-wrap">
-            {!isForgoten && (
+            {/* {!isForgoten && (
               <p>
                 <input
                   type="checkbox"
@@ -122,7 +121,7 @@ const LoginForm = () => {
                 />
                 <label htmlFor="remember-me">{t('LoginPage.RememberMe')}</label>
               </p>
-            )}
+            )} */}
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6 lost-your-password-wrap">
