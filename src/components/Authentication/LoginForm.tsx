@@ -27,10 +27,10 @@ const LoginForm = () => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleCheck = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value, checked } = e.target as HTMLInputElement;
-    setUser((prevState) => ({ ...prevState, [name]: checked }));
-  };
+  // const handleCheck = (e: React.FormEvent<HTMLInputElement>) => {
+  //   const { name, value, checked } = e.target as HTMLInputElement;
+  //   setUser((prevState) => ({ ...prevState, [name]: checked }));
+  // };
 
   const loginHandler = React.useCallback(() => {
     login({ ...user })
