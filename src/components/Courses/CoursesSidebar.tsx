@@ -33,6 +33,9 @@ export const CategoryTree: React.FC<{
   const { t } = useTranslation();
 
   const { categoryTree } = useContext(EscolaLMSContext);
+  const activeCategories = (categoryTree?.list || []).filter(
+    (category: API.CategoryListItem) => category.is_active,
+  );
   if (!categoryTree.list) {
     return <pre>loading...</pre>;
   }
@@ -40,14 +43,14 @@ export const CategoryTree: React.FC<{
     <div className="select-box">
       <select
         className="form-control"
-        onBlur={(e) => {
+        onChange={(e) => {
           onChange && onChange(e.target.value);
         }}
       >
         <option value="" selected={!!!id}>
           {t('All Categories')}
         </option>
-        <CategoryTreeOptions categories={categoryTree.list} id={id} />
+        <CategoryTreeOptions categories={activeCategories} id={id} />
       </select>
     </div>
   );
@@ -65,7 +68,7 @@ export const Tutors: React.FC<{
     <div className="select-box">
       <select
         className="form-control"
-        onBlur={(e) => {
+        onChange={(e) => {
           onChange && onChange(e.target.value);
         }}
       >
@@ -126,6 +129,7 @@ const CoursesSidebar: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    console.log('params', params);
     if (inputRef.current) {
       inputRef.current.value = params?.title ? params?.title : '';
     }
