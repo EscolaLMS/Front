@@ -8,7 +8,7 @@ import CoursesCollection from '@/components/Courses/CoursesCollection';
 import './index.scss';
 
 const Index = () => {
-  const { fetchConfig, config } = useContext(EscolaLMSContext);
+  const { fetchConfig, config, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 
   React.useEffect(() => {
@@ -50,7 +50,7 @@ const Index = () => {
           </div>
         </div>
 
-        {platformVisibility && (
+        {(platformVisibility || (user.value && user.value.id)) && (
           <div className="courses-area">
             <div className="container">
               <div className="row">

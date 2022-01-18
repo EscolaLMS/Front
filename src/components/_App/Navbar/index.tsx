@@ -199,7 +199,7 @@ const Navbar = () => {
                     </NavLink>
                   </li>
 
-                  {platformVisibility && (
+                  {(platformVisibility || user) && (
                     <>
                       <li className="nav-item">
                         <NavLink className="nav-link" to={routes.courses}>
