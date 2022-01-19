@@ -47,7 +47,6 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
         .filter((lesson: API.CourseProgressItemElement) => lesson.status === 2)
         .sort(
           (a: API.CourseProgressItemElement, b: API.CourseProgressItemElement) =>
-            // TODO: create  separate type for this
             new Date(b.started_at as string).getTime() - new Date(a.started_at as string).getTime(),
         )[0]
     );
