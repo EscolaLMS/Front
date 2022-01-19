@@ -43,9 +43,13 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
   const topicBreakPoint = useMemo(() => {
     return (
       getCourseProgress &&
-      getCourseProgress.progress.find(
-        (lesson: API.CourseProgressItemElement) => lesson.status === 0,
-      )
+      getCourseProgress.progress
+        .filter((lesson: API.CourseProgressItemElement) => lesson.status === 2)
+        .sort(
+          (a: API.CourseProgressItemElement, b: API.CourseProgressItemElement) =>
+            // TODO: create  separate type for this
+            new Date(b.started_at as string).getTime() - new Date(a.started_at as string).getTime(),
+        )[0]
     );
   }, [getCourseProgress]);
 
