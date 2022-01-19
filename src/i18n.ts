@@ -7,6 +7,8 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      'Access from': 'Access from',
+      'Access to': 'Access to',
       Access: 'Access',
 
       'Add to Cart': 'Add to Cart',
@@ -36,6 +38,7 @@ const resources = {
       group_access: 'Group access',
       H5P: 'Interactive element',
       Home: 'Home',
+      hours_to_complete: 'Hours to complete',
       Image: 'Image',
       Language: 'Language',
       'Last Updated': 'Last Updated',
@@ -240,6 +243,8 @@ const resources = {
   },
   pl: {
     translation: {
+      'Access from': 'Dostęp od',
+      'Access to': 'Dostęp do',
       Access: 'Dostęp',
       'Add to Cart': 'Dodaj do koszyka',
       'All Categories': 'Wszystkie kategorie',
@@ -269,6 +274,7 @@ const resources = {
       group_access: 'Dostęp grupowy',
       H5P: 'Element interaktywny',
       Home: 'Strona główna',
+      hours_to_complete: 'Godziny do ukończenia',
       Image: 'Obraz',
       Language: 'Język',
       'Last Updated': 'Ostatnia aktualizacja',

@@ -5,6 +5,7 @@ import Image from '@escolalms/sdk/lib/react/components/Image';
 import { API } from '@escolalms/sdk/lib';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { Spinner } from 'reactstrap';
+import { format } from 'date-fns';
 //@ts-ignore
 import ModalVideo from 'react-modal-video'; // TODO: seems type is missing heere
 import './index.scss';
@@ -81,7 +82,39 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               {course.duration}
             </div>
           </li>
-          {!!course.lessons?.length && (
+          {course.hours_to_complete && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-time" /> {t('hours_to_complete')}
+                </span>
+                {course.hours_to_complete}
+              </div>
+            </li>
+          )}
+          {course.active_from && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-calendar" /> {t('Access from')}
+                </span>
+
+                {format(new Date(course.active_from), 'dd/MM/yyyy')}
+              </div>
+            </li>
+          )}
+          {course.active_to && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-calendar" /> {t('Access to')}
+                </span>
+
+                {format(new Date(course.active_to), 'dd/MM/yyyy')}
+              </div>
+            </li>
+          )}
+          {course.lessons?.length && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
@@ -92,7 +125,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               </div>
             </li>
           )}
-          {!!course.users_count && (
+          {course.users_count && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
@@ -102,22 +135,28 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               </div>
             </li>
           )}
-          <li>
-            <div className="d-flex justify-content-between align-items-center">
-              <span>
-                <i className="flaticon-html" /> {t('Language')}
-              </span>
-              {course.language}
-            </div>
-          </li>
-          <li>
-            <div className="d-flex justify-content-between align-items-center">
-              <span>
-                <i className="flaticon-caption" /> {t('Level')}
-              </span>
-              {course.level}
-            </div>
-          </li>
+          {course.language && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-html" /> {t('Language')}
+                </span>
+                {course.language}
+              </div>
+            </li>
+          )}
+
+          {course.level && (
+            <li>
+              <div className="d-flex justify-content-between align-items-center">
+                <span>
+                  <i className="flaticon-caption" /> {t('Level')}
+                </span>
+                {course.level}
+              </div>
+            </li>
+          )}
+
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
@@ -126,11 +165,12 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               {t('Lifetime')}
             </div>
           </li>
-          {!!course.users_count && (
+
+          {course.target_group && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-lock" /> {t('group_access')}
+                  <i className="flaticon-user" /> {t('group_access')}
                 </span>
 
                 {course.target_group}
