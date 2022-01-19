@@ -148,7 +148,21 @@ const RegisterForm = () => {
           </div>
 
           <p className="description">{t('RegisterPage.PassInfo')}</p>
-          {/* TODO: add validation if needed */}
+
+          {config &&
+            config.escola_auth.additional_fields_required.map((item: string) => (
+              <div className="form-group">
+                <label htmlFor="register-">{item}</label>
+                <input
+                  required
+                  type="text"
+                  className="form-control"
+                  placeholder={item}
+                  name={item}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
           {config &&
             config.escola_auth.additional_fields.map((item: string) => (
               <div className="form-group">
@@ -158,7 +172,6 @@ const RegisterForm = () => {
                   className="form-control"
                   placeholder={item}
                   name={item}
-                  required={config.escola_auth.additional_fields_required.includes(item)}
                   onChange={handleChange}
                 />
               </div>
