@@ -129,7 +129,6 @@ const CoursesSidebar: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log('params', params);
     if (inputRef.current) {
       inputRef.current.value = params?.title ? params?.title : '';
     }
