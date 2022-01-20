@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Layout from '@/components/_App/Layout';
 import CoursesProvider from '@/components/Courses/CoursesProvider';
 import CoursesCollection from '@/components/Courses/CoursesCollection';
 import './index.scss';
 
 const Index = () => {
+  const { fetchConfig, config, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    fetchConfig();
+  }, [fetchConfig]);
+
+  const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
+
   return (
     <Layout>
       <React.Fragment>
@@ -41,15 +50,17 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="courses-area">
-          <div className="container">
-            <div className="row">
-              <CoursesProvider onlyFree={false}>
-                <CoursesCollection className="full-width" itemCol={4} />
-              </CoursesProvider>
+        {(platformVisibility || (user.value && user.value.id)) && (
+          <div className="courses-area">
+            <div className="container">
+              <div className="row">
+                <CoursesProvider onlyFree={false}>
+                  <CoursesCollection className="full-width" itemCol={4} />
+                </CoursesProvider>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </React.Fragment>
     </Layout>
   );

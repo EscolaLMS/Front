@@ -142,11 +142,14 @@ const Navbar = () => {
     fetchCart,
     fetchNotifications,
     settings,
+    config,
   } = useContext(EscolaLMSContext);
 
   const customLogo = settings.global?.logo || Logo;
 
   const user = userObj.value;
+
+  const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
 
   const toggleNavbar = () => {
     setMenu(!menu);
@@ -196,18 +199,21 @@ const Navbar = () => {
                     </NavLink>
                   </li>
 
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to={routes.courses}>
-                      {t('Courses')}
-                    </NavLink>
-                  </li>
+                  {(platformVisibility || user) && (
+                    <>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to={routes.courses}>
+                          {t('Courses')}
+                        </NavLink>
+                      </li>
 
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to={routes.tutors}>
-                      {t('Tutors')}
-                    </NavLink>
-                  </li>
-
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to={routes.tutors}>
+                          {t('Tutors')}
+                        </NavLink>
+                      </li>
+                    </>
+                  )}
                   <li className="nav-item">
                     <NavLink className="nav-link" to={routes.contact}>
                       {t('Contact Us')}

@@ -7,6 +7,8 @@ import HomePage from '../../pages/index';
 import AuthPage from '../../pages/authentication/index';
 import StaticPage from '../../pages/static-page/index';
 import NotFoundPage from '../../pages/404/index';
+
+// platform visibility
 import TutorsPage from '../../pages/tutors/index';
 import TutorPage from '../../pages/tutors/tutor/index';
 import CoursesPage from '../../pages/courses';
@@ -24,6 +26,7 @@ import CourseProgramPage from '../../pages/course/index';
 import CartPage from '../../pages/cart/index';
 
 import PrivateRoute from './private';
+import ConfigRoute from './config';
 
 // Split to files for better tree shaking
 const Router = require(`./${process.env.REACT_APP_ROUTING_TYPE || 'BrowserRouter'}`).default;
@@ -54,13 +57,16 @@ const Routes: React.FC = (): ReactElement => {
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
-        <Route exact path={tutors} component={TutorsPage} />
-        <Route exact path={tutor} component={TutorPage} />
-        <Route exact path={courses} component={CoursesPage} />
-        <Route exact path={course} component={CoursePage} />
-        <Route exact path={preview} component={CoursePreviewPage} />
         <Route exact path={reset} component={ResetPage} />
         <Route exact path={emailVerified} component={EmailVerifiedPage} />
+
+        {/* platform visibility pages*/}
+
+        <ConfigRoute exact path={tutors} component={TutorsPage} />
+        <ConfigRoute exact path={tutor} component={TutorPage} />
+        <ConfigRoute exact path={courses} component={CoursesPage} />
+        <ConfigRoute exact path={course} component={CoursePage} />
+        <ConfigRoute exact path={preview} component={CoursePreviewPage} />
 
         {/* privates pages*/}
 
