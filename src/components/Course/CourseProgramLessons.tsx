@@ -41,15 +41,24 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
   }, [progress, courseId]);
 
   const topicBreakPoint = useMemo(() => {
-    return (
-      getCourseProgress &&
-      getCourseProgress.progress
-        .filter((lesson: API.CourseProgressItemElement) => lesson.status === 2)
-        .sort(
-          (a: API.CourseProgressItemElement, b: API.CourseProgressItemElement) =>
-            new Date(b.started_at as string).getTime() - new Date(a.started_at as string).getTime(),
-        )[0]
-    );
+    const currentProgress = (getCourseProgress && getCourseProgress.progress) || [];
+
+    const lastStartedLesson = currentProgress
+      .filter(
+        (topic: API.CourseProgressItemElement) =>
+          topic.status === API.CourseProgressItemElementStatus.IN_PROGRESS,
+      )
+      .sort(
+        (a: API.CourseProgressItemElement, b: API.CourseProgressItemElement) =>
+          new Date(b.started_at as string).getTime() - new Date(a.started_at as string).getTime(),
+      )[0];
+
+    if (!lastStartedLesson) {
+      return currentProgress.filter(
+        (topic) => topic.status === API.CourseProgressItemElementStatus.INCOMPLETE,
+      )[0];
+    }
+    return lastStartedLesson;
   }, [getCourseProgress]);
 
   const findLessonBreakPoint = useMemo(() => {
