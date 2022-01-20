@@ -151,6 +151,8 @@ const Navbar = () => {
 
   const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
 
+  const fullVisibility = config.escolalms_courses.course_visibility === 'show_all' || false;
+
   const toggleNavbar = () => {
     setMenu(!menu);
   };
@@ -201,12 +203,13 @@ const Navbar = () => {
 
                   {(platformVisibility || user) && (
                     <>
-                      <li className="nav-item">
-                        <NavLink className="nav-link" to={routes.courses}>
-                          {t('Courses')}
-                        </NavLink>
-                      </li>
-
+                      {fullVisibility && (
+                        <li className="nav-item">
+                          <NavLink className="nav-link" to={routes.courses}>
+                            {t('Courses')}
+                          </NavLink>
+                        </li>
+                      )}
                       <li className="nav-item">
                         <NavLink className="nav-link" to={routes.tutors}>
                           {t('Tutors')}

@@ -27,6 +27,7 @@ import CartPage from '../../pages/cart/index';
 
 import PrivateRoute from './private';
 import ConfigRoute from './config';
+import ConfigRouteExtend from './configExtend';
 
 // Split to files for better tree shaking
 const Router = require(`./${process.env.REACT_APP_ROUTING_TYPE || 'BrowserRouter'}`).default;
@@ -64,9 +65,10 @@ const Routes: React.FC = (): ReactElement => {
 
         <ConfigRoute exact path={tutors} component={TutorsPage} />
         <ConfigRoute exact path={tutor} component={TutorPage} />
-        <ConfigRoute exact path={courses} component={CoursesPage} />
         <ConfigRoute exact path={course} component={CoursePage} />
         <ConfigRoute exact path={preview} component={CoursePreviewPage} />
+
+        <ConfigRouteExtend exact path={courses} component={CoursesPage} />
 
         {/* privates pages*/}
 
