@@ -4,7 +4,7 @@ import { useCallback, useContext, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 export function useLessonProgram(program: API.CourseProgram, courseRouteName: string = '/course/') {
-  const { sendProgress, getNextPrevTopic } = useContext(EscolaLMSContext);
+  const { sendProgress, getNextPrevTopic, progress } = useContext(EscolaLMSContext);
   const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] = useState(false);
   const { lessonID, topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
@@ -58,5 +58,6 @@ export function useLessonProgram(program: API.CourseProgram, courseRouteName: st
     setIsDisabledNextTopicButton,
     onNextTopicPreview,
     sendProgress,
+    progress,
   } as const;
 }

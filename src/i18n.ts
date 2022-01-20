@@ -7,7 +7,10 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      'Access from': 'Access from',
+      'Access to': 'Access to',
       Access: 'Access',
+
       'Add to Cart': 'Add to Cart',
       'All Categories': 'All categories',
       'All Tutors': 'All tutors',
@@ -32,8 +35,10 @@ const resources = {
       FoundCourses_one: 'We found <strong>{{count}}</strong> course available for you',
       FoundCourses_other: 'We found <strong>{{count}}</strong> courses available for you',
       FREE: 'FREE',
+      group_access: 'Group access',
       H5P: 'Interactive element',
       Home: 'Home',
+      hours_to_complete: 'Hours to complete',
       Image: 'Image',
       Language: 'Language',
       'Last Updated': 'Last Updated',
@@ -238,6 +243,8 @@ const resources = {
   },
   pl: {
     translation: {
+      'Access from': 'Dostęp od',
+      'Access to': 'Dostęp do',
       Access: 'Dostęp',
       'Add to Cart': 'Dodaj do koszyka',
       'All Categories': 'Wszystkie kategorie',
@@ -264,8 +271,10 @@ const resources = {
       FoundCourses_many: 'Znaleźliśmy <strong>{{count}}</strong> kursów dostępnych dla Ciebie',
       FoundCourses_one: 'Znaleźliśmy <strong>{{count}}</strong> kurs dostępny dla Ciebie',
       FREE: 'DARMOWY',
+      group_access: 'Dostęp grupowy',
       H5P: 'Element interaktywny',
       Home: 'Strona główna',
+      hours_to_complete: 'Godziny do ukończenia',
       Image: 'Obraz',
       Language: 'Język',
       'Last Updated': 'Ostatnia aktualizacja',

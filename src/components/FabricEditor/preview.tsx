@@ -27,6 +27,15 @@ export const FabricPreview: React.FC<{
 
           const parser = new DOMParser();
           const element = parser.parseFromString(svgDef, 'image/svg+xml');
+          const bg = element.documentElement.querySelector('rect');
+
+          // hack for background
+          // svg2pdf.js don't support % units (for now)
+
+          if (bg) {
+            bg.setAttribute('width', width + 'px');
+            bg.setAttribute('height', height + 'px');
+          }
 
           doc.svg(element.documentElement).then(() => {
             doc.save('myPDF.pdf');

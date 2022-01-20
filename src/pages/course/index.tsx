@@ -97,7 +97,7 @@ const CourseProgram = () => {
   if (program.value && program.value.lessons && program.value.lessons.length) {
     return (
       <Layout>
-        <CourseProgramLessons program={program.value} />
+        <CourseProgramLessons program={program.value} courseId={Number(id)} />
       </Layout>
     );
   }
