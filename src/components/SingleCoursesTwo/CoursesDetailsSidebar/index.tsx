@@ -157,14 +157,14 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             </li>
           )}
 
-          <li>
+          {/* <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
                 <i className="flaticon-lock" /> {t('Access')}
               </span>
               {t('Lifetime')}
             </div>
-          </li>
+          </li> */}
 
           {course.target_group && (
             <li>
