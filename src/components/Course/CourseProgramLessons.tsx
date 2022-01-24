@@ -55,7 +55,8 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
 
     if (!lastStartedLesson) {
       return currentProgress.filter(
-        (topic) => topic.status === API.CourseProgressItemElementStatus.INCOMPLETE,
+        (topic: API.CourseProgressItemElement) =>
+          topic.status === API.CourseProgressItemElementStatus.INCOMPLETE,
       )[0];
     }
     return lastStartedLesson;

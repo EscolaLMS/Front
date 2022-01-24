@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 
 import { TopicType, completed, noCompletedEventsIds } from '@escolalms/sdk/lib/services/courses';
-import { Player, XAPIEvent } from '@escolalms/h5p-react';
+import { XAPIEvent } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ImagePlayer from '../../../../components/Course/ImagePlayer';
 import VideoPlayer from './Players/VideoPlayer';
@@ -12,6 +12,7 @@ import TextPlayer from './Players/TextPlayer';
 import PdfPlayer from './Players/PdfPlayer';
 import { API } from '@escolalms/sdk/lib';
 import VideoPlayButton from '@/components/Common/LmsVideoPlay';
+import H5Player from '@/components/H5Player';
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -95,13 +96,7 @@ export const CourseProgramContent: React.FC<{
 
     switch (topic.topicable_type) {
       case TopicType.H5P:
-        return (
-          <Player
-            onXAPI={(e: XAPIEvent) => onXAPI(e)}
-            id={topic?.topicable?.value}
-            styles={[`${window.location.origin}/h5p_overwrite.css`]}
-          />
-        );
+        return <H5Player onXAPI={(e: XAPIEvent) => onXAPI(e)} id={topic?.topicable?.value} />;
       case TopicType.OEmbed:
         return (
           <Embed
@@ -109,7 +104,7 @@ export const CourseProgramContent: React.FC<{
             url={topic.topicable.value}
             key={topicId}
             FallbackElement={
-              <Player onXAPI={(e: XAPIEvent) => onXAPI(e)} id={topic?.topicable?.value} /> // TODO can't be any
+              <H5Player onXAPI={(e: XAPIEvent) => onXAPI(e)} id={topic?.topicable?.value} /> // TODO can't be any
             }
           />
         );

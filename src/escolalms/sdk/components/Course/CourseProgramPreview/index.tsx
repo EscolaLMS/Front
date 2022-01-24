@@ -1,13 +1,13 @@
 import React, { useContext, useMemo } from 'react';
 import { API } from '@escolalms/sdk/lib';
 import { TopicType } from '@escolalms/sdk/lib/services/courses';
-import { Player } from '@escolalms/h5p-react';
 import Embed from 'react-tiny-oembed';
 import ReactPlayer from 'react-player';
 import PdfPlayer from './../Players/PdfPlayer';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import './index.scss';
+import H5Player from '@/components/H5Player';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -19,12 +19,7 @@ export const CourseProgramPreview: React.FC<{
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
         case TopicType.H5P:
-          return (
-            <Player
-              id={topic.topicable.value}
-              styles={[`${window.location.origin}/h5p_overwrite.css`]}
-            />
-          );
+          return <H5Player id={topic?.topicable?.value} />;
         case TopicType.OEmbed:
           return <Embed url={topic.topicable.value} />;
         case TopicType.RichText:
