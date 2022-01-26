@@ -16,6 +16,8 @@ const LoginForm = () => {
   const [state, setState] = React.useState<FormState>({ state: 'input' });
   const [isForgoten, setIsForgoten] = React.useState(false);
 
+  const isHashRouter = process.env.REACT_APP_ROUTING_TYPE === 'HashRouter';
+
   React.useEffect(() => {
     const isUser = isForgoten ? user.email !== '' : Object.values(user).every((el) => Boolean(el));
     setState({ state: isUser ? 'input' : 'disabled' });
@@ -46,12 +48,11 @@ const LoginForm = () => {
   const forgotHandler = React.useCallback(() => {
     forgot({
       email: user.email,
-      return_url: `${window.location.origin}/reset-password`,
+      return_url: `${window.location.origin}${isHashRouter ? '/#' : ''}/reset-password`,
     })
       .then(() => {
         return setState({
           state: 'success',
-          // TODO: translate,
           message: t('LoginPage.ForgotSuccess'),
         });
       })
