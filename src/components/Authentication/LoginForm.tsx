@@ -59,7 +59,7 @@ const LoginForm = () => {
       .catch((error: any /* ResponseError */) => {
         setState({ state: 'error', error: error.data.message });
       });
-  }, [user, forgot, t]);
+  }, [user, forgot, t, isHashRouter]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
