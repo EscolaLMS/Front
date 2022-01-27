@@ -23,7 +23,8 @@ any) => {
     <Route
       {...rest}
       render={(props) =>
-        platformVisibility || (user.value && user.value.id && fullVisibility) ? (
+        (platformVisibility && !(user.value && user.value.id)) ||
+        (user.value && user.value.id && fullVisibility) ? (
           <Component {...props} />
         ) : (
           <Redirect

@@ -17,6 +17,8 @@ const Index = () => {
 
   const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
 
+  const fullVisibility = config.escolalms_courses.course_visibility === 'show_all' || false;
+
   return (
     <Layout>
       <React.Fragment>
@@ -50,7 +52,8 @@ const Index = () => {
           </div>
         </div>
 
-        {(platformVisibility || (user.value && user.value.id)) && (
+        {((platformVisibility && !(user.value && user.value.id)) ||
+          (user.value && user.value.id && fullVisibility)) && (
           <div className="courses-area">
             <div className="container">
               <div className="row">
