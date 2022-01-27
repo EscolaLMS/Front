@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Alert, Spinner } from 'reactstrap';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
@@ -21,6 +21,8 @@ const RegisterForm = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<API.DefaultResponseError>();
   const [success, setSuccess] = React.useState<boolean>(false);
+  const [additionalFields, setAdditionalFields] = React.useState<string[]>([]);
+  const isAccountEnabledByAdmin = 'enabled';
 
   const onDismiss = () => setError(undefined);
 
@@ -33,40 +35,64 @@ const RegisterForm = () => {
     isUser ? setDisabled(false) : setDisabled(true);
   }, [user]);
 
+  React.useEffect(() => {
+    if (config.escola_auth) {
+      const additionalRequiredFields = config.escola_auth.additional_fields_required as string[];
+      setAdditionalFields(additionalRequiredFields);
+      setUser((prevState) => ({
+        ...prevState,
+        ...additionalRequiredFields.reduce(
+          (obj: object, item: string) => ({ ...obj, [item]: '' }),
+          {},
+        ),
+      }));
+    }
+  }, [config]);
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
       setLoading(true);
-      setError(undefined);
+      try {
+        setError(undefined);
+        register({ ...user })
+          .then(() => [setSuccess(true), setLoading(false)])
 
-      register({ ...user })
-        .then(() => setSuccess(true))
+          .catch((error: any /* ResponseError */) => {
+            setError(error.data);
+            setLoading(false);
+          });
+      } catch (error: any /* ResponseError */) {
+        setError(error.data);
+        setLoading(false);
+      }
+    },
+    [user, register],
+  );
 
-        .catch((error: any /* ResponseError */) => {
-          setError(error.data);
-        });
-    } catch (error: any /* ResponseError */) {
-      setError(error.data);
-    } finally {
-      setLoading(false);
+  const registrationMessageSucces = useCallback(() => {
+    if (config.escola_auth.account_must_be_enabled_by_admin === isAccountEnabledByAdmin) {
+      return <Alert color="success">{t('RegisterPage.registrationSuccesAdminEnabled')}</Alert>;
+    } else {
+      return (
+        <Alert color="success">
+          {t('RegisterPage.registrationSuccess')} <code>{user.email}</code>{' '}
+          {t('RegisterPage.registrationForLink')}
+        </Alert>
+      );
     }
-  };
+  }, [config, t, user.email]);
 
   return (
     <div className="register-form">
       <h2>{t('Register')}</h2>
-      {success && (
-        <Alert color="success">
-          Account registered successfully. Please check your <code>{user.email}</code> for
-          validation link.
-        </Alert>
-      )}
+      {success && registrationMessageSucces()}
       {error && (
         <Alert color="danger" isOpen={error ? true : false} toggle={onDismiss}>
           {error.message}
@@ -150,7 +176,7 @@ const RegisterForm = () => {
           <p className="description">{t('RegisterPage.PassInfo')}</p>
 
           {config &&
-            config.escola_auth.additional_fields_required.map((item: string) => (
+            additionalFields.map((item: string) => (
               <div className="form-group">
                 <label htmlFor="register-">{item}</label>
                 <input
@@ -163,22 +189,10 @@ const RegisterForm = () => {
                 />
               </div>
             ))}
-          {config &&
-            config.escola_auth.additional_fields.map((item: string) => (
-              <div className="form-group">
-                <label htmlFor="register-">{item}</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder={item}
-                  name={item}
-                  onChange={handleChange}
-                />
-              </div>
-            ))}
 
           <button type="submit" disabled={disabled}>
             {t('Register')}
+
             {loading ? <Spinner color="success" /> : ''}
           </button>
         </form>

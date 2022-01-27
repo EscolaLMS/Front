@@ -215,10 +215,14 @@ const resources = {
         },
       },
       RegisterPage: {
+        registrationSuccess: 'Account registered successfully. Please check your',
+        registrationForLink: 'for validation link.',
+        registrationSuccesAdminEnabled:
+          'Account registered successfully. Account must be enabled by admin.',
         FullName: 'First Name',
         LastName: 'Last Name',
         PassInfo:
-          ' The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & )',
+          'The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & )',
       },
       ResetPage: {
         Set: 'Set new password',
@@ -458,6 +462,10 @@ const resources = {
         },
       },
       RegisterPage: {
+        registrationSuccess: 'Konto zarejestrowane pomyślnie. Wysłaliśmy link walidacyjny na',
+        registrationForLink: 'do dokończenia rejestracji.',
+        registrationSuccesAdminEnabled:
+          'Konto zarejestrowane pomyślnie. Konto musi być włączone przez administratora.',
         FullName: 'Imię',
         LastName: 'Nazwisko',
         PassInfo:
