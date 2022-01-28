@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.139ef8fc.chunk.css",
-    "main.js": "/static/js/main.a9f59d59.chunk.js",
-    "main.js.map": "/static/js/main.a9f59d59.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.375ff977.js",
-    "runtime-main.js.map": "/static/js/runtime-main.375ff977.js.map",
+    "main.js": "/static/js/main.1c4c3ebb.chunk.js",
+    "main.js.map": "/static/js/main.1c4c3ebb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.0c402929.js",
+    "runtime-main.js.map": "/static/js/runtime-main.0c402929.js.map",
     "static/css/2.2b8b1e5d.chunk.css": "/static/css/2.2b8b1e5d.chunk.css",
     "static/js/2.3a08e264.chunk.js": "/static/js/2.3a08e264.chunk.js",
     "static/js/2.3a08e264.chunk.js.map": "/static/js/2.3a08e264.chunk.js.map",
-    "static/js/3.d5b64ba5.chunk.js": "/static/js/3.d5b64ba5.chunk.js",
-    "static/js/3.d5b64ba5.chunk.js.map": "/static/js/3.d5b64ba5.chunk.js.map",
+    "static/js/3.67cc1c27.chunk.js": "/static/js/3.67cc1c27.chunk.js",
+    "static/js/3.67cc1c27.chunk.js.map": "/static/js/3.67cc1c27.chunk.js.map",
     "static/js/4.39a0917f.chunk.js": "/static/js/4.39a0917f.chunk.js",
     "static/js/4.39a0917f.chunk.js.map": "/static/js/4.39a0917f.chunk.js.map",
     "static/js/5.ef44f5e0.chunk.js": "/static/js/5.ef44f5e0.chunk.js",
@@ -20,7 +20,7 @@
     "static/css/2.2b8b1e5d.chunk.css.map": "/static/css/2.2b8b1e5d.chunk.css.map",
     "static/css/main.139ef8fc.chunk.css.map": "/static/css/main.139ef8fc.chunk.css.map",
     "static/js/2.3a08e264.chunk.js.LICENSE.txt": "/static/js/2.3a08e264.chunk.js.LICENSE.txt",
-    "static/js/3.d5b64ba5.chunk.js.LICENSE.txt": "/static/js/3.d5b64ba5.chunk.js.LICENSE.txt",
+    "static/js/3.67cc1c27.chunk.js.LICENSE.txt": "/static/js/3.67cc1c27.chunk.js.LICENSE.txt",
     "static/js/4.39a0917f.chunk.js.LICENSE.txt": "/static/js/4.39a0917f.chunk.js.LICENSE.txt",
     "static/js/5.ef44f5e0.chunk.js.LICENSE.txt": "/static/js/5.ef44f5e0.chunk.js.LICENSE.txt",
     "static/media/flaticon.css": "/static/media/Flaticon.b113230c.svg",
@@ -29,10 +29,10 @@
     "static/media/logo.3deea5d8.svg": "/static/media/logo.3deea5d8.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.375ff977.js",
+    "static/js/runtime-main.0c402929.js",
     "static/css/2.2b8b1e5d.chunk.css",
     "static/js/2.3a08e264.chunk.js",
     "static/css/main.139ef8fc.chunk.css",
-    "static/js/main.a9f59d59.chunk.js"
+    "static/js/main.1c4c3ebb.chunk.js"
   ]
 }
