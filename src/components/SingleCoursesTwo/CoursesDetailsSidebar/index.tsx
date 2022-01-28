@@ -91,7 +91,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               </div>
             </li>
           )}
-          {/* {course.active_to && (
+          {course.active_to && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
@@ -101,7 +101,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
                 {format(new Date(course.active_to), 'dd/MM/yyyy')}
               </div>
             </li>
-          )} */}
+          )}
           {course.lessons?.length && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
