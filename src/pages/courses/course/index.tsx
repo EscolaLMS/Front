@@ -264,7 +264,7 @@ const CoursePage = () => {
                         )}
                       </TabPanel>
                       <TabPanel>
-                        {/* {course.value.authors &&
+                        {course.value.authors &&
                           course.value.authors.length > 0 &&
                           course.value.authors.map((author: API.UserItem) => {
                             return (
@@ -296,7 +296,7 @@ const CoursePage = () => {
                                 </div>
                               </div>
                             );
-                          })}{' '} */}
+                          })}{' '}
                       </TabPanel>
                       <TabPanel>
                         <h3>{t('Description')}</h3>
