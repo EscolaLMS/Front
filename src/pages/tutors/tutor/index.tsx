@@ -67,7 +67,7 @@ const TutorPage = () => {
             )}
 
             <div className="tutor-courses">
-              <h3 className="tutor-courses__title">Tutor Courses{t('TutorPage.Courses')}</h3>
+              <h3 className="tutor-courses__title">{t('TutorPage.Courses')}</h3>
               <div className="row">
                 {courses.list?.data.map((course: API.Course) => (
                   <div className="col-lg-4 col-md-6">

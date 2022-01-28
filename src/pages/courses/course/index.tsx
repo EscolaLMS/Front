@@ -264,37 +264,39 @@ const CoursePage = () => {
                         )}
                       </TabPanel>
                       <TabPanel>
-                        <h3>{t('Meet your instructor')}</h3>
-                        {course.value.author && (
-                          <div className="courses-author">
-                            <div className="author-profile-header"></div>
-                            <div className="author-profile">
-                              <Link to={`/tutors/${course.value.author.id}`}>
-                                <div className="author-profile-title">
-                                  {course.value.author?.path_avatar && (
-                                    <Image
-                                      path={course.value.author?.path_avatar}
-                                      className="shadow-sm rounded-circle"
-                                      srcSizes={[94, 94 * 2]}
-                                    />
-                                  )}
-                                  <div className="author-profile-title-details">
-                                    <div className="author-profile-details">
-                                      <h4>
-                                        {course.value.author.first_name}{' '}
-                                        {course.value.author.last_name}
-                                      </h4>
-                                      <span className="d-block">{t('Tutor')}</span>
+                        {course.value.authors &&
+                          course.value.authors.length > 0 &&
+                          course.value.authors.map((author: API.UserItem) => {
+                            return (
+                              <div className="courses-instructor">
+                                <div className="single-advisor-box">
+                                  <div className="row align-items-center">
+                                    <div className="col-lg-4 col-md-4">
+                                      <div className="advisor-image">
+                                        {author?.path_avatar && (
+                                          <Image path={author?.path_avatar} />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                      <div className="advisor-content">
+                                        <Link to={`/tutors/${author.id}`}>
+                                          <h3>
+                                            {author.first_name} {author.last_name}
+                                          </h3>
+                                        </Link>
+                                        <span className="sub-title">{t('Tutor')}</span>
+
+                                        <div>
+                                          <MarkdownReader>{author.bio || ''}</MarkdownReader>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </Link>
-                              <div className="bio">
-                                <MarkdownReader>{course.value.author?.bio || ''}</MarkdownReader>
                               </div>
-                            </div>
-                          </div>
-                        )}{' '}
+                            );
+                          })}{' '}
                       </TabPanel>
                       <TabPanel>
                         <h3>{t('Description')}</h3>
