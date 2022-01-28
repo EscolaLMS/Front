@@ -62,18 +62,6 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
 
       <div className="courses-sidebar-information">
         <ul className="info">
-          {course.author && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-teacher" /> {t('Tutor')}
-                </span>
-                <Link to={`/tutors/${course.author.id}`}>
-                  {course.author?.first_name} {course.author?.last_name}
-                </Link>
-              </div>
-            </li>
-          )}
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
@@ -103,7 +91,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
               </div>
             </li>
           )}
-          {course.active_to && (
+          {/* {course.active_to && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
@@ -113,7 +101,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
                 {format(new Date(course.active_to), 'dd/MM/yyyy')}
               </div>
             </li>
-          )}
+          )} */}
           {course.lessons?.length && (
             <li>
               <div className="d-flex justify-content-between align-items-center">
@@ -157,14 +145,14 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             </li>
           )}
 
-          {/* <li>
+          <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
                 <i className="flaticon-lock" /> {t('Access')}
               </span>
               {t('Lifetime')}
             </div>
-          </li> */}
+          </li>
 
           {course.target_group && (
             <li>

@@ -255,6 +255,11 @@
 }
 
 .courses-details-desc-style-two {
+  padding: {
+    left: 30px;
+    right: 30px;
+    top: 40px;
+  }
   h3 {
     margin-bottom: 15px;
     font: {
@@ -262,7 +267,7 @@
       weight: 800;
     }
     &:not(first-child) {
-      margin-top: 30px;
+      margin-top: 0px;
     }
   }
   .why-you-learn {
@@ -492,52 +497,35 @@
       }
     }
   }
-  .courses-author {
-    margin-top: 20px;
-    border-radius: 5px;
-    background: #f8f8f8;
+  .courses-instructor {
+    margin-bottom: 30px;
+    .single-advisor-box {
+      .advisor-image {
+        top: 0;
+        margin-bottom: 0;
 
-    .author-profile-header {
-      height: 115px;
-      border-radius: 5px 5px 0 0;
-      background: {
-        color: $color-primary;
-        image: url(/images/bg.jpg);
-        position: center center;
-        size: cover;
-        repeat: no-repeat;
-      }
-    }
-    .author-profile {
-      padding: 0 25px 25px;
-
-      .author-profile-title {
-        position: relative;
-        z-index: 1;
-        margin: {
-          bottom: 15px;
-          top: -45px;
-        }
         img {
-          display: inline-block;
-          border: 3px solid $color-whitish;
-          width: 100px;
-          height: 100px;
+          width: 100%;
+          display: inline-block !important;
         }
-        .author-profile-title-details {
-          margin-top: 15px;
+      }
+      .advisor-content {
+        padding: 0 0 0 20px;
 
-          .author-profile-details {
-            h4 {
-              margin-bottom: 5px;
-              font: {
-                size: 22px;
-                weight: 800;
-              }
-            }
-            span {
-              color: $color-text-primary;
-            }
+        h3 {
+          margin-bottom: 7px;
+          font: {
+            size: 23px;
+            weight: 800;
+          }
+        }
+        .sub-title {
+          display: block;
+          color: $color-primary;
+          margin-bottom: 15px;
+          font: {
+            size: 15px;
+            weight: 600;
           }
         }
       }
