@@ -38,7 +38,7 @@ const RegisterForm = () => {
   React.useEffect(() => {
     if (config.escola_auth) {
       const additionalRequiredFields = config.escola_auth.additional_fields_required as string[];
-      setAdditionalFields(additionalRequiredFields);
+      setAdditionalFields(config.escola_auth.additional_fields as string[]);
       setUser((prevState) => ({
         ...prevState,
         ...additionalRequiredFields.reduce(
@@ -111,7 +111,7 @@ const RegisterForm = () => {
       {!success && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="register-name">{t('RegisterPage.FullName')}</label>
+            <label htmlFor="register-name">{t('RegisterPage.FullName')}*</label>
             <input
               id="register-name"
               type="text"
@@ -124,7 +124,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">{t('RegisterPage.LastName')}</label>
+            <label htmlFor="register-">{t('RegisterPage.LastName')}*</label>
             <input
               type="text"
               className="form-control"
@@ -136,7 +136,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">Email</label>
+            <label htmlFor="register-">Email*</label>
             <input
               className="form-control"
               placeholder="Email"
@@ -148,7 +148,7 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">{t('Password')}</label>
+            <label htmlFor="register-">{t('Password')}*</label>
             <input
               type="password"
               className="form-control"
@@ -161,7 +161,7 @@ const RegisterForm = () => {
 
           <div className="form-group">
             <label htmlFor="register-">
-              {t('Confirm')} {t('Password')}
+              {t('Confirm')} {t('Password')}*
             </label>
             <input
               type="password"
@@ -173,14 +173,22 @@ const RegisterForm = () => {
             />
           </div>
 
-          <p className="description">{t('RegisterPage.PassInfo')}</p>
+          <p className="description">{t('RegisterPage.PassInfo')}*</p>
 
           {config &&
             additionalFields.map((item: string) => (
               <div className="form-group">
-                <label htmlFor="register-">{item}</label>
+                <label htmlFor="register-">
+                  {item}
+                  {Array.isArray(config.escola_auth.additional_fields_required) &&
+                    config.escola_auth.additional_fields_required.includes(item) &&
+                    '*'}
+                </label>
                 <input
-                  required
+                  required={
+                    Array.isArray(config.escola_auth.additional_fields_required) &&
+                    config.escola_auth.additional_fields_required.includes(item)
+                  }
                   type="text"
                   className="form-control"
                   placeholder={item}
