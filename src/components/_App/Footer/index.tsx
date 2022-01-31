@@ -38,7 +38,7 @@ const Footer = () => {
           <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="single-footer-widget ">
               <h3>Escola</h3>
-              {!!dividedPages[0] && (
+              {/* {!!dividedPages[0] && (
                 <ul className="footer__page-list">
                   {dividedPages[0].map((page) => (
                     <li className="footer__page-list-item">
@@ -46,14 +46,14 @@ const Footer = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
 
           <div className="col-lg-6 col-md-6 col-sm-6">
             <div className="single-footer-widget">
               <h3>Learning Management System</h3>
-              {!!dividedPages[1] && (
+              {/* {!!dividedPages[1] && (
                 <ul className="footer__page-list">
                   {dividedPages[1].map((page) => (
                     <li className="footer__page-list-item">
@@ -61,7 +61,7 @@ const Footer = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
           <div className="col-lg-6 col-md-6 col-sm-6">
