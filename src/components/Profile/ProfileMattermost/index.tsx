@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import { API } from '@escolalms/sdk/lib';
 
@@ -42,7 +41,7 @@ const ProfileMattermost = () => {
                                   <th scope="col">{channel.display_name}</th>
                                   <th scope="col">
                                     {' '}
-                                    <a href={channel.url} target="_blank">
+                                    <a href={channel.url} target="_blank" rel="noreferrer">
                                       {channel.url}
                                     </a>
                                   </th>
