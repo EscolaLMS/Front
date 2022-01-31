@@ -218,6 +218,8 @@ const resources = {
       },
       MattermostChannel: {
         TeamName: 'Team name',
+        Channels: 'Channels',
+        LastPost: 'Last post',
         TableCols: {
           DisplayName: 'NAME',
           Url: 'LINK',
@@ -504,6 +506,8 @@ const resources = {
       },
       MattermostChannel: {
         TeamName: 'Nazwa zespołu',
+        Channels: 'Kanały',
+        LastPost: 'Ostatni post',
         TableCols: {
           DisplayName: 'NAZWA',
           Url: 'LINK',
