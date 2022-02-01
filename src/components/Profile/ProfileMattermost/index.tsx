@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import { API } from '@escolalms/sdk/lib';
@@ -7,22 +7,27 @@ import './index.scss';
 import LmsBoxHeader from '@/components/Common/LmsBoxHeader';
 
 const ProfileMattermost = () => {
-  const { mattermostChannels } = useContext(EscolaLMSContext);
+  const { mattermostChannels, fetchMattermostChannels } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    fetchMattermostChannels();
+  }, []);
 
   return (
     <React.Fragment>
-      <div className="mattermostChannel">
+      {/* <div className="mattermostChannel">
         <div className="container">
           <LmsBoxHeader text={t('Navbar.MyMattermostChannels')} />
-          {mattermostChannels?.list?.data?.length === 0 ? (
+
+          {mattermostChannels && mattermostChannels?.value && mattermostChannels?.value.teams && mattermostChannels?.value.teams.length === 0 ? (
             <p className="text-center">{t('MyProfilePage.EmptyMattermostChannels')}</p>
           ) : (
             <form>
               <div className="categories-area ptb-100">
                 <div className="container">
-                  {mattermostChannels &&
-                    mattermostChannels?.list?.data?.teams.map((Team: API.MattermostChannels) => {
+
+                   {(mattermostChannels?.value?.teams || []).map((Team: API.MattermostChannels) => {
                       return (
                         <div className="row">
                           <div className="col-lg-3 col-sm-6 col-md-6">
@@ -44,7 +49,12 @@ const ProfileMattermost = () => {
                                       <div className="col-12">
                                         <div className="single-box-item">
                                           <div className="item">
-                                            <a href={channel.url} className="thumb" target="_blank">
+                                            <a
+                                              href={channel.url}
+                                              className="thumb"
+                                              target="_blank"
+                                              rel="noreferrer"
+                                            >
                                               <img
                                                 className="fullimage cover"
                                                 src={`${process.env.PUBLIC_URL}/images/mattermost_logo.png`}
@@ -86,7 +96,7 @@ const ProfileMattermost = () => {
             </form>
           )}
         </div>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 };
