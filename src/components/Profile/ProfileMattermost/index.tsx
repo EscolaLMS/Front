@@ -30,10 +30,7 @@ const ProfileMattermost = () => {
                       <div className="row">
                         <div className="col-lg-3 col-sm-6 col-md-6">
                           <div className="single-categories-box">
-                            <img
-                              src={`${process.env.PUBLIC_URL}/images/categories/categorie1.jpg`}
-                              alt="Team"
-                            />
+                            <img src={`https://picsum.photos/400/200`} alt="Team" />
 
                             <div className="content">
                               <h3>{team.display_name}</h3>
