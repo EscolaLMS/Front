@@ -9,6 +9,7 @@ import Layout from '../../../components/_App/Layout';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import ProfileCertificates from '@/components/Profile/ProfileCertificates';
+import ProfileMattermost from '@/components/Profile/ProfileMattermost';
 
 type UpdateCall = (key: keyof API.UserItem, value: unknown) => void;
 
@@ -163,6 +164,7 @@ const MyProfile = () => {
         </div>
 
         <ProfileCertificates />
+        <ProfileMattermost />
       </React.Fragment>
     </Layout>
   );
