@@ -6,7 +6,7 @@ import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownRead
 import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
 import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -28,7 +28,11 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
   } = useLessonProgram(program);
 
   const { push } = useHistory();
+  const location = useLocation();
   const { t } = useTranslation();
+
+  // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
+  const startWithBreakPoint = location.pathname.split('/').length === 3;
 
   const getCourseProgress = useMemo(() => {
     return (
@@ -75,10 +79,12 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
   }, [program, topicBreakPoint]);
 
   useEffect(() => {
-    if (findLessonBreakPoint && topicBreakPoint) {
-      push(`/course/${program.id}/${findLessonBreakPoint.id}/${topicBreakPoint.topic_id}`, null);
+    if (startWithBreakPoint) {
+      if (findLessonBreakPoint && topicBreakPoint) {
+        push(`/course/${program.id}/${findLessonBreakPoint.id}/${topicBreakPoint.topic_id}`, null);
+      }
     }
-  }, [findLessonBreakPoint, program, push, topicBreakPoint]);
+  }, [startWithBreakPoint, findLessonBreakPoint, program, push, topicBreakPoint]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -154,11 +160,14 @@ export const CourseProgramLessons: React.FC<{ program: API.CourseProgram; course
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
-                            {topic.resources.map((resource) => (
-                              <a target="_blank" href={resource.url} rel="noreferrer">
-                                {resource.name}
-                              </a>
-                            ))}
+                            {topic.resources.map((resource) => {
+                              console.log(resource);
+                              return (
+                                <a target="_blank" href={resource.url} rel="noreferrer">
+                                  {resource.name}
+                                </a>
+                              );
+                            })}
                           </div>
                         </React.Fragment>
                       )}

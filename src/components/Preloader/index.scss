@@ -1,13 +1,18 @@
 @import './src/style/scss/01_abstracts';
 
 .inline-loader {
-  top: 0;
+  z-index: $z-index-preloader;
+  background-color: rgba(255, 255, 255, 0.85);
+  position: fixed;
+  bottom: 0;
+  height: 100%;
   left: 0;
   right: 0;
-  bottom: 0;
-  z-index: $z-index-preloader;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.85);
+  top: 0;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .inline-loader .loader {

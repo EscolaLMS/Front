@@ -21,7 +21,7 @@ resetIdCounter();
 const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { t } = useTranslation();
 
-  const { settings, addToCart, cart, user, progress, fetchProgress } = useContext(EscolaLMSContext);
+  const { config, addToCart, cart, user, progress, fetchProgress } = useContext(EscolaLMSContext);
 
   const { id } = course;
 
@@ -44,8 +44,8 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const priceLiteral = useMemo(() => {
     return course.base_price === 0 || course.base_price === undefined
       ? t('FREE')
-      : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
-  }, [course, settings, t]);
+      : `${config?.escolalms_payments?.default_currency} ${(course.base_price / 100).toFixed(2)}`;
+  }, [course, config, t]);
 
   return (
     <div className="courses-price">
@@ -185,16 +185,15 @@ const CoursePage = () => {
                               count: course.value.users_count,
                             })}
                           </span>
-                          <Link to="#">{course.value.users_count}</Link>
+                          {course.value.users_count}
                         </li>
                       )}
                       <li>
                         <i className="bx bx-calendar"></i>
                         <span>{t('Last Updated')}</span>
-                        <Link to="#">
-                          {course.value.updated_at &&
-                            format(new Date(course.value.updated_at), 'dd/MM/yyyy')}
-                        </Link>
+
+                        {course.value.updated_at &&
+                          format(new Date(course.value.updated_at), 'dd/MM/yyyy')}
                       </li>
                       {!!course.value.tags?.length && (
                         <li>

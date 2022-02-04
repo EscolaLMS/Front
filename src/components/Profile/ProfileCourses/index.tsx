@@ -63,9 +63,9 @@ const ProfileCourses = () => {
               <div className="profile-courses profile-courses--with-data">
                 <h2>{t('MyCoursesPage.Finish')}</h2>
                 <hr />
-                <div className="row">
+                <div className="row courses-wrapper">
                   {startedCourses.map((item: API.CourseProgressItem) => (
-                    <div className="col-lg-6 col-md-6" key={item.course.id}>
+                    <div className="col-lg-6 col-md-6 course-col" key={item.course.id}>
                       <UserCourseCard
                         course={item.course}
                         progress={

@@ -15,10 +15,15 @@ import './index.scss';
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
 const CartPage = () => {
-  const { user, cart, fetchCart, settings, removeFromCart, payWithStripe, fetchProgress } =
+  const { user, cart, fetchCart, config, removeFromCart, payWithStripe, fetchProgress } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { location, push } = useHistory();
+  const [modal, setModal] = useState(false);
+  // TODO: add to sdk
+  const stripeConfigs: any = config?.escolalms_payments?.drivers;
+
+  const stripeKey = stripeConfigs.stripe.publishable_key;
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -33,12 +38,10 @@ const CartPage = () => {
     (course) => {
       return course.base_price === 0
         ? t('FREE')
-        : `${settings?.currencies?.default} ${(course.base_price / 100).toFixed(2)}`;
+        : `${config?.escolalms_payments?.default_currency} ${(course.base_price / 100).toFixed(2)}`;
     },
-    [settings, t],
+    [t, config],
   );
-
-  const [modal, setModal] = useState(false);
 
   const onPay = useCallback((paymentMethodId) => {
     payWithStripe(paymentMethodId).then(() => {
@@ -118,19 +121,22 @@ const CartPage = () => {
                     <li>
                       {t('OrdersPage.Price.Subtotal')}{' '}
                       <span>
-                        {settings?.currencies?.default} {Number(cart.value?.subtotal).toFixed(2)}
+                        {config?.escolalms_payments?.default_currency}{' '}
+                        {Number(cart.value?.subtotal).toFixed(2)}
                       </span>
                     </li>
                     <li>
                       {t('OrdersPage.Price.Tax')}{' '}
                       <span>
-                        {settings?.currencies?.default} {Number(cart.value?.tax).toFixed(2)}
+                        {config?.escolalms_payments?.default_currency}{' '}
+                        {Number(cart.value?.tax).toFixed(2)}
                       </span>
                     </li>
                     <li>
                       {t('OrdersPage.Price.Total')}{' '}
                       <span>
-                        {settings?.currencies?.default} {Number(cart.value?.total).toFixed(2)}
+                        {config?.escolalms_payments?.default_currency}{' '}
+                        {Number(cart.value?.total).toFixed(2)}
                       </span>
                     </li>
                   </ul>
@@ -150,10 +156,12 @@ const CartPage = () => {
               </React.Fragment>
             )}
 
-            {settings?.stripe?.publishable_key && Number(cart.value?.total) > 0 && (
-              <Elements stripe={stripePromise(settings.stripe.publishable_key)}>
+            {stripeKey && Number(cart.value?.total) > 0 && (
+              <Elements stripe={stripePromise(stripeKey)}>
                 <PaymentModal
-                  total={`${Number(cart.value?.total).toFixed(2)} ${settings?.currencies?.default}`}
+                  total={`${Number(cart.value?.total).toFixed(2)} ${
+                    config?.escolalms_payments?.default_currency
+                  }`}
                   active={modal}
                   onClose={() => setModal(false)}
                   onPaymentId={onPay}

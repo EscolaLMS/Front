@@ -6,8 +6,8 @@ import ReactPlayer from 'react-player';
 import PdfPlayer from './../Players/PdfPlayer';
 import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
-import './index.scss';
 import H5Player from '@/components/H5Player';
+import './index.scss';
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -48,7 +48,6 @@ export const CourseProgramPreview: React.FC<{
                 title={topic.topicable.value}
                 src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
               />
-              ;
             </div>
           );
         default:

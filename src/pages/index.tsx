@@ -15,9 +15,9 @@ const Index = () => {
     fetchConfig();
   }, [fetchConfig]);
 
-  const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
+  const platformVisibility = config?.escolalms_courses?.platform_visibility === 'public' || false;
 
-  const fullVisibility = config.escolalms_courses.course_visibility === 'show_all' || false;
+  const fullVisibility = config?.escolalms_courses?.course_visibility === 'show_all' || false;
 
   return (
     <Layout>

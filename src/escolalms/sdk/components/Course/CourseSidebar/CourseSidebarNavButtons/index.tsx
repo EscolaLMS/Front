@@ -30,6 +30,10 @@ export const CourseSidebarNavButtons: React.FC<{
     return <React.Fragment />;
   }
 
+  if (course?.lessons.length <= 1) {
+    return <React.Fragment />;
+  }
+
   return (
     <div className="course-program-sidebar-nav-buttons">
       <button
