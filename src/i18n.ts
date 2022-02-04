@@ -181,11 +181,13 @@ const resources = {
         Update: 'Update',
         Bio: 'Bio',
         EmptyCertificates: 'Certificates list is empty!',
+        EmptyMattermostChannels: 'Mattermost channels list is empty!',
       },
       Navbar: {
         MyProfile: 'My Profile',
         MyCourses: 'My Courses',
         MyCertificates: 'My Certificates',
+        MyMattermostChannels: 'My Mattermost Channels',
         MyOrders: 'My Orders',
         MyPayments: 'My Payments',
         Logout: 'Logout',
@@ -213,6 +215,15 @@ const resources = {
         PaymentStatus: {
           new: 'New',
           paid: 'Paid',
+        },
+      },
+      MattermostChannel: {
+        TeamName: 'Team name',
+        Channels: 'Channels',
+        LastPost: 'Last post',
+        TableCols: {
+          DisplayName: 'NAME',
+          Url: 'LINK',
         },
       },
       RegisterPage: {
@@ -459,11 +470,13 @@ const resources = {
         Update: 'Zaktualizuj',
         Bio: 'Bio',
         EmptyCertificates: 'Lista certyfikatów jest pusta!',
+        EmptyMattermostChannels: 'Lista kanałów Mattermost jest pusta!',
       },
       Navbar: {
         MyProfile: 'Mój Profil',
         MyCourses: 'Moje Kursy',
         MyCertificates: 'Moje Certyfikaty',
+        MyMattermostChannels: 'Moje Kanały Mattermost',
         MyOrders: 'Moje zamówienia',
         MyPayments: 'Płatności',
         Logout: 'Wyloguj',
@@ -491,6 +504,15 @@ const resources = {
         PaymentStatus: {
           new: 'Nowe',
           paid: 'Opłacone',
+        },
+      },
+      MattermostChannel: {
+        TeamName: 'Nazwa zespołu',
+        Channels: 'Kanały',
+        LastPost: 'Ostatni post',
+        TableCols: {
+          DisplayName: 'NAZWA',
+          Url: 'LINK',
         },
       },
       RegisterPage: {
