@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
 import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import Preloader from '@/components/Preloader';
 import Layout from '@/components/_App/Layout';
 
 import CourseProgramLessons from '@/components/Course/CourseProgramLessons';
+import ErrorBox from '@/components/Errorbox';
 
 // TODO: 99% same as: src/pages/courses/preview/index.tsx
 
@@ -50,8 +50,6 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
 };
 
 const CourseProgram = () => {
-  const { t } = useTranslation();
-
   const { id } = useParams<{ id: string }>();
   const { program, fetchProgram, fetchProgress } = useContext(EscolaLMSContext);
 
@@ -72,19 +70,7 @@ const CourseProgram = () => {
   }
 
   if (program.error) {
-    return (
-      <div className="container">
-        <div className="alert alert-danger" role="alert">
-          <h4 className="alert-heading">{t('Error')}</h4>
-          <p> {program.error.message || program.error.error}</p>
-          <hr />
-          <p className="mb-0">
-            {t('CoursePage.Preview.SeeOther')}
-            <Link to="/courses">{t('Courses')}</Link>.
-          </p>
-        </div>
-      </div>
-    );
+    return <ErrorBox error={program.error.message || program.error.error} />;
   }
 
   if (program.value && program?.value?.scorm_sco_id) {

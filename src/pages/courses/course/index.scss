@@ -158,7 +158,7 @@
 .courses-details-header .courses-price,
 .courses-price {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
@@ -169,6 +169,7 @@
   }
   > button,
   a {
+    width: 100%;
     margin-top: 15px;
     &.full-width {
       width: 100%;

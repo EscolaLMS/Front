@@ -7,6 +7,16 @@ const SocialLinks: React.FC<{
   return (
     <ul className={`social-links ${className}`}>
       <li className="social-links__item">
+        <a
+          className="social-link social-link--linkedin"
+          href="https://www.wellms.io/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i className="bx bx-link" />
+        </a>
+      </li>
+      {/* <li className="social-links__item">
         <a className="social-link social-link--facebook" href="#facebook" target="_blank">
           <i className="bx bxl-facebook" />
         </a>
@@ -25,7 +35,7 @@ const SocialLinks: React.FC<{
         <a className="social-link social-link--linkedin" href="#linkedin" target="_blank">
           <i className="bx bxl-linkedin" />
         </a>
-      </li>
+      </li> */}
     </ul>
   );
 };

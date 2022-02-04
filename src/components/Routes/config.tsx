@@ -15,7 +15,7 @@ any) => {
     fetchConfig();
   }, [fetchConfig]);
 
-  const platformVisibility = config.escolalms_courses.platform_visibility === 'public' || false;
+  const platformVisibility = config?.escolalms_courses?.platform_visibility === 'public' || false;
 
   return (
     <Route

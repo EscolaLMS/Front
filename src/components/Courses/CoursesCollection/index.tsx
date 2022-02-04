@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { CoursesContext } from '@/components/Courses/CoursesContext';
 import CourseCard from '@/components/CourseCard';
 import Pagination from '@/components/Pagination';
-import Preloader from '@/components/Preloader';
 import { useTranslation, Trans } from 'react-i18next';
 import { API } from '@escolalms/sdk/lib';
 import './index.scss';
@@ -18,10 +17,6 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
 }) => {
   const { params, setParams, courses } = useContext(CoursesContext);
   const { t } = useTranslation();
-
-  if (courses && courses.loading) {
-    return <Preloader />;
-  }
 
   if (courses && (!courses.list || !courses.list.data?.length)) {
     return <div className="col-lg-8">{t('NoCourses')}</div>;

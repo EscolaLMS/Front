@@ -132,7 +132,6 @@ export const CourseProgramContent: React.FC<{
               title={topic.topicable.value}
               src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
             />
-            ;
           </div>
         );
       default:
