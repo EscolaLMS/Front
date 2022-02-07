@@ -146,8 +146,9 @@ const resources = {
       },
       EmailVerifiedPage: {
         Verified: 'Your email is now verified',
-        EmailText: 'Your email is now verified. Go to',
+        EmailText: 'Go to',
         LoginPage: 'login page',
+        Verify: 'We are verifying',
       },
       TutorPage: {
         Courses: 'Tutor Courses',
@@ -385,6 +386,7 @@ const resources = {
       Close: 'Zamknij',
       Pay: 'Zapłać',
       Download: 'Pobierz',
+
       CoursePreviewNavbar: 'To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.',
       CoursePage: {
         Tabs: {
@@ -431,8 +433,9 @@ const resources = {
       },
       EmailVerifiedPage: {
         Verified: 'Twój email jest teraz zweryfikowany',
-        EmailText: 'Twój email został zweryfikowany. Przejdź do',
+        EmailText: 'Przejdź do',
         LoginPage: 'strony logowania',
+        Verify: 'Weryfikujemy',
       },
       TutorPage: {
         Courses: 'Kursy instruktorów',

@@ -10,32 +10,6 @@ const parseParams = (params: API.CourseParams = {}) => {
   return qs.stringify(params);
 };
 
-/*
-type QueryType = () => API.CourseParams;
-
-
-const useQuery:QueryType = () => {
-  const query = new URLSearchParams(useLocation().search);
-  const data = {
-    order_by:query.get("order_by"),
-    order:query.get("order"),
-    page:query.get("page"),
-    per_page:query.get("per_page"),
-    current:query.get("current") ? Number(query.get("current")) : 0 ,
-    pageSize:query.get("pageSize") ? Number(query.get("pageSize")) : 0,
-    title:query.get("title"),
-    category_id:query.get("category_id"),
-    author_id:query.get("author_id"),
-    tag:query.get("tag"),
-  }
-
-  return Object.entries()
-
-  return data;
-}
-
-*/
-
 const CoursesProvider: React.FC<{
   onlyFree?: boolean;
 }> = ({ onlyFree = true, children }) => {
