@@ -11,17 +11,19 @@ const CategoryTreeOptions: React.FC<{
 }> = ({ categories, nest = 0, id }) => {
   return (
     <React.Fragment>
-      {categories.map((category: API.CategoryListItem) => (
-        <React.Fragment key={category.id}>
-          <option value={category.id} selected={Number(id) === category.id}>
-            {Array.from({ length: nest + 1 }).join(' > ')}
-            {category.name}
-          </option>
-          {category && category.subcategories && category.subcategories.length > 0 && (
-            <CategoryTreeOptions categories={category.subcategories} nest={nest + 1} id={id} />
-          )}
-        </React.Fragment>
-      ))}
+      {categories
+        .filter((category) => category.count && category.count > 1)
+        .map((category: API.CategoryListItem) => (
+          <React.Fragment key={category.id}>
+            <option value={category.id} selected={Number(id) === category.id}>
+              {Array.from({ length: nest + 1 }).join(' > ')}
+              {category.name}
+            </option>
+            {category && category.subcategories && category.subcategories.length > 0 && (
+              <CategoryTreeOptions categories={category.subcategories} nest={nest + 1} id={id} />
+            )}
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
