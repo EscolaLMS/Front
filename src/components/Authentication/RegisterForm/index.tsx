@@ -24,6 +24,8 @@ const RegisterForm = () => {
   const [additionalFields, setAdditionalFields] = React.useState<string[]>([]);
   const isAccountEnabledByAdmin = 'enabled';
 
+  const isHashRouter = process.env.REACT_APP_ROUTING_TYPE === 'HashRouter';
+
   const onDismiss = () => setError(undefined);
 
   React.useEffect(() => {
@@ -61,7 +63,10 @@ const RegisterForm = () => {
       setLoading(true);
       try {
         setError(undefined);
-        register({ ...user })
+        register({
+          ...user,
+          return_url: `${window.location.origin}${isHashRouter ? '/#' : ''}/email-verified`,
+        })
           .then(() => [setSuccess(true), setLoading(false)])
 
           .catch((error: any /* ResponseError */) => {
@@ -73,7 +78,7 @@ const RegisterForm = () => {
         setLoading(false);
       }
     },
-    [user, register],
+    [user, register, isHashRouter],
   );
 
   const registrationMessageSucces = useCallback(() => {

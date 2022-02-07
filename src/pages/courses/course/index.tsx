@@ -272,8 +272,17 @@ const CoursePage = () => {
                                   <div className="row align-items-center">
                                     <div className="col-lg-4 col-md-4">
                                       <div className="advisor-image">
-                                        {author?.path_avatar && (
-                                          <Image path={author?.path_avatar} />
+                                        {author?.path_avatar ? (
+                                          <Image
+                                            srcSizes={[356, 356 * 2]}
+                                            path={author?.path_avatar}
+                                          />
+                                        ) : (
+                                          <img
+                                            className="tutor-card__avatar"
+                                            src={`${process.env.PUBLIC_URL}/images/tutorblind.png`}
+                                            alt="tutor_avatar"
+                                          />
                                         )}
                                       </div>
                                     </div>

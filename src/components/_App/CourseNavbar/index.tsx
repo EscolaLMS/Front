@@ -4,7 +4,7 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
 import { API } from '@escolalms/sdk/lib';
 import TopProgress from '@/components/Common/TopProgress';
 import { useTranslation } from 'react-i18next';
-import LangButton from '@/components/Common/LangButton';
+
 import './index.scss';
 
 const CourseNavbar = () => {
@@ -65,8 +65,6 @@ const CourseNavbar = () => {
             <i className="bx bx-chevron-left" />
             {t('Back to website')}
           </Link>
-
-          <LangButton className="course-navbar__lang-button" />
         </div>
       </div>
     </div>
