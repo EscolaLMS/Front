@@ -4,14 +4,15 @@ import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
 import { API } from '@escolalms/sdk/lib';
 import LmsBoxHeader from '@/components/Common/LmsBoxHeader';
 import './index.scss';
+import { Spinner } from 'reactstrap';
 
 const ProfileMattermost = () => {
-  const { mattermostChannels, fetchMattermostChannels } = useContext(EscolaLMSContext);
+  const { user, mattermostChannels, fetchMattermostChannels } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 
   useEffect(() => {
     fetchMattermostChannels();
-  }, [fetchMattermostChannels]);
+  }, [user, fetchMattermostChannels]);
 
   return (
     <React.Fragment>
@@ -19,7 +20,9 @@ const ProfileMattermost = () => {
         <div className="container">
           <LmsBoxHeader text={t('Navbar.MyMattermostChannels')} />
 
-          {mattermostChannels?.value?.teams?.length === 0 ? (
+          {mattermostChannels.loading ? (
+            <Spinner className="success" />
+          ) : mattermostChannels?.value?.teams?.length === 0 ? (
             <p className="text-center">{t('MyProfilePage.EmptyMattermostChannels')}</p>
           ) : (
             <form>
