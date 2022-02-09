@@ -19,7 +19,9 @@ const Authentication = () => {
 
   if (token) {
     socialAuthorize(token);
-    history.push('/');
+    setTimeout(() => {
+      history.push('/');
+    }, 1000);
   }
 
   if (!user.loading && !token && user.value) {
