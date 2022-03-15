@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<API.DefaultResponseError>();
   const [success, setSuccess] = React.useState<boolean>(false);
-  const [additionalFields, setAdditionalFields] = React.useState<string[]>([]);
+  // const [additionalFields, setAdditionalFields] = React.useState<string[]>([]);
   const isAccountEnabledByAdmin = 'enabled';
 
   const isHashRouter = process.env.REACT_APP_ROUTING_TYPE === 'HashRouter';
@@ -36,20 +36,6 @@ const RegisterForm = () => {
     const isUser = Object.values(user).every((el) => Boolean(el));
     isUser ? setDisabled(false) : setDisabled(true);
   }, [user]);
-
-  React.useEffect(() => {
-    if (config.escola_auth) {
-      const additionalRequiredFields = config.escola_auth.additional_fields_required as string[];
-      setAdditionalFields(config.escola_auth.additional_fields as string[]);
-      setUser((prevState) => ({
-        ...prevState,
-        ...additionalRequiredFields.reduce(
-          (obj: object, item: string) => ({ ...obj, [item]: '' }),
-          {},
-        ),
-      }));
-    }
-  }, [config]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -180,7 +166,7 @@ const RegisterForm = () => {
 
           <p className="description">{t('RegisterPage.PassInfo')}*</p>
 
-          {config &&
+          {/* {config &&
             additionalFields.map((item: string) => (
               <div className="form-group">
                 <label htmlFor="register-">
@@ -201,7 +187,7 @@ const RegisterForm = () => {
                   onChange={handleChange}
                 />
               </div>
-            ))}
+            ))} */}
 
           <button type="submit" disabled={disabled}>
             {t('Register')}
