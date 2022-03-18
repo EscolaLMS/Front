@@ -9,7 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentModal from '@/components/PaymentModal';
 import Layout from '@/components/_App/Layout';
-import { API } from '@escolalms/sdk/lib';
+// import { API } from '@escolalms/sdk/lib';
 import './index.scss';
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
@@ -82,8 +82,9 @@ const CartPage = () => {
                     </thead>
 
                     <tbody>
+                      {/* TODO:temporary solution */}
                       {cart &&
-                        cart?.value?.items?.map((item: API.Course) => (
+                        cart?.value?.items?.map((item: any) => (
                           <tr key={item.id}>
                             <td className="product-thumbnail">
                               <Link to={`/courses/${item.id}`}>

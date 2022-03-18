@@ -26,7 +26,7 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { id } = course;
 
   const courseInCart = useMemo(() => {
-    return cart?.value?.items.some((item: API.Course) => Number(item.id) === Number(id));
+    return cart?.value?.items.some((item: any) => Number(item.id) === Number(id));
   }, [id, cart]);
 
   useEffect(() => {
