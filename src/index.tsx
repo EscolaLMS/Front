@@ -4,6 +4,11 @@ import { EscolaLMSContextProvider } from '@escolalms/sdk/lib/react/context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import WebFont from 'webfontloader';
+declare global {
+    interface Window {
+        REACT_APP_API_URL:string;
+    }
+}
 
 import './i18n';
 import './sentry';
@@ -16,12 +21,12 @@ WebFont.load({
 
 ReactDOM.render(
   <React.StrictMode>
-    {process.env.REACT_APP_PUBLIC_API_URL ? (
-      <EscolaLMSContextProvider apiUrl={process.env.REACT_APP_PUBLIC_API_URL}>
+    {(process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL) ? (
+      <EscolaLMSContextProvider apiUrl={process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL}>
         <App />
       </EscolaLMSContextProvider>
     ) : (
-      <pre>error `process.env.REACT_APP_PUBLIC_API_URL` not set</pre>
+      <pre>error `process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL` not set</pre>
     )}
   </React.StrictMode>,
   document.getElementById('root'),
@@ -31,4 +36,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // TODO: what with this?
-reportWebVitals();
+// reportWebVitals();
