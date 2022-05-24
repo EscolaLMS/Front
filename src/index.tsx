@@ -4,14 +4,14 @@ import { EscolaLMSContextProvider } from '@escolalms/sdk/lib/react/context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import WebFont from 'webfontloader';
+import './i18n';
+import './sentry';
+
 declare global {
     interface Window {
         REACT_APP_API_URL:string;
     }
 }
-
-import './i18n';
-import './sentry';
 
 WebFont.load({
   google: {
