@@ -1,32 +1,35 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import PageBanner from '@/components/SingleCoursesTwo/PageBanner';
-import CoursesDetailsSidebar from '@/components/SingleCoursesTwo/CoursesDetailsSidebar/index';
-import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Loader from '@/components/Preloader';
-import { format } from 'date-fns';
-import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
-import Image from '@escolalms/sdk/lib/react/components/Image';
-import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
-import Layout from '@/components/_App/Layout';
-import CourseProgramPreview from '@/escolalms/sdk/components/Course/CourseProgramPreview';
-import CourseProgramList from '@/escolalms/sdk/components/Course/CourseProgramList';
-import LmsTag from '@/components/Common/LmsTag';
-import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import './index.scss';
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import PageBanner from "@/components/SingleCoursesTwo/PageBanner";
+import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
+import { Link, useParams, useHistory, useLocation } from "react-router-dom";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import Loader from "@/components/Preloader";
+import { format } from "date-fns";
+import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import Image from "@escolalms/sdk/lib/react/components/Image";
+import { API } from "@escolalms/sdk/lib";
+import { useTranslation } from "react-i18next";
+import Layout from "@/components/_App/Layout";
+import CourseProgramPreview from "@/escolalms/sdk/components/Course/CourseProgramPreview";
+import CourseProgramList from "@/escolalms/sdk/components/Course/CourseProgramList";
+import LmsTag from "@/components/Common/LmsTag";
+import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "./index.scss";
 
 resetIdCounter();
 
 const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const { t } = useTranslation();
 
-  const { config, addToCart, cart, user, progress, fetchProgress } = useContext(EscolaLMSContext);
+  const { config, addToCart, cart, user, progress, fetchProgress } =
+    useContext(EscolaLMSContext);
 
   const { id } = course;
 
   const courseInCart = useMemo(() => {
-    return cart?.value?.items.some((item: any) => Number(item.id) === Number(id));
+    return cart?.value?.items.some(
+      (item: any) => Number(item.id) === Number(id)
+    );
   }, [id, cart]);
 
   useEffect(() => {
@@ -37,14 +40,18 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
   const userOwnThisCourse = useMemo(() => {
     return (
       progress.value &&
-      progress.value.findIndex((item: API.CourseProgressItem) => item.course.id === id) !== -1
+      progress.value.findIndex(
+        (item: API.CourseProgressItem) => item.course.id === id
+      ) !== -1
     );
   }, [progress, id]);
 
   const priceLiteral = useMemo(() => {
     return course.base_price === 0 || course.base_price === undefined
-      ? t('FREE')
-      : `${config?.escolalms_payments?.default_currency} ${(course.base_price / 100).toFixed(2)}`;
+      ? t("FREE")
+      : `${config?.escolalms_payments?.default_currency} ${(
+          course.base_price / 100
+        ).toFixed(2)}`;
   }, [course, config, t]);
 
   return (
@@ -53,12 +60,13 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
 
       {userOwnThisCourse ? (
         <Link to={`/course/${course.id}`} className="default-btn">
-          <i className="flaticon-user"></i> {t('Attend to Course')} <span></span>
+          <i className="flaticon-user"></i> {t("Attend to Course")}{" "}
+          <span></span>
         </Link>
       ) : courseInCart ? (
         <Link to={`/cart`} className="default-btn full-width">
           <i className="flaticon-shopping-cart"></i>
-          {t('Checkout Course')} <small>{priceLiteral}</small> <span></span>
+          {t("Checkout Course")} <small>{priceLiteral}</small> <span></span>
         </Link>
       ) : user.value ? (
         <button
@@ -66,18 +74,23 @@ const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
           disabled={cart.loading}
           onClick={() => addToCart(Number(course.id))}
         >
-          <i className="flaticon-shopping-cart"></i> {t('Buy Course')} <span></span>
+          <i className="flaticon-shopping-cart"></i> {t("Buy Course")}{" "}
+          <span></span>
         </button>
       ) : (
         <Link to={`/authentication`} className="default-btn">
-          <i className="flaticon-shopping-cart"></i> <small>{t('Login to buy')}</small>{' '}
-          <span></span>
+          <i className="flaticon-shopping-cart"></i>{" "}
+          <small>{t("Login to buy")}</small> <span></span>
         </Link>
       )}
 
       {course.base_price === 0 && (
-        <Link to={`/courses/preview/${course.id}`} className="default-btn full-width">
-          <i className="flaticon-user"></i> {t('Preview course for free')} <span></span>
+        <Link
+          to={`/courses/preview/${course.id}`}
+          className="default-btn full-width"
+        >
+          <i className="flaticon-user"></i> {t("Preview course for free")}{" "}
+          <span></span>
         </Link>
       )}
     </div>
@@ -109,7 +122,7 @@ const CoursePage = () => {
   }, [user]);
 
   useEffect(() => {
-    const selectedTab = location.search.split('tab=')[1];
+    const selectedTab = location.search.split("tab=")[1];
 
     setTabIndex(Number(selectedTab));
   }, [location]);
@@ -126,13 +139,13 @@ const CoursePage = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={course.value.title || ''}
+          pageTitle={course.value.title || ""}
           subtitle={course.value.subtitle}
           homePageUrl="/"
-          homePageText={t('Home')}
+          homePageText={t("Home")}
           innerPageUrl={`/courses`}
-          innerPageText={t('Courses')}
-          activePageText={course.value.title || ''}
+          innerPageText={t("Courses")}
+          activePageText={course.value.title || ""}
         />
 
         {previewTopic && (
@@ -151,15 +164,15 @@ const CoursePage = () => {
                 <div className="col-lg-8 col-md-12">
                   <div className="courses-meta">
                     <ul>
-                      {course.value.categories && !!course.value.categories.length && (
-                        <li>
-                          <i className="bx bx-folder-open"></i>
-                          <span>{t('Category')}</span>
+                      {course.value.categories &&
+                        !!course.value.categories.length && (
+                          <li>
+                            <i className="bx bx-folder-open"></i>
+                            <span>{t("Category")}</span>
 
-                          {course.value.categories.map(
-                            (category: API.CategoryListItem | (number | string)) => {
+                            {course.value.categories.map((category) => {
                               const cat =
-                                typeof category === 'object'
+                                typeof category === "object"
                                   ? {
                                       id: category.id,
                                       name: category.name,
@@ -169,19 +182,21 @@ const CoursePage = () => {
                                       name: category,
                                     };
                               return (
-                                <Link to={`/courses?category_id=${cat.id}`} key={cat.id}>
+                                <Link
+                                  to={`/courses?category_id=${cat.id}`}
+                                  key={cat.id}
+                                >
                                   {cat.name}
                                 </Link>
                               );
-                            },
-                          )}
-                        </li>
-                      )}
+                            })}
+                          </li>
+                        )}
                       {!!course.value.users_count && (
                         <li>
                           <i className="bx bx-group"></i>
                           <span>
-                            {t('StudentsEnrolled', {
+                            {t("StudentsEnrolled", {
                               count: course.value.users_count,
                             })}
                           </span>
@@ -190,29 +205,34 @@ const CoursePage = () => {
                       )}
                       <li>
                         <i className="bx bx-calendar"></i>
-                        <span>{t('Last Updated')}</span>
+                        <span>{t("Last Updated")}</span>
 
                         {course.value.updated_at &&
-                          format(new Date(course.value.updated_at), 'dd/MM/yyyy')}
+                          format(
+                            new Date(course.value.updated_at),
+                            "dd/MM/yyyy"
+                          )}
                       </li>
                       {!!course.value.tags?.length && (
                         <li>
                           <i className="bx bx-tag"></i>
-                          <span>{t('Tags')}</span>
+                          <span>{t("Tags")}</span>
 
                           {course.value.tags && course.value.tags.length > 0 && (
                             <div className="course-card__tags">
-                              {course.value.tags.map((tag: API.Tag | string) => {
-                                if (typeof tag === 'object') {
-                                  return (
-                                    <LmsTag
-                                      key={tag.title}
-                                      tag={tag}
-                                      to={`/courses?tag=${tag.title}`}
-                                    />
-                                  );
-                                } else return null;
-                              })}
+                              {course.value.tags.map(
+                                (tag: API.Tag | string) => {
+                                  if (typeof tag === "object") {
+                                    return (
+                                      <LmsTag
+                                        key={tag.title}
+                                        tag={tag}
+                                        to={`/courses?tag=${tag.title}`}
+                                      />
+                                    );
+                                  } else return null;
+                                }
+                              )}
                             </div>
                           )}
                         </li>
@@ -231,30 +251,37 @@ const CoursePage = () => {
               <div className="col-lg-8 col-md-12">
                 {course.value.image_path && (
                   <div className="courses-details-image-style-two text-center">
-                    <Image path={course.value.image_path} srcSizes={[790 * 0.5, 790, 2 * 790]} />
+                    <Image
+                      path={course.value.image_path}
+                      srcSizes={[790 * 0.5, 790, 2 * 790]}
+                    />
                   </div>
                 )}
                 {/* (index) => setTabIndex(index) */}
                 <div className="courses-details-desc">
                   <Tabs
                     selectedIndex={tabIndex}
-                    onSelect={(index) => history.push(`${location.pathname}?tab=${index}`)}
+                    onSelect={(index) =>
+                      history.push(`${location.pathname}?tab=${index}`)
+                    }
                   >
                     <TabList>
-                      <Tab>{t('CoursePage.Tabs.Summary')}</Tab>
-                      <Tab>{t('CoursePage.Tabs.Program')}</Tab>
-                      <Tab>{t('CoursePage.Tabs.Instructor')}</Tab>
-                      <Tab>{t('CoursePage.Tabs.Description')}</Tab>
+                      <Tab>{t("CoursePage.Tabs.Summary")}</Tab>
+                      <Tab>{t("CoursePage.Tabs.Program")}</Tab>
+                      <Tab>{t("CoursePage.Tabs.Instructor")}</Tab>
+                      <Tab>{t("CoursePage.Tabs.Description")}</Tab>
                     </TabList>
                     <div className="courses-details-desc-style-two">
                       <TabPanel>
-                        <h3>{t('Summary')}</h3>
+                        <h3>{t("Summary")}</h3>
                         {course.value.summary && (
-                          <MarkdownReader>{course.value.summary}</MarkdownReader>
+                          <MarkdownReader>
+                            {course.value.summary}
+                          </MarkdownReader>
                         )}
                       </TabPanel>
                       <TabPanel>
-                        <h3>{t('Course Program')}</h3>
+                        <h3>{t("Course Program")}</h3>
                         {course.value.lessons && (
                           <CourseProgramList
                             program={course.value.lessons}
@@ -290,13 +317,18 @@ const CoursePage = () => {
                                       <div className="advisor-content">
                                         <Link to={`/tutors/${author.id}`}>
                                           <h3>
-                                            {author.first_name} {author.last_name}
+                                            {author.first_name}{" "}
+                                            {author.last_name}
                                           </h3>
                                         </Link>
-                                        <span className="sub-title">{t('Tutor')}</span>
+                                        <span className="sub-title">
+                                          {t("Tutor")}
+                                        </span>
 
                                         <div>
-                                          <MarkdownReader>{author.bio || ''}</MarkdownReader>
+                                          <MarkdownReader>
+                                            {author.bio || ""}
+                                          </MarkdownReader>
                                         </div>
                                       </div>
                                     </div>
@@ -304,12 +336,14 @@ const CoursePage = () => {
                                 </div>
                               </div>
                             );
-                          })}{' '}
+                          })}{" "}
                       </TabPanel>
                       <TabPanel>
-                        <h3>{t('Description')}</h3>
+                        <h3>{t("Description")}</h3>
                         {course.value.description && (
-                          <MarkdownReader>{course.value.description}</MarkdownReader>
+                          <MarkdownReader>
+                            {course.value.description}
+                          </MarkdownReader>
                         )}
                       </TabPanel>
                     </div>

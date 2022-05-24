@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../../images/logo.svg';
+import React, { useContext, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+import Logo from "../../../images/logo.svg";
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { useTranslation } from 'react-i18next';
-import { API } from '@escolalms/sdk/lib';
-import LangButton from '@/components/Common/LangButton';
-import routes from '@/components/Routes/routes';
-import { format } from 'date-fns';
-import './index.scss';
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { useTranslation } from "react-i18next";
+import { API } from "@escolalms/sdk/lib";
+import LangButton from "@/components/Common/LangButton";
+import routes from "@/components/Routes/routes";
+import { format } from "date-fns";
+import "./index.scss";
 
 const UserNavbarItem: React.FC<{
-  user?: API.UserItem;
+  user?: API.UserAsProfile;
   logout: () => void;
   toggleNavbar: () => void;
 }> = ({ user, logout, toggleNavbar }) => {
@@ -37,7 +37,7 @@ const UserNavbarItem: React.FC<{
                 to="/user/my-profile"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                {t('Navbar.MyProfile')}
+                {t("Navbar.MyProfile")}
               </Link>
             </li>
 
@@ -47,7 +47,7 @@ const UserNavbarItem: React.FC<{
                 to="/user/my-courses"
                 onClick={() => toggleNavbar && toggleNavbar()}
               >
-                {t('Navbar.MyCourses')}
+                {t("Navbar.MyCourses")}
               </Link>
             </li>
             <li className="nav-item">
@@ -56,7 +56,7 @@ const UserNavbarItem: React.FC<{
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                {t('Navbar.MyOrders')}
+                {t("Navbar.MyOrders")}
               </Link>
             </li>
 
@@ -66,7 +66,7 @@ const UserNavbarItem: React.FC<{
                 onClick={() => toggleNavbar && toggleNavbar()}
                 className="nav-link"
               >
-                {t('Navbar.MyPayments')}
+                {t("Navbar.MyPayments")}
               </Link>
             </li>
 
@@ -79,14 +79,14 @@ const UserNavbarItem: React.FC<{
                   logout && logout();
                 }}
               >
-                {t('Navbar.Logout')}
+                {t("Navbar.Logout")}
               </Link>
             </li>
           </ul>
         </div>
       ) : (
         <Link to="/authentication" className="default-btn">
-          <i className="flaticon-user" /> {t('Login')}/{t('Register')}
+          <i className="flaticon-user" /> {t("Login")}/{t("Register")}
         </Link>
       )}
     </div>
@@ -96,33 +96,46 @@ const UserNavbarItem: React.FC<{
 const UserNotifications = () => {
   const { notifications, readNotify } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const getEventType = (event: string) => event.split('\\').pop() as String;
+  const getEventType = (event: string) => event.split("\\").pop() as String;
 
   return (
     <div className="option-item">
       <div className="user-dropdown">
         <div className="notify">
           <i className="bx bx-bell" />
-          {!!notifications.list?.length && <span>{notifications.list.length}</span>}
+          {!!notifications.list?.length && (
+            <span>{notifications.list.length}</span>
+          )}
         </div>
 
         <ul className="dropdown-menu notify-list">
-          {notifications && notifications.list && notifications.list.length > 0 ? (
+          {notifications &&
+          notifications.list &&
+          notifications.list.length > 0 ? (
             notifications.list.map((notification: API.Notification) => {
               return (
                 <li className="notify-list__item">
                   <div>
-                    <p>{t(`Notifications.${getEventType(notification.event)}`)}</p>
-                    <small>{format(new Date(notification.created_at), 'dd/MM/yyyy')}</small>
+                    <p>
+                      {t(`Notifications.${getEventType(notification.event)}`)}
+                    </p>
+                    <small>
+                      {format(new Date(notification.created_at), "dd/MM/yyyy")}
+                    </small>
                   </div>
-                  <button type="button" onClick={() => readNotify(notification.id)}>
+                  <button
+                    type="button"
+                    onClick={() => readNotify(notification.id)}
+                  >
                     <i className="bx bx-trash" />
                   </button>
                 </li>
               );
             })
           ) : (
-            <li className="notify-list__item">{t('Notifications.NoNotifications')}</li>
+            <li className="notify-list__item">
+              {t("Notifications.NoNotifications")}
+            </li>
           )}
         </ul>
       </div>
@@ -149,9 +162,11 @@ const Navbar = () => {
 
   const user = userObj.value;
 
-  const platformVisibility = config?.escolalms_courses?.platform_visibility === 'public' || false;
+  const platformVisibility =
+    config?.escolalms_courses?.platform_visibility === "public" || false;
 
-  const fullVisibility = config?.escolalms_courses?.course_visibility === 'show_all' || false;
+  const fullVisibility =
+    config?.escolalms_courses?.course_visibility === "show_all" || false;
 
   const toggleNavbar = () => {
     setMenu(!menu);
@@ -163,10 +178,12 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
+  const classOne = menu
+    ? "collapse navbar-collapse"
+    : "collapse navbar-collapse show";
   const classTwo = menu
-    ? 'navbar-toggler navbar-toggler-right collapsed'
-    : 'navbar-toggler navbar-toggler-right';
+    ? "navbar-toggler navbar-toggler-right collapsed"
+    : "navbar-toggler navbar-toggler-right";
 
   return (
     <React.Fragment>
@@ -197,7 +214,7 @@ const Navbar = () => {
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <NavLink exact={true} className="nav-link" to={routes.home}>
-                      {t('Home')}
+                      {t("Home")}
                     </NavLink>
                   </li>
 
@@ -206,20 +223,20 @@ const Navbar = () => {
                       {fullVisibility && (
                         <li className="nav-item">
                           <NavLink className="nav-link" to={routes.courses}>
-                            {t('Courses')}
+                            {t("Courses")}
                           </NavLink>
                         </li>
                       )}
                       <li className="nav-item">
                         <NavLink className="nav-link" to={routes.tutors}>
-                          {t('Tutors')}
+                          {t("Tutors")}
                         </NavLink>
                       </li>
                     </>
                   )}
                   <li className="nav-item">
                     <NavLink className="nav-link" to={routes.contact}>
-                      {t('Contact Us')}
+                      {t("Contact Us")}
                     </NavLink>
                   </li>
                 </ul>
@@ -229,7 +246,7 @@ const Navbar = () => {
                     <div className="option-item">
                       <div className="cart-btn">
                         <Link to="/cart">
-                          <i className="flaticon-shopping-cart" />{' '}
+                          <i className="flaticon-shopping-cart" />{" "}
                           {(cart?.value?.items?.length || 0) > 0 && (
                             <span>{cart?.value?.items?.length}</span>
                           )}
@@ -238,7 +255,11 @@ const Navbar = () => {
                     </div>
                   )}
                   {user && <UserNotifications />}
-                  <UserNavbarItem user={user} toggleNavbar={toggleNavbar} logout={logout} />
+                  <UserNavbarItem
+                    user={user}
+                    toggleNavbar={toggleNavbar}
+                    logout={logout}
+                  />
 
                   <LangButton />
                 </div>
