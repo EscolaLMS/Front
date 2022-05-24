@@ -2,7 +2,7 @@ FROM node:16-buster AS base
 
 WORKDIR /home/node/app
 COPY / /home/node/app
-RUN yarn install && yarn run build
+RUN yarn install && yarn run build && cp build/index.html build/tpl.html
 
 FROM httpd:latest AS httpd
 ENV API_URL="http://localhost:1000"
