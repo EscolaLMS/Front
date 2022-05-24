@@ -4,7 +4,7 @@
   "dependencies": {
     "@escolalms/ts-models": "^0",
     "@escolalms/h5p-react": "^0",
-    "@escolalms/sdk": "0.2.57",
+    "@escolalms/sdk": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
     "@stripe/react-stripe-js": "^1.6.0",
