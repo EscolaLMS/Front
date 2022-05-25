@@ -13,6 +13,8 @@ declare global {
     }
 }
 
+const API_URL = window.REACT_APP_API_URL || (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
+
 WebFont.load({
   google: {
     families: ['Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800'],
@@ -21,8 +23,8 @@ WebFont.load({
 
 ReactDOM.render(
   <React.StrictMode>
-    {(process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL) ? (
-      <EscolaLMSContextProvider apiUrl={process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL}>
+    {() ? (
+      <EscolaLMSContextProvider apiUrl={API_URL}>
         <App />
       </EscolaLMSContextProvider>
     ) : (
@@ -31,9 +33,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// TODO: what with this?
-// reportWebVitals();
