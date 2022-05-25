@@ -307,7 +307,7 @@ const CoursePage = () => {
                                         ) : (
                                           <img
                                             className="tutor-card__avatar"
-                                            src={`${process.env.PUBLIC_URL}/images/tutorblind.png`}
+                                            src={`/images/tutorblind.png`}
                                             alt="tutor_avatar"
                                           />
                                         )}

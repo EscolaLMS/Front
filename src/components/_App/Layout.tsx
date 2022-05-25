@@ -12,6 +12,7 @@ import CoursePreviewNavbar from "./CoursePreviewNavbar";
 declare global {
   interface Window {
     ybug_settings: Ybug;
+    REACT_APP_YBUG_ID: string;
   }
 }
 
@@ -20,15 +21,20 @@ interface Ybug {
 }
 window.ybug_settings = window.ybug_settings || {};
 
+const YBUG_ID =
+  window.REACT_APP_YBUG_ID ||
+  (process && process.env && process.env.REACT_APP_YBUG_ID);
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
     // ybug
     (function () {
-      if (window && process.env.REACT_APP_YBUG_ID) {
+      ///
+      if (window && YBUG_ID) {
         try {
-          window.ybug_settings = { id: process.env.REACT_APP_YBUG_ID };
+          window.ybug_settings = { id: YBUG_ID };
           const ybug = document.createElement("script");
           ybug.type = "text/javascript";
           ybug.async = true;

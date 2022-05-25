@@ -1,36 +1,56 @@
-import React, { ReactElement } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { ReactElement } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import routes from './routes';
+import routes from "./routes";
 
-import HomePage from '../../pages/index';
-import AuthPage from '../../pages/authentication/index';
-import StaticPage from '../../pages/static-page/index';
-import NotFoundPage from '../../pages/404/index';
+import HomePage from "../../pages/index";
+import AuthPage from "../../pages/authentication/index";
+import StaticPage from "../../pages/static-page/index";
+import NotFoundPage from "../../pages/404/index";
 
 // platform visibility
-import TutorsPage from '../../pages/tutors/index';
-import TutorPage from '../../pages/tutors/tutor/index';
-import CoursesPage from '../../pages/courses';
-import CoursePage from '../../pages/courses/course/index';
-import CoursePreviewPage from '../../pages/courses/preview';
-import EmailVerifiedPage from '../../pages/email_verified';
-import ResetPage from '../../pages/reset-password';
+import TutorsPage from "../../pages/tutors/index";
+import TutorPage from "../../pages/tutors/tutor/index";
+import CoursesPage from "../../pages/courses";
+import CoursePage from "../../pages/courses/course/index";
+import CoursePreviewPage from "../../pages/courses/preview";
+import EmailVerifiedPage from "../../pages/email_verified";
+import ResetPage from "../../pages/reset-password";
 
 // privates
-import MyProfilePage from '../../pages/user/MyProfile';
-import MyOrderPage from '../../pages/user/my-orders';
-import MyPaymentsPage from '../../pages/user/my-payments';
-import MyCoursesPage from '../../pages/user/my-courses';
-import CourseProgramPage from '../../pages/course/index';
-import CartPage from '../../pages/cart/index';
+import MyProfilePage from "../../pages/user/MyProfile";
+import MyOrderPage from "../../pages/user/my-orders";
+import MyPaymentsPage from "../../pages/user/my-payments";
+import MyCoursesPage from "../../pages/user/my-courses";
+import CourseProgramPage from "../../pages/course/index";
+import CartPage from "../../pages/cart/index";
 
-import PrivateRoute from './private';
-import ConfigRoute from './config';
-import ConfigRouteExtend from './configExtend';
+import PrivateRoute from "./private";
+import ConfigRoute from "./config";
+import ConfigRouteExtend from "./configExtend";
 
-// Split to files for better tree shaking
-const Router = require(`./${process.env.REACT_APP_ROUTING_TYPE || 'BrowserRouter'}`).default;
+import { HashRouter, BrowserRouter } from "react-router-dom";
+
+import { routerType } from "@/utils/router";
+
+const ConditionalRouter: React.FC<{ basename: string }> = (props) => {
+  return routerType() === "BrowserRouter" ? (
+    <BrowserRouter {...props} />
+  ) : (
+    <HashRouter {...props} />
+  );
+};
+
+declare global {
+  interface Window {
+    REACT_APP_BASENAME: string;
+  }
+}
+
+const BASENAME =
+  window.REACT_APP_BASENAME ||
+  (process && process.env && process.env.REACT_APP_BASENAME) ||
+  "/";
 
 const Routes: React.FC = (): ReactElement => {
   const {
@@ -54,7 +74,7 @@ const Routes: React.FC = (): ReactElement => {
   } = routes;
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <ConditionalRouter basename={BASENAME}>
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
@@ -76,7 +96,11 @@ const Routes: React.FC = (): ReactElement => {
         <PrivateRoute exact path={myOrders} component={MyOrderPage} />
         <PrivateRoute exact path={myPayments} component={MyPaymentsPage} />
         <PrivateRoute exact path={myCourses} component={MyCoursesPage} />
-        <PrivateRoute exact path={courseProgram} component={CourseProgramPage} />
+        <PrivateRoute
+          exact
+          path={courseProgram}
+          component={CourseProgramPage}
+        />
         <PrivateRoute exact path={cart} component={CartPage} />
 
         <Route exact path={notFound} component={NotFoundPage} />
@@ -86,7 +110,7 @@ const Routes: React.FC = (): ReactElement => {
 
         <Route exact component={NotFoundPage} />
       </Switch>
-    </Router>
+    </ConditionalRouter>
   );
 };
 

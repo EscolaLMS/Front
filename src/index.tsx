@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import WebFont from "webfontloader";
 import "./i18n";
 import "./sentry";
