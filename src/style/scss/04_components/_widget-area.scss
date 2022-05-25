@@ -17,7 +17,7 @@
         weight: 800;
       }
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         bottom: 0;
@@ -152,7 +152,7 @@
             transition-property: background-color;
             transition-duration: 0.5s;
             background-color: $color-text-primary;
-            content: '';
+            content: "";
             position: absolute;
             left: 25px;
             top: 50%;
@@ -235,7 +235,7 @@
         &::before,
         &::after {
           transition: all 0.8s cubic-bezier(0.2, 1, 0.22, 1);
-          content: '';
+          content: "";
           background-color: $color-whitish;
           position: absolute;
           z-index: 1;
