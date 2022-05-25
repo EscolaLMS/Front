@@ -1,9 +1,19 @@
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
+
+declare global {
+  interface Window {
+    REACT_APP_SENTRYDSN: string;
+  }
+}
+
+const SENTRYDSN =
+  window.REACT_APP_SENTRYDSN ||
+  (process && process.env && process.env.REACT_APP_SENTRYDSN);
 
 function configSentry() {
-  if (process.env.REACT_APP_SENTRYDSN && window.location.hostname.indexOf('localhost') === -1) {
+  if (SENTRYDSN && window.location.hostname.indexOf("localhost") === -1) {
     Sentry.init({
-      dsn: process.env.REACT_APP_SENTRYDSN,
+      dsn: SENTRYDSN,
     });
   }
   return null;

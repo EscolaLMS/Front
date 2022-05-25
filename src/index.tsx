@@ -7,8 +7,6 @@ import WebFont from "webfontloader";
 import "./i18n";
 import "./sentry";
 import { GlobalThemeProvider } from "@escolalms/components/lib/theme/provider";
-import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
-import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 
 declare global {
   interface Window {

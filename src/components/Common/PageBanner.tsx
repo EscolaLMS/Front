@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const PageBanner: React.FC<{
   pageTitle: string;
@@ -23,7 +23,7 @@ const PageBanner: React.FC<{
       </div>
 
       <div className="shape9">
-        <img src={`${process.env.PUBLIC_URL}/images/shape8.svg`} alt="banner" />
+        <img src={`/images/shape8.svg`} alt="banner" />
       </div>
     </div>
   );

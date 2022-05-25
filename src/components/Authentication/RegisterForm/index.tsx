@@ -1,16 +1,17 @@
-import React, { useCallback, useContext } from 'react';
-import { Alert, Spinner } from 'reactstrap';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
-import './index.scss';
+import React, { useCallback, useContext } from "react";
+import { Alert, Spinner } from "reactstrap";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { API } from "@escolalms/sdk/lib";
+import { useTranslation } from "react-i18next";
+import "./index.scss";
+import { routerType } from "@/utils/router";
 
 const INITIAL_USER = {
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
+  first_name: "",
+  last_name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
 };
 
 const RegisterForm = () => {
@@ -22,10 +23,9 @@ const RegisterForm = () => {
   const [error, setError] = React.useState<API.DefaultResponseError>();
   const [success, setSuccess] = React.useState<boolean>(false);
   // const [additionalFields, setAdditionalFields] = React.useState<string[]>([]);
-  const isAccountEnabledByAdmin = 'enabled';
+  const isAccountEnabledByAdmin = "enabled";
 
-  const isHashRouter = process.env.REACT_APP_ROUTING_TYPE === 'HashRouter';
-
+  const isHashRouter = routerType() === "HashRouter";
   const onDismiss = () => setError(undefined);
 
   React.useEffect(() => {
@@ -51,7 +51,9 @@ const RegisterForm = () => {
         setError(undefined);
         register({
           ...user,
-          return_url: `${window.location.origin}${isHashRouter ? '/#' : ''}/email-verified`,
+          return_url: `${window.location.origin}${
+            isHashRouter ? "/#" : ""
+          }/email-verified`,
         })
           .then(() => [setSuccess(true), setLoading(false)])
 
@@ -64,17 +66,24 @@ const RegisterForm = () => {
         setLoading(false);
       }
     },
-    [user, register, isHashRouter],
+    [user, register, isHashRouter]
   );
 
   const registrationMessageSucces = useCallback(() => {
-    if (config.escola_auth.account_must_be_enabled_by_admin === isAccountEnabledByAdmin) {
-      return <Alert color="success">{t('RegisterPage.registrationSuccesAdminEnabled')}</Alert>;
+    if (
+      config.escola_auth.account_must_be_enabled_by_admin ===
+      isAccountEnabledByAdmin
+    ) {
+      return (
+        <Alert color="success">
+          {t("RegisterPage.registrationSuccesAdminEnabled")}
+        </Alert>
+      );
     } else {
       return (
         <Alert color="success">
-          {t('RegisterPage.registrationSuccess')} <code>{user.email}</code>{' '}
-          {t('RegisterPage.registrationForLink')}
+          {t("RegisterPage.registrationSuccess")} <code>{user.email}</code>{" "}
+          {t("RegisterPage.registrationForLink")}
         </Alert>
       );
     }
@@ -82,7 +91,7 @@ const RegisterForm = () => {
 
   return (
     <div className="register-form">
-      <h2>{t('Register')}</h2>
+      <h2>{t("Register")}</h2>
       {success && registrationMessageSucces()}
       {error && (
         <Alert color="danger" isOpen={error ? true : false} toggle={onDismiss}>
@@ -102,12 +111,12 @@ const RegisterForm = () => {
       {!success && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="register-name">{t('RegisterPage.FullName')}*</label>
+            <label htmlFor="register-name">{t("RegisterPage.FullName")}*</label>
             <input
               id="register-name"
               type="text"
               className="form-control"
-              placeholder={t('RegisterPage.FullName')}
+              placeholder={t("RegisterPage.FullName")}
               name="first_name"
               value={user.first_name}
               onChange={handleChange}
@@ -115,11 +124,11 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">{t('RegisterPage.LastName')}*</label>
+            <label htmlFor="register-">{t("RegisterPage.LastName")}*</label>
             <input
               type="text"
               className="form-control"
-              placeholder={t('RegisterPage.LastName')}
+              placeholder={t("RegisterPage.LastName")}
               name="last_name"
               value={user.last_name}
               onChange={handleChange}
@@ -139,11 +148,11 @@ const RegisterForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="register-">{t('Password')}*</label>
+            <label htmlFor="register-">{t("Password")}*</label>
             <input
               type="password"
               className="form-control"
-              placeholder={t('Password')}
+              placeholder={t("Password")}
               name="password"
               value={user.password}
               onChange={handleChange}
@@ -152,19 +161,19 @@ const RegisterForm = () => {
 
           <div className="form-group">
             <label htmlFor="register-">
-              {t('Confirm')} {t('Password')}*
+              {t("Confirm")} {t("Password")}*
             </label>
             <input
               type="password"
               className="form-control"
-              placeholder={`${t('Confirm')} ${t('Password')}`}
+              placeholder={`${t("Confirm")} ${t("Password")}`}
               name="password_confirmation"
               value={user.password_confirmation}
               onChange={handleChange}
             />
           </div>
 
-          <p className="description">{t('RegisterPage.PassInfo')}*</p>
+          <p className="description">{t("RegisterPage.PassInfo")}*</p>
 
           {/* {config &&
             additionalFields.map((item: string) => (
@@ -190,9 +199,9 @@ const RegisterForm = () => {
             ))} */}
 
           <button type="submit" disabled={disabled}>
-            {t('Register')}
+            {t("Register")}
 
-            {loading ? <Spinner color="success" /> : ''}
+            {loading ? <Spinner color="success" /> : ""}
           </button>
         </form>
       )}
