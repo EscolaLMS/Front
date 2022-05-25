@@ -1,21 +1,23 @@
 import React, { useContext, useState } from "react";
-import PageBanner from "@/components/Common/PageBanner";
-
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-
+import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import "./index.scss";
-import { LoginForm, ResetPasswordForm } from "@escolalms/components";
+import {
+  LoginForm,
+  RegisterForm,
+  ResetPasswordForm,
+} from "@escolalms/components";
 
 const Authentication = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
-  const [view, setView] = useState<"login" | "forgotPassword">("login");
+  const [view, setView] = useState<"login" | "forgotPassword" | "register">(
+    "login"
+  );
   const history = useHistory();
-  const { t } = useTranslation();
   const token = search.split("?token=")[1];
 
   if (token) {
@@ -32,13 +34,6 @@ const Authentication = () => {
   return (
     <Layout>
       <React.Fragment>
-        <PageBanner
-          pageTitle={t("Authentication")}
-          homePageUrl="/"
-          homePageText={t("Home")}
-          activePageText={t("Authentication")}
-        />
-
         <div className="profile-authentication-area">
           <div className="container">
             <div className="row justify-content-center">
@@ -46,9 +41,20 @@ const Authentication = () => {
                 {view === "login" ? (
                   <LoginForm
                     onResetPasswordLink={() => setView("forgotPassword")}
+                    onRegisterLink={() => setView("register")}
+                    mobile={isMobile}
+                  />
+                ) : view === "forgotPassword" ? (
+                  <ResetPasswordForm
+                    mobile={isMobile}
+                    backToLogin={() => setView("login")}
                   />
                 ) : (
-                  <ResetPasswordForm backToLogin={() => setView("login")} />
+                  //TODO: when confirmation page ready redirec to to it on onSuccess props
+                  <RegisterForm
+                    mobile={isMobile}
+                    onLoginLink={() => setView("login")}
+                  />
                 )}
               </div>
             </div>
