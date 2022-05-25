@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
-import LmsBox from '@/components/Common/LmsBox';
-import Image from '@escolalms/sdk/lib/react/components/Image';
-import './index.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import { API } from "@escolalms/sdk/lib";
+import { useTranslation } from "react-i18next";
+import LmsBox from "@/components/Common/LmsBox";
+import Image from "@escolalms/sdk/lib/react/components/Image";
+import "./index.scss";
 
 export const TutorCard: React.FC<{ tutor: API.UserItem }> = ({ tutor }) => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export const TutorCard: React.FC<{ tutor: API.UserItem }> = ({ tutor }) => {
           ) : (
             <img
               className="tutor-card__avatar"
-              src={`${process.env.PUBLIC_URL}/images/tutorblind.png`}
+              src={`/images/tutorblind.png`}
               alt="tutor_avatar"
             />
           )}
@@ -32,7 +32,9 @@ export const TutorCard: React.FC<{ tutor: API.UserItem }> = ({ tutor }) => {
           </Link>
         </LmsBox.Title>
 
-        <LmsBox.SubTitle className="tutor-card__subtitle">{t('Tutor')}</LmsBox.SubTitle>
+        <LmsBox.SubTitle className="tutor-card__subtitle">
+          {t("Tutor")}
+        </LmsBox.SubTitle>
       </LmsBox.Content>
     </LmsBox>
   );

@@ -3,6 +3,7 @@ import { Alert, Spinner } from "reactstrap";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { FormState } from "./types";
 import { useTranslation } from "react-i18next";
+import { routerType } from "./../../utils/router";
 
 const INITIAL_USER = {
   email: "",
@@ -16,7 +17,7 @@ const LoginForm = () => {
   const [state, setState] = React.useState<FormState>({ state: "input" });
   const [isForgoten, setIsForgoten] = React.useState(false);
 
-  const isHashRouter = process.env.REACT_APP_ROUTING_TYPE === "HashRouter";
+  const isHashRouter = routerType() === "HashRouter";
 
   React.useEffect(() => {
     const isUser = isForgoten
