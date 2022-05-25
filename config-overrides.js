@@ -1,8 +1,8 @@
-const { alias, configPaths, aliasJest } = require('react-app-rewire-alias');
+const { alias, configPaths, aliasJest } = require("react-app-rewire-alias");
 
-const { override, useBabelRc } = require('customize-cra');
+const { override, useBabelRc } = require("customize-cra");
 
-const aliasMap = configPaths('./tsconfig.paths.json'); // or jsconfig.paths.json
+const aliasMap = configPaths("./tsconfig.paths.json"); // or jsconfig.paths.json
 
 module.exports = override(alias(aliasMap), useBabelRc());
 

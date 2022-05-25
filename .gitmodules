@@ -1,0 +1,3 @@
+[submodule "escolacomponents"]
+	path = escolacomponents
+	url = https://github.com/EscolaLMS/Components.git
