@@ -50,7 +50,7 @@ const Authentication = () => {
                     backToLogin={() => setView("login")}
                   />
                 ) : (
-                  //TODO: when confirmation page ready redirec to to it on onSuccess props
+                  //TODO: when confirmation page ready redirect to it on onSuccess props
                   <RegisterForm
                     mobile={isMobile}
                     onLoginLink={() => setView("login")}
