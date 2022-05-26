@@ -1,22 +1,22 @@
-@import './../01_abstracts';
+@import "./../01_abstracts";
 
-body {
-  color: $color-text-primary;
-}
+// body {
+//   color: $color-text-primary;
+// }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: $color-text-second;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   color: $color-text-second;
+// }
 
-a {
-  color: $color-link;
+// a {
+//   color: $color-link;
 
-  &:hover {
-    color: $color-link-hover;
-  }
-}
+//   &:hover {
+//     color: $color-link-hover;
+//   }
+// }

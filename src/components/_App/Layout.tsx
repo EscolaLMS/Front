@@ -80,7 +80,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           ) : isPreview ? (
             <CoursePreviewNavbar />
           ) : (
-            <Navbar />
+            // <Navbar />
+            <></>
           )}
 
           {children}

@@ -38,6 +38,8 @@
     "formik": "^2.2.9",
     "i18next": "^21.4.0",
     "jspdf": "^2.5.0",
+    "lava": "^0.13.6",
+    "leva": "^0.9.27",
     "lodash.flow": "^3.5.0",
     "react": "^17.0.2",
     "react-app-rewire-alias": "^1.1.3",

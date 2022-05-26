@@ -1,4 +1,4 @@
-@import './../01_abstracts';
+@import "./../01_abstracts";
 
 body {
   padding: 0;
@@ -8,14 +8,6 @@ body {
 img {
   max-width: 100%;
   height: auto;
-}
-
-p {
-  margin-bottom: pixelToRem(15px);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
 a {
