@@ -1,119 +1,74 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import PageBanner from "@/components/SingleCoursesTwo/PageBanner";
+import { useContext, useEffect } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { Link, useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import { format } from "date-fns";
 import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
-import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-import CourseProgramPreview from "@/escolalms/sdk/components/Course/CourseProgramPreview";
-import CourseProgramList from "@/escolalms/sdk/components/Course/CourseProgramList";
-import LmsTag from "@/components/Common/LmsTag";
-import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "./index.scss";
-import { Title } from "@escolalms/components";
+import { resetIdCounter } from "react-tabs";
+import Paypal from "../../../images/paypal.png";
+import Netflix from "../../../images/netflix.png";
+import Apple from "../../../images/apple.png";
+import McDonald from "../../../images/mcdonald.png";
+import {
+  LabelListItem,
+  Text,
+  Title,
+  Button,
+  Tutor,
+} from "@escolalms/components";
+
 import styled from "styled-components";
+import { Medal, StarOrange, ThumbUp } from "../../../icons";
 
 resetIdCounter();
 
-const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
-  const { t } = useTranslation();
+const StyledCoursePage = styled.div`
+  padding-top: 150px;
+  .course-main-info {
+    .labels-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      column-gap: 20px;
+      margin: 35px 0;
 
-  const { config, addToCart, cart, user, progress, fetchProgress } =
-    useContext(EscolaLMSContext);
+      &--bottom {
+        column-gap: 45px;
+        margin-top: 120px;
+      }
+    }
+  }
 
-  const { id } = course;
+  .course-companies {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 90px;
 
-  const courseInCart = useMemo(() => {
-    return cart?.value?.items.some(
-      (item: any) => Number(item.id) === Number(id)
-    );
-  }, [id, cart]);
+    .companies-title {
+      margin-right: -40px;
+    }
+  }
 
-  useEffect(() => {
-    user && user.value && fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const userOwnThisCourse = useMemo(() => {
-    return (
-      progress.value &&
-      progress.value.findIndex(
-        (item: API.CourseProgressItem) => item.course.id === id
-      ) !== -1
-    );
-  }, [progress, id]);
-
-  const priceLiteral = useMemo(() => {
-    return course.base_price === 0 || course.base_price === undefined
-      ? t("FREE")
-      : `${config?.escolalms_payments?.default_currency} ${(
-          course.base_price / 100
-        ).toFixed(2)}`;
-  }, [course, config, t]);
-
-  return (
-    <div className="courses-price">
-      {!courseInCart && <div className="price">{priceLiteral}</div>}
-
-      {userOwnThisCourse ? (
-        <Link to={`/course/${course.id}`} className="default-btn">
-          <i className="flaticon-user"></i> {t("Attend to Course")}{" "}
-          <span></span>
-        </Link>
-      ) : courseInCart ? (
-        <Link to={`/cart`} className="default-btn full-width">
-          <i className="flaticon-shopping-cart"></i>
-          {t("Checkout Course")} <small>{priceLiteral}</small> <span></span>
-        </Link>
-      ) : user.value ? (
-        <button
-          className="default-btn"
-          disabled={cart.loading}
-          onClick={() => addToCart(Number(course.id))}
-        >
-          <i className="flaticon-shopping-cart"></i> {t("Buy Course")}{" "}
-          <span></span>
-        </button>
-      ) : (
-        <Link to={`/authentication`} className="default-btn">
-          <i className="flaticon-shopping-cart"></i>{" "}
-          <small>{t("Login to buy")}</small> <span></span>
-        </Link>
-      )}
-
-      {course.base_price === 0 && (
-        <Link
-          to={`/courses/preview/${course.id}`}
-          className="default-btn full-width"
-        >
-          <i className="flaticon-user"></i> {t("Preview course for free")}{" "}
-          <span></span>
-        </Link>
-      )}
-    </div>
-  );
-};
+  .course-description {
+    padding: 50px 45px;
+    margin: 45px 0;
+    background-color: #eee;
+  }
+`;
 
 const CoursePage = () => {
-  const [tabIndex, setTabIndex] = useState(0);
   const { t } = useTranslation();
 
   const { id } = useParams<{ id: string }>();
 
   const { course, fetchCourse, fetchCart, user } = useContext(EscolaLMSContext);
-
-  const [previewTopic, setPreviewTopic] = useState<API.Topic>();
-  const history = useHistory();
-  const location = useLocation();
   useEffect(() => {
     if (id) {
       fetchCourse(Number(id));
-      history.push(`${location.pathname}?tab=${0}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -123,12 +78,6 @@ const CoursePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  useEffect(() => {
-    const selectedTab = location.search.split("tab=")[1];
-
-    setTabIndex(Number(selectedTab));
-  }, [location]);
-
   if (course.loading || !course.value) {
     return <Loader />;
   }
@@ -136,53 +85,115 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
-  const CoursePagee = styled("div")`
-    .courses-details-header {
-      h1 {
-        font-size: 40px;
-      }
-    }
-  `;
-
+  console.log(course);
   return (
     <Layout>
-      <React.Fragment>
-        <div className="course-page">
-          <div className="container">
-            <div className="courses-details-header">
-              <div className="row align-items-center">
-                <div className="col-lg-8 col-md-12">
-                  <div className="row">
-                    <div className="col-lg-7">
-                      <Title>Księgowośc dla początkujących</Title>
+      <StyledCoursePage>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-9 col-md-12">
+              <section className="course-main-info">
+                <div className="row">
+                  <div className="col-lg-7">
+                    <Title level={2}>Księgowość dla początkujących</Title>
+                    <div className="labels-row">
+                      <div className="single-label">
+                        <LabelListItem title="90%" icon={<ThumbUp />}>
+                          Poleca szkolenia Jana Kaminskiego
+                        </LabelListItem>
+                      </div>
+                      <div className="single-label">
+                        <LabelListItem title="Gwarancja" icon={<Medal />}>
+                          zadowolenia lub zwrot pieniędzy*
+                        </LabelListItem>
+                      </div>
+                      <div className="single-label">
+                        <LabelListItem title="5.0" icon={<StarOrange />}>
+                          Średnia ocena szkoleń Jana Kamińskiego
+                        </LabelListItem>
+                      </div>
                     </div>
+                    <Button mode="outline">Zobacz więcej</Button>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-8 col-md-12">
-                {course.value.image_path && (
-                  <div className="courses-details-image-style-two text-center">
+                  <div className="col-lg-4">
                     <Image
                       path={course.value.image_path}
                       srcSizes={[790 * 0.5, 790, 2 * 790]}
                     />
                   </div>
-                )}
-
-                <div className="courses-details-desc"></div>
-              </div>
-
-              <div className="col-lg-4 col-md-12">
-                <CoursesDetailsSidebar course={course.value} />
-              </div>
+                </div>
+                <div className="labels-row labels-row--bottom">
+                  <div className="single-label">
+                    <LabelListItem
+                      title="Kategoria szkolenia"
+                      variant={"label"}
+                    >
+                      Finanse
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem title="Poziom trudności" variant={"label"}>
+                      {course.value.level}
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
+                      22 marca 2022
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem title="Czas trwania" variant={"label"}>
+                      {course.value.duration}
+                    </LabelListItem>
+                  </div>
+                </div>
+              </section>
+              <section className="course-companies">
+                <Text>
+                  <strong>
+                    Firmy które oferują ten kurs <br /> swoim pracownikom
+                  </strong>
+                </Text>
+                <div className="single-company">
+                  <img src={Paypal} alt="PayPal" />
+                </div>
+                <div className="single-company">
+                  <img src={Netflix} alt="Netflix" />
+                </div>
+                <div className="single-company">
+                  <img src={Apple} alt="Apple" />
+                </div>
+                <div className="single-company">
+                  <img src={McDonald} alt="McDonald" />
+                </div>
+              </section>
+              <section className="course-description">
+                <MarkdownReader>{course.value.summary}</MarkdownReader>
+              </section>
+              <section className="course-tutor">
+                <Tutor
+                  avatar={{
+                    alt: "John Doe Image",
+                    src: "",
+                  }}
+                  rating={{
+                    ratingValue: 4.1,
+                  }}
+                  title={"Teacher"}
+                  fullName={"John Doe"}
+                  coursesInfo={"8 Curses"}
+                  description={
+                    "Praktyk z 15 letnim doświadczeniem w zarządzaniu zarówno mikro jak i makro przedsiębiorstwami. Odpowiadał za opracowanie biznesplanu dla firm tj.: CCC, Allegro, 4F"
+                  }
+                />
+              </section>
+            </div>
+            <div className="col-lg-3 col-md-12">
+              <CoursesDetailsSidebar course={course.value} />
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </StyledCoursePage>
     </Layout>
   );
 };
