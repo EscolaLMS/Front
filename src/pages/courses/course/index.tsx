@@ -12,12 +12,15 @@ import Paypal from "../../../images/paypal.png";
 import Netflix from "../../../images/netflix.png";
 import Apple from "../../../images/apple.png";
 import McDonald from "../../../images/mcdonald.png";
+import CertificateExample from "../../../images/certificate-example.png";
+import { format } from "date-fns";
 import {
   LabelListItem,
   Text,
   Title,
   Button,
   Tutor,
+  Certificate,
 } from "@escolalms/components";
 
 import styled from "styled-components";
@@ -95,7 +98,7 @@ const CoursePage = () => {
               <section className="course-main-info">
                 <div className="row">
                   <div className="col-lg-7">
-                    <Title level={2}>Księgowość dla początkujących</Title>
+                    <Title level={2}>{course.value.title}</Title>
                     <div className="labels-row">
                       <div className="single-label">
                         <LabelListItem title="90%" icon={<ThumbUp />}>
@@ -128,17 +131,25 @@ const CoursePage = () => {
                       title="Kategoria szkolenia"
                       variant={"label"}
                     >
-                      Finanse
+                      {course.value?.categories &&
+                      course.value?.categories.length > 0
+                        ? course.value.categories[0].name
+                        : ""}
                     </LabelListItem>
                   </div>
                   <div className="single-label">
                     <LabelListItem title="Poziom trudności" variant={"label"}>
-                      {course.value.level}
+                      {course.value.level || "---"}
                     </LabelListItem>
                   </div>
                   <div className="single-label">
                     <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
-                      22 marca 2022
+                      {course.value.active_from
+                        ? format(
+                            new Date(String(course.value.active_from)),
+                            "dd/MM/yyyy"
+                          )
+                        : "---"}
                     </LabelListItem>
                   </div>
                   <div className="single-label">
@@ -173,19 +184,40 @@ const CoursePage = () => {
               <section className="course-tutor">
                 <Tutor
                   avatar={{
-                    alt: "John Doe Image",
-                    src: "",
+                    alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                    src:
+                      `${
+                        process &&
+                        process.env &&
+                        process.env.REACT_APP_PUBLIC_API_URL
+                      }/api/images/img?path=${
+                        course.value.author.path_avatar
+                      }` || "",
                   }}
                   rating={{
                     ratingValue: 4.1,
                   }}
                   title={"Teacher"}
-                  fullName={"John Doe"}
-                  coursesInfo={"8 Curses"}
-                  description={
-                    "Praktyk z 15 letnim doświadczeniem w zarządzaniu zarówno mikro jak i makro przedsiębiorstwami. Odpowiadał za opracowanie biznesplanu dla firm tj.: CCC, Allegro, 4F"
-                  }
+                  fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                  // coursesInfo={"8 Curses"}
+                  description={course.value.author.bio}
                 />
+              </section>
+              <section className="course-certificates">
+                <Certificate
+                  img={{
+                    src: CertificateExample,
+                    alt: "",
+                  }}
+                  title="Made in EU"
+                  description="Wyróżnij się na tle innych, dzięki certyfikatowi potwierdzającemu wiedzę uzyskaną na szkoleniu."
+                  handleDownload={() => console.log("clicked")}
+                  handleShare={() => console.log("clicked")}
+                />
+              </section>
+              <section className="course-description-short">
+                <Title level={4}>Opis szkolenia</Title>
+                <MarkdownReader>{course.value.description}</MarkdownReader>
               </section>
             </div>
             <div className="col-lg-3 col-md-12">
