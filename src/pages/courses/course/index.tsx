@@ -15,6 +15,8 @@ import CourseProgramList from "@/escolalms/sdk/components/Course/CourseProgramLi
 import LmsTag from "@/components/Common/LmsTag";
 import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "./index.scss";
+import { Title } from "@escolalms/components";
+import styled from "styled-components";
 
 resetIdCounter();
 
@@ -135,114 +137,27 @@ const CoursePage = () => {
     return <pre>{course.error.message}</pre>;
   }
 
+  const CoursePagee = styled("div")`
+    .courses-details-header {
+      h1 {
+        font-size: 40px;
+      }
+    }
+  `;
+
   return (
     <Layout>
       <React.Fragment>
-        <PageBanner
-          pageTitle={course.value.title || ""}
-          subtitle={course.value.subtitle}
-          homePageUrl="/"
-          homePageText={t("Home")}
-          innerPageUrl={`/courses`}
-          innerPageText={t("Courses")}
-          activePageText={course.value.title || ""}
-        />
-
-        {previewTopic && (
-          <CourseProgramPreview
-            topic={previewTopic}
-            onClose={() => {
-              setPreviewTopic(undefined);
-            }}
-          />
-        )}
-
         <div className="course-page">
           <div className="container">
             <div className="courses-details-header">
               <div className="row align-items-center">
                 <div className="col-lg-8 col-md-12">
-                  <div className="courses-meta">
-                    <ul>
-                      {course.value.categories &&
-                        !!course.value.categories.length && (
-                          <li>
-                            <i className="bx bx-folder-open"></i>
-                            <span>{t("Category")}</span>
-
-                            {course.value.categories.map((category) => {
-                              const cat =
-                                typeof category === "object"
-                                  ? {
-                                      id: category.id,
-                                      name: category.name,
-                                    }
-                                  : {
-                                      id: category,
-                                      name: category,
-                                    };
-                              return (
-                                <Link
-                                  to={`/courses?category_id=${cat.id}`}
-                                  key={cat.id}
-                                >
-                                  {cat.name}
-                                </Link>
-                              );
-                            })}
-                          </li>
-                        )}
-                      {!!course.value.users_count && (
-                        <li>
-                          <i className="bx bx-group"></i>
-                          <span>
-                            {t("StudentsEnrolled", {
-                              count: course.value.users_count,
-                            })}
-                          </span>
-                          {course.value.users_count}
-                        </li>
-                      )}
-                      <li>
-                        <i className="bx bx-calendar"></i>
-                        <span>{t("Last Updated")}</span>
-
-                        {course.value.updated_at &&
-                          format(
-                            new Date(course.value.updated_at),
-                            "dd/MM/yyyy"
-                          )}
-                      </li>
-                      {!!course.value.tags?.length && (
-                        <li>
-                          <i className="bx bx-tag"></i>
-                          <span>{t("Tags")}</span>
-
-                          {course.value.tags && course.value.tags.length > 0 && (
-                            <div className="course-card__tags">
-                              {course.value.tags.map(
-                                (tag: API.Tag | string) => {
-                                  if (typeof tag === "object") {
-                                    return (
-                                      <LmsTag
-                                        key={tag.title}
-                                        tag={tag}
-                                        to={`/courses?tag=${tag.title}`}
-                                      />
-                                    );
-                                  } else return null;
-                                }
-                              )}
-                            </div>
-                          )}
-                        </li>
-                      )}
-                    </ul>
+                  <div className="row">
+                    <div className="col-lg-7">
+                      <Title>Księgowośc dla początkujących</Title>
+                    </div>
                   </div>
-                </div>
-
-                <div className="col-lg-4 col-md-12">
-                  <CoursePriceButton course={course.value} />
                 </div>
               </div>
             </div>
@@ -257,98 +172,8 @@ const CoursePage = () => {
                     />
                   </div>
                 )}
-                {/* (index) => setTabIndex(index) */}
-                <div className="courses-details-desc">
-                  <Tabs
-                    selectedIndex={tabIndex}
-                    onSelect={(index) =>
-                      history.push(`${location.pathname}?tab=${index}`)
-                    }
-                  >
-                    <TabList>
-                      <Tab>{t("CoursePage.Tabs.Summary")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Program")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Instructor")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Description")}</Tab>
-                    </TabList>
-                    <div className="courses-details-desc-style-two">
-                      <TabPanel>
-                        <h3>{t("Summary")}</h3>
-                        {course.value.summary && (
-                          <MarkdownReader>
-                            {course.value.summary}
-                          </MarkdownReader>
-                        )}
-                      </TabPanel>
-                      <TabPanel>
-                        <h3>{t("Course Program")}</h3>
-                        {course.value.lessons && (
-                          <CourseProgramList
-                            program={course.value.lessons}
-                            onPreview={(topic) => setPreviewTopic(topic)}
-                          />
-                        )}
-                      </TabPanel>
-                      <TabPanel>
-                        {course.value.authors &&
-                          course.value.authors.length > 0 &&
-                          course.value.authors.map((author: API.UserItem) => {
-                            return (
-                              <div className="courses-instructor">
-                                <div className="single-advisor-box">
-                                  <div className="row align-items-center">
-                                    <div className="col-lg-4 col-md-4">
-                                      <div className="advisor-image">
-                                        {author?.path_avatar ? (
-                                          <Image
-                                            srcSizes={[356, 356 * 2]}
-                                            path={author?.path_avatar}
-                                          />
-                                        ) : (
-                                          <img
-                                            className="tutor-card__avatar"
-                                            src={`/images/tutorblind.png`}
-                                            alt="tutor_avatar"
-                                          />
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div className="col-lg-8 col-md-8">
-                                      <div className="advisor-content">
-                                        <Link to={`/tutors/${author.id}`}>
-                                          <h3>
-                                            {author.first_name}{" "}
-                                            {author.last_name}
-                                          </h3>
-                                        </Link>
-                                        <span className="sub-title">
-                                          {t("Tutor")}
-                                        </span>
 
-                                        <div>
-                                          <MarkdownReader>
-                                            {author.bio || ""}
-                                          </MarkdownReader>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}{" "}
-                      </TabPanel>
-                      <TabPanel>
-                        <h3>{t("Description")}</h3>
-                        {course.value.description && (
-                          <MarkdownReader>
-                            {course.value.description}
-                          </MarkdownReader>
-                        )}
-                      </TabPanel>
-                    </div>
-                  </Tabs>
-                </div>
+                <div className="courses-details-desc"></div>
               </div>
 
               <div className="col-lg-4 col-md-12">
