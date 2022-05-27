@@ -10,10 +10,12 @@ import {
   CourseCard,
   IconText,
   Slider,
-  Title,
 } from "@escolalms/components";
-import { Tag } from "@escolalms/sdk/lib/types/api";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Course, Tag } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
+import CourseCardNew from "@/components/CourseCardNew";
 
 const IconTag = () => {
   return (
@@ -68,6 +70,7 @@ const Index = () => {
     fetchConfig();
     fetchCourses({ per_page: 6 });
   }, [fetchConfig]);
+  console.log(courses);
 
   // const platformVisibility =
   //   config?.escolalms_courses?.platform_visibility === "public" || false;
@@ -93,7 +96,22 @@ const Index = () => {
     }
     .home-awarded-courses {
       .container {
+        position: relative;
         background-color: #f2f2f2;
+        padding-top: 55px;
+        padding-bottom: 35px;
+
+        &:after {
+          position: absolute;
+          content: "";
+          width: calc(100% + 100px);
+          height: 100%;
+          background-color: #f2f2f2;
+          left: 50%;
+          transform: translate(-50%, 0);
+          top: 0;
+          z-index: -1;
+        }
       }
       .small-padding {
         padding-left: 10px;
@@ -103,11 +121,22 @@ const Index = () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 55px;
       }
       .course-wrapper {
         background-color: #fff;
         padding: 12px 10px 1px 10px;
         margin-bottom: 20px;
+
+        &--small {
+          .course-section {
+            margin-top: 0;
+          }
+        }
+
+        &--big {
+          padding: 12px 10px;
+        }
 
         .lesson-container {
           display: none;
@@ -115,6 +144,7 @@ const Index = () => {
       }
     }
     .home-categories {
+      margin-top: 120px;
       h3 {
         text-align: center;
         margin-bottom: 30px;
@@ -168,7 +198,11 @@ const Index = () => {
                       }}
                       lessonCount={5}
                       hideImage={false}
-                      subtitle="100% Online"
+                      subtitle={
+                        <Text>
+                          <strong style={{ fontSize: 14 }}>100% Online</strong>
+                        </Text>
+                      }
                       image={{
                         url: item.image_url,
                         alt: "",
@@ -202,7 +236,11 @@ const Index = () => {
                       }}
                       lessonCount={5}
                       hideImage={false}
-                      subtitle="100% Online"
+                      subtitle={
+                        <Text>
+                          <strong style={{ fontSize: 14 }}>100% Online</strong>
+                        </Text>
+                      }
                       image={{
                         url: item.image_url,
                         alt: "",
@@ -227,17 +265,29 @@ const Index = () => {
               <div className="col-lg-4 small-padding">
                 <div className="row justify-content-end">
                   <div className="col-lg-6 small-padding">
-                    <div className="course-wrapper">
+                    <div className="course-wrapper course-wrapper--small">
                       <CourseCard
                         id={Number(courses?.list?.data[0].id)}
-                        title={courses?.list?.data[0].title}
+                        title=""
                         tags={courses.list?.data[0].tags as Tag[]}
                         image={{
                           url: courses?.list?.data[0].image_url,
                           alt: "",
                         }}
                         lessonCount={0}
-                        subtitle=""
+                        subtitle={
+                          <Text>
+                            <strong
+                              style={{
+                                fontSize: 14,
+                                display: "inline-block",
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {courses?.list?.data[0].title}
+                            </strong>
+                          </Text>
+                        }
                         categories={{
                           categoryElements: [],
                           onCategoryClick: () => console.log("clicked"),
@@ -246,17 +296,29 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="col-lg-6 small-padding">
-                    <div className="course-wrapper">
+                    <div className="course-wrapper course-wrapper--small">
                       <CourseCard
-                        id={Number(courses?.list?.data[0].id)}
-                        title={courses?.list?.data[0].title}
-                        tags={courses.list?.data[0].tags as Tag[]}
+                        id={Number(courses?.list?.data[1].id)}
+                        title=""
+                        tags={courses.list?.data[1].tags as Tag[]}
                         image={{
-                          url: courses?.list?.data[0].image_url,
+                          url: courses?.list?.data[1].image_url,
                           alt: "",
                         }}
                         lessonCount={0}
-                        subtitle=""
+                        subtitle={
+                          <Text>
+                            <strong
+                              style={{
+                                fontSize: 14,
+                                display: "inline-block",
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {courses?.list?.data[1].title}
+                            </strong>
+                          </Text>
+                        }
                         categories={{
                           categoryElements: [],
                           onCategoryClick: () => console.log("clicked"),
@@ -265,17 +327,29 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="col-lg-9 small-padding">
-                    <div className="course-wrapper course-wrapper--3">
+                    <div className="course-wrapper">
                       <CourseCard
-                        id={Number(courses?.list?.data[0].id)}
-                        title={courses?.list?.data[0].title}
-                        tags={courses.list?.data[0].tags as Tag[]}
+                        id={Number(courses?.list?.data[2].id)}
+                        title=""
+                        tags={courses.list?.data[2].tags as Tag[]}
                         image={{
-                          url: courses?.list?.data[0].image_url,
+                          url: courses?.list?.data[2].image_url,
                           alt: "",
                         }}
                         lessonCount={0}
-                        subtitle=""
+                        subtitle={
+                          <Text>
+                            <strong
+                              style={{
+                                fontSize: 14,
+                                display: "inline-block",
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {courses?.list?.data[2].title}
+                            </strong>
+                          </Text>
+                        }
                         categories={{
                           categoryElements: [],
                           onCategoryClick: () => console.log("clicked"),
@@ -286,29 +360,79 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5 small-padding">
-                <div className="course-wrapper">
-                  <CourseCard
-                    onButtonClick={() => console.log("clicked")}
-                    id={Number(courses?.list?.data[0].id)}
-                    title={courses?.list?.data[0].title}
-                    tags={courses.list?.data[0].tags as Tag[]}
-                    image={{
-                      url: courses?.list?.data[0].image_url,
-                      alt: "",
-                    }}
-                    lessonCount={0}
-                    subtitle=""
-                    categories={{
-                      categoryElements: [
-                        { id: 1, name: "Programming" },
-                        { id: 2, name: "Front-end" },
-                      ],
-                      onCategoryClick: () => console.log("clicked"),
-                    }}
+                <div className="course-wrapper course-wrapper--big">
+                  <CourseCardNew
+                    variant="big"
+                    course={courses.list?.data[4] as Course}
                   />
                 </div>
               </div>
-              <div className="col-lg-3 small-padding"></div>
+              <div className="col-lg-3 small-padding">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="course-wrapper course-wrapper--small">
+                      <CourseCard
+                        id={Number(courses?.list?.data[3].id)}
+                        title=""
+                        tags={courses.list?.data[3].tags as Tag[]}
+                        image={{
+                          url: courses?.list?.data[3].image_url,
+                          alt: "",
+                        }}
+                        lessonCount={0}
+                        subtitle={
+                          <Text>
+                            <strong
+                              style={{
+                                fontSize: 14,
+                                display: "inline-block",
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {courses?.list?.data[3].title}
+                            </strong>
+                          </Text>
+                        }
+                        categories={{
+                          categoryElements: [],
+                          onCategoryClick: () => console.log("clicked"),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-9">
+                    <div className="course-wrapper course-wrapper--small">
+                      <CourseCard
+                        id={Number(courses?.list?.data[4].id)}
+                        title=""
+                        tags={courses.list?.data[4].tags as Tag[]}
+                        image={{
+                          url: courses?.list?.data[4].image_url,
+                          alt: "",
+                        }}
+                        lessonCount={0}
+                        subtitle={
+                          <Text>
+                            <strong
+                              style={{
+                                fontSize: 14,
+                                display: "inline-block",
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {courses?.list?.data[4].title}
+                            </strong>
+                          </Text>
+                        }
+                        categories={{
+                          categoryElements: [],
+                          onCategoryClick: () => console.log("clicked"),
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
