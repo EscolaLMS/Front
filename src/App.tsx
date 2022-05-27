@@ -7,10 +7,18 @@ import "./style/css/flaticon.css";
 import "../node_modules/react-modal-video/css/modal-video.min.css"; // TODO: move to component
 import "react-image-lightbox/style.css"; // TODO: move to component?
 import "./style/scss/index.scss";
+import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
+import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 
 const App = () => {
+  const [, setTheme] = useLocalTheme();
   return (
     <main>
+      <ThemeCustomizer
+        onUpdate={(theme) => {
+          setTheme(theme);
+        }}
+      />
       <Routes />
     </main>
   );
