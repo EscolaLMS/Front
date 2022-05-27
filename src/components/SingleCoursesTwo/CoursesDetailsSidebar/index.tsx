@@ -20,6 +20,7 @@ import {
 } from "../../../icons";
 import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
@@ -66,7 +67,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
     }
   }, [progress]);
 
-  return (
+  return !isMobile ? (
     <PricingCard>
       <Title level={4} as="h4">
         Księgowość dla początkujących
@@ -143,6 +144,47 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           </>
         )}
       </CourseProgress>
+    </PricingCard>
+  ) : (
+    <PricingCard mobile>
+      <Title level={5} as={"h5"}>
+        {course.title}
+      </Title>
+      <div className="pricing-card-footer">
+        <div>
+          <div className="pricing-card-discount">
+            <Title level={5} as={"h5"}>
+              {priceLiteral}
+            </Title>
+          </div>
+          <Title level={4} as={"h4"}>
+            {course.product?.price} zł
+          </Title>
+        </div>
+        <div>
+          {courseInCart ? (
+            <Button block mode="secondary" onClick={() => push("/cart")}>
+              Do kasy
+            </Button>
+          ) : userOwnThisCourse ? (
+            <Button block mode="secondary">
+              {t("Attend to Course")}
+            </Button>
+          ) : user.value ? (
+            <Button
+              block
+              mode="secondary"
+              onClick={() => addToCart(Number(course.id))}
+            >
+              {t("Buy Course")}
+            </Button>
+          ) : (
+            <Button block mode="secondary">
+              {t("Login to buy")}
+            </Button>
+          )}
+        </div>
+      </div>
     </PricingCard>
   );
 };
