@@ -54,7 +54,7 @@
     "react-pdf": "^5.4.0",
     "react-player": "^2.9.0",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "4.0.1",
+    "react-scripts": "^4.0.1",
     "react-slick": "^0.29.0",
     "react-tabs": "^3.2.3",
     "react-tiny-oembed": "^1.1.0",
@@ -65,15 +65,14 @@
     "sass": "^1.42.1",
     "styled-components": "^5.3.5",
     "svg2pdf.js": "^2.2.0",
-    "typescript": "^4.1.2",
+    "typescript": "^4.7.2",
     "typescript-plugin-styled-components": "^2.0.0",
     "webfontloader": "^1.6.28"
   },
   "resolutions": {
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "@types/react": "17.0.2",
-    "styled-components": "^5"
+    "@types/react": "17.0.2"
   },
   "scripts": {
     "start": "react-app-rewired start",
