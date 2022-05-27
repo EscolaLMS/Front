@@ -6,7 +6,6 @@ import Layout from "@/components/_App/Layout";
 import CoursesProvider from "@/components/Courses/CoursesProvider";
 import CoursesCollection from "@/components/Courses/CoursesCollection";
 import "./index.scss";
-import { Title } from "@escolalms/components";
 
 const Index = () => {
   const { fetchConfig, config, user } = useContext(EscolaLMSContext);
@@ -25,7 +24,6 @@ const Index = () => {
   return (
     <Layout>
       <React.Fragment>
-        <Title />
         <div className="hero-banner-area">
           <div className="container-fluid">
             <div className="row align-items-center">
