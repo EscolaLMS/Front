@@ -20,7 +20,6 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
-  console.log(course);
   const { cart, addToCart, progress, config, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
