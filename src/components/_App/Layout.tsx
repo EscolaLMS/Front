@@ -8,7 +8,6 @@ import Navbar from "@/components/_App//Navbar";
 import Footer from "@/components/_App/Footer";
 import CourseNavbar from "@/components/_App/CourseNavbar";
 import CoursePreviewNavbar from "./CoursePreviewNavbar";
-
 declare global {
   interface Window {
     ybug_settings: Ybug;
