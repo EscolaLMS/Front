@@ -1,15 +1,15 @@
-import React, { useContext, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../../../images/logo.svg';
-import SocialLinks from '@/components/SocialLinks';
-import { chunks } from '@/utils/array';
-import { API } from '@escolalms/sdk/lib';
-import { usePages } from '@/escolalms/sdk/hooks/usePages';
-import './index.scss';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
+import React, { useContext, useMemo } from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../../images/logo.svg";
+import SocialLinks from "@/components/SocialLinks";
+import { chunks } from "@/utils/array";
+import { API } from "@escolalms/sdk/lib";
+import { usePages } from "@/escolalms/sdk/hooks/usePages";
+import "./index.scss";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 
 // TODO: This is not a universal solution. Problem with translation of slugs (in url).
-const seperatedPagesSlugs = ['privacy-policy', 'terms-of-service'];
+const seperatedPagesSlugs = ["privacy-policy", "terms-of-service"];
 
 const Footer = () => {
   const { settings } = useContext(EscolaLMSContext);
@@ -22,13 +22,17 @@ const Footer = () => {
 
   const dividedPages = useMemo(() => {
     return chunks(
-      collection.filter((page: API.PageListItem) => !seperatedPagesSlugs.includes(page.slug)),
-      5,
+      collection.filter(
+        (page: API.PageListItem) => !seperatedPagesSlugs.includes(page.slug)
+      ),
+      5
     );
   }, [collection]);
 
   const seperatedPages = useMemo(() => {
-    return collection.filter((page: API.PageListItem) => seperatedPagesSlugs.includes(page.slug));
+    return collection.filter((page: API.PageListItem) =>
+      seperatedPagesSlugs.includes(page.slug)
+    );
   }, [collection]);
 
   return (
@@ -94,9 +98,10 @@ const Footer = () => {
               </Link>
 
               <p>
-                Working to bring significant changes in online-based learning by doing extensive
-                research for course curriculum preparation, student engagements, and looking forward
-                to the flexible education!
+                Working to bring significant changes in online-based learning by
+                doing extensive research for course curriculum preparation,
+                student engagements, and looking forward to the flexible
+                education!
               </p>
 
               <SocialLinks className="footer__social-links" />
@@ -109,8 +114,12 @@ const Footer = () => {
             <div className="col-lg-6 col-md-6">
               <p>
                 <i className="bx bx-copyright" />
-                {currentYear} EscolaLMS is Proudly Powered by{' '}
-                <a target="_blank" href="https://escolasoft.com/" rel="noreferrer">
+                {currentYear} EscolaLMS is Proudly Powered by{" "}
+                <a
+                  target="_blank"
+                  href="https://escolasoft.com/"
+                  rel="noreferrer"
+                >
                   EscolaSoft
                 </a>
               </p>
