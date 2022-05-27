@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
 import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
@@ -15,18 +15,16 @@ import McDonald from "../../../images/mcdonald.png";
 import CertificateExample from "../../../images/certificate-example.png";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
-import {
-  LabelListItem,
-  Text,
-  Title,
-  Button,
-  Tutor,
-  Certificate,
-  Ratings,
-  Slider,
-  CourseCard,
-} from "@escolalms/components";
-
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
+import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
+import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/Ratings";
+import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
+import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
+import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { Tag } from "@escolalms/sdk/lib/types/api";
@@ -48,12 +46,12 @@ const ratingsMock = {
 };
 
 const StyledCoursePage = styled.div`
-  padding-top: 150px;
   section {
     margin-bottom: 45px;
     &.with-border {
       padding-bottom: 45px;
-      border-bottom: 1px solid ${(props) => props.theme.gray2};
+      border-bottom: 1px solid
+        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray5)};
     }
     &.padding-right {
       padding-right: 150px;
@@ -69,6 +67,19 @@ const StyledCoursePage = styled.div`
     padding-bottom: 45px;
   }
   .course-main-info {
+    .image-wrapper {
+      @media (max-width: 991px) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 35px;
+
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
     .labels-row {
       display: flex;
       justify-content: flex-start;
@@ -82,6 +93,7 @@ const StyledCoursePage = styled.div`
         flex-wrap: wrap;
         @media (max-width: 991px) {
           column-gap: 0;
+          margin-top: 55px;
         }
         .single-label {
           @media (max-width: 991px) {
@@ -122,17 +134,23 @@ const StyledCoursePage = styled.div`
   .course-description {
     padding: 50px 45px;
     margin: 45px 0;
-    background-color: #eee;
+    background-color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     @media (max-width: 768px) {
       padding: 20px;
     }
   }
   .course-related-courses {
-    background-color: #f8f8f8;
+    background-color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
     padding: 60px 0 90px;
     .slick-dots {
       top: -65px;
       right: 80px;
+      @media (max-width: 575px) {
+        right: 0;
+      }
     }
     .content-container {
       position: relative;
@@ -140,9 +158,19 @@ const StyledCoursePage = styled.div`
       &:first-of-type {
         margin-bottom: 60px;
       }
+      h4 {
+        @media (max-width: 575px) {
+          padding-right: 50%;
+        }
+      }
       .slider-wrapper {
         @media (max-width: 575px) {
           margin-left: -50px;
+
+          .image-section,
+          img {
+            max-height: 180px;
+          }
         }
       }
     }
@@ -236,13 +264,19 @@ const CoursePage = () => {
                         </LabelListItem>
                       </div>
                     </div>
-                    <Button mode="outline">Zobacz więcej</Button>
+                    {isMobile ? (
+                      <Link underline>Zobacz więcej</Link>
+                    ) : (
+                      <Button mode="outline">Zobacz więcej</Button>
+                    )}
                   </div>
                   <div className="col-lg-4">
-                    <Image
-                      path={course.value.image_path}
-                      srcSizes={[790 * 0.5, 790, 2 * 790]}
-                    />
+                    <div className="image-wrapper">
+                      <Image
+                        path={course.value.image_path}
+                        srcSizes={[790 * 0.5, 790, 2 * 790]}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="labels-row labels-row--bottom">
@@ -390,31 +424,33 @@ const CoursePage = () => {
                 </div>
                 <div className="content-container">
                   <Title level={4}>Może Cię zainteresuje</Title>
-                  <Slider
-                    settings={{ ...sliderSettings, dots }}
-                    dotsPosition="top right"
-                  >
-                    {courses.list?.data.map((item) => (
-                      <div key={item.id} className="single-slide">
-                        <CourseCard
-                          id={item.id}
-                          title={item.title}
-                          categories={{
-                            categoryElements: item.categories || [],
-                            onCategoryClick: () => console.log("clicked"),
-                          }}
-                          lessonCount={5}
-                          hideImage={false}
-                          subtitle="100% Online"
-                          image={{
-                            url: item.image_url,
-                            alt: "",
-                          }}
-                          tags={item.tags as Tag[]}
-                        />
-                      </div>
-                    ))}
-                  </Slider>
+                  <div className="slider-wrapper">
+                    <Slider
+                      settings={{ ...sliderSettings, dots }}
+                      dotsPosition="top right"
+                    >
+                      {courses.list?.data.map((item) => (
+                        <div key={item.id} className="single-slide">
+                          <CourseCard
+                            id={item.id}
+                            title={item.title}
+                            categories={{
+                              categoryElements: item.categories || [],
+                              onCategoryClick: () => console.log("clicked"),
+                            }}
+                            lessonCount={5}
+                            hideImage={false}
+                            subtitle="100% Online"
+                            image={{
+                              url: item.image_url,
+                              alt: "",
+                            }}
+                            tags={item.tags as Tag[]}
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
                 </div>
               </div>
             </div>

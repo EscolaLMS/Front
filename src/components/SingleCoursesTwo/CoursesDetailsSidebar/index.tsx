@@ -1,13 +1,7 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import {
-  IconText,
-  Text,
-  Title,
-  Button,
-  CourseProgress,
-} from "@escolalms/components";
+import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import ReactMarkdown from "react-markdown";
 import {
@@ -21,10 +15,12 @@ import {
 import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
+  console.log(course);
   const { cart, addToCart, progress, config, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
@@ -48,13 +44,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) !== -1
     );
   }, [progress, id]);
-  const priceLiteral = useMemo(() => {
-    return course.product?.price === 0
-      ? t("FREE")
-      : `${config?.escolalms_payments?.default_currency} ${(
-          (course.product?.price || 0) / 100
-        ).toFixed(2)}`;
-  }, [course, config]);
+  // const priceLiteral = useMemo(() => {
+  //   return course.product?.price === 0
+  //     ? t("FREE")
+  //     : `${config?.escolalms_payments?.default_currency} ${(
+  //         (course.product?.price || 0) / 100
+  //       ).toFixed(2)}`;
+  // }, [course, config]);
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const currentCourse =
@@ -74,7 +70,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       </Title>
       <div className="pricing-card-price">
         <Title level={3} as={"h3"}>
-          {priceLiteral}
+          {course.product?.price || 0} zł
         </Title>
         <div className="pricing-card-discount">
           <Title level={5} as={"h5"}>
@@ -154,7 +150,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <div>
           <div className="pricing-card-discount">
             <Title level={5} as={"h5"}>
-              {priceLiteral}
+              {course.product?.price || 0} zł
             </Title>
           </div>
           <Title level={4} as={"h4"}>
