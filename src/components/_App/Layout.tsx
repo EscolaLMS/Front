@@ -4,8 +4,8 @@ import { ToastProvider } from "react-toast-notifications";
 import { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import GoTop from "@/components/_App/GoTop";
-import Navbar from "@/components/_App//Navbar";
-import Footer from "@/components/_App/Footer";
+// import Navbar from "@/components/_App//Navbar";
+// import Footer from "@/components/_App/Footer";
 import CourseNavbar from "@/components/_App/CourseNavbar";
 import CoursePreviewNavbar from "./CoursePreviewNavbar";
 declare global {
@@ -85,7 +85,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
           {children}
 
-          {!isCourse && <Footer />}
+          {/* {!isCourse && <Footer />} */}
         </div>
 
         <GoTop scrollStepInPx="100" delayInMs={10} />
