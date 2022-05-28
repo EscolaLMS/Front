@@ -48,10 +48,28 @@ const CartPageStyled = styled.section`
   .slider-section {
     margin-top: 110px;
   }
+  .summary-box-wrapper {
+    position: sticky;
+    top: 60px;
+    @media (max-width: 991px) {
+      position: fixed;
+      top: unset;
+      bottom: 0;
+      z-index: 10;
+      width: 100%;
+      left: 0;
+    }
+  }
 `;
 
 const SliderWrapper = styled.div`
   margin-top: 20px;
+  @media (max-width: 575px) {
+    margin-left: -50px;
+    img {
+      max-height: 180px;
+    }
+  }
   .single-slide {
     max-width: calc(100% - 20px);
   }
@@ -86,21 +104,34 @@ const CartPage = () => {
   const stripeKey = stripeConfigs.stripe.publishable_key;
   const sliderSettings = {
     arrows: false,
-    // dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+        },
+      },
+    ],
   };
 
   useEffect(() => {
-    // if (!user.loading && !user.value) {
-    //   push('/authentication');
-    // } else {
-    //   fetchCart();
-    // }
-    fetchCart();
-    fetchCourses({ per_page: 6 });
+    if (!user.loading && !user.value) {
+      push("/authentication");
+    } else {
+      fetchCourses({ per_page: 6 });
+      fetchCart();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, user]);
 
@@ -123,8 +154,6 @@ const CartPage = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(cart);
 
   if (cart.loading) {
     return <Preloader />;
@@ -263,29 +292,32 @@ const CartPage = () => {
               </section>
             </div>
             <div className="col-lg-3">
-              <CartCard
-                id={1}
-                title={`${String(cart.value?.total)} zł`}
-                description={
-                  <Text style={{ fontSize: 12, margin: 0 }}>
-                    Guaranteed 30 days for return
-                  </Text>
-                }
-                onBuyClick={() => console.log("clicked")}
-                discount={{
-                  onDiscountClick: () =>
-                    realizeVoucher("").then((response) => {
-                      if (response.success) {
-                        setDiscountStatus("granted");
-                        fetchCart();
-                      } else {
-                        setDiscountStatus("error");
-                      }
-                    }),
-                  onDeleteDiscountClick: () => console.log("clicked"),
-                  status: discountStatus,
-                }}
-              />
+              <Title level={4}>Podsumowanie</Title>
+              <div className="summary-box-wrapper">
+                <CartCard
+                  id={1}
+                  title={`${String(cart.value?.total)} zł`}
+                  description={
+                    <Text style={{ fontSize: 12, margin: 0 }}>
+                      Guaranteed 30 days for return
+                    </Text>
+                  }
+                  onBuyClick={() => console.log("clicked")}
+                  discount={{
+                    onDiscountClick: () =>
+                      realizeVoucher("").then((response) => {
+                        if (response.success) {
+                          setDiscountStatus("granted");
+                          fetchCart();
+                        } else {
+                          setDiscountStatus("error");
+                        }
+                      }),
+                    onDeleteDiscountClick: () => console.log("clicked"),
+                    status: discountStatus,
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
