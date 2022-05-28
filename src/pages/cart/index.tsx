@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import { loadStripe } from "@stripe/stripe-js";
@@ -16,6 +16,7 @@ import { Input } from "@escolalms/components/lib/components/atoms/Input/Input";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
 import { CartItem, Tag } from "@escolalms/sdk/lib/types/api";
 import { IconBadge, IconStar, IconThumbsUp } from "../../icons";
@@ -78,6 +79,67 @@ const SliderWrapper = styled.div`
   }
 `;
 
+const ThankYouPageStyled = styled.section`
+  text-align: center;
+  .thank-you-title {
+    font-weight: 700;
+    font-size: 28px;
+  }
+  .course-name {
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+    margin: 25px 0 55px;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background-color: ${({ theme }) => theme.primaryColor};
+    }
+  }
+  button {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .small-text {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+`;
+
+const ThankYouPage = () => {
+  return (
+    <Layout>
+      <ThankYouPageStyled>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-9">
+              <Title className="thank-you-title" level={3}>
+                Gratulacje! <br />
+                Od teraz posiadasz pełny dostęp do kursu:
+              </Title>
+              <Title level={4} className="course-name">
+                Księgowość dla początkujących
+              </Title>
+              <Text className="email-info">
+                Aby rozpocząć zaloguj się na podany adres e-mail lub kliknij w
+                poniższy przycisk
+              </Text>
+              <Button block>Rozpocznij kurs</Button>
+              <Text className="small-text">
+                Zapraszamy do dalszych zakupów w platformie Wellms
+              </Text>
+            </div>
+          </div>
+        </div>
+      </ThankYouPageStyled>
+    </Layout>
+  );
+};
+
 const CartPage = () => {
   const {
     user,
@@ -93,6 +155,7 @@ const CartPage = () => {
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { location, push } = useHistory();
+  // const location = useLocation()
   const [dots, setDots] = useState(true);
   const [discountStatus, setDiscountStatus] = useState<
     "granted" | "error" | undefined
@@ -157,6 +220,11 @@ const CartPage = () => {
 
   if (cart.loading) {
     return <Preloader />;
+  }
+
+  //TODO: Find better way to handle it
+  if (location.search === "?status=success") {
+    return <ThankYouPage />;
   }
 
   return (

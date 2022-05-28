@@ -73,7 +73,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         autoDismissTimeout={10000}
         autoDismiss
       >
-        <div className="site-wrapper">
+        <div className="site-wrapper" style={{ paddingTop: 162 }}>
           {isCourse ? (
             <CourseNavbar />
           ) : isPreview ? (
