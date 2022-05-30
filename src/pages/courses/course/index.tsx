@@ -33,7 +33,6 @@ resetIdCounter();
 
 const ratingsMock = {
   sumRates: 40,
-  // count_answers: 16,
   avgRate: 4.5,
   rates: {
     1: 6,
@@ -86,6 +85,10 @@ const StyledCoursePage = styled.div`
       align-items: flex-start;
       column-gap: 20px;
       margin: 35px 0;
+      @media (max-width: 374px) {
+        flex-direction: column;
+        row-gap: 16px;
+      }
       &--bottom {
         column-gap: 45px;
         margin-top: 120px;
@@ -94,6 +97,9 @@ const StyledCoursePage = styled.div`
         @media (max-width: 991px) {
           column-gap: 0;
           margin-top: 55px;
+        }
+        @media (max-width: 374px) {
+          flex-direction: row;
         }
         .single-label {
           @media (max-width: 991px) {
@@ -157,6 +163,9 @@ const StyledCoursePage = styled.div`
       overflow: hidden;
       &:first-of-type {
         margin-bottom: 60px;
+        @media (max-width: 768px) {
+          margin-bottom: 40px;
+        }
       }
       h4 {
         @media (max-width: 575px) {
@@ -234,7 +243,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
+  console.log(course);
   return (
     <Layout>
       <StyledCoursePage>
