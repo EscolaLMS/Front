@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
