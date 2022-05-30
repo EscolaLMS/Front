@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, StripeCardNumberElement } from "@stripe/stripe-js";
 import Layout from "@/components/_App/Layout";
 // import { API } from '@escolalms/sdk/lib';
 import "./index.scss";
@@ -23,6 +23,16 @@ import { IconBadge, IconStar, IconThumbsUp } from "../../icons";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/Preloader";
 import Collapse from "@/components/Collapse";
+import PaymentForm from "@/components/PaymentForm";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardCvcElement,
+  CardExpiryElement,
+  Elements,
+} from "@stripe/react-stripe-js";
+import toast from "react-hot-toast";
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
@@ -59,6 +69,32 @@ const CartPageStyled = styled.section`
       z-index: 10;
       width: 100%;
       left: 0;
+    }
+  }
+  .empty-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 192px 20px;
+    text-align: center;
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray5 : theme.gray1};
+    row-gap: 20px;
+
+    p {
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 80px 20px;
+    }
+  }
+  .slider-section {
+    h4 {
+      @media (max-width: 575px) {
+        padding-right: 45%;
+      }
     }
   }
 `;
@@ -155,21 +191,48 @@ const CartPage = () => {
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { location, push } = useHistory();
-  // const location = useLocation()
-  const [dots, setDots] = useState(true);
+  const stripe = useStripe();
+  const elements = useElements();
+  // const options = useOptions();
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [processing, setProcessing] = useState(false);
+  const [billingDetails, setBillingDetails] = useState<{ name: string }>({
+    name: "",
+  });
+  const [dots] = useState(true);
   const [discountStatus, setDiscountStatus] = useState<
     "granted" | "error" | undefined
   >(
     //@ts-ignore TODO: add additional_discount type to SDK types
     cart.value.additional_discount > 0 ? "granted" : undefined
   );
-  const stripeConfigs: any = config?.escolalms_payments?.drivers;
-  const stripeKey = stripeConfigs.stripe.publishable_key;
   const sliderSettings = {
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+        },
+      },
+    ],
+  };
+  const sliderSettingsBig = {
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -218,6 +281,45 @@ const CartPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleSubmit = (): void => {
+    setError(undefined);
+    if (!billingDetails.name) {
+      setError("Card holder can not be empty.");
+      toast.error(t("Card holder can not be empty."));
+    }
+
+    if (!stripe || !elements || !billingDetails.name) {
+      return;
+    }
+    const cardNumber = elements.getElement(CardNumberElement);
+    cardNumber && setProcessing(true);
+    cardNumber &&
+      stripe
+        .createPaymentMethod({
+          type: "card",
+          card: cardNumber,
+          billing_details: billingDetails,
+        })
+        .then((res) => {
+          if (res.error) {
+            setError(res.error.message);
+            setProcessing(false);
+            toast.error(t("UnexpectedError"));
+          } else {
+            setError(undefined);
+            onPay(res?.paymentMethod?.id);
+            setTimeout(() => {
+              setProcessing(false);
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          setProcessing(false);
+          setError(error);
+          toast.error(t("UnexpectedError"));
+        });
+  };
+
   if (cart.loading) {
     return <Preloader />;
   }
@@ -231,15 +333,13 @@ const CartPage = () => {
     <Layout>
       <CartPageStyled>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-9">
-              <div className="module-wrapper">
-                <Title level={4}>Twój koszyk</Title>
-                <div className="products-container">
-                  {cart.value?.items.length === 0 ? (
-                    <p>Twoj koszyk jest pusty</p>
-                  ) : (
-                    cart.value?.items.map((item: CartItem) => (
+          {!(cart.value?.items.length === 0) ? (
+            <div className="row">
+              <div className="col-lg-9">
+                <div className="module-wrapper">
+                  <Title level={4}>Twój koszyk</Title>
+                  <div className="products-container">
+                    {cart.value?.items.map((item: CartItem) => (
                       <CheckoutCard
                         key={item.id}
                         mobile={isMobile}
@@ -273,59 +373,128 @@ const CartPage = () => {
                           />,
                         ]}
                       />
-                    ))
-                  )}
+                    ))}
+                  </div>
+                </div>
+                <div className="module-wrapper">
+                  <Title level={4}>Wybierz formę płatności</Title>
+                  <div className="payments-form">
+                    <div className="collapse-wrapper">
+                      <Collapse active title="Karta debetowa/kredytowa">
+                        <PaymentForm
+                          setBillingDetails={setBillingDetails}
+                          billingDetails={billingDetails}
+                        />
+
+                        <Checkbox
+                          name="rememberCreditCard"
+                          label="Zapamiętaj tę kartę"
+                          onChange={() => console.log("clicked")}
+                        />
+                      </Collapse>
+                    </div>
+                    {/* <div className="collapse-wrapper">
+                      <Collapse
+                        onClick={() => setActivePaymentMethod(2)}
+                        active={activePaymentMethod === 2}
+                        title="Szybki przelew online - DotPay"
+                      >
+                        Szybki przelew
+                      </Collapse>
+                    </div>
+                    <div className="collapse-wrapper">
+                      <Collapse
+                        onClick={() => setActivePaymentMethod(3)}
+                        active={activePaymentMethod === 3}
+                        title="PayPal"
+                      >
+                        PayPal
+                      </Collapse>
+                    </div> */}
+                  </div>
+                </div>
+                <section className="slider-section">
+                  <Title level={4}>Może Cię zainteresuje</Title>
+                  <SliderWrapper>
+                    <Slider
+                      settings={{ ...sliderSettings, dots }}
+                      dotsPosition="top right"
+                    >
+                      {courses.list?.data.map((item) => (
+                        <div key={item.id} className="single-slide">
+                          <CourseCard
+                            id={item.id}
+                            title={item.title}
+                            categories={{
+                              categoryElements: item.categories || [],
+                              onCategoryClick: () => console.log("clicked"),
+                            }}
+                            lessonCount={5}
+                            hideImage={false}
+                            subtitle={
+                              <Text>
+                                <strong style={{ fontSize: 14 }}>
+                                  100% Online
+                                </strong>
+                              </Text>
+                            }
+                            image={{
+                              url: item.image_url,
+                              alt: "",
+                            }}
+                            tags={item.tags as Tag[]}
+                            onButtonClick={() => console.log("clicked")}
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  </SliderWrapper>
+                </section>
+              </div>
+              <div className="col-lg-3">
+                <Title level={4}>Podsumowanie</Title>
+                <div className="summary-box-wrapper">
+                  <CartCard
+                    onBuyClick={() => handleSubmit()}
+                    id={1}
+                    title={`${String(cart.value?.total)} zł`}
+                    description={
+                      <Text style={{ fontSize: 12, margin: 0 }}>
+                        Guaranteed 30 days for return
+                      </Text>
+                    }
+                    discount={{
+                      onDiscountClick: () =>
+                        realizeVoucher("").then((response) => {
+                          if (response.success) {
+                            setDiscountStatus("granted");
+                            fetchCart();
+                          } else {
+                            setDiscountStatus("error");
+                          }
+                        }),
+                      onDeleteDiscountClick: () => console.log("clicked"),
+                      status: discountStatus,
+                    }}
+                  />
                 </div>
               </div>
-              <div className="module-wrapper">
-                <Title level={4}>Wybierz formę płatności</Title>
-                <div className="payments-form">
-                  <div className="collapse-wrapper">
-                    <Collapse title="Karta debetowa/kredytowa">
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="input-wrapper">
-                            <Input label="Imię Nazwisko" type="text" />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="input-wrapper">
-                            <Input label="Numer karty" type="text" />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="input-wrapper">
-                            <Input label="Data ważności" type="text" />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="input-wrapper">
-                            <Input label="Kod CVC/CCV" type="text" />
-                          </div>
-                        </div>
-                      </div>
-                      <Checkbox
-                        name="rememberCreditCard"
-                        label="Zapamiętaj tę kartę"
-                        onChange={() => console.log("clicked")}
-                      />
-                    </Collapse>
-                  </div>
-                  <div className="collapse-wrapper">
-                    <Collapse title="Szybki przelew online - DotPay">
-                      Szybki przelew
-                    </Collapse>
-                  </div>
-                  <div className="collapse-wrapper">
-                    <Collapse title="PayPal">PayPal</Collapse>
-                  </div>
-                </div>
+            </div>
+          ) : (
+            <>
+              <div className="empty-cart">
+                <Title level={3}>Twój koszyk jest pusty</Title>
+                <Text>
+                  Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć
+                  podnosić swojej kwalifikacje.
+                </Text>
+                <Button mode="secondary">Wybierz kurs dla siebie</Button>
               </div>
               <section className="slider-section">
                 <Title level={4}>Może Cię zainteresuje</Title>
                 <SliderWrapper>
                   <Slider
-                    settings={{ ...sliderSettings, dots }}
+                    settings={{ ...sliderSettingsBig, dots }}
                     dotsPosition="top right"
                   >
                     {courses.list?.data.map((item) => (
@@ -358,36 +527,8 @@ const CartPage = () => {
                   </Slider>
                 </SliderWrapper>
               </section>
-            </div>
-            <div className="col-lg-3">
-              <Title level={4}>Podsumowanie</Title>
-              <div className="summary-box-wrapper">
-                <CartCard
-                  id={1}
-                  title={`${String(cart.value?.total)} zł`}
-                  description={
-                    <Text style={{ fontSize: 12, margin: 0 }}>
-                      Guaranteed 30 days for return
-                    </Text>
-                  }
-                  onBuyClick={() => console.log("clicked")}
-                  discount={{
-                    onDiscountClick: () =>
-                      realizeVoucher("").then((response) => {
-                        if (response.success) {
-                          setDiscountStatus("granted");
-                          fetchCart();
-                        } else {
-                          setDiscountStatus("error");
-                        }
-                      }),
-                    onDeleteDiscountClick: () => console.log("clicked"),
-                    status: discountStatus,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </CartPageStyled>
     </Layout>

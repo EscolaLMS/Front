@@ -5,6 +5,7 @@ import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Chec
 type Props = {
   title: string;
   children: ReactNode;
+  active?: boolean;
 };
 
 const CollapseStyled = styled.div`
@@ -21,14 +22,15 @@ const CollapseStyled = styled.div`
   }
 `;
 
-const Collapse: React.FC<Props> = ({ title, children }) => {
-  const [isOpened, setIsOpened] = useState(false);
+const Collapse: React.FC<Props> = ({ title, children, active }) => {
+  const [isOpened, setIsOpened] = useState(active || false);
   return (
     <CollapseStyled>
       <div className="collapse-title">
         <Checkbox
           name={title}
           label={<strong>{title}</strong>}
+          checked={active || isOpened}
           onChange={() => setIsOpened(!isOpened)}
         />
       </div>
