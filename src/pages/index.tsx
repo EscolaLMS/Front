@@ -15,11 +15,18 @@ import styled from "styled-components";
 import CourseCardBig from "@/components/CourseCardBig";
 import { IconBook, IconTag } from "../icons";
 import { isMobile } from "react-device-detect";
+import { t } from "i18next";
 
 const HomePageStyled = styled.div`
   display: flex;
   flex-direction: column;
-
+  padding-top: 50px;
+  @media (max-width: 1200px) {
+    padding-top: 150px;
+  }
+  @media (max-width: 991px) {
+    padding-top: 50px;
+  }
   .home-hero {
     margin-bottom: 60px;
     order: 1;
@@ -280,8 +287,8 @@ const Index = () => {
           <div className="container">
             <Banner
               mobile={isMobile}
-              title="Witaj w platformie elearningowej Orange. Pomożemy Ci znaleźć najlepsze szkolenia"
-              btnText="Jak to działa"
+              title={t("Homepage.HeroText")}
+              btnText={t("Homepage.HeroBtnText")}
               img={{
                 src: "/images/hero-img.png",
                 alt: "",
@@ -293,7 +300,7 @@ const Index = () => {
         <section className="home-best-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
-              <strong>Najlepsze szkolenia dla Ciebie</strong>
+              <strong>{t("Homepage.CoursesSlider1Title")}</strong>
             </Title>
             <SliderWrapper>
               <Slider
@@ -331,7 +338,7 @@ const Index = () => {
         <section className="home-newest-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
-              <strong>Ostatnio dodane</strong>
+              <strong>{t("Homepage.CoursesSlider2Title")}</strong>
             </Title>
             <SliderWrapper>
               <Slider
@@ -371,8 +378,10 @@ const Index = () => {
         <section className="home-awarded-courses">
           <div className="container">
             <div className="header-wrapper">
-              <Title level={3}>Nauka podstaw miękkich</Title>
-              <Button mode="outline">Zobacz więcej szkoleń</Button>
+              <Title level={3}>{t("Homepage.AwardedCoursesTitle")}</Title>
+              <Button mode="outline">
+                {t("Homepage.AwardedCoursesBtnText")}
+              </Button>
             </div>
             <div className="row">
               <div className="col-xl-4 small-padding main-col-1">
@@ -545,14 +554,14 @@ const Index = () => {
               </div>
             </div>
             <Button className="show-more-btn" block mode="outline">
-              Zobacz więcej szkoleń
+              {t("Homepage.AwardedCoursesBtnText")}
             </Button>
           </div>
         </section>
         <section className="home-categories">
           <div className="container">
             <Title level={3}>
-              <strong>Zobacz kategorie szkoleń</strong>
+              <strong>{t("Homepage.CategoriesTitle")}</strong>
             </Title>
             {isMobile ? (
               <div className="categories-slider">
@@ -565,7 +574,7 @@ const Index = () => {
                       <CategoryCard
                         icon={<IconTag />}
                         title={item.name}
-                        buttonText="Zobacz"
+                        buttonText={t("Homepage.CategoryBtnText")}
                         subtitle={
                           <IconText icon={<IconBook />} text="10 kursów" />
                         }
@@ -583,7 +592,7 @@ const Index = () => {
                     <CategoryCard
                       icon={<IconTag />}
                       title={item.name}
-                      buttonText="Zobacz"
+                      buttonText={t("Homepage.CategoryBtnText")}
                       subtitle={
                         <IconText icon={<IconBook />} text="10 kursów" />
                       }

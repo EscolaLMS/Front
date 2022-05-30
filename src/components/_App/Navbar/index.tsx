@@ -20,9 +20,12 @@ const StyledHeader = styled.header`
   top: 0;
   left: 0;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.95);
+  background: ${({ theme }) =>
+    theme.mode === "dark"
+      ? " rgba(35, 34, 37, 0.95)"
+      : "rgba(255, 255, 255, 0.95)"};
   backdrop-filter: blur(10px);
-  padding: 22px 0;
+  padding: ${isMobile ? "11px 0" : "22px 0"};
   .container {
     display: flex;
     justify-content: space-between;
@@ -88,6 +91,32 @@ const Navbar = () => {
   // }, [user]);
 
   const menuItems = [
+    {
+      title: "Przeglądaj",
+      key: "menuItem1",
+      children: [
+        {
+          title: (
+            <Link to="/">
+              <Text>Item 1</Text>
+            </Link>
+          ),
+          key: "submenu-1",
+        },
+        {
+          title: <Link to="/">Item 2</Link>,
+          key: "submenu-2",
+        },
+        {
+          title: <Link to="/">Item 3</Link>,
+          key: "submenu-3",
+        },
+        {
+          title: <Link to="/">Item 4</Link>,
+          key: "submenu-4",
+        },
+      ],
+    },
     {
       title: "Przeglądaj",
       key: "menuItem1",
