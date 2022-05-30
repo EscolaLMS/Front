@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import ExampleAvatar from "../../../images/example-avatar.png";
 
@@ -75,9 +75,7 @@ const StyledHeader = styled.header`
 `;
 
 const Navbar = () => {
-  const { t } = useTranslation();
-  const [menu, setMenu] = React.useState(true);
-  const { user: userObj, config } = useContext(EscolaLMSContext);
+  const { user: userObj } = useContext(EscolaLMSContext);
   const user = userObj.value;
   // const platformVisibility =
   //   config?.escolalms_courses?.platform_visibility === "public" || false;
