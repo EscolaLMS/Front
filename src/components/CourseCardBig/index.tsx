@@ -7,7 +7,6 @@ import { Title } from "@escolalms/components";
 
 type Props = {
   course: Course;
-  variant: "small" | "medium" | "big";
 };
 
 const CourseCardWrapper = styled.div`
@@ -37,8 +36,7 @@ const CourseCardWrapper = styled.div`
   }
 `;
 
-const CourseCardNew: React.FC<Props> = ({ course, variant }) => {
-  console.log(course);
+const CourseCardBig: React.FC<Props> = ({ course }) => {
   return (
     <CourseCardWrapper>
       {course && (
@@ -73,4 +71,4 @@ const CourseCardNew: React.FC<Props> = ({ course, variant }) => {
   );
 };
 
-export default CourseCardNew;
+export default CourseCardBig;
