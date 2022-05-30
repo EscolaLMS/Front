@@ -36,6 +36,7 @@ const CourseCardWrapper = styled.div`
   }
 `;
 
+//TODO: Temporary solution. It will be component in package
 const CourseCardBig: React.FC<Props> = ({ course }) => {
   return (
     <CourseCardWrapper>
