@@ -133,18 +133,19 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
                 marginRight: "4px",
               }}
             >
-              {t("Zaloguj się")}
+              {t<string>("Zaloguj się")}
             </Link>
             {t("CoursePage.ToSeeProgress")}
           </>
         ) : (
           <>
             <strong style={{ fontSize: 14 }}>
-              {t("CoursePage.Finished")} {progressMap || 0} {t("CoursePage.Of")}{" "}
-              {course.lessons?.length || 0} {t("CoursePage.Lessons")}
+              {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
+              {t<string>("CoursePage.Of")} {course.lessons?.length || 0}{" "}
+              {t<string>("CoursePage.Lessons")}
             </strong>
             <p style={{ marginTop: 9, marginBottom: 0 }}>
-              {t("CoursePage.FinishToGetCertificate")}
+              {t<string>("CoursePage.FinishToGetCertificate")}
             </p>
           </>
         )}

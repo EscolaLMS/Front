@@ -8,3 +8,5 @@ yarn.lock
 .DS_Store?
 yarn-error*
 .env
+package-lock.json
+build.sh

@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
 import "./index.scss";
-
-const MetaTag: React.FC<{ className?: string }> = ({ children, className= '' }) => {
+const MetaTag: React.FC<{ className?: string; children: React.ReactNode }> = ({
+  children,
+  className = "",
+}) => {
   return (
-      <div className={`meta-tag ${className}`}>
-          <span>{children}</span>
-      </div>
+    <div className={`meta-tag ${className}`}>
+      <span>{children}</span>
+    </div>
   );
 };
 

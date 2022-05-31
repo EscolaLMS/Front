@@ -299,7 +299,7 @@ const Index = () => {
         <section className="home-best-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
-              <strong>{t("Homepage.CoursesSlider1Title")}</strong>
+              <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
             <SliderWrapper>
               <Slider
@@ -337,7 +337,7 @@ const Index = () => {
         <section className="home-newest-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
-              <strong>{t("Homepage.CoursesSlider2Title")}</strong>
+              <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
             </Title>
             <SliderWrapper>
               <Slider
@@ -377,9 +377,11 @@ const Index = () => {
         <section className="home-awarded-courses">
           <div className="container">
             <div className="header-wrapper">
-              <Title level={3}>{t("Homepage.AwardedCoursesTitle")}</Title>
+              <Title level={3}>
+                {t<string>("Homepage.AwardedCoursesTitle")}
+              </Title>
               <Button mode="outline">
-                {t("Homepage.AwardedCoursesBtnText")}
+                {t<string>("Homepage.AwardedCoursesBtnText")}
               </Button>
             </div>
             <div className="row">
@@ -553,14 +555,14 @@ const Index = () => {
               </div>
             </div>
             <Button className="show-more-btn" block mode="outline">
-              {t("Homepage.AwardedCoursesBtnText")}
+              {t<string>("Homepage.AwardedCoursesBtnText")}
             </Button>
           </div>
         </section>
         <section className="home-categories">
           <div className="container">
             <Title level={3}>
-              <strong>{t("Homepage.CategoriesTitle")}</strong>
+              <strong>{t<string>("Homepage.CategoriesTitle")}</strong>
             </Title>
             {isMobile ? (
               <div className="categories-slider">

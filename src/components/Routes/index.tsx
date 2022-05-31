@@ -33,7 +33,10 @@ import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
 
-const ConditionalRouter: React.FC<{ basename: string }> = (props) => {
+const ConditionalRouter: React.FC<{
+  basename: string;
+  children: React.ReactNode;
+}> = (props) => {
   return routerType() === "BrowserRouter" ? (
     <BrowserRouter {...props} />
   ) : (

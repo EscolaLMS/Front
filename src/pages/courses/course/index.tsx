@@ -3,7 +3,7 @@ import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsS
 import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
