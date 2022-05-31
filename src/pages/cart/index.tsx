@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
-import { loadStripe, StripeCardNumberElement } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@/components/_App/Layout";
 import { API } from "@escolalms/sdk/lib";
 import "./index.scss";
@@ -11,15 +11,12 @@ import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Input } from "@escolalms/components/lib/components/atoms/Input/Input";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
 import { CartItem, Tag } from "@escolalms/sdk/lib/types/api";
-import { IconBadge, IconStar, IconThumbsUp } from "../../icons";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/Preloader";
 import Collapse from "@/components/Collapse";
@@ -28,9 +25,6 @@ import {
   useStripe,
   useElements,
   CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  Elements,
 } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 
