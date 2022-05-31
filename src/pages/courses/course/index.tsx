@@ -31,19 +31,6 @@ import { Tag } from "@escolalms/sdk/lib/types/api";
 
 resetIdCounter();
 
-const ratingsMock = {
-  sumRates: 40,
-  avgRate: 4.5,
-  rates: {
-    1: 6,
-    2: 5,
-    3: 4,
-    4: 15,
-    5: 10,
-  },
-  header: "Opinie studentów",
-};
-
 const StyledCoursePage = styled.div`
   section {
     margin-bottom: 45px;
@@ -188,18 +175,31 @@ const StyledCoursePage = styled.div`
     width: 100%;
     left: 0;
     position: ${isMobile ? "fixed" : "sticky"};
-    top: ${isMobile ? "unset" : "50px"};
+    top: ${isMobile ? "unset" : "130px"};
     bottom: ${isMobile ? "0" : "unset"};
     z-index: 100;
   }
 `;
 
 const CoursePage = () => {
-  const [dots, setDots] = useState(true);
+  const [dots] = useState(true);
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
     useContext(EscolaLMSContext);
+  const ratingsMock = {
+    sumRates: 40,
+    avgRate: 4.5,
+    rates: {
+      1: 6,
+      2: 5,
+      3: 4,
+      4: 15,
+      5: 10,
+    },
+    header: t("CoursePage.CourseRatingsTitle"),
+  };
+
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -243,7 +243,6 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-  console.log(course);
   return (
     <Layout>
       <StyledCoursePage>
@@ -274,9 +273,11 @@ const CoursePage = () => {
                       </div>
                     </div>
                     {isMobile ? (
-                      <Link underline>Zobacz więcej</Link>
+                      <Link underline>{t("CoursePage.HeroBtnText")}</Link>
                     ) : (
-                      <Button mode="outline">Zobacz więcej</Button>
+                      <Button mode="outline">
+                        {t("CoursePage.HeroBtnText")}
+                      </Button>
                     )}
                   </div>
                   <div className="col-lg-4">
@@ -291,7 +292,7 @@ const CoursePage = () => {
                 <div className="labels-row labels-row--bottom">
                   <div className="single-label">
                     <LabelListItem
-                      title="Kategoria szkolenia"
+                      title={t("CoursePage.CourseCategory")}
                       variant={"label"}
                     >
                       {course.value?.categories &&
@@ -301,12 +302,18 @@ const CoursePage = () => {
                     </LabelListItem>
                   </div>
                   <div className="single-label">
-                    <LabelListItem title="Poziom trudności" variant={"label"}>
+                    <LabelListItem
+                      title={t("CoursePage.Level")}
+                      variant={"label"}
+                    >
                       {course.value.level || "---"}
                     </LabelListItem>
                   </div>
                   <div className="single-label">
-                    <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
+                    <LabelListItem
+                      title={t("CoursePage.StartDate")}
+                      variant={"label"}
+                    >
                       {course.value.active_from
                         ? format(
                             new Date(String(course.value.active_from)),
@@ -316,7 +323,10 @@ const CoursePage = () => {
                     </LabelListItem>
                   </div>
                   <div className="single-label">
-                    <LabelListItem title="Czas trwania" variant={"label"}>
+                    <LabelListItem
+                      title={t("CoursePage.Duration")}
+                      variant={"label"}
+                    >
                       {course.value.duration}
                     </LabelListItem>
                   </div>
@@ -324,9 +334,7 @@ const CoursePage = () => {
               </section>
               <section className="course-companies">
                 <Text>
-                  <strong>
-                    Firmy które oferują ten kurs swoim pracownikom
-                  </strong>
+                  <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
                   <div className="single-company">
@@ -383,7 +391,9 @@ const CoursePage = () => {
                 />
               </section>
               <section className="course-description-short with-border padding-right">
-                <Title level={4}>Opis szkolenia</Title>
+                <Title level={4}>
+                  {t("CoursePage.CourseDescriptionTitle")}
+                </Title>
                 <MarkdownReader>{course.value.description}</MarkdownReader>
               </section>
               <section className="course-ratings padding-right">
@@ -402,7 +412,7 @@ const CoursePage = () => {
             <div className="row">
               <div className="col-lg-9">
                 <div className="content-container">
-                  <Title level={4}>Powiązane szkolenia</Title>
+                  <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
                   <div className="slider-wrapper">
                     <Slider
                       settings={{ ...sliderSettings, dots }}
@@ -432,7 +442,7 @@ const CoursePage = () => {
                   </div>
                 </div>
                 <div className="content-container">
-                  <Title level={4}>Może Cię zainteresuje</Title>
+                  <Title level={4}>{t("CoursePage.InterestTitle")}</Title>
                   <div className="slider-wrapper">
                     <Slider
                       settings={{ ...sliderSettings, dots }}

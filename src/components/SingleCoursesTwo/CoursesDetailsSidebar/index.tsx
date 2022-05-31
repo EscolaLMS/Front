@@ -20,7 +20,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
-  const { cart, addToCart, progress, config, user, fetchProgress } =
+  const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
   const { push } = useHistory();
@@ -60,6 +60,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       );
       return (100 * finishedLessons.length) / courseProgress;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
 
   return !isMobile ? (
@@ -87,7 +88,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       />
       {courseInCart ? (
         <Button mode="secondary" onClick={() => push("/cart")}>
-          Do kasy
+          {t("CoursePage.GoToCheckout")}
         </Button>
       ) : userOwnThisCourse ? (
         <Button mode="secondary">{t("Attend to Course")}</Button>
@@ -98,23 +99,23 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : (
         <Text>{t("Login to buy")}</Text>
       )}
-      <Text size={"12"}>Gwarantowane 30 dni na zwrot</Text>
+      <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
         <IconText icon={<IconCamera />} text={course.duration} />
         <IconText
           icon={<IconDownload />}
-          text={"Materiały szkoleniowe do pobrania"}
+          text={t("CoursePage.ContentToDownload")}
         />
         <IconText
           icon={<IconSquares />}
-          text={"Dostęp na smartphone i tablet"}
+          text={t("CoursePage.SmartphoneAccess")}
         />
-        <IconText icon={<IconBadge />} text={"Certyfikat ukończenia"} />
+        <IconText icon={<IconBadge />} text={t("CoursePage.Certificate")} />
       </div>
       <CourseProgress
         progress={(progressMap || 0) / 100}
         icon={<IconWin />}
-        title="Moje postepy"
+        title={t("CoursePage.MyProgress")}
       >
         {!user.value ? (
           <>
@@ -124,17 +125,18 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
                 marginRight: "4px",
               }}
             >
-              Zaloguj się
+              {t("Zaloguj się")}
             </Link>
-            aby widzieć postępy
+            {t("CoursePage.ToSeeProgress")}
           </>
         ) : (
           <>
             <strong style={{ fontSize: 14 }}>
-              Ukończono {progressMap} z 40 lekcji
+              {t("CoursePage.Finished")} {progressMap} {t("CoursePage.Of")} 40{" "}
+              {t("CoursePage.Lessons")}
             </strong>
             <p style={{ marginTop: 9, marginBottom: 0 }}>
-              Ukoncz kurs aby zdobyc certyfikat
+              {t("CoursePage.FinishToGetCertificate")}
             </p>
           </>
         )}

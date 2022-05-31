@@ -2,7 +2,7 @@
   "name": "escolalms-demo",
   "version": "0.1.0",
   "dependencies": {
-    "@escolalms/components": "^0.0.7",
+    "@escolalms/components": "^0.0.8",
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0",
     "@escolalms/ts-models": "^0",
@@ -38,6 +38,7 @@
     "formik": "^2.2.9",
     "i18next": "^21.4.0",
     "jspdf": "^2.5.0",
+    "lava": "^0.13.6",
     "leva": "^0.9.27",
     "lodash.flow": "^3.5.0",
     "react": "^17.0.2",
@@ -65,6 +66,7 @@
     "rehype-raw": "^6.1.0",
     "remark-gfm": "^3.0.0",
     "sass": "^1.42.1",
+    "screenfull": "^6.0.1",
     "styled-components": "^5.3.5",
     "svg2pdf.js": "^2.2.0",
     "typescript": "^4.7.2",
@@ -91,18 +93,11 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "plugins": [
     "babel-plugin-styled-components"
   ],

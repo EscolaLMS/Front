@@ -14,8 +14,8 @@ import styled from "styled-components";
 const StyledMain = styled.main`
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+  padding-top: 167px;
 `;
-
 const App = () => {
   const [, setTheme] = useLocalTheme();
   return (
