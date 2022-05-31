@@ -20,7 +20,7 @@ jobs:
         run: |
           rm -rf ./node_modules
           rm -f ./package-lock.json
-          npm i
+          npm i --legacy-peer-deps
           npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
