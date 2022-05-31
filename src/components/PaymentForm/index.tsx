@@ -6,6 +6,7 @@ import {
   CardExpiryElement,
   CardNumberElement,
 } from "@stripe/react-stripe-js";
+import styled, { useTheme } from "styled-components";
 
 type Props = {
   billingDetails: {
@@ -14,105 +15,82 @@ type Props = {
   setBillingDetails: ({ name }: { name: string }) => void;
 };
 
+const StyledForm = styled.div`
+  .input-wrapper {
+    padding: 11px 12px 13px;
+    border: 1px solid
+      ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray4)};
+
+    &--custom {
+      @media (max-width: 991px) {
+        margin-bottom: 30px;
+      }
+    }
+  }
+`;
+
 const PaymentForm: React.FC<Props> = ({
   billingDetails,
   setBillingDetails,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
-  const options = useMemo(
-    () => ({
+  const options = useMemo(() => {
+    return {
       style: {
         base: {
-          iconColor: "#c4f0ff",
-          color: "#000000",
-          fontWeight: 500,
-          fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+          backgroundColor: theme.mode === "dark" ? theme.gray1 : theme.gray5,
+          padding: "11px 12px 13px",
+          border: `1px solid red`,
+          color: theme.mode === "dark" ? theme.white : theme.gray1,
           fontSize: "16px",
-          fontSmoothing: "antialiased",
-          ":-webkit-autofill": {
-            color: "#000000",
-          },
           "::placeholder": {
-            color: "#999999",
+            color: theme.mode === "dark" ? theme.white : theme.gray1,
           },
         },
         invalid: {
           color: "#ff0000",
         },
       },
-    }),
-    []
-  );
+    };
+  }, []);
 
   return (
-    <div className="row">
-      <div className="col-md-6">
-        <div className="input-wrapper">
-          <Input
-            label="Imię Nazwisko"
-            type="text"
-            onChange={(e) =>
-              setBillingDetails({
-                ...billingDetails,
-                name: e.currentTarget.value,
-              })
-            }
-            value={billingDetails.name}
-          />
+    <StyledForm>
+      <div className="row">
+        <div className="col-lg-6">
+          <div className="input-wrapper--custom">
+            <Input
+              label="Imię Nazwisko"
+              type="text"
+              onChange={(e) =>
+                setBillingDetails({
+                  ...billingDetails,
+                  name: e.currentTarget.value,
+                })
+              }
+              value={billingDetails.name}
+            />
+          </div>
+        </div>
+        <div className="col-lg-6">
+          <div className="input-wrapper">
+            <CardNumberElement options={options} />
+          </div>
+        </div>
+        <div className="col-lg-6">
+          <div className="input-wrapper">
+            <CardExpiryElement options={options} />
+          </div>
+        </div>
+        <div className="col-lg-6">
+          <div className="input-wrapper">
+            <CardCvcElement options={options} />
+          </div>
         </div>
       </div>
-      <div className="col-md-6">
-        <div className="input-wrapper">
-          {/* <Input
-            onChange={(e) =>
-              setBillingDetails({
-                ...billingDetails,
-                cardNumber: e.currentTarget.value,
-              })
-            }
-            id="cardNumber"
-            value={billingDetails.cardNumber}
-            label="Numer karty"
-            type="text"
-          /> */}
-          <CardNumberElement />
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div className="input-wrapper">
-          {/* <Input
-            onChange={(e) =>
-              setBillingDetails({
-                ...billingDetails,
-                expireDate: e.currentTarget.value,
-              })
-            }
-            value={billingDetails.expireDate}
-            label="Data ważności"
-            type="text"
-          /> */}
-          <CardExpiryElement options={options} />
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div className="input-wrapper">
-          {/* <Input
-            onChange={(e) =>
-              setBillingDetails({
-                ...billingDetails,
-                cvc: e.currentTarget.value,
-              })
-            }
-            value={billingDetails.cvc}
-            id="card-cvc-element"
-            label="Kod CVC/CCV"
-            type="text"
-          /> */}
-          <CardCvcElement options={options} />
-        </div>
-      </div>
-    </div>
+    </StyledForm>
   );
 };
 

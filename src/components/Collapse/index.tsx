@@ -19,6 +19,9 @@ const CollapseStyled = styled.div`
     padding-top: 22px;
     margin-top: 16px;
     border-top: 1px solid ${({ theme }) => theme.gray1};
+    @media (max-width: 991px) {
+      padding: 30px 0 0 0;
+    }
   }
 `;
 

@@ -39,8 +39,14 @@ const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 const CartPageStyled = styled.section`
   .module-wrapper {
     margin-bottom: 55px;
+    @media (max-width: 991px) {
+      margin-bottom: 33px;
+    }
     h4 {
       margin-bottom: 20px;
+      @media (max-width: 991px) {
+        text-align: center;
+      }
     }
   }
   .products-container {
@@ -109,6 +115,9 @@ const SliderWrapper = styled.div`
   }
   .single-slide {
     max-width: calc(100% - 20px);
+    a {
+      text-decoration: none !important;
+    }
   }
   .slick-dots {
     top: -65px;
@@ -193,6 +202,7 @@ const CartPage = () => {
   const { location, push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
+  const history = useHistory();
   // const options = useOptions();
   const [error, setError] = useState<string | undefined>(undefined);
   const [processing, setProcessing] = useState(false);
@@ -328,7 +338,6 @@ const CartPage = () => {
   if (location.search === "?status=success") {
     return <ThankYouPage />;
   }
-
   return (
     <Layout>
       <CartPageStyled>
@@ -348,29 +357,29 @@ const CartPage = () => {
                           alt: item.product?.name || "",
                         }}
                         title={item.product?.name}
-                        subtitle="5 lekcji"
+                        // subtitle="5 lekcji"
                         price={`${String(item.product?.price)} zł`}
                         oldPrice={`${String(item.product?.price_old || "")}`}
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
-                        summary={[
-                          <IconText
-                            icon={<IconThumbsUp />}
-                            text={"90%"}
-                            noMargin
-                          />,
-                          <IconText
-                            icon={<IconBadge />}
-                            text={"Gwarancja"}
-                            noMargin
-                          />,
-                          <IconText
-                            icon={<IconStar />}
-                            text={"5.0"}
-                            noMargin
-                          />,
-                        ]}
+                        // summary={[
+                        //   <IconText
+                        //     icon={<IconThumbsUp />}
+                        //     text={"90%"}
+                        //     noMargin
+                        //   />,
+                        //   <IconText
+                        //     icon={<IconBadge />}
+                        //     text={"Gwarancja"}
+                        //     noMargin
+                        //   />,
+                        //   <IconText
+                        //     icon={<IconStar />}
+                        //     text={"5.0"}
+                        //     noMargin
+                        //   />,
+                        // ]}
                       />
                     ))}
                   </div>
@@ -421,6 +430,96 @@ const CartPage = () => {
                     >
                       {courses.list?.data.map((item) => (
                         <div key={item.id} className="single-slide">
+                          <Link to={`/courses/${item.id}`}>
+                            <CourseCard
+                              id={item.id}
+                              title={item.title}
+                              categories={{
+                                categoryElements: item.categories || [],
+                                onCategoryClick: () => console.log("clicked"),
+                              }}
+                              lessonCount={5}
+                              hideImage={false}
+                              subtitle={
+                                <Text>
+                                  <strong style={{ fontSize: 14 }}>
+                                    100% Online
+                                  </strong>
+                                </Text>
+                              }
+                              image={{
+                                url: item.image_url,
+                                alt: "",
+                              }}
+                              tags={item.tags as Tag[]}
+                              onButtonClick={() => console.log("clicked")}
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                    </Slider>
+                  </SliderWrapper>
+                </section>
+              </div>
+              <div className="col-lg-3">
+                <Title level={4}>Podsumowanie</Title>
+                <div className="summary-box-wrapper">
+                  <CartCard
+                    onBuyClick={() => handleSubmit()}
+                    id={1}
+                    title={`${String(cart.value?.total)} zł`}
+                    description={
+                      <Text style={{ fontSize: 12, margin: 0 }}>
+                        Guaranteed 30 days for return
+                      </Text>
+                    }
+                    discount={{
+                      onDiscountClick: (discountValue) =>
+                        realizeVoucher(discountValue)
+                          .then((response) => {
+                            if (response.success) {
+                              setDiscountStatus("granted");
+                              fetchCart();
+                            } else {
+                              setDiscountStatus("error");
+                            }
+                          })
+                          .catch((err) => {
+                            setDiscountStatus("error");
+                            console.log(err);
+                          }),
+                      onDeleteDiscountClick: () => console.log("clicked"),
+                      status: discountStatus,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="empty-cart">
+                <Title level={3}>Twój koszyk jest pusty</Title>
+                <Text>
+                  Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć
+                  podnosić swojej kwalifikacje.
+                </Text>
+                <Button
+                  mode="secondary"
+                  onClick={() => history.push("/courses")}
+                >
+                  Wybierz kurs dla siebie
+                </Button>
+              </div>
+              <section className="slider-section">
+                <Title level={4}>Może Cię zainteresuje</Title>
+                <SliderWrapper>
+                  <Slider
+                    settings={{ ...sliderSettingsBig, dots }}
+                    dotsPosition="top right"
+                  >
+                    {courses.list?.data.map((item) => (
+                      <div key={item.id} className="single-slide">
+                        <Link to={`/courses/${item.id}`}>
                           <CourseCard
                             id={item.id}
                             title={item.title}
@@ -444,83 +543,7 @@ const CartPage = () => {
                             tags={item.tags as Tag[]}
                             onButtonClick={() => console.log("clicked")}
                           />
-                        </div>
-                      ))}
-                    </Slider>
-                  </SliderWrapper>
-                </section>
-              </div>
-              <div className="col-lg-3">
-                <Title level={4}>Podsumowanie</Title>
-                <div className="summary-box-wrapper">
-                  <CartCard
-                    onBuyClick={() => handleSubmit()}
-                    id={1}
-                    title={`${String(cart.value?.total)} zł`}
-                    description={
-                      <Text style={{ fontSize: 12, margin: 0 }}>
-                        Guaranteed 30 days for return
-                      </Text>
-                    }
-                    discount={{
-                      onDiscountClick: () =>
-                        realizeVoucher("").then((response) => {
-                          if (response.success) {
-                            setDiscountStatus("granted");
-                            fetchCart();
-                          } else {
-                            setDiscountStatus("error");
-                          }
-                        }),
-                      onDeleteDiscountClick: () => console.log("clicked"),
-                      status: discountStatus,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="empty-cart">
-                <Title level={3}>Twój koszyk jest pusty</Title>
-                <Text>
-                  Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć
-                  podnosić swojej kwalifikacje.
-                </Text>
-                <Button mode="secondary">Wybierz kurs dla siebie</Button>
-              </div>
-              <section className="slider-section">
-                <Title level={4}>Może Cię zainteresuje</Title>
-                <SliderWrapper>
-                  <Slider
-                    settings={{ ...sliderSettingsBig, dots }}
-                    dotsPosition="top right"
-                  >
-                    {courses.list?.data.map((item) => (
-                      <div key={item.id} className="single-slide">
-                        <CourseCard
-                          id={item.id}
-                          title={item.title}
-                          categories={{
-                            categoryElements: item.categories || [],
-                            onCategoryClick: () => console.log("clicked"),
-                          }}
-                          lessonCount={5}
-                          hideImage={false}
-                          subtitle={
-                            <Text>
-                              <strong style={{ fontSize: 14 }}>
-                                100% Online
-                              </strong>
-                            </Text>
-                          }
-                          image={{
-                            url: item.image_url,
-                            alt: "",
-                          }}
-                          tags={item.tags as Tag[]}
-                          onButtonClick={() => console.log("clicked")}
-                        />
+                        </Link>
                       </div>
                     ))}
                   </Slider>
