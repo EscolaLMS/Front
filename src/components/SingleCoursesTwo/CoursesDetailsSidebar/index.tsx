@@ -157,11 +157,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       </Title>
       <div className="pricing-card-footer">
         <div>
-          <div className="pricing-card-discount">
-            <Title level={5} as={"h5"}>
-              {course.product?.price || 0} zł
-            </Title>
-          </div>
+          {course.product?.price_old && (
+            <div className="pricing-card-discount">
+              <Title level={5} as={"h5"}>
+                {course.product?.price_old} zł
+              </Title>
+            </div>
+          )}
           <Title level={4} as={"h4"}>
             {course.product?.price} zł
           </Title>
@@ -169,13 +171,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <div>
           {courseInCart ? (
             <Button block mode="secondary" onClick={() => push("/cart")}>
-              Do kasy
+              {t("CoursePage.GoToCheckout")}
             </Button>
           ) : userOwnThisCourse ? (
             <Button block mode="secondary">
               {t("Attend to Course")}
             </Button>
-          ) : user.value ? (
+          ) : user.value && course.product ? (
             <Button
               block
               mode="secondary"
@@ -183,6 +185,8 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
             >
               {t("Buy Course")}
             </Button>
+          ) : !course.product ? (
+            <Text>{t("CoursePage.UnavailableCourse")}</Text>
           ) : (
             <Button block mode="secondary">
               {t("Login to buy")}

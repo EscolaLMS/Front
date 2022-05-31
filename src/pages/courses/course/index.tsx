@@ -25,7 +25,7 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-// import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
+import { Link as TextLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { Tag } from "@escolalms/sdk/lib/types/api";
@@ -277,16 +277,13 @@ const CoursePage = () => {
                         </LabelListItem>
                       </div>
                     </div>
-                    <Button mode="outline">
-                      {t("CoursePage.HeroBtnText")}
-                    </Button>
-                    {/* {isMobile ? (
-                      <Link>{t("CoursePage.HeroBtnText")}</Link>
+                    {isMobile ? (
+                      <TextLink>{t("CoursePage.HeroBtnText")}</TextLink>
                     ) : (
                       <Button mode="outline">
                         {t("CoursePage.HeroBtnText")}
                       </Button>
-                    )} */}
+                    )}
                   </div>
                   <div className="col-lg-4">
                     <div className="image-wrapper">
