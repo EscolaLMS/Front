@@ -5,7 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import { loadStripe, StripeCardNumberElement } from "@stripe/stripe-js";
 import Layout from "@/components/_App/Layout";
-// import { API } from '@escolalms/sdk/lib';
+import { API } from "@escolalms/sdk/lib";
 import "./index.scss";
 import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -262,7 +262,7 @@ const CartPage = () => {
   }, [location, user]);
 
   const priceLiteral = useCallback(
-    (course) => {
+    (course: API.Course) => {
       return course.base_price === 0
         ? t("FREE")
         : `${config?.escolalms_payments?.default_currency} ${(
@@ -272,7 +272,7 @@ const CartPage = () => {
     [t, config]
   );
 
-  const onPay = useCallback((paymentMethodId) => {
+  const onPay = useCallback((paymentMethodId: string) => {
     payWithStripe(paymentMethodId).then(() => {
       push("/user/my-courses");
       fetchCart();
@@ -344,9 +344,8 @@ const CartPage = () => {
                         key={item.id}
                         mobile={isMobile}
                         img={{
-                          src: item.product?.poster_url,
-                          alt: item.product?.name,
-                          title: item.product?.name,
+                          src: item.product?.poster_url || "",
+                          alt: item.product?.name || "",
                         }}
                         title={item.product?.name}
                         subtitle="5 lekcji"

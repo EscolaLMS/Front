@@ -11,7 +11,13 @@ import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCusto
 import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 import { Elements } from "@stripe/react-stripe-js";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import styled from "styled-components";
 
+const StyledMain = styled.main`
+  background-color: ${({ theme }) =>
+    theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+  padding-top: 167px;
+`;
 const App = () => {
   const [, setTheme] = useLocalTheme();
   const { config } = useContext(EscolaLMSContext);
@@ -20,7 +26,7 @@ const App = () => {
   const stripeConfigs: any = config?.escolalms_payments?.drivers;
   const stripeKey = stripeConfigs.stripe.publishable_key;
   return (
-    <main>
+    <StyledMain>
       <Elements stripe={stripePromise(stripeKey)}>
         <ThemeCustomizer
           onUpdate={(theme) => {
@@ -29,7 +35,7 @@ const App = () => {
         />
         <Routes />
       </Elements>
-    </main>
+    </StyledMain>
   );
 };
 

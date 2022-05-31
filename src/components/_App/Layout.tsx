@@ -8,6 +8,7 @@ import GoTop from "@/components/_App/GoTop";
 // import Footer from "@/components/_App/Footer";
 import CourseNavbar from "@/components/_App/CourseNavbar";
 import CoursePreviewNavbar from "./CoursePreviewNavbar";
+import Navbar from "./Navbar";
 declare global {
   interface Window {
     ybug_settings: Ybug;

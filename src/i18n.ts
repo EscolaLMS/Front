@@ -400,15 +400,31 @@ const resources = {
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
-        Tabs: {
-          Summary: "Podsumowanie",
-          Program: "Program",
-          Instructor: "Nauczyciel",
-          Description: "Opis",
-        },
-        Preview: {
-          SeeOther: "Zobacz inne",
-        },
+        HeroBtnText: "Zobacz więcej",
+        Level: "Poziom trudności",
+        StartDate: "Termin rozpoczęcia",
+        CourseCategory: "Kategoria szkolenia",
+        Duration: "Czas trwania",
+        CompaniesTitle: "Firmy które oferują ten kurs swoim pracownikom",
+        CourseDescriptionTitle: "Opis szkolenia",
+        CourseRatingsTitle: "Opinie studentów",
+        RelatedCoursesTitle: "Powiązane szkolenia",
+        InterestTitle: "Może Cię zainteresuje",
+        GoToCheckout: "Do kasy",
+        "30Days": "Gwarantowane 30 dni na zwrot",
+        ContentToDownload: "Materiały szkoleniowe do pobrania",
+        SmartphoneAccess: "Dostęp na smartphone i tablet",
+        Certificate: "Certyfikat ukończenia",
+        Finished: "Ukończono",
+        Of: "z",
+        Lessons: "lekcji",
+        FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
+        MyProgress: "Moje postępy",
+        ToSeeProgress: "aby widzieć postępy",
+        UnavailableCourse: "Kurs niemozliwy do kupienia",
+        AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
+        Satisfaction: "zadowolenia lub zwrot pieniędzy*",
+        Recommends: "Poleca szkolenia Jana Kaminskiego",
       },
       Cart: {
         Cart: "Koszyk",
@@ -453,14 +469,15 @@ const resources = {
         Courses: "Kursy instruktorów",
       },
       Homepage: {
-        heading: "Cyfrowy Dobrostan",
-        headingText: `Nowoczesne technologie informacyjno-komunikacyjne na zawsze
-        zmieniły sposób, w jaki żyjemy i funkcjonujemy. Naucz się, jak
-        przejąć nad nimi kontrolę, aby w pełni wykorzystać ich
-        potencjał. To Ty masz mieć nad nimi władzę, a nie one nad Tobą.`,
-        joinFree: "Dołącz bezpłatnie",
-        headingText2:
-          "Podnieś swoje umiejętności dzięki EscolaLMS w dowolnym czasie i miejscu",
+        HeroBtnText: "Jak to działa",
+        HeroText:
+          "Witaj w platformie elearningowej Orange. Pomożemy Ci znaleźć najlepsze szkolenia",
+        CoursesSlider1Title: "Najlepsze szkolenia dla Ciebie",
+        CoursesSlider2Title: "Ostatnio dodane",
+        AwardedCoursesTitle: "Nauka podstaw miękkich",
+        AwardedCoursesBtnText: "Zobacz więcej szkoleń",
+        CategoriesTitle: "Zobacz kategorie szkoleń",
+        CategoryBtnText: "Zobacz",
       },
       LoginPage: {
         RememberMe: "Zapamietaj mnie",

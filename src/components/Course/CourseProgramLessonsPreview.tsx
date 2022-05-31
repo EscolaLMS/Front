@@ -1,19 +1,22 @@
-import React, { useEffect } from 'react';
-import { API } from '@escolalms/sdk/lib';
-import CourseProgramContent from '../../escolalms/sdk/components/Course/CourseProgramContent';
-import CourseSidebar from '../../escolalms/sdk/components/Course/CourseSidebar';
-import MarkdownReader from '../../escolalms/sdk/components/Markdown/MarkdownReader';
-import { fixContentForMarkdown } from '../../escolalms/sdk/utils/markdown';
-import { useLessonProgram } from '../../escolalms/sdk/hooks/useLessonProgram';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from "react";
+import { API } from "@escolalms/sdk/lib";
+import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
+import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
+import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
+import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
+import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
+import { useTranslation } from "react-i18next";
 
-export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram }> = ({
-  program,
-}) => {
-  const { topic, lesson, onNextTopicPreview } = useLessonProgram(program, `/courses/preview/`);
+export const CourseProgramLessonsPreview: React.FC<{
+  program: API.CourseProgram;
+}> = ({ program }) => {
+  const { topic, lesson, onNextTopicPreview } = useLessonProgram(
+    program,
+    `/courses/preview/`
+  );
   const { t } = useTranslation();
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [topic?.id, lesson?.id]);
 
   return (
@@ -27,7 +30,7 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
 
                 {topic &&
                   topic.introduction &&
-                  fixContentForMarkdown(`${topic.introduction}`) !== '' && (
+                  fixContentForMarkdown(`${topic.introduction}`) !== "" && (
                     <div className={`col-lg-12 col-md-12 col-sm-12`}>
                       <div className="container-md">
                         <MarkdownReader>{topic.introduction}</MarkdownReader>
@@ -49,19 +52,23 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
               </div>
 
               <div className="row">
-                {lesson && lesson.summary && fixContentForMarkdown(`${lesson.summary}`) !== '' && (
-                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                    <div className="course-program-summary">
-                      <MarkdownReader>{lesson.summary}</MarkdownReader>
+                {lesson &&
+                  lesson.summary &&
+                  fixContentForMarkdown(`${lesson.summary}`) !== "" && (
+                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                      <div className="course-program-summary">
+                        <MarkdownReader>{lesson.summary}</MarkdownReader>
+                      </div>
                     </div>
-                  </div>
-                )}
-                {topic && topic.summary && fixContentForMarkdown(`${topic.summary}`) !== '' && (
-                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                    <div className="course-program-summary">
-                      <MarkdownReader>{topic.summary}</MarkdownReader>
-                      {/* Leave it in case the business changes its mind. */}
-                      {/* {topic && topic.resources && topic.resources?.length > 0 && (
+                  )}
+                {topic &&
+                  topic.summary &&
+                  fixContentForMarkdown(`${topic.summary}`) !== "" && (
+                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                      <div className="course-program-summary">
+                        <MarkdownReader>{topic.summary}</MarkdownReader>
+                        {/* Leave it in case the business changes its mind. */}
+                        {/* {topic && topic.resources && topic.resources?.length > 0 && (
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
@@ -73,15 +80,18 @@ export const CourseProgramLessonsPreview: React.FC<{ program: API.CourseProgram 
                           </div>
                         </React.Fragment>
                       )} */}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
 
               <div className="course-program-player-next">
-                <button className={`default-btn default-btn-equal`} onClick={onNextTopicPreview}>
+                <button
+                  className={`default-btn default-btn-equal`}
+                  onClick={() => onNextTopicPreview()}
+                >
                   <div className="course-program-player-next-button__wrapper">
-                    {t('Next Topic')} &gt;
+                    {t("Next Topic")} &gt;
                   </div>
                   <span></span>
                 </button>

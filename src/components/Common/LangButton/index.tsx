@@ -1,34 +1,34 @@
-import React, { useCallback, useMemo } from 'react';
-import './index.scss';
-import { useTranslation } from 'react-i18next';
+import React, { useCallback, useMemo } from "react";
+import "./index.scss";
+import { useTranslation } from "react-i18next";
 
-const LangButton: React.FC<{ className?: string }> = ({ className = '' }) => {
+const LangButton: React.FC<{ className?: string }> = ({ className = "" }) => {
   const { i18n } = useTranslation();
 
   const onChangeLang = useCallback(
-    (lang) => {
+    (lang: string) => {
       if (lang) {
         i18n.changeLanguage(lang);
       }
     },
-    [i18n],
+    [i18n]
   );
 
   const languages = useMemo(
     () => [
       {
-        lang: 'pl',
-        icon: '🇵🇱',
-        label: 'Polish',
+        lang: "pl",
+        icon: "🇵🇱",
+        label: "Polish",
       },
-      { lang: 'en', icon: '🇺🇸', label: 'English' },
+      { lang: "en", icon: "🇺🇸", label: "English" },
     ],
-    [],
+    []
   );
 
   const selectedLang = useMemo(
     () => languages.find((lang) => lang.lang === i18n.language),
-    [languages, i18n.language],
+    [languages, i18n.language]
   );
 
   return (

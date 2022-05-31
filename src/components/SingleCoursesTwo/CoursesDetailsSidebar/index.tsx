@@ -1,186 +1,201 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import Image from '@escolalms/sdk/lib/react/components/Image';
-import { API } from '@escolalms/sdk/lib';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { Spinner } from 'reactstrap';
-import { format } from 'date-fns';
-//@ts-ignore
-import ModalVideo from 'react-modal-video'; // TODO: seems type is missing heere
-import './index.scss';
+import React, { useContext, useEffect, useMemo } from "react";
+import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
+import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
+import ReactMarkdown from "react-markdown";
+import {
+  IconTime,
+  IconDownload,
+  IconSquares,
+  IconBadge,
+  IconWin,
+  IconCamera,
+} from "../../../icons";
+import { t } from "i18next";
+import { Link, useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 
-const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const openModal = () => {
-    setIsOpen(!isOpen);
-  };
+const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
+  course,
+}) => {
+  const { cart, addToCart, progress, user, fetchProgress } =
+    useContext(EscolaLMSContext);
+  const { id } = course;
+  const { push } = useHistory();
+  useEffect(() => {
+    user && user.value && fetchProgress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-  const { t } = useTranslation();
+  const courseInCart = useMemo(() => {
+    return cart?.value?.items.some(
+      (item: any) => Number(item.id) === Number(id)
+    );
+  }, [id, cart]);
 
-  const { cart, addToCart } = useContext(EscolaLMSContext);
+  const userOwnThisCourse = useMemo(() => {
+    return (
+      progress.value &&
+      progress.value.findIndex(
+        (item: API.CourseProgressItem) => item.course.id === id
+      ) !== -1
+    );
+  }, [progress, id]);
+  // const priceLiteral = useMemo(() => {
+  //   return course.product?.price === 0
+  //     ? t("FREE")
+  //     : `${config?.escolalms_payments?.default_currency} ${(
+  //         (course.product?.price || 0) / 100
+  //       ).toFixed(2)}`;
+  // }, [course, config]);
+  const progressMap = useMemo(() => {
+    if (user.value && userOwnThisCourse) {
+      const currentCourse =
+        progress.value?.filter((item) => item.course.id === id) || [];
+      const courseProgress = currentCourse[0].progress.length;
+      const finishedLessons = currentCourse[0].progress.filter(
+        (item) => item.status > 0
+      );
+      return (100 * finishedLessons.length) / courseProgress;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progress]);
 
-  return (
-    <div className="courses-sidebar-sticky">
-      {course.video_url && (
-        <ModalVideo
-          channel="custom"
-          isOpen={!isOpen}
-          url={course.video_url}
-          onClose={() => setIsOpen(!isOpen)}
-        />
+  return !isMobile ? (
+    <PricingCard>
+      <Title level={4} as="h4">
+        Księgowość dla początkujących
+      </Title>
+      <div className="pricing-card-price">
+        <Title level={3} as={"h3"}>
+          {course.product?.price || 0} zł
+        </Title>
+        {course.product?.price_old && (
+          <div className="pricing-card-discount">
+            <Title level={5} as={"h5"}>
+              {course.product?.price_old} zł
+            </Title>
+          </div>
+        )}
+      </div>
+      <IconText
+        icon={<IconTime />}
+        text={
+          <ReactMarkdown components={{ p: React.Fragment }}>
+            **8h 12 min** time left
+          </ReactMarkdown>
+        }
+      />
+      {courseInCart ? (
+        <Button mode="secondary" onClick={() => push("/cart")}>
+          {t("CoursePage.GoToCheckout")}
+        </Button>
+      ) : userOwnThisCourse ? (
+        <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
+          {t("Attend to Course")}
+        </Button>
+      ) : user.value && course.product ? (
+        <Button mode="secondary" onClick={() => addToCart(Number(course.id))}>
+          {t("Buy Course")}
+        </Button>
+      ) : !course.product ? (
+        <Text>{t("CoursePage.UnavailableCourse")}</Text>
+      ) : (
+        <Link to="/authentication">
+          <Text>{t("Login to buy")}</Text>
+        </Link>
       )}
-
-      <div className="courses-details-info">
-        <div className="image">
-          {course.image_path && <Image path={course.image_path} srcSizes={[356, 356 * 2]} />}
-
-          {course.video_url && (
-            <React.Fragment>
-              <div
-                onKeyDown={(e) => {
-                  e.preventDefault();
-                  openModal();
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  openModal();
-                }}
-                className="link-btn popup-youtube"
-                role="button"
-                tabIndex={-1}
-              />
-
-              <div className="content">
-                <i className="flaticon-play" />
-                <span>{t('Course Preview')}</span>
-              </div>
-            </React.Fragment>
-          )}
-        </div>
+      <Text size={"12"}> {t("CoursePage.30Days")}</Text>
+      <div className="pricing-card-features">
+        <IconText icon={<IconCamera />} text={course.duration} />
+        <IconText
+          icon={<IconDownload />}
+          text={t("CoursePage.ContentToDownload")}
+        />
+        <IconText
+          icon={<IconSquares />}
+          text={t("CoursePage.SmartphoneAccess")}
+        />
+        <IconText icon={<IconBadge />} text={t("CoursePage.Certificate")} />
       </div>
-
-      <div className="courses-sidebar-information">
-        <ul className="info">
-          <li>
-            <div className="d-flex justify-content-between align-items-center">
-              <span>
-                <i className="flaticon-time" /> {t('Duration')}
-              </span>
-              {course.duration}
-            </div>
-          </li>
-          {course.hours_to_complete && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-time" /> {t('hours_to_complete')}
-                </span>
-                {course.hours_to_complete}
-              </div>
-            </li>
-          )}
-          {course.active_from && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-calendar" /> {t('Access from')}
-                </span>
-
-                {format(new Date(course.active_from), 'dd/MM/yyyy')}
-              </div>
-            </li>
-          )}
-          {course.active_to && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-calendar" /> {t('Access to')}
-                </span>
-
-                {format(new Date(course.active_to), 'dd/MM/yyyy')}
-              </div>
-            </li>
-          )}
-          {course.lessons?.length && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-distance-learning" />{' '}
-                  {t('Lesson', { count: course.lessons.length })}
-                </span>
-                {course.lessons.length}
-              </div>
-            </li>
-          )}
-          {course.users_count && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-web" /> {t('Student', { count: course.users_count })}
-                </span>
-                {course.users_count}
-              </div>
-            </li>
-          )}
-          {course.language && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-html" /> {t('Language')}
-                </span>
-                {course.language}
-              </div>
-            </li>
-          )}
-
-          {course.level && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-caption" /> {t('Level')}
-                </span>
-                {course.level}
-              </div>
-            </li>
-          )}
-
-          <li>
-            <div className="d-flex justify-content-between align-items-center">
-              <span>
-                <i className="flaticon-lock" /> {t('Access')}
-              </span>
-              {t('Lifetime')}
-            </div>
-          </li>
-
-          {course.target_group && (
-            <li>
-              <div className="d-flex justify-content-between align-items-center">
-                <span>
-                  <i className="flaticon-user" /> {t('group_access')}
-                </span>
-
-                {course.target_group}
-              </div>
-            </li>
-          )}
-        </ul>
-
-        <div className="btn-box">
-          {course.base_price === 0 ? (
-            <Link to={`/course/${course.id}`} className="default-btn">
-              <i className="flaticon-user" /> {t('Attend to Course')} <span />
+      <CourseProgress
+        progress={(progressMap || 0) / 100}
+        icon={<IconWin />}
+        title={t("CoursePage.MyProgress")}
+      >
+        {!user.value ? (
+          <>
+            <Link
+              to="/authentication"
+              style={{
+                marginRight: "4px",
+              }}
+            >
+              {t<string>("Zaloguj się")}
             </Link>
+            {t("CoursePage.ToSeeProgress")}
+          </>
+        ) : (
+          <>
+            <strong style={{ fontSize: 14 }}>
+              {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
+              {t<string>("CoursePage.Of")} {course.lessons?.length || 0}{" "}
+              {t<string>("CoursePage.Lessons")}
+            </strong>
+            <p style={{ marginTop: 9, marginBottom: 0 }}>
+              {t<string>("CoursePage.FinishToGetCertificate")}
+            </p>
+          </>
+        )}
+      </CourseProgress>
+    </PricingCard>
+  ) : (
+    <PricingCard mobile>
+      <Title level={5} as={"h5"}>
+        {course.title}
+      </Title>
+      <div className="pricing-card-footer">
+        <div>
+          {course.product?.price_old && (
+            <div className="pricing-card-discount">
+              <Title level={5} as={"h5"}>
+                {course.product?.price_old} zł
+              </Title>
+            </div>
+          )}
+          <Title level={4} as={"h4"}>
+            {course.product?.price} zł
+          </Title>
+        </div>
+        <div>
+          {courseInCart ? (
+            <Button block mode="secondary" onClick={() => push("/cart")}>
+              {t("CoursePage.GoToCheckout")}
+            </Button>
+          ) : userOwnThisCourse ? (
+            <Button block mode="secondary">
+              {t("Attend to Course")}
+            </Button>
+          ) : user.value && course.product ? (
+            <Button
+              block
+              mode="secondary"
+              onClick={() => addToCart(Number(course.id))}
+            >
+              {t("Buy Course")}
+            </Button>
+          ) : !course.product ? (
+            <Text>{t("CoursePage.UnavailableCourse")}</Text>
           ) : (
-            <button onClick={() => addToCart(Number(course.id))} className="default-btn">
-              <i className="flaticon-shopping-cart" /> {t('Add to Cart')} <span />
-              {cart.loading ? <Spinner color="success" /> : ''}
-            </button>
+            <Button block mode="secondary">
+              {t("Login to buy")}
+            </Button>
           )}
         </div>
       </div>
-    </div>
+    </PricingCard>
   );
 };
 
