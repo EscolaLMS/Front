@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import Image from '@escolalms/sdk/lib/react/components/Image';
-import { API } from '@escolalms/sdk/lib';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { Spinner } from 'reactstrap';
-import { format } from 'date-fns';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Image from "@escolalms/sdk/lib/react/components/Image";
+import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { Spinner } from "reactstrap";
+import { format } from "date-fns";
 //@ts-ignore
-import ModalVideo from 'react-modal-video'; // TODO: seems type is missing heere
-import './index.scss';
+import ModalVideo from "react-modal-video"; // TODO: seems type is missing heere
+import "./index.scss";
 
-const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => {
+const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
+  course,
+}) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const openModal = () => {
     setIsOpen(!isOpen);
@@ -33,7 +35,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
 
       <div className="courses-details-info">
         <div className="image">
-          {course.image_path && <Image path={course.image_path} srcSizes={[356, 356 * 2]} />}
+          {course.image_path && (
+            <Image path={course.image_path} srcSizes={[356, 356 * 2]} />
+          )}
 
           {course.video_url && (
             <React.Fragment>
@@ -53,7 +57,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
 
               <div className="content">
                 <i className="flaticon-play" />
-                <span>{t('Course Preview')}</span>
+                <span>{t("Course Preview")}</span>
               </div>
             </React.Fragment>
           )}
@@ -65,7 +69,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-time" /> {t('Duration')}
+                <i className="flaticon-time" /> {t("Duration")}
               </span>
               {course.duration}
             </div>
@@ -74,7 +78,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-time" /> {t('hours_to_complete')}
+                  <i className="flaticon-time" /> {t("hours_to_complete")}
                 </span>
                 {course.hours_to_complete}
               </div>
@@ -84,10 +88,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-calendar" /> {t('Access from')}
+                  <i className="flaticon-calendar" /> {t("Access from")}
                 </span>
 
-                {format(new Date(course.active_from), 'dd/MM/yyyy')}
+                {format(new Date(course.active_from), "dd/MM/yyyy")}
               </div>
             </li>
           )}
@@ -95,10 +99,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-calendar" /> {t('Access to')}
+                  <i className="flaticon-calendar" /> {t("Access to")}
                 </span>
 
-                {format(new Date(course.active_to), 'dd/MM/yyyy')}
+                {format(new Date(course.active_to), "dd/MM/yyyy")}
               </div>
             </li>
           )}
@@ -106,8 +110,8 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-distance-learning" />{' '}
-                  {t('Lesson', { count: course.lessons.length })}
+                  <i className="flaticon-distance-learning" />{" "}
+                  {t("Lesson", { count: course.lessons.length })}
                 </span>
                 {course.lessons.length}
               </div>
@@ -117,7 +121,8 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-web" /> {t('Student', { count: course.users_count })}
+                  <i className="flaticon-web" />{" "}
+                  {t("Student", { count: course.users_count })}
                 </span>
                 {course.users_count}
               </div>
@@ -127,7 +132,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-html" /> {t('Language')}
+                  <i className="flaticon-html" /> {t("Language")}
                 </span>
                 {course.language}
               </div>
@@ -138,7 +143,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-caption" /> {t('Level')}
+                  <i className="flaticon-caption" /> {t("Level")}
                 </span>
                 {course.level}
               </div>
@@ -148,9 +153,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
           <li>
             <div className="d-flex justify-content-between align-items-center">
               <span>
-                <i className="flaticon-lock" /> {t('Access')}
+                <i className="flaticon-lock" /> {t("Access")}
               </span>
-              {t('Lifetime')}
+              {t("Lifetime")}
             </div>
           </li>
 
@@ -158,7 +163,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
             <li>
               <div className="d-flex justify-content-between align-items-center">
                 <span>
-                  <i className="flaticon-user" /> {t('group_access')}
+                  <i className="flaticon-user" /> {t("group_access")}
                 </span>
 
                 {course.target_group}
@@ -170,12 +175,16 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({ course }) => 
         <div className="btn-box">
           {course.base_price === 0 ? (
             <Link to={`/course/${course.id}`} className="default-btn">
-              <i className="flaticon-user" /> {t('Attend to Course')} <span />
+              <i className="flaticon-user" /> {t("Attend to Course")} <span />
             </Link>
           ) : (
-            <button onClick={() => addToCart(Number(course.id))} className="default-btn">
-              <i className="flaticon-shopping-cart" /> {t('Add to Cart')} <span />
-              {cart.loading ? <Spinner color="success" /> : ''}
+            <button
+              onClick={() => addToCart(Number(course.id))}
+              className="default-btn"
+            >
+              <i className="flaticon-shopping-cart" /> {t("Add to Cart")}{" "}
+              <span />
+              {cart.loading ? <Spinner color="success" /> : ""}
             </button>
           )}
         </div>
