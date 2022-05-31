@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import './index.scss';
+import { useEffect } from "react";
+import "./index.scss";
 
 const Preloader = () => {
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = 'inherit';
+      document.body.style.overflow = "inherit";
     };
   }, []);
 

@@ -19,12 +19,12 @@ import { t } from "i18next";
 const HomePageStyled = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
+  margin-top: -120px;
   @media (max-width: 1200px) {
-    padding-top: 150px;
+    margin-top: 0;
   }
-  @media (max-width: 991px) {
-    padding-top: 50px;
+  @media (max-width: 575px) {
+    margin-top: -30px;
   }
   .home-hero {
     margin-bottom: 60px;
