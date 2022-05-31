@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
-import { loadStripe } from "@stripe/stripe-js";
 import Layout from "@/components/_App/Layout";
 import { API } from "@escolalms/sdk/lib";
 import "./index.scss";

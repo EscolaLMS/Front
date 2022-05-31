@@ -33,7 +33,6 @@ const PaymentForm: React.FC<Props> = ({
   billingDetails,
   setBillingDetails,
 }) => {
-  const { t } = useTranslation();
   const theme = useTheme();
 
   const options = useMemo(() => {
