@@ -28,8 +28,6 @@ import {
 } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 
-const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
-
 const CartPageStyled = styled.section`
   .module-wrapper {
     margin-bottom: 55px;
