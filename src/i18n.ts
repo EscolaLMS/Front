@@ -420,6 +420,10 @@ const resources = {
         FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
         MyProgress: "Moje postępy",
         ToSeeProgress: "aby widzieć postępy",
+        UnavailableCourse: "Kurs niemozliwy do kupienia",
+        AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
+        Satisfaction: "zadowolenia lub zwrot pieniędzy*",
+        Recommends: "Poleca szkolenia Jana Kaminskiego",
       },
       Cart: {
         Cart: "Koszyk",

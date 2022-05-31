@@ -72,11 +72,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <Title level={3} as={"h3"}>
           {course.product?.price || 0} zł
         </Title>
-        <div className="pricing-card-discount">
-          <Title level={5} as={"h5"}>
-            199 zł
-          </Title>
-        </div>
+        {course.product?.price_old && (
+          <div className="pricing-card-discount">
+            <Title level={5} as={"h5"}>
+              {course.product?.price_old} zł
+            </Title>
+          </div>
+        )}
       </div>
       <IconText
         icon={<IconTime />}
@@ -91,13 +93,19 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           {t("CoursePage.GoToCheckout")}
         </Button>
       ) : userOwnThisCourse ? (
-        <Button mode="secondary">{t("Attend to Course")}</Button>
-      ) : user.value ? (
+        <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
+          {t("Attend to Course")}
+        </Button>
+      ) : user.value && course.product ? (
         <Button mode="secondary" onClick={() => addToCart(Number(course.id))}>
           {t("Buy Course")}
         </Button>
+      ) : !course.product ? (
+        <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        <Text>{t("Login to buy")}</Text>
+        <Link to="/authentication">
+          <Text>{t("Login to buy")}</Text>
+        </Link>
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
@@ -132,8 +140,8 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         ) : (
           <>
             <strong style={{ fontSize: 14 }}>
-              {t("CoursePage.Finished")} {progressMap} {t("CoursePage.Of")} 40{" "}
-              {t("CoursePage.Lessons")}
+              {t("CoursePage.Finished")} {progressMap || 0} {t("CoursePage.Of")}{" "}
+              {course.lessons?.length || 0} {t("CoursePage.Lessons")}
             </strong>
             <p style={{ marginTop: 9, marginBottom: 0 }}>
               {t("CoursePage.FinishToGetCertificate")}

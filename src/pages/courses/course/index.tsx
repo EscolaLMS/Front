@@ -243,6 +243,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
+  console.log(course);
   return (
     <Layout>
       <StyledCoursePage>
@@ -258,17 +259,17 @@ const CoursePage = () => {
                     <div className="labels-row">
                       <div className="single-label">
                         <LabelListItem title="90%" icon={<ThumbUp />}>
-                          Poleca szkolenia Jana Kaminskiego
+                          {t("CoursePage.Recommends")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
                         <LabelListItem title="Gwarancja" icon={<Medal />}>
-                          zadowolenia lub zwrot pieniędzy*
+                          {t("CoursePage.Satisfaction")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
                         <LabelListItem title="5.0" icon={<StarOrange />}>
-                          Średnia ocena szkoleń Jana Kamińskiego
+                          {t("CoursePage.AvarageRating")}
                         </LabelListItem>
                       </div>
                     </div>
@@ -429,7 +430,7 @@ const CoursePage = () => {
                             }}
                             lessonCount={5}
                             hideImage={false}
-                            subtitle="100% Online"
+                            subtitle={item.subtitle}
                             image={{
                               url: item.image_url,
                               alt: "",
@@ -459,7 +460,7 @@ const CoursePage = () => {
                             }}
                             lessonCount={5}
                             hideImage={false}
-                            subtitle="100% Online"
+                            subtitle={item.subtitle}
                             image={{
                               url: item.image_url,
                               alt: "",
