@@ -8,7 +8,7 @@ type Props = {
   icon: ReactNode;
 };
 
-const StyledSidebar = styled.aside`
+const StyledSidebar = styled.div`
   padding: 40px;
   background: ${({ theme }) =>
     theme.mode === "dark" ? theme.gray1 : theme.gray5};
