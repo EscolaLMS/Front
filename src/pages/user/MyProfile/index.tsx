@@ -50,7 +50,7 @@ const MyProfile = () => {
   );
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
       //@ts-ignore
       state && updateProfile(state);

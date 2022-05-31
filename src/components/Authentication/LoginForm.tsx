@@ -74,7 +74,7 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <h2>{isForgoten ? t("LoginPage.Reset") : t("Login")}</h2>
-
+      {/* // @ts-ignore */}
       <Alert
         color={
           state.state === "error"
@@ -86,8 +86,9 @@ const LoginForm = () => {
         isOpen={state.state === "error" || state.state === "success"}
         toggle={() => setState({ state: "input" })}
       >
-        {state.state === "error" && state.error}
-        {state.state === "success" && state.message}
+        {(state.state === "error" && state.error?.error) ||
+          (state.state === "success" && state.message) ||
+          ""}
       </Alert>
 
       <form onSubmit={handleSubmit}>

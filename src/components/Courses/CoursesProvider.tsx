@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import { useLocation, useHistory } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { API } from '@escolalms/sdk/lib';
-import qs from 'query-string';
-import { CoursesContext } from './CoursesContext';
+import { useLocation, useHistory } from "react-router-dom";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { API } from "@escolalms/sdk/lib";
+import qs from "query-string";
+import { CoursesContext } from "./CoursesContext";
 
 const parseParams = (params: API.CourseParams = {}) => {
   return qs.stringify(params);
@@ -12,6 +12,7 @@ const parseParams = (params: API.CourseParams = {}) => {
 
 const CoursesProvider: React.FC<{
   onlyFree?: boolean;
+  children: React.ReactNode;
 }> = ({ onlyFree = true, children }) => {
   const { fetchCourses, courses } = useContext(EscolaLMSContext);
   const location = useLocation();
@@ -32,7 +33,10 @@ const CoursesProvider: React.FC<{
   }, [params, location.pathname]);
 
   useEffect(() => {
-    if (location.search && location.search.split('?')[1] !== parseParams(params)) {
+    if (
+      location.search &&
+      location.search.split("?")[1] !== parseParams(params)
+    ) {
       setParams(qs.parse(location.search));
       fetchCourses(getApiParams(qs.parse(location.search)));
     } else {
