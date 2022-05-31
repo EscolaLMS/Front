@@ -12,6 +12,7 @@ import Paypal from "../../../images/paypal.png";
 import Netflix from "../../../images/netflix.png";
 import Apple from "../../../images/apple.png";
 import McDonald from "../../../images/mcdonald.png";
+import { Link } from "react-router-dom";
 import CertificateExample from "../../../images/certificate-example.png";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
@@ -24,7 +25,7 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
+// import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { Tag } from "@escolalms/sdk/lib/types/api";
@@ -160,6 +161,9 @@ const StyledCoursePage = styled.div`
         }
       }
       .slider-wrapper {
+        a {
+          text-decoration: none !important;
+        }
         @media (max-width: 575px) {
           margin-left: -50px;
 
@@ -273,13 +277,16 @@ const CoursePage = () => {
                         </LabelListItem>
                       </div>
                     </div>
-                    {isMobile ? (
-                      <Link underline>{t("CoursePage.HeroBtnText")}</Link>
+                    <Button mode="outline">
+                      {t("CoursePage.HeroBtnText")}
+                    </Button>
+                    {/* {isMobile ? (
+                      <Link>{t("CoursePage.HeroBtnText")}</Link>
                     ) : (
                       <Button mode="outline">
                         {t("CoursePage.HeroBtnText")}
                       </Button>
-                    )}
+                    )} */}
                   </div>
                   <div className="col-lg-4">
                     <div className="image-wrapper">
@@ -421,22 +428,24 @@ const CoursePage = () => {
                     >
                       {courses.list?.data.map((item) => (
                         <div key={item.id} className="single-slide">
-                          <CourseCard
-                            id={item.id}
-                            title={item.title}
-                            categories={{
-                              categoryElements: item.categories || [],
-                              onCategoryClick: () => console.log("clicked"),
-                            }}
-                            lessonCount={5}
-                            hideImage={false}
-                            subtitle={item.subtitle}
-                            image={{
-                              url: item.image_url,
-                              alt: "",
-                            }}
-                            tags={item.tags as Tag[]}
-                          />
+                          <Link to={`/courses/${item.id}`}>
+                            <CourseCard
+                              id={item.id}
+                              title={item.title}
+                              categories={{
+                                categoryElements: item.categories || [],
+                                onCategoryClick: () => console.log("clicked"),
+                              }}
+                              lessonCount={5}
+                              hideImage={false}
+                              subtitle={item.subtitle}
+                              image={{
+                                url: item.image_url,
+                                alt: "",
+                              }}
+                              tags={item.tags as Tag[]}
+                            />
+                          </Link>
                         </div>
                       ))}
                     </Slider>
@@ -451,22 +460,24 @@ const CoursePage = () => {
                     >
                       {courses.list?.data.map((item) => (
                         <div key={item.id} className="single-slide">
-                          <CourseCard
-                            id={item.id}
-                            title={item.title}
-                            categories={{
-                              categoryElements: item.categories || [],
-                              onCategoryClick: () => console.log("clicked"),
-                            }}
-                            lessonCount={5}
-                            hideImage={false}
-                            subtitle={item.subtitle}
-                            image={{
-                              url: item.image_url,
-                              alt: "",
-                            }}
-                            tags={item.tags as Tag[]}
-                          />
+                          <Link to={`/courses/${item.id}`}>
+                            <CourseCard
+                              id={item.id}
+                              title={item.title}
+                              categories={{
+                                categoryElements: item.categories || [],
+                                onCategoryClick: () => console.log("clicked"),
+                              }}
+                              lessonCount={5}
+                              hideImage={false}
+                              subtitle={item.subtitle}
+                              image={{
+                                url: item.image_url,
+                                alt: "",
+                              }}
+                              tags={item.tags as Tag[]}
+                            />
+                          </Link>
                         </div>
                       ))}
                     </Slider>
