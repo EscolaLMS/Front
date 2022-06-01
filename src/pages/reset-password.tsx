@@ -1,11 +1,9 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
-import { useTranslation } from "react-i18next";
 import ResetForm from "@/components/Authentication/ResetForm";
 
 const ResetPassword: React.FC = () => {
-  const { t } = useTranslation();
   const { push } = useHistory();
   const { search } = useLocation();
   const email = search && search.split("&")[0].split("=")[1];
