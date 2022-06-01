@@ -338,11 +338,13 @@ const Index = () => {
                         lessonCount={5}
                         hideImage={false}
                         subtitle={
-                          <Text>
-                            <strong style={{ fontSize: 14 }}>
-                              100% Online
-                            </strong>
-                          </Text>
+                          item.subtitle ? (
+                            <Text>
+                              <strong style={{ fontSize: 14 }}>
+                                {item.subtitle?.substring(0, 30)}
+                              </strong>
+                            </Text>
+                          ) : null
                         }
                         image={{
                           url: item.image_url,
@@ -384,11 +386,13 @@ const Index = () => {
                         buttonText="Zacznij teraz"
                         hideImage={false}
                         subtitle={
-                          <Text>
-                            <strong style={{ fontSize: 14 }}>
-                              100% Online
-                            </strong>
-                          </Text>
+                          item.subtitle ? (
+                            <Text>
+                              <strong style={{ fontSize: 14 }}>
+                                {item.subtitle?.substring(0, 30)}
+                              </strong>
+                            </Text>
+                          ) : null
                         }
                         image={{
                           url: item.image_url,
