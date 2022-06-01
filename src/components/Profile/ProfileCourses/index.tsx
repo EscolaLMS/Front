@@ -15,6 +15,22 @@ const StyledList = styled.div`
   .course-wrapper {
     margin-bottom: 24px;
   }
+  .slider-wrapper {
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    column-gap: 15px;
+
+    @media (max-width: 575px) {
+      width: calc(100% + 15px);
+      margin-right: -15px;
+    }
+
+    .single-slide {
+      width: 272px;
+      max-width: 272px;
+    }
+  }
 `;
 
 const StyledEmptyInfo = styled.div`
@@ -113,23 +129,112 @@ const ProfileCourses = ({
 
   return (
     <StyledList>
-      <div className="row">
-        {progress.value?.length === 0 && (
-          <StyledEmptyInfo>
-            <Title level={3}>Rozpocznij swój rozwój</Title>
-            <Text className="small-text">
-              Nie masz jeszcze żadnych kursów, ale dzięki naszej ofercie już
-              dziś możesz zacząć naukę!
-            </Text>
-            <Button onClick={() => history.push("/courses")} mode="secondary">
-              Wybierz kurs dla siebie
-            </Button>
-          </StyledEmptyInfo>
-        )}
-        {coursesToMap &&
-          coursesToMap.slice(0, 6).map((item) => (
-            <div className="col-md-4" key={item.course.id}>
-              <div className="course-wrapper">
+      {!isMobile ? (
+        <div className="row">
+          {progress.value?.length === 0 && (
+            <StyledEmptyInfo>
+              <Title level={3}>Rozpocznij swój rozwój</Title>
+              <Text className="small-text">
+                Nie masz jeszcze żadnych kursów, ale dzięki naszej ofercie już
+                dziś możesz zacząć naukę!
+              </Text>
+              <Button onClick={() => history.push("/courses")} mode="secondary">
+                Wybierz kurs dla siebie
+              </Button>
+            </StyledEmptyInfo>
+          )}
+          {coursesToMap &&
+            coursesToMap.slice(0, 6).map((item) => (
+              <div className="col-md-4" key={item.course.id}>
+                <div className="course-wrapper">
+                  <CourseCard
+                    id={item.course.id}
+                    title={item.course.title}
+                    categories={{
+                      categoryElements: item.course.categories || [],
+                      onCategoryClick: () => console.log("clicked"),
+                    }}
+                    lessonCount={5}
+                    hideImage={false}
+                    subtitle={
+                      <Text>
+                        <strong style={{ fontSize: 14 }}>
+                          {item.course.subtitle}
+                        </strong>
+                      </Text>
+                    }
+                    image={{
+                      url:
+                        `${
+                          process &&
+                          process.env &&
+                          process.env.REACT_APP_PUBLIC_API_URL
+                        }/api/images/img?path=${item.course.image_path}` || "",
+                      alt: "",
+                    }}
+                    tags={item.course.tags as Tag[]}
+                    onButtonClick={() => console.log("clicked")}
+                  />
+                </div>
+              </div>
+            ))}
+          {coursesToMap && coursesToMap.length > 5 && !showMore && (
+            <div
+              className="col-12"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 30,
+              }}
+            >
+              <Button onClick={() => setShowMore(true)} mode="outline">
+                Pokaż więcej
+              </Button>
+            </div>
+          )}
+          {coursesToMap &&
+            coursesToMap.length > 5 &&
+            showMore &&
+            coursesToMap.slice(6, coursesToMap.length).map((item) => (
+              <div className="col-md-4" key={item.course.id}>
+                <div className="course-wrapper">
+                  <CourseCard
+                    id={item.course.id}
+                    title={item.course.title}
+                    categories={{
+                      categoryElements: item.course.categories || [],
+                      onCategoryClick: () => console.log("clicked"),
+                    }}
+                    lessonCount={5}
+                    hideImage={false}
+                    subtitle={
+                      <Text>
+                        <strong style={{ fontSize: 14 }}>
+                          {item.course.subtitle}
+                        </strong>
+                      </Text>
+                    }
+                    image={{
+                      url:
+                        `${
+                          process &&
+                          process.env &&
+                          process.env.REACT_APP_PUBLIC_API_URL
+                        }/api/images/img?path=${item.course.image_path}` || "",
+                      alt: "",
+                    }}
+                    tags={item.course.tags as Tag[]}
+                    onButtonClick={() => console.log("clicked")}
+                  />
+                </div>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div className="slider-wrapper">
+          {coursesToMap &&
+            coursesToMap.map((item) => (
+              <div key={item.course.id} className="single-slide">
                 <CourseCard
                   id={item.course.id}
                   title={item.course.title}
@@ -159,56 +264,9 @@ const ProfileCourses = ({
                   onButtonClick={() => console.log("clicked")}
                 />
               </div>
-            </div>
-          ))}
-        {coursesToMap && coursesToMap.length > 5 && !showMore && (
-          <div
-            className="col-12"
-            style={{ display: "flex", justifyContent: "center", marginTop: 30 }}
-          >
-            <Button onClick={() => setShowMore(true)} mode="outline">
-              Pokaż więcej
-            </Button>
-          </div>
-        )}
-        {coursesToMap &&
-          coursesToMap.length > 5 &&
-          showMore &&
-          coursesToMap.slice(6, coursesToMap.length).map((item) => (
-            <div className="col-md-4" key={item.course.id}>
-              <div className="course-wrapper">
-                <CourseCard
-                  id={item.course.id}
-                  title={item.course.title}
-                  categories={{
-                    categoryElements: item.course.categories || [],
-                    onCategoryClick: () => console.log("clicked"),
-                  }}
-                  lessonCount={5}
-                  hideImage={false}
-                  subtitle={
-                    <Text>
-                      <strong style={{ fontSize: 14 }}>
-                        {item.course.subtitle}
-                      </strong>
-                    </Text>
-                  }
-                  image={{
-                    url:
-                      `${
-                        process &&
-                        process.env &&
-                        process.env.REACT_APP_PUBLIC_API_URL
-                      }/api/images/img?path=${item.course.image_path}` || "",
-                    alt: "",
-                  }}
-                  tags={item.course.tags as Tag[]}
-                  onButtonClick={() => console.log("clicked")}
-                />
-              </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </StyledList>
   );
 };

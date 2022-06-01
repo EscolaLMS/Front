@@ -1,22 +1,25 @@
 import React, { useEffect, useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
-import Layout from "../../../components/_App/Layout";
-import "./index.scss";
 import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileCourses from "@/components/Profile/ProfileCourses";
 
 import ProfileCertificates from "@/components/Profile/ProfileCertificates";
-import ProfileAside from "@/components/Profile/ProfileAside";
-import ProfileHeader from "@/components/Profile/ProfileHeader";
+import ProfileLayout from "@/components/Profile/ProfileLayout";
 
-const StyledProfile = styled.section`
+const Content = styled.section`
   .courses-wrapper {
     margin-top: -70px;
+    @media (max-width: 991px) {
+      margin-top: 0;
+    }
     .tabs-menu {
       margin: 0 0 70px 40px;
+      @media (max-width: 991px) {
+        margin: 0 0 40px 0;
+      }
     }
   }
   .certificates-container {
@@ -68,31 +71,21 @@ const MyProfile = () => {
   };
 
   return (
-    <Layout>
-      <StyledProfile>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-9">
-              <ProfileHeader title="Moje szkolenia" withTabs />
-              <div className="courses-wrapper">
-                <Tabs
-                  onClick={() => console.log("")}
-                  tabs={coursesTabs.tabs}
-                  defaultActiveKey={coursesTabs.defaultActiveKey}
-                />
-              </div>
-              <div className="certificates-container">
-                <Title level={2}>Moje certyfikaty</Title>
-                <ProfileCertificates certificates={certificates} />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <ProfileAside />
-            </div>
-          </div>
+    <ProfileLayout title="Moje szkolenia" withTabs>
+      <Content>
+        <div className="courses-wrapper">
+          <Tabs
+            onClick={() => console.log("")}
+            tabs={coursesTabs.tabs}
+            defaultActiveKey={coursesTabs.defaultActiveKey}
+          />
         </div>
-      </StyledProfile>
-    </Layout>
+        <div className="certificates-container">
+          <Title level={2}>Moje certyfikaty</Title>
+          <ProfileCertificates certificates={certificates} />
+        </div>
+      </Content>
+    </ProfileLayout>
   );
 };
 

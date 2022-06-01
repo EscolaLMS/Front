@@ -1,11 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Layout from "../../components/_App/Layout";
-import ProfileHeader from "@/components/Profile/ProfileHeader";
-import styled from "styled-components";
-
-const StyledProfile = styled.section``;
+import ProfileLayout from "@/components/Profile/ProfileLayout";
 
 const Orders = () => {
   const { user, fetchPayments } = useContext(EscolaLMSContext);
@@ -19,14 +15,7 @@ const Orders = () => {
     }
   }, [history, user, fetchPayments]);
 
-  return (
-    <Layout>
-      <StyledProfile>
-        <ProfileHeader title="Płatności" />
-        <div>Płatności...</div>
-      </StyledProfile>
-    </Layout>
-  );
+  return <ProfileLayout title="Płatności">płatności...</ProfileLayout>;
 };
 
 export default Orders;

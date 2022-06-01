@@ -14,6 +14,10 @@ const StyledHeader = styled.div<{ withTabs?: boolean }>`
     props.withTabs ? "105px 40px 90px 40px" : "165px 40px 30px 40px"};
   background: ${({ theme }) =>
     theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  @media (max-width: 991px) {
+    padding: 60px 20px 20px 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 const ProfileHeader: React.FC<Props> = ({ title, withTabs }) => {
