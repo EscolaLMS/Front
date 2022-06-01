@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import ExampleAvatar from "../../../images/example-avatar.png";
-
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
@@ -14,6 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard, HeaderUser } from "../../../icons";
+import { t } from "i18next";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -281,7 +281,7 @@ const Navbar = () => {
               onChange={() => console.log("clicked")}
               onSearch={() => console.log("clicked")}
               filterOptions={() => console.log("clicked")}
-              placeholder="Szukaj"
+              placeholder={t<string>("Header.Search")}
             >
               <div>Example search string 1</div>
               <div>Example search string 2</div>
@@ -327,11 +327,11 @@ const Navbar = () => {
           ) : (
             <div className="not-logged-container">
               <Link to="/authentication">
-                <Text>Zaloguj</Text>
+                <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
               <Link to="/authentication">
-                <Text>Zarejestruj</Text>
+                <Text>{t<string>("Header.Register")}</Text>
               </Link>
               <HeaderUser mode={theme.mode} />
             </div>

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
+import { t } from "i18next";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "100px 0"};
@@ -52,23 +52,23 @@ const Footer = () => {
       <div className="container">
         <div className="links-row">
           <Link className="single-link" to="/">
-            <Text size="14">Strona główna</Text>
+            <Text size="14">{t<string>("Footer.HomePage")}</Text>
           </Link>
           <Link className="single-link" to="/courses">
-            <Text size="14">Kursy</Text>
+            <Text size="14">{t<string>("Footer.Courses")}</Text>
           </Link>
           <Link className="single-link" to="/authentication">
-            <Text size="14">Logowanie/rejestracja</Text>
+            <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
           </Link>
           <Link className="single-link" to="/cart">
-            <Text size="14">Koszyk</Text>
+            <Text size="14">{t<string>("Footer.Cart")}</Text>
           </Link>
           <Link className="single-link" to="/user/my-profile">
-            <Text size="14">Profil użytkownika</Text>
+            <Text size="14">{t<string>("Footer.UserProfile")}</Text>
           </Link>
         </div>
         <div className="copyrights">
-          <Text size="14">Powered by</Text>
+          <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
           <img src={settings?.global?.logo || ""} alt="" />
         </div>
       </div>
