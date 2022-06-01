@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import ExampleAvatar from "../../../images/example-avatar.png";
 
@@ -8,10 +8,12 @@ import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Search } from "@escolalms/components/lib/components/molecules/Search/Search";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
+import { Notifications } from "@escolalms/components/lib/components/molecules/Notifications/Notifications";
 import "./index.scss";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
+import { HeaderCard, HeaderUser } from "../../../icons";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -32,8 +34,14 @@ const StyledHeader = styled.header`
     width: 100%;
   }
   .logo-container {
-    min-width: 50px;
+    min-width: 150px;
     max-width: 150px;
+    margin-right: 30px;
+
+    @media (max-width: 1200px) {
+      min-width: 100px;
+      max-width: 100px;
+    }
   }
   .menu-container {
     display: flex;
@@ -42,7 +50,7 @@ const StyledHeader = styled.header`
     width: 100%;
 
     .search-container {
-      min-width: 380px;
+      min-width: 250px;
       @media (max-width: 1200px) {
         min-width: 250px;
       }
@@ -57,8 +65,12 @@ const StyledHeader = styled.header`
       align-items: center;
       margin: 0 85px 0 80px;
       column-gap: 55px;
-      @media (max-width: 1200px) {
+      @media (max-width: 1366px) {
         margin: 0 50px;
+      }
+      @media (max-width: 1200px) {
+        margin: 0 30px;
+        column-gap: 30px;
       }
       @media (max-width: 991px) {
         margin: 0 30px;
@@ -70,13 +82,82 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    .user-details {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      column-gap: 10px;
+      margin-right: 21px;
+      text-decoration: none;
+      .name {
+        min-width: 100px;
+        margin: 0;
+        max-width: 100px;
+      }
+    }
+  }
+  .icons-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 28px;
+    button {
+      appearance: none;
+      outline: none;
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      &.cart-icon {
+        position: relative;
+        top: -1px;
+        span {
+          position: absolute;
+          right: -5px;
+          top: 0;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: ${({ theme }) => theme.primaryColor};
+          color: ${({ theme }) => theme.white};
+        }
+      }
+    }
+  }
+  .not-logged-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     column-gap: 10px;
+    margin-right: 20px;
+    .divider {
+      height: 15px;
+      width: 2px;
+      background-color: #4a4a4a;
+      opacity: 0.4;
+    }
+    a {
+      text-decoration: none;
+      p {
+        font-weight: 700;
+      }
+    }
   }
 `;
 
 const Navbar = () => {
-  const { user: userObj, settings } = useContext(EscolaLMSContext);
+  const {
+    user: userObj,
+    settings,
+    notifications,
+    fetchNotifications,
+    cart,
+    fetchCart,
+  } = useContext(EscolaLMSContext);
   const user = userObj.value;
+  const history = useHistory();
+  const theme = useTheme();
   // const platformVisibility =
   //   config?.escolalms_courses?.platform_visibility === "public" || false;
   // const fullVisibility =
@@ -87,7 +168,11 @@ const Navbar = () => {
   //   user && fetchNotifications();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [user]);
-
+  useEffect(() => {
+    fetchNotifications();
+    user && fetchCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   const menuItems = [
     {
       title: "Przeglądaj",
@@ -224,18 +309,67 @@ const Navbar = () => {
               ]}
             />
           </nav>
-          {user && (
+          {user ? (
             <div className="user-container">
-              <Avatar
-                src={user?.avatar_url || ExampleAvatar}
-                alt={user?.first_name}
-                size={"small"}
-              />
-              <Text>
-                {user?.first_name} {user?.last_name}
-              </Text>
+              <Link to="/user/my-profile" className="user-details">
+                <Text className="name">
+                  <strong>
+                    {user?.first_name} {user?.last_name}
+                  </strong>
+                </Text>
+                <Avatar
+                  src={user?.avatar_url || ExampleAvatar}
+                  alt={user?.first_name}
+                  size={"small"}
+                />
+              </Link>
+            </div>
+          ) : (
+            <div className="not-logged-container">
+              <Link to="/authentication">
+                <Text>Zaloguj</Text>
+              </Link>
+              <div className="divider" />
+              <Link to="/authentication">
+                <Text>Zarejestruj</Text>
+              </Link>
+              <HeaderUser mode={theme.mode} />
             </div>
           )}
+          <div className="icons-container">
+            <button
+              type="button"
+              className="cart-icon"
+              onClick={() => history.push("/cart")}
+              data-tooltip={String(cart.value?.items.length)}
+            >
+              {cart.value && cart.value.items?.length > 0 && (
+                <span>{cart.value.items.length}</span>
+              )}
+              <HeaderCard mode={theme.mode} />
+            </button>
+            <Notifications
+              notifications={[
+                {
+                  id: "324241",
+                  unread: true,
+                  title: "Ostatni dzwonek na szkolenie BHP",
+                  description:
+                    "Już za tydzień upływa termin szkolenia BHP przy produkcji Big Mac Vege.",
+                  dateTime: new Date(),
+                },
+                {
+                  id: "324244",
+                  unread: false,
+                  title: "Masz do zrobienia kurs BHP",
+                  description:
+                    "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
+                  dateTime: new Date(Date.now() - 86400000),
+                },
+              ]}
+              showAllLink="/"
+            />
+          </div>
         </div>
       </div>
     </StyledHeader>

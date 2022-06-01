@@ -253,7 +253,6 @@ const Index = () => {
     fetchCourses({ per_page: 6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(settings);
 
   const sliderSettings = {
     arrows: false,
@@ -332,6 +331,10 @@ const Index = () => {
                           categoryElements: item.categories || [],
                           onCategoryClick: () => console.log("clicked"),
                         }}
+                        onButtonClick={() =>
+                          history.push(`/courses/${item.id}`)
+                        }
+                        buttonText="Zacznij teraz"
                         lessonCount={5}
                         hideImage={false}
                         subtitle={
@@ -375,6 +378,10 @@ const Index = () => {
                           onCategoryClick: () => console.log("clicked"),
                         }}
                         lessonCount={5}
+                        onButtonClick={() =>
+                          history.push(`/courses/${item.id}`)
+                        }
+                        buttonText="Zacznij teraz"
                         hideImage={false}
                         subtitle={
                           <Text>
@@ -388,7 +395,6 @@ const Index = () => {
                           alt: "",
                         }}
                         tags={item.tags as Tag[]}
-                        onButtonClick={() => console.log("clicked")}
                       />
                     </Link>
                   </div>
