@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
-import ResetForm from "@/components/Authentication/ResetForm";
+import { ResetPasswordForm } from "@escolalms/components";
+import { isMobile } from "react-device-detect";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -19,7 +20,14 @@ const ResetPassword: React.FC = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6 col-md-12">
-              <ResetForm token={String(token)} email={String(email)} />
+              <ResetPasswordForm
+                onSecondStepSuccess={() => push("/authentication")}
+                secondStep
+                mobile={isMobile}
+                return_url="#/reset-password"
+                token={token}
+                email={email}
+              />
             </div>
           </div>
         </div>
