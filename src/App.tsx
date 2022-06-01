@@ -10,11 +10,12 @@ import "./style/scss/index.scss";
 import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
 import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 import styled from "styled-components";
+import { isMobile } from "react-device-detect";
 
 const StyledMain = styled.main`
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
-  padding-top: 167px;
+  padding-top: ${isMobile ? "92px" : "167px"};
 `;
 const App = () => {
   const [, setTheme] = useLocalTheme();

@@ -33,6 +33,7 @@ const StyledHeader = styled.header`
   }
   .logo-container {
     min-width: 50px;
+    max-width: 150px;
   }
   .menu-container {
     display: flex;
@@ -74,7 +75,7 @@ const StyledHeader = styled.header`
 `;
 
 const Navbar = () => {
-  const { user: userObj } = useContext(EscolaLMSContext);
+  const { user: userObj, settings } = useContext(EscolaLMSContext);
   const user = userObj.value;
   // const platformVisibility =
   //   config?.escolalms_courses?.platform_visibility === "public" || false;
@@ -170,8 +171,8 @@ const Navbar = () => {
         <Navigation
           mobile
           logo={{
-            src: Logo,
-            width: 50,
+            src: settings?.global?.logo || Logo,
+            width: 150,
             height: 50,
           }}
           menuItems={menuItems}
@@ -185,7 +186,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo-container">
           <Link to="/">
-            <img src={Logo} alt="" />
+            <img src={settings?.global?.logo || Logo} alt="" />
           </Link>
         </div>
         <div className="menu-container">
