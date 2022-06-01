@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import ReactPlayer from 'react-player';
+import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
 
-const VideoPlayer: React.FC<{ topicUrl: string; onFinish: () => void }> = ({
-  topicUrl,
-  onFinish,
-  children,
-}) => {
+const VideoPlayer: React.FC<{
+  topicUrl: string;
+  onFinish: () => void;
+  children: React.ReactNode;
+}> = ({ topicUrl, onFinish, children }) => {
   const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const [key, setKey] = useState(0);
@@ -42,7 +42,9 @@ const VideoPlayer: React.FC<{ topicUrl: string; onFinish: () => void }> = ({
           forceVideo: true,
         }}
       />
-      {!isVideoPlaying && <button onClick={() => setIsVideoPlaying(true)}>{children}</button>}
+      {!isVideoPlaying && (
+        <button onClick={() => setIsVideoPlaying(true)}>{children}</button>
+      )}
     </div>
   );
 };

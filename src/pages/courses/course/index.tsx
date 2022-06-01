@@ -1,117 +1,236 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import PageBanner from "@/components/SingleCoursesTwo/PageBanner";
+import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { Link, useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import { format } from "date-fns";
-import MarkdownReader from "@/escolalms/sdk/components/Markdown/MarkdownReader";
+import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
-import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-import CourseProgramPreview from "@/escolalms/sdk/components/Course/CourseProgramPreview";
-import CourseProgramList from "@/escolalms/sdk/components/Course/CourseProgramList";
-import LmsTag from "@/components/Common/LmsTag";
-import { resetIdCounter, Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "./index.scss";
+import { resetIdCounter } from "react-tabs";
+import Paypal from "../../../images/paypal.png";
+import Netflix from "../../../images/netflix.png";
+import Apple from "../../../images/apple.png";
+import McDonald from "../../../images/mcdonald.png";
+import { Link } from "react-router-dom";
+import CertificateExample from "../../../images/certificate-example.png";
+import { format } from "date-fns";
+import { isMobile } from "react-device-detect";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
+import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
+import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/Ratings";
+import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
+import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
+import { Link as TextLink } from "@escolalms/components/lib/components/atoms/Link/Link";
+import styled from "styled-components";
+import { Medal, StarOrange, ThumbUp } from "../../../icons";
+import { Tag } from "@escolalms/sdk/lib/types/api";
 
 resetIdCounter();
 
-const CoursePriceButton: React.FC<{ course: API.Course }> = ({ course }) => {
-  const { t } = useTranslation();
+const StyledCoursePage = styled.div`
+  section {
+    margin-bottom: 45px;
+    &.with-border {
+      padding-bottom: 45px;
+      border-bottom: 1px solid
+        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray5)};
+    }
+    &.padding-right {
+      padding-right: 150px;
+      @media (max-width: 991px) {
+        padding-right: 70px;
+      }
+      @media (max-width: 768px) {
+        padding-right: 0;
+      }
+    }
+  }
+  .sidebar-col {
+    padding-bottom: 45px;
+  }
+  .course-main-info {
+    .image-wrapper {
+      @media (max-width: 991px) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 35px;
 
-  const { config, addToCart, cart, user, progress, fetchProgress } =
-    useContext(EscolaLMSContext);
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
+    .labels-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      column-gap: 20px;
+      margin: 35px 0;
+      @media (max-width: 374px) {
+        flex-direction: column;
+        row-gap: 16px;
+      }
+      &--bottom {
+        column-gap: 45px;
+        margin-top: 120px;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+        @media (max-width: 991px) {
+          column-gap: 0;
+          margin-top: 55px;
+        }
+        @media (max-width: 374px) {
+          flex-direction: row;
+        }
+        .single-label {
+          @media (max-width: 991px) {
+            flex: 0 0 50%;
+            max-width: 50%;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+  }
+  .course-companies {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-  const { id } = course;
+    .companies-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      column-gap: 90px;
+      @media (max-width: 768px) {
+        column-gap: 0;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
 
-  const courseInCart = useMemo(() => {
-    return cart?.value?.items.some(
-      (item: any) => Number(item.id) === Number(id)
-    );
-  }, [id, cart]);
+    p {
+      max-width: 220px;
+      margin-right: 50px;
+    }
+  }
+  .course-description {
+    padding: 50px 45px;
+    margin: 45px 0;
+    background-color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
+  }
+  .course-related-courses {
+    background-color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+    padding: 60px 0 90px;
+    .slick-dots {
+      top: -65px;
+      right: 80px;
+      @media (max-width: 575px) {
+        right: 0;
+      }
+    }
+    .content-container {
+      position: relative;
+      overflow: hidden;
+      &:first-of-type {
+        margin-bottom: 60px;
+        @media (max-width: 768px) {
+          margin-bottom: 40px;
+        }
+      }
+      h4 {
+        @media (max-width: 575px) {
+          padding-right: 50%;
+        }
+      }
+      .slider-wrapper {
+        a {
+          text-decoration: none !important;
+        }
+        @media (max-width: 575px) {
+          margin-left: -50px;
 
-  useEffect(() => {
-    user && user.value && fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const userOwnThisCourse = useMemo(() => {
-    return (
-      progress.value &&
-      progress.value.findIndex(
-        (item: API.CourseProgressItem) => item.course.id === id
-      ) !== -1
-    );
-  }, [progress, id]);
-
-  const priceLiteral = useMemo(() => {
-    return course.base_price === 0 || course.base_price === undefined
-      ? t("FREE")
-      : `${config?.escolalms_payments?.default_currency} ${(
-          course.base_price / 100
-        ).toFixed(2)}`;
-  }, [course, config, t]);
-
-  return (
-    <div className="courses-price">
-      {!courseInCart && <div className="price">{priceLiteral}</div>}
-
-      {userOwnThisCourse ? (
-        <Link to={`/course/${course.id}`} className="default-btn">
-          <i className="flaticon-user"></i> {t("Attend to Course")}{" "}
-          <span></span>
-        </Link>
-      ) : courseInCart ? (
-        <Link to={`/cart`} className="default-btn full-width">
-          <i className="flaticon-shopping-cart"></i>
-          {t("Checkout Course")} <small>{priceLiteral}</small> <span></span>
-        </Link>
-      ) : user.value ? (
-        <button
-          className="default-btn"
-          disabled={cart.loading}
-          onClick={() => addToCart(Number(course.id))}
-        >
-          <i className="flaticon-shopping-cart"></i> {t("Buy Course")}{" "}
-          <span></span>
-        </button>
-      ) : (
-        <Link to={`/authentication`} className="default-btn">
-          <i className="flaticon-shopping-cart"></i>{" "}
-          <small>{t("Login to buy")}</small> <span></span>
-        </Link>
-      )}
-
-      {course.base_price === 0 && (
-        <Link
-          to={`/courses/preview/${course.id}`}
-          className="default-btn full-width"
-        >
-          <i className="flaticon-user"></i> {t("Preview course for free")}{" "}
-          <span></span>
-        </Link>
-      )}
-    </div>
-  );
-};
+          .image-section,
+          img {
+            max-height: 180px;
+          }
+        }
+      }
+    }
+  }
+  .sidebar-wrapper {
+    width: 100%;
+    left: 0;
+    position: ${isMobile ? "fixed" : "sticky"};
+    top: ${isMobile ? "unset" : "130px"};
+    bottom: ${isMobile ? "0" : "unset"};
+    z-index: 100;
+  }
+`;
 
 const CoursePage = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [dots] = useState(true);
   const { t } = useTranslation();
-
   const { id } = useParams<{ id: string }>();
+  const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
+    useContext(EscolaLMSContext);
+  const ratingsMock = {
+    sumRates: 40,
+    avgRate: 4.5,
+    rates: {
+      1: 6,
+      2: 5,
+      3: 4,
+      4: 15,
+      5: 10,
+    },
+    header: t("CoursePage.CourseRatingsTitle"),
+  };
 
-  const { course, fetchCourse, fetchCart, user } = useContext(EscolaLMSContext);
+  const sliderSettings = {
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+        },
+      },
+    ],
+  };
 
-  const [previewTopic, setPreviewTopic] = useState<API.Topic>();
-  const history = useHistory();
-  const location = useLocation();
   useEffect(() => {
+    fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
-      history.push(`${location.pathname}?tab=${0}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -121,12 +240,6 @@ const CoursePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  useEffect(() => {
-    const selectedTab = location.search.split("tab=")[1];
-
-    setTabIndex(Number(selectedTab));
-  }, [location]);
-
   if (course.loading || !course.value) {
     return <Loader />;
   }
@@ -134,230 +247,243 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
   return (
     <Layout>
-      <React.Fragment>
-        <PageBanner
-          pageTitle={course.value.title || ""}
-          subtitle={course.value.subtitle}
-          homePageUrl="/"
-          homePageText={t("Home")}
-          innerPageUrl={`/courses`}
-          innerPageText={t("Courses")}
-          activePageText={course.value.title || ""}
-        />
-
-        {previewTopic && (
-          <CourseProgramPreview
-            topic={previewTopic}
-            onClose={() => {
-              setPreviewTopic(undefined);
-            }}
-          />
-        )}
-
-        <div className="course-page">
-          <div className="container">
-            <div className="courses-details-header">
-              <div className="row align-items-center">
-                <div className="col-lg-8 col-md-12">
-                  <div className="courses-meta">
-                    <ul>
-                      {course.value.categories &&
-                        !!course.value.categories.length && (
-                          <li>
-                            <i className="bx bx-folder-open"></i>
-                            <span>{t("Category")}</span>
-
-                            {course.value.categories.map((category) => {
-                              const cat =
-                                typeof category === "object"
-                                  ? {
-                                      id: category.id,
-                                      name: category.name,
-                                    }
-                                  : {
-                                      id: category,
-                                      name: category,
-                                    };
-                              return (
-                                <Link
-                                  to={`/courses?category_id=${cat.id}`}
-                                  key={cat.id}
-                                >
-                                  {cat.name}
-                                </Link>
-                              );
-                            })}
-                          </li>
-                        )}
-                      {!!course.value.users_count && (
-                        <li>
-                          <i className="bx bx-group"></i>
-                          <span>
-                            {t("StudentsEnrolled", {
-                              count: course.value.users_count,
-                            })}
-                          </span>
-                          {course.value.users_count}
-                        </li>
-                      )}
-                      <li>
-                        <i className="bx bx-calendar"></i>
-                        <span>{t("Last Updated")}</span>
-
-                        {course.value.updated_at &&
-                          format(
-                            new Date(course.value.updated_at),
-                            "dd/MM/yyyy"
-                          )}
-                      </li>
-                      {!!course.value.tags?.length && (
-                        <li>
-                          <i className="bx bx-tag"></i>
-                          <span>{t("Tags")}</span>
-
-                          {course.value.tags && course.value.tags.length > 0 && (
-                            <div className="course-card__tags">
-                              {course.value.tags.map(
-                                (tag: API.Tag | string) => {
-                                  if (typeof tag === "object") {
-                                    return (
-                                      <LmsTag
-                                        key={tag.title}
-                                        tag={tag}
-                                        to={`/courses?tag=${tag.title}`}
-                                      />
-                                    );
-                                  } else return null;
-                                }
-                              )}
-                            </div>
-                          )}
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-12">
-                  <CoursePriceButton course={course.value} />
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-8 col-md-12">
-                {course.value.image_path && (
-                  <div className="courses-details-image-style-two text-center">
-                    <Image
-                      path={course.value.image_path}
-                      srcSizes={[790 * 0.5, 790, 2 * 790]}
-                    />
-                  </div>
-                )}
-                {/* (index) => setTabIndex(index) */}
-                <div className="courses-details-desc">
-                  <Tabs
-                    selectedIndex={tabIndex}
-                    onSelect={(index) =>
-                      history.push(`${location.pathname}?tab=${index}`)
-                    }
-                  >
-                    <TabList>
-                      <Tab>{t("CoursePage.Tabs.Summary")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Program")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Instructor")}</Tab>
-                      <Tab>{t("CoursePage.Tabs.Description")}</Tab>
-                    </TabList>
-                    <div className="courses-details-desc-style-two">
-                      <TabPanel>
-                        <h3>{t("Summary")}</h3>
-                        {course.value.summary && (
-                          <MarkdownReader>
-                            {course.value.summary}
-                          </MarkdownReader>
-                        )}
-                      </TabPanel>
-                      <TabPanel>
-                        <h3>{t("Course Program")}</h3>
-                        {course.value.lessons && (
-                          <CourseProgramList
-                            program={course.value.lessons}
-                            onPreview={(topic) => setPreviewTopic(topic)}
-                          />
-                        )}
-                      </TabPanel>
-                      <TabPanel>
-                        {course.value.authors &&
-                          course.value.authors.length > 0 &&
-                          course.value.authors.map((author: API.UserItem) => {
-                            return (
-                              <div className="courses-instructor">
-                                <div className="single-advisor-box">
-                                  <div className="row align-items-center">
-                                    <div className="col-lg-4 col-md-4">
-                                      <div className="advisor-image">
-                                        {author?.path_avatar ? (
-                                          <Image
-                                            srcSizes={[356, 356 * 2]}
-                                            path={author?.path_avatar}
-                                          />
-                                        ) : (
-                                          <img
-                                            className="tutor-card__avatar"
-                                            src={`/images/tutorblind.png`}
-                                            alt="tutor_avatar"
-                                          />
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div className="col-lg-8 col-md-8">
-                                      <div className="advisor-content">
-                                        <Link to={`/tutors/${author.id}`}>
-                                          <h3>
-                                            {author.first_name}{" "}
-                                            {author.last_name}
-                                          </h3>
-                                        </Link>
-                                        <span className="sub-title">
-                                          {t("Tutor")}
-                                        </span>
-
-                                        <div>
-                                          <MarkdownReader>
-                                            {author.bio || ""}
-                                          </MarkdownReader>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}{" "}
-                      </TabPanel>
-                      <TabPanel>
-                        <h3>{t("Description")}</h3>
-                        {course.value.description && (
-                          <MarkdownReader>
-                            {course.value.description}
-                          </MarkdownReader>
-                        )}
-                      </TabPanel>
+      <StyledCoursePage>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-9 col-md-12">
+              <section className="course-main-info with-border">
+                <div className="row flex-lg-row flex-column-reverse">
+                  <div className="col-lg-7">
+                    <Title mobile={isMobile} level={2}>
+                      {course.value.title}
+                    </Title>
+                    <div className="labels-row">
+                      <div className="single-label">
+                        <LabelListItem title="90%" icon={<ThumbUp />}>
+                          {t("CoursePage.Recommends")}
+                        </LabelListItem>
+                      </div>
+                      <div className="single-label">
+                        <LabelListItem title="Gwarancja" icon={<Medal />}>
+                          {t("CoursePage.Satisfaction")}
+                        </LabelListItem>
+                      </div>
+                      <div className="single-label">
+                        <LabelListItem title="5.0" icon={<StarOrange />}>
+                          {t("CoursePage.AvarageRating")}
+                        </LabelListItem>
+                      </div>
                     </div>
-                  </Tabs>
+                    {isMobile ? (
+                      <TextLink>{t("CoursePage.HeroBtnText")}</TextLink>
+                    ) : (
+                      <Button mode="outline">
+                        {t("CoursePage.HeroBtnText")}
+                      </Button>
+                    )}
+                  </div>
+                  <div className="col-lg-4">
+                    <div className="image-wrapper">
+                      <Image
+                        path={course.value.image_path}
+                        srcSizes={[790 * 0.5, 790, 2 * 790]}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className="col-lg-4 col-md-12">
+                <div className="labels-row labels-row--bottom">
+                  <div className="single-label">
+                    <LabelListItem
+                      title={t("CoursePage.CourseCategory")}
+                      variant={"label"}
+                    >
+                      {course.value?.categories &&
+                      course.value?.categories.length > 0
+                        ? course.value.categories[0].name
+                        : ""}
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem
+                      title={t("CoursePage.Level")}
+                      variant={"label"}
+                    >
+                      {course.value.level || "---"}
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem
+                      title={t("CoursePage.StartDate")}
+                      variant={"label"}
+                    >
+                      {course.value.active_from
+                        ? format(
+                            new Date(String(course.value.active_from)),
+                            "dd/MM/yyyy"
+                          )
+                        : "---"}
+                    </LabelListItem>
+                  </div>
+                  <div className="single-label">
+                    <LabelListItem
+                      title={t("CoursePage.Duration")}
+                      variant={"label"}
+                    >
+                      {course.value.duration}
+                    </LabelListItem>
+                  </div>
+                </div>
+              </section>
+              <section className="course-companies">
+                <Text>
+                  <strong>{t("CoursePage.CompaniesTitle")}</strong>
+                </Text>
+                <div className="companies-row">
+                  <div className="single-company">
+                    <img src={Paypal} alt="PayPal" />
+                  </div>
+                  <div className="single-company">
+                    <img src={Netflix} alt="Netflix" />
+                  </div>
+                  <div className="single-company">
+                    <img src={Apple} alt="Apple" />
+                  </div>
+                  <div className="single-company">
+                    <img src={McDonald} alt="McDonald" />
+                  </div>
+                </div>
+              </section>
+              <section className="course-description">
+                <MarkdownReader>{course.value.summary}</MarkdownReader>
+              </section>
+              <section className="course-tutor with-border padding-right">
+                <Tutor
+                  mobile={isMobile}
+                  avatar={{
+                    alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                    src:
+                      `${
+                        process &&
+                        process.env &&
+                        process.env.REACT_APP_PUBLIC_API_URL
+                      }/api/images/img?path=${
+                        course.value.author.path_avatar
+                      }` || "",
+                  }}
+                  rating={{
+                    ratingValue: 4.1,
+                  }}
+                  title={"Teacher"}
+                  fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                  // coursesInfo={"8 Curses"}
+                  description={course.value.author.bio}
+                />
+              </section>
+              <section className="course-certificates with-border padding-right">
+                <Certificate
+                  mobile={isMobile}
+                  img={{
+                    src: CertificateExample,
+                    alt: "",
+                  }}
+                  title="Made in EU"
+                  description="Wyróżnij się na tle innych, dzięki certyfikatowi potwierdzającemu wiedzę uzyskaną na szkoleniu."
+                  handleDownload={() => console.log("clicked")}
+                  handleShare={() => console.log("clicked")}
+                />
+              </section>
+              <section className="course-description-short with-border padding-right">
+                <Title level={4}>
+                  {t("CoursePage.CourseDescriptionTitle")}
+                </Title>
+                <MarkdownReader>{course.value.description}</MarkdownReader>
+              </section>
+              <section className="course-ratings padding-right">
+                <Ratings mobile={isMobile} {...ratingsMock} />
+              </section>
+            </div>
+            <div className="col-lg-3 col-md-12 sidebar-col">
+              <div className="sidebar-wrapper">
                 <CoursesDetailsSidebar course={course.value} />
               </div>
             </div>
           </div>
         </div>
-      </React.Fragment>
+        <section className="course-related-courses">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-9">
+                <div className="content-container">
+                  <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
+                  <div className="slider-wrapper">
+                    <Slider
+                      settings={{ ...sliderSettings, dots }}
+                      dotsPosition="top right"
+                    >
+                      {courses.list?.data.map((item) => (
+                        <div key={item.id} className="single-slide">
+                          <Link to={`/courses/${item.id}`}>
+                            <CourseCard
+                              id={item.id}
+                              title={item.title}
+                              categories={{
+                                categoryElements: item.categories || [],
+                                onCategoryClick: () => console.log("clicked"),
+                              }}
+                              lessonCount={5}
+                              hideImage={false}
+                              subtitle={item.subtitle}
+                              image={{
+                                url: item.image_url,
+                                alt: "",
+                              }}
+                              tags={item.tags as Tag[]}
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                </div>
+                <div className="content-container">
+                  <Title level={4}>{t("CoursePage.InterestTitle")}</Title>
+                  <div className="slider-wrapper">
+                    <Slider
+                      settings={{ ...sliderSettings, dots }}
+                      dotsPosition="top right"
+                    >
+                      {courses.list?.data.map((item) => (
+                        <div key={item.id} className="single-slide">
+                          <Link to={`/courses/${item.id}`}>
+                            <CourseCard
+                              id={item.id}
+                              title={item.title}
+                              categories={{
+                                categoryElements: item.categories || [],
+                                onCategoryClick: () => console.log("clicked"),
+                              }}
+                              lessonCount={5}
+                              hideImage={false}
+                              subtitle={item.subtitle}
+                              image={{
+                                url: item.image_url,
+                                alt: "",
+                              }}
+                              tags={item.tags as Tag[]}
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </StyledCoursePage>
     </Layout>
   );
 };

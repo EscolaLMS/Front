@@ -1,22 +1,30 @@
-import React, { useContext, useEffect, useCallback, useState } from 'react';
+import React, { useContext, useEffect, useCallback, useState } from "react";
 
-import PageBanner from '@/components/Common/PageBanner';
-import { Link, useHistory } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import { useTranslation } from 'react-i18next';
-import Preloader from '@/components/Preloader';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import PaymentModal from '@/components/PaymentModal';
-import Layout from '@/components/_App/Layout';
+import PageBanner from "@/components/Common/PageBanner";
+import { Link, useHistory } from "react-router-dom";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { useTranslation } from "react-i18next";
+import Preloader from "@/components/Preloader";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import PaymentModal from "@/components/PaymentModal";
+import Layout from "@/components/_App/Layout";
 // import { API } from '@escolalms/sdk/lib';
-import './index.scss';
+import "./index.scss";
+import { API } from "@escolalms/sdk/lib";
 
 const stripePromise = (publishable_key: string) => loadStripe(publishable_key);
 
 const CartPage = () => {
-  const { user, cart, fetchCart, config, removeFromCart, payWithStripe, fetchProgress } =
-    useContext(EscolaLMSContext);
+  const {
+    user,
+    cart,
+    fetchCart,
+    config,
+    removeFromCart,
+    payWithStripe,
+    fetchProgress,
+  } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { location, push } = useHistory();
   const [modal, setModal] = useState(false);
@@ -27,7 +35,7 @@ const CartPage = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      push('/authentication');
+      push("/authentication");
     } else {
       fetchCart();
     }
@@ -35,17 +43,19 @@ const CartPage = () => {
   }, [location, user]);
 
   const priceLiteral = useCallback(
-    (course) => {
+    (course: API.Course) => {
       return course.base_price === 0
-        ? t('FREE')
-        : `${config?.escolalms_payments?.default_currency} ${(course.base_price / 100).toFixed(2)}`;
+        ? t("FREE")
+        : `${config?.escolalms_payments?.default_currency} ${(
+            course.base_price / 100
+          ).toFixed(2)}`;
     },
-    [t, config],
+    [t, config]
   );
 
-  const onPay = useCallback((paymentMethodId) => {
+  const onPay = useCallback((paymentMethodId: string) => {
     payWithStripe(paymentMethodId).then(() => {
-      push('/user/my-courses');
+      push("/user/my-courses");
       fetchCart();
       fetchProgress();
     });
@@ -56,10 +66,10 @@ const CartPage = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={t('Cart.Cart')}
+          pageTitle={t("Cart.Cart")}
           homePageUrl="/"
-          homePageText={t('Home')}
-          activePageText={t('Cart.Cart')}
+          homePageText={t("Home")}
+          activePageText={t("Cart.Cart")}
         />
 
         <div className="cart-area">
@@ -67,17 +77,17 @@ const CartPage = () => {
             {cart.loading && <Preloader />}
 
             {cart?.value?.items?.length === 0 ? (
-              <p className="text-center">{t('Cart.CartIsEmpty')}!</p>
+              <p className="text-center">{t("Cart.CartIsEmpty")}!</p>
             ) : (
               <React.Fragment>
                 <div className="cart-table table-responsive">
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">{t('Cart.Columns.Product')}</th>
-                        <th scope="col">{t('Cart.Columns.Name')}</th>
-                        <th scope="col">{t('Cart.Columns.Price')}</th>
-                        <th scope="col">{t('Cart.Columns.Remove')}</th>
+                        <th scope="col">{t("Cart.Columns.Product")}</th>
+                        <th scope="col">{t("Cart.Columns.Name")}</th>
+                        <th scope="col">{t("Cart.Columns.Price")}</th>
+                        <th scope="col">{t("Cart.Columns.Remove")}</th>
                       </tr>
                     </thead>
 
@@ -93,11 +103,15 @@ const CartPage = () => {
                             </td>
 
                             <td className="product-name">
-                              <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                              <Link to={`/courses/${item.id}`}>
+                                {item.title}
+                              </Link>
                             </td>
 
                             <td className="product-price">
-                              <span className="unit-amount">{priceLiteral(item)}</span>
+                              <span className="unit-amount">
+                                {priceLiteral(item)}
+                              </span>
                             </td>
 
                             <td className="product-subtotal">
@@ -116,41 +130,45 @@ const CartPage = () => {
                 </div>
 
                 <div className="cart-totals">
-                  <h3>{t('Cart.CartSummary')}</h3>
+                  <h3>{t("Cart.CartSummary")}</h3>
 
                   <ul>
                     <li>
-                      {t('OrdersPage.Price.Subtotal')}{' '}
+                      {t("OrdersPage.Price.Subtotal")}{" "}
                       <span>
-                        {config?.escolalms_payments?.default_currency}{' '}
+                        {config?.escolalms_payments?.default_currency}{" "}
                         {Number(cart.value?.subtotal).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      {t('OrdersPage.Price.Tax')}{' '}
+                      {t("OrdersPage.Price.Tax")}{" "}
                       <span>
-                        {config?.escolalms_payments?.default_currency}{' '}
+                        {config?.escolalms_payments?.default_currency}{" "}
                         {Number(cart.value?.tax).toFixed(2)}
                       </span>
                     </li>
                     <li>
-                      {t('OrdersPage.Price.Total')}{' '}
+                      {t("OrdersPage.Price.Total")}{" "}
                       <span>
-                        {config?.escolalms_payments?.default_currency}{' '}
+                        {config?.escolalms_payments?.default_currency}{" "}
                         {Number(cart.value?.total).toFixed(2)}
                       </span>
                     </li>
                   </ul>
 
                   {Number(cart.value?.total) === 0 ? (
-                    <button className="default-btn" onClick={() => onPay(0)}>
-                      <i className="flaticon-shopping-cart"></i> {t('Cart.FreeCheckout')}{' '}
-                      <span></span>
+                    <button className="default-btn" onClick={() => onPay("0")}>
+                      <i className="flaticon-shopping-cart"></i>{" "}
+                      {t("Cart.FreeCheckout")} <span></span>
                     </button>
                   ) : (
-                    <button type="button" className="default-btn" onClick={() => setModal(true)}>
+                    <button
+                      type="button"
+                      className="default-btn"
+                      onClick={() => setModal(true)}
+                    >
                       <i className="flaticon-shopping-cart"></i>
-                      {t('Cart.PayWithStripe')} <span></span>
+                      {t("Cart.PayWithStripe")} <span></span>
                     </button>
                   )}
                 </div>
