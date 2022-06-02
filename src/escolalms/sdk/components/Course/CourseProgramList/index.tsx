@@ -1,7 +1,7 @@
-import React from 'react';
-import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
-import { getTopicType } from '@/escolalms/sdk/utils/helpers';
+import React from "react";
+import { API } from "@escolalms/sdk/lib";
+import { useTranslation } from "react-i18next";
+import { getTopicType } from "../../../utils/helpers";
 
 // TODO: duplicated (merge into CourseTimetable)
 const CourseProgramList: React.FC<{
@@ -20,7 +20,9 @@ const CourseProgramList: React.FC<{
                 <small>{lesson_index + 1}. </small> {lesson.title}
               </span>
               <div className="courses-meta">
-                {lesson.duration && <span className="duration">{lesson.duration}</span>}
+                {lesson.duration && (
+                  <span className="duration">{lesson.duration}</span>
+                )}
               </div>
             </h3>
             <ul>
@@ -30,7 +32,7 @@ const CourseProgramList: React.FC<{
                     <div className="d-flex justify-content-between align-items-center anchor">
                       <span className="courses-name">
                         <small>
-                          {lesson_index + 1}.{topic_index + 1}{' '}
+                          {lesson_index + 1}.{topic_index + 1}{" "}
                         </small>
                         {topic.title}
                       </span>
@@ -56,7 +58,7 @@ const CourseProgramList: React.FC<{
                             role="button"
                             tabIndex={-1}
                           >
-                            {t('Preview')}
+                            {t("Preview")}
                           </span>
                         ) : (
                           <span className="status locked">

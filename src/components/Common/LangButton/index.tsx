@@ -6,7 +6,7 @@ const LangButton: React.FC<{ className?: string }> = ({ className = "" }) => {
   const { i18n } = useTranslation();
 
   const onChangeLang = useCallback(
-    (lang) => {
+    (lang: string) => {
       if (lang) {
         i18n.changeLanguage(lang);
       }

@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import GoTop from "@/components/_App/GoTop";
-// import Navbar from "@/components/_App//Navbar";
-// import Footer from "@/components/_App/Footer";
+import { ToastContainer } from "react-toastify";
 import CourseNavbar from "@/components/_App/CourseNavbar";
 import CoursePreviewNavbar from "./CoursePreviewNavbar";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import "react-toastify/dist/ReactToastify.css";
 declare global {
   interface Window {
     ybug_settings: Ybug;
@@ -64,6 +65,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         ></meta>
         <meta name="twitter:card" content="Worlds first Headless LMS"></meta>
       </Helmet>
+      <ToastContainer hideProgressBar position="top-center" theme="colored" />
       <div className="site-wrapper">
         {isCourse ? (
           <CourseNavbar />
@@ -72,12 +74,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         ) : (
           <Navbar />
         )}
-
         {children}
-
-        {/* {!isCourse && <Footer />} */}
+        {!isCourse && <Footer />}
       </div>
-
       <GoTop scrollStepInPx="100" delayInMs={10} />
     </React.Fragment>
   );
