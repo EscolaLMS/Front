@@ -13,7 +13,7 @@ const CartPage: React.FC<Props> = ({ children }) => {
   const stripePromise = (publishable_key: string) =>
     loadStripe(publishable_key);
   const stripeConfigs: any = config?.escolalms_payments?.drivers;
-  const stripeKey = stripeConfigs.stripe.publishable_key;
+  const stripeKey = stripeConfigs?.stripe?.publishable_key;
   return (
     <Elements stripe={stripePromise(stripeKey)}>
       <CartContent />
