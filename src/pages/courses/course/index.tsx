@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
 import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
@@ -188,6 +188,7 @@ const StyledCoursePage = styled.div`
 const CoursePage = () => {
   const [dots] = useState(true);
   const { t } = useTranslation();
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
     useContext(EscolaLMSContext);
@@ -247,7 +248,6 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
   return (
     <Layout>
       <StyledCoursePage>
@@ -262,28 +262,33 @@ const CoursePage = () => {
                     </Title>
                     <div className="labels-row">
                       <div className="single-label">
-                        <LabelListItem title="90%" icon={<ThumbUp />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="90%"
+                          icon={<ThumbUp />}
+                        >
                           {t("CoursePage.Recommends")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
-                        <LabelListItem title="Gwarancja" icon={<Medal />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="Gwarancja"
+                          icon={<Medal />}
+                        >
                           {t("CoursePage.Satisfaction")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
-                        <LabelListItem title="5.0" icon={<StarOrange />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="5.0"
+                          icon={<StarOrange />}
+                        >
                           {t("CoursePage.AvarageRating")}
                         </LabelListItem>
                       </div>
                     </div>
-                    {isMobile ? (
-                      <TextLink>{t("CoursePage.HeroBtnText")}</TextLink>
-                    ) : (
-                      <Button mode="outline">
-                        {t("CoursePage.HeroBtnText")}
-                      </Button>
-                    )}
                   </div>
                   <div className="col-lg-4">
                     <div className="image-wrapper">
@@ -459,15 +464,33 @@ const CoursePage = () => {
                         <div key={item.id} className="single-slide">
                           <Link to={`/courses/${item.id}`}>
                             <CourseCard
+                              mobile={isMobile}
                               id={item.id}
                               title={item.title}
                               categories={{
                                 categoryElements: item.categories || [],
-                                onCategoryClick: () => console.log("clicked"),
+                                onCategoryClick: (id) =>
+                                  history.push(`/courses/?category_id=${id}`),
                               }}
-                              lessonCount={5}
+                              lessonCount={
+                                item.users_count !== 0
+                                  ? item.users_count
+                                  : undefined
+                              }
+                              onButtonClick={() =>
+                                history.push(`/courses/${item.id}`)
+                              }
+                              buttonText="Zacznij teraz"
                               hideImage={false}
-                              subtitle={item.subtitle}
+                              subtitle={
+                                item.subtitle ? (
+                                  <Text>
+                                    <strong style={{ fontSize: 14 }}>
+                                      {item.subtitle?.substring(0, 30)}
+                                    </strong>
+                                  </Text>
+                                ) : null
+                              }
                               image={{
                                 url: item.image_url,
                                 alt: "",

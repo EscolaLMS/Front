@@ -253,7 +253,6 @@ const Index = () => {
     fetchCourses({ per_page: 6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -321,21 +320,25 @@ const Index = () => {
                 settings={{ ...sliderSettings, dots }}
                 dotsPosition="top right"
               >
-                {courses.list?.data.map((item) => (
-                  <div key={item.id} className="single-slide">
-                    <Link to={`/courses/${item.id}`}>
+                {courses &&
+                  courses.list?.data.map((item) => (
+                    <div key={item.id} className="single-slide">
                       <CourseCard
+                        mobile={isMobile}
                         id={item.id}
                         title={item.title}
                         categories={{
                           categoryElements: item.categories || [],
-                          onCategoryClick: () => console.log("clicked"),
+                          onCategoryClick: (id) =>
+                            history.push(`/courses/?category_id=${id}`),
                         }}
                         onButtonClick={() =>
                           history.push(`/courses/${item.id}`)
                         }
                         buttonText="Zacznij teraz"
-                        lessonCount={5}
+                        lessonCount={
+                          item.users_count !== 0 ? item.users_count : undefined
+                        }
                         hideImage={false}
                         subtitle={
                           item.subtitle ? (
@@ -352,9 +355,8 @@ const Index = () => {
                         }}
                         tags={item.tags as Tag[]}
                       />
-                    </Link>
-                  </div>
-                ))}
+                    </div>
+                  ))}
               </Slider>
             </SliderWrapper>
           </div>
@@ -369,17 +371,21 @@ const Index = () => {
                 settings={{ ...sliderSettings, dots }}
                 dotsPosition="top right"
               >
-                {courses.list?.data.map((item) => (
-                  <div key={item.id} className="single-slide">
-                    <Link to={`/courses/${item.id}`}>
+                {courses &&
+                  courses.list?.data.map((item) => (
+                    <div key={item.id} className="single-slide">
                       <CourseCard
+                        mobile={isMobile}
                         id={item.id}
                         title={item.title}
                         categories={{
                           categoryElements: item.categories || [],
-                          onCategoryClick: () => console.log("clicked"),
+                          onCategoryClick: (id) =>
+                            history.push(`/courses/?category_id=${id}`),
                         }}
-                        lessonCount={5}
+                        lessonCount={
+                          item.users_count !== 0 ? item.users_count : undefined
+                        }
                         onButtonClick={() =>
                           history.push(`/courses/${item.id}`)
                         }
@@ -400,116 +406,115 @@ const Index = () => {
                         }}
                         tags={item.tags as Tag[]}
                       />
-                    </Link>
-                  </div>
-                ))}
+                    </div>
+                  ))}
               </Slider>
             </SliderWrapper>
           </div>
         </section>
 
-        <section className="home-awarded-courses">
-          <div className="container">
-            <div className="header-wrapper">
-              <Title level={3}>
-                {t<string>("Homepage.AwardedCoursesTitle")}
-              </Title>
-              <Button mode="outline" onClick={() => history.push("/courses")}>
-                {t<string>("Homepage.AwardedCoursesBtnText")}
-              </Button>
-            </div>
-            <div className="row">
-              <div className="col-xl-4 small-padding main-col-1">
-                <div className="row justify-content-end">
-                  <div className="col-6 small-padding-wrapper">
-                    <div className="course-wrapper course-wrapper--small">
-                      <Link to={`/courses/${courses.list?.data[0].id}`}>
-                        <CourseCard
-                          id={Number(courses?.list?.data[0].id)}
-                          title=""
-                          tags={courses.list?.data[0].tags as Tag[]}
-                          image={{
-                            url: courses?.list?.data[0].image_url,
-                            alt: "",
-                          }}
-                          subtitle={
-                            <Text>
-                              <strong
-                                style={{
-                                  fontSize: 14,
-                                  display: "inline-block",
-                                  lineHeight: 1.2,
-                                }}
-                              >
-                                {courses?.list?.data[0].title}
-                              </strong>
-                            </Text>
-                          }
-                        />
-                      </Link>
+        {courses && courses.list && courses.list.data.length >= 6 && (
+          <section className="home-awarded-courses">
+            <div className="container">
+              <div className="header-wrapper">
+                <Title level={3}>
+                  {t<string>("Homepage.AwardedCoursesTitle")}
+                </Title>
+                <Button mode="outline" onClick={() => history.push("/courses")}>
+                  {t<string>("Homepage.AwardedCoursesBtnText")}
+                </Button>
+              </div>
+              <div className="row">
+                <div className="col-xl-4 small-padding main-col-1">
+                  <div className="row justify-content-end">
+                    <div className="col-6 small-padding-wrapper">
+                      <div className="course-wrapper course-wrapper--small">
+                        <Link to={`/courses/${courses.list?.data[0].id}`}>
+                          <CourseCard
+                            id={Number(courses?.list?.data[0].id)}
+                            title=""
+                            tags={courses.list?.data[0].tags as Tag[]}
+                            image={{
+                              url: courses?.list?.data[0].image_url,
+                              alt: "",
+                            }}
+                            subtitle={
+                              <Text>
+                                <strong
+                                  style={{
+                                    fontSize: 14,
+                                    display: "inline-block",
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {courses?.list?.data[0].title}
+                                </strong>
+                              </Text>
+                            }
+                          />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-6 small-padding-wrapper">
-                    <div className="course-wrapper course-wrapper--small">
-                      <Link to={`/courses/${courses.list?.data[1].id}`}>
-                        <CourseCard
-                          id={Number(courses?.list?.data[1].id)}
-                          title=""
-                          tags={courses.list?.data[1].tags as Tag[]}
-                          image={{
-                            url: courses?.list?.data[1].image_url,
-                            alt: "",
-                          }}
-                          subtitle={
-                            <Text>
-                              <strong
-                                style={{
-                                  fontSize: 14,
-                                  display: "inline-block",
-                                  lineHeight: 1.2,
-                                }}
-                              >
-                                {courses?.list?.data[1].title}
-                              </strong>
-                            </Text>
-                          }
-                        />
-                      </Link>
+                    <div className="col-6 small-padding-wrapper">
+                      <div className="course-wrapper course-wrapper--small">
+                        <Link to={`/courses/${courses.list?.data[1].id}`}>
+                          <CourseCard
+                            id={Number(courses?.list?.data[1].id)}
+                            title=""
+                            tags={courses.list?.data[1].tags as Tag[]}
+                            image={{
+                              url: courses?.list?.data[1].image_url,
+                              alt: "",
+                            }}
+                            subtitle={
+                              <Text>
+                                <strong
+                                  style={{
+                                    fontSize: 14,
+                                    display: "inline-block",
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {courses?.list?.data[1].title}
+                                </strong>
+                              </Text>
+                            }
+                          />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-lg-9 small-padding-wrapper mobile-hide">
-                    <div className="course-wrapper course-wrapper--small">
-                      <Link to={`/courses/${courses.list?.data[2].id}`}>
-                        <CourseCard
-                          id={Number(courses?.list?.data[2].id)}
-                          title=""
-                          tags={courses.list?.data[2].tags as Tag[]}
-                          image={{
-                            url: courses?.list?.data[2].image_url,
-                            alt: "",
-                          }}
-                          subtitle={
-                            <Text>
-                              <strong
-                                style={{
-                                  fontSize: 14,
-                                  display: "inline-block",
-                                  lineHeight: 1.2,
-                                }}
-                              >
-                                {courses?.list?.data[2].title}
-                              </strong>
-                            </Text>
-                          }
-                        />
-                      </Link>
+                    <div className="col-lg-9 small-padding-wrapper mobile-hide">
+                      <div className="course-wrapper course-wrapper--small">
+                        <Link to={`/courses/${courses.list?.data[2].id}`}>
+                          <CourseCard
+                            id={Number(courses?.list?.data[2].id)}
+                            title=""
+                            tags={courses.list?.data[2].tags as Tag[]}
+                            image={{
+                              url: courses?.list?.data[2].image_url,
+                              alt: "",
+                            }}
+                            subtitle={
+                              <Text>
+                                <strong
+                                  style={{
+                                    fontSize: 14,
+                                    display: "inline-block",
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {courses?.list?.data[2].title}
+                                </strong>
+                              </Text>
+                            }
+                          />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-5 small-padding main-col-2">
-                <div className="course-wrapper course-wrapper--big">
-                  <Link to={`/courses/${courses.list?.data[4].id}`}>
+                <div className="col-xl-5 small-padding main-col-2">
+                  <div className="course-wrapper course-wrapper--big">
                     <ImageBubble
                       image={{
                         src: courses.list?.data[4].image_url || "",
@@ -517,7 +522,18 @@ const Index = () => {
                       }}
                       header={
                         <div style={{ textAlign: "right" }}>
-                          <Badge>Bestseller</Badge>
+                          {courses.list.data[4].tags?.map(
+                            (
+                              item: any //TODO: Fix types of tags in sdk
+                            ) => (
+                              <Link
+                                key={item.title}
+                                to={`/courses/tag=${item.title}`}
+                              >
+                                <Badge>{item.title}</Badge>
+                              </Link>
+                            )
+                          )}
                         </div>
                       }
                     >
@@ -545,7 +561,8 @@ const Index = () => {
                         categories={{
                           categoryElements:
                             courses.list?.data[4].categories || [],
-                          onCategoryClick: () => console.log("clicked"),
+                          onCategoryClick: (id) =>
+                            history.push(`/courses/?category_id=${id}`),
                         }}
                         onSecondaryButtonClick={() =>
                           history.push(`/courses/${courses?.list?.data[4].id}`)
@@ -553,80 +570,80 @@ const Index = () => {
                         secondaryButtonText="Jak to działa"
                       />
                     </ImageBubble>
-                  </Link>
-                </div>
-              </div>
-              <div className="col-xl-3 small-padding main-col-3">
-                <div className="row">
-                  <div className="col-xl-12 col-6 small-padding-wrapper">
-                    <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
-                      <Link to={`/courses/${courses.list?.data[3].id}`}>
-                        <CourseCard
-                          id={Number(courses?.list?.data[3].id)}
-                          title=""
-                          tags={courses.list?.data[3].tags as Tag[]}
-                          image={{
-                            url: courses?.list?.data[3].image_url,
-                            alt: "",
-                          }}
-                          subtitle={
-                            <Text>
-                              <strong
-                                style={{
-                                  fontSize: 14,
-                                  display: "inline-block",
-                                  lineHeight: 1.2,
-                                }}
-                              >
-                                {courses?.list?.data[3].title}
-                              </strong>
-                            </Text>
-                          }
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-xl-9 col-6 small-padding-wrapper">
-                    <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
-                      <Link to={`/courses/${courses.list?.data[4].id}`}>
-                        <CourseCard
-                          id={Number(courses?.list?.data[4].id)}
-                          title=""
-                          tags={courses.list?.data[4].tags as Tag[]}
-                          image={{
-                            url: courses?.list?.data[4].image_url,
-                            alt: "",
-                          }}
-                          subtitle={
-                            <Text>
-                              <strong
-                                style={{
-                                  fontSize: 14,
-                                  display: "inline-block",
-                                  lineHeight: 1.2,
-                                }}
-                              >
-                                {courses?.list?.data[4].title}
-                              </strong>
-                            </Text>
-                          }
-                        />
-                      </Link>
-                    </div>
                   </div>
                 </div>
+                <div className="col-xl-3 small-padding main-col-3">
+                  <div className="row">
+                    <div className="col-xl-12 col-6 small-padding-wrapper">
+                      <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
+                        <Link to={`/courses/${courses.list?.data[3].id}`}>
+                          <CourseCard
+                            id={Number(courses?.list?.data[3].id)}
+                            title=""
+                            tags={courses.list?.data[3].tags as Tag[]}
+                            image={{
+                              url: courses?.list?.data[3].image_url,
+                              alt: "",
+                            }}
+                            subtitle={
+                              <Text>
+                                <strong
+                                  style={{
+                                    fontSize: 14,
+                                    display: "inline-block",
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {courses?.list?.data[3].title}
+                                </strong>
+                              </Text>
+                            }
+                          />
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="col-xl-9 col-6 small-padding-wrapper">
+                      <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
+                        <Link to={`/courses/${courses.list?.data[4].id}`}>
+                          <CourseCard
+                            id={Number(courses?.list?.data[4].id)}
+                            title=""
+                            tags={courses.list?.data[4].tags as Tag[]}
+                            image={{
+                              url: courses?.list?.data[4].image_url,
+                              alt: "",
+                            }}
+                            subtitle={
+                              <Text>
+                                <strong
+                                  style={{
+                                    fontSize: 14,
+                                    display: "inline-block",
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {courses?.list?.data[4].title}
+                                </strong>
+                              </Text>
+                            }
+                          />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <Button
+                className="show-more-btn"
+                onClick={() => history.push("/courses")}
+                block
+                mode="outline"
+              >
+                {t<string>("Homepage.AwardedCoursesBtnText")}
+              </Button>
             </div>
-            <Button
-              className="show-more-btn"
-              onClick={() => history.push("/courses")}
-              block
-              mode="outline"
-            >
-              {t<string>("Homepage.AwardedCoursesBtnText")}
-            </Button>
-          </div>
-        </section>
+          </section>
+        )}
         <section className="home-categories">
           <div className="container">
             <Title level={3}>
@@ -639,15 +656,20 @@ const Index = () => {
                   dotsPosition="bottom"
                 >
                   {categoryTree.list?.slice(-4).map((item) => (
-                    <div className="single-category-slide">
+                    <div className="single-category-slide" key={item.id}>
                       <CategoryCard
                         icon={<IconTag />}
                         title={item.name}
                         buttonText={t("Homepage.CategoryBtnText")}
                         subtitle={
-                          <IconText icon={<IconBook />} text="10 kursów" />
+                          <IconText
+                            icon={<IconBook />}
+                            text={`${item.count} kursów`}
+                          />
                         }
-                        onButtonClick={() => console.log("clicked")}
+                        onButtonClick={() =>
+                          history.push(`/courses/?category_id=${item.id}`)
+                        }
                         variant="gradient"
                       />
                     </div>
@@ -657,15 +679,20 @@ const Index = () => {
             ) : (
               <div className="row">
                 {categoryTree.list?.slice(-4).map((item) => (
-                  <div className="col-md-3">
+                  <div className="col-md-3" key={item.id}>
                     <CategoryCard
                       icon={<IconTag />}
                       title={item.name}
                       buttonText={t("Homepage.CategoryBtnText")}
                       subtitle={
-                        <IconText icon={<IconBook />} text="10 kursów" />
+                        <IconText
+                          icon={<IconBook />}
+                          text={`${item.count} kursów`}
+                        />
                       }
-                      onButtonClick={() => console.log("clicked")}
+                      onButtonClick={() =>
+                        history.push(`/courses/?category_id=${item.id}`)
+                      }
                       variant="gradient"
                     />
                   </div>

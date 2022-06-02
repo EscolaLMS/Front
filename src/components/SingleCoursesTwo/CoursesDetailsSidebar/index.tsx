@@ -31,7 +31,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.id) === Number(id)
+      (item: any) => Number(item.product_id) === Number(id)
     );
   }, [id, cart]);
 
@@ -99,7 +99,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           {t("Attend to Course")}
         </Button>
       ) : user.value && course.product ? (
-        <Button mode="secondary" onClick={() => addToCart(Number(course.id))}>
+        <Button
+          loading={cart.loading}
+          mode="secondary"
+          onClick={() => addToCart(Number(course.id)).then(() => push("/cart"))}
+        >
           {t("Buy Course")}
         </Button>
       ) : !course.product ? (
