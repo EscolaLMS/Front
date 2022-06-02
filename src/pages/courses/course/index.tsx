@@ -247,6 +247,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
+
   return (
     <Layout>
       <StyledCoursePage>
