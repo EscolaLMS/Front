@@ -150,24 +150,24 @@ const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
 
 const mainTabs: NavigationTab[] = [
   {
-    key: "PAYMENTS",
+    key: "COURSES",
     title: "Moje szkolenia",
-    url: "/",
+    url: "/user/my-profile",
   },
   {
-    key: "PAYMENTS",
-    title: "Płatności",
-    url: "/",
+    key: "ORDERS",
+    title: "Historia zakupów",
+    url: "/user/my-orders",
   },
   {
-    key: "INVOICES",
-    title: "Faktury",
-    url: "/",
+    key: "WEBINARS",
+    title: "Webinary",
+    url: "/user/my-profile",
   },
   {
     key: "NOTIFICATIONS",
     title: "Powiadomienia",
-    url: "/",
+    url: "/user/my-notifications",
   },
 ];
 
@@ -217,7 +217,7 @@ const ProfileAside: React.FC = () => {
           <nav className="navigation">
             {mainTabs.map((item) => (
               <Link to={item.url} key={item.key}>
-                <Text>{item.title}</Text>
+                <Text size="14">{item.title}</Text>
               </Link>
             ))}
           </nav>

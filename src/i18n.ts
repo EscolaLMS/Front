@@ -397,18 +397,10 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
+
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
-        Tabs: {
-          Summary: "Podsumowanie",
-          Program: "Program",
-          Instructor: "Nauczyciel",
-          Description: "Opis",
-        },
-        Preview: {
-          SeeOther: "Zobacz inne",
-        },
         HeroBtnText: "Zobacz więcej",
         Level: "Poziom trudności",
         StartDate: "Termin rozpoczęcia",
@@ -435,32 +427,18 @@ const resources = {
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
       },
-      Footer: {
-        HomePage: "Strona główna",
-        Courses: "Kursy",
-        LoginRegister: "Logowanie/rejestracja",
-        Cart: "Koszyk",
-        UserProfile: "Profil użytkownika",
-        PoweredBy: "Powered by",
-      },
-      Header: {
-        Search: "Szukaj",
-        Login: "Zaloguj",
-        Register: "Zarejestruj",
-      },
       Cart: {
-        YourCart: "Twój koszyk",
-        ChoosePaymentMethod: "Wybierz formę płatności",
-        CreditCard: "Karta debetowa/kredytowa",
-        RememberCard: "Zapamiętaj tę kartę",
-        Interest: "Może Cię zainteresuje",
-        Summary: "Podsumowanie",
-        Guaranteed: "Guaranteed 30 days for return",
-        EmptyCartTitle: "Twój koszyk jest pusty",
-        EmptyCartText:
-          "Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć podnosić swojej kwalifikacje.",
-        EmptyCartBtnText: "Wybierz kurs dla siebie",
-        FullName: "Imię Nazwisko",
+        Cart: "Koszyk",
+        PayWithStripe: "Płać za pomocą stripe Checkout",
+        FreeCheckout: "Zakończ bezpłatnie",
+        CartIsEmpty: "Koszyk jest pusty",
+        CartSummary: "Suma koszyka",
+        Columns: {
+          Product: "Produkt",
+          Name: "Nazwa",
+          Price: "Cena",
+          Remove: "Usuń",
+        },
       },
       ContactPage: {
         Ready: "Gotowy żeby zacząć?",
@@ -514,6 +492,7 @@ const resources = {
           "Użyj poniższych danych uwierzytelniających, aby sprawdzić, jakie e-maile są wysyłane",
         ForgotSuccess:
           "Wysłaliśmy wiadomość e-mail z prośbą o zresetowanie hasła",
+        ForgotSuccessStep2: "Twoje hasło zostało zmienione",
       },
       MyCoursesPage: {
         Finish: "Dokończ rozpoczęty kurs",
@@ -625,7 +604,7 @@ const resources = {
         AccountBlocked: "Konto zablokowane",
         CourseFinished: "Kurs ukończony",
         PaymentSuccess: "Płatność zakończona",
-        PdfCreatedEvent: "PDF stworzony",
+        PdfCreated: "PDF stworzony",
         CourseTutorUnassigned: "Instruktor nieprzypisany",
         CourseUnassigned: "Kurs nieprzypisany",
         AccountMustBeEnableByAdmin:
