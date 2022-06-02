@@ -9,6 +9,8 @@ import {
   RegisterForm,
   ResetPasswordForm,
 } from "@escolalms/components";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 const Authentication = () => {
   const { search } = useLocation();
@@ -48,6 +50,12 @@ const Authentication = () => {
                   backToLogin={() => setView("login")}
                   onRegisterLink={() => setView("register")}
                   return_url="#/reset-password"
+                  onFirstStepSuccess={() =>
+                    toast.success(t<string>("LoginPage.ForgotSuccess"))
+                  }
+                  onFirstStepError={() =>
+                    toast.error(t<string>("UnexpectedError"))
+                  }
                 />
               ) : (
                 //TODO: when confirmation page ready redirect to it on onSuccess props
