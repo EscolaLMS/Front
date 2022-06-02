@@ -262,28 +262,33 @@ const CoursePage = () => {
                     </Title>
                     <div className="labels-row">
                       <div className="single-label">
-                        <LabelListItem title="90%" icon={<ThumbUp />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="90%"
+                          icon={<ThumbUp />}
+                        >
                           {t("CoursePage.Recommends")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
-                        <LabelListItem title="Gwarancja" icon={<Medal />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="Gwarancja"
+                          icon={<Medal />}
+                        >
                           {t("CoursePage.Satisfaction")}
                         </LabelListItem>
                       </div>
                       <div className="single-label">
-                        <LabelListItem title="5.0" icon={<StarOrange />}>
+                        <LabelListItem
+                          mobile={isMobile}
+                          title="5.0"
+                          icon={<StarOrange />}
+                        >
                           {t("CoursePage.AvarageRating")}
                         </LabelListItem>
                       </div>
                     </div>
-                    {isMobile ? (
-                      <TextLink>{t("CoursePage.HeroBtnText")}</TextLink>
-                    ) : (
-                      <Button mode="outline">
-                        {t("CoursePage.HeroBtnText")}
-                      </Button>
-                    )}
                   </div>
                   <div className="col-lg-4">
                     <div className="image-wrapper">
