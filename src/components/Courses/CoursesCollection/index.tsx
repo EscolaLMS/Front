@@ -4,10 +4,9 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import "./index.scss";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
@@ -21,7 +20,7 @@ const StyledHeader = styled.div`
 
   h1 {
     color: ${({ theme }) => theme.white};
-    margin-bottom: 40px;
+    margin-bottom: 35px;
   }
 
   .filters-container {
@@ -58,14 +57,24 @@ const StyledHeader = styled.div`
       .categories-row {
         display: flex;
         max-width: 500px;
-        overflow: scroll;
+        overflow-x: auto;
+        overflow-y: hidden;
         justify-content: flex-start;
         align-items: center;
         column-gap: 10px;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        &::-webkit-scrollbar {
-          display: none;
+        padding-bottom: 5px;
+        ::-webkit-scrollbar {
+          height: 4px;
+          width: 4px;
+          border: 1px solid transparent;
+        }
+        ::-webkit-scrollbar-track {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: #ffffff;
         }
 
         .single-category-btn {
@@ -99,7 +108,6 @@ const CoursesCollection: React.FC = () => {
     useState<API.Category | null>(null);
   const { t } = useTranslation();
   const history = useHistory();
-  console.log(params);
   const typeFilters = [
     { label: "Darmowe", value: "true" },
     { label: "Płatne", value: "false" },
@@ -114,10 +122,6 @@ const CoursesCollection: React.FC = () => {
       setSelectedMainCategory(categoryFromQuery);
     }
   }, [categoryTree]);
-
-  useEffect(() => {
-    console.log(selectedMainCategory);
-  }, [selectedMainCategory]);
 
   if (courses && (!courses.list || !courses.list.data?.length)) {
     return <div className="col-lg-8">{t("NoCourses")}</div>;
@@ -238,7 +242,8 @@ const CoursesCollection: React.FC = () => {
                   title={item.title}
                   categories={{
                     categoryElements: item.categories || [],
-                    onCategoryClick: () => console.log("clicked"),
+                    onCategoryClick: (id) =>
+                      history.push(`/courses/?category_id=${id}`),
                   }}
                   onButtonClick={() => history.push(`/courses/${item.id}`)}
                   buttonText="Zacznij teraz"
@@ -283,68 +288,6 @@ const CoursesCollection: React.FC = () => {
         )}
     </>
   );
-  // return (
-  //   <div className={className}>
-  //     <div className="escolalms-grid-sorting row align-items-center">
-  //       <div className="col-lg-8 col-md-6 result-count">
-  //         <p>
-  //           <Trans
-  //             i18nKey="FoundCourses"
-  //             values={{ count: courses?.list?.meta.total || 0 }}
-  //             components={{ strong: <span className="count" /> }}
-  //           />
-  //         </p>
-  //       </div>
-
-  //       <div className="col-lg-4 col-md-6 ordering">
-  //         <div className="select-box">
-  //           <select
-  //             className="form-control"
-  //             onBlur={(e) => {
-  //               const [order_by, order] = e.target.value.split('|');
-
-  //               setParams &&
-  //                 setParams({
-  //                   ...params,
-  //                   order_by,
-  //                   order: order as Order,
-  //                 });
-  //             }}
-  //           >
-  //             <option disabled>{t('SortBy')}</option>
-  //             <option value="title|ASC">{t('Title')}</option>
-  //             <option value="created_at|ASC">{t('DateAdded')}</option>
-  //           </select>
-  //         </div>
-  //       </div>
-  //     </div>
-
-  //     <div className="row">
-  //       {courses &&
-  //         courses.list &&
-  //         courses.list.data.map((course: API.CourseListItem) => (
-  //           <div className={`col-lg-${itemCol} col-md-6`} key={course.id}>
-  //             <CourseCard course={course} />
-  //           </div>
-  //         ))}
-  //       {courses && courses.list && courses.list.meta.total > courses.list.meta.per_page && (
-  //         <Pagination
-  //           total={courses.list.meta.total}
-  //           perPage={courses.list.meta.per_page}
-  //           currentPage={courses.list.meta.current_page}
-  //           onPage={(i) =>
-  //             setParams &&
-  //             setParams({
-  //               ...params,
-  //               page: i,
-  //               per_page: 6,
-  //             })
-  //           }
-  //         />
-  //       )}
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default CoursesCollection;
