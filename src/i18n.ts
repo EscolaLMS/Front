@@ -397,10 +397,18 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
-
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
+        Tabs: {
+          Summary: "Podsumowanie",
+          Program: "Program",
+          Instructor: "Nauczyciel",
+          Description: "Opis",
+        },
+        Preview: {
+          SeeOther: "Zobacz inne",
+        },
         HeroBtnText: "Zobacz więcej",
         Level: "Poziom trudności",
         StartDate: "Termin rozpoczęcia",
@@ -426,6 +434,19 @@ const resources = {
         AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
+      },
+      Footer: {
+        HomePage: "Strona główna",
+        Courses: "Kursy",
+        LoginRegister: "Logowanie/rejestracja",
+        Cart: "Koszyk",
+        UserProfile: "Profil użytkownika",
+        PoweredBy: "Powered by",
+      },
+      Header: {
+        Search: "Szukaj",
+        Login: "Zaloguj",
+        Register: "Zarejestruj",
       },
       Cart: {
         YourCart: "Twój koszyk",

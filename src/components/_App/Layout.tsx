@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import CourseNavbar from "@/components/_App/CourseNavbar";
 import CoursePreviewNavbar from "./CoursePreviewNavbar";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
 declare global {
   interface Window {
@@ -73,9 +74,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         ) : (
           <Navbar />
         )}
-
         {children}
-        {/* {!isCourse && <Footer />} */}
+        {!isCourse && <Footer />}
       </div>
       <GoTop scrollStepInPx="100" delayInMs={10} />
     </React.Fragment>
