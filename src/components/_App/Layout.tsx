@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { ToastProvider } from "react-toast-notifications";
-import { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import GoTop from "@/components/_App/GoTop";
 // import Navbar from "@/components/_App//Navbar";
@@ -66,30 +64,21 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         ></meta>
         <meta name="twitter:card" content="Worlds first Headless LMS"></meta>
       </Helmet>
+      <div className="site-wrapper">
+        {isCourse ? (
+          <CourseNavbar />
+        ) : isPreview ? (
+          <CoursePreviewNavbar />
+        ) : (
+          <Navbar />
+        )}
 
-      <Toaster position="top-left" reverseOrder={false} />
+        {children}
 
-      <ToastProvider
-        placement="bottom-left"
-        autoDismissTimeout={10000}
-        autoDismiss
-      >
-        <div className="site-wrapper">
-          {isCourse ? (
-            <CourseNavbar />
-          ) : isPreview ? (
-            <CoursePreviewNavbar />
-          ) : (
-            <Navbar />
-          )}
+        {/* {!isCourse && <Footer />} */}
+      </div>
 
-          {children}
-
-          {/* {!isCourse && <Footer />} */}
-        </div>
-
-        <GoTop scrollStepInPx="100" delayInMs={10} />
-      </ToastProvider>
+      <GoTop scrollStepInPx="100" delayInMs={10} />
     </React.Fragment>
   );
 };
