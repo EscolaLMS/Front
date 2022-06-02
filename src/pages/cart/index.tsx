@@ -4,8 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-import { API } from "@escolalms/sdk/lib";
-import "./index.scss";
 import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -146,42 +144,41 @@ const ThankYouPageStyled = styled.section`
   }
 `;
 
-const ThankYouPage = () => {
-  return (
-    <Layout>
-      <ThankYouPageStyled>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-9">
-              <Title className="thank-you-title" level={3}>
-                Gratulacje! <br />
-                Od teraz posiadasz pełny dostęp do kursu:
-              </Title>
-              <Title level={4} className="course-name">
-                Księgowość dla początkujących
-              </Title>
-              <Text className="email-info">
-                Aby rozpocząć zaloguj się na podany adres e-mail lub kliknij w
-                poniższy przycisk
-              </Text>
-              <Button block>Rozpocznij kurs</Button>
-              <Text className="small-text">
-                Zapraszamy do dalszych zakupów w platformie Wellms
-              </Text>
-            </div>
-          </div>
-        </div>
-      </ThankYouPageStyled>
-    </Layout>
-  );
-};
+// const ThankYouPage = () => {
+//   return (
+//     <Layout>
+//       <ThankYouPageStyled>
+//         <div className="container">
+//           <div className="row justify-content-center">
+//             <div className="col-md-9">
+//               <Title className="thank-you-title" level={3}>
+//                 Gratulacje! <br />
+//                 Od teraz posiadasz pełny dostęp do kursu:
+//               </Title>
+//               <Title level={4} className="course-name">
+//                 Księgowość dla początkujących
+//               </Title>
+//               <Text className="email-info">
+//                 Aby rozpocząć zaloguj się na podany adres e-mail lub kliknij w
+//                 poniższy przycisk
+//               </Text>
+//               <Button block>Rozpocznij kurs</Button>
+//               <Text className="small-text">
+//                 Zapraszamy do dalszych zakupów w platformie Wellms
+//               </Text>
+//             </div>
+//           </div>
+//         </div>
+//       </ThankYouPageStyled>
+//     </Layout>
+//   );
+// };
 
 const CartPage = () => {
   const {
     user,
     cart,
     fetchCart,
-    config,
     removeFromCart,
     payWithStripe,
     fetchProgress,
@@ -262,20 +259,9 @@ const CartPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, user]);
 
-  const priceLiteral = useCallback(
-    (course: API.Course) => {
-      return course.base_price === 0
-        ? t("FREE")
-        : `${config?.escolalms_payments?.default_currency} ${(
-            course.base_price / 100
-          ).toFixed(2)}`;
-    },
-    [t, config]
-  );
-
   const onPay = useCallback((paymentMethodId: string) => {
     payWithStripe(paymentMethodId).then(() => {
-      push("/user/my-courses");
+      push("/user/my-profile");
       fetchCart();
       fetchProgress();
     });
@@ -325,10 +311,10 @@ const CartPage = () => {
     return <Preloader />;
   }
 
-  //TODO: Find better way to handle it
-  if (location.search === "?status=success") {
-    return <ThankYouPage />;
-  }
+  // if (location.search === "?status=success") {
+  //   return <ThankYouPage />;
+  // }
+
   return (
     <Layout>
       <CartPageStyled>
@@ -337,7 +323,7 @@ const CartPage = () => {
             <div className="row">
               <div className="col-lg-9">
                 <div className="module-wrapper">
-                  <Title level={4}>Twój koszyk</Title>
+                  <Title level={4}>{t<string>("Cart.YourCart")}</Title>
                   <div className="products-container">
                     {cart.value?.items.map((item: CartItem) => (
                       <CheckoutCard
@@ -376,10 +362,12 @@ const CartPage = () => {
                   </div>
                 </div>
                 <div className="module-wrapper">
-                  <Title level={4}>Wybierz formę płatności</Title>
+                  <Title level={4}>
+                    {t<string>("Cart.ChoosePaymentMethod")}
+                  </Title>
                   <div className="payments-form">
                     <div className="collapse-wrapper">
-                      <Collapse active title="Karta debetowa/kredytowa">
+                      <Collapse active title={t<string>("Cart.CreditCard")}>
                         <PaymentForm
                           setBillingDetails={setBillingDetails}
                           billingDetails={billingDetails}
@@ -387,7 +375,7 @@ const CartPage = () => {
 
                         <Checkbox
                           name="rememberCreditCard"
-                          label="Zapamiętaj tę kartę"
+                          label={t<string>("Cart.RememberCard")}
                           onChange={() => console.log("clicked")}
                         />
                       </Collapse>
@@ -413,7 +401,7 @@ const CartPage = () => {
                   </div>
                 </div>
                 <section className="slider-section">
-                  <Title level={4}>Może Cię zainteresuje</Title>
+                  <Title level={4}>{t<string>("Cart.Interest")}</Title>
                   <SliderWrapper>
                     <Slider
                       settings={{ ...sliderSettings, dots }}
@@ -432,18 +420,23 @@ const CartPage = () => {
                               lessonCount={5}
                               hideImage={false}
                               subtitle={
-                                <Text>
-                                  <strong style={{ fontSize: 14 }}>
-                                    100% Online
-                                  </strong>
-                                </Text>
+                                item.subtitle ? (
+                                  <Text>
+                                    <strong style={{ fontSize: 14 }}>
+                                      {item.subtitle?.substring(0, 30)}
+                                    </strong>
+                                  </Text>
+                                ) : null
                               }
                               image={{
                                 url: item.image_url,
                                 alt: "",
                               }}
                               tags={item.tags as Tag[]}
-                              onButtonClick={() => console.log("clicked")}
+                              onButtonClick={() =>
+                                history.push(`/courses/${item.id}`)
+                              }
+                              buttonText={t<string>("StartNow")}
                             />
                           </Link>
                         </div>
@@ -453,15 +446,16 @@ const CartPage = () => {
                 </section>
               </div>
               <div className="col-lg-3">
-                <Title level={4}>Podsumowanie</Title>
+                <Title level={4}>{t<string>("Cart.Summary")}</Title>
                 <div className="summary-box-wrapper">
+                  {/* TODO: Mobile when ready in components package */}
                   <CartCard
                     onBuyClick={() => handleSubmit()}
                     id={1}
                     title={`${String(cart.value?.total)} zł`}
                     description={
                       <Text style={{ fontSize: 12, margin: 0 }}>
-                        Guaranteed 30 days for return
+                        {t<string>("Cart.Guaranteed")}
                       </Text>
                     }
                     discount={{
@@ -477,7 +471,6 @@ const CartPage = () => {
                           })
                           .catch((err) => {
                             setDiscountStatus("error");
-                            console.log(err);
                           }),
                       onDeleteDiscountClick: () => console.log("clicked"),
                       status: discountStatus,
@@ -489,20 +482,17 @@ const CartPage = () => {
           ) : (
             <>
               <div className="empty-cart">
-                <Title level={3}>Twój koszyk jest pusty</Title>
-                <Text>
-                  Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć
-                  podnosić swojej kwalifikacje.
-                </Text>
+                <Title level={3}>{t<string>("Cart.EmptyCartTitle")}</Title>
+                <Text>{t<string>("Cart.EmptyCartText")}</Text>
                 <Button
                   mode="secondary"
                   onClick={() => history.push("/courses")}
                 >
-                  Wybierz kurs dla siebie
+                  {t<string>("Cart.EmptyCartBtnText")}
                 </Button>
               </div>
               <section className="slider-section">
-                <Title level={4}>Może Cię zainteresuje</Title>
+                <Title level={4}>{t<string>("Cart.Interest")}</Title>
                 <SliderWrapper>
                   <Slider
                     settings={{ ...sliderSettingsBig, dots }}
@@ -521,11 +511,13 @@ const CartPage = () => {
                             lessonCount={5}
                             hideImage={false}
                             subtitle={
-                              <Text>
-                                <strong style={{ fontSize: 14 }}>
-                                  100% Online
-                                </strong>
-                              </Text>
+                              item.subtitle ? (
+                                <Text>
+                                  <strong style={{ fontSize: 14 }}>
+                                    {item.subtitle?.substring(0, 30)}
+                                  </strong>
+                                </Text>
+                              ) : null
                             }
                             image={{
                               url: item.image_url,

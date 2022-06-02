@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { Input } from "@escolalms/components/lib/components/atoms/Input/Input";
-import { useTranslation } from "react-i18next";
 import {
   CardCvcElement,
   CardExpiryElement,
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import styled, { useTheme } from "styled-components";
+import { t } from "i18next";
 
 type Props = {
   billingDetails: {
@@ -53,6 +53,7 @@ const PaymentForm: React.FC<Props> = ({
         },
       },
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -61,7 +62,7 @@ const PaymentForm: React.FC<Props> = ({
         <div className="col-lg-6">
           <div className="input-wrapper--custom">
             <Input
-              label="Imię Nazwisko"
+              label={t<string>("Cart.FullName")}
               type="text"
               onChange={(e) =>
                 setBillingDetails({
