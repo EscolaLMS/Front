@@ -50,15 +50,17 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   //         (course.product?.price || 0) / 100
   //       ).toFixed(2)}`;
   // }, [course, config]);
+  const currentCourse = progress
+    ? progress.value?.filter((item) => item.course.id === id)
+    : [];
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
-      const currentCourse =
-        progress.value?.filter((item) => item.course.id === id) || [];
-      const courseProgress = currentCourse[0].progress.length;
-      const finishedLessons = currentCourse[0].progress.filter(
-        (item) => item.status > 0
-      );
-      return (100 * finishedLessons.length) / courseProgress;
+      const finishedLessons = currentCourse
+        ? currentCourse[0].progress?.filter((item: any) => item.status === 1)
+        : [];
+      return finishedLessons.length;
+    } else {
+      return 0;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
@@ -121,7 +123,12 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <IconText icon={<IconBadge />} text={t("CoursePage.Certificate")} />
       </div>
       <CourseProgress
-        progress={(progressMap || 0) / 100}
+        progress={
+          currentCourse && currentCourse?.length > 0
+            ? (currentCourse[0].progress.length * (progressMap || 0 / 10)) /
+              1000
+            : 0
+        }
         icon={<IconWin />}
         title={t("CoursePage.MyProgress")}
       >
@@ -141,7 +148,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           <>
             <strong style={{ fontSize: 14 }}>
               {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
-              {t<string>("CoursePage.Of")} {course.lessons?.length || 0}{" "}
+              {t<string>("CoursePage.Of")}{" "}
+              {currentCourse && currentCourse?.length > 0
+                ? currentCourse[0].progress.length
+                : 0}{" "}
               {t<string>("CoursePage.Lessons")}
             </strong>
             <p style={{ marginTop: 9, marginBottom: 0 }}>
