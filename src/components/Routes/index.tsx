@@ -19,7 +19,7 @@ import ResetPage from "../../pages/reset-password";
 
 // privates
 import MyProfilePage from "../../pages/user/MyProfile";
-import MyPaymentsPage from "../../pages/user/my-payments";
+import MyOrdersPage from "../../pages/user/my-orders";
 import MyNotificationsPage from "../../pages/user/my-notifications";
 import CourseProgramPage from "../../pages/course/index";
 import CartPage from "../../pages/cart/index";
@@ -60,7 +60,7 @@ const Routes: React.FC = (): ReactElement => {
     authentication,
     page,
     myProfile,
-    myPayments,
+    myOrders,
     tutors,
     tutor,
     courses,
@@ -94,7 +94,7 @@ const Routes: React.FC = (): ReactElement => {
         {/* privates pages*/}
 
         <PrivateRoute exact path={myProfile} component={MyProfilePage} />
-        <PrivateRoute exact path={myPayments} component={MyPaymentsPage} />
+        <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
         <PrivateRoute
           exact
           path={myNotifications}

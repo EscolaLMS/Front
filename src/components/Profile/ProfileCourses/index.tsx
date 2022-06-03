@@ -10,8 +10,10 @@ import { Tag } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import { t } from "i18next";
 
 const StyledList = styled.div`
+  overflow: hidden;
   .course-wrapper {
     margin-bottom: 24px;
   }
@@ -123,23 +125,20 @@ const ProfileCourses = ({
       : setCoursesToMap(plannedCourses);
   }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
 
-  if (progress.loading) {
-    return <Preloader />;
-  }
-
   return (
     <StyledList>
       {!isMobile ? (
         <div className="row">
           {progress.value?.length === 0 && (
             <StyledEmptyInfo>
-              <Title level={3}>Rozpocznij swój rozwój</Title>
+              <Title level={3}>
+                {t<string>("MyProfilePage.EmptyCoursesTitle")}
+              </Title>
               <Text className="small-text">
-                Nie masz jeszcze żadnych kursów, ale dzięki naszej ofercie już
-                dziś możesz zacząć naukę!
+                {t<string>("MyProfilePage.EmptyCoursesText")}
               </Text>
               <Button onClick={() => history.push("/courses")} mode="secondary">
-                Wybierz kurs dla siebie
+                {t<string>("MyProfilePage.EmptyCoursesBtnText")}
               </Button>
             </StyledEmptyInfo>
           )}
@@ -152,7 +151,8 @@ const ProfileCourses = ({
                     title={item.course.title}
                     categories={{
                       categoryElements: item.course.categories || [],
-                      onCategoryClick: () => console.log("clicked"),
+                      onCategoryClick: (id) =>
+                        history.push(`/courses/?category_id=${id}`),
                     }}
                     lessonCount={5}
                     hideImage={false}
@@ -172,13 +172,26 @@ const ProfileCourses = ({
                         }/api/images/img?path=${item.course.image_path}` || "",
                       alt: "",
                     }}
+                    onButtonClick={() => console.log("ocen")}
+                    buttonText={
+                      progressMap[item.course.id] !== 100
+                        ? t("MyProfilePage.RateCourse")
+                        : undefined
+                    }
                     tags={item.course.tags as Tag[]}
-                    onButtonClick={() => console.log("clicked")}
+                    progress={
+                      progressMap[item.course.id] !== 100
+                        ? {
+                            currentProgress: progressMap[item.course.id],
+                            maxProgress: 100,
+                          }
+                        : undefined
+                    }
                   />
                 </div>
               </div>
             ))}
-          {coursesToMap && coursesToMap.length > 5 && !showMore && (
+          {coursesToMap && coursesToMap.length > 6 && !showMore && (
             <div
               className="col-12"
               style={{
@@ -188,7 +201,7 @@ const ProfileCourses = ({
               }}
             >
               <Button onClick={() => setShowMore(true)} mode="outline">
-                Pokaż więcej
+                {t<string>("MyProfilePage.ShowMore")}
               </Button>
             </div>
           )}
@@ -203,7 +216,8 @@ const ProfileCourses = ({
                     title={item.course.title}
                     categories={{
                       categoryElements: item.course.categories || [],
-                      onCategoryClick: () => console.log("clicked"),
+                      onCategoryClick: (id) =>
+                        history.push(`/courses/?category_id=${id}`),
                     }}
                     lessonCount={5}
                     hideImage={false}
@@ -224,7 +238,20 @@ const ProfileCourses = ({
                       alt: "",
                     }}
                     tags={item.course.tags as Tag[]}
-                    onButtonClick={() => console.log("clicked")}
+                    onButtonClick={() => console.log("ocen")}
+                    buttonText={
+                      progressMap[item.course.id] !== 100
+                        ? t("MyProfilePage.RateCourse")
+                        : undefined
+                    }
+                    progress={
+                      progressMap[item.course.id] !== 100
+                        ? {
+                            currentProgress: progressMap[item.course.id],
+                            maxProgress: 100,
+                          }
+                        : undefined
+                    }
                   />
                 </div>
               </div>
@@ -240,7 +267,8 @@ const ProfileCourses = ({
                   title={item.course.title}
                   categories={{
                     categoryElements: item.course.categories || [],
-                    onCategoryClick: () => console.log("clicked"),
+                    onCategoryClick: (id) =>
+                      history.push(`/courses/?category_id=${id}`),
                   }}
                   lessonCount={5}
                   hideImage={false}
@@ -261,12 +289,26 @@ const ProfileCourses = ({
                     alt: "",
                   }}
                   tags={item.course.tags as Tag[]}
-                  onButtonClick={() => console.log("clicked")}
+                  onButtonClick={() => console.log("ocen")}
+                  buttonText={
+                    progressMap[item.course.id] !== 100
+                      ? t("MyProfilePage.RateCourse")
+                      : undefined
+                  }
+                  progress={
+                    progressMap[item.course.id] !== 100
+                      ? {
+                          currentProgress: progressMap[item.course.id],
+                          maxProgress: 100,
+                        }
+                      : undefined
+                  }
                 />
               </div>
             ))}
         </div>
       )}
+      {progress.loading && <Preloader />}
     </StyledList>
   );
 };

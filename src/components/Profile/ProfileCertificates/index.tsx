@@ -4,17 +4,43 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
 import { FabricPreview } from "@/components/FabricEditor/preview";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
 import Preloader from "@/components/Preloader";
-import { ContextPaginatedMetaState } from "@escolalms/sdk/lib/react/context/types";
+import styled, { useTheme } from "styled-components";
+import { DownloadIcon, ShareIcon } from "../../../icons";
 
-type Props = {
-  certificates: ContextPaginatedMetaState<API.Certificate>;
-};
 type CertType = API.Certificate;
 
-const ProfileCertificates: React.FC<Props> = ({ certificates }) => {
-  const { fetchCertificate } = useContext(EscolaLMSContext);
+const CertificatesList = styled.section`
+  .empty-certificates-message {
+    padding: 34px 40px;
+    background: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  }
+  .buttons-container {
+    display: flex;
+    column-gap: 60px;
+    align-items: center;
+    justify-content: flex-end;
+    .download-btn {
+      appearance: none;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 10px;
+    }
+  }
+`;
+
+const ProfileCertificates: React.FC = () => {
+  const { fetchCertificate, certificates } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+  const theme = useTheme();
   const [previewData, setPreviewData] = React.useState<any>();
 
   const handlePreview = async (id: number) => {
@@ -30,31 +56,32 @@ const ProfileCertificates: React.FC<Props> = ({ certificates }) => {
   }
 
   return (
-    <div className="certificates-list">
+    <CertificatesList>
       {certificates?.list?.data?.length === 0 ? (
-        <Text>{t("MyProfilePage.EmptyCertificates")}</Text>
+        <Text className="empty-certificates-message">
+          <strong>{t("MyProfilePage.EmptyCertificates")}</strong>
+        </Text>
       ) : (
         <>
           {certificates &&
             certificates?.list?.data
               ?.filter((cert: CertType) => cert.title)
               .map((cert: CertType) => (
-                // <tr key={cert.id}>
-                //   <td className="order-created">
-                //     {new Date().toLocaleDateString("en-US")}
-                //   </td>
-                //   <td className="order-price">{cert.title}</td>
-                //   <td className="order-items">
-                //     <button
-                //       className="default-btn"
-                //       onClick={() => handlePreview(cert.id)}
-                //     >
-                //       {t("Download")}
-                //       <span></span>
-                //     </button>
-                //   </td>
-                // </tr>
-                <></>
+                <NoteAction
+                  color={theme.primaryColor}
+                  title={<Title level={4}>{cert.title}</Title>}
+                  subtitle={new Date().toLocaleDateString("pl-PL")}
+                  actions={
+                    <div className="buttons-container">
+                      <button
+                        className="download-btn"
+                        onClick={() => handlePreview(cert.id)}
+                      >
+                        <DownloadIcon /> <Text>(.pdf)</Text>
+                      </button>
+                    </div>
+                  }
+                />
               ))}
         </>
       )}
@@ -66,7 +93,8 @@ const ProfileCertificates: React.FC<Props> = ({ certificates }) => {
           />
         )}
       </div>
-    </div>
+      {certificates.loading && <Preloader />}
+    </CertificatesList>
   );
 };
 

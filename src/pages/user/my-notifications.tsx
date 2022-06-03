@@ -6,6 +6,7 @@ import { Notification } from "@escolalms/components/lib/components/atoms/Notific
 import styled from "styled-components";
 import { getEventType } from "../../utils";
 import { t } from "i18next";
+import Preloader from "@/components/Preloader";
 
 const NotificationsContainer = styled.div`
   margin-top: 11px;
@@ -32,7 +33,7 @@ const MyNotificationsPage = () => {
   }, [user]);
 
   return (
-    <ProfileLayout title="Powiadomienia">
+    <ProfileLayout title={t("MyProfilePage.Notifications")}>
       <NotificationsContainer>
         {notifications &&
           notifications.list?.map((item) => (
@@ -54,6 +55,7 @@ const MyNotificationsPage = () => {
             </div>
           ))}
       </NotificationsContainer>
+      {notifications.loading && <Preloader />}
     </ProfileLayout>
   );
 };

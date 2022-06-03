@@ -5,15 +5,16 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Search } from "@escolalms/components/lib/components/molecules/Search/Search";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
 import { Notifications } from "@escolalms/components/lib/components/molecules/Notifications/Notifications";
+import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
 import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard, HeaderUser } from "../../../icons";
 import { t } from "i18next";
+import { getEventType } from "../../../utils";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -65,6 +66,9 @@ const StyledHeader = styled.header`
       align-items: center;
       margin: 0 85px 0 80px;
       column-gap: 55px;
+      .Dropdown-root {
+        min-width: 105px;
+      }
       @media (max-width: 1366px) {
         margin: 0 50px;
       }
@@ -146,6 +150,15 @@ const StyledHeader = styled.header`
   }
 `;
 
+const CustomMobileMenuItem = styled.div`
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  display: flex !important;
+  padding: 0 !important;
+  margin: 0 !important;
+`;
+
 const Navbar = () => {
   const {
     user: userObj,
@@ -175,80 +188,76 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: "Przeglądaj",
+      title: <Text style={{ margin: 0, padding: 0 }}>Przeglądaj</Text>,
       key: "menuItem1",
       children: [
         {
           title: (
             <Link to="/">
-              <Text>Item 1</Text>
+              <Text>Strona główna</Text>
             </Link>
           ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/">Item 2</Link>,
+          title: <Link to="/courses">Kursy</Link>,
           key: "submenu-2",
         },
         {
-          title: <Link to="/">Item 3</Link>,
+          title: <Link to="/tutors">Trenerzy</Link>,
           key: "submenu-3",
-        },
-        {
-          title: <Link to="/">Item 4</Link>,
-          key: "submenu-4",
         },
       ],
     },
     {
-      title: "Przeglądaj",
-      key: "menuItem1",
-      children: [
-        {
-          title: (
-            <Link to="/">
-              <Text>Item 1</Text>
-            </Link>
-          ),
-          key: "submenu-1",
-        },
-        {
-          title: <Link to="/">Item 2</Link>,
-          key: "submenu-2",
-        },
-        {
-          title: <Link to="/">Item 3</Link>,
-          key: "submenu-3",
-        },
-        {
-          title: <Link to="/">Item 4</Link>,
-          key: "submenu-4",
-        },
-      ],
-    },
-    {
-      title: "Moje",
+      title: <Text style={{ margin: 0, padding: 0 }}>Moje</Text>,
       key: "menuItem2",
       children: [
         {
-          title: <Link to="/">Item 1</Link>,
+          title: <Link to="/user/my-profile">Konto</Link>,
           key: "submenu-1",
         },
         {
-          title: <Link to="/">Item 2</Link>,
+          title: <Link to="/user/my-profile">Kursy</Link>,
           key: "submenu-2",
         },
         {
-          title: <Link to="/">Item 3</Link>,
+          title: <Link to="/user/my-orders">Zamówienia</Link>,
           key: "submenu-3",
         },
         {
-          title: <Link to="/">Item 4</Link>,
+          title: <Link to="/user/my-notifications">Notyfikacje</Link>,
           key: "submenu-4",
         },
       ],
     },
+    {
+      title: user ? (
+        <CustomMobileMenuItem>
+          <Link to="/user/my-profile">
+            {user?.first_name} {user?.last_name}
+          </Link>
+        </CustomMobileMenuItem>
+      ) : (
+        <Link to="/authentication">
+          <Text style={{ margin: 0, padding: 0 }}>Zaloguj/zarejestruj się</Text>
+        </Link>
+      ),
+      key: "menuItem3",
+    },
   ];
+
+  const mappedNotifications = notifications.list
+    ? notifications.list.map((item) => {
+        return {
+          id: item.id,
+          unread: item.read_at ? true : false,
+          description: "",
+          title: t<string>(`Notifications.${getEventType(item.event)}`),
+          dateTime: new Date(item.created_at),
+        };
+      })
+    : [];
 
   if (isMobile) {
     return (
@@ -276,36 +285,29 @@ const Navbar = () => {
         </div>
         <div className="menu-container">
           <div className="search-container">
-            <Search
-              onSubmit={() => console.log("clicked")}
-              onChange={() => console.log("clicked")}
-              onSearch={() => console.log("clicked")}
-              filterOptions={() => console.log("clicked")}
-              placeholder={t<string>("Header.Search")}
-            >
-              <div>Example search string 1</div>
-              <div>Example search string 2</div>
-              <div>Example search string 3</div>
-            </Search>
+            <SearchCourses
+              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+              onInputSubmitted={(input) => console.log("submitted", input)}
+            />
           </div>
           <nav className="navigation">
             <Dropdown
               placeholder="Przeglądaj"
+              onChange={(e) => history.push(e.value)}
               options={[
-                { label: "item1", value: "1" },
-                { label: "item2", value: "2" },
-                { label: "item3", value: "3" },
-                { label: "item4", value: "4" },
-                { label: "item5", value: "5" },
-                { label: "item6", value: "6" },
+                { label: "Strona główna", value: "/" },
+                { label: "Kursy", value: "/courses" },
+                { label: "Instruktorzy", value: "/tutors" },
               ]}
             />
             <Dropdown
               placeholder="Moje"
+              onChange={(e) => history.push(e.value)}
               options={[
-                { label: "item1", value: "1" },
-                { label: "item2", value: "2" },
-                { label: "item3", value: "3" },
+                { label: "Konto", value: "/user/my-profile" },
+                { label: "Kursy", value: "/user/my-profile" },
+                { label: "Zamówienia", value: "/user/my-order" },
+                { label: "Notyfikacje", value: "/user/my-notifications" },
               ]}
             />
           </nav>
@@ -318,7 +320,7 @@ const Navbar = () => {
                   </strong>
                 </Text>
                 <Avatar
-                  src={user?.avatar_url || ExampleAvatar}
+                  src={user?.avatar || ExampleAvatar}
                   alt={user?.first_name}
                   size={"small"}
                 />
@@ -349,25 +351,8 @@ const Navbar = () => {
               <HeaderCard mode={theme.mode} />
             </button>
             <Notifications
-              notifications={[
-                {
-                  id: "324241",
-                  unread: true,
-                  title: "Ostatni dzwonek na szkolenie BHP",
-                  description:
-                    "Już za tydzień upływa termin szkolenia BHP przy produkcji Big Mac Vege.",
-                  dateTime: new Date(),
-                },
-                {
-                  id: "324244",
-                  unread: false,
-                  title: "Masz do zrobienia kurs BHP",
-                  description:
-                    "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
-                  dateTime: new Date(Date.now() - 86400000),
-                },
-              ]}
-              showAllLink="/"
+              notifications={mappedNotifications}
+              showAllLink="#/user/my-notifications"
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
@@ -19,6 +19,9 @@ const StyledFooter = styled.footer`
     flex-wrap: wrap;
     column-gap: ${isMobile ? "0" : "95px"};
     row-gap: ${isMobile ? "20px" : "0"};
+    &:nth-of-type(1) {
+      margin-bottom: 30px;
+    }
     .single-link {
       text-decoration: none;
       transition: all 0.25s;
@@ -48,7 +51,10 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-  const { settings } = useContext(EscolaLMSContext);
+  const { settings, fetchPages, pages } = useContext(EscolaLMSContext);
+  useEffect(() => {
+    fetchPages();
+  }, []);
   return (
     <StyledFooter>
       <div className="container">
@@ -68,6 +74,14 @@ const Footer = () => {
           <Link className="single-link" to="/user/my-profile">
             <Text size="14">{t<string>("Footer.UserProfile")}</Text>
           </Link>
+        </div>
+        <div className="links-row">
+          {pages &&
+            pages.list?.data.map((item) => (
+              <Link key={item.id} className="single-link" to={`/${item.slug}`}>
+                <Text size="14">{item.title.substring(0, 15)}...</Text>
+              </Link>
+            ))}
         </div>
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
