@@ -68,7 +68,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   return !isMobile ? (
     <PricingCard>
       <Title level={4} as="h4">
-        Księgowość dla początkujących
+        {course.title}
       </Title>
       <div className="pricing-card-price">
         <Title level={3} as={"h3"}>
@@ -196,7 +196,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
             <Button
               block
               mode="secondary"
-              onClick={() => addToCart(Number(course.id))}
+              onClick={() =>
+                addToCart(Number(course.id)).then(() => push("/cart"))
+              }
             >
               {t("Buy Course")}
             </Button>

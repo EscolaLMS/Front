@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
@@ -8,12 +8,10 @@ import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
-import { CartItem, Tag } from "@escolalms/sdk/lib/types/api";
+import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/Preloader";
 import Collapse from "@/components/Collapse";
@@ -24,6 +22,7 @@ import {
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
+import CoursesSlider from "@/components/CoursesSlider";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -91,25 +90,6 @@ const CartPageStyled = styled.section`
         padding-right: 45%;
       }
     }
-  }
-`;
-
-const SliderWrapper = styled.div`
-  margin-top: 20px;
-  @media (max-width: 575px) {
-    margin-left: -50px;
-    img {
-      max-height: 180px;
-    }
-  }
-  .single-slide {
-    max-width: calc(100% - 20px);
-    a {
-      text-decoration: none !important;
-    }
-  }
-  .slick-dots {
-    top: -65px;
   }
 `;
 
@@ -399,47 +379,12 @@ const CartContent = () => {
                 </div>
                 <section className="slider-section">
                   <Title level={4}>{t<string>("Cart.Interest")}</Title>
-                  <SliderWrapper>
-                    <Slider
-                      settings={{ ...sliderSettings, dots }}
-                      dotsPosition="top right"
-                    >
-                      {courses.list?.data.map((item) => (
-                        <div key={item.id} className="single-slide">
-                          <Link to={`/courses/${item.id}`}>
-                            <CourseCard
-                              id={item.id}
-                              title={item.title}
-                              categories={{
-                                categoryElements: item.categories || [],
-                                onCategoryClick: () => console.log("clicked"),
-                              }}
-                              lessonCount={5}
-                              hideImage={false}
-                              subtitle={
-                                item.subtitle ? (
-                                  <Text>
-                                    <strong style={{ fontSize: 14 }}>
-                                      {item.subtitle?.substring(0, 30)}
-                                    </strong>
-                                  </Text>
-                                ) : null
-                              }
-                              image={{
-                                url: item.image_url,
-                                alt: "",
-                              }}
-                              tags={item.tags as Tag[]}
-                              onButtonClick={() =>
-                                history.push(`/courses/${item.id}`)
-                              }
-                              buttonText={t<string>("StartNow")}
-                            />
-                          </Link>
-                        </div>
-                      ))}
-                    </Slider>
-                  </SliderWrapper>
+                  {courses && courses.list && (
+                    <CoursesSlider
+                      courses={courses.list.data}
+                      sliderSettings={sliderSettings}
+                    />
+                  )}
                 </section>
               </div>
               <div className="col-lg-3">
@@ -490,44 +435,12 @@ const CartContent = () => {
               </div>
               <section className="slider-section">
                 <Title level={4}>{t<string>("Cart.Interest")}</Title>
-                <SliderWrapper>
-                  <Slider
-                    settings={{ ...sliderSettingsBig, dots }}
-                    dotsPosition="top right"
-                  >
-                    {courses.list?.data.map((item) => (
-                      <div key={item.id} className="single-slide">
-                        <Link to={`/courses/${item.id}`}>
-                          <CourseCard
-                            id={item.id}
-                            title={item.title}
-                            categories={{
-                              categoryElements: item.categories || [],
-                              onCategoryClick: () => console.log("clicked"),
-                            }}
-                            lessonCount={5}
-                            hideImage={false}
-                            subtitle={
-                              item.subtitle ? (
-                                <Text>
-                                  <strong style={{ fontSize: 14 }}>
-                                    {item.subtitle?.substring(0, 30)}
-                                  </strong>
-                                </Text>
-                              ) : null
-                            }
-                            image={{
-                              url: item.image_url,
-                              alt: "",
-                            }}
-                            tags={item.tags as Tag[]}
-                            onButtonClick={() => console.log("clicked")}
-                          />
-                        </Link>
-                      </div>
-                    ))}
-                  </Slider>
-                </SliderWrapper>
+                {courses && courses.list && (
+                  <CoursesSlider
+                    courses={courses.list.data}
+                    sliderSettings={sliderSettings}
+                  />
+                )}
               </section>
             </>
           )}
