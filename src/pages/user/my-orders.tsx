@@ -1,15 +1,32 @@
-import React, { useContext, useEffect } from "react";
-import PageBanner from "../../components/Common/PageBanner";
-import { Link, useHistory } from "react-router-dom";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Preloader from "@/components/Preloader";
-import { useTranslation } from "react-i18next";
-import Layout from "../../components/_App/Layout";
+import ProfileLayout from "@/components/Profile/ProfileLayout";
+import { Orders as OrdersList } from "@escolalms/components/lib/components/molecules/Orders/Orders";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { API } from "@escolalms/sdk/lib";
+import { format } from "date-fns";
+import styled from "styled-components";
+import Preloader from "@/components/Preloader";
+import { isMobile } from "react-device-detect";
+import { t } from "i18next";
+import { toast } from "react-toastify";
+
+const StyledOrdersList = styled.section`
+  margin-top: 35px;
+  .name-container {
+    p {
+      display: inline;
+      margin: 0;
+    }
+  }
+`;
 
 const Orders = () => {
-  const { user, orders, fetchOrders } = useContext(EscolaLMSContext);
-  const { t } = useTranslation();
+  const { user, orders, fetchOrders, fetchOrderInvoice } =
+    useContext(EscolaLMSContext);
+  const [mappedOrders, setMappedOrders] = useState<any>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -18,92 +35,86 @@ const Orders = () => {
     } else {
       fetchOrders();
     }
-  }, [history, user, fetchOrders]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-  const parsePrice = (price: string) => parseInt(price) / 100;
+  const handleDownloadInvoice = useCallback((id: number) => {
+    fetchOrderInvoice(id)
+      .then((response) => {
+        const url = `data:application/pdf;base64,${response}`;
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute(
+          "download",
+          `${t("MyProfilePage.InvoiceTitle")} ${id}.pdf`
+        );
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        // Clean up and remove the link
+        link && link.parentNode && link.parentNode.removeChild(link);
+      })
+      .catch((err) => {
+        if (err) {
+          toast.error(t<string>("UnexpectedError"));
+          console.log(err);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    orders.list &&
+      !orders.loading &&
+      setMappedOrders(
+        orders?.list?.data.map((item) => {
+          return {
+            title: (
+              <div className="name-container">
+                {item?.items?.map((product: API.CartItem, index) => (
+                  <Text>
+                    <strong>
+                      {product?.product?.name}
+                      {index + 1 !== item?.items?.length && ", "}
+                    </strong>
+                  </Text>
+                ))}
+              </div>
+            ),
+            price: <Text>{item.subtotal} zł</Text>,
+            date: item.created_at ? (
+              <Text>{format(new Date(item.created_at), "dd.MM.yyyy")}</Text>
+            ) : (
+              ""
+            ),
+            actions: (
+              <Button
+                mode="outline"
+                onClick={() => handleDownloadInvoice(item.id)}
+              >
+                {t<string>("MyProfilePage.Invoice")}
+              </Button>
+            ),
+          };
+        })
+      );
+  }, [orders]);
 
   return (
-    <Layout>
-      <React.Fragment>
-        <PageBanner
-          pageTitle={t("OrdersPage.MyOrders")}
-          homePageUrl="/"
-          homePageText={t("Home")}
-          activePageText={t("OrdersPage.MyOrders")}
-        />
-
-        <div className="cart-area">
-          <div className="container">
-            {orders.loading && <Preloader />}
-
-            {orders.list?.data.length === 0 ? (
-              <p className="text-center">{t("OrdersPage.ListEmpty")}</p>
-            ) : (
-              <form>
-                <div className="cart-table table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">
-                          {t("PaymentsPage.TableCols.OrderId")}
-                        </th>
-                        <th scope="col">
-                          {t("PaymentsPage.TableCols.Created")}
-                        </th>
-                        <th scope="col">{t("PaymentsPage.TableCols.Price")}</th>
-                        <th scope="col">{t("PaymentsPage.TableCols.Items")}</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {orders.list?.data?.map((order: API.OrderListItem) => (
-                        <tr key={order.id}>
-                          <td className="order-id">{order.id}</td>
-                          <td className="order-created">
-                            {new Date(
-                              String(order.created_at)
-                            ).toLocaleDateString("en-US")}
-                          </td>
-                          <td className="order-price">
-                            <strong>{t("OrdersPage.Price.Subtotal")}:</strong>{" "}
-                            {parsePrice(String(order.subtotal))} <br />
-                            <strong>{t("OrdersPage.Price.Tax")}:</strong>{" "}
-                            {parsePrice(String(order.tax))} <br />
-                            <strong>{t("OrdersPage.Price.Total")}:</strong>{" "}
-                            {parsePrice(String(order.total))} <br />
-                          </td>
-                          <td className="order-items">
-                            {order.items?.map((item) => {
-                              const type = item.buyable_type.split("\\").pop();
-                              switch (type) {
-                                case "Course":
-                                  return (
-                                    <Link to={`/courses/${item.buyable_id}`}>
-                                      {t(`Courses_plural`)}
-                                      <small> ID: {item.buyable_id}</small>
-                                    </Link>
-                                  );
-                                default:
-                                  return (
-                                    <p>
-                                      {t(`Courses_plural`)}
-                                      <small>ID: {item.buyable_id}</small>
-                                    </p>
-                                  );
-                              }
-                            })}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      </React.Fragment>
-    </Layout>
+    <ProfileLayout title={t("MyProfilePage.OrdersHistory")}>
+      <StyledOrdersList>
+        {orders.list?.data.length === 0 ? (
+          <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
+            {t<string>("MyProfilePage.OrdersEmpty")}
+          </Text>
+        ) : (
+          <OrdersList mobile={isMobile} data={mappedOrders} />
+        )}
+      </StyledOrdersList>
+      {orders.loading && <Preloader />}
+    </ProfileLayout>
   );
 };
 

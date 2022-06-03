@@ -8,6 +8,8 @@ import { t } from "i18next";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "100px 0"};
+  z-index: 1000;
+  position: relative;
   .links-row {
     display: flex;
     flex-direction: ${isMobile ? "column" : "row"};

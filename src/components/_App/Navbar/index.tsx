@@ -21,7 +21,7 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
   background: ${({ theme }) =>
     theme.mode === "dark"
       ? " rgba(35, 34, 37, 0.95)"
@@ -320,7 +320,7 @@ const Navbar = () => {
                   </strong>
                 </Text>
                 <Avatar
-                  src={user?.avatar_url || ExampleAvatar}
+                  src={user?.avatar || ExampleAvatar}
                   alt={user?.first_name}
                   size={"small"}
                 />

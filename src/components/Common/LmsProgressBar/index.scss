@@ -1,17 +1,1 @@
-@import './src/style/scss/01_abstracts';
-
-.lms-progress-bar {
-  overflow: hidden;
-  height: 1rem;
-  font-size: 0.75rem;
-  background-color: #e9ecef;
-
-  &__bar {
-    overflow: hidden;
-    height: 100%;
-    max-width: 100%;
-    background: $color-primary;
-    transition: width 1s ease-out;
-    border-radius: 0;
-  }
-}
+@import "./src/style/scss/01_abstracts";

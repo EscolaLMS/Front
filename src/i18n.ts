@@ -397,6 +397,7 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
+
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
@@ -426,32 +427,18 @@ const resources = {
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
       },
-      Footer: {
-        HomePage: "Strona główna",
-        Courses: "Kursy",
-        LoginRegister: "Logowanie/rejestracja",
-        Cart: "Koszyk",
-        UserProfile: "Profil użytkownika",
-        PoweredBy: "Powered by",
-      },
-      Header: {
-        Search: "Szukaj",
-        Login: "Zaloguj",
-        Register: "Zarejestruj",
-      },
       Cart: {
-        YourCart: "Twój koszyk",
-        ChoosePaymentMethod: "Wybierz formę płatności",
-        CreditCard: "Karta debetowa/kredytowa",
-        RememberCard: "Zapamiętaj tę kartę",
-        Interest: "Może Cię zainteresuje",
-        Summary: "Podsumowanie",
-        Guaranteed: "Guaranteed 30 days for return",
-        EmptyCartTitle: "Twój koszyk jest pusty",
-        EmptyCartText:
-          "Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć podnosić swojej kwalifikacje.",
-        EmptyCartBtnText: "Wybierz kurs dla siebie",
-        FullName: "Imię Nazwisko",
+        Cart: "Koszyk",
+        PayWithStripe: "Płać za pomocą stripe Checkout",
+        FreeCheckout: "Zakończ bezpłatnie",
+        CartIsEmpty: "Koszyk jest pusty",
+        CartSummary: "Suma koszyka",
+        Columns: {
+          Product: "Produkt",
+          Name: "Nazwa",
+          Price: "Cena",
+          Remove: "Usuń",
+        },
       },
       ContactPage: {
         Ready: "Gotowy żeby zacząć?",
@@ -496,7 +483,7 @@ const resources = {
       LoginPage: {
         RememberMe: "Zapamietaj mnie",
         Lost: "Zapomniałeś hasła?",
-        Reset: "Zresetuj swoje hasło",
+        RPlaeset: "Zresetuj swoje hasło",
         TempLogin:
           "W tym demo możesz użyć następujących danych uwierzytelniających",
         Username: "Nazwa użytkownika",
@@ -505,6 +492,7 @@ const resources = {
           "Użyj poniższych danych uwierzytelniających, aby sprawdzić, jakie e-maile są wysyłane",
         ForgotSuccess:
           "Wysłaliśmy wiadomość e-mail z prośbą o zresetowanie hasła",
+        ForgotSuccessStep2: "Twoje hasło zostało zmienione",
       },
       MyCoursesPage: {
         Finish: "Dokończ rozpoczęty kurs",
@@ -513,13 +501,30 @@ const resources = {
         NoData: "Nie masz kursów.",
       },
       MyProfilePage: {
-        Avatar: "Wybierz plik do Avatara",
-        FirstName: "Imię",
-        LastName: "Nazwisko",
-        Update: "Zaktualizuj",
-        Bio: "Bio",
-        EmptyCertificates: "Lista certyfikatów jest pusta!",
-        EmptyMattermostChannels: "Lista kanałów Mattermost jest pusta!",
+        InvoiceTitle: "Faktura za zamówienie nr",
+        Invoice: "Rachunek",
+        OrdersEmpty: "Nie złożyłeś jeszcze żadnych zamówień",
+        MyCourses: "Moje szkolenia",
+        OrdersHistory: "Historia zakupów",
+        Notifications: "Powiadomienia",
+        Logout: "Wyloguj",
+        FinishedCourses: "ukończonych kursów",
+        TotalCertificates: "zdobytych certyfikatów",
+        MyProgress: "Moje postępy",
+        YourAccount: "Twoje konto",
+        EmptyCoursesText:
+          " Nie masz jeszcze żadnych kursów, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
+        EmptyCoursesBtnText: " Wybierz kurs dla siebie",
+        EmptyCoursesTitle: "Rozpocznij swój rozwój",
+        EmptyCertificates:
+          "Tu zobaczysz swoje certyfikaty po ukończonych kursach",
+        RateCourse: "Oceń kurs",
+        ShowMore: "Pokaż więcej",
+        MyCertificates: "Moje certyfikaty",
+        ALlCourses: "Wszystkie kursy",
+        InProgress: "W trakcie",
+        Planned: "Zaplanowane",
+        Finished: "Ukończone",
       },
       Navbar: {
         MyProfile: "Mój Profil",
@@ -616,7 +621,7 @@ const resources = {
         AccountBlocked: "Konto zablokowane",
         CourseFinished: "Kurs ukończony",
         PaymentSuccess: "Płatność zakończona",
-        PdfCreatedEvent: "PDF stworzony",
+        PdfCreated: "PDF stworzony",
         CourseTutorUnassigned: "Instruktor nieprzypisany",
         CourseUnassigned: "Kurs nieprzypisany",
         AccountMustBeEnableByAdmin:

@@ -1,13 +1,1 @@
-@import './src/style/scss/01_abstracts';
-
-.top-progress {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  top: 0;
-  z-index: $z-index-top-progress;
-
-  .lms-progress-bar {
-    height: 4px;
-  }
-}
+@import "./src/style/scss/01_abstracts";
