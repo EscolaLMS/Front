@@ -1,20 +1,15 @@
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import React, {
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import styled, { useTheme } from "styled-components";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Link, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import UserSidebar from "@/components/Profile/UserSidebar";
-import { ProgressTropy, UserIcon } from "../../../icons";
+import { HeaderUser, ProgressTropy, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
+import { t } from "i18next";
 
 type NavigationTab = {
   title: string;
@@ -64,6 +59,11 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       margin-bottom: 50px;
       a {
         text-decoration: none;
+        &.selected {
+          p {
+            color: ${({ theme }) => theme.primaryColor};
+          }
+        }
       }
     }
     .logout-wrapper {
@@ -160,11 +160,6 @@ const mainTabs: NavigationTab[] = [
     url: "/user/my-orders",
   },
   {
-    key: "WEBINARS",
-    title: "Webinary",
-    url: "/user/my-profile",
-  },
-  {
     key: "NOTIFICATIONS",
     title: "Powiadomienia",
     url: "/user/my-notifications",
@@ -175,11 +170,11 @@ const ProfileAside: React.FC = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const { user, logout, certificates, progress, fetchProgress } =
     useContext(EscolaLMSContext);
+  const theme = useTheme();
   const history = useHistory();
   useEffect(() => {
     fetchProgress();
   }, []);
-
   const finishedCourses = useMemo(() => {
     return (progress.value || []).filter(
       (course: API.CourseProgressItem) => course.finish_date
@@ -193,11 +188,11 @@ const ProfileAside: React.FC = () => {
           onClick={() => setMenuOpened(!menuOpened)}
         >
           <div className="content-wrapper">
-            <Avatar
-              size="extraSmall"
-              src={user.value?.avatar_url || ""}
-              alt=""
-            />
+            {user.value?.avatar ? (
+              <Avatar size="extraSmall" src={user.value?.avatar} alt="" />
+            ) : (
+              <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
+            )}
             <Text>
               <strong>
                 {user.value?.first_name} {user.value?.last_name}
@@ -207,48 +202,59 @@ const ProfileAside: React.FC = () => {
         </MobileHeader>
       )}
       <div className="user-main-sidebar">
-        <UserSidebar title="Twoje konto" icon={<UserIcon />}>
+        <UserSidebar title={t("MyProfilePage.YourAccount")} icon={<UserIcon />}>
           <div className="avatar-wrapper">
-            <Avatar size="small" src={user.value?.avatar_url || ""} alt="" />
+            {user.value?.avatar ? (
+              <Avatar size="small" src={user.value?.avatar} alt="" />
+            ) : (
+              <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
+            )}
             <Title className="name" level={4}>
               {user.value?.first_name} {user.value?.last_name}
             </Title>
           </div>
           <nav className="navigation">
             {mainTabs.map((item) => (
-              <Link to={item.url} key={item.key}>
+              <NavLink activeClassName="selected" to={item.url} key={item.key}>
                 <Text size="14">{item.title}</Text>
-              </Link>
+              </NavLink>
             ))}
           </nav>
           <div className="logout-wrapper">
             <button onClick={() => logout().then(() => history.push("/"))}>
-              <Text>Wyloguj</Text>
+              <Text>{t<string>("MyProfilePage.Logout")}</Text>
             </button>
           </div>
         </UserSidebar>
       </div>
       <div className="user-progress sidebar">
-        <UserSidebar title="Moje postępy" icon={<ProgressTropy />}>
+        <UserSidebar
+          title={t("MyProfilePage.MyProgress")}
+          icon={<ProgressTropy />}
+        >
           <div className="progress-container">
             <SingleProgress>
               <Title className="number" level={1}>
                 {finishedCourses.length}
               </Title>
-              <Text className="label">ukończonych kursów</Text>
+              <Text className="label">
+                {t<string>("MyProfilePage.FinishedCourses")}
+              </Text>
             </SingleProgress>
             <SingleProgress>
               <Title className="number" level={1}>
                 {certificates.list?.data.length}
               </Title>
-              <Text className="label">zdobytych certyfikatów</Text>
+              <Text className="label">
+                {t<string>("MyProfilePage.TotalCertificates")}
+              </Text>
             </SingleProgress>
-            <SingleProgress>
+            {/* <SingleProgress>
               <Title className="number" level={1}>
                 65
               </Title>
               <Text className="label">godzin nauki</Text>
-            </SingleProgress>
+            </SingleProgress> */}
           </div>
         </UserSidebar>
       </div>

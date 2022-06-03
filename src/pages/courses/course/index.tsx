@@ -227,7 +227,6 @@ const CoursePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  console.log(ratings);
   useEffect(() => {
     user.value && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps

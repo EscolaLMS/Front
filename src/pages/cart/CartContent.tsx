@@ -286,7 +286,6 @@ const CartContent = () => {
           toast.error(t("UnexpectedError"));
         });
   };
-  console.log(cart);
 
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
