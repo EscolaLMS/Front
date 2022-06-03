@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
 import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
@@ -12,23 +12,20 @@ import Paypal from "../../../images/paypal.png";
 import Netflix from "../../../images/netflix.png";
 import Apple from "../../../images/apple.png";
 import McDonald from "../../../images/mcdonald.png";
-import { Link } from "react-router-dom";
 import CertificateExample from "../../../images/certificate-example.png";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
 import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/Ratings";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-import { Link as TextLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
-import { Tag } from "@escolalms/sdk/lib/types/api";
+import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
+import CoursesSlider from "@/components/CoursesSlider";
+import { API } from "@escolalms/sdk/lib";
 
 resetIdCounter();
 
@@ -73,6 +70,9 @@ const StyledCoursePage = styled.div`
       align-items: flex-start;
       column-gap: 20px;
       margin: 35px 0;
+      @media (max-width: 991px) {
+        margin: 35px 0 0;
+      }
       @media (max-width: 374px) {
         flex-direction: column;
         row-gap: 16px;
@@ -186,24 +186,13 @@ const StyledCoursePage = styled.div`
 `;
 
 const CoursePage = () => {
-  const [dots] = useState(true);
+  const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
+    undefined
+  );
   const { t } = useTranslation();
-  const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
     useContext(EscolaLMSContext);
-  const ratingsMock = {
-    sumRates: 40,
-    avgRate: 4.5,
-    rates: {
-      1: 6,
-      2: 5,
-      3: 4,
-      4: 15,
-      5: 10,
-    },
-    header: t("CoursePage.CourseRatingsTitle"),
-  };
 
   const sliderSettings = {
     arrows: false,
@@ -232,10 +221,13 @@ const CoursePage = () => {
     fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
+      questionnaireStars("Course", Number(id)).then((res) => {
+        res.success && setRatings(res.data ? res.data : undefined);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
+  console.log(ratings);
   useEffect(() => {
     user.value && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -406,9 +398,29 @@ const CoursePage = () => {
                 </Title>
                 <MarkdownReader>{course.value.description}</MarkdownReader>
               </section>
-              <section className="course-ratings padding-right">
-                <Ratings mobile={isMobile} {...ratingsMock} />
-              </section>
+              {
+                <section className="course-ratings padding-right">
+                  {ratings && ratings.count_answers > 0 ? (
+                    <Ratings
+                      mobile={isMobile}
+                      sumRates={ratings.sum_rate}
+                      avgRate={Number(ratings.avg_rate)}
+                      //@ts-ignore TODO: Add rates to type QuestionnaireStars in SDK
+                      rates={ratings.rates}
+                      header={t("CoursePage.CourseRatingsTitle")}
+                    />
+                  ) : (
+                    <>
+                      <Title level={4}>
+                        {t("CoursePage.CourseRatingsTitle")}
+                      </Title>
+                      <Text style={{ marginTop: 20 }}>
+                        Ten kurs nie został jeszcze oceniony
+                      </Text>
+                    </>
+                  )}
+                </section>
+              }
             </div>
             <div className="col-lg-3 col-md-12 sidebar-col">
               <div className="sidebar-wrapper">
@@ -423,85 +435,21 @@ const CoursePage = () => {
               <div className="col-lg-9">
                 <div className="content-container">
                   <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
-                  <div className="slider-wrapper">
-                    <Slider
-                      settings={{ ...sliderSettings, dots }}
-                      dotsPosition="top right"
-                    >
-                      {courses.list?.data.map((item) => (
-                        <div key={item.id} className="single-slide">
-                          <Link to={`/courses/${item.id}`}>
-                            <CourseCard
-                              id={item.id}
-                              title={item.title}
-                              categories={{
-                                categoryElements: item.categories || [],
-                                onCategoryClick: () => console.log("clicked"),
-                              }}
-                              lessonCount={5}
-                              hideImage={false}
-                              subtitle={item.subtitle}
-                              image={{
-                                url: item.image_url,
-                                alt: "",
-                              }}
-                              tags={item.tags as Tag[]}
-                            />
-                          </Link>
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
+                  {courses && courses.list && (
+                    <CoursesSlider
+                      courses={courses.list.data}
+                      sliderSettings={sliderSettings}
+                    />
+                  )}
                 </div>
                 <div className="content-container">
                   <Title level={4}>{t("CoursePage.InterestTitle")}</Title>
-                  <div className="slider-wrapper">
-                    <Slider
-                      settings={{ ...sliderSettings, dots }}
-                      dotsPosition="top right"
-                    >
-                      {courses.list?.data.map((item) => (
-                        <div key={item.id} className="single-slide">
-                          <Link to={`/courses/${item.id}`}>
-                            <CourseCard
-                              mobile={isMobile}
-                              id={item.id}
-                              title={item.title}
-                              categories={{
-                                categoryElements: item.categories || [],
-                                onCategoryClick: (id) =>
-                                  history.push(`/courses/?category_id=${id}`),
-                              }}
-                              lessonCount={
-                                item.users_count !== 0
-                                  ? item.users_count
-                                  : undefined
-                              }
-                              onButtonClick={() =>
-                                history.push(`/courses/${item.id}`)
-                              }
-                              buttonText="Zacznij teraz"
-                              hideImage={false}
-                              subtitle={
-                                item.subtitle ? (
-                                  <Text>
-                                    <strong style={{ fontSize: 14 }}>
-                                      {item.subtitle?.substring(0, 30)}
-                                    </strong>
-                                  </Text>
-                                ) : null
-                              }
-                              image={{
-                                url: item.image_url,
-                                alt: "",
-                              }}
-                              tags={item.tags as Tag[]}
-                            />
-                          </Link>
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
+                  {courses && courses.list && (
+                    <CoursesSlider
+                      courses={courses.list.data}
+                      sliderSettings={sliderSettings}
+                    />
+                  )}
                 </div>
               </div>
             </div>

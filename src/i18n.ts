@@ -400,15 +400,6 @@ const resources = {
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
-        Tabs: {
-          Summary: "Podsumowanie",
-          Program: "Program",
-          Instructor: "Nauczyciel",
-          Description: "Opis",
-        },
-        Preview: {
-          SeeOther: "Zobacz inne",
-        },
         HeroBtnText: "Zobacz więcej",
         Level: "Poziom trudności",
         StartDate: "Termin rozpoczęcia",
