@@ -6,10 +6,11 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
+import { Settings } from "react-slick";
 
 type Props = {
   courses: API.Course[];
-  sliderSettings: any;
+  sliderSettings: Settings;
 };
 
 const SliderWrapper = styled.div`
