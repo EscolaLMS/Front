@@ -31,7 +31,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.id) === Number(id)
+      (item: any) => Number(item.product_id) === Number(id)
     );
   }, [id, cart]);
 
@@ -68,7 +68,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   return !isMobile ? (
     <PricingCard>
       <Title level={4} as="h4">
-        Księgowość dla początkujących
+        {course.title}
       </Title>
       <div className="pricing-card-price">
         <Title level={3} as={"h3"}>
@@ -99,7 +99,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           {t("Attend to Course")}
         </Button>
       ) : user.value && course.product ? (
-        <Button mode="secondary" onClick={() => addToCart(Number(course.id))}>
+        <Button
+          loading={cart.loading}
+          mode="secondary"
+          onClick={() => addToCart(Number(course.id)).then(() => push("/cart"))}
+        >
           {t("Buy Course")}
         </Button>
       ) : !course.product ? (
@@ -192,7 +196,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
             <Button
               block
               mode="secondary"
-              onClick={() => addToCart(Number(course.id))}
+              onClick={() =>
+                addToCart(Number(course.id)).then(() => push("/cart"))
+              }
             >
               {t("Buy Course")}
             </Button>
