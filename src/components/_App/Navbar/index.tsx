@@ -320,7 +320,7 @@ const Navbar = () => {
                   </strong>
                 </Text>
                 <Avatar
-                  src={user?.avatar_url || ExampleAvatar}
+                  src={user?.avatar || ExampleAvatar}
                   alt={user?.first_name}
                   size={"small"}
                 />

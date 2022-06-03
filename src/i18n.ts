@@ -516,6 +516,8 @@ const resources = {
           " Nie masz jeszcze żadnych kursów, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
         EmptyCoursesBtnText: " Wybierz kurs dla siebie",
         EmptyCoursesTitle: "Rozpocznij swój rozwój",
+        EmptyCertificates:
+          "Tu zobaczysz swoje certyfikaty po ukończonych kursach",
         RateCourse: "Oceń kurs",
         ShowMore: "Pokaż więcej",
         MyCertificates: "Moje certyfikaty",

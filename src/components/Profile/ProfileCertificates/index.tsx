@@ -13,6 +13,11 @@ import { DownloadIcon, ShareIcon } from "../../../icons";
 type CertType = API.Certificate;
 
 const CertificatesList = styled.section`
+  .empty-certificates-message {
+    padding: 34px 40px;
+    background: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  }
   .buttons-container {
     display: flex;
     column-gap: 60px;
@@ -53,7 +58,9 @@ const ProfileCertificates: React.FC = () => {
   return (
     <CertificatesList>
       {certificates?.list?.data?.length === 0 ? (
-        <Text>{t("MyProfilePage.EmptyCertificates")}</Text>
+        <Text className="empty-certificates-message">
+          <strong>{t("MyProfilePage.EmptyCertificates")}</strong>
+        </Text>
       ) : (
         <>
           {certificates &&
