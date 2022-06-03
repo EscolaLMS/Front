@@ -284,7 +284,7 @@ const resources = {
         AccountBlocked: "Account blocked",
         CourseFinished: "Course finished",
         PaymentSuccess: "Payment success",
-        PdfCreatedEvent: "PDF created",
+        PdfCreated: "PDF created",
         CourseTutorUnassigned: "Course tutor unassigned",
         CourseUnassigned: "Course uassigned",
         AccountMustBeEnableByAdmin: "Account must be enable by Admin",
@@ -296,6 +296,8 @@ const resources = {
   },
   pl: {
     translation: {
+      UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
+      StartNow: "Zacznij teraz",
       "Access from": "Dostęp od",
       "Access to": "Dostęp do",
       Access: "Dostęp",
@@ -395,7 +397,6 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
-
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
@@ -425,18 +426,32 @@ const resources = {
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
       },
-      Cart: {
+      Footer: {
+        HomePage: "Strona główna",
+        Courses: "Kursy",
+        LoginRegister: "Logowanie/rejestracja",
         Cart: "Koszyk",
-        PayWithStripe: "Płać za pomocą stripe Checkout",
-        FreeCheckout: "Zakończ bezpłatnie",
-        CartIsEmpty: "Koszyk jest pusty",
-        CartSummary: "Suma koszyka",
-        Columns: {
-          Product: "Produkt",
-          Name: "Nazwa",
-          Price: "Cena",
-          Remove: "Usuń",
-        },
+        UserProfile: "Profil użytkownika",
+        PoweredBy: "Powered by",
+      },
+      Header: {
+        Search: "Szukaj",
+        Login: "Zaloguj",
+        Register: "Zarejestruj",
+      },
+      Cart: {
+        YourCart: "Twój koszyk",
+        ChoosePaymentMethod: "Wybierz formę płatności",
+        CreditCard: "Karta debetowa/kredytowa",
+        RememberCard: "Zapamiętaj tę kartę",
+        Interest: "Może Cię zainteresuje",
+        Summary: "Podsumowanie",
+        Guaranteed: "Guaranteed 30 days for return",
+        EmptyCartTitle: "Twój koszyk jest pusty",
+        EmptyCartText:
+          "Wybierz kurs odpowiedni dla siebie, aby już dziś zacząć podnosić swojej kwalifikacje.",
+        EmptyCartBtnText: "Wybierz kurs dla siebie",
+        FullName: "Imię Nazwisko",
       },
       ContactPage: {
         Ready: "Gotowy żeby zacząć?",
@@ -609,6 +624,8 @@ const resources = {
         SettingPackageConfigUpdated: "Zaktualizowano konfigurację pakietu",
         CourseTutorAssigned: "Instruktor przypisany",
         AccountConfirmed: "Konto potwierdzone",
+        ProductAddedToCart: "Produkt dodany do koszyka",
+        ProductRemovedFromCart: "Produkt usunięty z koszyka",
       },
     },
   },

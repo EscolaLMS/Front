@@ -4,12 +4,13 @@ import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
-import "./index.scss";
 import {
   LoginForm,
   RegisterForm,
   ResetPasswordForm,
 } from "@escolalms/components";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 const Authentication = () => {
   const { search } = useLocation();
@@ -33,34 +34,40 @@ const Authentication = () => {
 
   return (
     <Layout>
-      <React.Fragment>
-        <div className="profile-authentication-area">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-6 col-md-12">
-                {view === "login" ? (
-                  <LoginForm
-                    onResetPasswordLink={() => setView("forgotPassword")}
-                    onRegisterLink={() => setView("register")}
-                    mobile={isMobile}
-                  />
-                ) : view === "forgotPassword" ? (
-                  <ResetPasswordForm
-                    mobile={isMobile}
-                    backToLogin={() => setView("login")}
-                  />
-                ) : (
-                  //TODO: when confirmation page ready redirect to it on onSuccess props
-                  <RegisterForm
-                    mobile={isMobile}
-                    onLoginLink={() => setView("login")}
-                  />
-                )}
-              </div>
+      <div className="profile-authentication-area">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-12">
+              {view === "login" ? (
+                <LoginForm
+                  onResetPasswordLink={() => setView("forgotPassword")}
+                  onRegisterLink={() => setView("register")}
+                  mobile={isMobile}
+                />
+              ) : view === "forgotPassword" ? (
+                <ResetPasswordForm
+                  mobile={isMobile}
+                  backToLogin={() => setView("login")}
+                  onRegisterLink={() => setView("register")}
+                  return_url="#/reset-password"
+                  onFirstStepSuccess={() =>
+                    toast.success(t<string>("LoginPage.ForgotSuccess"))
+                  }
+                  onFirstStepError={() =>
+                    toast.error(t<string>("UnexpectedError"))
+                  }
+                />
+              ) : (
+                //TODO: when confirmation page ready redirect to it on onSuccess props
+                <RegisterForm
+                  mobile={isMobile}
+                  onLoginLink={() => setView("login")}
+                />
+              )}
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     </Layout>
   );
 };

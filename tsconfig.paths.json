@@ -3,8 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/escolalms/sdk/*": ["src/escolalms/sdk/*"]
+      "@/utils/*": ["src/utils/*"]
     }
   }
 }

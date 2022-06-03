@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import routes from '@/components/Routes/routes';
-import PageBanner from '@/components/Common/PageBanner';
-import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
-import usePrevious from '../../hooks/usePrevious';
-import Preloader from '../../components/Preloader';
-import Layout from '@/components/_App/Layout';
-import { useTranslation } from 'react-i18next';
-import './index.scss';
+import React, { useContext, useEffect } from "react";
+import { useParams, Redirect } from "react-router-dom";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import routes from "@/components/Routes/routes";
+import PageBanner from "@/components/Common/PageBanner";
+import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
+import usePrevious from "../../hooks/usePrevious";
+import Preloader from "../../components/Preloader";
+import Layout from "@/components/_App/Layout";
+import { useTranslation } from "react-i18next";
+import "./index.scss";
 
 const StaticPage = () => {
   let { slug } = useParams<{ slug: string }>();
@@ -57,10 +57,10 @@ const StaticPage = () => {
     <Layout>
       <React.Fragment>
         <PageBanner
-          pageTitle={page?.value?.title || ''}
+          pageTitle={page?.value?.title || ""}
           homePageUrl="/"
-          homePageText={t('Home')}
-          activePageText={page?.value?.title || ''}
+          homePageText={t("Home")}
+          activePageText={page?.value?.title || ""}
         />
 
         <div className="privacy-policy-area">
@@ -68,7 +68,7 @@ const StaticPage = () => {
             <div className="row">
               <div className="col-lg-8 col-md-12">
                 <div className="privacy-policy-content">
-                  <MarkdownReader>{page?.value?.content || ''}</MarkdownReader>
+                  <MarkdownReader>{page?.value?.content || ""}</MarkdownReader>
                 </div>
               </div>
             </div>

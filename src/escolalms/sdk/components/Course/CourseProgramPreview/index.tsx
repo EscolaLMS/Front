@@ -1,13 +1,13 @@
-import React, { useContext, useMemo } from 'react';
-import { API } from '@escolalms/sdk/lib';
-import { TopicType } from '@escolalms/sdk/lib/services/courses';
-import Embed from 'react-tiny-oembed';
-import ReactPlayer from 'react-player';
-import PdfPlayer from './../Players/PdfPlayer';
-import MarkdownReader from '@/escolalms/sdk/components/Markdown/MarkdownReader';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
-import H5Player from '@/components/H5Player';
-import './index.scss';
+import React, { useContext, useMemo } from "react";
+import { API } from "@escolalms/sdk/lib";
+import { TopicType } from "@escolalms/sdk/lib/services/courses";
+import Embed from "react-tiny-oembed";
+import ReactPlayer from "react-player";
+import PdfPlayer from "./../Players/PdfPlayer";
+import MarkdownReader from "../../Markdown/MarkdownReader";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import H5Player from "@/components/H5Player";
+import "./index.scss";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -29,7 +29,14 @@ export const CourseProgramPreview: React.FC<{
             </div>
           );
         case TopicType.Video:
-          return <ReactPlayer url={topic.topicable.url} controls width="100%" height="80vh" />;
+          return (
+            <ReactPlayer
+              url={topic.topicable.url}
+              controls
+              width="100%"
+              height="80vh"
+            />
+          );
         case TopicType.Image:
           return (
             <div className="img-container-xl">
