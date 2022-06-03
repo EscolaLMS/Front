@@ -29,6 +29,7 @@ import { Link as TextLink } from "@escolalms/components/lib/components/atoms/Lin
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { Tag } from "@escolalms/sdk/lib/types/api";
+import CoursesSlider from "@/components/CoursesSlider";
 
 resetIdCounter();
 
@@ -423,85 +424,21 @@ const CoursePage = () => {
               <div className="col-lg-9">
                 <div className="content-container">
                   <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
-                  <div className="slider-wrapper">
-                    <Slider
-                      settings={{ ...sliderSettings, dots }}
-                      dotsPosition="top right"
-                    >
-                      {courses.list?.data.map((item) => (
-                        <div key={item.id} className="single-slide">
-                          <Link to={`/courses/${item.id}`}>
-                            <CourseCard
-                              id={item.id}
-                              title={item.title}
-                              categories={{
-                                categoryElements: item.categories || [],
-                                onCategoryClick: () => console.log("clicked"),
-                              }}
-                              lessonCount={5}
-                              hideImage={false}
-                              subtitle={item.subtitle}
-                              image={{
-                                url: item.image_url,
-                                alt: "",
-                              }}
-                              tags={item.tags as Tag[]}
-                            />
-                          </Link>
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
+                  {courses && courses.list && (
+                    <CoursesSlider
+                      courses={courses.list.data}
+                      sliderSettings={sliderSettings}
+                    />
+                  )}
                 </div>
                 <div className="content-container">
                   <Title level={4}>{t("CoursePage.InterestTitle")}</Title>
-                  <div className="slider-wrapper">
-                    <Slider
-                      settings={{ ...sliderSettings, dots }}
-                      dotsPosition="top right"
-                    >
-                      {courses.list?.data.map((item) => (
-                        <div key={item.id} className="single-slide">
-                          <Link to={`/courses/${item.id}`}>
-                            <CourseCard
-                              mobile={isMobile}
-                              id={item.id}
-                              title={item.title}
-                              categories={{
-                                categoryElements: item.categories || [],
-                                onCategoryClick: (id) =>
-                                  history.push(`/courses/?category_id=${id}`),
-                              }}
-                              lessonCount={
-                                item.users_count !== 0
-                                  ? item.users_count
-                                  : undefined
-                              }
-                              onButtonClick={() =>
-                                history.push(`/courses/${item.id}`)
-                              }
-                              buttonText="Zacznij teraz"
-                              hideImage={false}
-                              subtitle={
-                                item.subtitle ? (
-                                  <Text>
-                                    <strong style={{ fontSize: 14 }}>
-                                      {item.subtitle?.substring(0, 30)}
-                                    </strong>
-                                  </Text>
-                                ) : null
-                              }
-                              image={{
-                                url: item.image_url,
-                                alt: "",
-                              }}
-                              tags={item.tags as Tag[]}
-                            />
-                          </Link>
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
+                  {courses && courses.list && (
+                    <CoursesSlider
+                      courses={courses.list.data}
+                      sliderSettings={sliderSettings}
+                    />
+                  )}
                 </div>
               </div>
             </div>

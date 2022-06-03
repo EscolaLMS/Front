@@ -18,6 +18,7 @@ import { IconBook, IconTag } from "../icons";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
+import CoursesSlider from "@/components/CoursesSlider";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -219,30 +220,6 @@ const HomePageStyled = styled.div`
   }
 `;
 
-const SliderWrapper = styled.div`
-  a {
-    text-decoration: none !important;
-  }
-  @media (max-width: 575px) {
-    margin-left: -50px;
-    .image-section,
-    img {
-      max-height: 180px;
-    }
-  }
-  .slick-slider {
-    @media (max-width: 575px) {
-      width: calc(100% + 15px);
-    }
-  }
-  .single-slide {
-    max-width: calc(100% - 20px);
-  }
-  .slick-dots {
-    top: -65px;
-  }
-`;
-
 const Index = () => {
   const [dots] = useState(true);
   const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
@@ -315,50 +292,12 @@ const Index = () => {
             <Title className="slider-title" level={3}>
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
-            <SliderWrapper>
-              <Slider
-                settings={{ ...sliderSettings, dots }}
-                dotsPosition="top right"
-              >
-                {courses &&
-                  courses.list?.data.map((item) => (
-                    <div key={item.id} className="single-slide">
-                      <CourseCard
-                        mobile={isMobile}
-                        id={item.id}
-                        title={item.title}
-                        categories={{
-                          categoryElements: item.categories || [],
-                          onCategoryClick: (id) =>
-                            history.push(`/courses/?category_id=${id}`),
-                        }}
-                        onButtonClick={() =>
-                          history.push(`/courses/${item.id}`)
-                        }
-                        buttonText="Zacznij teraz"
-                        lessonCount={
-                          item.users_count !== 0 ? item.users_count : undefined
-                        }
-                        hideImage={false}
-                        subtitle={
-                          item.subtitle ? (
-                            <Text>
-                              <strong style={{ fontSize: 14 }}>
-                                {item.subtitle?.substring(0, 30)}
-                              </strong>
-                            </Text>
-                          ) : null
-                        }
-                        image={{
-                          url: item.image_url,
-                          alt: "",
-                        }}
-                        tags={item.tags as Tag[]}
-                      />
-                    </div>
-                  ))}
-              </Slider>
-            </SliderWrapper>
+            {courses && courses.list && (
+              <CoursesSlider
+                courses={courses.list.data}
+                sliderSettings={sliderSettings}
+              />
+            )}
           </div>
         </section>
         <section className="home-newest-courses">
@@ -366,50 +305,12 @@ const Index = () => {
             <Title className="slider-title" level={3}>
               <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
             </Title>
-            <SliderWrapper>
-              <Slider
-                settings={{ ...sliderSettings, dots }}
-                dotsPosition="top right"
-              >
-                {courses &&
-                  courses.list?.data.map((item) => (
-                    <div key={item.id} className="single-slide">
-                      <CourseCard
-                        mobile={isMobile}
-                        id={item.id}
-                        title={item.title}
-                        categories={{
-                          categoryElements: item.categories || [],
-                          onCategoryClick: (id) =>
-                            history.push(`/courses/?category_id=${id}`),
-                        }}
-                        lessonCount={
-                          item.users_count !== 0 ? item.users_count : undefined
-                        }
-                        onButtonClick={() =>
-                          history.push(`/courses/${item.id}`)
-                        }
-                        buttonText="Zacznij teraz"
-                        hideImage={false}
-                        subtitle={
-                          item.subtitle ? (
-                            <Text>
-                              <strong style={{ fontSize: 14 }}>
-                                {item.subtitle?.substring(0, 30)}
-                              </strong>
-                            </Text>
-                          ) : null
-                        }
-                        image={{
-                          url: item.image_url,
-                          alt: "",
-                        }}
-                        tags={item.tags as Tag[]}
-                      />
-                    </div>
-                  ))}
-              </Slider>
-            </SliderWrapper>
+            {courses && courses.list && (
+              <CoursesSlider
+                courses={courses.list.data}
+                sliderSettings={sliderSettings}
+              />
+            )}
           </div>
         </section>
 
