@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
 import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
@@ -12,7 +12,7 @@ import Paypal from "../../../images/paypal.png";
 import Netflix from "../../../images/netflix.png";
 import Apple from "../../../images/apple.png";
 import McDonald from "../../../images/mcdonald.png";
-import CertificateExample from "../../../images/certificate-example.png";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -113,6 +113,10 @@ const StyledCoursePage = styled.div`
       justify-content: flex-start;
       align-items: center;
       column-gap: 90px;
+      .single-company {
+        max-height: 55px;
+        max-width: 45px;
+      }
       @media (max-width: 768px) {
         column-gap: 0;
         justify-content: space-between;
@@ -175,6 +179,11 @@ const StyledCoursePage = styled.div`
       }
     }
   }
+  .course-tutor {
+    a {
+      text-decoration: none !important;
+    }
+  }
   .sidebar-wrapper {
     width: 100%;
     left: 0;
@@ -191,8 +200,15 @@ const CoursePage = () => {
   );
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
-    useContext(EscolaLMSContext);
+  const {
+    course,
+    settings,
+    fetchCourse,
+    fetchCourses,
+    courses,
+    fetchCart,
+    user,
+  } = useContext(EscolaLMSContext);
 
   const sliderSettings = {
     arrows: false,
@@ -239,6 +255,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
+  console.log(settings);
   return (
     <Layout>
       <StyledCoursePage>
@@ -291,46 +308,52 @@ const CoursePage = () => {
                   </div>
                 </div>
                 <div className="labels-row labels-row--bottom">
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.CourseCategory")}
-                      variant={"label"}
-                    >
-                      {course.value?.categories &&
-                      course.value?.categories.length > 0
-                        ? course.value.categories[0].name
-                        : ""}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.Level")}
-                      variant={"label"}
-                    >
-                      {course.value.level || "---"}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.StartDate")}
-                      variant={"label"}
-                    >
-                      {course.value.active_from
-                        ? format(
-                            new Date(String(course.value.active_from)),
-                            "dd/MM/yyyy"
-                          )
-                        : "---"}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.Duration")}
-                      variant={"label"}
-                    >
-                      {course.value.duration}
-                    </LabelListItem>
-                  </div>
+                  {course.value.categories &&
+                    course.value.categories.length > 0 && (
+                      <div className="single-label">
+                        <LabelListItem
+                          title={t("CoursePage.CourseCategory")}
+                          variant={"label"}
+                        >
+                          {course.value.categories[0].name}
+                        </LabelListItem>
+                      </div>
+                    )}
+                  {course.value.level && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.Level")}
+                        variant={"label"}
+                      >
+                        {course.value.level}
+                      </LabelListItem>
+                    </div>
+                  )}
+                  {course.value.active_from && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.StartDate")}
+                        variant={"label"}
+                      >
+                        {course.value.active_from
+                          ? format(
+                              new Date(String(course.value.active_from)),
+                              "dd/MM/yyyy"
+                            )
+                          : "---"}
+                      </LabelListItem>
+                    </div>
+                  )}
+                  {course.value.duration && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.Duration")}
+                        variant={"label"}
+                      >
+                        {course.value.duration}
+                      </LabelListItem>
+                    </div>
+                  )}
                 </div>
               </section>
               <section className="course-companies">
@@ -338,58 +361,43 @@ const CoursePage = () => {
                   <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
-                  <div className="single-company">
-                    <img src={Paypal} alt="PayPal" />
-                  </div>
-                  <div className="single-company">
-                    <img src={Netflix} alt="Netflix" />
-                  </div>
-                  <div className="single-company">
-                    <img src={Apple} alt="Apple" />
-                  </div>
-                  <div className="single-company">
-                    <img src={McDonald} alt="McDonald" />
-                  </div>
+                  {Object.values(settings.courseLogos).map((_, index) => (
+                    <div className="single-company">
+                      <ResponsiveImage
+                        path={settings?.courseLogos[`logo${index + 1}`] || ""}
+                        srcSizes={[100, 100, 100]}
+                      />
+                    </div>
+                  ))}
                 </div>
               </section>
               <section className="course-description">
                 <MarkdownReader>{course.value.summary}</MarkdownReader>
               </section>
               <section className="course-tutor with-border padding-right">
-                <Tutor
-                  mobile={isMobile}
-                  avatar={{
-                    alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
-                    src:
-                      `${
-                        process &&
-                        process.env &&
-                        process.env.REACT_APP_PUBLIC_API_URL
-                      }/api/images/img?path=${
-                        course.value.author.path_avatar
-                      }` || "",
-                  }}
-                  rating={{
-                    ratingValue: 4.1,
-                  }}
-                  title={"Teacher"}
-                  fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
-                  // coursesInfo={"8 Curses"}
-                  description={course.value.author.bio}
-                />
-              </section>
-              <section className="course-certificates with-border padding-right">
-                <Certificate
-                  mobile={isMobile}
-                  img={{
-                    src: CertificateExample,
-                    alt: "",
-                  }}
-                  title="Made in EU"
-                  description="Wyróżnij się na tle innych, dzięki certyfikatowi potwierdzającemu wiedzę uzyskaną na szkoleniu."
-                  handleDownload={() => console.log("clicked")}
-                  handleShare={() => console.log("clicked")}
-                />
+                <Link to={`/tutors/${course.value.author_id}`}>
+                  <Tutor
+                    mobile={isMobile}
+                    avatar={{
+                      alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                      src:
+                        `${
+                          process &&
+                          process.env &&
+                          process.env.REACT_APP_PUBLIC_API_URL
+                        }/api/images/img?path=${
+                          course.value.author.path_avatar
+                        }` || "",
+                    }}
+                    rating={{
+                      ratingValue: 4.1,
+                    }}
+                    title={"Teacher"}
+                    fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                    coursesInfo={"8 Curses"}
+                    description={course.value.author.bio}
+                  />
+                </Link>
               </section>
               <section className="course-description-short with-border padding-right">
                 <Title level={4}>

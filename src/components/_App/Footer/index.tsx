@@ -51,7 +51,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-  const { settings, fetchPages, pages } = useContext(EscolaLMSContext);
+  const { settings, fetchPages, pages, user } = useContext(EscolaLMSContext);
   useEffect(() => {
     fetchPages();
   }, []);
@@ -65,14 +65,17 @@ const Footer = () => {
           <Link className="single-link" to="/courses">
             <Text size="14">{t<string>("Footer.Courses")}</Text>
           </Link>
-          <Link className="single-link" to="/authentication">
-            <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
-          </Link>
+          {user.value ? (
+            <Link className="single-link" to="/user/my-profile">
+              <Text size="14">{t<string>("Footer.UserProfile")}</Text>
+            </Link>
+          ) : (
+            <Link className="single-link" to="/authentication">
+              <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
+            </Link>
+          )}
           <Link className="single-link" to="/cart">
             <Text size="14">{t<string>("Footer.Cart")}</Text>
-          </Link>
-          <Link className="single-link" to="/user/my-profile">
-            <Text size="14">{t<string>("Footer.UserProfile")}</Text>
           </Link>
         </div>
         <div className="links-row">
