@@ -1,5 +1,42 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import styled from "styled-components";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Link } from "react-router-dom";
+
+const StyledPagination = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  a {
+    text-decoration: none !important;
+  }
+  .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    border-color: ${({ theme }) => theme.primaryColor};
+    &--left {
+      transform: rotate(45deg);
+      margin-right: 10px;
+    }
+    &--right {
+      transform: rotate(-135deg);
+      margin-left: 10px;
+    }
+  }
+  .number {
+    margin: 0 8px;
+    p {
+      opacity: 0.5;
+      &.current {
+        color: ${({ theme }) => theme.primaryColor}!important;
+        font-weight: 700;
+        opacity: 1;
+      }
+    }
+  }
+`;
 
 const Pagination: React.FC<{
   currentPage: number;
@@ -9,44 +46,47 @@ const Pagination: React.FC<{
 }> = ({ currentPage, total, perPage, onPage }) => {
   const lastPage = Math.ceil(total / perPage);
   return (
-    <div className="col-lg-12 col-md-12 col-sm-12">
-      <div className="pagination-area text-center">
-        <a
-          href="#!prev_page"
-          className="prev page-numbers"
+    <StyledPagination>
+      <a
+        href="#!prev_page"
+        className="prev page-numbers"
+        onClick={(e) => {
+          e.preventDefault();
+          onPage(currentPage <= 1 ? 1 : currentPage - 1);
+        }}
+      >
+        <div className="arrow arrow--left" />
+      </a>
+      {Array.from({ length: lastPage }).map((page, i) => (
+        <Link
           onClick={(e) => {
             e.preventDefault();
-            onPage(currentPage <= 1 ? 1 : currentPage - 1);
+            onPage(i + 1);
           }}
+          to={`#!page-${i + 1}`}
+          key={`#${i + 1}`}
+          className="number"
         >
-          <i className="bx bx-chevrons-left"></i>
-        </a>
-        {Array.from({ length: lastPage }).map((page, i) => (
-          <a
-            key={`#${i + 1}`}
-            href={`#!page-${i + 1}`}
-            onClick={(e) => {
-              e.preventDefault();
-              onPage(i + 1);
-            }}
-            className={i + 1 === currentPage ? 'page-numbers current' : 'page-numbers'}
+          <Text
+            className={i + 1 === currentPage ? "current" : ""}
+            size="16"
             aria-current="page"
           >
             {i + 1}
-          </a>
-        ))}
-        <a
-          href="#!next_page"
-          className="next page-numbers"
-          onClick={(e) => {
-            e.preventDefault();
-            onPage(currentPage === lastPage ? lastPage : currentPage + 1);
-          }}
-        >
-          <i className="bx bx-chevrons-right"></i>
-        </a>
-      </div>
-    </div>
+          </Text>
+        </Link>
+      ))}
+      <a
+        href="#!next_page"
+        className="next page-numbers"
+        onClick={(e) => {
+          e.preventDefault();
+          onPage(currentPage === lastPage ? lastPage : currentPage + 1);
+        }}
+      >
+        <div className="arrow arrow--right" />
+      </a>
+    </StyledPagination>
   );
 };
 

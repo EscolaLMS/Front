@@ -7,16 +7,20 @@ import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdow
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import styled from "styled-components";
+import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
+import styled, { css, useTheme } from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
 import { useHistory } from "react-router-dom";
 import Pagination from "@/components/Pagination";
+import { isMobile } from "react-device-detect";
+import PromotedCoursesSection from "@/components/PromotedCoursesSection";
+import CategoriesSection from "@/components/CategoriesSection";
 
 const StyledHeader = styled.div`
   background: ${({ theme }) => theme.primaryColor};
-  padding: 140px 40px 30px;
-  margin-bottom: 40px;
+  padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
+  margin-bottom: ${isMobile ? "100px" : "40px"};
 
   h1 {
     color: ${({ theme }) => theme.white};
@@ -28,6 +32,8 @@ const StyledHeader = styled.div`
     justify-content: space-between;
     width: 100%;
     align-items: center;
+    position: relative;
+
     .Dropdown-control {
       background: transparent;
       border-color: transparent;
@@ -44,6 +50,13 @@ const StyledHeader = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      ${isMobile &&
+      css`
+        position: absolute;
+        bottom: -95px;
+        left: -20px;
+        width: calc(100% + 40px);
+      `}
 
       .clear-btn {
         appearance: none;
@@ -56,7 +69,7 @@ const StyledHeader = styled.div`
 
       .categories-row {
         display: flex;
-        max-width: 500px;
+        max-width: ${isMobile ? "100%" : "500px"};
         overflow-x: auto;
         overflow-y: hidden;
         justify-content: flex-start;
@@ -78,16 +91,44 @@ const StyledHeader = styled.div`
         }
 
         .single-category-btn {
-          border-color: ${({ theme }) => theme.white};
-          color: ${({ theme }) => theme.white};
+          border-color: ${({ theme }) =>
+            isMobile ? theme.primaryColor : theme.white};
+          color: ${({ theme }) =>
+            isMobile ? theme.primaryColor : theme.white};
           max-height: 45px !important;
           width: 100%;
+
+          &--filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 120px;
+          }
+
           &--active {
-            border-color: ${({ theme }) => theme.white};
-            color: ${({ theme }) => theme.primaryColor};
-            background-color: ${({ theme }) => theme.white};
+            border-color: ${({ theme }) =>
+              isMobile ? theme.primaryColor : theme.white};
+            color: ${({ theme }) =>
+              isMobile ? theme.white : theme.primaryColor};
+            background-color: ${({ theme }) =>
+              isMobile ? theme.primaryColor : theme.white};
           }
         }
+      }
+    }
+    .selects-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      column-gap: 35px;
+      @media (max-width: 575px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        row-gap: 15px;
+      }
+      .single-select {
+        min-width: 130px;
       }
     }
   }
@@ -95,23 +136,31 @@ const StyledHeader = styled.div`
 
 const CoursesList = styled.section`
   .course-wrapper {
-    margin-bottom: 75px;
+    margin-bottom: ${isMobile ? "50px" : "75px"};
   }
 `;
 
 const CoursesCollection: React.FC = () => {
   const { params, setParams, courses } = useContext(CoursesContext);
-  const { categoryTree } = useContext(EscolaLMSContext);
+  const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
   const [selectedMainCategory, setSelectedMainCategory] =
     useState<API.Category | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] =
     useState<API.Category | null>(null);
+  const [selectedMobileCategories, setselectedMobileCategories] = useState<
+    number[]
+  >([]);
   const { t } = useTranslation();
   const history = useHistory();
   const typeFilters = [
     { label: "Darmowe", value: "true" },
     { label: "Płatne", value: "false" },
   ];
+  const tagsFilters = uniqueTags.list
+    ? uniqueTags.list?.map((item, index) => {
+        return { label: String(item.title), value: String(item.title) };
+      })
+    : [];
 
   useEffect(() => {
     if (params?.category_id) {
@@ -123,9 +172,6 @@ const CoursesCollection: React.FC = () => {
     }
   }, [categoryTree]);
 
-  if (courses && (!courses.list || !courses.list.data?.length)) {
-    return <div className="col-lg-8">{t("NoCourses")}</div>;
-  }
   return (
     <>
       <StyledHeader>
@@ -135,68 +181,102 @@ const CoursesCollection: React.FC = () => {
         <div className="filters-container">
           <div className="categories-container">
             <div className="categories-row">
-              {!selectedMainCategory //Show main categories
-                ? categoryTree.list?.map((mainCategory) => (
-                    <Button
-                      onClick={() => {
-                        setSelectedMainCategory(mainCategory);
-                        setParams &&
-                          setParams({
-                            ...params,
-                            page: 1,
-                            category_id: mainCategory?.id,
-                          });
+              {isMobile && (
+                <Categories
+                  mobile
+                  categories={categoryTree.list || []}
+                  label={"Kategoria"}
+                  selectedCategories={selectedMobileCategories}
+                  drawerTitle={
+                    <Title
+                      level={5}
+                      style={{
+                        fontSize: "14px",
                       }}
-                      mode="outline"
-                      className="single-category-btn"
                     >
-                      {mainCategory.name}
-                    </Button>
-                  ))
-                : selectedMainCategory &&
-                  selectedMainCategory.subcategories &&
-                  selectedMainCategory.subcategories.length === 0 //Show main categories if main category is selected and subcategories does not exists
-                ? categoryTree.list?.map((mainCategory) => (
-                    <Button
-                      onClick={() => {
-                        setSelectedMainCategory(mainCategory);
-                        setParams &&
-                          setParams({
-                            ...params,
-                            page: 1,
-                            category_id: mainCategory?.id,
-                          });
-                      }}
-                      mode="outline"
-                      className={`single-category-btn ${
-                        mainCategory.name === selectedMainCategory?.name &&
-                        "single-category-btn--active"
-                      }`}
-                    >
-                      {mainCategory.name}
-                    </Button>
-                  ))
-                : selectedMainCategory?.subcategories && //Show subcategories
-                  selectedMainCategory?.subcategories.map((subCategory) => (
-                    <Button
-                      onClick={() => {
-                        setSelectedSubCategory(subCategory);
-                        setParams &&
-                          setParams({
-                            ...params,
-                            page: 1,
-                            category_id: subCategory?.id,
-                          });
-                      }}
-                      mode="outline"
-                      className={`single-category-btn ${
-                        subCategory.name === selectedSubCategory?.name &&
-                        "single-category-btn--active"
-                      }`}
-                    >
-                      {subCategory.name}
-                    </Button>
-                  ))}
+                      Filtruj
+                    </Title>
+                  }
+                  handleChange={(value) => {
+                    const newValue = value;
+                    setselectedMobileCategories(newValue);
+                    setParams &&
+                      setParams({
+                        ...params,
+                        page: 1,
+                        //@ts-ignore TODO: Add "ids" type to Course request type in sdk
+                        "ids[]": newValue,
+                      });
+                    console.log("selected", value);
+                  }}
+                />
+              )}
+              {!isMobile && (
+                <>
+                  {!selectedMainCategory //Show main categories
+                    ? categoryTree.list?.map((mainCategory) => (
+                        <Button
+                          onClick={() => {
+                            setSelectedMainCategory(mainCategory);
+                            setParams &&
+                              setParams({
+                                ...params,
+                                page: 1,
+                                category_id: mainCategory?.id,
+                              });
+                          }}
+                          mode="outline"
+                          className="single-category-btn"
+                        >
+                          {mainCategory.name}
+                        </Button>
+                      ))
+                    : selectedMainCategory &&
+                      selectedMainCategory.subcategories &&
+                      selectedMainCategory.subcategories.length === 0 //Show main categories if main category is selected and subcategories does not exists
+                    ? categoryTree.list?.map((mainCategory) => (
+                        <Button
+                          onClick={() => {
+                            setSelectedMainCategory(mainCategory);
+                            setParams &&
+                              setParams({
+                                ...params,
+                                page: 1,
+                                category_id: mainCategory?.id,
+                              });
+                          }}
+                          mode="outline"
+                          className={`single-category-btn ${
+                            mainCategory.name === selectedMainCategory?.name &&
+                            "single-category-btn--active"
+                          }`}
+                        >
+                          {mainCategory.name}
+                        </Button>
+                      ))
+                    : selectedMainCategory?.subcategories && //Show subcategories
+                      selectedMainCategory?.subcategories.map((subCategory) => (
+                        <Button
+                          onClick={() => {
+                            setSelectedSubCategory(subCategory);
+                            setParams &&
+                              setParams({
+                                ...params,
+                                page: 1,
+                                category_id: subCategory?.id,
+                              });
+                          }}
+                          mode="outline"
+                          className={`single-category-btn ${
+                            subCategory.name === selectedSubCategory?.name &&
+                            "single-category-btn--active"
+                          }`}
+                        >
+                          {subCategory.name}
+                        </Button>
+                      ))}
+                </>
+              )}
             </div>
             {(selectedMainCategory || selectedSubCategory) && (
               <button
@@ -217,58 +297,79 @@ const CoursesCollection: React.FC = () => {
             )}
           </div>
           <div className="selects-row">
-            <Dropdown
-              onChange={(e) =>
-                setParams &&
-                setParams({
-                  ...params,
-                  page: 1,
-                  free: e.value === "true" ? true : false,
-                })
-              }
-              placeholder="Typ szkolenia"
-              options={typeFilters}
-            />
+            <div className="single-select">
+              <Dropdown
+                onChange={(e) =>
+                  setParams &&
+                  setParams({
+                    ...params,
+                    page: 1,
+                    free: e.value === "true" ? true : false,
+                  })
+                }
+                placeholder="Typ szkolenia"
+                options={typeFilters}
+              />
+            </div>
+            <div className="single-select">
+              <Dropdown
+                onChange={(e) =>
+                  setParams &&
+                  setParams({
+                    ...params,
+                    page: 1,
+                    tag: e.value,
+                  })
+                }
+                placeholder="Tag"
+                options={[{ label: "Wszystkie", value: "" }, ...tagsFilters]}
+              />
+            </div>
           </div>
         </div>
       </StyledHeader>
-      <CoursesList>
-        <div className="row">
-          {courses?.list?.data.map((item) => (
-            <div className="col-xl-3 col-lg-4 col-md-6">
-              <div className="course-wrapper">
-                <CourseCard
-                  id={item.id}
-                  title={item.title}
-                  categories={{
-                    categoryElements: item.categories || [],
-                    onCategoryClick: (id) =>
-                      history.push(`/courses/?category_id=${id}`),
-                  }}
-                  onButtonClick={() => history.push(`/courses/${item.id}`)}
-                  buttonText="Zacznij teraz"
-                  lessonCount={5}
-                  hideImage={false}
-                  subtitle={
-                    item.subtitle ? (
-                      <Text>
-                        <strong style={{ fontSize: 14 }}>
-                          {item.subtitle?.substring(0, 30)}
-                        </strong>
-                      </Text>
-                    ) : null
-                  }
-                  image={{
-                    url: item.image_url,
-                    alt: "",
-                  }}
-                  tags={item.tags as API.Tag[]}
-                />
+      {courses && (!courses.list || !courses.list.data?.length) ? (
+        <Title level={4}>{t("NoCourses")}</Title>
+      ) : (
+        <CoursesList>
+          <div className="row">
+            {courses?.list?.data.map((item) => (
+              <div className="col-xl-3 col-lg-4 col-md-6">
+                <div className="course-wrapper">
+                  <CourseCard
+                    mobile={isMobile}
+                    id={item.id}
+                    title={item.title}
+                    categories={{
+                      categoryElements: item.categories || [],
+                      onCategoryClick: (id) =>
+                        history.push(`/courses/?category_id=${id}`),
+                    }}
+                    onButtonClick={() => history.push(`/courses/${item.id}`)}
+                    buttonText="Zacznij teraz"
+                    lessonCount={5}
+                    hideImage={false}
+                    subtitle={
+                      item.subtitle ? (
+                        <Text>
+                          <strong style={{ fontSize: 14 }}>
+                            {item.subtitle?.substring(0, 30)}
+                          </strong>
+                        </Text>
+                      ) : null
+                    }
+                    image={{
+                      url: item.image_url,
+                      alt: "",
+                    }}
+                    tags={item.tags as API.Tag[]}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </CoursesList>
+            ))}
+          </div>
+        </CoursesList>
+      )}
       {courses &&
         courses.list &&
         courses.list.meta.total > courses.list.meta.per_page && (
@@ -286,6 +387,12 @@ const CoursesCollection: React.FC = () => {
             }
           />
         )}
+      {courses && courses.list && courses.list.data.length >= 6 && (
+        <PromotedCoursesSection courses={courses.list.data} />
+      )}
+      {categoryTree && (
+        <CategoriesSection categories={categoryTree.list || []} />
+      )}
     </>
   );
 };
