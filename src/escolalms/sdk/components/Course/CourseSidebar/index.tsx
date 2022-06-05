@@ -20,11 +20,10 @@ export const CourseSidebar: React.FC<{
   const finishedTopics = arrayOfTopics
     .filter((item: API.Topic) => topicIsFinished(item.id))
     .map((item: API.Topic) => item.id);
-
   if (!course && !program) {
     return <React.Fragment />;
   }
-
+  console.log(course);
   return (
     <div className="course-program-sidebar">
       <CourseAgenda
@@ -33,7 +32,7 @@ export const CourseSidebar: React.FC<{
         finishedTopicIds={finishedTopics}
         onMarkFinished={() => console.log("clicked")}
         onTopicClick={(topic) =>
-          history.push(`/course/${course.id}/${lessonId}/${topic.id}`)
+          history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`)
         }
       />
     </div>

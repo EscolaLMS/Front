@@ -9,14 +9,14 @@ import {
 } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import Embed from "react-tiny-oembed";
-import ImagePlayer from "../../../../components/Course/ImagePlayer";
 import VideoPlayer from "./Players/VideoPlayer";
 import AudioPlayer from "./Players/AudioPlayer";
 import TextPlayer from "./Players/TextPlayer";
-import PdfPlayer from "./Players/PdfPlayer";
 import { API } from "@escolalms/sdk/lib";
 import VideoPlayButton from "@/components/Common/LmsVideoPlay";
 import H5Player from "@/components/H5Player";
+import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
+import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -46,7 +46,7 @@ export const CourseProgramContent: React.FC<{
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
       ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
-
+  console.log(program);
   useEffect(() => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
 
@@ -108,7 +108,6 @@ export const CourseProgramContent: React.FC<{
       customNoCompletedEventsIds,
     ]
   );
-
   useEffect(() => {
     if (!preview) {
       const ping = () =>
