@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { API } from "@escolalms/sdk/lib";
-
-import "./index.scss";
-import CourseTimetable from "../../Course/CourseTimetable";
-import CourseSidebarNavButtons from "../../Course/CourseSidebar/CourseSidebarNavButtons";
+import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { useHistory } from "react-router-dom";
 
 export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
   lessonId: number;
   topicId: number;
-  preview?: boolean;
-}> = ({ course, lessonId, topicId, preview = false }) => {
+}> = ({ course, lessonId, topicId }) => {
+  const history = useHistory();
   const program = (course?.lessons || []).filter(
     (lesson) => lesson && lesson.topics && lesson?.topics?.length > 0
   ) as API.Lesson[];
+  const { topicIsFinished } = useContext(EscolaLMSContext);
+  const allTopics = course.lessons.map((item) => item.topics);
+  //@ts-ignore
+  const arrayOfTopics = [].concat.apply([], allTopics);
+  const finishedTopics = arrayOfTopics
+    .filter((item: API.Topic) => topicIsFinished(item.id))
+    .map((item: API.Topic) => item.id);
 
   if (!course && !program) {
     return <React.Fragment />;
@@ -21,16 +27,14 @@ export const CourseSidebar: React.FC<{
 
   return (
     <div className="course-program-sidebar">
-      <CourseSidebarNavButtons
-        course={course}
-        topicId={topicId}
-        preview={preview}
-      />
-      <CourseTimetable
-        course={course}
-        lessonId={lessonId}
-        topicId={topicId}
-        preview={preview}
+      <CourseAgenda
+        lessons={course.lessons}
+        currentTopicId={topicId}
+        finishedTopicIds={finishedTopics}
+        onMarkFinished={() => console.log("clicked")}
+        onTopicClick={(topic) =>
+          history.push(`/course/${course.id}/${lessonId}/${topic.id}`)
+        }
       />
     </div>
   );
