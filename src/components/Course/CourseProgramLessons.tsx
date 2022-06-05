@@ -1,3 +1,4 @@
+//@ts-nocheck - remove when Course Top Nav will have fixed notes props
 import React, { useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
@@ -6,10 +7,24 @@ import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownRead
 import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
 import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { isMobile } from "react-device-detect";
 
-const StyledCourse = styled.section``;
+const StyledCourse = styled.section`
+  .main-title {
+    margin-bottom: 20px;
+  }
+  .course-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
+`;
 
 export const courseIncomplete = 0;
 export const courseComplete = 1;
@@ -23,17 +38,17 @@ export const CourseProgramLessons: React.FC<{
     topic,
     lesson,
     onNextTopic,
+    onPrevTopic,
     getNextPrevTopic,
     isDisabledNextTopicButton,
     setIsDisabledNextTopicButton,
     sendProgress,
     progress,
   } = useLessonProgram(program);
-
+  const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
   const location = useLocation();
   const { t } = useTranslation();
-
   // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
   const startWithBreakPoint = location.pathname.split("/").length === 3;
 
@@ -130,11 +145,13 @@ export const CourseProgramLessons: React.FC<{
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
         <div className="container">
-          <div className="row">
+          <Title className="main-title" level={3}>
+            {program.title}
+          </Title>
+          <div className="row flex-lg-row flex-column-reverse">
             <div className="col-lg-9">
               <div className="course-program-player">
                 <div className="course-program-player-content">
-                  <h2>{topic && topic?.title}</h2>
                   {topic &&
                     topic.introduction &&
                     fixContentForMarkdown(`${topic.introduction}`) !== "" && (
@@ -211,23 +228,6 @@ export const CourseProgramLessons: React.FC<{
                       )}
                   </div>
                 </div>
-
-                {/* {getNextPrevTopic(Number(topic?.id)) && (
-              <div className="course-program-player-next">
-                <button
-                  disabled={
-                    topic && topic.can_skip ? false : isDisabledNextTopicButton
-                  }
-                  className={`default-btn default-btn-equal`}
-                  onClick={onNextTopic}
-                >
-                  <div className="course-program-player-next-button__wrapper">
-                    {t("Next Topic")} &gt;
-                  </div>
-                  <span></span>
-                </button>
-              </div>
-            )} */}
               </div>
             </div>
             <div className="col-lg-3">
@@ -238,6 +238,17 @@ export const CourseProgramLessons: React.FC<{
               />
             </div>
           </div>
+        </div>
+        <div className="course-nav">
+          <CourseTopNav
+            onFinish={() => console.log("clicked")}
+            mobile={isMobile}
+            onNext={onNextTopic}
+            isFinished={false}
+            onPrev={onPrevTopic}
+            hasPrev={getNextPrevTopic(Number(topic?.id), false) ? true : false}
+            hasNext={!isDisabledNextTopicButton}
+          />
         </div>
       </StyledCourse>
     </React.Fragment>
