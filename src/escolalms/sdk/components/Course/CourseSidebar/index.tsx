@@ -24,7 +24,6 @@ export const CourseSidebar: React.FC<{
   if (!course && !program) {
     return <React.Fragment />;
   }
-  console.log(course);
   return (
     <div className="course-program-sidebar">
       <CourseAgenda

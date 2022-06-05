@@ -46,7 +46,6 @@ export const CourseProgramContent: React.FC<{
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
       ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
-  console.log(program);
   useEffect(() => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
 
