@@ -3,6 +3,7 @@ import { API } from "@escolalms/sdk/lib";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
@@ -27,6 +28,7 @@ export const CourseSidebar: React.FC<{
   return (
     <div className="course-program-sidebar">
       <CourseAgenda
+        mobile={isMobile}
         lessons={course.lessons}
         currentTopicId={topicId}
         finishedTopicIds={finishedTopics}
