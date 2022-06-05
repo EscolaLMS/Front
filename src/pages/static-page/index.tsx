@@ -6,7 +6,6 @@ import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownRead
 import usePrevious from "../../hooks/usePrevious";
 import Preloader from "../../components/Preloader";
 import Layout from "@/components/_App/Layout";
-import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const StyledStaticPage = styled.section``;
@@ -15,7 +14,6 @@ const StaticPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { fetchPage, page } = useContext(EscolaLMSContext);
   const prevSlug = usePrevious(slug);
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (
@@ -37,7 +35,6 @@ const StaticPage = () => {
   if (!page.loading && page.error && !page.error.success) {
     return <Redirect to={routes.notFound} />;
   }
-
   return (
     <Layout>
       <StyledStaticPage>

@@ -6,7 +6,6 @@ import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import {
   LoginForm,
   RegisterForm,
@@ -149,7 +148,6 @@ const Authentication = () => {
                     }
                   />
                 ) : (
-                  //TODO: when confirmation page ready redirect to it on onSuccess props
                   <RegisterForm
                     mobile={isMobile}
                     onLoginLink={() => setView("login")}
