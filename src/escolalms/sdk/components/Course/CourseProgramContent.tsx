@@ -12,6 +12,7 @@ import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/A
 import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 import { isMobile } from "react-device-detect";
+import Placeholder from "../../../../images/player-placeholder.jpg";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -35,7 +36,6 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
     apiUrl,
   } = useContext(EscolaLMSContext);
-
   const topic = useMemo(() => {
     return program.value?.lessons
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
@@ -57,7 +57,6 @@ export const CourseProgramContent: React.FC<{
     topic?.topicable_type,
     setIsDisabledNextTopicButton,
   ]);
-  console.log(topic);
   const onCompleteTopic = useCallback((): void => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
     if (program?.value?.id) {
@@ -154,12 +153,19 @@ export const CourseProgramContent: React.FC<{
         return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
       case TopicType.Video:
         return (
-          //@ts-ignore
+          //@ts-ignore - remove when props will be fixed
           <AudioVideoPlayer
             mobile={isMobile}
-            url="https://file-examples.com/storage/fe83f6744b629b798a083a5/2017/04/file_example_MP4_480_1_5MG.mp4"
+            url={topic.topicable.url}
+            light={
+              topic.topicable.poster_url ||
+              (topic.resources &&
+                topic?.resources?.length > 0 &&
+                topic?.resources[0]?.url) ||
+              Placeholder
+            }
             onFinish={(): void => onCompleteTopic()}
-          ></AudioVideoPlayer>
+          />
         );
       case TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
@@ -171,6 +177,12 @@ export const CourseProgramContent: React.FC<{
             mobile={isMobile}
             audio
             url={topic.topicable.value}
+            light={
+              (topic.resources &&
+                topic?.resources?.length > 0 &&
+                topic?.resources[0]?.url) ||
+              Placeholder
+            }
             onFinish={(): void => onCompleteTopic()}
           />
         );
