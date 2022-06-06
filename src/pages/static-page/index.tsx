@@ -2,11 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import routes from "@/components/Routes/routes";
-import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
 import usePrevious from "../../hooks/usePrevious";
 import Preloader from "../../components/Preloader";
 import Layout from "@/components/_App/Layout";
 import styled from "styled-components";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 const StyledStaticPage = styled.section``;
 
@@ -40,7 +40,7 @@ const StaticPage = () => {
       <StyledStaticPage>
         <div className="container">
           <div className="content">
-            <MarkdownReader>{page?.value?.content || ""}</MarkdownReader>
+            <MarkdownRenderer>{page?.value?.content || ""}</MarkdownRenderer>
           </div>
         </div>
         {(page.loading ||

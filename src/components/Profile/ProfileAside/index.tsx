@@ -59,6 +59,11 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       margin-bottom: 50px;
       a {
         text-decoration: none;
+        &:hover {
+          p {
+            color: ${({ theme }) => theme.primaryColor};
+          }
+        }
         &.selected {
           p {
             color: ${({ theme }) => theme.primaryColor};
@@ -86,6 +91,11 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
         padding: 0;
         margin: 0;
         cursor: pointer;
+        p {
+          &:hover {
+            color: ${({ theme }) => theme.primaryColor};
+          }
+        }
       }
     }
   }
