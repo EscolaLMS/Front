@@ -1,12 +1,13 @@
 import React, { useContext, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { TopicType } from "@escolalms/sdk/lib/services/courses";
-import Embed from "react-tiny-oembed";
-import ReactPlayer from "react-player";
-import PdfPlayer from "./../Players/PdfPlayer";
-import MarkdownReader from "../../Markdown/MarkdownReader";
+import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
+import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/AudioVideoPlayer/AudioVideoPlayer";
+import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
+import { MarkdownPlayer } from "@escolalms/components/lib/components/players/MarkdownPlayer/MarkdownPlayer";
+import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import H5Player from "@/components/H5Player";
+import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import "./index.scss";
 
 export const CourseProgramPreview: React.FC<{
@@ -19,30 +20,23 @@ export const CourseProgramPreview: React.FC<{
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
         case TopicType.H5P:
-          return <H5Player id={topic?.topicable?.value} />;
+          return <H5P id={topic?.topicable?.value} />;
         case TopicType.OEmbed:
-          return <Embed url={topic.topicable.value} />;
+          return <OEmbedPlayer url={topic?.topicable?.value} />;
         case TopicType.RichText:
           return (
             <div className="container-xl">
-              <MarkdownReader>{topic.topicable.value}</MarkdownReader>
+              <MarkdownPlayer
+                children={topic.topicable.value}
+                onLoad={() => console.log("MarkdownPlayer onLoad")}
+              />
             </div>
           );
         case TopicType.Video:
-          return (
-            <ReactPlayer
-              url={topic.topicable.url}
-              controls
-              width="100%"
-              height="80vh"
-            />
-          );
+          return;
+        // return <AudioVideoPlayer url={topic.topicable.url} />;
         case TopicType.Image:
-          return (
-            <div className="img-container-xl">
-              <img src={topic.topicable.url} alt={topic.title} />
-            </div>
-          );
+          return <ImagePlayer topic={topic} onLoad={() => console.log("")} />;
         case TopicType.Audio:
           // eslint-disable-next-line jsx-a11y/media-has-caption
           return <audio src={topic.topicable.url} controls />;

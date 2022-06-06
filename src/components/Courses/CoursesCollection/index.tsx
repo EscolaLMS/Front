@@ -211,7 +211,6 @@ const CoursesCollection: React.FC = () => {
                         //@ts-ignore TODO: Add "ids" type to Course request type in sdk
                         "ids[]": newValue,
                       });
-                    console.log("selected", value);
                   }}
                 />
               )}

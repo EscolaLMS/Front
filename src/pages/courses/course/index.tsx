@@ -23,6 +23,7 @@ import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 
 resetIdCounter();
 
@@ -258,7 +259,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-  console.log(settings);
+
   return (
     <Layout>
       <StyledCoursePage>
@@ -472,6 +473,16 @@ const CoursePage = () => {
           </div>
         </section>
       </StyledCoursePage>
+
+      {/* <Modal
+        onClose={() => setPreviewTopic(undefined)}
+        visible={previewTopic}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+      >
+        <div>dwad</div>
+      </Modal> */}
       {previewTopic && (
         <CourseProgramPreview
           topic={previewTopic}
