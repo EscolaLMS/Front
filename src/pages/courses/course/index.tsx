@@ -3,15 +3,10 @@ import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsS
 import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { resetIdCounter } from "react-tabs";
-import Paypal from "../../../images/paypal.png";
-import Netflix from "../../../images/netflix.png";
-import Apple from "../../../images/apple.png";
-import McDonald from "../../../images/mcdonald.png";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
@@ -19,8 +14,10 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
 import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/Ratings";
-import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
+import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
+import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
 import styled from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
@@ -97,6 +94,11 @@ const StyledCoursePage = styled.div`
           }
         }
       }
+    }
+  }
+  .course-tutor {
+    .ranking-row {
+      display: none !important;
     }
   }
   .course-companies {
@@ -198,6 +200,7 @@ const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
     undefined
   );
+  const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const {
@@ -372,7 +375,9 @@ const CoursePage = () => {
                 </div>
               </section>
               <section className="course-description">
-                <MarkdownReader>{course.value.summary}</MarkdownReader>
+                <MarkdownRenderer>
+                  {course.value.summary || ""}
+                </MarkdownRenderer>
               </section>
               <section className="course-tutor with-border padding-right">
                 <Link to={`/tutors/${course.value.author_id}`}>
@@ -403,8 +408,12 @@ const CoursePage = () => {
                 <Title level={4}>
                   {t("CoursePage.CourseDescriptionTitle")}
                 </Title>
-                <MarkdownReader>{course.value.description}</MarkdownReader>
+                <MarkdownRenderer>{course.value.description}</MarkdownRenderer>
               </section>
+              <CourseProgram
+                lessons={course.value.lessons}
+                onTopicClick={(topic) => setPreviewTopic(topic)}
+              />
               {
                 <section className="course-ratings padding-right">
                   {ratings && ratings.count_answers > 0 ? (
@@ -463,6 +472,12 @@ const CoursePage = () => {
           </div>
         </section>
       </StyledCoursePage>
+      {previewTopic && (
+        <CourseProgramPreview
+          topic={previewTopic}
+          onClose={() => setPreviewTopic(undefined)}
+        />
+      )}
     </Layout>
   );
 };

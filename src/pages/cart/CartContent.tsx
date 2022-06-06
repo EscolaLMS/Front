@@ -216,11 +216,16 @@ const CartContent = () => {
   }, [location, user]);
 
   const onPay = useCallback((paymentMethodId: string) => {
-    payWithStripe(paymentMethodId).then(() => {
-      push("/user/my-profile");
-      fetchCart();
-      fetchProgress();
-    });
+    payWithStripe(
+      paymentMethodId,
+      "https://demo-stage.escolalms.com/#/user/my-profile"
+    )
+      .then(() => {
+        push("/user/my-profile");
+        fetchCart();
+        fetchProgress();
+      })
+      .catch(() => toast.error(t("UnexpectedError")));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
