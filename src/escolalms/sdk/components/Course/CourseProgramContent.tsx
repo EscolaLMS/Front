@@ -157,13 +157,7 @@ export const CourseProgramContent: React.FC<{
           <AudioVideoPlayer
             mobile={isMobile}
             url={topic.topicable.url}
-            light={
-              topic.topicable.poster_url ||
-              (topic.resources &&
-                topic?.resources?.length > 0 &&
-                topic?.resources[0]?.url) ||
-              Placeholder
-            }
+            light
             onFinish={(): void => onCompleteTopic()}
           />
         );
@@ -177,12 +171,7 @@ export const CourseProgramContent: React.FC<{
             mobile={isMobile}
             audio
             url={topic.topicable.value}
-            light={
-              (topic.resources &&
-                topic?.resources?.length > 0 &&
-                topic?.resources[0]?.url) ||
-              Placeholder
-            }
+            light
             onFinish={(): void => onCompleteTopic()}
           />
         );
