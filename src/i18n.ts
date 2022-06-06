@@ -397,7 +397,6 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
-
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {

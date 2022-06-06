@@ -8,7 +8,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Tag } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 
@@ -16,6 +16,9 @@ const StyledList = styled.div`
   overflow: hidden;
   .course-wrapper {
     margin-bottom: 24px;
+    a {
+      text-decoration: none;
+    }
   }
   .slider-wrapper {
     width: 100%;
@@ -146,48 +149,55 @@ const ProfileCourses = ({
             coursesToMap.slice(0, 6).map((item) => (
               <div className="col-md-4" key={item.course.id}>
                 <div className="course-wrapper">
-                  <CourseCard
-                    id={item.course.id}
-                    title={item.course.title}
-                    categories={{
-                      categoryElements: item.course.categories || [],
-                      onCategoryClick: (id) =>
-                        history.push(`/courses/?category_id=${id}`),
-                    }}
-                    lessonCount={5}
-                    hideImage={false}
-                    subtitle={
-                      <Text>
-                        <strong style={{ fontSize: 14 }}>
-                          {item.course.subtitle}
-                        </strong>
-                      </Text>
-                    }
-                    image={{
-                      url:
-                        `${
-                          process &&
-                          process.env &&
-                          process.env.REACT_APP_PUBLIC_API_URL
-                        }/api/images/img?path=${item.course.image_path}` || "",
-                      alt: "",
-                    }}
-                    onButtonClick={() => console.log("ocen")}
-                    buttonText={
-                      progressMap[item.course.id] !== 100
-                        ? t("MyProfilePage.RateCourse")
-                        : undefined
-                    }
-                    tags={item.course.tags as Tag[]}
-                    progress={
-                      progressMap[item.course.id] !== 100
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
+                  <Link to={`/course/${item.course.id}`}>
+                    <CourseCard
+                      id={item.course.id}
+                      title={item.course.title}
+                      categories={{
+                        categoryElements: item.course.categories || [],
+                        onCategoryClick: (id) =>
+                          history.push(`/courses/?category_id=${id}`),
+                      }}
+                      lessonCount={5}
+                      hideImage={false}
+                      subtitle={
+                        <Text>
+                          <strong style={{ fontSize: 14 }}>
+                            {item.course.subtitle}
+                          </strong>
+                        </Text>
+                      }
+                      image={{
+                        url:
+                          `${
+                            process &&
+                            process.env &&
+                            process.env.REACT_APP_PUBLIC_API_URL
+                          }/api/images/img?path=${item.course.image_path}` ||
+                          "",
+                        alt: "",
+                      }}
+                      onButtonClick={
+                        progressMap[item.course.id] === 100
+                          ? () => console.log("ocen")
+                          : () => history.push(`/course/${item.course.id}`)
+                      }
+                      buttonText={
+                        progressMap[item.course.id] === 100
+                          ? t("MyProfilePage.RateCourse")
+                          : "Zacznij"
+                      }
+                      tags={item.course.tags as Tag[]}
+                      progress={
+                        progressMap[item.course.id] !== 100
+                          ? {
+                              currentProgress: progressMap[item.course.id],
+                              maxProgress: 100,
+                            }
+                          : undefined
+                      }
+                    />
+                  </Link>
                 </div>
               </div>
             ))}
@@ -211,6 +221,61 @@ const ProfileCourses = ({
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
               <div className="col-md-4" key={item.course.id}>
                 <div className="course-wrapper">
+                  <Link to={`/course/${item.course.id}`}>
+                    <CourseCard
+                      id={item.course.id}
+                      title={item.course.title}
+                      categories={{
+                        categoryElements: item.course.categories || [],
+                        onCategoryClick: (id) =>
+                          history.push(`/courses/?category_id=${id}`),
+                      }}
+                      lessonCount={5}
+                      hideImage={false}
+                      subtitle={
+                        <Text>
+                          <strong style={{ fontSize: 14 }}>
+                            {item.course.subtitle}
+                          </strong>
+                        </Text>
+                      }
+                      image={{
+                        url:
+                          `${
+                            process &&
+                            process.env &&
+                            process.env.REACT_APP_PUBLIC_API_URL
+                          }/api/images/img?path=${item.course.image_path}` ||
+                          "",
+                        alt: "",
+                      }}
+                      tags={item.course.tags as Tag[]}
+                      onButtonClick={() => console.log("ocen")}
+                      buttonText={
+                        progressMap[item.course.id] !== 100
+                          ? t("MyProfilePage.RateCourse")
+                          : undefined
+                      }
+                      progress={
+                        progressMap[item.course.id] !== 100
+                          ? {
+                              currentProgress: progressMap[item.course.id],
+                              maxProgress: 100,
+                            }
+                          : undefined
+                      }
+                    />
+                  </Link>
+                </div>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div className="slider-wrapper">
+          {coursesToMap &&
+            coursesToMap.map((item) => (
+              <div key={item.course.id} className="single-slide">
+                <Link to={`/course/${item.course.id}`}>
                   <CourseCard
                     id={item.course.id}
                     title={item.course.title}
@@ -253,57 +318,7 @@ const ProfileCourses = ({
                         : undefined
                     }
                   />
-                </div>
-              </div>
-            ))}
-        </div>
-      ) : (
-        <div className="slider-wrapper">
-          {coursesToMap &&
-            coursesToMap.map((item) => (
-              <div key={item.course.id} className="single-slide">
-                <CourseCard
-                  id={item.course.id}
-                  title={item.course.title}
-                  categories={{
-                    categoryElements: item.course.categories || [],
-                    onCategoryClick: (id) =>
-                      history.push(`/courses/?category_id=${id}`),
-                  }}
-                  lessonCount={5}
-                  hideImage={false}
-                  subtitle={
-                    <Text>
-                      <strong style={{ fontSize: 14 }}>
-                        {item.course.subtitle}
-                      </strong>
-                    </Text>
-                  }
-                  image={{
-                    url:
-                      `${
-                        process &&
-                        process.env &&
-                        process.env.REACT_APP_PUBLIC_API_URL
-                      }/api/images/img?path=${item.course.image_path}` || "",
-                    alt: "",
-                  }}
-                  tags={item.course.tags as Tag[]}
-                  onButtonClick={() => console.log("ocen")}
-                  buttonText={
-                    progressMap[item.course.id] !== 100
-                      ? t("MyProfilePage.RateCourse")
-                      : undefined
-                  }
-                  progress={
-                    progressMap[item.course.id] !== 100
-                      ? {
-                          currentProgress: progressMap[item.course.id],
-                          maxProgress: 100,
-                        }
-                      : undefined
-                  }
-                />
+                </Link>
               </div>
             ))}
         </div>

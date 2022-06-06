@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import "./index.scss";
 import LmsBox from "@/components/Common/LmsBox";
 import CourseAuthor from "@/components/CourseAuthor";
-import CourseCardHeader from "@/components/CourseCard/CourseCardHeader";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 
 export const CourseCard: React.FC<{
@@ -33,13 +32,6 @@ export const CourseCard: React.FC<{
 
   return (
     <LmsBox className={`course-card ${isFree ? "course-card--free" : ""}`}>
-      <CourseCardHeader
-        className="course-card__header"
-        course={course}
-        imgSizes={[380, 380 * 2]}
-        badge={price}
-      />
-
       <LmsBox.Content className="course-card__content">
         {course.author && (
           <CourseAuthor
