@@ -1,17 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Banner";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
-import { CategoryCard } from "@escolalms/components/lib/components/molecules/CategoryCard/CategoryCard";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
-import { IconBook, IconTag } from "../icons";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
-import { useHistory } from "react-router-dom";
 import CoursesSlider from "@/components/CoursesSlider";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";

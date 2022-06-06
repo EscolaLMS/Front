@@ -54,6 +54,7 @@ const Footer = () => {
   const { settings, fetchPages, pages } = useContext(EscolaLMSContext);
   useEffect(() => {
     fetchPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <StyledFooter>

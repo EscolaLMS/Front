@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
-import styled, { css, useTheme } from "styled-components";
+import styled, { css } from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
 import { useHistory } from "react-router-dom";
@@ -70,7 +70,7 @@ const StyledHeader = styled.div`
       .categories-row {
         display: flex;
         max-width: ${isMobile ? "100%" : "500px"};
-        overflow-x: auto;
+        overflow-x: scroll;
         overflow-y: hidden;
         justify-content: flex-start;
         align-items: center;
@@ -90,19 +90,22 @@ const StyledHeader = styled.div`
           background: #ffffff;
         }
 
-        .single-category-btn {
+        button {
           border-color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
           color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
           max-height: 45px !important;
           width: 100%;
+          line-height: 0.9;
+          min-height: 45px;
 
           &--filters {
             display: flex;
             justify-content: center;
             align-items: center;
             min-width: 120px;
+            color: ${({ theme }) => theme.primaryColor};
           }
 
           &--active {
@@ -170,6 +173,7 @@ const CoursesCollection: React.FC = () => {
         )[0] || null;
       setSelectedMainCategory(categoryFromQuery);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryTree]);
 
   return (
