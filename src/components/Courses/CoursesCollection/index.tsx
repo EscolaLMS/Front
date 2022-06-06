@@ -1,14 +1,16 @@
+//@ts-nocheck
 import React, { useContext, useEffect, useState } from "react";
 import { CoursesContext } from "@/components/Courses/CoursesContext";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
-import styled, { css } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
 import { useHistory } from "react-router-dom";
@@ -50,6 +52,9 @@ const StyledHeader = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      &--loading {
+        opacity: 0.6;
+      }
       ${isMobile &&
       css`
         position: absolute;
@@ -90,15 +95,15 @@ const StyledHeader = styled.div`
           background: #ffffff;
         }
 
-        button {
+        .single-filter {
+          border-width: 2px;
+          border-style: solid;
+          margin-bottom: 0;
+          padding: 8px 20px;
           border-color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
           color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
-          max-height: 45px !important;
-          width: 100%;
-          line-height: 0.9;
-          min-height: 45px;
 
           &--filters {
             display: flex;
@@ -132,6 +137,14 @@ const StyledHeader = styled.div`
       }
       .single-select {
         min-width: 130px;
+        &--category {
+          min-width: 200px;
+          label {
+            input {
+              min-width: 20px;
+            }
+          }
+        }
       }
     }
   }
@@ -146,161 +159,112 @@ const CoursesList = styled.section`
 const CoursesCollection: React.FC = () => {
   const { params, setParams, courses } = useContext(CoursesContext);
   const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
-  const [selectedMainCategory, setSelectedMainCategory] =
-    useState<API.Category | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] =
-    useState<API.Category | null>(null);
-  const [selectedMobileCategories, setselectedMobileCategories] = useState<
-    number[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [paramsLoaded, setParamsLoaded] = useState(false);
   const { t } = useTranslation();
   const history = useHistory();
+  const theme = useTheme();
+  console.log(params);
   const typeFilters = [
     { label: "Darmowe", value: "true" },
     { label: "Płatne", value: "false" },
   ];
   const tagsFilters = uniqueTags.list
-    ? uniqueTags.list?.map((item, index) => {
+    ? uniqueTags.list?.map((item) => {
         return { label: String(item.title), value: String(item.title) };
       })
     : [];
-
+  console.log(selectedCategories);
+  // useEffect(() => {
+  //   if (params?.category_id) {
+  //     const categoryFromQuery =
+  //       categoryTree.list?.filter(
+  //         (item) => item.id === Number(params?.category_id)
+  //       )[0] || null;
+  //     setSelectedMainCategory(categoryFromQuery);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [categoryTree]);
+  console.log(params);
   useEffect(() => {
-    if (params?.category_id) {
-      const categoryFromQuery =
-        categoryTree.list?.filter(
-          (item) => item.id === Number(params?.category_id)
-        )[0] || null;
-      setSelectedMainCategory(categoryFromQuery);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryTree]);
+    params && setParamsLoaded(true);
+  }, [params]);
 
   return (
     <>
       <StyledHeader>
-        <Title level={1}>
-          {selectedMainCategory ? selectedMainCategory.name : "Kursy"}
-        </Title>
+        <Title level={1}>Kursy</Title>
         <div className="filters-container">
-          <div className="categories-container">
+          <div
+            className={`categories-container ${
+              courses?.loading && "categories-container--loading"
+            }`}
+          >
             <div className="categories-row">
-              {isMobile && (
-                <Categories
-                  mobile
-                  categories={categoryTree.list || []}
-                  label={"Kategoria"}
-                  selectedCategories={selectedMobileCategories}
-                  drawerTitle={
-                    <Title
-                      level={5}
-                      style={{
-                        fontSize: "14px",
-                      }}
-                    >
-                      Filtruj
-                    </Title>
-                  }
-                  handleChange={(value) => {
-                    const newValue = value;
-                    setselectedMobileCategories(newValue);
-                    setParams &&
-                      setParams({
-                        ...params,
-                        page: 1,
-                        //@ts-ignore TODO: Add "ids" type to Course request type in sdk
-                        "ids[]": newValue,
-                      });
-                    console.log("selected", value);
-                  }}
-                />
+              {paramsLoaded && params["ids[]"]
+                ? categoryTree?.list
+                    ?.filter((item) => params["ids[]"]?.indexOf(item.id) > -1)
+                    .map((category) => (
+                      <Text key={category.id} className="single-filter">
+                        {category.name}
+                      </Text>
+                    ))
+                : categoryTree?.list
+                    ?.filter((item) => selectedCategories.indexOf(item.id) > -1)
+                    .map((category) => (
+                      <Text key={category.id} className="single-filter">
+                        {category.name}
+                      </Text>
+                    ))}
+              {params && params.free && (
+                <Text className="single-filter">Darmowe</Text>
               )}
-              {!isMobile && (
-                <>
-                  {!selectedMainCategory //Show main categories
-                    ? categoryTree.list?.map((mainCategory) => (
-                        <Button
-                          onClick={() => {
-                            setSelectedMainCategory(mainCategory);
-                            setParams &&
-                              setParams({
-                                ...params,
-                                page: 1,
-                                category_id: mainCategory?.id,
-                              });
-                          }}
-                          mode="outline"
-                          className="single-category-btn"
-                        >
-                          {mainCategory.name}
-                        </Button>
-                      ))
-                    : selectedMainCategory &&
-                      selectedMainCategory.subcategories &&
-                      selectedMainCategory.subcategories.length === 0 //Show main categories if main category is selected and subcategories does not exists
-                    ? categoryTree.list?.map((mainCategory) => (
-                        <Button
-                          onClick={() => {
-                            setSelectedMainCategory(mainCategory);
-                            setParams &&
-                              setParams({
-                                ...params,
-                                page: 1,
-                                category_id: mainCategory?.id,
-                              });
-                          }}
-                          mode="outline"
-                          className={`single-category-btn ${
-                            mainCategory.name === selectedMainCategory?.name &&
-                            "single-category-btn--active"
-                          }`}
-                        >
-                          {mainCategory.name}
-                        </Button>
-                      ))
-                    : selectedMainCategory?.subcategories && //Show subcategories
-                      selectedMainCategory?.subcategories.map((subCategory) => (
-                        <Button
-                          onClick={() => {
-                            setSelectedSubCategory(subCategory);
-                            setParams &&
-                              setParams({
-                                ...params,
-                                page: 1,
-                                category_id: subCategory?.id,
-                              });
-                          }}
-                          mode="outline"
-                          className={`single-category-btn ${
-                            subCategory.name === selectedSubCategory?.name &&
-                            "single-category-btn--active"
-                          }`}
-                        >
-                          {subCategory.name}
-                        </Button>
-                      ))}
-                </>
+              {params && params.free === false && (
+                <Text className="single-filter">Płatne</Text>
+              )}
+              {params?.tag && (
+                <Text className="single-filter">{params?.tag}</Text>
               )}
             </div>
-            {(selectedMainCategory || selectedSubCategory) && (
+            {params && (
               <button
+                type="button"
+                onClick={() => setParams && setParams({ page: 1 })}
                 className="clear-btn"
-                onClick={() => {
-                  setSelectedMainCategory(null);
-                  setSelectedSubCategory(null);
-                  setParams &&
-                    setParams({
-                      ...params,
-                      page: 1,
-                      category_id: undefined,
-                    });
-                }}
               >
                 <CloseIcon />
               </button>
             )}
           </div>
           <div className="selects-row">
+            <div className="single-select single-select--category">
+              <Categories
+                categories={categoryTree.list || []}
+                label={"Kategoria"}
+                selectedCategories={selectedCategories}
+                drawerTitle={
+                  <Title
+                    level={5}
+                    style={{
+                      fontSize: "14px",
+                    }}
+                  >
+                    Kategoria
+                  </Title>
+                }
+                handleChange={(value) => {
+                  const newValue = value;
+                  setSelectedCategories(newValue);
+                  setParams &&
+                    setParams({
+                      ...params,
+                      page: 1,
+                      //@ts-ignore TODO: Add "ids" type to Course request type in sdk
+                      "ids[]": newValue,
+                    });
+                }}
+              />
+            </div>
             <div className="single-select">
               <Dropdown
                 onChange={(e) =>
@@ -332,13 +296,15 @@ const CoursesCollection: React.FC = () => {
           </div>
         </div>
       </StyledHeader>
-      {courses && (!courses.list || !courses.list.data?.length) ? (
+      {courses &&
+      !courses.loading &&
+      (!courses.list || !courses.list.data?.length) ? (
         <Title level={4}>{t("NoCourses")}</Title>
       ) : (
         <CoursesList>
           <div className="row">
             {courses?.list?.data.map((item) => (
-              <div className="col-xl-3 col-lg-4 col-md-6">
+              <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
                 <div className="course-wrapper">
                   <CourseCard
                     mobile={isMobile}
@@ -373,6 +339,14 @@ const CoursesCollection: React.FC = () => {
             ))}
           </div>
         </CoursesList>
+      )}
+      {courses?.loading && (
+        <div
+          style={{ display: "flex", justifyContent: "center" }}
+          className="loader-wrapper"
+        >
+          <Spin color={theme.primaryColor} />
+        </div>
       )}
       {courses &&
         courses.list &&
