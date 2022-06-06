@@ -253,16 +253,6 @@ const CoursesCollection: React.FC = () => {
       );
   }, [paramsLoaded]);
 
-  // useEffect(() => {
-  //   parsedParams &&
-  //     selectedCategories.length === 0 &&
-  //
-  //     setSelectedCategories(parsedParams.ids);
-  // }, [paramsLoaded]);
-
-  console.log(params);
-  console.log(parsedParams);
-  console.log(selectedCategories);
   return (
     <>
       <StyledHeader>
