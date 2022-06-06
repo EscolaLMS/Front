@@ -20,7 +20,6 @@ const CoursePreviewNavbar: React.FC = () => {
             <i className="bx bx-chevron-left" />
             {t("Back to website")}
           </Link>
-
           <LangButton className="course-navbar__lang-button" />
         </div>
       </div>

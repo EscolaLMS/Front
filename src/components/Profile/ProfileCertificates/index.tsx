@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
@@ -8,7 +8,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
 import Preloader from "@/components/Preloader";
 import styled, { useTheme } from "styled-components";
-import { DownloadIcon, ShareIcon } from "../../../icons";
+import { DownloadIcon } from "../../../icons";
 
 type CertType = API.Certificate;
 

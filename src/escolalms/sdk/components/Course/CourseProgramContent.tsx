@@ -2,11 +2,7 @@ import React, { useContext, useEffect, useMemo, useCallback } from "react";
 
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 
-import {
-  TopicType,
-  completed,
-  noCompletedEventsIds,
-} from "@escolalms/sdk/lib/services/courses";
+import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import Embed from "react-tiny-oembed";
 import VideoPlayer from "./Players/VideoPlayer";
@@ -99,6 +95,7 @@ export const CourseProgramContent: React.FC<{
         */
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       program,
       topicId,

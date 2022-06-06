@@ -174,6 +174,7 @@ const ProfileAside: React.FC = () => {
   const history = useHistory();
   useEffect(() => {
     fetchProgress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const finishedCourses = useMemo(() => {
     return (progress.value || []).filter(
