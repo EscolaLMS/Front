@@ -6,7 +6,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useParams } from "react-router-dom";
 import Preloader from "@/components/Preloader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
-import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import Layout from "../../../components/_App/Layout";
 import { API } from "@escolalms/sdk/lib";
 import "./index.scss";
@@ -61,7 +61,9 @@ const TutorPage = () => {
                       </h3>
                       <span className="sub-title">{t("Tutor")}</span>
                       <div>
-                        <MarkdownReader>{tutor.value.bio || ""}</MarkdownReader>
+                        <MarkdownRenderer>
+                          {tutor.value.bio || ""}
+                        </MarkdownRenderer>
                       </div>
                     </div>
                   </div>

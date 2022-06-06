@@ -1,6 +1,6 @@
 const routeRoutes = {
   home: "/",
-  course: "/courses/:id",
+  course: `/courses/:id`,
   courseProgram: "/course/:id/:lessonID?/:topicID?",
   authentication: "/authentication",
   reset: "/reset-password",
