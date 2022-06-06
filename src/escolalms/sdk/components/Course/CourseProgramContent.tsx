@@ -118,11 +118,11 @@ export const CourseProgramContent: React.FC<{
     return <React.Fragment />;
   }
 
-  // if (!topic.topicable?.value) {
-  //   return (
-  //     <pre className="error">Error: topic.topicable?.value is missing</pre>
-  //   );
-  // }
+  if (!topic.topicable?.value) {
+    return (
+      <pre className="error">Error: topic.topicable?.value is missing</pre>
+    );
+  }
 
   if (topic.topicable_type) {
     // TODO: specific interface for advanced topic players -> example: ImagePlayer
