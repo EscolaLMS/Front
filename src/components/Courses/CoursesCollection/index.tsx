@@ -349,7 +349,9 @@ const CoursesCollection: React.FC = () => {
                       onCategoryClick: (id) =>
                         history.push(`/courses/?category_id=${id}`),
                     }}
-                    onButtonClick={() => history.push(`/courses/${item.id}`)}
+                    onButtonClick={() =>
+                      history.push(`/courses/${item.title}/${item.id}`)
+                    }
                     buttonText="Zacznij teraz"
                     lessonCount={5}
                     hideImage={false}

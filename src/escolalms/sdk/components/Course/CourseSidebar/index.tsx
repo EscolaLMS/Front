@@ -4,6 +4,11 @@ import { CourseAgenda } from "@escolalms/components/lib/components/organisms/Cou
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import styled from "styled-components";
+
+const StyledSidebar = styled.aside`
+  padding-bottom: 100px;
+`;
 
 export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
@@ -25,7 +30,7 @@ export const CourseSidebar: React.FC<{
     return <React.Fragment />;
   }
   return (
-    <div className="course-program-sidebar">
+    <StyledSidebar>
       <CourseAgenda
         mobile={isMobile}
         lessons={course.lessons}
@@ -36,7 +41,7 @@ export const CourseSidebar: React.FC<{
           history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`)
         }
       />
-    </div>
+    </StyledSidebar>
   );
 };
 

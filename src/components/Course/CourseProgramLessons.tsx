@@ -3,12 +3,12 @@ import React, { useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
 import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
-import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
 import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
 import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
@@ -157,7 +157,9 @@ export const CourseProgramLessons: React.FC<{
                     fixContentForMarkdown(`${topic.introduction}`) !== "" && (
                       <div className={`col-lg-12 col-md-12 col-sm-12`}>
                         <div className="container-md">
-                          <MarkdownReader>{topic.introduction}</MarkdownReader>
+                          <MarkdownRenderer>
+                            {topic.introduction}
+                          </MarkdownRenderer>
                         </div>
                       </div>
                     )}
@@ -186,7 +188,9 @@ export const CourseProgramLessons: React.FC<{
                         >
                           <div className="course-program-summary">
                             <div className="container-md">
-                              <MarkdownReader>{lesson.summary}</MarkdownReader>
+                              <MarkdownRenderer>
+                                {lesson.summary}
+                              </MarkdownRenderer>
                             </div>
                           </div>
                         </div>
@@ -199,7 +203,9 @@ export const CourseProgramLessons: React.FC<{
                         >
                           <div className="course-program-summary">
                             <div className="container-md">
-                              <MarkdownReader>{topic.summary}</MarkdownReader>
+                              <MarkdownRenderer>
+                                {topic.summary}
+                              </MarkdownRenderer>
                             </div>
 
                             {topic &&

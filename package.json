@@ -2,7 +2,7 @@
   "name": "escolalms-demo",
   "version": "0.1.0",
   "dependencies": {
-    "@escolalms/components": "^0.0.11",
+    "@escolalms/components": "^0.0.18",
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0.2.60",
     "@escolalms/ts-models": "^0",

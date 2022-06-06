@@ -216,6 +216,7 @@ const CartContent = () => {
   }, [location, user]);
 
   const onPay = useCallback((paymentMethodId: string) => {
+    //@ts-ignore
     payWithStripe(paymentMethodId).then(() => {
       push("/user/my-profile");
       fetchCart();
