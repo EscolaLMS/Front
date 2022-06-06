@@ -16,10 +16,12 @@ import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { useTheme } from "styled-components";
 
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
+  const theme = useTheme();
   const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
@@ -53,6 +55,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const currentCourse = progress
     ? progress.value?.filter((item) => item.course.id === id)
     : [];
+  console.log(course);
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const finishedLessons = currentCourse
@@ -82,14 +85,6 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           </div>
         )}
       </div>
-      <IconText
-        icon={<IconTime />}
-        text={
-          <ReactMarkdown components={{ p: React.Fragment }}>
-            **8h 12 min** time left
-          </ReactMarkdown>
-        }
-      />
       {courseInCart ? (
         <Button mode="secondary" onClick={() => push("/cart")}>
           {t("CoursePage.GoToCheckout")}
@@ -115,55 +110,71 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
-        <IconText icon={<IconCamera />} text={course.duration} />
-        <IconText
-          icon={<IconDownload />}
-          text={t("CoursePage.ContentToDownload")}
-        />
-        <IconText
-          icon={<IconSquares />}
-          text={t("CoursePage.SmartphoneAccess")}
-        />
-        <IconText icon={<IconBadge />} text={t("CoursePage.Certificate")} />
-      </div>
-      <CourseProgress
-        progress={
-          currentCourse && currentCourse?.length > 0
-            ? (currentCourse[0].progress.length * (progressMap || 0 / 10)) /
-              1000
-            : 0
-        }
-        icon={<IconWin />}
-        title={t("CoursePage.MyProgress")}
-      >
-        {!user.value ? (
-          <>
-            <Link
-              to="/authentication"
-              style={{
-                marginRight: "4px",
-              }}
-            >
-              {t<string>("Zaloguj się")}
-            </Link>
-            {t("CoursePage.ToSeeProgress")}
-          </>
-        ) : (
-          <>
-            <strong style={{ fontSize: 14 }}>
-              {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
-              {t<string>("CoursePage.Of")}{" "}
-              {currentCourse && currentCourse?.length > 0
-                ? currentCourse[0].progress.length
-                : 0}{" "}
-              {t<string>("CoursePage.Lessons")}
-            </strong>
-            <p style={{ marginTop: 9, marginBottom: 0 }}>
-              {t<string>("CoursePage.FinishToGetCertificate")}
-            </p>
-          </>
+        {course.duration && (
+          <IconText
+            icon={<IconCamera />}
+            text={`Czas trwania: ${course.duration}`}
+          />
         )}
-      </CourseProgress>
+        {course.lessons && (
+          <IconText
+            icon={<IconSquares />}
+            text={`Lekcje: ${course.lessons.length}`}
+          />
+        )}
+        {course.language && (
+          <IconText
+            icon={<IconSquares />}
+            text={`Język: ${course.lessons.length}`}
+          />
+        )}
+        {course.level && (
+          <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
+        )}
+        {course.users_count && (
+          <IconText
+            icon={<IconSquares />}
+            text={`Uczniów: ${course.users_count}`}
+          />
+        )}
+      </div>
+      {!user.value ? (
+        <Text size="12">
+          <Link
+            to="/authentication"
+            style={{
+              marginRight: "4px",
+              color: theme.primaryColor,
+            }}
+          >
+            {t<string>("Zaloguj się")}
+          </Link>
+          {t("CoursePage.ToSeeProgress")}
+        </Text>
+      ) : (
+        <CourseProgress
+          progress={
+            currentCourse && currentCourse?.length > 0
+              ? (currentCourse[0].progress.length * (progressMap || 0 / 10)) /
+                1000
+              : 0
+          }
+          icon={<IconWin />}
+          title={t("CoursePage.MyProgress")}
+        >
+          <strong style={{ fontSize: 14 }}>
+            {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
+            {t<string>("CoursePage.Of")}{" "}
+            {currentCourse && currentCourse?.length > 0
+              ? currentCourse[0].progress.length
+              : 0}{" "}
+            {t<string>("CoursePage.Lessons")}
+          </strong>
+          <p style={{ marginTop: 9, marginBottom: 0 }}>
+            {t<string>("CoursePage.FinishToGetCertificate")}
+          </p>
+        </CourseProgress>
+      )}
     </PricingCard>
   ) : (
     <PricingCard mobile>
