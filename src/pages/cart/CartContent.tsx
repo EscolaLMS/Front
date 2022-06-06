@@ -216,7 +216,10 @@ const CartContent = () => {
   }, [location, user]);
 
   const onPay = useCallback((paymentMethodId: string) => {
-    payWithStripe(paymentMethodId).then(() => {
+    payWithStripe(
+      paymentMethodId,
+      "https://demo-stage.escolalms.com/#/user/my-profile"
+    ).then(() => {
       push("/user/my-profile");
       fetchCart();
       fetchProgress();

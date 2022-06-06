@@ -631,6 +631,12 @@ const resources = {
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
       },
+      CourseCard: {
+        BtnText: "Zacznij teraz",
+        lesson_few: "{{count}} lekcje",
+        lesson_many: "{{count}} lekcji",
+        lesson_one: "{{count}} lekcja",
+      },
     },
   },
 };

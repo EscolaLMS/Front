@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
+import { t } from "i18next";
 
 type Props = {
   courses: API.Course[];
@@ -40,6 +41,7 @@ const SliderWrapper = styled.div`
 const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
   const [dots] = useState(true);
   const history = useHistory();
+
   return (
     <SliderWrapper>
       <Slider settings={{ ...sliderSettings, dots }} dotsPosition="top right">
@@ -55,12 +57,12 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                   onCategoryClick: (id) =>
                     history.push(`/courses/?category_id=${id}`),
                 }}
+                onImageClick={() => history.push(`/courses/${item.id}`)}
+                onTagClick={(title) => history.push(`/courses/?tag=${title}`)}
                 onButtonClick={() => history.push(`/courses/${item.id}`)}
-                buttonText="Zacznij teraz"
-                lessonCount={
-                  item.users_count !== 0 ? item.users_count : undefined
-                }
+                buttonText={t("CourseCard.BtnText")}
                 hideImage={false}
+                lessonCount={item?.lessons?.length}
                 subtitle={
                   item.subtitle ? (
                     <Text>
