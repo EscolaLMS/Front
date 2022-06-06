@@ -440,52 +440,57 @@ const CoursesCollection: React.FC = () => {
       (!courses.list || !courses.list.data?.length) ? (
         <Title level={4}>{t("NoCourses")}</Title>
       ) : (
-        <CoursesList>
-          <div className="row">
-            {courses?.list?.data.map((item) => (
-              <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
-                <div className="course-wrapper">
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.id}
-                    title={item.title}
-                    categories={{
-                      categoryElements: item.categories || [],
-                      onCategoryClick: (id) =>
-                        history.push(`/courses/?category_id=${id}`),
-                    }}
-                    onButtonClick={() => history.push(`/courses/${item.id}`)}
-                    buttonText="Zacznij teraz"
-                    lessonCount={5}
-                    hideImage={false}
-                    subtitle={
-                      item.subtitle ? (
-                        <Text>
-                          <strong style={{ fontSize: 14 }}>
-                            {item.subtitle?.substring(0, 30)}
-                          </strong>
-                        </Text>
-                      ) : null
-                    }
-                    image={{
-                      url: item.image_url,
-                      alt: "",
-                    }}
-                    tags={item.tags as API.Tag[]}
-                  />
-                </div>
+        <>
+          {courses?.loading ? (
+            <div
+              style={{ display: "flex", justifyContent: "center" }}
+              className="loader-wrapper"
+            >
+              <Spin color={theme.primaryColor} />
+            </div>
+          ) : (
+            <CoursesList>
+              <div className="row">
+                {courses?.list?.data.map((item) => (
+                  <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
+                    <div className="course-wrapper">
+                      <CourseCard
+                        mobile={isMobile}
+                        id={item.id}
+                        title={item.title}
+                        categories={{
+                          categoryElements: item.categories || [],
+                          onCategoryClick: (id) =>
+                            history.push(`/courses/?category_id=${id}`),
+                        }}
+                        onButtonClick={() =>
+                          history.push(`/courses/${item.id}`)
+                        }
+                        buttonText="Zacznij teraz"
+                        lessonCount={5}
+                        hideImage={false}
+                        subtitle={
+                          item.subtitle ? (
+                            <Text>
+                              <strong style={{ fontSize: 14 }}>
+                                {item.subtitle?.substring(0, 30)}
+                              </strong>
+                            </Text>
+                          ) : null
+                        }
+                        image={{
+                          url: item.image_url,
+                          alt: "",
+                        }}
+                        tags={item.tags as API.Tag[]}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </CoursesList>
-      )}
-      {courses?.loading && (
-        <div
-          style={{ display: "flex", justifyContent: "center" }}
-          className="loader-wrapper"
-        >
-          <Spin color={theme.primaryColor} />
-        </div>
+            </CoursesList>
+          )}
+        </>
       )}
       {courses &&
         courses.list &&
