@@ -1,9 +1,8 @@
-//@ts-nocheck
+//@ts-nocheck - TODO: Add "ids" type to Course request type in sdk
 import React, { useContext, useEffect, useState } from "react";
 import { CoursesContext } from "@/components/Courses/CoursesContext";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
@@ -13,7 +12,8 @@ import { Categories } from "@escolalms/components/lib/components/molecules/Categ
 import styled, { css, useTheme } from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import qs from "query-string";
 import Pagination from "@/components/Pagination";
 import { isMobile } from "react-device-detect";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
@@ -23,6 +23,8 @@ const StyledHeader = styled.div`
   background: ${({ theme }) => theme.primaryColor};
   padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
   margin-bottom: ${isMobile ? "100px" : "40px"};
+  position: relative;
+  z-index: 100;
 
   h1 {
     color: ${({ theme }) => theme.white};
@@ -70,12 +72,23 @@ const StyledHeader = styled.div`
         outline: none;
         margin-left: 15px;
         cursor: pointer;
+        &--desktop {
+          display: ${isMobile ? "none" : "block"};
+        }
+        ${isMobile &&
+        css`
+          svg {
+            path {
+              fill: ${({ theme }) => theme.primaryColor};
+            }
+          }
+        `}
       }
 
       .categories-row {
         display: flex;
         max-width: ${isMobile ? "100%" : "500px"};
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         justify-content: flex-start;
         align-items: center;
@@ -99,7 +112,14 @@ const StyledHeader = styled.div`
           border-width: 2px;
           border-style: solid;
           margin-bottom: 0;
-          padding: 8px 20px;
+          padding: 10px 20px;
+          line-height: 0.9;
+          text-align: center;
+          max-height: 50px;
+          min-height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           border-color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
           color: ${({ theme }) =>
@@ -124,11 +144,22 @@ const StyledHeader = styled.div`
         }
       }
     }
+    .mobile-categories-wrapper {
+      button {
+        color: ${({ theme }) => theme.primaryColor};
+        border-color: ${({ theme }) => theme.primaryColor};
+        min-width: 110px;
+      }
+    }
     .selects-row {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
+      @media (max-width: 991px) {
+        justify-content: space-between;
+        width: 100%;
+      }
       @media (max-width: 575px) {
         flex-direction: column;
         justify-content: flex-start;
@@ -139,6 +170,21 @@ const StyledHeader = styled.div`
         min-width: 130px;
         &--category {
           min-width: 200px;
+          div {
+            border: none !important;
+            &:not(.categories-dropdown-options) {
+              background: transparent !important;
+              color: ${({ theme }) => theme.white};
+            }
+          }
+          button {
+            ${isMobile &&
+            css`
+              color: ${({ theme }) => theme.white};
+              border-color: ${({ theme }) => theme.white};
+            `}
+          }
+
           label {
             input {
               min-width: 20px;
@@ -159,37 +205,64 @@ const CoursesList = styled.section`
 const CoursesCollection: React.FC = () => {
   const { params, setParams, courses } = useContext(CoursesContext);
   const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
+  const [parsedParams, setParsedParams] = useState<
+    API.CourseParams | undefined
+  >();
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [typeSelectedValue, setTypeSelectedValue] = useState<
+    string | undefined
+  >(undefined);
+  const [tagSelectValue, setTagSelectValue] = useState<string | undefined>(
+    undefined
+  );
   const [paramsLoaded, setParamsLoaded] = useState(false);
   const { t } = useTranslation();
   const history = useHistory();
+  const location = useLocation();
   const theme = useTheme();
-  console.log(params);
+
   const typeFilters = [
+    { label: "Wszystkie", value: "false" },
     { label: "Darmowe", value: "true" },
-    { label: "Płatne", value: "false" },
   ];
   const tagsFilters = uniqueTags.list
     ? uniqueTags.list?.map((item) => {
         return { label: String(item.title), value: String(item.title) };
       })
     : [];
-  console.log(selectedCategories);
-  // useEffect(() => {
-  //   if (params?.category_id) {
-  //     const categoryFromQuery =
-  //       categoryTree.list?.filter(
-  //         (item) => item.id === Number(params?.category_id)
-  //       )[0] || null;
-  //     setSelectedMainCategory(categoryFromQuery);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [categoryTree]);
-  console.log(params);
   useEffect(() => {
     params && setParamsLoaded(true);
+    params &&
+      setTypeSelectedValue(
+        params.free === true
+          ? "true"
+          : params.free === false
+          ? "false"
+          : undefined
+      );
+    params && setTagSelectValue(params.tag || undefined);
   }, [params]);
 
+  useEffect(() => {
+    paramsLoaded &&
+      setParsedParams(
+        qs.parse(location.search, {
+          arrayFormat: "bracket",
+          parseNumbers: true,
+        })
+      );
+  }, [paramsLoaded]);
+
+  // useEffect(() => {
+  //   parsedParams &&
+  //     selectedCategories.length === 0 &&
+  //
+  //     setSelectedCategories(parsedParams.ids);
+  // }, [paramsLoaded]);
+
+  console.log(params);
+  console.log(parsedParams);
+  console.log(selectedCategories);
   return (
     <>
       <StyledHeader>
@@ -201,9 +274,66 @@ const CoursesCollection: React.FC = () => {
             }`}
           >
             <div className="categories-row">
-              {paramsLoaded && params["ids[]"]
-                ? categoryTree?.list
-                    ?.filter((item) => params["ids[]"]?.indexOf(item.id) > -1)
+              {parsedParams &&
+                (parsedParams.ids ||
+                  parsedParams.free ||
+                  parsedParams.tag ||
+                  selectedCategories.length > 0) &&
+                isMobile && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategories([]);
+                      setTypeSelectedValue(undefined);
+                      setTagSelectValue(undefined);
+                      setParams && setParams({ page: 1 });
+                      setParsedParams({});
+                    }}
+                    className="clear-btn"
+                  >
+                    <CloseIcon />
+                  </button>
+                )}
+              {isMobile && (
+                <div className="mobile-categories-wrapper">
+                  <Categories
+                    mobile
+                    categories={categoryTree.list || []}
+                    label={"Kategoria"}
+                    selectedCategories={
+                      selectedCategories.length > 0
+                        ? selectedCategories
+                        : parsedParams && parsedParams.ids
+                    }
+                    drawerTitle={
+                      <Title
+                        level={5}
+                        style={{
+                          fontSize: "14px",
+                        }}
+                      >
+                        Kategoria
+                      </Title>
+                    }
+                    handleChange={(value) => {
+                      const newValue = value;
+                      setSelectedCategories(newValue);
+                      setParams &&
+                        setParams({
+                          ...params,
+                          page: 1,
+                          "ids[]": newValue,
+                        });
+                    }}
+                  />
+                </div>
+              )}
+              {!(selectedCategories.length > 0)
+                ? parsedParams &&
+                  parsedParams.ids &&
+                  categoryTree?.list
+
+                    ?.filter((item) => parsedParams.ids.indexOf(item.id) > -1)
                     .map((category) => (
                       <Text key={category.id} className="single-filter">
                         {category.name}
@@ -220,75 +350,94 @@ const CoursesCollection: React.FC = () => {
                 <Text className="single-filter">Darmowe</Text>
               )}
               {params && params.free === false && (
-                <Text className="single-filter">Płatne</Text>
+                <Text className="single-filter">Wszystkie</Text>
               )}
               {params?.tag && (
                 <Text className="single-filter">{params?.tag}</Text>
               )}
             </div>
-            {params && (
-              <button
-                type="button"
-                onClick={() => setParams && setParams({ page: 1 })}
-                className="clear-btn"
-              >
-                <CloseIcon />
-              </button>
-            )}
+            {parsedParams &&
+              (parsedParams.ids ||
+                parsedParams.free ||
+                parsedParams.tag ||
+                selectedCategories.length > 0) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategories([]);
+                    setTypeSelectedValue(undefined);
+                    setTagSelectValue(undefined);
+                    setParams && setParams({ page: 1 });
+                    setParsedParams({});
+                  }}
+                  className="clear-btn clear-btn--desktop"
+                >
+                  <CloseIcon />
+                </button>
+              )}
           </div>
           <div className="selects-row">
-            <div className="single-select single-select--category">
-              <Categories
-                categories={categoryTree.list || []}
-                label={"Kategoria"}
-                selectedCategories={selectedCategories}
-                drawerTitle={
-                  <Title
-                    level={5}
-                    style={{
-                      fontSize: "14px",
-                    }}
-                  >
-                    Kategoria
-                  </Title>
-                }
-                handleChange={(value) => {
-                  const newValue = value;
-                  setSelectedCategories(newValue);
+            {!isMobile && (
+              <div className="single-select single-select--category">
+                <Categories
+                  categories={categoryTree.list || []}
+                  label={"Kategoria"}
+                  selectedCategories={
+                    selectedCategories.length > 0
+                      ? selectedCategories
+                      : parsedParams && parsedParams.ids
+                  }
+                  drawerTitle={
+                    <Title
+                      level={5}
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      Kategoria
+                    </Title>
+                  }
+                  handleChange={(value) => {
+                    const newValue = value;
+                    setSelectedCategories(newValue);
+                    setParams &&
+                      setParams({
+                        ...params,
+                        page: 1,
+                        "ids[]": newValue,
+                      });
+                  }}
+                />
+              </div>
+            )}
+            <div className="single-select">
+              <Dropdown
+                onChange={(e) => {
+                  setTypeSelectedValue(e.value);
                   setParams &&
                     setParams({
                       ...params,
                       page: 1,
-                      //@ts-ignore TODO: Add "ids" type to Course request type in sdk
-                      "ids[]": newValue,
+                      free: e.value === "true" ? true : false,
                     });
                 }}
-              />
-            </div>
-            <div className="single-select">
-              <Dropdown
-                onChange={(e) =>
-                  setParams &&
-                  setParams({
-                    ...params,
-                    page: 1,
-                    free: e.value === "true" ? true : false,
-                  })
-                }
                 placeholder="Typ szkolenia"
+                value={typeSelectedValue}
                 options={typeFilters}
               />
             </div>
             <div className="single-select">
               <Dropdown
-                onChange={(e) =>
+                onChange={(e) => {
+                  setTagSelectValue(e.value);
                   setParams &&
-                  setParams({
-                    ...params,
-                    page: 1,
-                    tag: e.value,
-                  })
-                }
+                    setParams({
+                      ...params,
+                      page: 1,
+                      tag: e.value,
+                    });
+                }}
+                value={tagSelectValue}
                 placeholder="Tag"
                 options={[{ label: "Wszystkie", value: "" }, ...tagsFilters]}
               />
