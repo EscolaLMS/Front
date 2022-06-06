@@ -216,14 +216,22 @@ const CartContent = () => {
   }, [location, user]);
 
   const onPay = useCallback((paymentMethodId: string) => {
+    setProcessing(true);
     payWithStripe(
       paymentMethodId,
       "https://demo-stage.escolalms.com/#/user/my-profile"
-    ).then(() => {
-      push("/user/my-profile");
-      fetchCart();
-      fetchProgress();
-    });
+    )
+      .then(() => {
+        setProcessing(false);
+        push("/user/my-profile");
+        fetchCart();
+        fetchProgress();
+      })
+      .catch(() => {
+        toast.error(t("UnexpectedError"));
+        setProcessing(false);
+      })
+      .finally(() => setProcessing(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -418,7 +426,7 @@ const CartContent = () => {
             </>
           )}
         </div>
-        {cart.loading && <Preloader />}
+        {(cart.loading || processing) && <Preloader />}
       </CartPageStyled>
     </Layout>
   );
