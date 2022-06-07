@@ -174,6 +174,11 @@ const mainTabs: NavigationTab[] = [
     title: "Powiadomienia",
     url: "/user/my-notifications",
   },
+  {
+    key: "EDIT",
+    title: "Edytuj dane",
+    url: "/user/my-data",
+  },
 ];
 
 const ProfileAside: React.FC = () => {
