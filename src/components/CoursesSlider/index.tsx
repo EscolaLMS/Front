@@ -1,12 +1,19 @@
+//@ts-nocheck - TODO: remove when Tag type will be fixed in sdk
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { useHistory } from "react-router-dom";
+import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
+import { t } from "i18next";
+import { LessonsIcon } from "../../icons";
 
 type Props = {
   courses: API.Course[];
@@ -40,6 +47,7 @@ const SliderWrapper = styled.div`
 const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
   const [dots] = useState(true);
   const history = useHistory();
+  const theme = useTheme();
   return (
     <SliderWrapper>
       <Slider settings={{ ...sliderSettings, dots }} dotsPosition="top right">
@@ -49,32 +57,74 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
               <CourseCard
                 mobile={isMobile}
                 id={item.id}
-                title={item.title}
-                categories={{
-                  categoryElements: item.categories || [],
-                  onCategoryClick: (id) =>
-                    history.push(`/courses/?category_id=${id}`),
-                }}
-                onButtonClick={() => history.push(`/courses/${item.id}`)}
-                buttonText="Zacznij teraz"
-                lessonCount={
-                  item.users_count !== 0 ? item.users_count : undefined
+                image={
+                  <Link to={`/courses/${item.id}`}>
+                    <img src={item.image_url} alt={item.title} />
+                  </Link>
                 }
-                hideImage={false}
+                tags={
+                  <>
+                    {item.tags?.map((item) => (
+                      <Badge color={theme.primaryColor}>
+                        <Link
+                          style={{ color: theme.white }}
+                          to={`/courses/?tag=${item.title}`}
+                        >
+                          {item.title}
+                        </Link>
+                      </Badge>
+                    ))}
+                  </>
+                }
                 subtitle={
                   item.subtitle ? (
                     <Text>
-                      <strong style={{ fontSize: 14 }}>
-                        {item.subtitle?.substring(0, 30)}
-                      </strong>
+                      <Link
+                        style={{ color: theme.primaryColor }}
+                        to={`/courses/${item.id}`}
+                      >
+                        {item.subtitle}
+                      </Link>
                     </Text>
-                  ) : null
+                  ) : undefined
                 }
-                image={{
-                  url: item.image_url,
-                  alt: "",
-                }}
-                tags={item.tags as API.Tag[]}
+                title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
+                categories={
+                  <BreadCrumbs
+                    hyphen="/"
+                    items={item.categories?.map((category) => (
+                      <Link to={`/courses/?category_id=${category.id}`}>
+                        {category.name}
+                      </Link>
+                    ))}
+                  />
+                }
+                actions={
+                  <>
+                    <Button
+                      mode="secondary"
+                      onClick={() => history.push(`/courses/${item.id}`)}
+                    >
+                      {t<string>("Start now")}
+                    </Button>
+                  </>
+                }
+                footer={
+                  <>
+                    {item.users_count && item.users_count > 0 && (
+                      <IconText
+                        icon={<LessonsIcon />}
+                        text={`${item.users_count} kursantów`}
+                      />
+                    )}{" "}
+                    {item.lessons_count && item.lessons_count > 0 && (
+                      <IconText
+                        icon={<LessonsIcon />}
+                        text={`${item.lessons_count} lekcji`}
+                      />
+                    )}
+                  </>
+                }
               />
             </div>
           ))}
