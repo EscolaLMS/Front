@@ -464,6 +464,13 @@ const resources = {
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
       },
+      CoursesPage: {
+        Category: "Kategoria",
+        Free: "Darmowe",
+        All: "Wszystkie",
+        Type: "Typ szkolenia",
+        Courses: "Kursy",
+      },
       EmailVerifiedPage: {
         Verified: "Twój email jest teraz zweryfikowany",
         EmailText: "Przejdź do",
