@@ -1,5 +1,5 @@
-//@ts-nocheck - TODO: Add "ids" type to Course request type in sdk
-import React, { useContext, useEffect, useState } from "react";
+//@ts-nocheck
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { CoursesContext } from "@/components/Courses/CoursesContext";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -18,6 +18,10 @@ import Pagination from "@/components/Pagination";
 import { isMobile } from "react-device-detect";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
+
+type updateParamType =
+  | { key: "free" | "tag"; value: string | undefined }
+  | { key: "categories"; value: number[] };
 
 const StyledHeader = styled.div`
   background: ${({ theme }) => theme.primaryColor};
@@ -208,18 +212,33 @@ const CoursesCollection: React.FC = () => {
   const [parsedParams, setParsedParams] = useState<
     API.CourseParams | undefined
   >();
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const [typeSelectedValue, setTypeSelectedValue] = useState<
-    string | undefined
-  >(undefined);
-  const [tagSelectValue, setTagSelectValue] = useState<string | undefined>(
-    undefined
-  );
+  const [filterState, setFilterState] = useState<{
+    categories: number[];
+    free?: string;
+    tag?: string;
+  }>({ categories: [], free: "", tag: "" });
   const [paramsLoaded, setParamsLoaded] = useState(false);
   const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const theme = useTheme();
+
+  const updateState = useCallback(
+    (updateObj: updateParamType) =>
+      setFilterState((prevState) => ({
+        ...prevState,
+        [updateObj.key]: updateObj.value,
+      })),
+    []
+  );
+
+  const resetFilters = () => {
+    setFilterState({
+      categories: [],
+      free: "",
+      tag: "",
+    });
+  };
 
   const typeFilters = [
     { label: "Wszystkie", value: "false" },
@@ -230,17 +249,9 @@ const CoursesCollection: React.FC = () => {
         return { label: String(item.title), value: String(item.title) };
       })
     : [];
+
   useEffect(() => {
     params && setParamsLoaded(true);
-    params &&
-      setTypeSelectedValue(
-        params.free === true
-          ? "true"
-          : params.free === false
-          ? "false"
-          : undefined
-      );
-    params && setTagSelectValue(params.tag || undefined);
   }, [params]);
 
   useEffect(() => {
@@ -253,10 +264,19 @@ const CoursesCollection: React.FC = () => {
       );
   }, [paramsLoaded]);
 
+  useEffect(() => {
+    parsedParams &&
+      setFilterState({
+        categories: parsedParams.ids,
+        tag: parsedParams.tag,
+        free: parsedParams.free,
+      });
+  }, [parsedParams]);
+
   return (
     <>
       <StyledHeader>
-        <Title level={1}>Kursy</Title>
+        <Title level={1}> {t("CoursesPage.Courses")}</Title>
         <div className="filters-container">
           <div
             className={`categories-container ${
@@ -264,20 +284,17 @@ const CoursesCollection: React.FC = () => {
             }`}
           >
             <div className="categories-row">
-              {parsedParams &&
-                (parsedParams.ids ||
-                  parsedParams.free ||
-                  parsedParams.tag ||
-                  selectedCategories.length > 0) &&
+              {(filterState.free ||
+                filterState.tag ||
+                (filterState.categories &&
+                  filterState.categories?.length > 0)) &&
                 isMobile && (
                   <button
                     type="button"
                     onClick={() => {
-                      setSelectedCategories([]);
-                      setTypeSelectedValue(undefined);
-                      setTagSelectValue(undefined);
-                      setParams && setParams({ page: 1 });
                       setParsedParams({});
+                      setParams && setParams({ page: 1 });
+                      resetFilters();
                     }}
                     className="clear-btn"
                   >
@@ -291,8 +308,9 @@ const CoursesCollection: React.FC = () => {
                     categories={categoryTree.list || []}
                     label={"Kategoria"}
                     selectedCategories={
-                      selectedCategories.length > 0
-                        ? selectedCategories
+                      filterState.categories &&
+                      filterState.categories.length > 0
+                        ? filterState.categories
                         : parsedParams && parsedParams.ids
                     }
                     drawerTitle={
@@ -302,12 +320,15 @@ const CoursesCollection: React.FC = () => {
                           fontSize: "14px",
                         }}
                       >
-                        Kategoria
+                        {t("CoursesPage.Category")}
                       </Title>
                     }
                     handleChange={(value) => {
                       const newValue = value;
-                      setSelectedCategories(newValue);
+                      updateState({
+                        key: "categories",
+                        value: newValue,
+                      });
                       setParams &&
                         setParams({
                           ...params,
@@ -318,47 +339,37 @@ const CoursesCollection: React.FC = () => {
                   />
                 </div>
               )}
-              {!(selectedCategories.length > 0)
-                ? parsedParams &&
-                  parsedParams.ids &&
-                  categoryTree?.list
-
-                    ?.filter((item) => parsedParams.ids.indexOf(item.id) > -1)
-                    .map((category) => (
-                      <Text key={category.id} className="single-filter">
-                        {category.name}
-                      </Text>
-                    ))
-                : categoryTree?.list
-                    ?.filter((item) => selectedCategories.indexOf(item.id) > -1)
-                    .map((category) => (
-                      <Text key={category.id} className="single-filter">
-                        {category.name}
-                      </Text>
-                    ))}
-              {params && params.free && (
-                <Text className="single-filter">Darmowe</Text>
+              {filterState.categories &&
+                filterState.categories.length > 0 &&
+                categoryTree?.list
+                  ?.filter(
+                    (item) => filterState.categories.indexOf(item.id) > -1
+                  )
+                  .map((category) => (
+                    <Text key={category.id} className="single-filter">
+                      {category.name}
+                    </Text>
+                  ))}
+              {filterState && filterState.free === "true" && (
+                <Text className="single-filter"> {t("CoursesPage.Free")}</Text>
               )}
-              {params && params.free === false && (
-                <Text className="single-filter">Wszystkie</Text>
+              {filterState && filterState.free === "false" && (
+                <Text className="single-filter"> {t("CoursesPage.All")}</Text>
               )}
-              {params?.tag && (
+              {filterState?.tag && (
                 <Text className="single-filter">{params?.tag}</Text>
               )}
             </div>
-            {parsedParams &&
-              (parsedParams.ids ||
-                parsedParams.free ||
-                parsedParams.tag ||
-                selectedCategories.length > 0) && (
+            {(filterState.free ||
+              filterState.tag ||
+              (filterState.categories && filterState.categories?.length > 0)) &&
+              !isMobile && (
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedCategories([]);
-                    setTypeSelectedValue(undefined);
-                    setTagSelectValue(undefined);
-                    setParams && setParams({ page: 1 });
                     setParsedParams({});
+                    setParams && setParams({ page: 1 });
+                    resetFilters();
                   }}
                   className="clear-btn clear-btn--desktop"
                 >
@@ -373,8 +384,8 @@ const CoursesCollection: React.FC = () => {
                   categories={categoryTree.list || []}
                   label={"Kategoria"}
                   selectedCategories={
-                    selectedCategories.length > 0
-                      ? selectedCategories
+                    filterState.categories && filterState.categories.length > 0
+                      ? filterState.categories
                       : parsedParams && parsedParams.ids
                   }
                   drawerTitle={
@@ -384,12 +395,15 @@ const CoursesCollection: React.FC = () => {
                         fontSize: "14px",
                       }}
                     >
-                      Kategoria
+                      {t("CoursesPage.Category")}
                     </Title>
                   }
                   handleChange={(value) => {
                     const newValue = value;
-                    setSelectedCategories(newValue);
+                    updateState({
+                      key: "categories",
+                      value: newValue,
+                    });
                     setParams &&
                       setParams({
                         ...params,
@@ -403,7 +417,10 @@ const CoursesCollection: React.FC = () => {
             <div className="single-select">
               <Dropdown
                 onChange={(e) => {
-                  setTypeSelectedValue(e.value);
+                  updateState({
+                    key: "free",
+                    value: e.value,
+                  });
                   setParams &&
                     setParams({
                       ...params,
@@ -411,15 +428,18 @@ const CoursesCollection: React.FC = () => {
                       free: e.value === "true" ? true : false,
                     });
                 }}
-                placeholder="Typ szkolenia"
-                value={typeSelectedValue}
+                placeholder={t("CoursesPage.Type")}
+                value={filterState.free}
                 options={typeFilters}
               />
             </div>
             <div className="single-select">
               <Dropdown
                 onChange={(e) => {
-                  setTagSelectValue(e.value);
+                  updateState({
+                    key: "tag",
+                    value: e.value,
+                  });
                   setParams &&
                     setParams({
                       ...params,
@@ -427,9 +447,12 @@ const CoursesCollection: React.FC = () => {
                       tag: e.value,
                     });
                 }}
-                value={tagSelectValue}
+                value={filterState.tag}
                 placeholder="Tag"
-                options={[{ label: "Wszystkie", value: "" }, ...tagsFilters]}
+                options={[
+                  { label: t("CoursesPage.All"), value: "" },
+                  ...tagsFilters,
+                ]}
               />
             </div>
           </div>
@@ -466,7 +489,7 @@ const CoursesCollection: React.FC = () => {
                         onButtonClick={() =>
                           history.push(`/courses/${item.id}`)
                         }
-                        buttonText="Zacznij teraz"
+                        buttonText={t("StartNow")}
                         lessonCount={5}
                         hideImage={false}
                         subtitle={
