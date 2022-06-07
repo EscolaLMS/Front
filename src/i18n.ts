@@ -644,6 +644,10 @@ const resources = {
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
       },
+      Header: {
+        Register: "Zarejestruj",
+        Login: "Zaloguj",
+      },
     },
   },
 };
