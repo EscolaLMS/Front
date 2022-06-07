@@ -1,4 +1,4 @@
-//@ts-nocheck
+//@ts-nocheck - delete when "ids" type will be aded to sdk
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { CoursesContext } from "@/components/Courses/CoursesContext";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
