@@ -184,12 +184,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="12">
+                      <Text size="12" style={{ lineHeight: 1.2 }}>
                         <Link
                           style={{ color: theme.black }}
                           to={`/courses/${courses[0].id}`}
                         >
-                          {courses[0].title}
+                          <strong>{courses[0].title}</strong>
                         </Link>
                       </Text>
                     }
@@ -228,12 +228,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="12">
+                      <Text size="12" style={{ lineHeight: 1.2 }}>
                         <Link
                           style={{ color: theme.black }}
                           to={`/courses/${courses[1].id}`}
                         >
-                          {courses[1].title}
+                          <strong>{courses[1].title}</strong>
                         </Link>
                       </Text>
                     }
@@ -272,12 +272,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="12">
+                      <Text size="12" style={{ lineHeight: 1.2 }}>
                         <Link
                           style={{ color: theme.black }}
                           to={`/courses/${courses[2].id}`}
                         >
-                          {courses[2].title}
+                          <strong>{courses[2].title}</strong>
                         </Link>
                       </Text>
                     }
@@ -340,7 +340,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   categories={{
                     categoryElements: courses[4].categories || [],
                     onCategoryClick: (id) =>
-                      history.push(`/courses/?category_id=${id}`),
+                      history.push(`/courses/?ids[]=${id}`),
                   }}
                   onSecondaryButtonClick={() =>
                     history.push(`/courses/${courses[4].id}`)
@@ -384,12 +384,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="12">
+                      <Text size="12" style={{ lineHeight: 1.2 }}>
                         <Link
                           style={{ color: theme.black }}
                           to={`/courses/${courses[5].id}`}
                         >
-                          {courses[5].title}
+                          <strong>{courses[5].title}</strong>
                         </Link>
                       </Text>
                     }
@@ -428,12 +428,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="12">
+                      <Text size="12" style={{ lineHeight: 1.2 }}>
                         <Link
                           style={{ color: theme.black }}
                           to={`/courses/${courses[4].id}`}
                         >
-                          {courses[4].title}
+                          <strong>{courses[4].title}</strong>
                         </Link>
                       </Text>
                     }

@@ -78,12 +78,12 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                 }
                 subtitle={
                   item.subtitle ? (
-                    <Text>
+                    <Text size="12">
                       <Link
                         style={{ color: theme.primaryColor }}
                         to={`/courses/${item.id}`}
                       >
-                        {item.subtitle}
+                        <strong>{item.subtitle}</strong>
                       </Link>
                     </Text>
                   ) : undefined
@@ -93,7 +93,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                   <BreadCrumbs
                     hyphen="/"
                     items={item.categories?.map((category) => (
-                      <Link to={`/courses/?category_id=${category.id}`}>
+                      <Link to={`/courses/?ids[]=${category.id}`}>
                         {category.name}
                       </Link>
                     ))}
