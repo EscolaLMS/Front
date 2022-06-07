@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { resources as ComponentTranslations } from "@escolalms/components/lib/styleguide/i18n";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -7,6 +8,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      ...ComponentTranslations.en.translation,
       "Access from": "Access from",
       "Access to": "Access to",
       Access: "Access",
@@ -188,7 +190,9 @@ const resources = {
         Bio: "Bio",
         EmptyCertificates: "Certificates list is empty!",
         EmptyMattermostChannels: "Mattermost channels list is empty!",
+        EditData: "Edit data",
       },
+
       Navbar: {
         MyProfile: "My Profile",
         MyCourses: "My Courses",
@@ -296,6 +300,7 @@ const resources = {
   },
   pl: {
     translation: {
+      ...ComponentTranslations.pl.translation,
       UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
       StartNow: "Zacznij teraz",
       "Access from": "Dostęp od",
@@ -524,6 +529,7 @@ const resources = {
         InProgress: "W trakcie",
         Planned: "Zaplanowane",
         Finished: "Ukończone",
+        EditData: "Edytuj dane",
       },
       Navbar: {
         MyProfile: "Mój Profil",
