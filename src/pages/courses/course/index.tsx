@@ -18,11 +18,12 @@ import { CourseProgram } from "@escolalms/components/lib/components/organisms/Co
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
 import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 
 resetIdCounter();
 
@@ -196,6 +197,12 @@ const StyledCoursePage = styled.div`
   }
 `;
 
+const ModalOverwriteGlobal = createGlobalStyle`
+  .ReactModal__Overlay  {
+    z-index: 1500 !important;
+  }
+`;
+
 const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
     undefined
@@ -258,7 +265,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-  console.log(settings);
+
   return (
     <Layout>
       <StyledCoursePage>
@@ -472,12 +479,18 @@ const CoursePage = () => {
           </div>
         </section>
       </StyledCoursePage>
-      {previewTopic && (
-        <CourseProgramPreview
-          topic={previewTopic}
-          onClose={() => setPreviewTopic(undefined)}
-        />
-      )}
+
+      <Modal
+        onClose={() => setPreviewTopic(undefined)}
+        visible={previewTopic ? true : false}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+        width={"700px"}
+      >
+        <ModalOverwriteGlobal />
+        {previewTopic && <CourseProgramPreview topic={previewTopic} />}
+      </Modal>
     </Layout>
   );
 };

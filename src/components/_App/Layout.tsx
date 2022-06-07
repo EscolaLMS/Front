@@ -67,13 +67,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </Helmet>
       <ToastContainer hideProgressBar position="top-center" theme="colored" />
       <div className="site-wrapper">
-        {isCourse ? (
-          <CourseNavbar />
-        ) : isPreview ? (
-          <CoursePreviewNavbar />
-        ) : (
-          <Navbar />
-        )}
+        <Navbar />
         {children}
         {!isCourse && <Footer />}
       </div>

@@ -1,38 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import { API } from "@escolalms/sdk/lib";
+import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { useHistory } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import styled from "styled-components";
 
-import "./index.scss";
-import CourseTimetable from "../../Course/CourseTimetable";
-import CourseSidebarNavButtons from "../../Course/CourseSidebar/CourseSidebarNavButtons";
+const StyledSidebar = styled.aside`
+  padding-bottom: 100px;
+`;
 
 export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
   lessonId: number;
   topicId: number;
-  preview?: boolean;
-}> = ({ course, lessonId, topicId, preview = false }) => {
+}> = ({ course, lessonId, topicId }) => {
+  const history = useHistory();
   const program = (course?.lessons || []).filter(
     (lesson) => lesson && lesson.topics && lesson?.topics?.length > 0
   ) as API.Lesson[];
-
+  const { topicIsFinished } = useContext(EscolaLMSContext);
+  const allTopics = course.lessons.map((item) => item.topics);
+  //@ts-ignore
+  const arrayOfTopics = [].concat.apply([], allTopics);
+  const finishedTopics = arrayOfTopics
+    .filter((item: API.Topic) => topicIsFinished(item.id))
+    .map((item: API.Topic) => item.id);
   if (!course && !program) {
     return <React.Fragment />;
   }
-
   return (
-    <div className="course-program-sidebar">
-      <CourseSidebarNavButtons
-        course={course}
-        topicId={topicId}
-        preview={preview}
+    <StyledSidebar>
+      <CourseAgenda
+        mobile={isMobile}
+        lessons={course.lessons}
+        currentTopicId={topicId}
+        finishedTopicIds={finishedTopics}
+        onMarkFinished={() => console.log("clicked")}
+        onTopicClick={(topic) =>
+          history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`)
+        }
       />
-      <CourseTimetable
-        course={course}
-        lessonId={lessonId}
-        topicId={topicId}
-        preview={preview}
-      />
-    </div>
+    </StyledSidebar>
   );
 };
 
