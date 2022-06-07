@@ -18,7 +18,7 @@ import { CourseProgram } from "@escolalms/components/lib/components/organisms/Co
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
 import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
@@ -194,6 +194,12 @@ const StyledCoursePage = styled.div`
     top: ${isMobile ? "unset" : "130px"};
     bottom: ${isMobile ? "0" : "unset"};
     z-index: 100;
+  }
+`;
+
+const ModalOverwriteGlobal = createGlobalStyle`
+  .ReactModal__Overlay  {
+    z-index: 1500 !important;
   }
 `;
 
@@ -474,21 +480,17 @@ const CoursePage = () => {
         </section>
       </StyledCoursePage>
 
-      {/* <Modal
+      <Modal
         onClose={() => setPreviewTopic(undefined)}
-        visible={previewTopic}
+        visible={previewTopic ? true : false}
         animation="zoom"
         maskAnimation="fade"
         destroyOnClose={true}
+        width={"700px"}
       >
-        <div>dwad</div>
-      </Modal> */}
-      {previewTopic && (
-        <CourseProgramPreview
-          topic={previewTopic}
-          onClose={() => setPreviewTopic(undefined)}
-        />
-      )}
+        <ModalOverwriteGlobal />
+        {previewTopic && <CourseProgramPreview topic={previewTopic} />}
+      </Modal>
     </Layout>
   );
 };

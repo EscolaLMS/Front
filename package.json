@@ -2,7 +2,7 @@
   "name": "escolalms-demo",
   "version": "0.1.0",
   "dependencies": {
-    "@escolalms/components": "^0.0.19",
+    "@escolalms/components": "^0.0.21",
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0.2.65",
     "@escolalms/ts-models": "^0",
@@ -71,7 +71,8 @@
     "svg2pdf.js": "^2.2.0",
     "typescript": "^4.7.2",
     "typescript-plugin-styled-components": "^2.0.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "rc-dialog": "^8.8.2"
   },
   "resolutions": {
     "react": "18.1.0",

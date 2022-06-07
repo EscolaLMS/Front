@@ -1,8 +1,8 @@
-@import './src/style/scss/01_abstracts';
+@import "./src/style/scss/01_abstracts";
 
 .modal {
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
@@ -11,9 +11,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: $z-index-modal - 2;
   }
-  > div {
-    z-index: $z-index-modal-overlay;
-  }
+
   &.show {
     display: block;
   }
