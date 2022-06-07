@@ -7,7 +7,7 @@ import qs from "query-string";
 import { CoursesContext } from "./CoursesContext";
 
 const parseParams = (params: API.CourseParams = {}) => {
-  return qs.stringify(params, { arrayFormat: "bracket" });
+  return qs.stringify(params);
 };
 
 const CoursesProvider: React.FC<{
@@ -37,9 +37,7 @@ const CoursesProvider: React.FC<{
       location.search &&
       location.search.split("?")[1] !== parseParams(params)
     ) {
-      //@ts-ignore
-      setParams(qs.parse(location.search), { arrayFormat: "bracket" });
-      fetchCourses(getApiParams(qs.parse(location.search)));
+      setParams(qs.parse(location.search));
     } else {
       fetchCourses(getApiParams(params));
     }

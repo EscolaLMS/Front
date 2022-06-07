@@ -5,14 +5,14 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import Embed from "react-tiny-oembed";
-import ImagePlayer from "../../../../components/Course/ImagePlayer";
-import VideoPlayer from "./Players/VideoPlayer";
-import AudioPlayer from "./Players/AudioPlayer";
 import TextPlayer from "./Players/TextPlayer";
-import PdfPlayer from "./Players/PdfPlayer";
 import { API } from "@escolalms/sdk/lib";
-import VideoPlayButton from "@/components/Common/LmsVideoPlay";
-import H5Player from "@/components/H5Player";
+import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
+import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/AudioVideoPlayer/AudioVideoPlayer";
+import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
+import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
+import { isMobile } from "react-device-detect";
+import Placeholder from "../../../../images/player-placeholder.jpg";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -36,13 +36,11 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
     apiUrl,
   } = useContext(EscolaLMSContext);
-
   const topic = useMemo(() => {
     return program.value?.lessons
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
       ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
-
   useEffect(() => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
 
@@ -59,7 +57,6 @@ export const CourseProgramContent: React.FC<{
     topic?.topicable_type,
     setIsDisabledNextTopicButton,
   ]);
-
   const onCompleteTopic = useCallback((): void => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
     if (program?.value?.id) {
@@ -105,7 +102,6 @@ export const CourseProgramContent: React.FC<{
       customNoCompletedEventsIds,
     ]
   );
-
   useEffect(() => {
     if (!preview) {
       const ping = () =>
@@ -134,7 +130,7 @@ export const CourseProgramContent: React.FC<{
     switch (topic.topicable_type) {
       case TopicType.H5P:
         return (
-          <H5Player
+          <H5P
             onXAPI={(e: XAPIEvent) => onXAPI(e)}
             id={topic?.topicable?.value}
           />
@@ -146,10 +142,10 @@ export const CourseProgramContent: React.FC<{
             url={topic.topicable.value}
             key={topicId}
             FallbackElement={
-              <H5Player
+              <H5P
                 onXAPI={(e: XAPIEvent) => onXAPI(e)}
                 id={topic?.topicable?.value}
-              /> // TODO can't be any
+              />
             }
           />
         );
@@ -157,20 +153,25 @@ export const CourseProgramContent: React.FC<{
         return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
       case TopicType.Video:
         return (
-          <VideoPlayer
-            topicUrl={topic.topicable.url}
+          //@ts-ignore - remove when props will be fixed
+          <AudioVideoPlayer
+            mobile={isMobile}
+            url={topic.topicable.url}
+            light
             onFinish={(): void => onCompleteTopic()}
-          >
-            <VideoPlayButton />
-          </VideoPlayer>
+          />
         );
       case TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
 
       case TopicType.Audio:
         return (
-          <AudioPlayer
-            url={topic.topicable.url}
+          //@ts-ignore
+          <AudioVideoPlayer
+            mobile={isMobile}
+            audio
+            url={topic.topicable.value}
+            light
             onFinish={(): void => onCompleteTopic()}
           />
         );
