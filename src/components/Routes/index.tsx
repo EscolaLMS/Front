@@ -21,6 +21,7 @@ import ResetPage from "../../pages/reset-password";
 import MyProfilePage from "../../pages/user/MyProfile";
 import MyOrdersPage from "../../pages/user/my-orders";
 import MyNotificationsPage from "../../pages/user/my-notifications";
+import MyDataPage from "../../pages/user/my-data";
 import CourseProgramPage from "../../pages/course/index";
 import CartPage from "../../pages/cart/index";
 
@@ -72,6 +73,7 @@ const Routes: React.FC = (): ReactElement => {
     emailVerified,
     notFound,
     myNotifications,
+    myData,
   } = routes;
 
   return (
@@ -81,18 +83,13 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={authentication} component={AuthPage} />
         <Route exact path={reset} component={ResetPage} />
         <Route exact path={emailVerified} component={EmailVerifiedPage} />
-
         {/* platform visibility pages*/}
-
         <ConfigRoute exact path={tutors} component={TutorsPage} />
         <ConfigRoute exact path={tutor} component={TutorPage} />
         <ConfigRoute exact path={course} component={CoursePage} />
         <ConfigRoute exact path={preview} component={CoursePreviewPage} />
-
         <ConfigRouteExtend exact path={courses} component={CoursesPage} />
-
         {/* privates pages*/}
-
         <PrivateRoute exact path={myProfile} component={MyProfilePage} />
         <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
         <PrivateRoute
@@ -100,18 +97,16 @@ const Routes: React.FC = (): ReactElement => {
           path={myNotifications}
           component={MyNotificationsPage}
         />
+        <PrivateRoute exact path={myData} component={MyDataPage} />
         <PrivateRoute
           exact
           path={courseProgram}
           component={CourseProgramPage}
         />
         <PrivateRoute exact path={cart} component={CartPage} />
-
         <Route exact path={notFound} component={NotFoundPage} />
-
         {/* must be last */}
         <Route exact path={page} component={StaticPage} />
-
         <Route exact component={NotFoundPage} />
       </Switch>
     </ConditionalRouter>
