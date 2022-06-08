@@ -8,6 +8,8 @@ import { t } from "i18next";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "100px 0"};
+  z-index: 1000;
+  position: relative;
   .links-row {
     display: flex;
     flex-direction: ${isMobile ? "column" : "row"};
@@ -49,9 +51,10 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-  const { settings, fetchPages, pages } = useContext(EscolaLMSContext);
+  const { settings, fetchPages, pages, user } = useContext(EscolaLMSContext);
   useEffect(() => {
     fetchPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <StyledFooter>
@@ -63,14 +66,17 @@ const Footer = () => {
           <Link className="single-link" to="/courses">
             <Text size="14">{t<string>("Footer.Courses")}</Text>
           </Link>
-          <Link className="single-link" to="/authentication">
-            <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
-          </Link>
+          {user.value ? (
+            <Link className="single-link" to="/user/my-profile">
+              <Text size="14">{t<string>("Footer.UserProfile")}</Text>
+            </Link>
+          ) : (
+            <Link className="single-link" to="/authentication">
+              <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
+            </Link>
+          )}
           <Link className="single-link" to="/cart">
             <Text size="14">{t<string>("Footer.Cart")}</Text>
-          </Link>
-          <Link className="single-link" to="/user/my-profile">
-            <Text size="14">{t<string>("Footer.UserProfile")}</Text>
           </Link>
         </div>
         <div className="links-row">

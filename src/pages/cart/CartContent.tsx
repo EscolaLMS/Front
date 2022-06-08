@@ -172,12 +172,10 @@ const CartContent = () => {
   const elements = useElements();
   const history = useHistory();
   // const options = useOptions();
-  const [error, setError] = useState<string | undefined>(undefined);
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
   });
-  const [dots] = useState(true);
   const [discountStatus, setDiscountStatus] = useState<
     "granted" | "error" | undefined
   >(
@@ -189,28 +187,6 @@ const CartContent = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-        },
-      },
-    ],
-  };
-  const sliderSettingsBig = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -240,18 +216,27 @@ const CartContent = () => {
   }, [location, user]);
 
   const onPay = useCallback((paymentMethodId: string) => {
-    payWithStripe(paymentMethodId).then(() => {
-      push("/user/my-profile");
-      fetchCart();
-      fetchProgress();
-    });
+    setProcessing(true);
+    payWithStripe(
+      paymentMethodId,
+      "https://demo-stage.escolalms.com/#/user/my-profile"
+    )
+      .then(() => {
+        setProcessing(false);
+        push("/user/my-profile");
+        fetchCart();
+        fetchProgress();
+      })
+      .catch(() => {
+        toast.error(t("UnexpectedError"));
+        setProcessing(false);
+      })
+      .finally(() => setProcessing(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (): void => {
-    setError(undefined);
     if (!billingDetails.name) {
-      setError("Card holder can not be empty.");
       toast.error(t("Card holder can not be empty."));
     }
 
@@ -269,11 +254,9 @@ const CartContent = () => {
         })
         .then((res) => {
           if (res.error) {
-            setError(res.error.message);
             setProcessing(false);
             toast.error(t("UnexpectedError"));
           } else {
-            setError(undefined);
             onPay(res?.paymentMethod?.id);
             setTimeout(() => {
               setProcessing(false);
@@ -282,11 +265,9 @@ const CartContent = () => {
         })
         .catch((error) => {
           setProcessing(false);
-          setError(error);
           toast.error(t("UnexpectedError"));
         });
   };
-  console.log(cart);
 
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
@@ -445,7 +426,7 @@ const CartContent = () => {
             </>
           )}
         </div>
-        {cart.loading && <Preloader />}
+        {(cart.loading || processing) && <Preloader />}
       </CartPageStyled>
     </Layout>
   );

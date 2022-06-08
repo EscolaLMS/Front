@@ -1,72 +1,579 @@
-import React, { useContext } from 'react';
-import { CoursesContext } from '@/components/Courses/CoursesContext';
-import CourseCard from '@/components/CourseCard';
-import Pagination from '@/components/Pagination';
-import { useTranslation, Trans } from 'react-i18next';
-import { API } from '@escolalms/sdk/lib';
-import './index.scss';
+//@ts-nocheck - delete when "ids" type will be aded to sdk
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { CoursesContext } from "@/components/Courses/CoursesContext";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
+import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
+import { useTranslation } from "react-i18next";
+import { API } from "@escolalms/sdk/lib";
+import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
+import styled, { css, useTheme } from "styled-components";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
+import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { CloseIcon } from "../../../icons";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import qs from "query-string";
+import Pagination from "@/components/Pagination";
+import { isMobile } from "react-device-detect";
+import PromotedCoursesSection from "@/components/PromotedCoursesSection";
+import CategoriesSection from "@/components/CategoriesSection";
+import { LessonsIcon } from "../../../icons";
 
-enum Order {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
+type updateParamType =
+  | { key: "free" | "tag"; value: string | undefined }
+  | { key: "categories"; value: number[] };
 
-const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
-  className = '',
-  itemCol = 6,
-}) => {
-  const { params, setParams, courses } = useContext(CoursesContext);
-  const { t } = useTranslation();
+const StyledHeader = styled.div`
+  background: ${({ theme }) => theme.primaryColor};
+  padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
+  margin-bottom: ${isMobile ? "100px" : "40px"};
+  position: relative;
+  z-index: 100;
 
-  if (courses && (!courses.list || !courses.list.data?.length)) {
-    return <div className="col-lg-8">{t('NoCourses')}</div>;
+  h1 {
+    color: ${({ theme }) => theme.white};
+    margin-bottom: 35px;
   }
 
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    position: relative;
+
+    .Dropdown-control {
+      background: transparent;
+      border-color: transparent;
+      .Dropdown-placeholder {
+        color: ${({ theme }) => theme.white};
+      }
+      .Dropdown-arrow-wrapper {
+        svg {
+          filter: brightness(0) invert(1);
+        }
+      }
+    }
+    .categories-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      &--loading {
+        opacity: 0.6;
+      }
+      ${isMobile &&
+      css`
+        position: absolute;
+        bottom: -95px;
+        left: -20px;
+        width: calc(100% + 40px);
+      `}
+
+      .clear-btn {
+        appearance: none;
+        background: transparent;
+        border: none;
+        outline: none;
+        margin-left: 15px;
+        cursor: pointer;
+        &--desktop {
+          display: ${isMobile ? "none" : "block"};
+        }
+        ${isMobile &&
+        css`
+          svg {
+            path {
+              fill: ${({ theme }) => theme.primaryColor};
+            }
+          }
+        `}
+      }
+
+      .categories-row {
+        display: flex;
+        max-width: ${isMobile ? "100%" : "500px"};
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        align-items: center;
+        column-gap: 10px;
+        padding-bottom: 5px;
+        ::-webkit-scrollbar {
+          height: 4px;
+          width: 4px;
+          border: 1px solid transparent;
+        }
+        ::-webkit-scrollbar-track {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: #ffffff;
+        }
+
+        .single-filter {
+          border-width: 2px;
+          border-style: solid;
+          margin-bottom: 0;
+          padding: 10px 20px;
+          line-height: 0.9;
+          text-align: center;
+          max-height: 50px;
+          min-height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: ${({ theme }) =>
+            isMobile ? theme.primaryColor : theme.white};
+          color: ${({ theme }) =>
+            isMobile ? theme.primaryColor : theme.white};
+
+          &--filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 120px;
+            color: ${({ theme }) => theme.primaryColor};
+          }
+
+          &--active {
+            border-color: ${({ theme }) =>
+              isMobile ? theme.primaryColor : theme.white};
+            color: ${({ theme }) =>
+              isMobile ? theme.white : theme.primaryColor};
+            background-color: ${({ theme }) =>
+              isMobile ? theme.primaryColor : theme.white};
+          }
+        }
+      }
+    }
+    .mobile-categories-wrapper {
+      button {
+        color: ${({ theme }) => theme.primaryColor};
+        border-color: ${({ theme }) => theme.primaryColor};
+        min-width: 110px;
+      }
+    }
+    .selects-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      column-gap: 35px;
+      @media (max-width: 991px) {
+        justify-content: space-between;
+        width: 100%;
+      }
+      @media (max-width: 575px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        row-gap: 15px;
+      }
+      .single-select {
+        min-width: 130px;
+        &--category {
+          min-width: 200px;
+          div {
+            border: none !important;
+            &:not(.categories-dropdown-options) {
+              background: transparent !important;
+              color: ${({ theme }) => theme.white};
+            }
+          }
+          button {
+            ${isMobile &&
+            css`
+              color: ${({ theme }) => theme.white};
+              border-color: ${({ theme }) => theme.white};
+            `}
+          }
+
+          label {
+            input {
+              min-width: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const CoursesList = styled.section`
+  .course-wrapper {
+    margin-bottom: ${isMobile ? "50px" : "75px"};
+    padding-bottom: 15px;
+    overflow: hidden;
+    a {
+      text-decoration: none;
+    }
+  }
+`;
+
+const CoursesCollection: React.FC = () => {
+  const { params, setParams, courses } = useContext(CoursesContext);
+  const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
+  const [parsedParams, setParsedParams] = useState<
+    API.CourseParams | undefined
+  >();
+  const [filterState, setFilterState] = useState<{
+    categories: number[];
+    free?: string;
+    tag?: string;
+  }>({ categories: [], free: "", tag: "" });
+  const [paramsLoaded, setParamsLoaded] = useState(false);
+  const { t } = useTranslation();
+  const history = useHistory();
+  const location = useLocation();
+  const theme = useTheme();
+
+  const updateState = useCallback(
+    (updateObj: updateParamType) =>
+      setFilterState((prevState) => ({
+        ...prevState,
+        [updateObj.key]: updateObj.value,
+      })),
+    []
+  );
+
+  const resetFilters = () => {
+    setFilterState({
+      categories: [],
+      free: "",
+      tag: "",
+    });
+  };
+
+  const typeFilters = [
+    { label: "Wszystkie", value: "false" },
+    { label: "Darmowe", value: "true" },
+  ];
+  const tagsFilters = uniqueTags.list
+    ? uniqueTags.list?.map((item) => {
+        return { label: String(item.title), value: String(item.title) };
+      })
+    : [];
+
+  useEffect(() => {
+    params && setParamsLoaded(true);
+  }, [params]);
+
+  useEffect(() => {
+    paramsLoaded &&
+      setParsedParams(
+        qs.parse(location.search, {
+          arrayFormat: "bracket",
+          parseNumbers: true,
+        })
+      );
+  }, [paramsLoaded]);
+
+  useEffect(() => {
+    parsedParams &&
+      setFilterState({
+        categories: parsedParams.ids,
+        tag: parsedParams.tag,
+        free: parsedParams.free,
+      });
+  }, [parsedParams]);
+
   return (
-    <div className={className}>
-      <div className="escolalms-grid-sorting row align-items-center">
-        <div className="col-lg-8 col-md-6 result-count">
-          <p>
-            <Trans
-              i18nKey="FoundCourses"
-              values={{ count: courses?.list?.meta.total || 0 }}
-              components={{ strong: <span className="count" /> }}
-            />
-          </p>
-        </div>
-
-        <div className="col-lg-4 col-md-6 ordering">
-          <div className="select-box">
-            <select
-              className="form-control"
-              onBlur={(e) => {
-                const [order_by, order] = e.target.value.split('|');
-
-                setParams &&
-                  setParams({
-                    ...params,
-                    order_by,
-                    order: order as Order,
+    <>
+      <StyledHeader>
+        <Title level={1}> {t("CoursesPage.Courses")}</Title>
+        <div className="filters-container">
+          <div
+            className={`categories-container ${
+              courses?.loading && "categories-container--loading"
+            }`}
+          >
+            <div className="categories-row">
+              {(filterState.free ||
+                filterState.tag ||
+                (filterState.categories &&
+                  filterState.categories?.length > 0)) &&
+                isMobile && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setParsedParams({});
+                      setParams && setParams({ page: 1 });
+                      resetFilters();
+                    }}
+                    className="clear-btn"
+                  >
+                    <CloseIcon />
+                  </button>
+                )}
+              {isMobile && (
+                <div className="mobile-categories-wrapper">
+                  <Categories
+                    mobile
+                    categories={categoryTree.list || []}
+                    label={"Kategoria"}
+                    selectedCategories={
+                      filterState.categories &&
+                      filterState.categories.length > 0
+                        ? filterState.categories
+                        : parsedParams && parsedParams.ids
+                    }
+                    drawerTitle={
+                      <Title
+                        level={5}
+                        style={{
+                          fontSize: "14px",
+                        }}
+                      >
+                        {t("CoursesPage.Category")}
+                      </Title>
+                    }
+                    handleChange={(value) => {
+                      const newValue = value;
+                      updateState({
+                        key: "categories",
+                        value: newValue,
+                      });
+                      setParams &&
+                        setParams({
+                          ...params,
+                          page: 1,
+                          "ids[]": newValue,
+                        });
+                    }}
+                  />
+                </div>
+              )}
+              {filterState.categories &&
+                filterState.categories.length > 0 &&
+                categoryTree?.list
+                  ?.filter(
+                    (item) => filterState.categories.indexOf(item.id) > -1
+                  )
+                  .map((category) => (
+                    <Text key={category.id} className="single-filter">
+                      {category.name}
+                    </Text>
+                  ))}
+              {filterState && filterState.free === "true" && (
+                <Text className="single-filter"> {t("CoursesPage.Free")}</Text>
+              )}
+              {filterState && filterState.free === "false" && (
+                <Text className="single-filter"> {t("CoursesPage.All")}</Text>
+              )}
+              {filterState?.tag && (
+                <Text className="single-filter">{params?.tag}</Text>
+              )}
+            </div>
+            {(filterState.free ||
+              filterState.tag ||
+              (filterState.categories && filterState.categories?.length > 0)) &&
+              !isMobile && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setParsedParams({});
+                    setParams && setParams({ page: 1 });
+                    resetFilters();
+                  }}
+                  className="clear-btn clear-btn--desktop"
+                >
+                  <CloseIcon />
+                </button>
+              )}
+          </div>
+          <div className="selects-row">
+            {!isMobile && (
+              <div className="single-select single-select--category">
+                <Categories
+                  categories={categoryTree.list || []}
+                  label={"Kategoria"}
+                  selectedCategories={
+                    filterState.categories && filterState.categories.length > 0
+                      ? filterState.categories
+                      : parsedParams && parsedParams.ids
+                  }
+                  drawerTitle={
+                    <Title
+                      level={5}
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      {t("CoursesPage.Category")}
+                    </Title>
+                  }
+                  handleChange={(value) => {
+                    const newValue = value;
+                    updateState({
+                      key: "categories",
+                      value: newValue,
+                    });
+                    setParams &&
+                      setParams({
+                        ...params,
+                        page: 1,
+                        "ids[]": newValue,
+                      });
+                  }}
+                />
+              </div>
+            )}
+            <div className="single-select">
+              <Dropdown
+                onChange={(e) => {
+                  updateState({
+                    key: "free",
+                    value: e.value,
                   });
-              }}
-            >
-              <option disabled>{t('SortBy')}</option>
-              <option value="title|ASC">{t('Title')}</option>
-              <option value="created_at|ASC">{t('DateAdded')}</option>
-            </select>
+                  setParams &&
+                    setParams({
+                      ...params,
+                      page: 1,
+                      free: e.value === "true" ? true : false,
+                    });
+                }}
+                placeholder={t("CoursesPage.Type")}
+                value={filterState.free}
+                options={typeFilters}
+              />
+            </div>
+            <div className="single-select">
+              <Dropdown
+                onChange={(e) => {
+                  updateState({
+                    key: "tag",
+                    value: e.value,
+                  });
+                  setParams &&
+                    setParams({
+                      ...params,
+                      page: 1,
+                      tag: e.value,
+                    });
+                }}
+                value={filterState.tag}
+                placeholder="Tag"
+                options={[
+                  { label: t("CoursesPage.All"), value: "" },
+                  ...tagsFilters,
+                ]}
+              />
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="row">
-        {courses &&
-          courses.list &&
-          courses.list.data.map((course: API.CourseListItem) => (
-            <div className={`col-lg-${itemCol} col-md-6`} key={course.id}>
-              <CourseCard course={course} />
+      </StyledHeader>
+      {courses &&
+      !courses.loading &&
+      (!courses.list || !courses.list.data?.length) ? (
+        <Title level={4}>{t("NoCourses")}</Title>
+      ) : (
+        <>
+          {courses?.loading ? (
+            <div
+              style={{ display: "flex", justifyContent: "center" }}
+              className="loader-wrapper"
+            >
+              <Spin color={theme.primaryColor} />
             </div>
-          ))}
-        {courses && courses.list && courses.list.meta.total > courses.list.meta.per_page && (
+          ) : (
+            <CoursesList>
+              <div className="row">
+                {courses?.list?.data.map((item) => (
+                  <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
+                    <div className="course-wrapper">
+                      <CourseCard
+                        mobile={isMobile}
+                        id={item.id}
+                        image={
+                          <Link to={`/courses/${item.id}`}>
+                            <img src={item.image_url} alt={item.title} />
+                          </Link>
+                        }
+                        tags={
+                          <>
+                            {item.tags?.map((item) => (
+                              <Badge color={theme.primaryColor}>
+                                <Link
+                                  style={{ color: theme.white }}
+                                  to={`/courses/?tag=${item.title}`}
+                                >
+                                  {item.title}
+                                </Link>
+                              </Badge>
+                            ))}
+                          </>
+                        }
+                        subtitle={
+                          item.subtitle ? (
+                            <Text size="12">
+                              <Link
+                                style={{ color: theme.primaryColor }}
+                                to={`/courses/${item.id}`}
+                              >
+                                <strong>{item.subtitle}</strong>
+                              </Link>
+                            </Text>
+                          ) : undefined
+                        }
+                        title={
+                          <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                        }
+                        categories={
+                          <BreadCrumbs
+                            hyphen="/"
+                            items={item.categories?.map((category) => (
+                              <Link to={`/courses/?ids[]=${category.id}`}>
+                                {category.name}
+                              </Link>
+                            ))}
+                          />
+                        }
+                        actions={
+                          <>
+                            <Button
+                              mode="secondary"
+                              onClick={() =>
+                                history.push(`/courses/${item.id}`)
+                              }
+                            >
+                              {t<string>("Start now")}
+                            </Button>
+                          </>
+                        }
+                        footer={
+                          <>
+                            {item.users_count && item.users_count > 0 && (
+                              <IconText
+                                icon={<LessonsIcon />}
+                                text={`${item.users_count} kursantów`}
+                              />
+                            )}{" "}
+                            {item.lessons_count && item.lessons_count > 0 && (
+                              <IconText
+                                icon={<LessonsIcon />}
+                                text={`${item.lessons_count} lekcji`}
+                              />
+                            )}
+                          </>
+                        }
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CoursesList>
+          )}
+        </>
+      )}
+      {courses &&
+        courses.list &&
+        courses.list.meta.total > courses.list.meta.per_page && (
           <Pagination
             total={courses.list.meta.total}
             perPage={courses.list.meta.per_page}
@@ -81,8 +588,13 @@ const CoursesCollection: React.FC<{ className?: string; itemCol?: number }> = ({
             }
           />
         )}
-      </div>
-    </div>
+      {courses && courses.list && courses.list.data.length >= 6 && (
+        <PromotedCoursesSection courses={courses.list.data} />
+      )}
+      {categoryTree && (
+        <CategoriesSection categories={categoryTree.list || []} />
+      )}
+    </>
   );
 };
 

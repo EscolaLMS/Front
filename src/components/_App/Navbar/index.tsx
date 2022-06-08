@@ -12,7 +12,7 @@ import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderUser } from "../../../icons";
+import { HeaderCard, HeaderUser, LogoutIcon } from "../../../icons";
 import { t } from "i18next";
 import { getEventType } from "../../../utils";
 
@@ -21,7 +21,7 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
   background: ${({ theme }) =>
     theme.mode === "dark"
       ? " rgba(35, 34, 37, 0.95)"
@@ -93,10 +93,14 @@ const StyledHeader = styled.header`
       column-gap: 10px;
       margin-right: 21px;
       text-decoration: none;
+      &:hover {
+        p {
+          color: ${({ theme }) => theme.primaryColor};
+        }
+      }
       .name {
         min-width: 100px;
         margin: 0;
-        max-width: 100px;
       }
     }
   }
@@ -145,6 +149,9 @@ const StyledHeader = styled.header`
       text-decoration: none;
       p {
         font-weight: 700;
+        &:hover {
+          color: ${({ theme }) => theme.primaryColor};
+        }
       }
     }
   }
@@ -167,6 +174,7 @@ const Navbar = () => {
     fetchNotifications,
     cart,
     fetchCart,
+    logout,
   } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
@@ -301,17 +309,18 @@ const Navbar = () => {
               ]}
             />
             <Dropdown
-              placeholder="Moje"
+              placeholder="Profil"
               onChange={(e) => history.push(e.value)}
               options={[
-                { label: "Konto", value: "/user/my-profile" },
-                { label: "Kursy", value: "/user/my-profile" },
-                { label: "Zamówienia", value: "/user/my-order" },
-                { label: "Notyfikacje", value: "/user/my-notifications" },
+                { label: "Moje szkolenia", value: "/user/my-profile" },
+                { label: "Historia zakupów", value: "/user/my-orders" },
+                { label: "Powiadomienia", value: "/user/my-notifications" },
+                { label: "Edytuj dane", value: "/user/my-data" },
               ]}
             />
           </nav>
-          {user ? (
+
+          {user?.id ? (
             <div className="user-container">
               <Link to="/user/my-profile" className="user-details">
                 <Text className="name">
@@ -320,7 +329,7 @@ const Navbar = () => {
                   </strong>
                 </Text>
                 <Avatar
-                  src={user?.avatar_url || ExampleAvatar}
+                  src={user?.avatar || ExampleAvatar}
                   alt={user?.first_name}
                   size={"small"}
                 />
@@ -335,7 +344,6 @@ const Navbar = () => {
               <Link to="/authentication">
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
-              <HeaderUser mode={theme.mode} />
             </div>
           )}
           <div className="icons-container">
@@ -350,10 +358,16 @@ const Navbar = () => {
               )}
               <HeaderCard mode={theme.mode} />
             </button>
-            <Notifications
-              notifications={mappedNotifications}
-              showAllLink="#/user/my-notifications"
-            />
+
+            {/* {user && (
+              <button
+                type="button"
+                className="logout-icon"
+                onClick={() => logout().then(() => history.push("/"))}
+              >
+                <LogoutIcon />
+              </button>
+            )} */}
           </div>
         </div>
       </div>

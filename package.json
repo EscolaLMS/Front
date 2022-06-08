@@ -2,9 +2,9 @@
   "name": "escolalms-demo",
   "version": "0.1.0",
   "dependencies": {
-    "@escolalms/components": "^0.0.10",
+    "@escolalms/components": "^0.0.21",
     "@escolalms/h5p-react": "^0",
-    "@escolalms/sdk": "^0.2.60",
+    "@escolalms/sdk": "^0.2.65",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -52,7 +52,7 @@
     "react-hot-toast": "^2.1.1",
     "react-i18next": "^11.16.9",
     "react-image-lightbox": "^5.1.4",
-    "react-markdown": "^7.0.1",
+    "react-markdown": "^8.0.3",
     "react-modal-video": "^1.2.8",
     "react-pdf": "^5.4.0",
     "react-player": "^2.9.0",
@@ -71,7 +71,8 @@
     "svg2pdf.js": "^2.2.0",
     "typescript": "^4.7.2",
     "typescript-plugin-styled-components": "^2.0.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "rc-dialog": "^8.8.2"
   },
   "resolutions": {
     "react": "18.1.0",

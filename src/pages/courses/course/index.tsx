@@ -1,31 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import MarkdownReader from "../../../escolalms/sdk/components/Markdown/MarkdownReader";
 import Image from "@escolalms/sdk/lib/react/components/Image";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { resetIdCounter } from "react-tabs";
-import Paypal from "../../../images/paypal.png";
-import Netflix from "../../../images/netflix.png";
-import Apple from "../../../images/apple.png";
-import McDonald from "../../../images/mcdonald.png";
-import CertificateExample from "../../../images/certificate-example.png";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
 import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/Ratings";
-import { Certificate } from "@escolalms/components/lib/components/molecules/Certificate/Certificate";
+import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-import styled from "styled-components";
+import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
+import styled, { createGlobalStyle } from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 
 resetIdCounter();
 
@@ -99,6 +97,11 @@ const StyledCoursePage = styled.div`
       }
     }
   }
+  .course-tutor {
+    .ranking-row {
+      display: none !important;
+    }
+  }
   .course-companies {
     display: flex;
     justify-content: flex-start;
@@ -113,6 +116,10 @@ const StyledCoursePage = styled.div`
       justify-content: flex-start;
       align-items: center;
       column-gap: 90px;
+      .single-company {
+        max-height: 55px;
+        max-width: 45px;
+      }
       @media (max-width: 768px) {
         column-gap: 0;
         justify-content: space-between;
@@ -175,6 +182,11 @@ const StyledCoursePage = styled.div`
       }
     }
   }
+  .course-tutor {
+    a {
+      text-decoration: none !important;
+    }
+  }
   .sidebar-wrapper {
     width: 100%;
     left: 0;
@@ -185,14 +197,28 @@ const StyledCoursePage = styled.div`
   }
 `;
 
+const ModalOverwriteGlobal = createGlobalStyle`
+  .ReactModal__Overlay  {
+    z-index: 1500 !important;
+  }
+`;
+
 const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
     undefined
   );
+  const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { course, fetchCourse, fetchCourses, courses, fetchCart, user } =
-    useContext(EscolaLMSContext);
+  const {
+    course,
+    settings,
+    fetchCourse,
+    fetchCourses,
+    courses,
+    fetchCart,
+    user,
+  } = useContext(EscolaLMSContext);
 
   const sliderSettings = {
     arrows: false,
@@ -227,7 +253,6 @@ const CoursePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  console.log(ratings);
   useEffect(() => {
     user.value && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -240,6 +265,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
+
   return (
     <Layout>
       <StyledCoursePage>
@@ -292,46 +318,52 @@ const CoursePage = () => {
                   </div>
                 </div>
                 <div className="labels-row labels-row--bottom">
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.CourseCategory")}
-                      variant={"label"}
-                    >
-                      {course.value?.categories &&
-                      course.value?.categories.length > 0
-                        ? course.value.categories[0].name
-                        : ""}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.Level")}
-                      variant={"label"}
-                    >
-                      {course.value.level || "---"}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.StartDate")}
-                      variant={"label"}
-                    >
-                      {course.value.active_from
-                        ? format(
-                            new Date(String(course.value.active_from)),
-                            "dd/MM/yyyy"
-                          )
-                        : "---"}
-                    </LabelListItem>
-                  </div>
-                  <div className="single-label">
-                    <LabelListItem
-                      title={t("CoursePage.Duration")}
-                      variant={"label"}
-                    >
-                      {course.value.duration}
-                    </LabelListItem>
-                  </div>
+                  {course.value.categories &&
+                    course.value.categories.length > 0 && (
+                      <div className="single-label">
+                        <LabelListItem
+                          title={t("CoursePage.CourseCategory")}
+                          variant={"label"}
+                        >
+                          {course.value.categories[0].name}
+                        </LabelListItem>
+                      </div>
+                    )}
+                  {course.value.level && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.Level")}
+                        variant={"label"}
+                      >
+                        {course.value.level}
+                      </LabelListItem>
+                    </div>
+                  )}
+                  {course.value.active_from && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.StartDate")}
+                        variant={"label"}
+                      >
+                        {course.value.active_from
+                          ? format(
+                              new Date(String(course.value.active_from)),
+                              "dd/MM/yyyy"
+                            )
+                          : "---"}
+                      </LabelListItem>
+                    </div>
+                  )}
+                  {course.value.duration && (
+                    <div className="single-label">
+                      <LabelListItem
+                        title={t("CoursePage.Duration")}
+                        variant={"label"}
+                      >
+                        {course.value.duration}
+                      </LabelListItem>
+                    </div>
+                  )}
                 </div>
               </section>
               <section className="course-companies">
@@ -339,65 +371,56 @@ const CoursePage = () => {
                   <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
-                  <div className="single-company">
-                    <img src={Paypal} alt="PayPal" />
-                  </div>
-                  <div className="single-company">
-                    <img src={Netflix} alt="Netflix" />
-                  </div>
-                  <div className="single-company">
-                    <img src={Apple} alt="Apple" />
-                  </div>
-                  <div className="single-company">
-                    <img src={McDonald} alt="McDonald" />
-                  </div>
+                  {Object.values(settings.courseLogos).map((_, index) => (
+                    <div className="single-company">
+                      <ResponsiveImage
+                        path={settings?.courseLogos[`logo${index + 1}`] || ""}
+                        srcSizes={[100, 100, 100]}
+                      />
+                    </div>
+                  ))}
                 </div>
               </section>
               <section className="course-description">
-                <MarkdownReader>{course.value.summary}</MarkdownReader>
+                <MarkdownRenderer>
+                  {course.value.summary || ""}
+                </MarkdownRenderer>
               </section>
               <section className="course-tutor with-border padding-right">
-                <Tutor
-                  mobile={isMobile}
-                  avatar={{
-                    alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
-                    src:
-                      `${
-                        process &&
-                        process.env &&
-                        process.env.REACT_APP_PUBLIC_API_URL
-                      }/api/images/img?path=${
-                        course.value.author.path_avatar
-                      }` || "",
-                  }}
-                  rating={{
-                    ratingValue: 4.1,
-                  }}
-                  title={"Teacher"}
-                  fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
-                  // coursesInfo={"8 Curses"}
-                  description={course.value.author.bio}
-                />
-              </section>
-              <section className="course-certificates with-border padding-right">
-                <Certificate
-                  mobile={isMobile}
-                  img={{
-                    src: CertificateExample,
-                    alt: "",
-                  }}
-                  title="Made in EU"
-                  description="Wyróżnij się na tle innych, dzięki certyfikatowi potwierdzającemu wiedzę uzyskaną na szkoleniu."
-                  handleDownload={() => console.log("clicked")}
-                  handleShare={() => console.log("clicked")}
-                />
+                <Link to={`/tutors/${course.value.author_id}`}>
+                  <Tutor
+                    mobile={isMobile}
+                    avatar={{
+                      alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                      src:
+                        `${
+                          process &&
+                          process.env &&
+                          process.env.REACT_APP_PUBLIC_API_URL
+                        }/api/images/img?path=${
+                          course.value.author.path_avatar
+                        }` || "",
+                    }}
+                    rating={{
+                      ratingValue: 4.1,
+                    }}
+                    title={"Teacher"}
+                    fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                    coursesInfo={"8 Curses"}
+                    description={course.value.author.bio}
+                  />
+                </Link>
               </section>
               <section className="course-description-short with-border padding-right">
                 <Title level={4}>
                   {t("CoursePage.CourseDescriptionTitle")}
                 </Title>
-                <MarkdownReader>{course.value.description}</MarkdownReader>
+                <MarkdownRenderer>{course.value.description}</MarkdownRenderer>
               </section>
+              <CourseProgram
+                lessons={course.value.lessons}
+                onTopicClick={(topic) => setPreviewTopic(topic)}
+              />
               {
                 <section className="course-ratings padding-right">
                   {ratings && ratings.count_answers > 0 ? (
@@ -456,6 +479,18 @@ const CoursePage = () => {
           </div>
         </section>
       </StyledCoursePage>
+
+      <Modal
+        onClose={() => setPreviewTopic(undefined)}
+        visible={previewTopic ? true : false}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+        width={"700px"}
+      >
+        <ModalOverwriteGlobal />
+        {previewTopic && <CourseProgramPreview topic={previewTopic} />}
+      </Modal>
     </Layout>
   );
 };

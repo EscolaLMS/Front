@@ -1,23 +1,47 @@
-import React, { useContext, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
-import { API } from '@escolalms/sdk/lib';
-import { FabricPreview } from '@/components/FabricEditor/preview';
+import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { API } from "@escolalms/sdk/lib";
+import { FabricPreview } from "@/components/FabricEditor/preview";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
+import Preloader from "@/components/Preloader";
+import styled, { useTheme } from "styled-components";
+import { DownloadIcon } from "../../../icons";
 
-import './index.scss';
-import LmsBoxHeader from '@/components/Common/LmsBoxHeader';
+type CertType = API.Certificate;
 
-// TODO: update sdk api certificate with titile field
-type CertType = API.Certificate & { title?: string };
+const CertificatesList = styled.section`
+  .empty-certificates-message {
+    padding: 34px 40px;
+    background: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  }
+  .buttons-container {
+    display: flex;
+    column-gap: 60px;
+    align-items: center;
+    justify-content: flex-end;
+    .download-btn {
+      appearance: none;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 10px;
+    }
+  }
+`;
 
-const ProfileCertificates = () => {
-  const { certificates, fetchCertificates, fetchCertificate } = useContext(EscolaLMSContext);
+const ProfileCertificates: React.FC = () => {
+  const { fetchCertificate, certificates } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+  const theme = useTheme();
   const [previewData, setPreviewData] = React.useState<any>();
-
-  useEffect(() => {
-    fetchCertificates();
-  }, [fetchCertificates]);
 
   const handlePreview = async (id: number) => {
     const request = await fetchCertificate(id);
@@ -27,62 +51,50 @@ const ProfileCertificates = () => {
     }
   };
 
-  return (
-    <React.Fragment>
-      <div className="certificates">
-        <div className="container">
-          <LmsBoxHeader text={t('Navbar.MyCertificates')} />
-          {certificates?.list?.data?.length === 0 ? (
-            <p className="text-center">{t('MyProfilePage.EmptyCertificates')}</p>
-          ) : (
-            <form>
-              <div className="cart-table table-responsive">
-                <table className="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">{t('PaymentsPage.TableCols.Created')}</th>
-                      <th scope="col">{t('Title')}</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
+  if (certificates.loading) {
+    return <Preloader />;
+  }
 
-                  <tbody>
-                    {certificates &&
-                      certificates?.list?.data
-                        ?.filter((cert: CertType) => cert.title)
-                        .map((cert: CertType) => (
-                          <tr key={cert.id}>
-                            <td className="order-created">
-                              {new Date().toLocaleDateString('en-US')}
-                            </td>
-                            <td className="order-price">{cert.title}</td>
-                            <td className="order-items">
-                              <button
-                                className="default-btn"
-                                onClick={() => handlePreview(cert.id)}
-                              >
-                                {t('Download')}
-                                <span></span>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                  </tbody>
-                </table>
-              </div>
-            </form>
-          )}
-        </div>
-        <div className="fabric-preview-wrapper">
-          {previewData && (
-            <FabricPreview
-              initialValue={previewData}
-              onRendered={() => setPreviewData(undefined)}
-            />
-          )}
-        </div>
+  return (
+    <CertificatesList>
+      {certificates?.list?.data?.length === 0 ? (
+        <Text className="empty-certificates-message">
+          <strong>{t("MyProfilePage.EmptyCertificates")}</strong>
+        </Text>
+      ) : (
+        <>
+          {certificates &&
+            certificates?.list?.data
+              ?.filter((cert: CertType) => cert.title)
+              .map((cert: CertType) => (
+                <NoteAction
+                  color={theme.primaryColor}
+                  title={<Title level={4}>{cert.title}</Title>}
+                  subtitle={new Date().toLocaleDateString("pl-PL")}
+                  actions={
+                    <div className="buttons-container">
+                      <button
+                        className="download-btn"
+                        onClick={() => handlePreview(cert.id)}
+                      >
+                        <DownloadIcon /> <Text>(.pdf)</Text>
+                      </button>
+                    </div>
+                  }
+                />
+              ))}
+        </>
+      )}
+      <div className="fabric-preview-wrapper">
+        {previewData && (
+          <FabricPreview
+            initialValue={previewData}
+            onRendered={() => setPreviewData(undefined)}
+          />
+        )}
       </div>
-    </React.Fragment>
+      {certificates.loading && <Preloader />}
+    </CertificatesList>
   );
 };
 

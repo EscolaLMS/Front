@@ -1,22 +1,15 @@
 import React, { useContext, useEffect, useMemo, useCallback } from "react";
-
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-
-import {
-  TopicType,
-  completed,
-  noCompletedEventsIds,
-} from "@escolalms/sdk/lib/services/courses";
+import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
-import Embed from "react-tiny-oembed";
-import ImagePlayer from "../../../../components/Course/ImagePlayer";
-import VideoPlayer from "./Players/VideoPlayer";
-import AudioPlayer from "./Players/AudioPlayer";
 import TextPlayer from "./Players/TextPlayer";
-import PdfPlayer from "./Players/PdfPlayer";
 import { API } from "@escolalms/sdk/lib";
-import VideoPlayButton from "@/components/Common/LmsVideoPlay";
-import H5Player from "@/components/H5Player";
+import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
+import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/AudioVideoPlayer/AudioVideoPlayer";
+import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
+import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
+import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
+import { isMobile } from "react-device-detect";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -40,13 +33,11 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
     apiUrl,
   } = useContext(EscolaLMSContext);
-
   const topic = useMemo(() => {
     return program.value?.lessons
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
       ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
-
   useEffect(() => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
 
@@ -63,7 +54,6 @@ export const CourseProgramContent: React.FC<{
     topic?.topicable_type,
     setIsDisabledNextTopicButton,
   ]);
-
   const onCompleteTopic = useCallback((): void => {
     setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
     if (program?.value?.id) {
@@ -100,6 +90,7 @@ export const CourseProgramContent: React.FC<{
         */
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       program,
       topicId,
@@ -108,7 +99,6 @@ export const CourseProgramContent: React.FC<{
       customNoCompletedEventsIds,
     ]
   );
-
   useEffect(() => {
     if (!preview) {
       const ping = () =>
@@ -130,50 +120,52 @@ export const CourseProgramContent: React.FC<{
       <pre className="error">Error: topic.topicable?.value is missing</pre>
     );
   }
-
   if (topic.topicable_type) {
     // TODO: specific interface for advanced topic players -> example: ImagePlayer
-
     switch (topic.topicable_type) {
       case TopicType.H5P:
         return (
-          <H5Player
+          <H5P
             onXAPI={(e: XAPIEvent) => onXAPI(e)}
             id={topic?.topicable?.value}
           />
         );
       case TopicType.OEmbed:
         return (
-          <Embed
-            options={{ maxheight: 1000, maxwidth: 2000 }}
-            url={topic.topicable.value}
-            key={topicId}
-            FallbackElement={
-              <H5Player
-                onXAPI={(e: XAPIEvent) => onXAPI(e)}
-                id={topic?.topicable?.value}
-              /> // TODO can't be any
-            }
-          />
+          <>
+            <OEmbedPlayer
+              url={topic.topicable.value}
+              key={topicId}
+              FallbackElement={
+                <H5P
+                  onXAPI={(e: XAPIEvent) => onXAPI(e)}
+                  id={topic?.topicable?.value}
+                />
+              }
+            />
+          </>
         );
       case TopicType.RichText:
         return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
       case TopicType.Video:
         return (
-          <VideoPlayer
-            topicUrl={topic.topicable.url}
+          <AudioVideoPlayer
+            mobile={isMobile}
+            url={topic.topicable.url}
+            light
             onFinish={(): void => onCompleteTopic()}
-          >
-            <VideoPlayButton />
-          </VideoPlayer>
+          />
         );
       case TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
 
       case TopicType.Audio:
         return (
-          <AudioPlayer
-            url={topic.topicable.url}
+          <AudioVideoPlayer
+            mobile={isMobile}
+            audio
+            url={topic.topicable.value}
+            light
             onFinish={(): void => onCompleteTopic()}
           />
         );

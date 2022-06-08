@@ -38,7 +38,6 @@ const CoursesProvider: React.FC<{
       location.search.split("?")[1] !== parseParams(params)
     ) {
       setParams(qs.parse(location.search));
-      fetchCourses(getApiParams(qs.parse(location.search)));
     } else {
       fetchCourses(getApiParams(params));
     }
