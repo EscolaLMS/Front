@@ -402,6 +402,8 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
+      LoginAndRegister: "Logowanie i rejestracja",
+
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
@@ -416,12 +418,14 @@ const resources = {
         RelatedCoursesTitle: "Powiązane szkolenia",
         InterestTitle: "Może Cię zainteresuje",
         GoToCheckout: "Do kasy",
+        NotStarted: "Kurs się jeszcze nie rozpoczął",
         "30Days": "Gwarantowane 30 dni na zwrot",
         ContentToDownload: "Materiały szkoleniowe do pobrania",
         SmartphoneAccess: "Dostęp na smartphone i tablet",
         Certificate: "Certyfikat ukończenia",
         Finished: "Ukończono",
         Of: "z",
+        IsFinished: "Kurs się zakończył",
         Lessons: "lekcji",
         FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
         MyProgress: "Moje postępy",

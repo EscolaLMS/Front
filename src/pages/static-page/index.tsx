@@ -36,7 +36,7 @@ const StaticPage = () => {
     return <Redirect to={routes.notFound} />;
   }
   return (
-    <Layout>
+    <Layout metaTitle={page.value?.title}>
       <StyledStaticPage>
         <div className="container">
           <div className="content">
