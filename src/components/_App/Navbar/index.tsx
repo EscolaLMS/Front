@@ -308,16 +308,18 @@ const Navbar = () => {
                 { label: "Instruktorzy", value: "/tutors" },
               ]}
             />
-            <Dropdown
-              placeholder="Profil"
-              onChange={(e) => history.push(e.value)}
-              options={[
-                { label: "Moje szkolenia", value: "/user/my-profile" },
-                { label: "Historia zakupów", value: "/user/my-orders" },
-                { label: "Powiadomienia", value: "/user/my-notifications" },
-                { label: "Edytuj dane", value: "/user/my-data" },
-              ]}
-            />
+            {user?.id && (
+              <Dropdown
+                placeholder="Profil"
+                onChange={(e) => history.push(e.value)}
+                options={[
+                  { label: "Moje szkolenia", value: "/user/my-profile" },
+                  { label: "Historia zakupów", value: "/user/my-orders" },
+                  { label: "Powiadomienia", value: "/user/my-notifications" },
+                  { label: "Edytuj dane", value: "/user/my-data" },
+                ]}
+              />
+            )}
           </nav>
 
           {user?.id ? (
@@ -337,11 +339,11 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="not-logged-container">
-              <Link to="/authentication">
+              <Link to="/authentication?path=login">
                 <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
-              <Link to="/authentication">
+              <Link to="/authentication?path=register">
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
             </div>

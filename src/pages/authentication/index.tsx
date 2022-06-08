@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -70,6 +70,7 @@ const Authentication = () => {
   const [email, setEmail] = useState("");
   const history = useHistory();
   const token = search.split("?token=")[1];
+  const viewmode = search.split("?path=")[1];
 
   if (token) {
     socialAuthorize(token);
@@ -81,6 +82,10 @@ const Authentication = () => {
   if (!user.loading && !token && user.value) {
     history.push("/");
   }
+
+  useEffect(() => {
+    setView(viewmode as "login" | "forgotPassword" | "register" | "success");
+  }, [viewmode]);
 
   const EmailActivation = () => {
     return (

@@ -496,7 +496,7 @@ const CoursePage = () => {
         animation="zoom"
         maskAnimation="fade"
         destroyOnClose={true}
-        width={"700px"}
+        width={600}
       >
         <ModalOverwriteGlobal />
         {previewTopic && <CourseProgramPreview topic={previewTopic} />}
