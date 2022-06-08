@@ -84,7 +84,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                       />
                     }
                     onButtonClick={() =>
-                      history.push(`/courses/?category_id=${item.id}`)
+                      history.push(`/courses/?ids[]=${item.id}`)
                     }
                     variant="gradient"
                   />
@@ -107,7 +107,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     />
                   }
                   onButtonClick={() =>
-                    history.push(`/courses/?category_id=${item.id}`)
+                    history.push(`/courses/?ids[]=${item.id}`)
                   }
                   variant="gradient"
                 />
