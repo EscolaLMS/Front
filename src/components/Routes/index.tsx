@@ -32,6 +32,7 @@ import ConfigRouteExtend from "./configExtend";
 import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
+import ScrollToTop from "../ScrollToTop";
 
 const ConditionalRouter: React.FC<{
   basename: string;
@@ -78,6 +79,7 @@ const Routes: React.FC = (): ReactElement => {
 
   return (
     <ConditionalRouter basename={BASENAME}>
+      <ScrollToTop />
       <Switch>
         <Route exact path={home} component={HomePage} />
         <Route exact path={authentication} component={AuthPage} />
