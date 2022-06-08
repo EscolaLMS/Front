@@ -21,7 +21,6 @@ const StaticPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { fetchPage, page, fetchPages, pages } = useContext(EscolaLMSContext);
   const prevSlug = usePrevious(slug);
-  console.log(slug);
   useEffect(() => {
     if (
       slug &&
