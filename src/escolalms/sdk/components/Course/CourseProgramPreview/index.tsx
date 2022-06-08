@@ -8,12 +8,10 @@ import { MarkdownPlayer } from "@escolalms/components/lib/components/players/Mar
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
-import "./index.scss";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
-  onClose: () => void;
-}> = ({ topic, onClose }) => {
+}> = ({ topic }) => {
   const { apiUrl } = useContext(EscolaLMSContext);
 
   const topicRender = useMemo(() => {
@@ -33,13 +31,10 @@ export const CourseProgramPreview: React.FC<{
             </div>
           );
         case TopicType.Video:
-          return;
-        // return <AudioVideoPlayer url={topic.topicable.url} />;
+        case TopicType.Audio:
+          return <AudioVideoPlayer url={topic.topicable.url} />;
         case TopicType.Image:
           return <ImagePlayer topic={topic} onLoad={() => console.log("")} />;
-        case TopicType.Audio:
-          // eslint-disable-next-line jsx-a11y/media-has-caption
-          return <audio src={topic.topicable.url} controls />;
         case TopicType.Pdf:
           return <PdfPlayer url={topic.topicable.url} />;
         case TopicType.Scorm:
@@ -60,9 +55,6 @@ export const CourseProgramPreview: React.FC<{
 
   return (
     <div className="topic-preview-modal">
-      <button className="close-btn-modal" onClick={onClose}>
-        <i className="bx bx-x"></i>
-      </button>
       <div className="topic-preview-modal-content">{topicRender}</div>
     </div>
   );
