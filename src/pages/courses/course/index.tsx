@@ -24,6 +24,7 @@ import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
+import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
 
 resetIdCounter();
 
@@ -257,8 +258,11 @@ const CoursePage = () => {
     user.value && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+  if (!course.value) {
+    return <Loader />;
+  }
 
-  if (course.loading || !course.value) {
+  if (course.value.id !== Number(id) && course.loading) {
     return <Loader />;
   }
 
@@ -267,7 +271,7 @@ const CoursePage = () => {
   }
 
   return (
-    <Layout>
+    <Layout metaTitle={course.value.title}>
       <StyledCoursePage>
         <div className="container">
           <div className="row">
@@ -381,11 +385,13 @@ const CoursePage = () => {
                   ))}
                 </div>
               </section>
-              <section className="course-description">
-                <MarkdownRenderer>
-                  {course.value.summary || ""}
-                </MarkdownRenderer>
-              </section>
+              {course.value.summary && (
+                <section className="course-description">
+                  <MarkdownRenderer>
+                    {fixContentForMarkdown(`${course.value.summary}`)}
+                  </MarkdownRenderer>
+                </section>
+              )}
               <section className="course-tutor with-border padding-right">
                 <Link to={`/tutors/${course.value.author_id}`}>
                   <Tutor
@@ -415,7 +421,11 @@ const CoursePage = () => {
                 <Title level={4}>
                   {t("CoursePage.CourseDescriptionTitle")}
                 </Title>
-                <MarkdownRenderer>{course.value.description}</MarkdownRenderer>
+                {course.value.description && (
+                  <MarkdownRenderer>
+                    {fixContentForMarkdown(course.value.description)}
+                  </MarkdownRenderer>
+                )}
               </section>
               <CourseProgram
                 lessons={course.value.lessons}

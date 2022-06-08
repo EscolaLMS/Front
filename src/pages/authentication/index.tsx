@@ -127,7 +127,7 @@ const Authentication = () => {
   };
 
   return (
-    <Layout>
+    <Layout metaTitle={t("LoginAndRegister")}>
       {view !== "success" ? (
         <div className="profile-authentication-area">
           <div className="container">

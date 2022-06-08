@@ -274,7 +274,7 @@ const CartContent = () => {
   // }
 
   return (
-    <Layout>
+    <Layout metaTitle={t("Cart.Cart")}>
       <CartPageStyled>
         <div className="container">
           {!(cart.value?.items.length === 0) ? (

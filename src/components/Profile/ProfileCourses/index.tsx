@@ -130,7 +130,6 @@ const ProfileCourses = ({
       ? setCoursesToMap(startedCourses)
       : setCoursesToMap(plannedCourses);
   }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
-  console.log(coursesToMap);
   return (
     <StyledList>
       {!isMobile ? (
