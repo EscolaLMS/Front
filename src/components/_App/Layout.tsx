@@ -24,10 +24,10 @@ const YBUG_ID =
   window.REACT_APP_YBUG_ID ||
   (process && process.env && process.env.REACT_APP_YBUG_ID);
 
-const Layout: React.FC<{ children: React.ReactNode; metaTitle?: string }> = ({
-  children,
-  metaTitle,
-}) => {
+const Layout: React.FC<{
+  children: React.ReactNode;
+  metaTitle?: string | undefined;
+}> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
