@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useMemo, useCallback } from "react";
-
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-
 import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
-import Embed from "react-tiny-oembed";
 import TextPlayer from "./Players/TextPlayer";
 import { API } from "@escolalms/sdk/lib";
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/AudioVideoPlayer/AudioVideoPlayer";
+import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
 import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 import { isMobile } from "react-device-detect";
-import Placeholder from "../../../../images/player-placeholder.jpg";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -123,10 +120,8 @@ export const CourseProgramContent: React.FC<{
       <pre className="error">Error: topic.topicable?.value is missing</pre>
     );
   }
-
   if (topic.topicable_type) {
     // TODO: specific interface for advanced topic players -> example: ImagePlayer
-
     switch (topic.topicable_type) {
       case TopicType.H5P:
         return (
@@ -137,23 +132,23 @@ export const CourseProgramContent: React.FC<{
         );
       case TopicType.OEmbed:
         return (
-          <Embed
-            options={{ maxheight: 1000, maxwidth: 2000 }}
-            url={topic.topicable.value}
-            key={topicId}
-            FallbackElement={
-              <H5P
-                onXAPI={(e: XAPIEvent) => onXAPI(e)}
-                id={topic?.topicable?.value}
-              />
-            }
-          />
+          <>
+            <OEmbedPlayer
+              url={topic.topicable.value}
+              key={topicId}
+              FallbackElement={
+                <H5P
+                  onXAPI={(e: XAPIEvent) => onXAPI(e)}
+                  id={topic?.topicable?.value}
+                />
+              }
+            />
+          </>
         );
       case TopicType.RichText:
         return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
       case TopicType.Video:
         return (
-          //@ts-ignore - remove when props will be fixed
           <AudioVideoPlayer
             mobile={isMobile}
             url={topic.topicable.url}
@@ -166,7 +161,6 @@ export const CourseProgramContent: React.FC<{
 
       case TopicType.Audio:
         return (
-          //@ts-ignore
           <AudioVideoPlayer
             mobile={isMobile}
             audio

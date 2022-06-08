@@ -1,17 +1,17 @@
 //@ts-nocheck - remove when Course Top Nav will have fixed notes props
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
 import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
 import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
 import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
-import { useTranslation } from "react-i18next";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
+import CourseDownloads from "../../escolalms/sdk/components/Course/CourseDownloads";
 
 const StyledCourse = styled.section`
   .main-title {
@@ -48,7 +48,6 @@ export const CourseProgramLessons: React.FC<{
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
   const location = useLocation();
-  const { t } = useTranslation();
   // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
   const startWithBreakPoint = location.pathname.split("/").length === 3;
 
@@ -62,6 +61,13 @@ export const CourseProgramLessons: React.FC<{
       )
     );
   }, [progress, courseId]);
+
+  const onCompleteTopic = useCallback((): void => {
+    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
+    if (program?.id) {
+      sendProgress(program?.id, [{ topic_id: Number(topicID), status: 1 }]);
+    }
+  }, [program, topicID, setIsDisabledNextTopicButton, sendProgress]);
 
   const topicBreakPoint = useMemo(() => {
     const currentProgress =
@@ -211,23 +217,10 @@ export const CourseProgramLessons: React.FC<{
                             {topic &&
                               topic.resources &&
                               topic.resources?.length > 0 && (
-                                <React.Fragment>
-                                  <h3>{t("CourseProgram.TopicAttachment")}</h3>
-                                  <div className="file-list">
-                                    {topic.resources.map((resource) => {
-                                      console.log(resource);
-                                      return (
-                                        <a
-                                          target="_blank"
-                                          href={resource.url}
-                                          rel="noreferrer"
-                                        >
-                                          {resource.name}
-                                        </a>
-                                      );
-                                    })}
-                                  </div>
-                                </React.Fragment>
+                                <CourseDownloads
+                                  resources={topic.resources || []}
+                                  subtitle={topic.introduction || ""}
+                                />
                               )}
                           </div>
                         </div>
@@ -247,7 +240,7 @@ export const CourseProgramLessons: React.FC<{
         </div>
         <div className="course-nav">
           <CourseTopNav
-            onFinish={() => console.log("clicked")}
+            onFinish={() => onCompleteTopic()}
             mobile={isMobile}
             onNext={onNextTopic}
             isFinished={false}
