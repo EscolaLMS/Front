@@ -43,7 +43,7 @@ const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
   }, [history, user]);
 
   return (
-    <Layout>
+    <Layout metaTitle={title}>
       <StyledProfile>
         <div className="container">
           <div className="row">
