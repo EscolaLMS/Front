@@ -39,10 +39,6 @@ const StaticPage = () => {
   // page.value && page.value?.slug !== slug - when prev static page was different
   // page.error && !prevSlug - when we return to static-page after error on static page (ex. when prev static page not exist)
 
-  // const mappedPages = pages.list.data.map((item, index) => {
-  //   return ({id: index, })
-  // })
-
   if (!page.loading && page.error && !page.error.success) {
     return <Redirect to={routes.notFound} />;
   }
