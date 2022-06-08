@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
@@ -16,12 +16,12 @@ import { isMobile } from "react-device-detect";
 import Preloader from "@/components/Preloader";
 import Collapse from "@/components/Collapse";
 import PaymentForm from "@/components/PaymentForm";
+import { toast } from "react-toastify";
 import {
   useStripe,
   useElements,
   CardNumberElement,
 } from "@stripe/react-stripe-js";
-import toast from "react-hot-toast";
 import CoursesSlider from "@/components/CoursesSlider";
 
 const CartPageStyled = styled.section`
@@ -56,13 +56,20 @@ const CartPageStyled = styled.section`
   .summary-box-wrapper {
     position: sticky;
     top: 60px;
-    @media (max-width: 991px) {
+    ${isMobile &&
+    css`
       position: fixed;
       top: unset;
       bottom: 0;
       z-index: 10;
       width: 100%;
       left: 0;
+      z-index: 99999;
+    `}
+    .discount-form-container {
+      input {
+        background: ${({ theme }) => theme.white};
+      }
     }
   }
   .empty-cart {
@@ -234,13 +241,14 @@ const CartContent = () => {
       .finally(() => setProcessing(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const handleSubmit = (): void => {
     if (!billingDetails.name) {
-      toast.error(t("Card holder can not be empty."));
+      toast.error(t("Cart.EmptyNameWarning"));
+      return;
     }
 
-    if (!stripe || !elements || !billingDetails.name) {
+    if (!stripe || !elements) {
+      toast.error(t("UnexpectedError"));
       return;
     }
     const cardNumber = elements.getElement(CardNumberElement);
@@ -272,7 +280,6 @@ const CartContent = () => {
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
   // }
-
   return (
     <Layout metaTitle={t("Cart.Cart")}>
       <CartPageStyled>
@@ -373,6 +380,7 @@ const CartContent = () => {
                 <div className="summary-box-wrapper">
                   {/* TODO: Mobile when ready in components package */}
                   <CartCard
+                    mobile={isMobile}
                     onBuyClick={() => handleSubmit()}
                     id={1}
                     title={`${String(cart.value?.total)} zł`}

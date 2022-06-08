@@ -119,6 +119,7 @@ const resources = {
       },
       Cart: {
         Cart: "Cart",
+        EmptyNameWarning: "Uzupełnij dane karty",
         PayWithStripe: "Pay with stripe Checkout",
         FreeCheckout: "Free Checkout",
         CartIsEmpty: "Cart is empty",
