@@ -261,7 +261,6 @@ const CartContent = () => {
           billing_details: billingDetails,
         })
         .then((res) => {
-          console.log(2);
           if (res.error) {
             setProcessing(false);
             toast.error(t("UnexpectedError"));
