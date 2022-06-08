@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import App from "./App";
 import WebFont from "webfontloader";
@@ -25,7 +25,7 @@ WebFont.load({
   },
 });
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root") as Element).render(
   <React.StrictMode>
     {API_URL ? (
       <EscolaLMSContextProvider apiUrl={API_URL}>
@@ -39,6 +39,5 @@ ReactDOM.render(
         not set
       </pre>
     )}
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
