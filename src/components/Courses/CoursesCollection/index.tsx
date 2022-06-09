@@ -287,7 +287,6 @@ const CoursesCollection: React.FC = () => {
         free: parsedParams.free,
       });
   }, [parsedParams]);
-  console.log(params && Object.keys(params).length > 1);
   return (
     <>
       <StyledHeader filters={params}>
