@@ -1,19 +1,19 @@
-import { Link, useLocation, Redirect } from 'react-router-dom';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import PageBanner from '../components/Common/PageBanner';
-import { useTranslation } from 'react-i18next';
-import Layout from '@/components/_App/Layout';
-import qs from 'query-string';
-import routes from '@/components/Routes/routes';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
-import { Alert, Spinner } from 'reactstrap';
+import { Link, useLocation, Redirect } from "react-router-dom";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import PageBanner from "../components/Common/PageBanner";
+import { useTranslation } from "react-i18next";
+import Layout from "@/components/_App/Layout";
+import qs from "query-string";
+import routes from "@/components/Routes/routes";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { Alert, Spinner } from "reactstrap";
 
 const EmailVerified = () => {
   const [state, setState] = useState({
     loading: false,
-    state: 'init',
+    state: "init",
     isVerified: false,
-    message: '',
+    message: "",
   });
   const { emailVerify } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -26,12 +26,13 @@ const EmailVerified = () => {
       loading: true,
     }));
     try {
-      const request = id && hash && (await emailVerify(String(id), String(hash)));
+      const request =
+        id && hash && (await emailVerify(String(id), String(hash)));
 
       if (request) {
         setState((prevState) => ({
           ...prevState,
-          state: 'success',
+          state: "success",
           message: request.message,
           isVerified: true,
         }));
@@ -59,12 +60,16 @@ const EmailVerified = () => {
       <React.Fragment>
         <PageBanner
           pageTitle={
-            state.isVerified ? t('EmailVerifiedPage.Verified') : t('EmailVerifiedPage.Verify')
+            state.isVerified
+              ? t("EmailVerifiedPage.Verified")
+              : t("EmailVerifiedPage.Verify")
           }
           homePageUrl="/"
-          homePageText={t('Home')}
+          homePageText={t("Home")}
           activePageText={
-            state.isVerified ? t('EmailVerifiedPage.Verified') : t('EmailVerifiedPage.Verify')
+            state.isVerified
+              ? t("EmailVerifiedPage.Verified")
+              : t("EmailVerifiedPage.Verify")
           }
         />
 
@@ -75,10 +80,13 @@ const EmailVerified = () => {
                 {state.loading && <Spinner color="success" />}
                 {state.isVerified && (
                   <React.Fragment>
-                    <Alert color={'success'} isOpen={state.state === 'success'}>
-                      {state.state === 'success' && state.message}{' '}
-                      {t('EmailVerifiedPage.EmailText')}{' '}
-                      <Link to="/authentication">{t('EmailVerifiedPage.LoginPage')}</Link>.
+                    <Alert color={"success"} isOpen={state.state === "success"}>
+                      {state.state === "success" && state.message}{" "}
+                      {t("EmailVerifiedPage.EmailText")}{" "}
+                      <Link to="/login">
+                        {t("EmailVerifiedPage.LoginPage")}
+                      </Link>
+                      .
                     </Alert>
                   </React.Fragment>
                 )}

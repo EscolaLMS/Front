@@ -24,7 +24,7 @@ const ResetPassword: React.FC = () => {
             <div className="col-lg-6 col-md-12">
               <ResetPasswordForm
                 onSecondStepSuccess={() => {
-                  push("/authentication");
+                  push("/login");
                   toast.success(t<string>("LoginPage.ForgotSuccessStep2"));
                 }}
                 secondStep

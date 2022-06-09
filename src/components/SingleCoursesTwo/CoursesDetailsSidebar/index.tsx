@@ -106,7 +106,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        <Link to="/authentication">
+        <Link to="/login">
           <Text>{t("Login to buy")}</Text>
         </Link>
       )}
@@ -143,7 +143,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       {!user.value ? (
         <Text size="12">
           <Link
-            to="/authentication"
+            to="/login"
             style={{
               marginRight: "4px",
               color: theme.primaryColor,

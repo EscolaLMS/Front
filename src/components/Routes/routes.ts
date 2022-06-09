@@ -17,6 +17,8 @@ const routeRoutes = {
   contact: "/contact",
   emailVerified: "/email-verified",
   notFound: "/404",
+  register: "/register",
+  login: "/login",
 };
 
 export default routeRoutes;
