@@ -392,31 +392,33 @@ const CoursePage = () => {
                   </MarkdownRenderer>
                 </section>
               )}
-              <section className="course-tutor with-border padding-right">
-                <Link to={`/tutors/${course.value.author_id}`}>
-                  <Tutor
-                    mobile={isMobile}
-                    avatar={{
-                      alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
-                      src:
-                        `${
-                          process &&
-                          process.env &&
-                          process.env.REACT_APP_PUBLIC_API_URL
-                        }/api/images/img?path=${
-                          course.value.author.path_avatar
-                        }` || "",
-                    }}
-                    rating={{
-                      ratingValue: 4.1,
-                    }}
-                    title={"Teacher"}
-                    fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
-                    coursesInfo={"8 Curses"}
-                    description={course.value.author.bio}
-                  />
-                </Link>
-              </section>
+              {course.value.author && (
+                <section className="course-tutor with-border padding-right">
+                  <Link to={`/tutors/${course.value.author_id}`}>
+                    <Tutor
+                      mobile={isMobile}
+                      avatar={{
+                        alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                        src:
+                          `${
+                            process &&
+                            process.env &&
+                            process.env.REACT_APP_PUBLIC_API_URL
+                          }/api/images/img?path=${
+                            course.value.author.path_avatar
+                          }` || "",
+                      }}
+                      rating={{
+                        ratingValue: 4.1,
+                      }}
+                      title={"Teacher"}
+                      fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                      coursesInfo={"8 Curses"}
+                      description={course.value.author.bio}
+                    />
+                  </Link>
+                </section>
+              )}
               <section className="course-description-short with-border padding-right">
                 <Title level={4}>
                   {t("CoursePage.CourseDescriptionTitle")}
