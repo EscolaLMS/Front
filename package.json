@@ -1,6 +1,12 @@
 {
   "name": "escolalms-demo",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "email": "hi@wellms.io",
+    "name": "Wellms Worlds First Headless LMS",
+    "url": "httsp://wellms.io"
+  },
   "dependencies": {
     "@escolalms/components": "^0.0.22",
     "@escolalms/h5p-react": "^0",
@@ -40,6 +46,7 @@
     "lava": "^0.13.6",
     "leva": "^0.9.27",
     "lodash.flow": "^3.5.0",
+    "rc-dialog": "^8.8.2",
     "rc-drawer": "^4.4.3",
     "react": "^18",
     "react-app-rewire-alias": "^1.1.3",
@@ -71,8 +78,7 @@
     "svg2pdf.js": "^2.2.0",
     "typescript": "^4.7.2",
     "typescript-plugin-styled-components": "^2.0.0",
-    "webfontloader": "^1.6.28",
-    "rc-dialog": "^8.8.2"
+    "webfontloader": "^1.6.28"
   },
   "resolutions": {
     "react": "18.1.0",
@@ -85,7 +91,8 @@
     "test": "jest --no-cache",
     "eject": "react-app-rewired  eject",
     "postinstall": "husky install",
-    "tsc": "tsc --project tsconfig.json --noEmit"
+    "tsc": "tsc --project tsconfig.json --noEmit",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -110,7 +117,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
-    "prettier": "2.4.1"
+    "prettier": "2.4.1",
+    "source-map-explorer": "^2.5.2"
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,md,html}": [
