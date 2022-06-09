@@ -220,7 +220,6 @@ const CoursePage = () => {
     fetchCart,
     user,
   } = useContext(EscolaLMSContext);
-
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -375,14 +374,16 @@ const CoursePage = () => {
                   <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
-                  {Object.values(settings.courseLogos).map((_, index) => (
-                    <div className="single-company">
-                      <ResponsiveImage
-                        path={settings?.courseLogos[`logo${index + 1}`] || ""}
-                        srcSizes={[100, 100, 100]}
-                      />
-                    </div>
-                  ))}
+                  {settings &&
+                    settings.courseLogos &&
+                    Object.values(settings.courseLogos).map((_, index) => (
+                      <div className="single-company" key={index}>
+                        <ResponsiveImage
+                          path={settings?.courseLogos[`logo${index + 1}`] || ""}
+                          srcSizes={[100, 100, 100]}
+                        />
+                      </div>
+                    ))}
                 </div>
               </section>
               {course.value.summary && (
