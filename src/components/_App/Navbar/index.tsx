@@ -339,11 +339,11 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="not-logged-container">
-              <Link to="/authentication?path=login">
+              <Link to="/login">
                 <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
-              <Link to="/authentication?path=register">
+              <Link to="/register">
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
             </div>
@@ -360,16 +360,6 @@ const Navbar = () => {
               )}
               <HeaderCard mode={theme.mode} />
             </button>
-
-            {/* {user && (
-              <button
-                type="button"
-                className="logout-icon"
-                onClick={() => logout().then(() => history.push("/"))}
-              >
-                <LogoutIcon />
-              </button>
-            )} */}
           </div>
         </div>
       </div>
