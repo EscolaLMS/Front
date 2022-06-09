@@ -13,6 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { LessonsIcon } from "../../../icons";
+import RateCourse from "@/components/RateCourse";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -62,6 +63,7 @@ const ProfileCourses = ({
 }: {
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
+  const [rateModalVisible, setRateModalVisible] = useState(false);
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<
@@ -439,6 +441,10 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <Preloader />}
+      <RateCourse
+        visible={rateModalVisible}
+        onClose={() => setRateModalVisible(false)}
+      />
     </StyledList>
   );
 };
