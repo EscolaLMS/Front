@@ -19,7 +19,7 @@ import { arialBoldItalicFont } from "./fonts/arial/bolditalic";
 import { verdanaBoldItalicFont } from "./fonts/verdana/bolditalic";
 import { timesNewRomanBoldItalicFont } from "./fonts/timesNewRoman/bolditalic";
 import { georgiaBoldItalicFont } from "./fonts/georgia/bolditalic";
-import "./index.css";
+import "index.css";
 
 export const fonts: Record<string, string[]> = {
   arial: ["Arial", "Arial Bold", "Arial Italic", "Arial Bold Italic"],
@@ -109,7 +109,7 @@ const fontsManager = (collection: NodeListOf<SVGTextElement>) => {
   let missedFont: string;
   let missedFontSize: string;
 
-  return collection.forEach((text: SVGTextElement) => {
+  collection.forEach((text: SVGTextElement) => {
     (text.childNodes as NodeListOf<SVGTSpanElement>).forEach(
       (tspan: SVGTSpanElement) => {
         const currFont = tspan.style.fontFamily;
@@ -165,10 +165,12 @@ const fontsManager = (collection: NodeListOf<SVGTextElement>) => {
 
 export const PdfGenerate: React.FC<{
   onRendered: () => void;
-  initialValue: any;
+  initialValue: Record<string, string>;
   width?: number;
   height?: number;
 }> = ({ initialValue, width = 840, height = 592, onRendered }) => {
+  const { onReady } = useFabricJSEditor();
+
   const onCanvasReady = (canvas: fabric.Canvas) => {
     if (initialValue) {
       try {
@@ -181,7 +183,6 @@ export const PdfGenerate: React.FC<{
           const svgDef = canvas.toSVG();
 
           const doc = new jsPDF("l", "px", [width, height]);
-
           setFonts(doc);
           const parser = new DOMParser();
           const element = parser.parseFromString(svgDef, "image/svg+xml");
@@ -196,13 +197,11 @@ export const PdfGenerate: React.FC<{
             bg.setAttribute("height", height + "px");
           }
 
-          if (texts.length > 0) {
+          if (texts) {
             fontsManager(texts);
           }
-
           doc.svg(element.documentElement).then(() => {
             doc.save("myPDF.pdf");
-
             onRendered();
           });
         });
@@ -210,10 +209,11 @@ export const PdfGenerate: React.FC<{
         // this is not a json
       }
     }
+    onReady(canvas);
   };
 
   return (
-    <div className="fakeA4" style={{ width, height }}>
+    <div className={"fakeA4"} style={{ width, height }}>
       <FabricJSCanvas className="fakeA4-canvas" onReady={onCanvasReady} />
     </div>
   );

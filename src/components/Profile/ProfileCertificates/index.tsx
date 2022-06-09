@@ -6,7 +6,6 @@ import { PdfGenerate } from "@/components/PdfGenerate/index";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
-import Preloader from "@/components/Preloader";
 import styled, { useTheme } from "styled-components";
 import { DownloadIcon } from "../../../icons";
 
