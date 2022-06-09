@@ -157,7 +157,7 @@ const ProfileCourses = ({
                     mobile={isMobile}
                     id={item.course.id}
                     image={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         <img
                           src={
                             `${
@@ -176,7 +176,7 @@ const ProfileCourses = ({
                         <Text>
                           <Link
                             style={{ color: theme.primaryColor }}
-                            to={`/courses/${item.course.id}`}
+                            to={`/course/${item.course.id}`}
                           >
                             {item.course.subtitle}
                           </Link>
@@ -184,7 +184,7 @@ const ProfileCourses = ({
                       ) : undefined
                     }
                     title={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         {item.course.title}
                       </Link>
                     }
@@ -200,10 +200,10 @@ const ProfileCourses = ({
                     }
                     actions={
                       <>
-                        {progressMap[item.course.id] === 100 && (
+                        {progressMap[item.course.id] !== 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => setRateModalVisible(true)}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -264,7 +264,7 @@ const ProfileCourses = ({
                     mobile={isMobile}
                     id={item.course.id}
                     image={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         <img
                           src={
                             `${
@@ -283,7 +283,7 @@ const ProfileCourses = ({
                         <Text>
                           <Link
                             style={{ color: theme.primaryColor }}
-                            to={`/courses/${item.course.id}`}
+                            to={`/course/${item.course.id}`}
                           >
                             {item.course.subtitle}
                           </Link>
@@ -291,7 +291,7 @@ const ProfileCourses = ({
                       ) : undefined
                     }
                     title={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         {item.course.title}
                       </Link>
                     }
@@ -310,7 +310,7 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => setRateModalVisible(true)}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -357,7 +357,7 @@ const ProfileCourses = ({
                   mobile={isMobile}
                   id={item.course.id}
                   image={
-                    <Link to={`/courses/${item.course.id}`}>
+                    <Link to={`/course/${item.course.id}`}>
                       <img
                         src={
                           `${
@@ -375,7 +375,7 @@ const ProfileCourses = ({
                       <Text>
                         <Link
                           style={{ color: theme.primaryColor }}
-                          to={`/courses/${item.course.id}`}
+                          to={`/course/${item.course.id}`}
                         >
                           {item.course.subtitle}
                         </Link>
@@ -383,7 +383,7 @@ const ProfileCourses = ({
                     ) : undefined
                   }
                   title={
-                    <Link to={`/courses/${item.course.id}`}>
+                    <Link to={`/course/${item.course.id}`}>
                       {item.course.title}
                     </Link>
                   }
@@ -402,7 +402,7 @@ const ProfileCourses = ({
                       {progressMap[item.course.id] === 100 && (
                         <Button
                           mode="secondary"
-                          onClick={() => console.log("clicked")}
+                          onClick={() => setRateModalVisible(true)}
                         >
                           {t<string>("MyProfilePage.RateCourse")}
                         </Button>
@@ -444,6 +444,7 @@ const ProfileCourses = ({
       <RateCourse
         visible={rateModalVisible}
         onClose={() => setRateModalVisible(false)}
+        courseId={37}
       />
     </StyledList>
   );
