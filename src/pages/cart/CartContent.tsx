@@ -214,7 +214,7 @@ const CartContent = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      push("/authentication");
+      push("/login");
     } else {
       fetchCourses({ per_page: 6 });
       fetchCart();
