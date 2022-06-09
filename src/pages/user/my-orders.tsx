@@ -31,7 +31,7 @@ const Orders = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     } else {
       fetchOrders();
     }

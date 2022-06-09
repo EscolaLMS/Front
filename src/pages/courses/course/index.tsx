@@ -220,7 +220,6 @@ const CoursePage = () => {
     fetchCart,
     user,
   } = useContext(EscolaLMSContext);
-
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -313,12 +312,14 @@ const CoursePage = () => {
                     </div>
                   </div>
                   <div className="col-lg-4">
-                    <div className="image-wrapper">
-                      <Image
-                        path={course.value.image_path}
-                        srcSizes={[790 * 0.5, 790, 2 * 790]}
-                      />
-                    </div>
+                    {course.value.image_path && (
+                      <div className="image-wrapper">
+                        <Image
+                          path={course.value.image_path}
+                          srcSizes={[790 * 0.5, 790, 2 * 790]}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="labels-row labels-row--bottom">
@@ -375,14 +376,16 @@ const CoursePage = () => {
                   <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
-                  {Object.values(settings.courseLogos).map((_, index) => (
-                    <div className="single-company">
-                      <ResponsiveImage
-                        path={settings?.courseLogos[`logo${index + 1}`] || ""}
-                        srcSizes={[100, 100, 100]}
-                      />
-                    </div>
-                  ))}
+                  {settings &&
+                    settings.courseLogos &&
+                    Object.values(settings.courseLogos).map((_, index) => (
+                      <div className="single-company" key={index}>
+                        <ResponsiveImage
+                          path={settings?.courseLogos[`logo${index + 1}`] || ""}
+                          srcSizes={[100, 100, 100]}
+                        />
+                      </div>
+                    ))}
                 </div>
               </section>
               {course.value.summary && (
@@ -429,10 +432,12 @@ const CoursePage = () => {
                   </MarkdownRenderer>
                 )}
               </section>
-              <CourseProgram
-                lessons={course.value.lessons}
-                onTopicClick={(topic) => setPreviewTopic(topic)}
-              />
+              {course.value.lessons && (
+                <CourseProgram
+                  lessons={course.value.lessons}
+                  onTopicClick={(topic) => setPreviewTopic(topic)}
+                />
+              )}
               {
                 <section className="course-ratings padding-right">
                   {ratings && ratings.count_answers > 0 ? (

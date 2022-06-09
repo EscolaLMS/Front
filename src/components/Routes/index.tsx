@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import routes from "./routes";
 
 import HomePage from "../../pages/index";
-import AuthPage from "../../pages/authentication/index";
+// import AuthPage from "../../pages/authentication/index";
 import StaticPage from "../../pages/static-page/index";
 import NotFoundPage from "../../pages/404/index";
 
@@ -16,6 +16,8 @@ import CoursePage from "../../pages/courses/course/index";
 import CoursePreviewPage from "../../pages/courses/preview";
 import EmailVerifiedPage from "../../pages/email_verified";
 import ResetPage from "../../pages/reset-password";
+import RegisterPage from "../../pages/register";
+import LoginPage from "../../pages/login";
 
 // privates
 import MyProfilePage from "../../pages/user/MyProfile";
@@ -59,7 +61,7 @@ const BASENAME =
 const Routes: React.FC = (): ReactElement => {
   const {
     home,
-    authentication,
+    // authentication,
     page,
     myProfile,
     myOrders,
@@ -75,14 +77,18 @@ const Routes: React.FC = (): ReactElement => {
     notFound,
     myNotifications,
     myData,
+    login,
+    register,
   } = routes;
 
   return (
     <ConditionalRouter basename={BASENAME}>
       <ScrollToTop />
       <Switch>
-        <Route exact path={home} component={HomePage} />
-        <Route exact path={authentication} component={AuthPage} />
+        <Route exact path={home} component={HomePage} />{" "}
+        <Route exact path={register} component={RegisterPage} />{" "}
+        <Route exact path={login} component={LoginPage} />
+        {/* <Route exact path={authentication} component={AuthPage} /> */}
         <Route exact path={reset} component={ResetPage} />
         <Route exact path={emailVerified} component={EmailVerifiedPage} />
         {/* platform visibility pages*/}

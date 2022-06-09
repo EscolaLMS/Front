@@ -71,9 +71,14 @@ const Footer = () => {
               <Text size="14">{t<string>("Footer.UserProfile")}</Text>
             </Link>
           ) : (
-            <Link className="single-link" to="/authentication">
-              <Text size="14">{t<string>("Footer.LoginRegister")}</Text>
-            </Link>
+            <>
+              <Link className="single-link" to="/login">
+                <Text size="14">{t<string>("Header.Login")}</Text>
+              </Link>
+              <Link className="single-link" to="/register">
+                <Text size="14">{t<string>("Header.Register")}</Text>
+              </Link>
+            </>
           )}
           <Link className="single-link" to="/cart">
             <Text size="14">{t<string>("Footer.Cart")}</Text>
