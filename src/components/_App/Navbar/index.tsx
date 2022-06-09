@@ -12,7 +12,7 @@ import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderUser, LogoutIcon } from "../../../icons";
+import { HeaderCard } from "../../../icons";
 import { t } from "i18next";
 import { getEventType } from "../../../utils";
 
