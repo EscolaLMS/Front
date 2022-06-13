@@ -89,7 +89,7 @@ const Index = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 992,
+        breakpoint: 1201,
         settings: {
           slidesToShow: 3,
         },

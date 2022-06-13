@@ -35,6 +35,7 @@ export const CourseSidebar: React.FC<{
     if (course?.id) {
       sendProgress(course?.id, [{ topic_id: Number(topicId), status: 1 }]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [program, topicId, setIsDisabledNextTopicButton, sendProgress]);
   if (!course && !program) {
     return <React.Fragment />;
