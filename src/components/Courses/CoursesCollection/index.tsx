@@ -28,7 +28,13 @@ type updateParamType =
   | { key: "free" | "tag"; value: string | undefined }
   | { key: "categories"; value: number[] };
 
-const StyledHeader = styled.div`
+type InitialFilters = {
+  categories: number[] | undefined;
+  free: string | undefined;
+  tag: string | undefined;
+};
+
+const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
   background: ${({ theme }) => theme.primaryColor};
   padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
   margin-bottom: ${isMobile ? "100px" : "40px"};
@@ -37,7 +43,9 @@ const StyledHeader = styled.div`
 
   h1 {
     color: ${({ theme }) => theme.white};
-    margin-bottom: 35px;
+    margin-bottom: ${({ filters }) =>
+      filters && Object.keys(filters).length > 1 ? "35px" : "-35px"};
+    transition: margin-bottom 0.5s ease-out;
   }
 
   .filters-container {
@@ -180,11 +188,18 @@ const StyledHeader = styled.div`
         &--category {
           min-width: 200px;
           div {
-            border: none !important;
             &:not(.categories-dropdown-options) {
-              background: transparent !important;
-              color: ${({ theme }) => theme.white};
+              border: none;
             }
+          }
+          .categories-dropdown-options {
+            background-color: ${({ theme }) => theme.white};
+            margin-top: -1px;
+          }
+          .categories-dropdown-button {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: ${({ theme }) => theme.font};
           }
           button {
             ${isMobile &&
@@ -222,12 +237,16 @@ const CoursesCollection: React.FC = () => {
   const [parsedParams, setParsedParams] = useState<
     API.CourseParams | undefined
   >();
-  const [filterState, setFilterState] = useState<{
-    categories: number[];
-    free?: string;
-    tag?: string;
-  }>({ categories: [], free: "", tag: "" });
-  const [paramsLoaded, setParamsLoaded] = useState(false);
+  const initialFilters = {
+    categories: [],
+    free: "",
+    tag: "",
+  };
+  const [filterState, setFilterState] =
+    useState<InitialFilters>(initialFilters);
+  const [paramsLoaded, setParamsLoaded] = useState<API.CourseParams | false>(
+    false
+  );
   const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
@@ -243,11 +262,7 @@ const CoursesCollection: React.FC = () => {
   );
 
   const resetFilters = () => {
-    setFilterState({
-      categories: [],
-      free: "",
-      tag: "",
-    });
+    setFilterState(initialFilters);
   };
 
   const typeFilters = [
@@ -261,7 +276,7 @@ const CoursesCollection: React.FC = () => {
     : [];
 
   useEffect(() => {
-    params && setParamsLoaded(true);
+    params && setParamsLoaded(params);
   }, [params]);
 
   useEffect(() => {
@@ -282,10 +297,9 @@ const CoursesCollection: React.FC = () => {
         free: parsedParams.free,
       });
   }, [parsedParams]);
-
   return (
     <>
-      <StyledHeader>
+      <StyledHeader filters={params}>
         <Title level={1}> {t("CoursesPage.Courses")}</Title>
         <div className="filters-container">
           <div
@@ -391,6 +405,7 @@ const CoursesCollection: React.FC = () => {
             {!isMobile && (
               <div className="single-select single-select--category">
                 <Categories
+                  backgroundColor={theme.primaryColor}
                   categories={categoryTree.list || []}
                   label={"Kategoria"}
                   selectedCategories={
