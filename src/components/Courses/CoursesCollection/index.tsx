@@ -23,6 +23,7 @@ import { isMobile } from "react-device-detect";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { LessonsIcon } from "../../../icons";
+import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 
 type updateParamType =
   | { key: "free" | "tag"; value: string | undefined }
@@ -287,6 +288,7 @@ const CoursesCollection: React.FC = () => {
           parseNumbers: true,
         })
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsLoaded]);
 
   useEffect(() => {
@@ -507,7 +509,11 @@ const CoursesCollection: React.FC = () => {
                         id={item.id}
                         image={
                           <Link to={`/courses/${item.id}`}>
-                            <img src={item.image_url} alt={item.title} />
+                            {item.image_url ? (
+                              <img src={item.image_url} alt={item.title} />
+                            ) : (
+                              <CourseImgPlaceholder />
+                            )}
                           </Link>
                         }
                         tags={
@@ -563,17 +569,21 @@ const CoursesCollection: React.FC = () => {
                         }
                         footer={
                           <>
-                            {item.users_count && item.users_count > 0 && (
+                            {item.users_count && item.users_count > 0 ? (
                               <IconText
                                 icon={<LessonsIcon />}
                                 text={`${item.users_count} kursantów`}
                               />
+                            ) : (
+                              ""
                             )}{" "}
-                            {item.lessons_count && item.lessons_count > 0 && (
+                            {item.lessons_count && item.lessons_count > 0 ? (
                               <IconText
                                 icon={<LessonsIcon />}
                                 text={`${item.lessons_count} lekcji`}
                               />
+                            ) : (
+                              ""
                             )}
                           </>
                         }

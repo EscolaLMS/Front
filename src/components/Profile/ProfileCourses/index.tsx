@@ -13,6 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { LessonsIcon } from "../../../icons";
+import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -155,18 +156,19 @@ const ProfileCourses = ({
                     mobile={isMobile}
                     id={item.course.id}
                     image={
-                      <Link to={`/courses/${item.course.id}`}>
-                        <img
-                          src={
-                            `${
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.image_path ? (
+                          <img
+                            src={`${
                               process &&
                               process.env &&
                               process.env.REACT_APP_PUBLIC_API_URL
-                            }/api/images/img?path=${item.course.image_path}` ||
-                            ""
-                          }
-                          alt={item.course.title}
-                        />
+                            }/api/images/img?path=${item.course.image_path}`}
+                            alt={item.course.title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -174,7 +176,7 @@ const ProfileCourses = ({
                         <Text>
                           <Link
                             style={{ color: theme.primaryColor }}
-                            to={`/courses/${item.course.id}`}
+                            to={`/course/${item.course.id}`}
                           >
                             {item.course.subtitle}
                           </Link>
@@ -182,7 +184,7 @@ const ProfileCourses = ({
                       ) : undefined
                     }
                     title={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         {item.course.title}
                       </Link>
                     }
@@ -262,18 +264,19 @@ const ProfileCourses = ({
                     mobile={isMobile}
                     id={item.course.id}
                     image={
-                      <Link to={`/courses/${item.course.id}`}>
-                        <img
-                          src={
-                            `${
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.image_path ? (
+                          <img
+                            src={`${
                               process &&
                               process.env &&
                               process.env.REACT_APP_PUBLIC_API_URL
-                            }/api/images/img?path=${item.course.image_path}` ||
-                            ""
-                          }
-                          alt={item.course.title}
-                        />
+                            }/api/images/img?path=${item.course.image_path}`}
+                            alt={item.course.title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -281,7 +284,7 @@ const ProfileCourses = ({
                         <Text>
                           <Link
                             style={{ color: theme.primaryColor }}
-                            to={`/courses/${item.course.id}`}
+                            to={`/course/${item.course.id}`}
                           >
                             {item.course.subtitle}
                           </Link>
@@ -289,7 +292,7 @@ const ProfileCourses = ({
                       ) : undefined
                     }
                     title={
-                      <Link to={`/courses/${item.course.id}`}>
+                      <Link to={`/course/${item.course.id}`}>
                         {item.course.title}
                       </Link>
                     }
@@ -355,17 +358,19 @@ const ProfileCourses = ({
                   mobile={isMobile}
                   id={item.course.id}
                   image={
-                    <Link to={`/courses/${item.course.id}`}>
-                      <img
-                        src={
-                          `${
+                    <Link to={`/course/${item.course.id}`}>
+                      {item.course.image_path ? (
+                        <img
+                          src={`${
                             process &&
                             process.env &&
                             process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${item.course.image_path}` || ""
-                        }
-                        alt={item.course.title}
-                      />
+                          }/api/images/img?path=${item.course.image_path}`}
+                          alt={item.course.title}
+                        />
+                      ) : (
+                        <CourseImgPlaceholder />
+                      )}
                     </Link>
                   }
                   subtitle={
@@ -373,7 +378,7 @@ const ProfileCourses = ({
                       <Text>
                         <Link
                           style={{ color: theme.primaryColor }}
-                          to={`/courses/${item.course.id}`}
+                          to={`/course/${item.course.id}`}
                         >
                           {item.course.subtitle}
                         </Link>
@@ -381,7 +386,7 @@ const ProfileCourses = ({
                     ) : undefined
                   }
                   title={
-                    <Link to={`/courses/${item.course.id}`}>
+                    <Link to={`/course/${item.course.id}`}>
                       {item.course.title}
                     </Link>
                   }

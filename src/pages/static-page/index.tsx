@@ -3,17 +3,23 @@ import { useParams, Redirect, Link } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import routes from "@/components/Routes/routes";
 import usePrevious from "../../hooks/usePrevious";
-import Preloader from "../../components/Preloader";
 import Layout from "@/components/_App/Layout";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { AsideMenu } from "@escolalms/components/lib/components/atoms/AsideMenu/AsideMenu";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 
 const StyledStaticPage = styled.section`
   .content {
     margin-top: ${isMobile ? "30px" : 0};
+  }
+  .spin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
   }
 `;
 
@@ -21,6 +27,7 @@ const StaticPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { fetchPage, page, fetchPages, pages } = useContext(EscolaLMSContext);
   const prevSlug = usePrevious(slug);
+  const theme = useTheme();
   useEffect(() => {
     if (
       slug &&
@@ -50,10 +57,7 @@ const StaticPage = () => {
             <div className="col-lg-4">
               {pages &&
                 pages.list?.data.map((item, index) => (
-                  <AsideMenu
-                    key={index}
-                    active={slug === item.slug ? "true" : ""}
-                  >
+                  <AsideMenu key={index} active={slug === item.slug}>
                     <Link to={item.slug}>
                       <Text>
                         <strong>
@@ -67,17 +71,22 @@ const StaticPage = () => {
             </div>
             <div className="col-lg-8">
               <div className="content">
-                <MarkdownRenderer>
-                  {page?.value?.content || ""}
-                </MarkdownRenderer>
+                {page.loading ||
+                (!page.value && !page.error) ||
+                (page.value && page.value?.slug !== slug) ||
+                (page.error && !prevSlug) ? (
+                  <div className="spin-container">
+                    <Spin color={theme.primaryColor} />
+                  </div>
+                ) : (
+                  <MarkdownRenderer>
+                    {page?.value?.content || ""}
+                  </MarkdownRenderer>
+                )}
               </div>
             </div>
           </div>
         </div>
-        {(page.loading ||
-          (!page.value && !page.error) ||
-          (page.value && page.value?.slug !== slug) ||
-          (page.error && !prevSlug)) && <Preloader />}
       </StyledStaticPage>
     </Layout>
   );
