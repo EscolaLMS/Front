@@ -13,6 +13,7 @@ import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
 import { t } from "i18next";
+import LangButton from "@/components/Common/LangButton";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -341,9 +342,10 @@ const Navbar = () => {
             >
               {cart.value && cart.value.items?.length > 0 && (
                 <span>{cart.value.items.length}</span>
-              )}
+              )}{" "}
               <HeaderCard mode={theme.mode} />
-            </button>
+            </button>{" "}
+            {/* <LangButton /> */}
           </div>
         </div>
       </div>

@@ -1,16 +1,25 @@
-import React, { useContext, useEffect } from 'react';
-import PageBanner from '../../components/Common/PageBanner';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Layout from '../../components/_App/Layout';
-import { API } from '@escolalms/sdk/lib';
-import './index.scss';
-import { useTranslation } from 'react-i18next';
-import TutorCard from '@/components/TutorCard';
+import React, { useContext, useEffect } from "react";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import Layout from "../../components/_App/Layout";
+import { API } from "@escolalms/sdk/lib";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { useTranslation } from "react-i18next";
+import styled, { useTheme } from "styled-components";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
+import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import Image from "@escolalms/sdk/lib/react/components/Image";
+import { Link } from "react-router-dom";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+
+const StyledTitleWrapper = styled.div`
+  margin-bottom: 36px;
+`;
 
 const TutorsPage = () => {
   const { tutors, fetchTutors } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
+  const theme = useTheme();
 
   useEffect(() => {
     fetchTutors();
@@ -19,27 +28,68 @@ const TutorsPage = () => {
 
   return (
     <Layout>
-      <React.Fragment>
-        {/* <Navbar /> */}
-        <PageBanner
-          pageTitle={t('Tutors')}
-          homePageUrl="/"
-          homePageText={t('Home')}
-          activePageText={t('Tutors')}
-        />
+      <div className="advisor-area">
+        <div className="container">
+          <StyledTitleWrapper>
+            <Title level={1}> {t("Tutors")}</Title>
+          </StyledTitleWrapper>
 
-        <div className="advisor-area">
-          <div className="container">
-            <div className="row">
-              {(tutors.list || []).map((tutor: API.UserItem) => (
+          <div className="row">
+            {tutors.loading && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                  minHeight: "500px",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+                className="loader-wrapper"
+              >
+                <Spin color={theme.primaryColor} />
+              </div>
+            )}
+            {!tutors.loading &&
+              (tutors.list || []).map((tutor: API.UserItem) => (
                 <div className="col-lg-4 col-sm-6 col-md-6">
-                  <TutorCard tutor={tutor} />
+                  <CourseCard
+                    id={Number(tutor.id)}
+                    title={tutor.name}
+                    image={
+                      <Link to={`/tutors/${tutor.id}`}>
+                        {tutor.path_avatar ? (
+                          <Image
+                            path={tutor.path_avatar}
+                            srcSizes={[380, 380 * 2]}
+                          />
+                        ) : (
+                          <img
+                            className="tutor-card__avatar"
+                            src={`/images/tutorblind.png`}
+                            alt="tutor_avatar"
+                          />
+                        )}
+                      </Link>
+                    }
+                    subtitle={
+                      <Text size="16">
+                        <Link
+                          style={{ color: theme.black }}
+                          to={`/tutors/${tutor.id}`}
+                        >
+                          <strong>
+                            {tutor.first_name} {tutor.last_name}
+                          </strong>
+                        </Link>
+                      </Text>
+                    }
+                  />
                 </div>
               ))}
-            </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     </Layout>
   );
 };
