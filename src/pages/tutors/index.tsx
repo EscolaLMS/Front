@@ -4,6 +4,7 @@ import Layout from "../../components/_App/Layout";
 import { API } from "@escolalms/sdk/lib";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { useTranslation } from "react-i18next";
+
 import styled, { useTheme } from "styled-components";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
@@ -12,7 +13,7 @@ import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 
 const StyledTitleWrapper = styled.div`
-  margin-bottom: 36px;
+  margin-bottom: 10px;
 `;
 
 const TutorsPage = () => {
@@ -73,16 +74,13 @@ const TutorsPage = () => {
                       </Link>
                     }
                     subtitle={
-                      <Text size="16">
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/tutors/${tutor.id}`}
-                        >
+                      <Link to={`/tutors/${tutor.id}`}>
+                        <Text size="16">
                           <strong>
                             {tutor.first_name} {tutor.last_name}
                           </strong>
-                        </Link>
-                      </Text>
+                        </Text>
+                      </Link>
                     }
                   />
                 </div>
