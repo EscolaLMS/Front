@@ -168,7 +168,6 @@ const Navbar = () => {
   const {
     user: userObj,
     settings,
-    notifications,
     fetchNotifications,
     cart,
     fetchCart,
