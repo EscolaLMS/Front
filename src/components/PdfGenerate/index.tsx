@@ -19,7 +19,7 @@ import { arialBoldItalicFont } from "./fonts/arial/bolditalic";
 import { verdanaBoldItalicFont } from "./fonts/verdana/bolditalic";
 import { timesNewRomanBoldItalicFont } from "./fonts/timesNewRoman/bolditalic";
 import { georgiaBoldItalicFont } from "./fonts/georgia/bolditalic";
-import "index.css";
+import "./index.css";
 
 export const fonts: Record<string, string[]> = {
   arial: ["Arial", "Arial Bold", "Arial Italic", "Arial Bold Italic"],
