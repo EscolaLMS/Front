@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import GoTop from "@/components/_App/GoTop";
 import { ToastContainer } from "react-toastify";
-import CourseNavbar from "@/components/_App/CourseNavbar";
-import CoursePreviewNavbar from "./CoursePreviewNavbar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
@@ -50,7 +48,6 @@ const Layout: React.FC<{
   }, []);
 
   const isCourse = pathname.includes("/course/");
-  const isPreview = pathname.includes("/preview/");
 
   return (
     <React.Fragment>

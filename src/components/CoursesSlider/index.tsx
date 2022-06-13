@@ -14,6 +14,7 @@ import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
 import { t } from "i18next";
 import { LessonsIcon } from "../../icons";
+import CourseImgPlaceholder from "../CourseImgPlaceholder";
 
 type Props = {
   courses: API.Course[];
@@ -59,7 +60,11 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                 id={item.id}
                 image={
                   <Link to={`/courses/${item.id}`}>
-                    <img src={item.image_url} alt={item.title} />
+                    {item.image_url ? (
+                      <img src={item.image_url} alt={item.title} />
+                    ) : (
+                      <CourseImgPlaceholder />
+                    )}
                   </Link>
                 }
                 tags={

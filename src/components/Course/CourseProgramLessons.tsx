@@ -239,15 +239,19 @@ export const CourseProgramLessons: React.FC<{
           </div>
         </div>
         <div className="course-nav">
-          <CourseTopNav
-            onFinish={() => onCompleteTopic()}
-            mobile={isMobile}
-            onNext={onNextTopic}
-            isFinished={false}
-            onPrev={onPrevTopic}
-            hasPrev={getNextPrevTopic(Number(topic?.id), false) ? true : false}
-            hasNext={!isDisabledNextTopicButton}
-          />
+          <div className="container">
+            <CourseTopNav
+              onFinish={() => onCompleteTopic()}
+              mobile={isMobile}
+              onNext={onNextTopic}
+              isFinished={false}
+              onPrev={onPrevTopic}
+              hasPrev={
+                getNextPrevTopic(Number(topic?.id), false) ? true : false
+              }
+              hasNext={!isDisabledNextTopicButton}
+            />
+          </div>
         </div>
       </StyledCourse>
     </React.Fragment>

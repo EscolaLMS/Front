@@ -48,7 +48,6 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const currentCourse = progress
     ? progress.value?.filter((item) => item.course.id === id)
     : [];
-  console.log(course);
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const finishedLessons = currentCourse
