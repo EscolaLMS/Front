@@ -101,7 +101,6 @@ const StyledHeader = styled.header`
       .name {
         min-width: 100px;
         margin: 0;
-        max-width: 100px;
       }
     }
   }
@@ -309,18 +308,21 @@ const Navbar = () => {
                 { label: "Instruktorzy", value: "/tutors" },
               ]}
             />
-            <Dropdown
-              placeholder="Moje"
-              onChange={(e) => history.push(e.value)}
-              options={[
-                { label: "Konto", value: "/user/my-profile" },
-                { label: "Kursy", value: "/user/my-profile" },
-                { label: "Zamówienia", value: "/user/my-order" },
-                { label: "Notyfikacje", value: "/user/my-notifications" },
-              ]}
-            />
+            {user?.id && (
+              <Dropdown
+                placeholder="Profil"
+                onChange={(e) => history.push(e.value)}
+                options={[
+                  { label: "Moje szkolenia", value: "/user/my-profile" },
+                  { label: "Historia zakupów", value: "/user/my-orders" },
+                  { label: "Powiadomienia", value: "/user/my-notifications" },
+                  { label: "Edytuj dane", value: "/user/my-data" },
+                ]}
+              />
+            )}
           </nav>
-          {user ? (
+
+          {user?.id ? (
             <div className="user-container">
               <Link to="/user/my-profile" className="user-details">
                 <Text className="name">
@@ -337,14 +339,13 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="not-logged-container">
-              <Link to="/authentication">
+              <Link to="/login">
                 <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
-              <Link to="/authentication">
+              <Link to="/register">
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
-              <HeaderUser mode={theme.mode} />
             </div>
           )}
           <div className="icons-container">
@@ -359,19 +360,6 @@ const Navbar = () => {
               )}
               <HeaderCard mode={theme.mode} />
             </button>
-            <Notifications
-              notifications={mappedNotifications}
-              showAllLink="#/user/my-notifications"
-            />
-            {user && (
-              <button
-                type="button"
-                className="logout-icon"
-                onClick={() => logout().then(() => history.push("/"))}
-              >
-                <LogoutIcon />
-              </button>
-            )}
           </div>
         </div>
       </div>

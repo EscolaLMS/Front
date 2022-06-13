@@ -34,7 +34,7 @@ const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     } else {
       fetchProgress();
       fetchCertificates();
@@ -43,7 +43,7 @@ const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
   }, [history, user]);
 
   return (
-    <Layout>
+    <Layout metaTitle={title}>
       <StyledProfile>
         <div className="container">
           <div className="row">

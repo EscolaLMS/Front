@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import routes from "./routes";
 
 import HomePage from "../../pages/index";
-import AuthPage from "../../pages/authentication/index";
+// import AuthPage from "../../pages/authentication/index";
 import StaticPage from "../../pages/static-page/index";
 import NotFoundPage from "../../pages/404/index";
 
@@ -16,11 +16,14 @@ import CoursePage from "../../pages/courses/course/index";
 import CoursePreviewPage from "../../pages/courses/preview";
 import EmailVerifiedPage from "../../pages/email_verified";
 import ResetPage from "../../pages/reset-password";
+import RegisterPage from "../../pages/register";
+import LoginPage from "../../pages/login";
 
 // privates
 import MyProfilePage from "../../pages/user/MyProfile";
 import MyOrdersPage from "../../pages/user/my-orders";
 import MyNotificationsPage from "../../pages/user/my-notifications";
+import MyDataPage from "../../pages/user/my-data";
 import CourseProgramPage from "../../pages/course/index";
 import CartPage from "../../pages/cart/index";
 
@@ -31,6 +34,7 @@ import ConfigRouteExtend from "./configExtend";
 import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
+import ScrollToTop from "../ScrollToTop";
 
 const ConditionalRouter: React.FC<{
   basename: string;
@@ -57,7 +61,7 @@ const BASENAME =
 const Routes: React.FC = (): ReactElement => {
   const {
     home,
-    authentication,
+    // authentication,
     page,
     myProfile,
     myOrders,
@@ -72,27 +76,28 @@ const Routes: React.FC = (): ReactElement => {
     emailVerified,
     notFound,
     myNotifications,
+    myData,
+    login,
+    register,
   } = routes;
 
   return (
     <ConditionalRouter basename={BASENAME}>
+      <ScrollToTop />
       <Switch>
-        <Route exact path={home} component={HomePage} />
-        <Route exact path={authentication} component={AuthPage} />
+        <Route exact path={home} component={HomePage} />{" "}
+        <Route exact path={register} component={RegisterPage} />{" "}
+        <Route exact path={login} component={LoginPage} />
+        {/* <Route exact path={authentication} component={AuthPage} /> */}
         <Route exact path={reset} component={ResetPage} />
         <Route exact path={emailVerified} component={EmailVerifiedPage} />
-
         {/* platform visibility pages*/}
-
         <ConfigRoute exact path={tutors} component={TutorsPage} />
         <ConfigRoute exact path={tutor} component={TutorPage} />
         <ConfigRoute exact path={course} component={CoursePage} />
         <ConfigRoute exact path={preview} component={CoursePreviewPage} />
-
         <ConfigRouteExtend exact path={courses} component={CoursesPage} />
-
         {/* privates pages*/}
-
         <PrivateRoute exact path={myProfile} component={MyProfilePage} />
         <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
         <PrivateRoute
@@ -100,18 +105,16 @@ const Routes: React.FC = (): ReactElement => {
           path={myNotifications}
           component={MyNotificationsPage}
         />
+        <PrivateRoute exact path={myData} component={MyDataPage} />
         <PrivateRoute
           exact
           path={courseProgram}
           component={CourseProgramPage}
         />
         <PrivateRoute exact path={cart} component={CartPage} />
-
         <Route exact path={notFound} component={NotFoundPage} />
-
         {/* must be last */}
         <Route exact path={page} component={StaticPage} />
-
         <Route exact component={NotFoundPage} />
       </Switch>
     </ConditionalRouter>

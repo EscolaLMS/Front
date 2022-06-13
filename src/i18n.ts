@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { resources as ComponentTranslations } from "@escolalms/components/lib/styleguide/i18n";
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -7,6 +8,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      ...ComponentTranslations.en.translation,
       "Access from": "Access from",
       "Access to": "Access to",
       Access: "Access",
@@ -117,6 +119,7 @@ const resources = {
       },
       Cart: {
         Cart: "Cart",
+        EmptyNameWarning: "Uzupełnij dane karty",
         PayWithStripe: "Pay with stripe Checkout",
         FreeCheckout: "Free Checkout",
         CartIsEmpty: "Cart is empty",
@@ -188,7 +191,9 @@ const resources = {
         Bio: "Bio",
         EmptyCertificates: "Certificates list is empty!",
         EmptyMattermostChannels: "Mattermost channels list is empty!",
+        EditData: "Edit data",
       },
+
       Navbar: {
         MyProfile: "My Profile",
         MyCourses: "My Courses",
@@ -296,6 +301,7 @@ const resources = {
   },
   pl: {
     translation: {
+      ...ComponentTranslations.pl.translation,
       UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
       StartNow: "Zacznij teraz",
       "Access from": "Dostęp od",
@@ -397,6 +403,8 @@ const resources = {
       Close: "Zamknij",
       Pay: "Zapłać",
       Download: "Pobierz",
+      LoginAndRegister: "Logowanie i rejestracja",
+
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
@@ -411,12 +419,14 @@ const resources = {
         RelatedCoursesTitle: "Powiązane szkolenia",
         InterestTitle: "Może Cię zainteresuje",
         GoToCheckout: "Do kasy",
+        NotStarted: "Kurs się jeszcze nie rozpoczął",
         "30Days": "Gwarantowane 30 dni na zwrot",
         ContentToDownload: "Materiały szkoleniowe do pobrania",
         SmartphoneAccess: "Dostęp na smartphone i tablet",
         Certificate: "Certyfikat ukończenia",
         Finished: "Ukończono",
         Of: "z",
+        IsFinished: "Kurs się zakończył",
         Lessons: "lekcji",
         FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
         MyProgress: "Moje postępy",
@@ -458,6 +468,13 @@ const resources = {
       },
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
+      },
+      CoursesPage: {
+        Category: "Kategoria",
+        Free: "Darmowe",
+        All: "Wszystkie",
+        Type: "Typ szkolenia",
+        Courses: "Kursy",
       },
       EmailVerifiedPage: {
         Verified: "Twój email jest teraz zweryfikowany",
@@ -524,6 +541,7 @@ const resources = {
         InProgress: "W trakcie",
         Planned: "Zaplanowane",
         Finished: "Ukończone",
+        EditData: "Edytuj dane",
       },
       Navbar: {
         MyProfile: "Mój Profil",
@@ -630,6 +648,10 @@ const resources = {
         AccountConfirmed: "Konto potwierdzone",
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
+      },
+      Header: {
+        Register: "Zarejestruj",
+        Login: "Zaloguj",
       },
     },
   },

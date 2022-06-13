@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
-import { Notification } from "@escolalms/components/lib/components/atoms/Notification/Notification";
+import { Notification } from "@escolalms/components/lib/components/molecules/Notification/Notification";
 import styled from "styled-components";
 import { getEventType } from "../../utils";
 import { t } from "i18next";
@@ -26,7 +26,7 @@ const MyNotificationsPage = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     } else {
       fetchNotifications();
     }

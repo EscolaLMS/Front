@@ -2,16 +2,9 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
+import isPast from "date-fns/isPast";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
-import ReactMarkdown from "react-markdown";
-import {
-  IconTime,
-  IconDownload,
-  IconSquares,
-  IconBadge,
-  IconWin,
-  IconCamera,
-} from "../../../icons";
+import { IconSquares, IconWin, IconCamera } from "../../../icons";
 import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
@@ -67,7 +60,6 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
-
   return !isMobile ? (
     <PricingCard>
       <Title level={4} as="h4">
@@ -85,14 +77,25 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           </div>
         )}
       </div>
-      {courseInCart ? (
+      {isPast(new Date(course.active_to || "")) ? (
+        <Text>{t("CoursePage.IsFinished")}</Text>
+      ) : courseInCart ? (
         <Button mode="secondary" onClick={() => push("/cart")}>
           {t("CoursePage.GoToCheckout")}
         </Button>
       ) : userOwnThisCourse ? (
-        <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
-          {t("Attend to Course")}
-        </Button>
+        <>
+          {isPast(new Date(course.active_from || "")) ? (
+            <Button
+              onClick={() => push(`/course/${course.id}`)}
+              mode="secondary"
+            >
+              {t("Attend to Course")}
+            </Button>
+          ) : (
+            <Text>{t("CoursePage.NotStarted")}</Text>
+          )}
+        </>
       ) : user.value && course.product ? (
         <Button
           loading={cart.loading}
@@ -104,7 +107,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        <Link to="/authentication">
+        <Link to="/login">
           <Text>{t("Login to buy")}</Text>
         </Link>
       )}
@@ -141,7 +144,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       {!user.value ? (
         <Text size="12">
           <Link
-            to="/authentication"
+            to="/login"
             style={{
               marginRight: "4px",
               color: theme.primaryColor,

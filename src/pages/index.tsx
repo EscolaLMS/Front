@@ -107,7 +107,7 @@ const Index = () => {
   };
 
   return (
-    <Layout>
+    <Layout metaTitle={t("Home")}>
       <HomePageStyled>
         <section className="home-hero">
           <div className="container">

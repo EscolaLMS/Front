@@ -9,6 +9,7 @@ const routeRoutes = {
   myProfile: "/user/my-profile",
   myOrders: "/user/my-orders",
   myNotifications: "/user/my-notifications",
+  myData: "/user/my-data",
   tutors: "/tutors",
   tutor: "/tutors/:id",
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
@@ -16,6 +17,8 @@ const routeRoutes = {
   contact: "/contact",
   emailVerified: "/email-verified",
   notFound: "/404",
+  register: "/register",
+  login: "/login",
 };
 
 export default routeRoutes;
