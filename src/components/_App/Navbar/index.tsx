@@ -6,15 +6,13 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
-import { Notifications } from "@escolalms/components/lib/components/molecules/Notifications/Notifications";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
 import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderUser, LogoutIcon } from "../../../icons";
+import { HeaderCard } from "../../../icons";
 import { t } from "i18next";
-import { getEventType } from "../../../utils";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -174,7 +172,6 @@ const Navbar = () => {
     fetchNotifications,
     cart,
     fetchCart,
-    logout,
   } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
@@ -254,18 +251,6 @@ const Navbar = () => {
       key: "menuItem3",
     },
   ];
-
-  const mappedNotifications = notifications.list
-    ? notifications.list.map((item) => {
-        return {
-          id: item.id,
-          unread: item.read_at ? true : false,
-          description: "",
-          title: t<string>(`Notifications.${getEventType(item.event)}`),
-          dateTime: new Date(item.created_at),
-        };
-      })
-    : [];
 
   if (isMobile) {
     return (

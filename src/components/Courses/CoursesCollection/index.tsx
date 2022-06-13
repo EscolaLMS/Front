@@ -273,6 +273,7 @@ const CoursesCollection: React.FC = () => {
           parseNumbers: true,
         })
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsLoaded]);
 
   useEffect(() => {
