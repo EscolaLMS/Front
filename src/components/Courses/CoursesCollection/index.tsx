@@ -10,14 +10,19 @@ import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
 import styled, { css, useTheme } from "styled-components";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
+import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon } from "../../../icons";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import qs from "query-string";
 import Pagination from "@/components/Pagination";
 import { isMobile } from "react-device-detect";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
+import { LessonsIcon } from "../../../icons";
 
 type updateParamType =
   | { key: "free" | "tag"; value: string | undefined }
@@ -218,6 +223,11 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
 const CoursesList = styled.section`
   .course-wrapper {
     margin-bottom: ${isMobile ? "50px" : "75px"};
+    padding-bottom: 15px;
+    overflow: hidden;
+    a {
+      text-decoration: none;
+    }
   }
 `;
 
@@ -495,32 +505,78 @@ const CoursesCollection: React.FC = () => {
                       <CourseCard
                         mobile={isMobile}
                         id={item.id}
-                        title={item.title}
-                        categories={{
-                          categoryElements: item.categories || [],
-                          onCategoryClick: (id) =>
-                            history.push(`/courses/?category_id=${id}`),
-                        }}
-                        onButtonClick={() =>
-                          history.push(`/courses/${item.id}`)
+                        image={
+                          <Link to={`/courses/${item.id}`}>
+                            <img src={item.image_url} alt={item.title} />
+                          </Link>
                         }
-                        buttonText={t("StartNow")}
-                        lessonCount={5}
-                        hideImage={false}
+                        tags={
+                          <>
+                            {item.tags?.map((item) => (
+                              <Badge color={theme.primaryColor}>
+                                <Link
+                                  style={{ color: theme.white }}
+                                  to={`/courses/?tag=${item.title}`}
+                                >
+                                  {item.title}
+                                </Link>
+                              </Badge>
+                            ))}
+                          </>
+                        }
                         subtitle={
                           item.subtitle ? (
-                            <Text>
-                              <strong style={{ fontSize: 14 }}>
-                                {item.subtitle?.substring(0, 30)}
-                              </strong>
+                            <Text size="12">
+                              <Link
+                                style={{ color: theme.primaryColor }}
+                                to={`/courses/${item.id}`}
+                              >
+                                <strong>{item.subtitle}</strong>
+                              </Link>
                             </Text>
-                          ) : null
+                          ) : undefined
                         }
-                        image={{
-                          url: item.image_url,
-                          alt: "",
-                        }}
-                        tags={item.tags as API.Tag[]}
+                        title={
+                          <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                        }
+                        categories={
+                          <BreadCrumbs
+                            hyphen="/"
+                            items={item.categories?.map((category) => (
+                              <Link to={`/courses/?ids[]=${category.id}`}>
+                                {category.name}
+                              </Link>
+                            ))}
+                          />
+                        }
+                        actions={
+                          <>
+                            <Button
+                              mode="secondary"
+                              onClick={() =>
+                                history.push(`/courses/${item.id}`)
+                              }
+                            >
+                              {t<string>("Start now")}
+                            </Button>
+                          </>
+                        }
+                        footer={
+                          <>
+                            {item.users_count && item.users_count > 0 && (
+                              <IconText
+                                icon={<LessonsIcon />}
+                                text={`${item.users_count} kursantów`}
+                              />
+                            )}{" "}
+                            {item.lessons_count && item.lessons_count > 0 && (
+                              <IconText
+                                icon={<LessonsIcon />}
+                                text={`${item.lessons_count} lekcji`}
+                              />
+                            )}
+                          </>
+                        }
                       />
                     </div>
                   </div>

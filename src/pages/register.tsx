@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -6,12 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import {
-  LoginForm,
-  RegisterForm,
-  ResetPasswordForm,
-} from "@escolalms/components";
-import { toast } from "react-toastify";
+import { RegisterForm } from "@escolalms/components";
 import { t } from "i18next";
 import styled from "styled-components";
 
@@ -61,16 +56,13 @@ const StyledContent = styled.div`
   }
 `;
 
-const Authentication = () => {
+const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
-  const [view, setView] = useState<
-    "login" | "forgotPassword" | "register" | "success"
-  >("login");
+  const [view, setView] = useState<string>("");
   const [email, setEmail] = useState("");
   const history = useHistory();
   const token = search.split("?token=")[1];
-  const viewmode = search.split("?path=")[1];
 
   if (token) {
     socialAuthorize(token);
@@ -82,10 +74,6 @@ const Authentication = () => {
   if (!user.loading && !token && user.value) {
     history.push("/");
   }
-
-  useEffect(() => {
-    setView(viewmode as "login" | "forgotPassword" | "register" | "success");
-  }, [viewmode]);
 
   const EmailActivation = () => {
     return (
@@ -133,32 +121,11 @@ const Authentication = () => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-12">
-                {view === "login" ? (
-                  <LoginForm
-                    onResetPasswordLink={() => setView("forgotPassword")}
-                    onRegisterLink={() => setView("register")}
-                    mobile={isMobile}
-                  />
-                ) : view === "forgotPassword" ? (
-                  <ResetPasswordForm
-                    mobile={isMobile}
-                    backToLogin={() => setView("login")}
-                    onRegisterLink={() => setView("register")}
-                    return_url="#/reset-password"
-                    onFirstStepSuccess={() =>
-                      toast.success(t<string>("LoginPage.ForgotSuccess"))
-                    }
-                    onFirstStepError={() =>
-                      toast.error(t<string>("UnexpectedError"))
-                    }
-                  />
-                ) : (
-                  <RegisterForm
-                    mobile={isMobile}
-                    onLoginLink={() => setView("login")}
-                    onSuccess={() => setView("success")}
-                  />
-                )}
+                <RegisterForm
+                  mobile={isMobile}
+                  onLoginLink={() => history.push("/login")}
+                  onSuccess={() => setView("success")}
+                />
               </div>
             </div>
           </div>
@@ -170,4 +137,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default RegisterPage;

@@ -6,11 +6,13 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { Tag } from "@escolalms/sdk/lib/types/api";
-import styled from "styled-components";
+import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import styled, { useTheme } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
+import { LessonsIcon } from "../../../icons";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -66,6 +68,7 @@ const ProfileCourses = ({
     API.CourseProgressItem[] | []
   >([]);
   const history = useHistory();
+  const theme = useTheme();
 
   useEffect(() => {
     fetchProgress();
@@ -127,7 +130,6 @@ const ProfileCourses = ({
       ? setCoursesToMap(startedCourses)
       : setCoursesToMap(plannedCourses);
   }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
-
   return (
     <StyledList>
       {!isMobile ? (
@@ -149,55 +151,90 @@ const ProfileCourses = ({
             coursesToMap.slice(0, 6).map((item) => (
               <div className="col-md-4" key={item.course.id}>
                 <div className="course-wrapper">
-                  <Link to={`/course/${item.course.id}`}>
-                    <CourseCard
-                      id={item.course.id}
-                      title={item.course.title}
-                      categories={{
-                        categoryElements: item.course.categories || [],
-                        onCategoryClick: (id) =>
-                          history.push(`/courses/?category_id=${id}`),
-                      }}
-                      lessonCount={5}
-                      hideImage={false}
-                      subtitle={
+                  <CourseCard
+                    mobile={isMobile}
+                    id={item.course.id}
+                    image={
+                      <Link to={`/courses/${item.course.id}`}>
+                        <img
+                          src={
+                            `${
+                              process &&
+                              process.env &&
+                              process.env.REACT_APP_PUBLIC_API_URL
+                            }/api/images/img?path=${item.course.image_path}` ||
+                            ""
+                          }
+                          alt={item.course.title}
+                        />
+                      </Link>
+                    }
+                    subtitle={
+                      item.course.subtitle ? (
                         <Text>
-                          <strong style={{ fontSize: 14 }}>
+                          <Link
+                            style={{ color: theme.primaryColor }}
+                            to={`/courses/${item.course.id}`}
+                          >
                             {item.course.subtitle}
-                          </strong>
+                          </Link>
                         </Text>
-                      }
-                      image={{
-                        url:
-                          `${
-                            process &&
-                            process.env &&
-                            process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${item.course.image_path}` ||
-                          "",
-                        alt: "",
-                      }}
-                      onButtonClick={
-                        progressMap[item.course.id] === 100
-                          ? () => console.log("ocen")
-                          : () => history.push(`/course/${item.course.id}`)
-                      }
-                      buttonText={
-                        progressMap[item.course.id] === 100
-                          ? t("MyProfilePage.RateCourse")
-                          : "Zacznij"
-                      }
-                      tags={item.course.tags as Tag[]}
-                      progress={
-                        progressMap[item.course.id] !== 100
-                          ? {
-                              currentProgress: progressMap[item.course.id],
-                              maxProgress: 100,
-                            }
-                          : undefined
-                      }
-                    />
-                  </Link>
+                      ) : undefined
+                    }
+                    title={
+                      <Link to={`/courses/${item.course.id}`}>
+                        {item.course.title}
+                      </Link>
+                    }
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={item.categories?.map((category) => (
+                          <Link to={`/courses/?ids[]=${category.id}`}>
+                            {category.name}
+                          </Link>
+                        ))}
+                      />
+                    }
+                    actions={
+                      <>
+                        {progressMap[item.course.id] === 100 && (
+                          <Button
+                            mode="secondary"
+                            onClick={() => console.log("clicked")}
+                          >
+                            {t<string>("MyProfilePage.RateCourse")}
+                          </Button>
+                        )}
+                      </>
+                    }
+                    footer={
+                      <>
+                        {item.course.users_count &&
+                          item.course.users_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.users_count} kursantów`}
+                            />
+                          )}{" "}
+                        {item.course.lessons_count &&
+                          item.course.lessons_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.lessons_count} lekcji`}
+                            />
+                          )}
+                      </>
+                    }
+                    progress={
+                      progressMap[item.course.id] !== 100
+                        ? {
+                            currentProgress: progressMap[item.course.id],
+                            maxProgress: 100,
+                          }
+                        : undefined
+                    }
+                  />
                 </div>
               </div>
             ))}
@@ -221,93 +258,80 @@ const ProfileCourses = ({
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
               <div className="col-md-4" key={item.course.id}>
                 <div className="course-wrapper">
-                  <Link to={`/course/${item.course.id}`}>
-                    <CourseCard
-                      id={item.course.id}
-                      title={item.course.title}
-                      categories={{
-                        categoryElements: item.course.categories || [],
-                        onCategoryClick: (id) =>
-                          history.push(`/courses/?category_id=${id}`),
-                      }}
-                      lessonCount={5}
-                      hideImage={false}
-                      subtitle={
-                        <Text>
-                          <strong style={{ fontSize: 14 }}>
-                            {item.course.subtitle}
-                          </strong>
-                        </Text>
-                      }
-                      image={{
-                        url:
-                          `${
-                            process &&
-                            process.env &&
-                            process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${item.course.image_path}` ||
-                          "",
-                        alt: "",
-                      }}
-                      tags={item.course.tags as Tag[]}
-                      onButtonClick={() => console.log("ocen")}
-                      buttonText={
-                        progressMap[item.course.id] !== 100
-                          ? t("MyProfilePage.RateCourse")
-                          : undefined
-                      }
-                      progress={
-                        progressMap[item.course.id] !== 100
-                          ? {
-                              currentProgress: progressMap[item.course.id],
-                              maxProgress: 100,
-                            }
-                          : undefined
-                      }
-                    />
-                  </Link>
-                </div>
-              </div>
-            ))}
-        </div>
-      ) : (
-        <div className="slider-wrapper">
-          {coursesToMap &&
-            coursesToMap.map((item) => (
-              <div key={item.course.id} className="single-slide">
-                <Link to={`/course/${item.course.id}`}>
                   <CourseCard
+                    mobile={isMobile}
                     id={item.course.id}
-                    title={item.course.title}
-                    categories={{
-                      categoryElements: item.course.categories || [],
-                      onCategoryClick: (id) =>
-                        history.push(`/courses/?category_id=${id}`),
-                    }}
-                    lessonCount={5}
-                    hideImage={false}
-                    subtitle={
-                      <Text>
-                        <strong style={{ fontSize: 14 }}>
-                          {item.course.subtitle}
-                        </strong>
-                      </Text>
+                    image={
+                      <Link to={`/courses/${item.course.id}`}>
+                        <img
+                          src={
+                            `${
+                              process &&
+                              process.env &&
+                              process.env.REACT_APP_PUBLIC_API_URL
+                            }/api/images/img?path=${item.course.image_path}` ||
+                            ""
+                          }
+                          alt={item.course.title}
+                        />
+                      </Link>
                     }
-                    image={{
-                      url:
-                        `${
-                          process &&
-                          process.env &&
-                          process.env.REACT_APP_PUBLIC_API_URL
-                        }/api/images/img?path=${item.course.image_path}` || "",
-                      alt: "",
-                    }}
-                    tags={item.course.tags as Tag[]}
-                    onButtonClick={() => console.log("ocen")}
-                    buttonText={
-                      progressMap[item.course.id] !== 100
-                        ? t("MyProfilePage.RateCourse")
-                        : undefined
+                    subtitle={
+                      item.course.subtitle ? (
+                        <Text>
+                          <Link
+                            style={{ color: theme.primaryColor }}
+                            to={`/courses/${item.course.id}`}
+                          >
+                            {item.course.subtitle}
+                          </Link>
+                        </Text>
+                      ) : undefined
+                    }
+                    title={
+                      <Link to={`/courses/${item.course.id}`}>
+                        {item.course.title}
+                      </Link>
+                    }
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={item.categories?.map((category) => (
+                          <Link to={`/courses/?ids[]=${category.id}`}>
+                            {category.name}
+                          </Link>
+                        ))}
+                      />
+                    }
+                    actions={
+                      <>
+                        {progressMap[item.course.id] === 100 && (
+                          <Button
+                            mode="secondary"
+                            onClick={() => console.log("clicked")}
+                          >
+                            {t<string>("MyProfilePage.RateCourse")}
+                          </Button>
+                        )}
+                      </>
+                    }
+                    footer={
+                      <>
+                        {item.course.users_count &&
+                          item.course.users_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.users_count} kursantów`}
+                            />
+                          )}{" "}
+                        {item.course.lessons_count &&
+                          item.course.lessons_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.lessons_count} lekcji`}
+                            />
+                          )}
+                      </>
                     }
                     progress={
                       progressMap[item.course.id] !== 100
@@ -318,7 +342,98 @@ const ProfileCourses = ({
                         : undefined
                     }
                   />
-                </Link>
+                </div>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div className="slider-wrapper">
+          {coursesToMap &&
+            coursesToMap.map((item) => (
+              <div key={item.course.id} className="single-slide">
+                <CourseCard
+                  mobile={isMobile}
+                  id={item.course.id}
+                  image={
+                    <Link to={`/courses/${item.course.id}`}>
+                      <img
+                        src={
+                          `${
+                            process &&
+                            process.env &&
+                            process.env.REACT_APP_PUBLIC_API_URL
+                          }/api/images/img?path=${item.course.image_path}` || ""
+                        }
+                        alt={item.course.title}
+                      />
+                    </Link>
+                  }
+                  subtitle={
+                    item.course.subtitle ? (
+                      <Text>
+                        <Link
+                          style={{ color: theme.primaryColor }}
+                          to={`/courses/${item.course.id}`}
+                        >
+                          {item.course.subtitle}
+                        </Link>
+                      </Text>
+                    ) : undefined
+                  }
+                  title={
+                    <Link to={`/courses/${item.course.id}`}>
+                      {item.course.title}
+                    </Link>
+                  }
+                  categories={
+                    <BreadCrumbs
+                      hyphen="/"
+                      items={item.categories?.map((category) => (
+                        <Link to={`/courses/?ids[]=${category.id}`}>
+                          {category.name}
+                        </Link>
+                      ))}
+                    />
+                  }
+                  actions={
+                    <>
+                      {progressMap[item.course.id] === 100 && (
+                        <Button
+                          mode="secondary"
+                          onClick={() => console.log("clicked")}
+                        >
+                          {t<string>("MyProfilePage.RateCourse")}
+                        </Button>
+                      )}
+                    </>
+                  }
+                  footer={
+                    <>
+                      {item.course.users_count &&
+                        item.course.users_count > 0 && (
+                          <IconText
+                            icon={<LessonsIcon />}
+                            text={`${item.course.users_count} kursantów`}
+                          />
+                        )}{" "}
+                      {item.course.lessons_count &&
+                        item.course.lessons_count > 0 && (
+                          <IconText
+                            icon={<LessonsIcon />}
+                            text={`${item.course.lessons_count} lekcji`}
+                          />
+                        )}
+                    </>
+                  }
+                  progress={
+                    progressMap[item.course.id] !== 100
+                      ? {
+                          currentProgress: progressMap[item.course.id],
+                          maxProgress: 100,
+                        }
+                      : undefined
+                  }
+                />
               </div>
             ))}
         </div>

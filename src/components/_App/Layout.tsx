@@ -24,7 +24,10 @@ const YBUG_ID =
   window.REACT_APP_YBUG_ID ||
   (process && process.env && process.env.REACT_APP_YBUG_ID);
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC<{
+  children: React.ReactNode;
+  metaTitle?: string | undefined;
+}> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -52,7 +55,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <React.Fragment>
       <Helmet>
-        <title>Worlds first Headless LMS</title>
+        <title>
+          {metaTitle
+            ? `${metaTitle} | Worlds first Headless LMS`
+            : "Worlds first Headless LMS"}
+        </title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"

@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { API } from '@escolalms/sdk/lib';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Preloader from '@/components/Preloader';
-import Layout from '@/components/_App/Layout';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import Preloader from "@/components/Preloader";
+import Layout from "@/components/_App/Layout";
 
-import CourseProgramLessons from '@/components/Course/CourseProgramLessons';
-import ErrorBox from '@/components/Errorbox';
+import CourseProgramLessons from "@/components/Course/CourseProgramLessons";
+import ErrorBox from "@/components/Errorbox";
 
 // TODO: 99% same as: src/pages/courses/preview/index.tsx
 
-const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
+const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
+  program,
+}) => {
   const sco = program?.scorm_sco;
   const uuid = sco?.uuid;
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -20,7 +22,9 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
 
   useEffect(() => {
     if (iframeRef.current) {
-      setHeight(iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0);
+      setHeight(
+        iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0
+      );
     }
   }, [iframeRef]);
 
@@ -38,7 +42,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
           }}
         >
           <iframe
-            title={'scorm-player'}
+            title={"scorm-player"}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"
@@ -75,14 +79,14 @@ const CourseProgram = () => {
 
   if (program.value && program?.value?.scorm_sco_id) {
     return (
-      <Layout>
+      <Layout metaTitle={program.value.title}>
         <CourseProgramScorm program={program.value} />
       </Layout>
     );
   }
   if (program.value && program.value.lessons && program.value.lessons.length) {
     return (
-      <Layout>
+      <Layout metaTitle={program.value.title}>
         <CourseProgramLessons program={program.value} courseId={Number(id)} />
       </Layout>
     );
