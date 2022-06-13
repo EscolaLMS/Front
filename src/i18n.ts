@@ -349,7 +349,6 @@ const resources = {
       LessonSummary: "Podsumowanie lekcji",
       Level: "Poziom",
       Lifetime: "Dożywotni",
-      Login: "Logowanie",
       LogIn: "Zaloguj się",
       "Login to buy": "Zaloguj się by kupić",
       "Meet your instructor": "Poznaj swojego nauczyciela",
