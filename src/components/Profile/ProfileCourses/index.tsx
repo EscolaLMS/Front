@@ -76,6 +76,7 @@ const ProfileCourses = ({
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(progress);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -200,7 +201,7 @@ const ProfileCourses = ({
                     }
                     actions={
                       <>
-                        {progressMap[item.course.id] !== 100 && (
+                        {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
                             onClick={() => setRateModalVisible(true)}
@@ -441,11 +442,13 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <Preloader />}
-      <RateCourse
-        visible={rateModalVisible}
-        onClose={() => setRateModalVisible(false)}
-        courseId={37}
-      />
+      {rateModalVisible && (
+        <RateCourse
+          visible={rateModalVisible}
+          onClose={() => setRateModalVisible(false)}
+          courseId={53}
+        />
+      )}
     </StyledList>
   );
 };

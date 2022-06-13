@@ -313,12 +313,14 @@ const CoursePage = () => {
                     </div>
                   </div>
                   <div className="col-lg-4">
-                    <div className="image-wrapper">
-                      <Image
-                        path={course.value.image_path}
-                        srcSizes={[790 * 0.5, 790, 2 * 790]}
-                      />
-                    </div>
+                    {course.value.image_path && (
+                      <div className="image-wrapper">
+                        <Image
+                          path={course.value.image_path}
+                          srcSizes={[790 * 0.5, 790, 2 * 790]}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="labels-row labels-row--bottom">
