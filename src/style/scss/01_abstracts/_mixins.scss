@@ -1,5 +1,0 @@
-@mixin media-screen($viewport) {
-  @media screen and ($viewport) {
-    @content;
-  }
-}

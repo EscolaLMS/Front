@@ -14,7 +14,6 @@ import TutorPage from "../../pages/tutors/tutor/index";
 import CoursesPage from "../../pages/courses";
 import CoursePage from "../../pages/courses/course/index";
 import CoursePreviewPage from "../../pages/courses/preview";
-import EmailVerifiedPage from "../../pages/email_verified";
 import ResetPage from "../../pages/reset-password";
 import RegisterPage from "../../pages/register";
 import LoginPage from "../../pages/login";
@@ -90,7 +89,6 @@ const Routes: React.FC = (): ReactElement => {
         <Route exact path={login} component={LoginPage} />
         {/* <Route exact path={authentication} component={AuthPage} /> */}
         <Route exact path={reset} component={ResetPage} />
-        <Route exact path={emailVerified} component={EmailVerifiedPage} />
         {/* platform visibility pages*/}
         <ConfigRoute exact path={tutors} component={TutorsPage} />
         <ConfigRoute exact path={tutor} component={TutorPage} />

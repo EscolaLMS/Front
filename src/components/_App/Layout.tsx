@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
-import GoTop from "@/components/_App/GoTop";
+// import GoTop from "@/components/_App/GoTop";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -75,7 +75,7 @@ const Layout: React.FC<{
         {children}
         {!isCourse && <Footer />}
       </div>
-      <GoTop scrollStepInPx="100" delayInMs={10} />
+      {/* <GoTop scrollStepInPx="100" delayInMs={10} /> */}
     </React.Fragment>
   );
 };

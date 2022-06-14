@@ -5,7 +5,6 @@ import "./style/css/boxicons.min.css";
 import "./style/css/flaticon.css";
 import "../node_modules/react-modal-video/css/modal-video.min.css";
 import "react-image-lightbox/style.css";
-import "./style/scss/index.scss";
 import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
 import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 

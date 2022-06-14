@@ -7,7 +7,6 @@ import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
