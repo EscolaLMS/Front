@@ -123,7 +123,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                     {item.users_count && item.users_count > 0 ? (
                       <IconText
                         icon={<LessonsIcon />}
-                        text={`${item.users_count} kursantów`}
+                        text={`${item.users_count} ${t<string>("Students")}`}
                       />
                     ) : (
                       ""
@@ -131,7 +131,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                     {item.lessons_count && item.lessons_count > 0 ? (
                       <IconText
                         icon={<LessonsIcon />}
-                        text={`${item.lessons_count} lekcji`}
+                        text={`${item.lessons_count} ${t<string>("Lessons")}`}
                       />
                     ) : (
                       ""
