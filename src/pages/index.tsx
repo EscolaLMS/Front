@@ -165,9 +165,14 @@ const Index = () => {
             <PromotedCoursesSection courses={courses.list.data} />
           </div>
         )}
+
         {categoryTree && (
           <div className="categories-section-wrapper">
-            <CategoriesSection categories={categoryTree.list || []} />
+            <CategoriesSection
+              categories={
+                categoryTree.list?.filter((category) => !!category.icon) || []
+              }
+            />
           </div>
         )}
       </HomePageStyled>
