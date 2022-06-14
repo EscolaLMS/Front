@@ -1,7 +1,6 @@
 import Layout from "@/components/_App/Layout";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "./index.scss";
 
 const Custom404 = () => {
   const { t } = useTranslation();
