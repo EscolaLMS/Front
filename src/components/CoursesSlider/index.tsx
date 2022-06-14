@@ -39,6 +39,7 @@ const SliderWrapper = styled.div`
   }
   .single-slide {
     max-width: calc(100% - 20px);
+    padding-bottom: 20px;
   }
   .slick-dots {
     top: -65px;
@@ -119,17 +120,21 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                 }
                 footer={
                   <>
-                    {item.users_count && item.users_count > 0 && (
+                    {item.users_count && item.users_count > 0 ? (
                       <IconText
                         icon={<LessonsIcon />}
                         text={`${item.users_count} kursantów`}
                       />
+                    ) : (
+                      ""
                     )}{" "}
-                    {item.lessons_count && item.lessons_count > 0 && (
+                    {item.lessons_count && item.lessons_count > 0 ? (
                       <IconText
                         icon={<LessonsIcon />}
                         text={`${item.lessons_count} lekcji`}
                       />
+                    ) : (
+                      ""
                     )}
                   </>
                 }

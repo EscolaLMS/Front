@@ -53,7 +53,7 @@ const TutorsPage = () => {
             )}
             {!tutors.loading &&
               (tutors.list || []).map((tutor: API.UserItem) => (
-                <div className="col-lg-4 col-sm-6 col-md-6">
+                <div key={tutor.id} className="col-lg-4 col-sm-6 col-md-6">
                   <CourseCard
                     id={Number(tutor.id)}
                     title={tutor.name}

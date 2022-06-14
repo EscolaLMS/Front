@@ -37,8 +37,8 @@ const MyNotificationsPage = () => {
     <ProfileLayout title={t("MyProfilePage.Notifications")}>
       <NotificationsContainer>
         {notifications &&
-          notifications.list?.map((item) => (
-            <div className="single-notification">
+          notifications.list?.map((item, index) => (
+            <div key={index} className="single-notification">
               <Notification
                 key={item.id}
                 notification={{
