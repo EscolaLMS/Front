@@ -72,7 +72,6 @@ const TutorPage = () => {
     fetchCourses({ "authors[]": [Number(id)] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  console.log(courses);
   return (
     <Layout>
       <StyledTutor>
