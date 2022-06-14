@@ -263,7 +263,8 @@ const CartContent = () => {
         .then((res) => {
           if (res.error) {
             setProcessing(false);
-            toast.error(t("UnexpectedError"));
+            toast.error(res.error.message);
+            console.log(res.error);
           } else {
             onPay(res?.paymentMethod?.id);
             setTimeout(() => {

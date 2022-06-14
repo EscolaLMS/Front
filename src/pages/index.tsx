@@ -10,6 +10,7 @@ import { t } from "i18next";
 import CoursesSlider from "@/components/CoursesSlider";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -25,6 +26,9 @@ const HomePageStyled = styled.div`
     margin-bottom: 60px;
     padding-top: 42px;
     order: 1;
+    h1 {
+      margin-top: 0 !important;
+    }
     @media (max-width: 768px) {
       margin-bottom: 30px;
       padding-top: 0;
@@ -85,7 +89,7 @@ const Index = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 992,
+        breakpoint: 1201,
         settings: {
           slidesToShow: 3,
         },
@@ -113,9 +117,13 @@ const Index = () => {
           <div className="container">
             <Banner
               mobile={isMobile}
-              title={settings?.homepage?.heroBannerText || ""}
+              title={
+                <MarkdownRenderer>
+                  {settings?.homepage?.heroBannerText || ""}
+                </MarkdownRenderer>
+              }
               btnText={t("Homepage.HeroBtnText")}
-              img={
+              asset={
                 <ResponsiveImage
                   path={settings?.homepage?.heroBannerImg || ""}
                   srcSizes={[500, 750, 1000]}

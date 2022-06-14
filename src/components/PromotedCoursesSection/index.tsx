@@ -10,6 +10,7 @@ import { t } from "i18next";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
+import CourseImgPlaceholder from "../CourseImgPlaceholder";
 
 type Props = {
   courses: API.Course[];
@@ -177,10 +178,14 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[0].id}`}>
-                        <img
-                          src={courses[0].image_url}
-                          alt={courses[0].title}
-                        />
+                        {courses[0].image_url ? (
+                          <img
+                            src={courses[0].image_url}
+                            alt={courses[0].title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -221,10 +226,14 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[1].id}`}>
-                        <img
-                          src={courses[1].image_url}
-                          alt={courses[1].title}
-                        />
+                        {courses[1].image_url ? (
+                          <img
+                            src={courses[1].image_url}
+                            alt={courses[1].title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -265,10 +274,14 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[2].id}`}>
-                        <img
-                          src={courses[2].image_url}
-                          alt={courses[2].title}
-                        />
+                        {courses[2].image_url ? (
+                          <img
+                            src={courses[2].image_url}
+                            alt={courses[2].title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -290,12 +303,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="course-wrapper course-wrapper--big">
               <ImageBubble
                 image={{
-                  src: courses[4].image_url || "",
-                  alt: courses[4].title || "",
+                  src: courses[5].image_url || "",
+                  alt: courses[5].title || "",
                 }}
                 header={
                   <div style={{ textAlign: "right" }}>
-                    {courses[4].tags?.map(
+                    {courses[5].tags?.map(
                       (
                         item: any //TODO: Fix types of tags in sdk
                       ) => (
@@ -311,18 +324,18 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 }
               >
                 <CourseCard
-                  id={Number(courses[4].id)}
+                  id={Number(courses[5].id)}
                   title={
                     <Title level={4}>
-                      <Link to={`/courses/${courses[4].id}`}>
-                        {courses[4].title}
+                      <Link to={`/courses/${courses[5].id}`}>
+                        {courses[5].title}
                       </Link>
                     </Title>
                   }
                   hideImage
                   buttonText="Jak to działa"
                   onButtonClick={() =>
-                    history.push(`/courses/${courses[4].id}`)
+                    history.push(`/courses/${courses[5].id}`)
                   }
                   subtitle={
                     <Text>
@@ -333,17 +346,17 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                           lineHeight: 1.2,
                         }}
                       >
-                        {courses[4].title}
+                        {courses[5].title}
                       </strong>
                     </Text>
                   }
                   categories={{
-                    categoryElements: courses[4].categories || [],
+                    categoryElements: courses[5].categories || [],
                     onCategoryClick: (id) =>
                       history.push(`/courses/?ids[]=${id}`),
                   }}
                   onSecondaryButtonClick={() =>
-                    history.push(`/courses/${courses[4].id}`)
+                    history.push(`/courses/${courses[5].id}`)
                   }
                   secondaryButtonText="Jak to działa"
                 />
@@ -377,10 +390,14 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[5].id}`}>
-                        <img
-                          src={courses[5].image_url}
-                          alt={courses[5].title}
-                        />
+                        {courses[5].image_url ? (
+                          <img
+                            src={courses[5].image_url}
+                            alt={courses[5].title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
@@ -421,10 +438,14 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[4].id}`}>
-                        <img
-                          src={courses[4].image_url}
-                          alt={courses[4].title}
-                        />
+                        {courses[4].image_url ? (
+                          <img
+                            src={courses[4].image_url}
+                            alt={courses[4].title}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
                       </Link>
                     }
                     subtitle={
