@@ -74,7 +74,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
               {categories.slice(-4).map((item) => (
                 <div className="single-category-slide" key={item.id}>
                   <CategoryCard
-                    icon={<IconTag />}
+                    icon={<img src={item.icon} alt={item.name} />}
                     title={item.name}
                     buttonText={t("Homepage.CategoryBtnText")}
                     subtitle={
@@ -97,7 +97,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
             {categories.slice(-4).map((item) => (
               <div className="col-md-3" key={item.id}>
                 <CategoryCard
-                  icon={<IconTag />}
+                  icon={<img src={item.icon} alt={item.name} />}
                   title={item.name}
                   buttonText={t("Homepage.CategoryBtnText")}
                   subtitle={
