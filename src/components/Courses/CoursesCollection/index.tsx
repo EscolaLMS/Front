@@ -518,8 +518,8 @@ const CoursesCollection: React.FC = () => {
                         }
                         tags={
                           <>
-                            {item.tags?.map((item) => (
-                              <Badge color={theme.primaryColor}>
+                            {item.tags?.map((item, index) => (
+                              <Badge key={index} color={theme.primaryColor}>
                                 <Link
                                   style={{ color: theme.white }}
                                   to={`/courses/?tag=${item.title}`}
@@ -549,7 +549,10 @@ const CoursesCollection: React.FC = () => {
                           <BreadCrumbs
                             hyphen="/"
                             items={item.categories?.map((category) => (
-                              <Link to={`/courses/?ids[]=${category.id}`}>
+                              <Link
+                                key={category.id}
+                                to={`/courses/?ids[]=${category.id}`}
+                              >
                                 {category.name}
                               </Link>
                             ))}

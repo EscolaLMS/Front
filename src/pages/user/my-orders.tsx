@@ -74,7 +74,7 @@ const Orders = () => {
             title: (
               <div className="name-container">
                 {item?.items?.map((product: API.CartItem, index) => (
-                  <Text>
+                  <Text key={index}>
                     <strong>
                       {product?.product?.name}
                       {index + 1 !== item?.items?.length && ", "}

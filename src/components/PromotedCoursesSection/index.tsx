@@ -160,8 +160,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     title=""
                     tags={
                       <>
-                        {courses[0].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
+                        {courses[0].tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
                             <Link
                               style={{ color: theme.white }}
                               //@ts-ignore
@@ -208,8 +208,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     title=""
                     tags={
                       <>
-                        {courses[1].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
+                        {courses[1].tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
                             <Link
                               style={{ color: theme.white }}
                               //@ts-ignore
@@ -256,8 +256,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     title=""
                     tags={
                       <>
-                        {courses[2].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
+                        {courses[2].tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
                             <Link
                               style={{ color: theme.white }}
                               //@ts-ignore
@@ -326,11 +326,9 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <CourseCard
                   id={Number(courses[5].id)}
                   title={
-                    <Title level={4}>
-                      <Link to={`/courses/${courses[5].id}`}>
-                        {courses[5].title}
-                      </Link>
-                    </Title>
+                    <Link to={`/courses/${courses[5].id}`}>
+                      {courses[5].title}
+                    </Link>
                   }
                   hideImage
                   buttonText="Jak to działa"
@@ -372,8 +370,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     title=""
                     tags={
                       <>
-                        {courses[5].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
+                        {courses[5].tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
                             <Link
                               style={{ color: theme.white }}
                               //@ts-ignore
@@ -420,8 +418,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     title=""
                     tags={
                       <>
-                        {courses[4].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
+                        {courses[4].tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
                             <Link
                               style={{ color: theme.white }}
                               //@ts-ignore

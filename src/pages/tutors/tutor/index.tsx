@@ -68,10 +68,11 @@ const TutorPage = () => {
 
   useEffect(() => {
     fetchTutor(Number(id));
-    fetchCourses({ author_id: Number(id) });
+    //@ts-ignore
+    fetchCourses({ "authors[]": [Number(id)] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
+  console.log(courses);
   return (
     <Layout>
       <StyledTutor>
