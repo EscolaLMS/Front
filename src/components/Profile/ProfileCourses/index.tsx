@@ -216,14 +216,18 @@ const ProfileCourses = ({
                           item.course.users_count > 0 && (
                             <IconText
                               icon={<LessonsIcon />}
-                              text={`${item.course.users_count} kursantów`}
+                              text={`${item.course.users_count} ${t<string>(
+                                "Students"
+                              )}`}
                             />
                           )}{" "}
                         {item.course.lessons_count &&
                           item.course.lessons_count > 0 && (
                             <IconText
                               icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} lekcji`}
+                              text={`${item.course.lessons_count} ${t<string>(
+                                "Lessons"
+                              )}`}
                             />
                           )}
                       </>
@@ -324,14 +328,18 @@ const ProfileCourses = ({
                           item.course.users_count > 0 && (
                             <IconText
                               icon={<LessonsIcon />}
-                              text={`${item.course.users_count} kursantów`}
+                              text={`${item.course.users_count} ${t<string>(
+                                "Students"
+                              )}`}
                             />
                           )}{" "}
                         {item.course.lessons_count &&
                           item.course.lessons_count > 0 && (
                             <IconText
                               icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} lekcji`}
+                              text={`${item.course.lessons_count} ${t<string>(
+                                "Lessons"
+                              )}`}
                             />
                           )}
                       </>
@@ -418,14 +426,18 @@ const ProfileCourses = ({
                         item.course.users_count > 0 && (
                           <IconText
                             icon={<LessonsIcon />}
-                            text={`${item.course.users_count} kursantów`}
+                            text={`${item.course.users_count} ${t<string>(
+                              "Students"
+                            )}`}
                           />
                         )}{" "}
                       {item.course.lessons_count &&
                         item.course.lessons_count > 0 && (
                           <IconText
                             icon={<LessonsIcon />}
-                            text={`${item.course.lessons_count} lekcji`}
+                            text={`${item.course.lessons_count} ${t<string>(
+                              "Lessons"
+                            )}`}
                           />
                         )}
                     </>
