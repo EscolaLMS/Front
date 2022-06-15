@@ -56,7 +56,7 @@ const CartPageStyled = styled.section`
   }
   .summary-box-wrapper {
     position: sticky;
-    top: 60px;
+    top: 100px;
     ${isMobile &&
     css`
       position: fixed;
@@ -384,19 +384,15 @@ const CartContent = () => {
                 </section>
               </div>
               <div className="col-lg-3">
-                <Title level={4}>{t<string>("Cart.Summary")}</Title>
+                <Title style={{ marginBottom: 20 }} level={4}>
+                  {t<string>("Cart.Summary")}
+                </Title>
                 <div className="summary-box-wrapper">
-                  {/* TODO: Mobile when ready in components package */}
                   <CartCard
                     mobile={isMobile}
                     onBuyClick={() => handleSubmit()}
                     id={1}
                     title={`${String(cart.value?.total)} zł`}
-                    description={
-                      <Text style={{ fontSize: 12, margin: 0 }}>
-                        {t<string>("Cart.Guaranteed")}
-                      </Text>
-                    }
                     discount={{
                       onDiscountClick: (discountValue) =>
                         realizeVoucher(discountValue)

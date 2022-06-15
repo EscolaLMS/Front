@@ -45,7 +45,11 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
   h1 {
     color: ${({ theme }) => theme.white};
     margin-bottom: ${({ filters }) =>
-      filters && Object.keys(filters).length > 1 ? "35px" : "-35px"};
+      filters && Object.keys(filters).length > 1
+        ? "35px"
+        : filters && Object.keys(filters).length === 1 && "page" in filters
+        ? "-35px"
+        : "35px"};
     transition: margin-bottom 0.5s ease-out;
   }
 
@@ -575,7 +579,9 @@ const CoursesCollection: React.FC = () => {
                             {item.users_count && item.users_count > 0 ? (
                               <IconText
                                 icon={<LessonsIcon />}
-                                text={`${item.users_count} kursantów`}
+                                text={`${item.users_count} ${t<string>(
+                                  "Students"
+                                )}`}
                               />
                             ) : (
                               ""
@@ -583,7 +589,9 @@ const CoursesCollection: React.FC = () => {
                             {item.lessons_count && item.lessons_count > 0 ? (
                               <IconText
                                 icon={<LessonsIcon />}
-                                text={`${item.lessons_count} lekcji`}
+                                text={`${item.lessons_count} ${t<string>(
+                                  "Lessons"
+                                )}`}
                               />
                             ) : (
                               ""

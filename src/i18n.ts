@@ -191,7 +191,7 @@ const resources = {
         Bio: "Bio",
         EmptyCertificates: "Certificates list is empty!",
         EmptyMattermostChannels: "Mattermost channels list is empty!",
-        EditData: "Edit data",
+        EditData: "Edytuj dane",
       },
       Navbar: {
         MyProfile: "My Profile",
@@ -301,8 +301,11 @@ const resources = {
   pl: {
     translation: {
       ...ComponentTranslations.pl.translation,
+      "Start now": "Zacznij teraz",
       UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
       StartNow: "Zacznij teraz",
+      Students: "kursantów",
+      Lessons: "lekcji",
       "Access from": "Dostęp od",
       "Access to": "Dostęp do",
       Access: "Dostęp",
@@ -437,15 +440,16 @@ const resources = {
       Cart: {
         Cart: "Koszyk",
         PayWithStripe: "Płać za pomocą stripe Checkout",
+        ChoosePaymentMethod: "Wybierz metodę płatności",
         FreeCheckout: "Zakończ bezpłatnie",
+        Interest: "Może Cię zainteresować",
         CartIsEmpty: "Koszyk jest pusty",
         CartSummary: "Suma koszyka",
-        Columns: {
-          Product: "Produkt",
-          Name: "Nazwa",
-          Price: "Cena",
-          Remove: "Usuń",
-        },
+        Summary: "Podsumowanie",
+        FullName: "Imię i nazwisko",
+        RememberCard: "Zapamiętaj kartę",
+        YourCart: "Twój koszyk",
+        CreditCard: "Karta kredytowa",
       },
       ContactPage: {
         Ready: "Gotowy żeby zacząć?",
@@ -484,7 +488,7 @@ const resources = {
         Courses: "Kursy instruktorów",
       },
       Homepage: {
-        HeroBtnText: "Jak to działa",
+        HeroBtnText: "Sprawdź nasze szkolenia",
         HeroText:
           "Witaj w platformie elearningowej Orange. Pomożemy Ci znaleźć najlepsze szkolenia",
         CoursesSlider1Title: "Najlepsze szkolenia dla Ciebie",

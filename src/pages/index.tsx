@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -11,6 +11,7 @@ import CoursesSlider from "@/components/CoursesSlider";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { useHistory } from "react-router-dom";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -76,7 +77,8 @@ const HomePageStyled = styled.div`
 const Index = () => {
   const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
     useContext(EscolaLMSContext);
-  React.useEffect(() => {
+  const history = useHistory();
+  useEffect(() => {
     fetchConfig();
     fetchCourses({ per_page: 6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -129,7 +131,7 @@ const Index = () => {
                   srcSizes={[500, 750, 1000]}
                 />
               }
-              handleBtn={() => console.log("clicked")}
+              handleBtn={() => history.push("/courses")}
             />
           </div>
         </section>
