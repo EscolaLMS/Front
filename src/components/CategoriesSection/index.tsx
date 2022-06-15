@@ -80,7 +80,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     subtitle={
                       <IconText
                         icon={<IconBook />}
-                        text={`${item.count} kursów`}
+                        text={`${item.count} ${t("CoursesLength")}`}
                       />
                     }
                     onButtonClick={() =>
@@ -103,7 +103,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   subtitle={
                     <IconText
                       icon={<IconSquares />}
-                      text={`${item.count} kursów`}
+                      text={`${item.count} ${t("CoursesLength")}`}
                     />
                   }
                   onButtonClick={() =>

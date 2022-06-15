@@ -306,6 +306,7 @@ const resources = {
       StartNow: "Zacznij teraz",
       Students: "kursantów",
       Lessons: "lekcji",
+      CoursesLength: "kursów",
       "Access from": "Dostęp od",
       "Access to": "Dostęp do",
       Access: "Dostęp",
