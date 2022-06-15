@@ -3,7 +3,6 @@ import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsS
 import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import Image from "@escolalms/sdk/lib/react/components/Image";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { resetIdCounter } from "react-tabs";
@@ -25,6 +24,7 @@ import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 resetIdCounter();
 
@@ -274,6 +274,13 @@ const CoursePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-9 col-md-12">
+              <Breadcrumbs
+                items={[
+                  <Link to="/">{t("Home")}</Link>,
+                  <Link to="/courses">{t("Courses")}</Link>,
+                  <Text size="12">{course.value.title}</Text>,
+                ]}
+              />
               <section className="course-main-info with-border">
                 <div className="row flex-lg-row flex-column-reverse">
                   <div className="col-lg-7">
@@ -313,7 +320,7 @@ const CoursePage = () => {
                   <div className="col-lg-4">
                     {course.value.image_path && (
                       <div className="image-wrapper">
-                        <Image
+                        <ResponsiveImage
                           path={course.value.image_path}
                           srcSizes={[790 * 0.5, 790, 2 * 790]}
                         />
@@ -421,17 +428,17 @@ const CoursePage = () => {
                   </Link>
                 </section>
               )}
-              <section className="course-description-short with-border padding-right">
-                <Title level={4}>
-                  {t("CoursePage.CourseDescriptionTitle")}
-                </Title>
-                {course.value.description && (
+              {course.value.description && (
+                <section className="course-description-short with-border padding-right">
+                  <Title level={4}>
+                    {t("CoursePage.CourseDescriptionTitle")}
+                  </Title>
                   <MarkdownRenderer>
                     {fixContentForMarkdown(course.value.description)}
                   </MarkdownRenderer>
-                )}
-              </section>
-              {course.value.lessons && (
+                </section>
+              )}
+              {course.value.lessons && course.value.lessons.length > 0 && (
                 <CourseProgram
                   lessons={course.value.lessons}
                   onTopicClick={(topic) => setPreviewTopic(topic)}

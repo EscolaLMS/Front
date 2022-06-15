@@ -193,7 +193,6 @@ const resources = {
         EmptyMattermostChannels: "Mattermost channels list is empty!",
         EditData: "Edit data",
       },
-
       Navbar: {
         MyProfile: "My Profile",
         MyCourses: "My Courses",

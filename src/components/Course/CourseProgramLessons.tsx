@@ -8,10 +8,13 @@ import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseDownloads from "../../escolalms/sdk/components/Course/CourseDownloads";
+import { t } from "i18next";
+import Breadcrumbs from "../Breadcrumbs";
 
 const StyledCourse = styled.section`
   .main-title {
@@ -151,6 +154,13 @@ export const CourseProgramLessons: React.FC<{
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t("Home")}</Link>,
+              <Link to="/courses">{t("Courses")}</Link>,
+              <Text size="12">{program.title}</Text>,
+            ]}
+          />
           <Title className="main-title" level={3}>
             {program.title}
           </Title>
@@ -246,6 +256,7 @@ export const CourseProgramLessons: React.FC<{
               onNext={onNextTopic}
               isFinished={false}
               onPrev={onPrevTopic}
+              addNotes={false}
               hasPrev={
                 getNextPrevTopic(Number(topic?.id), false) ? true : false
               }

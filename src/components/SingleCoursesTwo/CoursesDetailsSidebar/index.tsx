@@ -133,11 +133,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         {course.level && (
           <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
         )}
-        {course.users_count && (
+        {course.users_count ? (
           <IconText
             icon={<IconSquares />}
             text={`Uczniów: ${course.users_count}`}
           />
+        ) : (
+          ""
         )}
       </div>
       {!user.value ? (

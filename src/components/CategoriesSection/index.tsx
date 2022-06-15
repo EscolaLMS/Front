@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconBook, IconTag } from "../../icons";
+import { IconBook, IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 
@@ -102,7 +102,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   buttonText={t("Homepage.CategoryBtnText")}
                   subtitle={
                     <IconText
-                      icon={<IconBook />}
+                      icon={<IconSquares />}
                       text={`${item.count} kursów`}
                     />
                   }

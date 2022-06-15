@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Preloader from "@/components/Preloader";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CoursesSlider from "@/components/CoursesSlider";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const StyledTutor = styled.section`
   .tutor-courses {
@@ -76,6 +77,15 @@ const TutorPage = () => {
     <Layout>
       <StyledTutor>
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t<string>("Home")}</Link>,
+              <Link to="/tutors">{t<string>("Tutors")}</Link>,
+              <Text size="12">{`${tutor.value?.first_name || ""} ${
+                tutor.value?.last_name || ""
+              }`}</Text>,
+            ]}
+          />
           {tutor.value && (
             <div className="profile-box">
               <div className="row align-items-start">
