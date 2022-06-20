@@ -72,7 +72,6 @@ const Routes: React.FC = (): ReactElement => {
     courseProgram,
     cart,
     reset,
-    emailVerified,
     notFound,
     myNotifications,
     myData,

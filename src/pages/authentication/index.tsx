@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -67,7 +67,7 @@ const Authentication = () => {
   const [view, setView] = useState<
     "login" | "forgotPassword" | "register" | "success"
   >("login");
-  const [email, setEmail] = useState("");
+  const [email] = useState("");
   const history = useHistory();
   const token = search.split("?token=")[1];
   const viewmode = search.split("?path=")[1];
