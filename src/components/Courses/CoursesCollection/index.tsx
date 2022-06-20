@@ -305,7 +305,6 @@ const CoursesCollection: React.FC = () => {
         free: parsedParams.free,
       });
   }, [parsedParams]);
-  console.log(params);
   return (
     <>
       <StyledHeader filters={params}>
