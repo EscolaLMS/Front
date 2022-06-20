@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  lazy,
-  Suspense,
-} from "react";
+import React, { useCallback, useContext, useEffect, lazy } from "react";
 
 import Routes from "./components/Routes";
 import "./style/css/bootstrap.min.css";
