@@ -378,7 +378,6 @@ const resources = {
       "Search for": "Szukaj",
       "Search.Placeholder": "Szukaj Kursu",
       Search: "Szukaj",
-      "Search.Placeholder": "Szukaj kursu",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
