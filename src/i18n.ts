@@ -376,6 +376,7 @@ const resources = {
       RichText: "Tekst",
       "Search for": "Szukaj",
       Search: "Szukaj",
+      "Search.Placeholder": "Szukaj kursu",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
