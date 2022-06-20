@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconBook, IconTag } from "../../icons";
+import { IconBook } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 

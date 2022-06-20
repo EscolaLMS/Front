@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -60,7 +60,7 @@ const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
   const [view, setView] = useState<string>("");
-  const [email, setEmail] = useState("");
+  const [email] = useState("");
   const history = useHistory();
   const token = search.split("?token=")[1];
 
