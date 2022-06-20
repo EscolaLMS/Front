@@ -65,7 +65,6 @@ export const ThemeCustomizer = () => {
         hasAll={false}
         hidden={hidden}
         onUpdate={(theme) => {
-          console.log("t", theme);
           setTheme(theme);
         }}
       />

@@ -6,13 +6,21 @@ import "./style/css/boxicons.min.css";
 import "./style/css/flaticon.css";
 import "../node_modules/react-modal-video/css/modal-video.min.css";
 import "react-image-lightbox/style.css";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 const Customizer = lazy(
   () => import("./components/ThemeCustomizer/ThemeCustomizer")
 );
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+`;
 
 const StyledMain = styled.main`
   background-color: ${({ theme }) =>
@@ -43,10 +51,13 @@ const App = () => {
   }, []);
 
   return (
-    <StyledMain>
-      <Customizer />
-      <Routes />
-    </StyledMain>
+    <React.Fragment>
+      <GlobalStyle />
+      <StyledMain>
+        <Customizer />
+        <Routes />
+      </StyledMain>
+    </React.Fragment>
   );
 };
 
