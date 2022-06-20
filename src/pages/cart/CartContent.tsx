@@ -1,6 +1,6 @@
 import { useContext, useEffect, useCallback, useState } from "react";
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
@@ -23,6 +23,7 @@ import {
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -288,6 +289,12 @@ const CartContent = () => {
           {!(cart.value?.items.length === 0) ? (
             <div className="row">
               <div className="col-lg-9">
+                <Breadcrumbs
+                  items={[
+                    <Link to="/">{t("Home")}</Link>,
+                    <Text size="12">{t("Cart.YourCart")}</Text>,
+                  ]}
+                />
                 <div className="module-wrapper">
                   <Title level={4}>{t<string>("Cart.YourCart")}</Title>
                   <div className="products-container">

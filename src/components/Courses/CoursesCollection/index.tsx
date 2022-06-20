@@ -15,7 +15,7 @@ import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { CloseIcon } from "../../../icons";
+import { CloseIcon, UserIcon } from "../../../icons";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import qs from "query-string";
 import Pagination from "@/components/Pagination";
@@ -48,6 +48,8 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       filters && Object.keys(filters).length > 1
         ? "35px"
         : filters && Object.keys(filters).length === 1 && "page" in filters
+        ? "-35px"
+        : filters === undefined
         ? "-35px"
         : "35px"};
     transition: margin-bottom 0.5s ease-out;
@@ -578,7 +580,7 @@ const CoursesCollection: React.FC = () => {
                           <>
                             {item.users_count && item.users_count > 0 ? (
                               <IconText
-                                icon={<LessonsIcon />}
+                                icon={<UserIcon />}
                                 text={`${item.users_count} ${t<string>(
                                   "Students"
                                 )}`}

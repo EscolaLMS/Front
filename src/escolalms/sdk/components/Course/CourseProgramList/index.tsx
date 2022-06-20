@@ -3,7 +3,6 @@ import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
 import { getTopicType } from "../../../utils/helpers";
 
-// TODO: duplicated (merge into CourseTimetable)
 const CourseProgramList: React.FC<{
   program: API.Lesson[];
   onPreview?: (topic: API.Topic) => void;

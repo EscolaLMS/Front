@@ -76,8 +76,6 @@ const resources = {
       Register: "Register",
       RichText: "Text",
       "Search for": "Search for",
-      Search: "Search",
-      "Search.Placeholder": "Search for a Course",
       Send: "Send",
       SortBy: "Sort by",
       Student_one: "Student",
@@ -194,7 +192,6 @@ const resources = {
         EmptyMattermostChannels: "Mattermost channels list is empty!",
         EditData: "Edytuj dane",
       },
-
       Navbar: {
         MyProfile: "My Profile",
         MyCourses: "My Courses",
@@ -308,6 +305,7 @@ const resources = {
       StartNow: "Zacznij teraz",
       Students: "kursantów",
       Lessons: "lekcji",
+      CoursesLength: "kursów",
       "Access from": "Dostęp od",
       "Access to": "Dostęp do",
       Access: "Dostęp",
@@ -376,9 +374,6 @@ const resources = {
       Register: "Rejestracja",
       RichText: "Tekst",
       "Search for": "Szukaj",
-      "Search.Placeholder": "Szukaj Kursu",
-      Search: "Szukaj",
-      "Search.Placeholder": "Szukaj kursu",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
@@ -409,6 +404,9 @@ const resources = {
       Pay: "Zapłać",
       Download: "Pobierz",
       LoginAndRegister: "Logowanie i rejestracja",
+      CoursesLength_few: "{{count}} lekcje",
+      CoursesLength_many: "{{count}} lekcji",
+      CoursesLength_one: "{{count}} lekcja",
 
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
@@ -433,7 +431,7 @@ const resources = {
         Of: "z",
         IsFinished: "Kurs się zakończył",
         Lessons: "lekcji",
-        FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
+        FinishToGetCertificate: "Ukończ kurs aby zdobyć certyfikat",
         MyProgress: "Moje postępy",
         ToSeeProgress: "aby widzieć postępy",
         UnavailableCourse: "Kurs niemozliwy do kupienia",

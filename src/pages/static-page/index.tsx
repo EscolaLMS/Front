@@ -10,6 +10,12 @@ import { AsideMenu } from "@escolalms/components/lib/components/atoms/AsideMenu/
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { t } from "i18next";
+import MarkdownImage from "../../escolalms/sdk/components/Markdown/MarkdownImage";
+import MarkdownTable from "../../escolalms/sdk/components/Markdown/MarkdownTable";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 const StyledStaticPage = styled.section`
   .content {
@@ -53,6 +59,12 @@ const StaticPage = () => {
     <Layout metaTitle={page.value?.title}>
       <StyledStaticPage>
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t<string>("Home")}</Link>,
+              <Text size="12">{page.value?.title}</Text>,
+            ]}
+          />
           <div className="row">
             <div className="col-lg-4">
               {pages &&
@@ -79,7 +91,17 @@ const StaticPage = () => {
                     <Spin color={theme.primaryColor} />
                   </div>
                 ) : (
-                  <MarkdownRenderer>
+                  <MarkdownRenderer
+                    components={{
+                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
+                      table: ({ node, ...props }) => (
+                        <MarkdownTable {...props} />
+                      ),
+                    }}
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    linkTarget="_blank"
+                  >
                     {page?.value?.content || ""}
                   </MarkdownRenderer>
                 )}

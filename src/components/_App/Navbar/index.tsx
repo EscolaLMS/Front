@@ -119,6 +119,18 @@ const StyledHeader = styled.header`
       &.cart-icon {
         position: relative;
         top: -1px;
+        svg {
+          path {
+            transition: fill 0.25s;
+          }
+        }
+        &:hover {
+          svg {
+            path {
+              fill: ${({ theme }) => theme.primaryColor};
+            }
+          }
+        }
         span {
           position: absolute;
           right: -5px;
@@ -354,7 +366,7 @@ const Navbar = () => {
                 <span>{cart.value.items.length}</span>
               )}{" "}
               <HeaderCard mode={theme.mode} />
-            </button>{" "}
+            </button>
           </div>
         </div>
       </div>
