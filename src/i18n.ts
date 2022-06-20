@@ -430,7 +430,7 @@ const resources = {
         Of: "z",
         IsFinished: "Kurs się zakończył",
         Lessons: "lekcji",
-        FinishToGetCertificate: "Ukoncz kurs aby zdobyc certyfikat",
+        FinishToGetCertificate: "Ukończ kurs aby zdobyć certyfikat",
         MyProgress: "Moje postępy",
         ToSeeProgress: "aby widzieć postępy",
         UnavailableCourse: "Kurs niemozliwy do kupienia",
