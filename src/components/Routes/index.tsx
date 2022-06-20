@@ -1,30 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import routes from "./routes";
-
-import HomePage from "../../pages/index";
-// import AuthPage from "../../pages/authentication/index";
-import StaticPage from "../../pages/static-page/index";
-import NotFoundPage from "../../pages/404/index";
-
-// platform visibility
-import TutorsPage from "../../pages/tutors/index";
-import TutorPage from "../../pages/tutors/tutor/index";
-import CoursesPage from "../../pages/courses";
-import CoursePage from "../../pages/courses/course/index";
-import CoursePreviewPage from "../../pages/courses/preview";
-import ResetPage from "../../pages/reset-password";
-import RegisterPage from "../../pages/register";
-import LoginPage from "../../pages/login";
-
-// privates
-import MyProfilePage from "../../pages/user/MyProfile";
-import MyOrdersPage from "../../pages/user/my-orders";
-import MyNotificationsPage from "../../pages/user/my-notifications";
-import MyDataPage from "../../pages/user/my-data";
-import CourseProgramPage from "../../pages/course/index";
-import CartPage from "../../pages/cart/index";
 
 import PrivateRoute from "./private";
 import ConfigRoute from "./config";
@@ -34,6 +11,36 @@ import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
 import ScrollToTop from "../ScrollToTop";
+
+import { Loader } from "./../_App/Loader/Loader";
+
+const HomePage = lazy(() => import("../../pages/index"));
+
+const RegisterPage = lazy(() => import("../../pages/register"));
+const LoginPage = lazy(() => import("../../pages/login"));
+
+const StaticPage = lazy(() => import("../../pages/static-page/index"));
+const NotFoundPage = lazy(() => import("../../pages/404/index"));
+
+// platform visibility
+const TutorsPage = lazy(() => import("../../pages/tutors/index"));
+const TutorPage = lazy(() => import("../../pages/tutors/tutor/index"));
+const CoursesPage = lazy(() => import("../../pages/courses"));
+const CoursePage = lazy(() => import("../../pages/courses/course/index"));
+const CoursePreviewPage = lazy(() => import("../../pages/courses/preview"));
+const ResetPage = lazy(() => import("../../pages/reset-password"));
+// const RegisterPage = lazy(() => import("../../pages/register"));
+// const LoginPage = lazy(() => import("../../pages/login"));
+
+// privates
+const MyProfilePage = lazy(() => import("../../pages/user/MyProfile"));
+const MyOrdersPage = lazy(() => import("../../pages/user/my-orders"));
+const MyNotificationsPage = lazy(
+  () => import("../../pages/user/my-notifications")
+);
+const MyDataPage = lazy(() => import("../../pages/user/my-data"));
+const CourseProgramPage = lazy(() => import("../../pages/course/index"));
+const CartPage = lazy(() => import("../../pages/cart/index"));
 
 const ConditionalRouter: React.FC<{
   basename: string;
@@ -82,38 +89,41 @@ const Routes: React.FC = (): ReactElement => {
   return (
     <ConditionalRouter basename={BASENAME}>
       <ScrollToTop />
-      <Switch>
-        <Route exact path={home} component={HomePage} />{" "}
-        <Route exact path={register} component={RegisterPage} />{" "}
-        <Route exact path={login} component={LoginPage} />
-        {/* <Route exact path={authentication} component={AuthPage} /> */}
-        <Route exact path={reset} component={ResetPage} />
-        {/* platform visibility pages*/}
-        <ConfigRoute exact path={tutors} component={TutorsPage} />
-        <ConfigRoute exact path={tutor} component={TutorPage} />
-        <ConfigRoute exact path={course} component={CoursePage} />
-        <ConfigRoute exact path={preview} component={CoursePreviewPage} />
-        <ConfigRouteExtend exact path={courses} component={CoursesPage} />
-        {/* privates pages*/}
-        <PrivateRoute exact path={myProfile} component={MyProfilePage} />
-        <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
-        <PrivateRoute
-          exact
-          path={myNotifications}
-          component={MyNotificationsPage}
-        />
-        <PrivateRoute exact path={myData} component={MyDataPage} />
-        <PrivateRoute
-          exact
-          path={courseProgram}
-          component={CourseProgramPage}
-        />
-        <PrivateRoute exact path={cart} component={CartPage} />
-        <Route exact path={notFound} component={NotFoundPage} />
-        {/* must be last */}
-        <Route exact path={page} component={StaticPage} />
-        <Route exact component={NotFoundPage} />
-      </Switch>
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route exact path={home} component={HomePage} />
+          <Route exact path={register} component={RegisterPage} />
+          <Route exact path={login} component={LoginPage} />
+
+          {/* <Route exact path={authentication} component={AuthPage} /> */}
+          <Route exact path={reset} component={ResetPage} />
+          {/* platform visibility pages*/}
+          <ConfigRoute exact path={tutors} component={TutorsPage} />
+          <ConfigRoute exact path={tutor} component={TutorPage} />
+          <ConfigRoute exact path={course} component={CoursePage} />
+          <ConfigRoute exact path={preview} component={CoursePreviewPage} />
+          <ConfigRouteExtend exact path={courses} component={CoursesPage} />
+          {/* privates pages*/}
+          <PrivateRoute exact path={myProfile} component={MyProfilePage} />
+          <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
+          <PrivateRoute
+            exact
+            path={myNotifications}
+            component={MyNotificationsPage}
+          />
+          <PrivateRoute exact path={myData} component={MyDataPage} />
+          <PrivateRoute
+            exact
+            path={courseProgram}
+            component={CourseProgramPage}
+          />
+          <PrivateRoute exact path={cart} component={CartPage} />
+          <Route exact path={notFound} component={NotFoundPage} />
+          {/* must be last */}
+          <Route exact path={page} component={StaticPage} />
+          <Route exact component={NotFoundPage} />
+        </Switch>
+      </Suspense>
     </ConditionalRouter>
   );
 };
