@@ -76,7 +76,6 @@ const resources = {
       Register: "Register",
       RichText: "Text",
       "Search for": "Search for",
-      Search: "Search",
       Send: "Send",
       SortBy: "Sort by",
       Student_one: "Student",
@@ -375,7 +374,6 @@ const resources = {
       Register: "Rejestracja",
       RichText: "Tekst",
       "Search for": "Szukaj",
-      Search: "Szukaj",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
@@ -406,6 +404,9 @@ const resources = {
       Pay: "Zapłać",
       Download: "Pobierz",
       LoginAndRegister: "Logowanie i rejestracja",
+      CoursesLength_few: "{{count}} lekcje",
+      CoursesLength_many: "{{count}} lekcji",
+      CoursesLength_one: "{{count}} lekcja",
 
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",

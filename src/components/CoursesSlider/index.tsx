@@ -13,7 +13,7 @@ import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
 import { t } from "i18next";
-import { LessonsIcon } from "../../icons";
+import { LessonsIcon, UserIcon } from "../../icons";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 
 type Props = {
@@ -122,7 +122,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                   <>
                     {item.users_count && item.users_count > 0 ? (
                       <IconText
-                        icon={<LessonsIcon />}
+                        icon={<UserIcon />}
                         text={`${item.users_count} ${t<string>("Students")}`}
                       />
                     ) : (

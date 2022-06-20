@@ -12,7 +12,7 @@ import styled, { useTheme } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { t } from "i18next";
-import { LessonsIcon } from "../../../icons";
+import { LessonsIcon, UserIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 
 const StyledList = styled.div`
@@ -215,7 +215,7 @@ const ProfileCourses = ({
                         {item.course.users_count &&
                           item.course.users_count > 0 && (
                             <IconText
-                              icon={<LessonsIcon />}
+                              icon={<UserIcon />}
                               text={`${item.course.users_count} ${t<string>(
                                 "Students"
                               )}`}
@@ -327,7 +327,7 @@ const ProfileCourses = ({
                         {item.course.users_count &&
                           item.course.users_count > 0 && (
                             <IconText
-                              icon={<LessonsIcon />}
+                              icon={<UserIcon />}
                               text={`${item.course.users_count} ${t<string>(
                                 "Students"
                               )}`}
@@ -425,7 +425,7 @@ const ProfileCourses = ({
                       {item.course.users_count &&
                         item.course.users_count > 0 && (
                           <IconText
-                            icon={<LessonsIcon />}
+                            icon={<UserIcon />}
                             text={`${item.course.users_count} ${t<string>(
                               "Students"
                             )}`}

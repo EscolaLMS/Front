@@ -3,6 +3,7 @@ import Routes from "./components/Routes";
 import "./style/css/bootstrap.min.css";
 import "./style/css/boxicons.min.css";
 import "./style/css/flaticon.css";
+import "./style/css/reset.css";
 import "../node_modules/react-modal-video/css/modal-video.min.css";
 import "react-image-lightbox/style.css";
 import { ThemeCustomizer } from "@escolalms/components/lib/styleguide/ThemeCustomizer";

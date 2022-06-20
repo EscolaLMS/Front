@@ -25,6 +25,10 @@ import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import MarkdownTable from "../../../escolalms/sdk/components/Markdown/MarkdownTable";
+import MarkdownImage from "../../../escolalms/sdk/components/Markdown/MarkdownImage";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 resetIdCounter();
 
@@ -396,7 +400,17 @@ const CoursePage = () => {
               </section>
               {course.value.summary && (
                 <section className="course-description">
-                  <MarkdownRenderer>
+                  <MarkdownRenderer
+                    components={{
+                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
+                      table: ({ node, ...props }) => (
+                        <MarkdownTable {...props} />
+                      ),
+                    }}
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    linkTarget="_blank"
+                  >
                     {fixContentForMarkdown(`${course.value.summary}`)}
                   </MarkdownRenderer>
                 </section>
@@ -433,7 +447,17 @@ const CoursePage = () => {
                   <Title level={4}>
                     {t("CoursePage.CourseDescriptionTitle")}
                   </Title>
-                  <MarkdownRenderer>
+                  <MarkdownRenderer
+                    components={{
+                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
+                      table: ({ node, ...props }) => (
+                        <MarkdownTable {...props} />
+                      ),
+                    }}
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    linkTarget="_blank"
+                  >
                     {fixContentForMarkdown(course.value.description)}
                   </MarkdownRenderer>
                 </section>

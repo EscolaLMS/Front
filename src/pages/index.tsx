@@ -75,12 +75,12 @@ const HomePageStyled = styled.div`
 `;
 
 const Index = () => {
-  // const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
-  //   useContext(EscolaLMSContext);
+  const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
+    useContext(EscolaLMSContext);
   const history = useHistory();
   useEffect(() => {
-    // fetchConfig();
-    // fetchCourses({ per_page: 6 });
+    fetchConfig();
+    fetchCourses({ per_page: 6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const sliderSettings = {
@@ -114,7 +114,7 @@ const Index = () => {
 
   return (
     <Layout metaTitle={t("Home")}>
-      {/* <HomePageStyled>
+      <HomePageStyled>
         <section className="home-hero">
           <div className="container">
             <Banner
@@ -177,7 +177,7 @@ const Index = () => {
             />
           </div>
         )}
-      </HomePageStyled> */}
+      </HomePageStyled>
     </Layout>
   );
 };
