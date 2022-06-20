@@ -77,6 +77,7 @@ const resources = {
       RichText: "Text",
       "Search for": "Search for",
       Search: "Search",
+      "Search.Placeholder": "Search for a Course",
       Send: "Send",
       SortBy: "Sort by",
       Student_one: "Student",
@@ -375,6 +376,7 @@ const resources = {
       Register: "Rejestracja",
       RichText: "Tekst",
       "Search for": "Szukaj",
+      "Search.Placeholder": "Szukaj Kursu",
       Search: "Szukaj",
       Send: "Wyślij",
       SortBy: "Sortuj według",
@@ -664,8 +666,10 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    supportedLngs: ["pl", "en"],
     fallbackLng: "pl",
+    //lng: "pl",
+    //supportedLngs: ["pl", "en"],
+    // fallbackLng: "pl",
     // lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option

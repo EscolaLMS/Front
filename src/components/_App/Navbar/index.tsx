@@ -11,7 +11,9 @@ import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
-import { t } from "i18next";
+// import { t } from "i18next";
+
+import { useTranslation } from "react-i18next";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -164,6 +166,8 @@ const CustomMobileMenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const { i18n, t } = useTranslation();
+
   const {
     user: userObj,
     settings,
@@ -289,6 +293,14 @@ const Navbar = () => {
                 { label: "Strona główna", value: "/" },
                 { label: "Kursy", value: "/courses" },
                 { label: "Instruktorzy", value: "/tutors" },
+              ]}
+            />
+            <Dropdown
+              placeholder={t("Language")}
+              onChange={(e) => i18n.changeLanguage(e.value)}
+              options={[
+                { label: "Polski", value: "pl" },
+                { label: "English", value: "en" },
               ]}
             />
             {user?.id && (
