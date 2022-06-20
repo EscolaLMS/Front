@@ -6,7 +6,6 @@ import "./style/css/boxicons.min.css";
 import "./style/css/flaticon.css";
 import "../node_modules/react-modal-video/css/modal-video.min.css";
 import "react-image-lightbox/style.css";
-import { ThemeCustomizer } from "./components/ThemeCustomizer/ThemeCustomizer";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
