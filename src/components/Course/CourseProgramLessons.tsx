@@ -8,12 +8,20 @@ import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseDownloads from "../../escolalms/sdk/components/Course/CourseDownloads";
+import { t } from "i18next";
+import Breadcrumbs from "../Breadcrumbs";
+import MarkdownImage from "../../escolalms/sdk/components/Markdown/MarkdownImage";
+import MarkdownTable from "../../escolalms/sdk/components/Markdown/MarkdownTable";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 const StyledCourse = styled.section`
+  padding-bottom: 60px;
   .main-title {
     margin-bottom: 20px;
   }
@@ -151,6 +159,13 @@ export const CourseProgramLessons: React.FC<{
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t("Home")}</Link>,
+              <Link to="/courses">{t("Courses")}</Link>,
+              <Text size="12">{program.title}</Text>,
+            ]}
+          />
           <Title className="main-title" level={3}>
             {program.title}
           </Title>
@@ -161,13 +176,21 @@ export const CourseProgramLessons: React.FC<{
                   {topic &&
                     topic.introduction &&
                     fixContentForMarkdown(`${topic.introduction}`) !== "" && (
-                      <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                        <div className="container-md">
-                          <MarkdownRenderer>
-                            {topic.introduction}
-                          </MarkdownRenderer>
-                        </div>
-                      </div>
+                      <MarkdownRenderer
+                        components={{
+                          img: ({ node, ...props }) => (
+                            <MarkdownImage {...props} />
+                          ),
+                          table: ({ node, ...props }) => (
+                            <MarkdownTable {...props} />
+                          ),
+                        }}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                        linkTarget="_blank"
+                      >
+                        {topic.introduction}
+                      </MarkdownRenderer>
                     )}
                   <div
                     className="course-program-player-content__wrapper"
@@ -193,11 +216,21 @@ export const CourseProgramLessons: React.FC<{
                           className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
                         >
                           <div className="course-program-summary">
-                            <div className="container-md">
-                              <MarkdownRenderer>
-                                {lesson.summary}
-                              </MarkdownRenderer>
-                            </div>
+                            <MarkdownRenderer
+                              components={{
+                                img: ({ node, ...props }) => (
+                                  <MarkdownImage {...props} />
+                                ),
+                                table: ({ node, ...props }) => (
+                                  <MarkdownTable {...props} />
+                                ),
+                              }}
+                              remarkPlugins={[remarkGfm]}
+                              rehypePlugins={[rehypeRaw]}
+                              linkTarget="_blank"
+                            >
+                              {lesson.summary}
+                            </MarkdownRenderer>
                           </div>
                         </div>
                       )}
@@ -208,11 +241,21 @@ export const CourseProgramLessons: React.FC<{
                           className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
                         >
                           <div className="course-program-summary">
-                            <div className="container-md">
-                              <MarkdownRenderer>
-                                {topic.summary}
-                              </MarkdownRenderer>
-                            </div>
+                            <MarkdownRenderer
+                              components={{
+                                img: ({ node, ...props }) => (
+                                  <MarkdownImage {...props} />
+                                ),
+                                table: ({ node, ...props }) => (
+                                  <MarkdownTable {...props} />
+                                ),
+                              }}
+                              remarkPlugins={[remarkGfm]}
+                              rehypePlugins={[rehypeRaw]}
+                              linkTarget="_blank"
+                            >
+                              {topic.summary}
+                            </MarkdownRenderer>
 
                             {topic &&
                               topic.resources &&
@@ -246,6 +289,7 @@ export const CourseProgramLessons: React.FC<{
               onNext={onNextTopic}
               isFinished={false}
               onPrev={onPrevTopic}
+              addNotes={false}
               hasPrev={
                 getNextPrevTopic(Number(topic?.id), false) ? true : false
               }

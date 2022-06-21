@@ -106,9 +106,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        <Link to="/login">
-          <Text>{t("Login to buy")}</Text>
-        </Link>
+        ""
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
@@ -133,11 +131,13 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         {course.level && (
           <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
         )}
-        {course.users_count && (
+        {course.users_count ? (
           <IconText
             icon={<IconSquares />}
             text={`Uczniów: ${course.users_count}`}
           />
+        ) : (
+          ""
         )}
       </div>
       {!user.value ? (

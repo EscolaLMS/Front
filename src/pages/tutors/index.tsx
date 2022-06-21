@@ -11,6 +11,7 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import Image from "@escolalms/sdk/lib/react/components/Image";
 import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const StyledTitleWrapper = styled.div`
   margin-bottom: 10px;
@@ -31,6 +32,12 @@ const TutorsPage = () => {
     <Layout>
       <div className="advisor-area">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t<string>("Home")}</Link>,
+              <Text size="12">{t("Tutors")}</Text>,
+            ]}
+          />
           <StyledTitleWrapper>
             <Title level={1}> {t("Tutors")}</Title>
           </StyledTitleWrapper>

@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconBook } from "../../icons";
+import { IconBook, IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 
@@ -80,7 +80,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     subtitle={
                       <IconText
                         icon={<IconBook />}
-                        text={`${item.count} kursów`}
+                        text={`${item.count} ${t("CoursesLength")}`}
                       />
                     }
                     onButtonClick={() =>
@@ -102,8 +102,10 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   buttonText={t("Homepage.CategoryBtnText")}
                   subtitle={
                     <IconText
-                      icon={<IconBook />}
-                      text={`${item.count} kursów`}
+                      icon={<IconSquares />}
+                      text={`${t("CoursesLength", {
+                        count: item.count,
+                      })}`}
                     />
                   }
                   onButtonClick={() =>
