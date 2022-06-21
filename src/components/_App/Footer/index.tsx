@@ -8,7 +8,7 @@ import { t } from "i18next";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "100px 0"};
-  z-index: 1000;
+  z-index: 999;
   position: relative;
   .links-row {
     display: flex;
@@ -28,6 +28,20 @@ const StyledFooter = styled.footer`
       opacity: 0.5;
       &:hover {
         opacity: 1;
+      }
+    }
+    &.pages {
+      display: block;
+      columns: ${isMobile ? "1 auto" : "4 auto"};
+      text-align: ${isMobile ? "center" : "left"};
+      border-top: 1px solid ${({ theme }) => theme.gray3};
+      padding: 2em 0;
+      a > p {
+        opacity: 0.6;
+        margin-bottom: 0.5em;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }
@@ -84,11 +98,11 @@ const Footer = () => {
             <Text size="14">{t<string>("Footer.Cart")}</Text>
           </Link>
         </div>
-        <div className="links-row">
+        <div className="links-row pages">
           {pages &&
             pages.list?.data.map((item) => (
               <Link key={item.id} className="single-link" to={`/${item.slug}`}>
-                <Text size="14">{item.title.substring(0, 15)}...</Text>
+                <Text size="12">{item.title}</Text>
               </Link>
             ))}
         </div>

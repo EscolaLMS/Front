@@ -198,6 +198,24 @@ const resources = {
         EmptyMattermostChannels: "Mattermost channels list is empty!",
         EditData: "Edytuj dane",
       },
+      Menu: {
+        Browse: "Browse",
+        HomePage: "Home Page",
+        Courses: "Courses",
+        Tutors: "Tutors",
+        Me: "My Menu",
+        Profile: "Profile",
+        Notifications: "Notifications",
+        LoginRegister: "Login / Register",
+        Language: "Language",
+        Orders: "Orders",
+      },
+      Footer: {
+        HomePage: "Home Page",
+        Courses: "Courses",
+        Cart: "Cart",
+        PoweredBy: "Powered by",
+      },
       Navbar: {
         MyProfile: "My Profile",
         MyCourses: "My Courses",
@@ -525,6 +543,25 @@ const resources = {
           "Wysłaliśmy wiadomość e-mail z prośbą o zresetowanie hasła",
         ForgotSuccessStep2: "Twoje hasło zostało zmienione",
       },
+
+      Menu: {
+        Browse: "Szukaj",
+        HomePage: "Strona Główna",
+        Courses: "Kursy",
+        Tutors: "Trenerzy",
+        Me: "Moje",
+        Profile: "Profil",
+        Notifications: "Notifikacje",
+        LoginRegister: "Logowanie / Rejestracja",
+        Language: "Język",
+        Orders: "Zamównienia",
+      },
+      Footer: {
+        HomePage: "Strona Główna",
+        Courses: "Kursy",
+        Cart: "Koszyk",
+        PoweredBy: "Powered by",
+      },
       MyCoursesPage: {
         Finish: "Dokończ rozpoczęty kurs",
         Available: "Dostępne kursy",
@@ -678,6 +715,7 @@ i18n
   .init({
     resources,
     fallbackLng: "pl",
+    debug: true,
     //lng: "pl",
     //supportedLngs: ["pl", "en"],
     // fallbackLng: "pl",
