@@ -1,5 +1,5 @@
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import React, { ReactElement, FunctionComponent, useEffect } from "react";
-import MarkdownReader from "../../Markdown/MarkdownReader";
 
 const fontSizes = ["small", "regular", "bigger", "big"];
 
@@ -16,7 +16,7 @@ const TextPlayer: FunctionComponent<{
     <div
       className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}
     >
-      {value && <MarkdownReader>{value}</MarkdownReader>}
+      {value && <MarkdownRenderer>{value}</MarkdownRenderer>}
     </div>
   );
 };

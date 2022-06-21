@@ -78,6 +78,7 @@ const resources = {
       "Search for": "Search for",
       Send: "Send",
       SortBy: "Sort by",
+      Students: "students",
       Student_one: "Student",
       Student_other: "Students",
       StudentsEnrolled: "Students Enrolled",
@@ -105,6 +106,10 @@ const resources = {
       Download: "Download",
       CoursePreviewNavbar:
         "This is course preview. Back to app, or purchase this course.",
+      CoursesLength: "{{count}} courses",
+      CoursesLength_few: "{{count}} courses",
+      CoursesLength_many: "{{count}} courses",
+      CoursesLength_one: "{{count}} course",
       CoursePage: {
         Tabs: {
           Summary: "Summary",
@@ -295,6 +300,11 @@ const resources = {
         CourseTutorAssigned: "Course tutor assigned",
         AccountConfirmed: "Account confirmed",
       },
+      Header: {
+        Register: "Sign up",
+        Login: "Sign in",
+        Browse: "Browse",
+      },
     },
   },
   pl: {
@@ -305,7 +315,6 @@ const resources = {
       StartNow: "Zacznij teraz",
       Students: "kursantów",
       Lessons: "lekcji",
-      CoursesLength: "kursów",
       "Access from": "Dostęp od",
       "Access to": "Dostęp do",
       Access: "Dostęp",
@@ -404,10 +413,10 @@ const resources = {
       Pay: "Zapłać",
       Download: "Pobierz",
       LoginAndRegister: "Logowanie i rejestracja",
-      CoursesLength_few: "{{count}} lekcje",
-      CoursesLength_many: "{{count}} lekcji",
-      CoursesLength_one: "{{count}} lekcja",
-
+      CoursesLength: "{{count}}kursów",
+      CoursesLength_few: "{{count}} kursy",
+      CoursesLength_many: "{{count}} kursów",
+      CoursesLength_one: "{{count}} kurs",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
@@ -656,6 +665,7 @@ const resources = {
       Header: {
         Register: "Zarejestruj",
         Login: "Zaloguj",
+        Browse: "Przeglądaj",
       },
     },
   },

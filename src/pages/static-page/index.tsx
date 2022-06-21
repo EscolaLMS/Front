@@ -12,10 +12,6 @@ import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { t } from "i18next";
-import MarkdownImage from "../../components/Markdown/MarkdownImage";
-import MarkdownTable from "../../components/Markdown/MarkdownTable";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 
 const StyledStaticPage = styled.section`
   .content {
@@ -91,17 +87,7 @@ const StaticPage = () => {
                     <Spin color={theme.primaryColor} />
                   </div>
                 ) : (
-                  <MarkdownRenderer
-                    components={{
-                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
-                      table: ({ node, ...props }) => (
-                        <MarkdownTable {...props} />
-                      ),
-                    }}
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                    linkTarget="_blank"
-                  >
+                  <MarkdownRenderer>
                     {page?.value?.content || ""}
                   </MarkdownRenderer>
                 )}

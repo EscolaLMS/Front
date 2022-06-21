@@ -316,12 +316,12 @@ const Navbar = () => {
           </div>
           <nav className="navigation">
             <Dropdown
-              placeholder="Przeglądaj"
+              placeholder={t("Browse")}
               onChange={(e) => history.push(e.value)}
               options={[
-                { label: "Strona główna", value: "/" },
-                { label: "Kursy", value: "/courses" },
-                { label: "Instruktorzy", value: "/tutors" },
+                { label: t("Home"), value: "/" },
+                { label: t("Courses"), value: "/courses" },
+                { label: t("Tutors"), value: "/tutors" },
               ]}
             />
             <Dropdown
