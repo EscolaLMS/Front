@@ -374,6 +374,7 @@ const resources = {
       Register: "Rejestracja",
       RichText: "Tekst",
       "Search for": "Szukaj",
+      Search: "Szukaj",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
