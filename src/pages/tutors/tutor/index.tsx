@@ -1,17 +1,27 @@
 import React, { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Preloader from "@/components/Preloader";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import Layout from "../../../components/_App/Layout";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import {
+  Badge,
+  BreadCrumbs,
+  Button,
+  CourseCard,
+  IconText,
+} from "@escolalms/components";
+import { LessonsIcon, UserIcon } from "../../../icons";
+import { isMobile } from "react-device-detect";
 
 const StyledTutor = styled.section`
   .tutor-courses {
@@ -37,6 +47,8 @@ const TutorPage = () => {
   const { t } = useTranslation();
   const { tutor, fetchTutor, courses, fetchCourses } =
     useContext(EscolaLMSContext);
+  const theme = useTheme();
+  const history = useHistory();
 
   const sliderSettings = {
     arrows: false,
@@ -116,11 +128,120 @@ const TutorPage = () => {
             </div>
           )}
           <div className="tutor-courses">
-            <Title level={3}>{t("TutorPage.Courses")}</Title>
-            <CoursesSlider
-              sliderSettings={sliderSettings}
-              courses={courses.list?.data || []}
-            />
+            <Title style={{ marginBottom: 20 }} level={3}>
+              {t("TutorPage.Courses")}
+            </Title>
+            {courses.list && courses.list.data?.length === 0 ? (
+              <Text>{t<string>("TutorCoursesEmpty")}</Text>
+            ) : courses.list && courses.list.data?.length > 4 ? (
+              <CoursesSlider
+                sliderSettings={sliderSettings}
+                courses={courses.list?.data || []}
+              />
+            ) : (
+              <div className="row">
+                {courses.list &&
+                  courses.list.data.map((item) => (
+                    <div className="col-lg-3 col-md-6">
+                      <CourseCard
+                        mobile={isMobile}
+                        id={item.id}
+                        image={
+                          <Link to={`/courses/${item.id}`}>
+                            {item.image_url ? (
+                              <img src={item.image_url} alt={item.title} />
+                            ) : (
+                              <CourseImgPlaceholder />
+                            )}
+                          </Link>
+                        }
+                        tags={
+                          <>
+                            {item.tags?.map((item, index) => (
+                              <Badge key={index} color={theme.primaryColor}>
+                                <Link
+                                  style={{ color: theme.white }}
+                                  //@ts-ignore
+                                  to={`/courses/?tag=${item.title}`}
+                                >
+                                  {
+                                    //@ts-ignore
+                                    item.title
+                                  }
+                                </Link>
+                              </Badge>
+                            ))}
+                          </>
+                        }
+                        subtitle={
+                          item.subtitle ? (
+                            <Text size="12">
+                              <Link
+                                style={{ color: theme.primaryColor }}
+                                to={`/courses/${item.id}`}
+                              >
+                                <strong>{item.subtitle}</strong>
+                              </Link>
+                            </Text>
+                          ) : undefined
+                        }
+                        title={
+                          <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                        }
+                        categories={
+                          <BreadCrumbs
+                            hyphen="/"
+                            items={item.categories?.map((category) => (
+                              <Link
+                                key={category.id}
+                                to={`/courses/?ids[]=${category.id}`}
+                              >
+                                {category.name}
+                              </Link>
+                            ))}
+                          />
+                        }
+                        actions={
+                          <>
+                            <Button
+                              mode="secondary"
+                              onClick={() =>
+                                history.push(`/courses/${item.id}`)
+                              }
+                            >
+                              {t<string>("Start now")}
+                            </Button>
+                          </>
+                        }
+                        footer={
+                          <>
+                            {item.users_count && item.users_count > 0 ? (
+                              <IconText
+                                icon={<UserIcon />}
+                                text={`${item.users_count} ${t<string>(
+                                  "Students"
+                                )}`}
+                              />
+                            ) : (
+                              ""
+                            )}{" "}
+                            {item.lessons_count && item.lessons_count > 0 ? (
+                              <IconText
+                                icon={<LessonsIcon />}
+                                text={`${item.lessons_count} ${t<string>(
+                                  "Lessons"
+                                )}`}
+                              />
+                            ) : (
+                              ""
+                            )}
+                          </>
+                        }
+                      />
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </StyledTutor>
