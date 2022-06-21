@@ -1,5 +1,5 @@
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
-import { useContext, useEffect, useMemo } from 'react';
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { useContext, useEffect, useMemo } from "react";
 
 export function usePages() {
   const { fetchPages, pages } = useContext(EscolaLMSContext);

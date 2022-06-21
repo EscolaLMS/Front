@@ -14,6 +14,7 @@ import { HeaderCard } from "../../../icons";
 // import { t } from "i18next";
 
 import { useTranslation } from "react-i18next";
+import { Button } from "@escolalms/components";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -41,6 +42,13 @@ const StyledHeader = styled.header`
     @media (max-width: 1200px) {
       min-width: 100px;
       max-width: 100px;
+    }
+
+    img {
+      transition: opacity 0.25s;
+      &:hover {
+        opacity: 0.55;
+      }
     }
   }
   .menu-container {
@@ -186,6 +194,7 @@ const Navbar = () => {
     fetchNotifications,
     cart,
     fetchCart,
+    logout,
   } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
@@ -248,6 +257,14 @@ const Navbar = () => {
           title: <Link to="/user/my-notifications">Notyfikacje</Link>,
           key: "submenu-4",
         },
+        {
+          title: (
+            <Button onClick={() => logout().then(() => history.push("/"))}>
+              Wyloguj
+            </Button>
+          ),
+          key: "submenu-5",
+        },
       ],
     },
     {
@@ -299,12 +316,12 @@ const Navbar = () => {
           </div>
           <nav className="navigation">
             <Dropdown
-              placeholder="Przeglądaj"
+              placeholder={t("Browse")}
               onChange={(e) => history.push(e.value)}
               options={[
-                { label: "Strona główna", value: "/" },
-                { label: "Kursy", value: "/courses" },
-                { label: "Instruktorzy", value: "/tutors" },
+                { label: t("Home"), value: "/" },
+                { label: t("Courses"), value: "/courses" },
+                { label: t("Tutors"), value: "/tutors" },
               ]}
             />
             <Dropdown
@@ -318,12 +335,17 @@ const Navbar = () => {
             {user?.id && (
               <Dropdown
                 placeholder="Profil"
-                onChange={(e) => history.push(e.value)}
+                onChange={(e) =>
+                  e.value !== "logout"
+                    ? history.push(e.value)
+                    : logout().then(() => history.push("/"))
+                }
                 options={[
                   { label: "Moje szkolenia", value: "/user/my-profile" },
                   { label: "Historia zakupów", value: "/user/my-orders" },
                   { label: "Powiadomienia", value: "/user/my-notifications" },
                   { label: "Edytuj dane", value: "/user/my-data" },
+                  { label: "Wyloguj", value: "logout" },
                 ]}
               />
             )}
@@ -355,19 +377,21 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-          <div className="icons-container">
-            <button
-              type="button"
-              className="cart-icon"
-              onClick={() => history.push("/cart")}
-              data-tooltip={String(cart.value?.items.length)}
-            >
-              {cart.value && cart.value.items?.length > 0 && (
-                <span>{cart.value.items.length}</span>
-              )}{" "}
-              <HeaderCard mode={theme.mode} />
-            </button>
-          </div>
+          {user && (
+            <div className="icons-container">
+              <button
+                type="button"
+                className="cart-icon"
+                onClick={() => history.push("/cart")}
+                data-tooltip={String(cart.value?.items.length)}
+              >
+                {cart.value && cart.value.items?.length > 0 && (
+                  <span>{cart.value.items.length}</span>
+                )}{" "}
+                <HeaderCard mode={theme.mode} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </StyledHeader>

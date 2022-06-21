@@ -14,6 +14,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { LessonsIcon, UserIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -158,12 +159,8 @@ const ProfileCourses = ({
                     image={
                       <Link to={`/course/${item.course.id}`}>
                         {item.course.image_path ? (
-                          <img
-                            src={`${
-                              process &&
-                              process.env &&
-                              process.env.REACT_APP_PUBLIC_API_URL
-                            }/api/images/img?path=${item.course.image_path}`}
+                          <ResponsiveImage
+                            path={item.course.image_path}
                             alt={item.course.title}
                           />
                         ) : (
@@ -270,12 +267,8 @@ const ProfileCourses = ({
                     image={
                       <Link to={`/course/${item.course.id}`}>
                         {item.course.image_path ? (
-                          <img
-                            src={`${
-                              process &&
-                              process.env &&
-                              process.env.REACT_APP_PUBLIC_API_URL
-                            }/api/images/img?path=${item.course.image_path}`}
+                          <ResponsiveImage
+                            path={item.course.image_path}
                             alt={item.course.title}
                           />
                         ) : (
@@ -368,12 +361,8 @@ const ProfileCourses = ({
                   image={
                     <Link to={`/course/${item.course.id}`}>
                       {item.course.image_path ? (
-                        <img
-                          src={`${
-                            process &&
-                            process.env &&
-                            process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${item.course.image_path}`}
+                        <ResponsiveImage
+                          path={item.course.image_path}
                           alt={item.course.title}
                         />
                       ) : (

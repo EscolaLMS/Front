@@ -15,6 +15,7 @@ import { Settings } from "react-slick";
 import { t } from "i18next";
 import { LessonsIcon, UserIcon } from "../../icons";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 type Props = {
   courses: API.Course[];
@@ -61,8 +62,11 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                 id={item.id}
                 image={
                   <Link to={`/courses/${item.id}`}>
-                    {item.image_url ? (
-                      <img src={item.image_url} alt={item.title} />
+                    {item.image_path ? (
+                      <ResponsiveImage
+                        path={item.image_path}
+                        alt={item.title}
+                      />
                     ) : (
                       <CourseImgPlaceholder />
                     )}
