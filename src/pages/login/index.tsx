@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { t } from "i18next";
 
 const Login = () => {
-  const { search } = useLocation();
+  const { search, state } = useLocation<{ referrer?: string }>();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
   const [view, setView] = useState<
     "login" | "forgotPassword" | "register" | "success"
@@ -18,16 +18,18 @@ const Login = () => {
 
   const history = useHistory();
   const token = search.split("?token=")[1];
+  const referrer =
+    (state && state.referrer) || search.split("?referrer=")[1] || "/";
 
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
-      history.push("/");
+      history.push(referrer);
     }, 1000);
   }
 
   if (!user.loading && !token && user.value) {
-    history.push("/");
+    history.push(referrer);
   }
 
   return (
