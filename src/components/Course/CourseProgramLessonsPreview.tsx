@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { API } from "@escolalms/sdk/lib";
-import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
-import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
-import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
-import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
-import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
+import CourseProgramContent from "@/components/Course/CourseProgramContent";
+import CourseSidebar from "@/components/Course/CourseSidebar";
+import MarkdownReader from "../Markdown/MarkdownReader";
+import { fixContentForMarkdown } from "../../utils/markdown";
+import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
 
 export const CourseProgramLessonsPreview: React.FC<{

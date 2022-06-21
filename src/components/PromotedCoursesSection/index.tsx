@@ -11,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 type Props = {
   courses: API.Course[];
@@ -178,9 +179,9 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     }
                     image={
                       <Link to={`/courses/${courses[0].id}`}>
-                        {courses[0].image_url ? (
-                          <img
-                            src={courses[0].image_url}
+                        {courses[0].image_path ? (
+                          <ResponsiveImage
+                            path={courses[0].image_path}
                             alt={courses[0].title}
                           />
                         ) : (
@@ -227,8 +228,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     image={
                       <Link to={`/courses/${courses[1].id}`}>
                         {courses[1].image_url ? (
-                          <img
-                            src={courses[1].image_url}
+                          <ResponsiveImage
+                            path={courses[1].image_path}
                             alt={courses[1].title}
                           />
                         ) : (
@@ -275,8 +276,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     image={
                       <Link to={`/courses/${courses[2].id}`}>
                         {courses[2].image_url ? (
-                          <img
-                            src={courses[2].image_url}
+                          <ResponsiveImage
+                            path={courses[2].image_path}
                             alt={courses[2].title}
                           />
                         ) : (
@@ -389,8 +390,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     image={
                       <Link to={`/courses/${courses[5].id}`}>
                         {courses[5].image_url ? (
-                          <img
-                            src={courses[5].image_url}
+                          <ResponsiveImage
+                            path={courses[5].image_path}
                             alt={courses[5].title}
                           />
                         ) : (
@@ -437,8 +438,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     image={
                       <Link to={`/courses/${courses[4].id}`}>
                         {courses[4].image_url ? (
-                          <img
-                            src={courses[4].image_url}
+                          <ResponsiveImage
+                            path={courses[4].image_path}
                             alt={courses[4].title}
                           />
                         ) : (

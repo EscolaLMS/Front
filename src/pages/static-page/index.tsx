@@ -12,8 +12,8 @@ import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { t } from "i18next";
-import MarkdownImage from "../../escolalms/sdk/components/Markdown/MarkdownImage";
-import MarkdownTable from "../../escolalms/sdk/components/Markdown/MarkdownTable";
+import MarkdownImage from "../../components/Markdown/MarkdownImage";
+import MarkdownTable from "../../components/Markdown/MarkdownTable";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 

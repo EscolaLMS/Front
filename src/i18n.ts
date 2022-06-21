@@ -12,7 +12,7 @@ const resources = {
       "Access from": "Access from",
       "Access to": "Access to",
       Access: "Access",
-
+      "Start now": "Start now",
       "Add to Cart": "Add to Cart",
       "All Categories": "All categories",
       "All Tutors": "All tutors",

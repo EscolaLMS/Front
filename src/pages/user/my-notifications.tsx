@@ -31,7 +31,7 @@ const MyNotificationsPage = () => {
       fetchNotifications();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   return (
     <ProfileLayout title={t("MyProfilePage.Notifications")}>

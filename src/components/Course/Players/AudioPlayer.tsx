@@ -1,4 +1,4 @@
-import React, { ReactElement, FunctionComponent } from 'react';
+import React, { ReactElement, FunctionComponent } from "react";
 
 const AudioPlayer: FunctionComponent<{
   url?: string;

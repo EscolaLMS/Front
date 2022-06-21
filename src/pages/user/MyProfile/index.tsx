@@ -40,7 +40,7 @@ const MyProfile = () => {
       history.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, user]);
+  }, []);
 
   const coursesTabs = {
     tabs: [

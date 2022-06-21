@@ -1,7 +1,7 @@
-import React, { ReactElement, FunctionComponent, useEffect } from 'react';
-import MarkdownReader from '../../Markdown/MarkdownReader';
+import React, { ReactElement, FunctionComponent, useEffect } from "react";
+import MarkdownReader from "../../Markdown/MarkdownReader";
 
-const fontSizes = ['small', 'regular', 'bigger', 'big'];
+const fontSizes = ["small", "regular", "bigger", "big"];
 
 const TextPlayer: FunctionComponent<{
   value?: string;
@@ -13,7 +13,9 @@ const TextPlayer: FunctionComponent<{
   }, [value, onLoad]);
 
   return (
-    <div className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}>
+    <div
+      className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}
+    >
       {value && <MarkdownReader>{value}</MarkdownReader>}
     </div>
   );
