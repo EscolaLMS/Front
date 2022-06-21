@@ -131,9 +131,9 @@ const TutorPage = () => {
             <Title style={{ marginBottom: 20 }} level={3}>
               {t("TutorPage.Courses")}
             </Title>
-            {courses.list && courses.list.data.length === 0 ? (
+            {courses.list && courses.list.data?.length === 0 ? (
               <Text>{t<string>("TutorCoursesEmpty")}</Text>
-            ) : courses.list && courses.list.data.length > 4 ? (
+            ) : courses.list && courses.list.data?.length > 4 ? (
               <CoursesSlider
                 sliderSettings={sliderSettings}
                 courses={courses.list?.data || []}
