@@ -64,7 +64,7 @@ const StyledHeader = styled.header`
       justify-content: flex-end;
       align-items: center;
       margin: 0 85px 0 80px;
-      column-gap: 55px;
+      column-gap: 20px;
       .Dropdown-root {
         min-width: 105px;
       }
