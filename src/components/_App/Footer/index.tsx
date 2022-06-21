@@ -32,7 +32,8 @@ const StyledFooter = styled.footer`
     }
     &.pages {
       display: block;
-      columns: 4 auto;
+      columns: ${isMobile ? "1 auto" : "4 auto"};
+      text-align: ${isMobile ? "center" : "left"};
       border-top: 1px solid ${({ theme }) => theme.gray3};
       padding: 2em 0;
       a > p {
