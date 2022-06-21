@@ -10,6 +10,7 @@ const PrivateRoute: React.FC<RouteProps> = ({
 any) => {
   const { login } = routes;
   const { user } = useContext(EscolaLMSContext);
+
   return (
     <Route
       {...rest}
@@ -20,6 +21,8 @@ any) => {
           <Redirect
             to={{
               pathname: login,
+              search: `?referrer=${rest.path}`,
+              state: { referrer: rest.path },
             }}
           />
         )

@@ -8,7 +8,6 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import Layout from "../../../components/_App/Layout";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
-import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -22,6 +21,7 @@ import {
 } from "@escolalms/components";
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
+import { fixContentForMarkdown } from "@/utils/markdown";
 
 const StyledTutor = styled.section`
   .tutor-courses {

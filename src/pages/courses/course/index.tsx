@@ -16,19 +16,15 @@ import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/
 import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
+import CourseProgramPreview from "@/components/Course/CourseProgramPreview";
 import styled, { createGlobalStyle } from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
+import { fixContentForMarkdown } from "../../../utils/markdown";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import MarkdownTable from "../../../escolalms/sdk/components/Markdown/MarkdownTable";
-import MarkdownImage from "../../../escolalms/sdk/components/Markdown/MarkdownImage";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 
 resetIdCounter();
 
@@ -400,17 +396,7 @@ const CoursePage = () => {
               </section>
               {course.value.summary && (
                 <section className="course-description">
-                  <MarkdownRenderer
-                    components={{
-                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
-                      table: ({ node, ...props }) => (
-                        <MarkdownTable {...props} />
-                      ),
-                    }}
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                    linkTarget="_blank"
-                  >
+                  <MarkdownRenderer>
                     {fixContentForMarkdown(`${course.value.summary}`)}
                   </MarkdownRenderer>
                 </section>
@@ -447,17 +433,7 @@ const CoursePage = () => {
                   <Title level={4}>
                     {t("CoursePage.CourseDescriptionTitle")}
                   </Title>
-                  <MarkdownRenderer
-                    components={{
-                      img: ({ node, ...props }) => <MarkdownImage {...props} />,
-                      table: ({ node, ...props }) => (
-                        <MarkdownTable {...props} />
-                      ),
-                    }}
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                    linkTarget="_blank"
-                  >
+                  <MarkdownRenderer>
                     {fixContentForMarkdown(course.value.description)}
                   </MarkdownRenderer>
                 </section>

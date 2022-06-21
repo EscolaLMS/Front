@@ -1,7 +1,7 @@
 import React from "react";
 import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
-import { getTopicType } from "../../../utils/helpers";
+import { getTopicType } from "../../../utils";
 
 const CourseProgramList: React.FC<{
   program: API.Lesson[];

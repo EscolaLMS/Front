@@ -24,6 +24,7 @@ import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { LessonsIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 type updateParamType =
   | { key: "free" | "tag"; value: string | undefined }
@@ -515,8 +516,11 @@ const CoursesCollection: React.FC = () => {
                         id={item.id}
                         image={
                           <Link to={`/courses/${item.id}`}>
-                            {item.image_url ? (
-                              <img src={item.image_url} alt={item.title} />
+                            {item.image_path ? (
+                              <ResponsiveImage
+                                path={item.image_path}
+                                alt={item.title}
+                              />
                             ) : (
                               <CourseImgPlaceholder />
                             )}

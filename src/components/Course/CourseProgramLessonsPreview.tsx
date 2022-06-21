@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { API } from "@escolalms/sdk/lib";
-import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
-import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
-import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
-import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
-import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
+import CourseProgramContent from "@/components/Course/CourseProgramContent";
+import CourseSidebar from "@/components/Course/CourseSidebar";
+import { fixContentForMarkdown } from "../../utils/markdown";
+import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 export const CourseProgramLessonsPreview: React.FC<{
   program: API.CourseProgram;
@@ -33,7 +33,9 @@ export const CourseProgramLessonsPreview: React.FC<{
                   fixContentForMarkdown(`${topic.introduction}`) !== "" && (
                     <div className={`col-lg-12 col-md-12 col-sm-12`}>
                       <div className="container-md">
-                        <MarkdownReader>{topic.introduction}</MarkdownReader>
+                        <MarkdownRenderer>
+                          {topic.introduction}
+                        </MarkdownRenderer>
                       </div>
                     </div>
                   )}
@@ -57,7 +59,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                   fixContentForMarkdown(`${lesson.summary}`) !== "" && (
                     <div className={`col-lg-12 col-md-12 col-sm-12`}>
                       <div className="course-program-summary">
-                        <MarkdownReader>{lesson.summary}</MarkdownReader>
+                        <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                       </div>
                     </div>
                   )}
@@ -66,7 +68,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                   fixContentForMarkdown(`${topic.summary}`) !== "" && (
                     <div className={`col-lg-12 col-md-12 col-sm-12`}>
                       <div className="course-program-summary">
-                        <MarkdownReader>{topic.summary}</MarkdownReader>
+                        <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
                         {/* Leave it in case the business changes its mind. */}
                         {/* {topic && topic.resources && topic.resources?.length > 0 && (
                         <React.Fragment>

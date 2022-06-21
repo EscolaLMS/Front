@@ -14,6 +14,7 @@ import { HeaderCard } from "../../../icons";
 // import { t } from "i18next";
 
 import { useTranslation } from "react-i18next";
+import { Button } from "@escolalms/components";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -41,6 +42,13 @@ const StyledHeader = styled.header`
     @media (max-width: 1200px) {
       min-width: 100px;
       max-width: 100px;
+    }
+
+    img {
+      transition: opacity 0.25s;
+      &:hover {
+        opacity: 0.55;
+      }
     }
   }
   .menu-container {
@@ -186,6 +194,7 @@ const Navbar = () => {
     fetchNotifications,
     cart,
     fetchCart,
+    logout,
   } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
@@ -240,6 +249,14 @@ const Navbar = () => {
             <Link to="/user/my-notifications">{t("Menu.Notifications")}</Link>
           ),
           key: "submenu-4",
+        },
+        {
+          title: (
+            <Button onClick={() => logout().then(() => history.push("/"))}>
+              Wyloguj
+            </Button>
+          ),
+          key: "submenu-5",
         },
       ],
     },
@@ -313,7 +330,6 @@ const Navbar = () => {
             {user?.id && (
               <Dropdown
                 placeholder={t("Profile")}
-                onChange={(e) => history.push(e.value)}
                 options={[
                   { label: t("MyCourses"), value: "/user/my-profile" },
                   { label: t("MyOrders"), value: "/user/my-orders" },
@@ -322,7 +338,14 @@ const Navbar = () => {
                     value: "/user/my-notifications",
                   },
                   { label: t("EditProfile"), value: "/user/my-data" },
-                ]}
+                  { label: t("Logout"), value: "/user/my-data" },
+
+                onChange={(e) =>
+                  e.value !== "logout"
+                    ? history.push(e.value)
+                    : logout().then(() => history.push("/"))
+                }
+
               />
             )}
           </nav>
@@ -353,19 +376,21 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-          <div className="icons-container">
-            <button
-              type="button"
-              className="cart-icon"
-              onClick={() => history.push("/cart")}
-              data-tooltip={String(cart.value?.items.length)}
-            >
-              {cart.value && cart.value.items?.length > 0 && (
-                <span>{cart.value.items.length}</span>
-              )}{" "}
-              <HeaderCard mode={theme.mode} />
-            </button>
-          </div>
+          {user && (
+            <div className="icons-container">
+              <button
+                type="button"
+                className="cart-icon"
+                onClick={() => history.push("/cart")}
+                data-tooltip={String(cart.value?.items.length)}
+              >
+                {cart.value && cart.value.items?.length > 0 && (
+                  <span>{cart.value.items.length}</span>
+                )}{" "}
+                <HeaderCard mode={theme.mode} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </StyledHeader>
