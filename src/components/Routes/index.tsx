@@ -16,8 +16,8 @@ import { Loader } from "./../_App/Loader/Loader";
 
 const HomePage = lazy(() => import("../../pages/index"));
 
-const RegisterPage = lazy(() => import("../../pages/register"));
-const LoginPage = lazy(() => import("../../pages/login"));
+const RegisterPage = lazy(() => import("../../pages/register/index"));
+const LoginPage = lazy(() => import("../../pages/login/index"));
 
 const StaticPage = lazy(() => import("../../pages/static-page/index"));
 const NotFoundPage = lazy(() => import("../../pages/404/index"));
@@ -28,7 +28,7 @@ const TutorPage = lazy(() => import("../../pages/tutors/tutor/index"));
 const CoursesPage = lazy(() => import("../../pages/courses"));
 const CoursePage = lazy(() => import("../../pages/courses/course/index"));
 const CoursePreviewPage = lazy(() => import("../../pages/courses/preview"));
-const ResetPage = lazy(() => import("../../pages/reset-password"));
+const ResetPage = lazy(() => import("../../pages/reset-password/index"));
 // const RegisterPage = lazy(() => import("../../pages/register"));
 // const LoginPage = lazy(() => import("../../pages/login"));
 
@@ -92,11 +92,12 @@ const Routes: React.FC = (): ReactElement => {
       <Suspense fallback={<Loader />}>
         <Switch>
           <Route exact path={home} component={HomePage} />
+
           <Route exact path={register} component={RegisterPage} />
           <Route exact path={login} component={LoginPage} />
+          <Route exact path={reset} component={ResetPage} />
 
           {/* <Route exact path={authentication} component={AuthPage} /> */}
-          <Route exact path={reset} component={ResetPage} />
           {/* platform visibility pages*/}
           <ConfigRoute exact path={tutors} component={TutorsPage} />
           <ConfigRoute exact path={tutor} component={TutorPage} />
