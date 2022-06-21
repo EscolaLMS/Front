@@ -20,6 +20,20 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100%;
   }
+  .table-responsive {
+    td,
+    tr,
+    th {
+      border: 1px solid
+        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray3)};
+      padding: 5px;
+    }
+    table {
+      border: 1px solid
+        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray3)};
+      border-collapse: collapse;
+    }
+  }
 `;
 
 const StyledMain = styled.main`
