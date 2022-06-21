@@ -339,13 +339,12 @@ const Navbar = () => {
                   },
                   { label: t("EditProfile"), value: "/user/my-data" },
                   { label: t("Logout"), value: "/user/my-data" },
-
+                ]}
                 onChange={(e) =>
                   e.value !== "logout"
                     ? history.push(e.value)
                     : logout().then(() => history.push("/"))
                 }
-
               />
             )}
           </nav>
