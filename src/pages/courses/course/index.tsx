@@ -265,7 +265,7 @@ const CoursePage = () => {
     return <Loader />;
   }
 
-  if (course.value.id !== Number(id) && course.loading) {
+  if (Number(course.value.id) !== Number(id) && course.loading) {
     return <Loader />;
   }
 
