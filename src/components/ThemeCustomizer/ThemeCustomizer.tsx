@@ -16,10 +16,22 @@ const StyledDiv = styled.div`
     z-index: 9999;
     width: 24px;
     height: 24px;
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray5 : theme.gray1};
     > svg {
       width: 100%;
       height: auto;
       transition: transform 0.5s ease-out;
+
+      path {
+        stroke: ${({ theme }) =>
+          theme.mode === "dark" ? theme.gray5 : theme.gray1};
+      }
+
+      circle {
+        stroke: ${({ theme }) =>
+          theme.mode === "dark" ? theme.gray5 : theme.gray1};
+      }
     }
     &:hover {
       &:after {

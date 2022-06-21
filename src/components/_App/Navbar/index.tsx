@@ -190,16 +190,7 @@ const Navbar = () => {
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
-  // const platformVisibility =
-  //   config?.escolalms_courses?.platform_visibility === "public" || false;
-  // const fullVisibility =
-  //   config?.escolalms_courses?.course_visibility === "show_all" || false;
 
-  // useEffect(() => {
-  //   user && fetchCart();
-  //   user && fetchNotifications();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
   useEffect(() => {
     fetchNotifications();
     user && fetchCart();
@@ -207,45 +198,47 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: <Text style={{ margin: 0, padding: 0 }}>Przeglądaj</Text>,
+      title: <Text style={{ margin: 0, padding: 0 }}>{t("Menu.Browse")}</Text>,
       key: "menuItem1",
       children: [
         {
           title: (
             <Link to="/">
-              <Text>Strona główna</Text>
+              <Text>{t("Menu.HomePage")}</Text>
             </Link>
           ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/courses">Kursy</Link>,
+          title: <Link to="/courses">{t("Menu.Courses")}</Link>,
           key: "submenu-2",
         },
         {
-          title: <Link to="/tutors">Trenerzy</Link>,
+          title: <Link to="/tutors">{t("Menu.Tutors")}</Link>,
           key: "submenu-3",
         },
       ],
     },
     {
-      title: <Text style={{ margin: 0, padding: 0 }}>Moje</Text>,
+      title: <Text style={{ margin: 0, padding: 0 }}>{t("Menu.Me")}</Text>,
       key: "menuItem2",
       children: [
         {
-          title: <Link to="/user/my-profile">Konto</Link>,
+          title: <Link to="/user/my-profile">{t("Menu.Profile")}</Link>,
           key: "submenu-1",
         },
         {
-          title: <Link to="/user/my-profile">Kursy</Link>,
+          title: <Link to="/user/my-profile">{t("Menu.Courses")}</Link>,
           key: "submenu-2",
         },
         {
-          title: <Link to="/user/my-orders">Zamówienia</Link>,
+          title: <Link to="/user/my-orders">{t("Menu.Orders")}</Link>,
           key: "submenu-3",
         },
         {
-          title: <Link to="/user/my-notifications">Notyfikacje</Link>,
+          title: (
+            <Link to="/user/my-notifications">{t("Menu.Notifications")}</Link>
+          ),
           key: "submenu-4",
         },
       ],
@@ -259,7 +252,9 @@ const Navbar = () => {
         </CustomMobileMenuItem>
       ) : (
         <Link to="/authentication">
-          <Text style={{ margin: 0, padding: 0 }}>Zaloguj/zarejestruj się</Text>
+          <Text style={{ margin: 0, padding: 0 }}>
+            {t("Menu.LoginRegister")}
+          </Text>
         </Link>
       ),
       key: "menuItem3",
@@ -299,16 +294,16 @@ const Navbar = () => {
           </div>
           <nav className="navigation">
             <Dropdown
-              placeholder="Przeglądaj"
+              placeholder={t("Menu.Browse")}
               onChange={(e) => history.push(e.value)}
               options={[
-                { label: "Strona główna", value: "/" },
-                { label: "Kursy", value: "/courses" },
-                { label: "Instruktorzy", value: "/tutors" },
+                { label: t("Menu.HomePage"), value: "/" },
+                { label: t("Menu.Courses"), value: "/courses" },
+                { label: t("Menu.Tutors"), value: "/tutors" },
               ]}
             />
             <Dropdown
-              placeholder={t("Language")}
+              placeholder={t("Menu.Language")}
               onChange={(e) => i18n.changeLanguage(e.value)}
               options={[
                 { label: "Polski", value: "pl" },
@@ -317,13 +312,16 @@ const Navbar = () => {
             />
             {user?.id && (
               <Dropdown
-                placeholder="Profil"
+                placeholder={t("Profile")}
                 onChange={(e) => history.push(e.value)}
                 options={[
-                  { label: "Moje szkolenia", value: "/user/my-profile" },
-                  { label: "Historia zakupów", value: "/user/my-orders" },
-                  { label: "Powiadomienia", value: "/user/my-notifications" },
-                  { label: "Edytuj dane", value: "/user/my-data" },
+                  { label: t("MyCourses"), value: "/user/my-profile" },
+                  { label: t("MyOrders"), value: "/user/my-orders" },
+                  {
+                    label: t("Notifications"),
+                    value: "/user/my-notifications",
+                  },
+                  { label: t("EditProfile"), value: "/user/my-data" },
                 ]}
               />
             )}
