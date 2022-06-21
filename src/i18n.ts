@@ -158,6 +158,7 @@ const resources = {
       },
       TutorPage: {
         Courses: "Tutor Courses",
+        TutorCoursesEmpty: "No courses",
       },
       Homepage: {
         heading: "Digital Wellbeing",
@@ -488,6 +489,7 @@ const resources = {
       },
       TutorPage: {
         Courses: "Kursy instruktorów",
+        TutorCoursesEmpty: "Ten autor nie ma jeszcze żadnych kursów",
       },
       Homepage: {
         HeroBtnText: "Sprawdź nasze szkolenia",
