@@ -62,7 +62,6 @@ export const CourseProgramContent: React.FC<{
       ]);
     }
   }, [program, topicId, setIsDisabledNextTopicButton, sendProgress]);
-
   const onXAPI = useCallback(
     (event: XAPIEvent): void => {
       setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);

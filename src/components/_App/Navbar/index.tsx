@@ -11,8 +11,6 @@ import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
-// import { useTranslation } from "react-i18next";
-
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 
