@@ -111,6 +111,8 @@ const resources = {
       CoursesLength_many: "{{count}} courses",
       CoursesLength_one: "{{count}} course",
       CoursePage: {
+        ErrorOccurred: "An error occurred",
+        SeeOtherCourses: "See other courses",
         Tabs: {
           Summary: "Summary",
           Program: "Program",
@@ -439,6 +441,7 @@ const resources = {
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       CoursePage: {
+        ErrorOccurred: "Wystąpił błąd",
         HeroBtnText: "Zobacz więcej",
         Level: "Poziom trudności",
         StartDate: "Termin rozpoczęcia",
@@ -466,6 +469,7 @@ const resources = {
         AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
+        SeeOtherCourses: "Zobacz inne kursy",
       },
       Cart: {
         Cart: "Koszyk",
