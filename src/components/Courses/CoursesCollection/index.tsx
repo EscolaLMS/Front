@@ -510,7 +510,6 @@ const CoursesCollection: React.FC = () => {
                   <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
                     <div className="course-wrapper">
                       <CourseCardWrapper>
-                        {" "}
                         <CourseCard
                           mobile={isMobile}
                           id={item.id}

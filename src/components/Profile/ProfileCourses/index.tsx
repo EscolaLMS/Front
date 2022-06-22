@@ -266,7 +266,6 @@ const ProfileCourses = ({
               <div className="col-md-4" key={item.course.id}>
                 <div className="course-wrapper">
                   <CourseCardWrapper>
-                    {" "}
                     <CourseCard
                       mobile={isMobile}
                       id={item.course.id}
@@ -363,7 +362,6 @@ const ProfileCourses = ({
             coursesToMap.map((item) => (
               <div key={item.course.id} className="single-slide">
                 <CourseCardWrapper>
-                  {" "}
                   <CourseCard
                     mobile={isMobile}
                     id={item.course.id}
