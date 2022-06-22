@@ -12,6 +12,12 @@ import styled from "styled-components";
 
 const StyledLoginPage = styled.div`
   min-height: calc(100vh - 500px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .container {
+    padding-bottom: ${isMobile ? "50px" : "100px"};
+  }
 `;
 
 const Login = () => {

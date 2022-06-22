@@ -24,6 +24,7 @@ import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
 
 resetIdCounter();
 
@@ -393,11 +394,12 @@ const CoursePage = () => {
                     ))}
                 </div>
               </section>
-              {course.value.summary && (
-                <section className="course-description">
-                  <MarkdownRenderer>{course.value.summary}</MarkdownRenderer>
-                </section>
-              )}
+              {course.value.summary &&
+                fixContentForMarkdown(course.value.summary) !== "" && (
+                  <section className="course-description">
+                    <MarkdownRenderer>{course.value.summary}</MarkdownRenderer>
+                  </section>
+                )}
               {course.value.author && (
                 <section className="course-tutor with-border padding-right">
                   <Link to={`/tutors/${course.value.author_id}`}>
@@ -425,16 +427,17 @@ const CoursePage = () => {
                   </Link>
                 </section>
               )}
-              {course.value.description && (
-                <section className="course-description-short with-border padding-right">
-                  <Title level={4}>
-                    {t("CoursePage.CourseDescriptionTitle")}
-                  </Title>
-                  <MarkdownRenderer>
-                    {course.value.description}
-                  </MarkdownRenderer>
-                </section>
-              )}
+              {course.value.description &&
+                fixContentForMarkdown(course.value.description) !== "" && (
+                  <section className="course-description-short with-border padding-right">
+                    <Title level={4}>
+                      {t("CoursePage.CourseDescriptionTitle")}
+                    </Title>
+                    <MarkdownRenderer>
+                      {course.value.description}
+                    </MarkdownRenderer>
+                  </section>
+                )}
               {course.value.lessons && course.value.lessons.length > 0 && (
                 <CourseProgram
                   lessons={course.value.lessons}
