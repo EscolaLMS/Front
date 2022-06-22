@@ -24,7 +24,7 @@ const HomePageStyled = styled.div`
     margin-top: -30px;
   }
   .home-hero {
-    margin-bottom: 60px;
+    margin-bottom: 45px;
     padding-top: 42px;
     order: 1;
     h1 {
@@ -45,7 +45,7 @@ const HomePageStyled = styled.div`
   }
 
   .home-best-courses {
-    margin: 65px 0;
+    margin: 40px 0;
     order: ${({ theme }) => (theme.theme === "velvetTheme" ? 3 : 2)};
     @media (max-width: 768px) {
       margin: 30px 0;
@@ -54,7 +54,7 @@ const HomePageStyled = styled.div`
 
   .home-newest-courses {
     order: ${({ theme }) => (theme.theme === "orangeTheme" ? 3 : 4)};
-    margin: 65px 0;
+    margin: 40px 0;
     @media (max-width: 768px) {
       margin: 30px 0;
     }

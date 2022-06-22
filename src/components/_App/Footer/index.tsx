@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 
 const StyledFooter = styled.footer`
-  padding: ${isMobile ? "50px 0 70px" : "100px 0"};
+  padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
   z-index: 999;
   position: relative;
   .links-row {

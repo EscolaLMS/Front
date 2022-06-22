@@ -18,7 +18,7 @@ type Props = {
 };
 
 const StyledSection = styled.section`
-  margin: 60px 0;
+  margin: 40px 0;
   @media (max-width: 768px) {
     margin: 30px 0;
   }

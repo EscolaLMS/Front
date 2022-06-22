@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { t } from "i18next";
 import { useState } from "react";
 import styled from "styled-components";
-import { IconBook, IconSquares } from "../../icons";
+import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 
@@ -16,7 +16,7 @@ type Props = {
 
 const StyledSection = styled.section`
   overflow: hidden;
-  padding: 60px 0;
+  padding: 60px 0 0;
   @media (max-width: 768px) {
     padding: 30px 0;
   }
@@ -79,8 +79,10 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     buttonText={t("Homepage.CategoryBtnText")}
                     subtitle={
                       <IconText
-                        icon={<IconBook />}
-                        text={`${item.count} ${t("CoursesLength")}`}
+                        icon={<IconSquares />}
+                        text={`${t("CoursesLength", {
+                          count: item.count,
+                        })}`}
                       />
                     }
                     onButtonClick={() =>

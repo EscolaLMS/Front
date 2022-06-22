@@ -143,7 +143,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       {!user.value ? (
         <Text size="12">
           <Link
-            to="/login"
+            to={`/login?referrer=/courses/${course.id}`}
             style={{
               marginRight: "4px",
               color: theme.primaryColor,
@@ -218,7 +218,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           ) : !course.product ? (
             <Text>{t("CoursePage.UnavailableCourse")}</Text>
           ) : (
-            <Button block mode="secondary">
+            <Button
+              onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+              block
+              mode="secondary"
+            >
               {t("Login to buy")}
             </Button>
           )}
