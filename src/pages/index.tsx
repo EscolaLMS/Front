@@ -6,7 +6,7 @@ import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Ba
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import CoursesSlider from "@/components/CoursesSlider";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
@@ -78,6 +78,7 @@ const Index = () => {
   const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
     useContext(EscolaLMSContext);
   const history = useHistory();
+  const { t } = useTranslation();
   useEffect(() => {
     fetchConfig();
     fetchCourses({ per_page: 6 });

@@ -3,7 +3,7 @@ import { IconText } from "@escolalms/components/lib/components/atoms/IconText/Ic
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CategoryCard } from "@escolalms/components/lib/components/molecules/CategoryCard/CategoryCard";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import styled from "styled-components";
 import { IconBook, IconSquares } from "../../icons";
@@ -50,6 +50,7 @@ const StyledSection = styled.section`
 
 const CategoriesSection: React.FC<Props> = ({ categories }) => {
   const [dots] = useState(true);
+  const { t } = useTranslation();
   const history = useHistory();
   const categoriesSliderSettings = {
     arrows: false,

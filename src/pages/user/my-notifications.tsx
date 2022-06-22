@@ -5,7 +5,7 @@ import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Notification } from "@escolalms/components/lib/components/molecules/Notification/Notification";
 import styled from "styled-components";
 import { getEventType } from "../../utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import Preloader from "@/components/Preloader";
 
 const NotificationsContainer = styled.div`
@@ -23,7 +23,7 @@ const MyNotificationsPage = () => {
   const { user, fetchNotifications, notifications, readNotify } =
     useContext(EscolaLMSContext);
   const history = useHistory();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (!user.loading && !user.value) {
       history.push("/login");
