@@ -21,7 +21,6 @@ import {
 } from "@escolalms/components";
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
-import { fixContentForMarkdown } from "@/utils/markdown";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 
 const StyledTutor = styled.section`
@@ -120,7 +119,7 @@ const TutorPage = () => {
                     <Text>{t("Tutor")}</Text>
                     <div>
                       <MarkdownRenderer>
-                        {fixContentForMarkdown(tutor.value.bio || "")}
+                        {tutor.value.bio || ""}
                       </MarkdownRenderer>
                     </div>
                   </div>

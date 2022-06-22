@@ -23,7 +23,6 @@ import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { fixContentForMarkdown } from "../../../utils/markdown";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 resetIdCounter();
@@ -396,9 +395,7 @@ const CoursePage = () => {
               </section>
               {course.value.summary && (
                 <section className="course-description">
-                  <MarkdownRenderer>
-                    {fixContentForMarkdown(`${course.value.summary}`)}
-                  </MarkdownRenderer>
+                  <MarkdownRenderer>{course.value.summary}</MarkdownRenderer>
                 </section>
               )}
               {course.value.author && (
@@ -434,7 +431,7 @@ const CoursePage = () => {
                     {t("CoursePage.CourseDescriptionTitle")}
                   </Title>
                   <MarkdownRenderer>
-                    {fixContentForMarkdown(course.value.description)}
+                    {course.value.description}
                   </MarkdownRenderer>
                 </section>
               )}
