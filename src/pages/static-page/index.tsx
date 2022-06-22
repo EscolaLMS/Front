@@ -11,7 +11,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const StyledStaticPage = styled.section`
   .content {
@@ -29,6 +29,7 @@ const StaticPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { fetchPage, page, fetchPages, pages } = useContext(EscolaLMSContext);
   const prevSlug = usePrevious(slug);
+  const { t } = useTranslation();
   const theme = useTheme();
   useEffect(() => {
     if (

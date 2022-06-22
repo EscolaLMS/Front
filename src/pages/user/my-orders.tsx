@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import styled from "styled-components";
 import Preloader from "@/components/Preloader";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const StyledOrdersList = styled.section`
@@ -28,7 +28,7 @@ const Orders = () => {
     useContext(EscolaLMSContext);
   const [mappedOrders, setMappedOrders] = useState<any>([]);
   const history = useHistory();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (!user.loading && !user.value) {
       history.push("/login");

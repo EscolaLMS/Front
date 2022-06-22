@@ -7,7 +7,12 @@ import { useLocation } from "react-router-dom";
 
 import { LoginForm, ResetPasswordForm } from "@escolalms/components";
 import { toast } from "react-toastify";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+
+const StyledLoginPage = styled.div`
+  min-height: calc(100vh - 500px);
+`;
 
 const Login = () => {
   const { search, state } = useLocation<{ referrer?: string }>();
@@ -15,7 +20,7 @@ const Login = () => {
   const [view, setView] = useState<
     "login" | "forgotPassword" | "register" | "success"
   >("login");
-
+  const { t } = useTranslation();
   const history = useHistory();
   const token = search.split("?token=")[1];
   const referrer =
@@ -34,7 +39,7 @@ const Login = () => {
 
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
-      <div className="profile-authentication-area">
+      <StyledLoginPage>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6 col-md-12">
@@ -61,7 +66,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
+      </StyledLoginPage>
     </Layout>
   );
 };

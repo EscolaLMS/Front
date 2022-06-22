@@ -1,7 +1,7 @@
 import React from "react";
 import { Downloads } from "@escolalms/components/lib/components/molecules/Downloads/Downloads";
 import styled from "styled-components";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 
 type Props = {
@@ -14,6 +14,7 @@ const StyledDownloads = styled.div`
 `;
 
 const CourseDownloads: React.FC<Props> = ({ resources, subtitle }) => {
+  const { t } = useTranslation();
   const mappedResources = resources.map((item) => {
     return { href: item.url, fileName: item.name };
   });

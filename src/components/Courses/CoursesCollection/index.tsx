@@ -25,6 +25,7 @@ import CategoriesSection from "@/components/CategoriesSection";
 import { LessonsIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import CourseCardWrapper from "@/components/CourseCardWrapper";
 
 type updateParamType =
   | { key: "free" | "tag"; value: string | undefined }
@@ -236,9 +237,6 @@ const CoursesList = styled.section`
     margin-bottom: ${isMobile ? "50px" : "75px"};
     padding-bottom: 15px;
     overflow: hidden;
-    a {
-      text-decoration: none;
-    }
   }
 `;
 
@@ -514,100 +512,102 @@ const CoursesCollection: React.FC = () => {
                 {courses?.list?.data.map((item) => (
                   <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
                     <div className="course-wrapper">
-                      <CourseCard
-                        mobile={isMobile}
-                        id={item.id}
-                        image={
-                          <Link to={`/courses/${item.id}`}>
-                            {item.image_path ? (
-                              <ResponsiveImage
-                                path={item.image_path}
-                                alt={item.title}
-                              />
-                            ) : (
-                              <CourseImgPlaceholder />
-                            )}
-                          </Link>
-                        }
-                        tags={
-                          <>
-                            {item.tags?.map((item, index) => (
-                              <Badge key={index} color={theme.primaryColor}>
+                      <CourseCardWrapper>
+                        <CourseCard
+                          mobile={isMobile}
+                          id={item.id}
+                          image={
+                            <Link to={`/courses/${item.id}`}>
+                              {item.image_path ? (
+                                <ResponsiveImage
+                                  path={item.image_path}
+                                  alt={item.title}
+                                />
+                              ) : (
+                                <CourseImgPlaceholder />
+                              )}
+                            </Link>
+                          }
+                          tags={
+                            <>
+                              {item.tags?.map((item, index) => (
+                                <Badge key={index} color={theme.primaryColor}>
+                                  <Link
+                                    style={{ color: theme.white }}
+                                    to={`/courses/?tag=${item.title}`}
+                                  >
+                                    {item.title}
+                                  </Link>
+                                </Badge>
+                              ))}
+                            </>
+                          }
+                          subtitle={
+                            item.subtitle ? (
+                              <Text size="12">
                                 <Link
-                                  style={{ color: theme.white }}
-                                  to={`/courses/?tag=${item.title}`}
+                                  style={{ color: theme.primaryColor }}
+                                  to={`/courses/${item.id}`}
                                 >
-                                  {item.title}
+                                  <strong>{item.subtitle}</strong>
                                 </Link>
-                              </Badge>
-                            ))}
-                          </>
-                        }
-                        subtitle={
-                          item.subtitle ? (
-                            <Text size="12">
-                              <Link
-                                style={{ color: theme.primaryColor }}
-                                to={`/courses/${item.id}`}
+                              </Text>
+                            ) : undefined
+                          }
+                          title={
+                            <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                          }
+                          categories={
+                            <BreadCrumbs
+                              hyphen="/"
+                              items={item.categories?.map((category) => (
+                                <Link
+                                  key={category.id}
+                                  to={`/courses/?ids[]=${category.id}`}
+                                >
+                                  {category.name}
+                                </Link>
+                              ))}
+                            />
+                          }
+                          actions={
+                            <>
+                              <Button
+                                mode="secondary"
+                                onClick={() =>
+                                  history.push(`/courses/${item.id}`)
+                                }
                               >
-                                <strong>{item.subtitle}</strong>
-                              </Link>
-                            </Text>
-                          ) : undefined
-                        }
-                        title={
-                          <Link to={`/courses/${item.id}`}>{item.title}</Link>
-                        }
-                        categories={
-                          <BreadCrumbs
-                            hyphen="/"
-                            items={item.categories?.map((category) => (
-                              <Link
-                                key={category.id}
-                                to={`/courses/?ids[]=${category.id}`}
-                              >
-                                {category.name}
-                              </Link>
-                            ))}
-                          />
-                        }
-                        actions={
-                          <>
-                            <Button
-                              mode="secondary"
-                              onClick={() =>
-                                history.push(`/courses/${item.id}`)
-                              }
-                            >
-                              {t<string>("Start now")}
-                            </Button>
-                          </>
-                        }
-                        footer={
-                          <>
-                            {item.users_count && item.users_count > 0 ? (
-                              <IconText
-                                icon={<UserIcon />}
-                                text={`${item.users_count} ${t<string>(
-                                  "Students"
-                                )}`}
-                              />
-                            ) : (
-                              ""
-                            )}{" "}
-                            {item.lessons_count && item.lessons_count > 0 ? (
-                              <IconText
-                                icon={<LessonsIcon />}
-                                text={`${item.lessons_count} ${t<string>(
-                                  "Lessons"
-                                )}`}
-                              />
-                            ) : (
-                              ""
-                            )}
-                          </>
-                        }
-                      />
+                                {t<string>("Start now")}
+                              </Button>
+                            </>
+                          }
+                          footer={
+                            <>
+                              {item.users_count && item.users_count > 0 ? (
+                                <IconText
+                                  icon={<UserIcon />}
+                                  text={`${item.users_count} ${t<string>(
+                                    "Students"
+                                  )}`}
+                                />
+                              ) : (
+                                ""
+                              )}{" "}
+                              {item.lessons_count && item.lessons_count > 0 ? (
+                                <IconText
+                                  icon={<LessonsIcon />}
+                                  text={`${item.lessons_count} ${t<string>(
+                                    "Lessons"
+                                  )}`}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </>
+                          }
+                        />
+                      </CourseCardWrapper>
                     </div>
                   </div>
                 ))}

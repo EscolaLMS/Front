@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseSidebar from "@/components/Course/CourseSidebar";
-import { fixContentForMarkdown } from "../../utils/markdown";
 import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
@@ -13,7 +12,7 @@ import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseDownloads from "./CourseDownloads";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../Breadcrumbs";
 
 const StyledCourse = styled.section`
@@ -51,6 +50,7 @@ export const CourseProgramLessons: React.FC<{
   } = useLessonProgram(program);
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
+  const { t } = useTranslation();
   const location = useLocation();
   // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
   const startWithBreakPoint = location.pathname.split("/").length === 3;
@@ -142,14 +142,7 @@ export const CourseProgramLessons: React.FC<{
   }, [topic?.id, program]);
 
   const columnWidth =
-    lesson &&
-    lesson.summary &&
-    fixContentForMarkdown(`${lesson.summary}`) !== "" &&
-    topic &&
-    topic.summary &&
-    fixContentForMarkdown(`${topic.summary}`) !== ""
-      ? 6
-      : 12;
+    lesson && lesson.summary && topic && topic.summary ? 6 : 12;
 
   return (
     <React.Fragment>
@@ -169,11 +162,9 @@ export const CourseProgramLessons: React.FC<{
             <div className="col-lg-9">
               <div className="course-program-player">
                 <div className="course-program-player-content">
-                  {topic &&
-                    topic.introduction &&
-                    fixContentForMarkdown(`${topic.introduction}`) !== "" && (
-                      <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
-                    )}
+                  {topic && topic.introduction && (
+                    <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
+                  )}
                   <div
                     className="course-program-player-content__wrapper"
                     style={{
@@ -191,39 +182,33 @@ export const CourseProgramLessons: React.FC<{
                 </div>
                 <div className="course-program-content__container">
                   <div className="row">
-                    {lesson &&
-                      lesson.summary &&
-                      fixContentForMarkdown(`${lesson.summary}`) !== "" && (
-                        <div
-                          className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                        >
-                          <div className="course-program-summary">
-                            <MarkdownRenderer>
-                              {lesson.summary}
-                            </MarkdownRenderer>
-                          </div>
+                    {lesson && lesson.summary && (
+                      <div
+                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
+                      >
+                        <div className="course-program-summary">
+                          <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                         </div>
-                      )}
-                    {topic &&
-                      topic.summary &&
-                      fixContentForMarkdown(`${topic.summary}`) !== "" && (
-                        <div
-                          className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                        >
-                          <div className="course-program-summary">
-                            <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
+                      </div>
+                    )}
+                    {topic && topic.summary && (
+                      <div
+                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
+                      >
+                        <div className="course-program-summary">
+                          <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
 
-                            {topic &&
-                              topic.resources &&
-                              topic.resources?.length > 0 && (
-                                <CourseDownloads
-                                  resources={topic.resources || []}
-                                  subtitle={topic.introduction || ""}
-                                />
-                              )}
-                          </div>
+                          {topic &&
+                            topic.resources &&
+                            topic.resources?.length > 0 && (
+                              <CourseDownloads
+                                resources={topic.resources || []}
+                                subtitle={topic.introduction || ""}
+                              />
+                            )}
                         </div>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

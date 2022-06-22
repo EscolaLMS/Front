@@ -11,8 +11,6 @@ import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
-// import { t } from "i18next";
-
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 
@@ -334,11 +332,11 @@ const Navbar = () => {
                   { label: t("MyCourses"), value: "/user/my-profile" },
                   { label: t("MyOrders"), value: "/user/my-orders" },
                   {
-                    label: t("Notifications"),
+                    label: t("MyProfilePage.Notifications"),
                     value: "/user/my-notifications",
                   },
                   { label: t("EditProfile"), value: "/user/my-data" },
-                  { label: t("Logout"), value: "/user/my-data" },
+                  { label: t("Logout"), value: "logout" },
                 ]}
                 onChange={(e) =>
                   e.value !== "logout"

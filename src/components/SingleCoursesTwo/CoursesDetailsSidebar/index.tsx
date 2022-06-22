@@ -5,7 +5,7 @@ import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
 import isPast from "date-fns/isPast";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconSquares, IconWin, IconCamera } from "../../../icons";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -18,6 +18,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
+  const { t } = useTranslation();
   const { push } = useHistory();
   useEffect(() => {
     user && user.value && fetchProgress();
