@@ -4,13 +4,14 @@ import Layout from "@/components/_App/Layout";
 import { ResetPasswordForm } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
   const { search } = useLocation();
   const email = search && search.split("&")[0].split("=")[1];
   const token = search && search.split("&")[1].split("=")[1];
+  const { t } = useTranslation();
   React.useEffect(() => {
     !token && push("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps

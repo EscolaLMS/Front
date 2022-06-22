@@ -27,48 +27,49 @@ const fixInlineStylesSyntaxForMarkdown = (content = ""): string => {
         .join('style="');
 };
 
-const getRegexBetween = (
-  openChart: string,
-  closeChart: string,
-  flags?: string
-) =>
-  new RegExp(
-    `${openChart}(?<=(((\\n|\\s){1,}${openChart})|(^(${openChart}))))(.+?)(?=((${closeChart}(\\n|\\s){1,})|(${closeChart}$)))${closeChart}`,
-    flags
-  );
+//TODO: Fix lookbehind ?<= regular expression, because it not works on safari
+// const getRegexBetween = (
+//   openChart: string,
+//   closeChart: string,
+//   flags?: string
+// ) =>
+//   new RegExp(
+//     `${openChart}(?<=(((\\n|\\s){1,}${openChart})|(^(${openChart}))))(.+?)(?=((${closeChart}(\\n|\\s){1,})|(${closeChart}$)))${closeChart}`,
+//     flags
+//   );
 
 /* The markdown generator for some strange reason uses `__` for underlining (originally `__` is an alternative syntax for bold) */
-const fixUnderlineForMarkdown = (content = ""): string => {
-  /*
-    replace
-    this: '__abc__ __dd__ccc__ _ee__fff__ gg__hh_ii__ __jj__kk_ll__'
-    to this: '<ins>abc</ins> <ins>dd__ccc</ins> _ee__fff__ gg__hh_ii__ <ins>jj__kk_ll</ins>'
-   */
-  return content.replace(getRegexBetween("_{2}", "_{2}", "g"), "<ins>$6</ins>");
-};
+// const fixUnderlineForMarkdown = (content = ""): string => {
+//   /*
+//     replace
+//     this: '__abc__ __dd__ccc__ _ee__fff__ gg__hh_ii__ __jj__kk_ll__'
+//     to this: '<ins>abc</ins> <ins>dd__ccc</ins> _ee__fff__ gg__hh_ii__ <ins>jj__kk_ll</ins>'
+//    */
+//   return content.replace(getRegexBetween("_{2}", "_{2}", "g"), "<ins>$6</ins>");
+// };
 
-const fixNoticeForMarkdown = (content = ""): string => {
-  return content
-    .replace(
-      getRegexBetween(":{3}info", ":{3}", "gs"),
-      '<div className="notice-block notice-block--info">$6</div>'
-    )
-    .replace(
-      getRegexBetween(":{3}warning", ":{3}", "gs"),
-      '<div className="notice-block notice-block--warning">$6</div>'
-    )
-    .replace(
-      getRegexBetween(":{3}tip", ":{3}", "gs"),
-      '<div className="notice-block notice-block--tip">$6</div>'
-    );
-};
+// const fixNoticeForMarkdown = (content = ""): string => {
+//   return content
+//     .replace(
+//       getRegexBetween(":{3}info", ":{3}", "gs"),
+//       '<div className="notice-block notice-block--info">$6</div>'
+//     )
+//     .replace(
+//       getRegexBetween(":{3}warning", ":{3}", "gs"),
+//       '<div className="notice-block notice-block--warning">$6</div>'
+//     )
+//     .replace(
+//       getRegexBetween(":{3}tip", ":{3}", "gs"),
+//       '<div className="notice-block notice-block--tip">$6</div>'
+//     );
+// };
 
 export const fixContentForMarkdown = (content = ""): string => {
   if (content === null || content === "null") return "";
   return flow([
     trimContentForMarkdown,
     fixInlineStylesSyntaxForMarkdown,
-    fixUnderlineForMarkdown,
-    fixNoticeForMarkdown,
+    // fixUnderlineForMarkdown,
+    // fixNoticeForMarkdown,
   ])(content);
 };

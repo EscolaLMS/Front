@@ -4,7 +4,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "100px 0"};
@@ -66,6 +66,7 @@ const StyledFooter = styled.footer`
 
 const Footer = () => {
   const { settings, fetchPages, pages, user } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
   useEffect(() => {
     fetchPages();
     // eslint-disable-next-line react-hooks/exhaustive-deps

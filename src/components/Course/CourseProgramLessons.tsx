@@ -13,7 +13,7 @@ import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseDownloads from "./CourseDownloads";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../Breadcrumbs";
 
 const StyledCourse = styled.section`
@@ -51,6 +51,7 @@ export const CourseProgramLessons: React.FC<{
   } = useLessonProgram(program);
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
+  const { t } = useTranslation();
   const location = useLocation();
   // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
   const startWithBreakPoint = location.pathname.split("/").length === 3;

@@ -9,7 +9,7 @@ import { API } from "@escolalms/sdk/lib";
 import UserSidebar from "@/components/Profile/UserSidebar";
 import { HeaderUser, ProgressTropy, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type NavigationTab = {
   title: string;
@@ -185,6 +185,7 @@ const ProfileAside: React.FC = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const { user, logout, certificates, progress, fetchProgress } =
     useContext(EscolaLMSContext);
+  const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
   useEffect(() => {

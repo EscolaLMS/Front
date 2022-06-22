@@ -7,8 +7,12 @@ import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { RegisterForm } from "@escolalms/components";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+
+const StyledRegisterPage = styled.div`
+  min-height: calc(100vh - 500px);
+`;
 
 const StyledContent = styled.div`
   .content-container {
@@ -63,7 +67,7 @@ const RegisterPage = () => {
   const [email] = useState("");
   const history = useHistory();
   const token = search.split("?token=")[1];
-
+  const { t } = useTranslation();
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
@@ -117,7 +121,7 @@ const RegisterPage = () => {
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
       {view !== "success" ? (
-        <div className="profile-authentication-area">
+        <StyledRegisterPage>
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-12">
@@ -129,7 +133,7 @@ const RegisterPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </StyledRegisterPage>
       ) : (
         <EmailActivation />
       )}
