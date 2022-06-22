@@ -11,6 +11,8 @@ any) => {
   const { login } = routes;
   const { user } = useContext(EscolaLMSContext);
 
+  const referrer = (rest.location && rest.location.pathname) || rest.path;
+
   return (
     <Route
       {...rest}
@@ -21,8 +23,8 @@ any) => {
           <Redirect
             to={{
               pathname: login,
-              search: `?referrer=${rest.path}`,
-              state: { referrer: rest.path },
+              search: `?referrer=${referrer}`,
+              state: { referrer: referrer },
             }}
           />
         )
