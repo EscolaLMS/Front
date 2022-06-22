@@ -47,7 +47,9 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
   h1 {
     color: ${({ theme }) => theme.white};
     margin-bottom: ${({ filters }) =>
-      filters && Object.keys(filters).length > 1
+      isMobile
+        ? 0
+        : filters && Object.keys(filters).length > 1
         ? "35px"
         : filters && Object.keys(filters).length === 1 && "page" in filters
         ? "-35px"
@@ -182,15 +184,16 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
-      @media (max-width: 991px) {
-        justify-content: space-between;
-        width: 100%;
+      @media (max-width: 768px) {
+        margin-top: 50px;
+        justify-content: flex-start;
       }
       @media (max-width: 575px) {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
         row-gap: 15px;
+        margin-top: 20px;
       }
       .single-select {
         min-width: 130px;
