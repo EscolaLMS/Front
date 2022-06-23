@@ -540,7 +540,7 @@ const CoursesCollection: React.FC = () => {
                                 <ResponsiveImage
                                   path={item.image_path}
                                   alt={item.title}
-                                  srcSizes={[124, 258, 516]}
+                                  srcSizes={[300, 600, 900]}
                                 />
                               ) : (
                                 <CourseImgPlaceholder />
