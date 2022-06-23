@@ -388,7 +388,7 @@ const CoursePage = () => {
                       <div className="single-company" key={index}>
                         <ResponsiveImage
                           path={settings?.courseLogos[`logo${index + 1}`] || ""}
-                          srcSizes={[100, 100, 100]}
+                          srcSizes={[100, 200, 300]}
                         />
                       </div>
                     ))}
