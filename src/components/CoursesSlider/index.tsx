@@ -71,6 +71,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                         <ResponsiveImage
                           path={item.image_path}
                           alt={item.title}
+                          srcSizes={[124, 258, 516]}
                         />
                       ) : (
                         <CourseImgPlaceholder />

@@ -511,6 +511,7 @@ const resources = {
         All: "Wszystkie",
         Type: "Typ szkolenia",
         Courses: "Kursy",
+        Search: "Szukaj kursów",
       },
       EmailVerifiedPage: {
         Verified: "Twój email jest teraz zweryfikowany",

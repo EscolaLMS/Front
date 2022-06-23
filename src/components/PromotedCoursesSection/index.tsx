@@ -185,6 +185,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                             <ResponsiveImage
                               path={courses[0].image_path}
                               alt={courses[0].title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -235,6 +236,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                             <ResponsiveImage
                               path={courses[1].image_path}
                               alt={courses[1].title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -285,6 +287,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                             <ResponsiveImage
                               path={courses[2].image_path}
                               alt={courses[2].title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -415,6 +418,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                             <ResponsiveImage
                               path={courses[5].image_path}
                               alt={courses[5].title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -465,6 +469,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                             <ResponsiveImage
                               path={courses[4].image_path}
                               alt={courses[4].title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />

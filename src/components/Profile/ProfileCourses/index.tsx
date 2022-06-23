@@ -165,6 +165,7 @@ const ProfileCourses = ({
                             <ResponsiveImage
                               path={item.course.image_path}
                               alt={item.course.title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -275,6 +276,7 @@ const ProfileCourses = ({
                             <ResponsiveImage
                               path={item.course.image_path}
                               alt={item.course.title}
+                              srcSizes={[124, 258, 516]}
                             />
                           ) : (
                             <CourseImgPlaceholder />
@@ -371,6 +373,7 @@ const ProfileCourses = ({
                           <ResponsiveImage
                             path={item.course.image_path}
                             alt={item.course.title}
+                            srcSizes={[124, 258, 516]}
                           />
                         ) : (
                           <CourseImgPlaceholder />

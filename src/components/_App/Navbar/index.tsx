@@ -304,7 +304,9 @@ const Navbar = () => {
           <div className="search-container">
             <SearchCourses
               onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) => console.log("submitted", input)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
             />
           </div>
           <nav className="navigation">
