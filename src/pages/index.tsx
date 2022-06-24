@@ -116,7 +116,9 @@ const Index = () => {
   return (
     <Layout metaTitle={t("Home")}>
       <HomePageStyled>
-        {settings?.homepage.heroBannerText &&
+        {settings &&
+          settings.homepage &&
+          settings?.homepage.heroBannerText &&
           settings.homepage?.heroBannerText !== "" &&
           settings.homepage?.heroBannerImg &&
           settings.homepage?.heroBannerImg !== "" && (
