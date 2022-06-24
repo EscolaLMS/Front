@@ -116,12 +116,12 @@ const Index = () => {
   return (
     <Layout metaTitle={t("Home")}>
       <HomePageStyled>
-        {settings?.homepage && 
-          settings?.homepage.heroBannerText &&
-          settings.homepage?.heroBannerText !== "" &&
-          settings.homepage?.heroBannerImg &&
-          settings.homepage?.heroBannerImg !== "" && (
-            <section className="home-hero">
+        <section className="home-hero">
+          {settings?.homepage &&
+            settings?.homepage.heroBannerText &&
+            settings.homepage?.heroBannerText !== "" &&
+            settings.homepage?.heroBannerImg &&
+            settings.homepage?.heroBannerImg !== "" && (
               <div className="container">
                 <Banner
                   mobile={isMobile}
@@ -140,8 +140,8 @@ const Index = () => {
                   handleBtn={() => history.push("/courses")}
                 />
               </div>
-            </section>
-          )}
+            )}
+        </section>
         <section className="home-best-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
