@@ -116,26 +116,31 @@ const Index = () => {
   return (
     <Layout metaTitle={t("Home")}>
       <HomePageStyled>
-        <section className="home-hero">
-          <div className="container">
-            <Banner
-              mobile={isMobile}
-              title={
-                <MarkdownRenderer>
-                  {settings?.homepage?.heroBannerText || ""}
-                </MarkdownRenderer>
-              }
-              btnText={t("Homepage.HeroBtnText")}
-              asset={
-                <ResponsiveImage
-                  path={settings?.homepage?.heroBannerImg || ""}
-                  srcSizes={[500, 750, 1000]}
+        {settings?.homepage.heroBannerText &&
+          settings.homepage?.heroBannerText !== "" &&
+          settings.homepage?.heroBannerImg &&
+          settings.homepage?.heroBannerImg !== "" && (
+            <section className="home-hero">
+              <div className="container">
+                <Banner
+                  mobile={isMobile}
+                  title={
+                    <MarkdownRenderer>
+                      {settings?.homepage?.heroBannerText || ""}
+                    </MarkdownRenderer>
+                  }
+                  btnText={t("Homepage.HeroBtnText")}
+                  asset={
+                    <ResponsiveImage
+                      path={settings?.homepage?.heroBannerImg || ""}
+                      srcSizes={[500, 750, 1000]}
+                    />
+                  }
+                  handleBtn={() => history.push("/courses")}
                 />
-              }
-              handleBtn={() => history.push("/courses")}
-            />
-          </div>
-        </section>
+              </div>
+            </section>
+          )}
         <section className="home-best-courses">
           <div className="container">
             <Title className="slider-title" level={3}>
