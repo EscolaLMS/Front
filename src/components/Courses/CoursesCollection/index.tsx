@@ -414,8 +414,8 @@ const CoursesCollection: React.FC = () => {
               )}
             </div>
             {((filterState.categories && filterState.categories?.length > 0) ||
-              filterState.title !== undefined ||
-              filterState.tag !== undefined) &&
+              filterState.title ||
+              filterState.tag) &&
               !isMobile && (
                 <button
                   type="button"
