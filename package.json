@@ -8,7 +8,7 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.33",
+    "@escolalms/components": "^0.0.35",
     "@escolalms/h5p-react": "^0",
     "@escolalms/sdk": "^0.2.69",
     "@escolalms/ts-models": "^0",

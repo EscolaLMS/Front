@@ -46,7 +46,6 @@ const SliderWrapper = styled.div`
   }
 
   .slick-track {
-    padding-bottom: 20px;
     display: flex;
     gap: 0 20px;
   }
