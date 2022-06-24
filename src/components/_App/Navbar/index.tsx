@@ -189,7 +189,6 @@ const Navbar = () => {
   const {
     user: userObj,
     settings,
-    fetchNotifications,
     cart,
     fetchCart,
     logout,
@@ -199,7 +198,6 @@ const Navbar = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    fetchNotifications();
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -304,7 +302,9 @@ const Navbar = () => {
           <div className="search-container">
             <SearchCourses
               onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) => console.log("submitted", input)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
             />
           </div>
           <nav className="navigation">

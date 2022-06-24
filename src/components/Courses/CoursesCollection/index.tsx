@@ -26,15 +26,17 @@ import { LessonsIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
+import { Search } from "@escolalms/components";
 
 type updateParamType =
-  | { key: "free" | "tag"; value: string | undefined }
-  | { key: "categories"; value: number[] };
+  | { key: "tag"; value: string | undefined }
+  | { key: "categories"; value: number[] }
+  | { key: "title"; value: string };
 
 type InitialFilters = {
   categories: number[] | undefined;
-  free: string | undefined;
   tag: string | undefined;
+  title: string | undefined;
 };
 
 const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
@@ -184,9 +186,11 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
-      @media (max-width: 768px) {
-        margin-top: 50px;
+      @media (max-width: 991px) {
+        flex-direction: column;
         justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 40px;
       }
       @media (max-width: 575px) {
         flex-direction: column;
@@ -197,11 +201,34 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       }
       .single-select {
         min-width: 130px;
+        &--search {
+          @media (max-width: 991px) {
+            margin-bottom: 20px;
+          }
+          .search-input-options {
+            display: none !important;
+          }
+          input {
+            background: transparent;
+            border-bottom: 1px solid #fff;
+            color: #fff;
+          }
+          svg {
+            filter: brightness(0) invert(1);
+          }
+        }
+        &--tag {
+          .Dropdown-menu {
+            border: none;
+          }
+        }
         &--category {
           min-width: 200px;
           div {
             &:not(.categories-dropdown-options) {
               border: none;
+              background: transparent;
+              color: #fff;
             }
           }
           .categories-dropdown-options {
@@ -248,8 +275,8 @@ const CoursesCollection: React.FC = () => {
   >();
   const initialFilters = {
     categories: [],
-    free: "",
     tag: "",
+    title: "",
   };
   const [filterState, setFilterState] =
     useState<InitialFilters>(initialFilters);
@@ -274,10 +301,6 @@ const CoursesCollection: React.FC = () => {
     setFilterState(initialFilters);
   };
 
-  const typeFilters = [
-    { label: "Wszystkie", value: "false" },
-    { label: "Darmowe", value: "true" },
-  ];
   const tagsFilters = uniqueTags.list
     ? uniqueTags.list?.map((item) => {
         return { label: String(item.title), value: String(item.title) };
@@ -304,7 +327,7 @@ const CoursesCollection: React.FC = () => {
       setFilterState({
         categories: parsedParams.ids,
         tag: parsedParams.tag,
-        free: parsedParams.free,
+        title: parsedParams.title,
       });
   }, [parsedParams]);
   return (
@@ -318,8 +341,7 @@ const CoursesCollection: React.FC = () => {
             }`}
           >
             <div className="categories-row">
-              {(filterState.free ||
-                filterState.tag ||
+              {(filterState.tag ||
                 (filterState.categories &&
                   filterState.categories?.length > 0)) &&
                 isMobile && (
@@ -384,19 +406,16 @@ const CoursesCollection: React.FC = () => {
                       {category.name}
                     </Text>
                   ))}
-              {filterState && filterState.free === "true" && (
-                <Text className="single-filter"> {t("CoursesPage.Free")}</Text>
-              )}
-              {filterState && filterState.free === "false" && (
-                <Text className="single-filter"> {t("CoursesPage.All")}</Text>
-              )}
               {filterState?.tag && (
                 <Text className="single-filter">{params?.tag}</Text>
               )}
+              {filterState?.title && (
+                <Text className="single-filter">{params?.title}</Text>
+              )}
             </div>
-            {(filterState.free ||
-              filterState.tag ||
-              (filterState.categories && filterState.categories?.length > 0)) &&
+            {((filterState.categories && filterState.categories?.length > 0) ||
+              filterState.title ||
+              filterState.tag) &&
               !isMobile && (
                 <button
                   type="button"
@@ -412,10 +431,28 @@ const CoursesCollection: React.FC = () => {
               )}
           </div>
           <div className="selects-row">
+            <div className="single-select single-select--search">
+              <Search
+                placeholder={t("CoursesPage.Search")}
+                onSubmit={(e) => {
+                  const title = e;
+                  updateState({
+                    key: "title",
+                    value: title,
+                  });
+                  if (e === "") {
+                    params && delete params["title"];
+                    setParams && setParams({ ...params, page: 1 });
+                  } else {
+                    setParams &&
+                      setParams({ ...params, page: 1, title: title });
+                  }
+                }}
+              />
+            </div>
             {!isMobile && (
               <div className="single-select single-select--category">
                 <Categories
-                  backgroundColor={theme.primaryColor}
                   categories={categoryTree.list || []}
                   label={"Kategoria"}
                   selectedCategories={
@@ -449,26 +486,7 @@ const CoursesCollection: React.FC = () => {
                 />
               </div>
             )}
-            <div className="single-select">
-              <Dropdown
-                onChange={(e) => {
-                  updateState({
-                    key: "free",
-                    value: e.value,
-                  });
-                  setParams &&
-                    setParams({
-                      ...params,
-                      page: 1,
-                      free: e.value === "true" ? true : false,
-                    });
-                }}
-                placeholder={t("CoursesPage.Type")}
-                value={filterState.free}
-                options={typeFilters}
-              />
-            </div>
-            <div className="single-select">
+            <div className="single-select single-select--tag">
               <Dropdown
                 onChange={(e) => {
                   updateState({
@@ -638,7 +656,11 @@ const CoursesCollection: React.FC = () => {
         <PromotedCoursesSection courses={courses.list.data} />
       )}
       {categoryTree && (
-        <CategoriesSection categories={categoryTree.list || []} />
+        <CategoriesSection
+          categories={
+            categoryTree.list?.filter((category) => !!category.icon) || []
+          }
+        />
       )}
     </>
   );
