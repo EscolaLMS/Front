@@ -189,7 +189,6 @@ const Navbar = () => {
   const {
     user: userObj,
     settings,
-    fetchNotifications,
     cart,
     fetchCart,
     logout,
@@ -199,7 +198,6 @@ const Navbar = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    fetchNotifications();
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
