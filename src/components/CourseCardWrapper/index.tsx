@@ -2,6 +2,9 @@ import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 const CardWrapper = styled.div`
+  display: flex;
+  width: 100%;
+
   a {
     text-decoration: none;
 
