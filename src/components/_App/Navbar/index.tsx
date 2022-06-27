@@ -280,7 +280,7 @@ const Navbar = () => {
         <Navigation
           mobile
           logo={{
-            src: settings?.global?.logo || Logo,
+            src: settings?.value.global?.logo || Logo,
             width: 150,
             height: 50,
           }}
@@ -295,7 +295,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo-container">
           <Link to="/">
-            <img src={settings?.global?.logo || Logo} alt="" />
+            <img src={settings?.value.global?.logo || Logo} alt="" />
           </Link>
         </div>
         <div className="menu-container">

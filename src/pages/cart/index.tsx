@@ -12,7 +12,7 @@ const CartPage: React.FC<Props> = ({ children }) => {
   const { config } = useContext(EscolaLMSContext);
   const stripePromise = (publishable_key: string) =>
     loadStripe(publishable_key);
-  const stripeConfigs: any = config?.escolalms_payments?.drivers;
+  const stripeConfigs: any = config?.value?.escolalms_payments?.drivers;
   const stripeKey = stripeConfigs?.stripe?.publishable_key;
   return (
     <Elements stripe={stripePromise(stripeKey)}>
