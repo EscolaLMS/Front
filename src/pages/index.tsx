@@ -117,23 +117,23 @@ const Index = () => {
     <Layout metaTitle={t("Home")}>
       <HomePageStyled>
         <section className="home-hero">
-          {settings?.homepage &&
-            settings?.homepage.heroBannerText &&
-            settings.homepage?.heroBannerText !== "" &&
-            settings.homepage?.heroBannerImg &&
-            settings.homepage?.heroBannerImg !== "" && (
+          {settings.value?.homepage &&
+            settings.value?.homepage.heroBannerText &&
+            settings.value.homepage?.heroBannerText !== "" &&
+            settings.value.homepage?.heroBannerImg &&
+            settings.value.homepage?.heroBannerImg !== "" && (
               <div className="container">
                 <Banner
                   mobile={isMobile}
                   title={
                     <MarkdownRenderer>
-                      {settings?.homepage?.heroBannerText || ""}
+                      {settings?.value.homepage?.heroBannerText || ""}
                     </MarkdownRenderer>
                   }
                   btnText={t("Homepage.HeroBtnText")}
                   asset={
                     <ResponsiveImage
-                      path={settings?.homepage?.heroBannerImg || ""}
+                      path={settings?.value.homepage?.heroBannerImg || ""}
                       srcSizes={[500, 750, 1000]}
                     />
                   }
