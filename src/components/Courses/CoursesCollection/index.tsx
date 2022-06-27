@@ -176,6 +176,17 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       align-items: center;
       column-gap: 35px;
 
+      @media (max-width: 991px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 40px;
+      }
+      @media (max-width: 575px) {
+        row-gap: 15px;
+        margin-top: 20px;
+      }
+
       .single-select--search {
         .search-input-options {
           display: none !important;
