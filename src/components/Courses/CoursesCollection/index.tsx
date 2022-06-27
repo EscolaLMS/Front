@@ -68,18 +68,6 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
     align-items: center;
     position: relative;
 
-    .Dropdown-control {
-      background: transparent;
-      border-color: transparent;
-      .Dropdown-placeholder {
-        color: ${({ theme }) => theme.white};
-      }
-      .Dropdown-arrow-wrapper {
-        svg {
-          filter: brightness(0) invert(1);
-        }
-      }
-    }
     .categories-container {
       display: flex;
       justify-content: flex-start;
@@ -181,79 +169,29 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
         min-width: 110px;
       }
     }
+
     .selects-row {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
-      @media (max-width: 991px) {
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        margin-top: 40px;
-      }
-      @media (max-width: 575px) {
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        row-gap: 15px;
-        margin-top: 20px;
-      }
-      .single-select {
-        min-width: 130px;
-        &--search {
-          @media (max-width: 991px) {
-            margin-bottom: 20px;
-          }
-          .search-input-options {
-            display: none !important;
-          }
-          input {
-            background: transparent;
-            border-bottom: 1px solid #fff;
-            color: #fff;
-          }
-          svg {
-            filter: brightness(0) invert(1);
-          }
-        }
-        &--tag {
-          .Dropdown-menu {
-            border: none;
-          }
-        }
-        &--category {
-          min-width: 200px;
-          div {
-            &:not(.categories-dropdown-options) {
-              border: none;
-              background: transparent;
-              color: #fff;
-            }
-          }
-          .categories-dropdown-options {
-            background-color: ${({ theme }) => theme.white};
-            margin-top: -1px;
-          }
-          .categories-dropdown-button {
-            font-size: 16px;
-            font-weight: 400;
-            font-family: ${({ theme }) => theme.font};
-          }
-          button {
-            ${isMobile &&
-            css`
-              color: ${({ theme }) => theme.white};
-              border-color: ${({ theme }) => theme.white};
-            `}
-          }
 
-          label {
-            input {
-              min-width: 20px;
-            }
-          }
+      .single-select--search {
+        .search-input-options {
+          display: none !important;
         }
+        input {
+          background: transparent;
+          border-bottom: 1px solid #fff;
+          color: #fff;
+        }
+        svg {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      .single-select--category {
+        min-width: 200px;
       }
     }
   }
@@ -453,6 +391,7 @@ const CoursesCollection: React.FC = () => {
             {!isMobile && (
               <div className="single-select single-select--category">
                 <Categories
+                  backgroundColor={theme.primaryColor}
                   categories={categoryTree.list || []}
                   label={"Kategoria"}
                   selectedCategories={
@@ -500,6 +439,7 @@ const CoursesCollection: React.FC = () => {
                       tag: e.value,
                     });
                 }}
+                backgroundColor={theme.primaryColor}
                 value={filterState.tag}
                 placeholder="Tag"
                 options={[
