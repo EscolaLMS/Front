@@ -109,7 +109,8 @@ const Footer = () => {
         </div>
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
-          <img src={settings?.value.global?.logo || ""} alt="" />
+
+          <img src={settings?.value?.global?.logo || ""} alt="" />
         </div>
       </div>
     </StyledFooter>
