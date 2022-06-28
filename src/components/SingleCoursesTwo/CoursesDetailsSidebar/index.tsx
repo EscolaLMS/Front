@@ -203,7 +203,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               {t("CoursePage.GoToCheckout")}
             </Button>
           ) : userOwnThisCourse ? (
-            <Button block mode="secondary">
+            <Button
+              block
+              mode="secondary"
+              onClick={() => push(`/course/${course.id}`)}
+            >
               {t("Attend to Course")}
             </Button>
           ) : user.value && course.product ? (

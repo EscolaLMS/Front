@@ -39,9 +39,9 @@ const SliderWrapper = styled.div`
   .slick-dots {
     top: -65px;
     @media (max-width: 575px) {
-      top: -30px;
-      right: unset;
-      left: 50px;
+      top: -30px !important;
+      right: unset !important;
+      left: 50px !important;
     }
   }
 

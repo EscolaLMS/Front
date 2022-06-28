@@ -156,6 +156,7 @@ const resources = {
       },
       CourseProgram: {
         TopicAttachment: "Topic attachments",
+        ShowAgenda: "Show agenda",
       },
       EmailVerifiedPage: {
         Verified: "Your email is now verified",
@@ -504,6 +505,7 @@ const resources = {
       },
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
+        ShowAgenda: "Pokaż agendę",
       },
       CoursesPage: {
         Category: "Kategoria",
