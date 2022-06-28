@@ -74,13 +74,15 @@ export const CourseSidebar: React.FC<{
   }
   return (
     <StyledSidebar>
-      <Button
-        mode="outline"
-        className="show-agenda-btn"
-        onClick={() => setAgendaVisible(true)}
-      >
-        {t("CourseProgram.ShowAgenda")}
-      </Button>
+      {isMobile && (
+        <Button
+          mode="outline"
+          className="show-agenda-btn"
+          onClick={() => setAgendaVisible(true)}
+        >
+          {t("CourseProgram.ShowAgenda")}
+        </Button>
+      )}
       <div
         className={`${
           agendaVisible
@@ -88,13 +90,15 @@ export const CourseSidebar: React.FC<{
             : "agenda-wrapper"
         }`}
       >
-        <Button
-          className="hide-agenda-btn"
-          mode="secondary"
-          onClick={() => setAgendaVisible(false)}
-        >
-          &#10005;
-        </Button>
+        {isMobile && (
+          <Button
+            className="hide-agenda-btn"
+            mode="secondary"
+            onClick={() => setAgendaVisible(false)}
+          >
+            &#10005;
+          </Button>
+        )}
         <CourseAgenda
           mobile={isMobile}
           lessons={course.lessons}
