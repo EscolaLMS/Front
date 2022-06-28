@@ -13,7 +13,6 @@ export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
 }> = ({ topic }) => {
   const { apiUrl } = useContext(EscolaLMSContext);
-
   const topicRender = useMemo(() => {
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
