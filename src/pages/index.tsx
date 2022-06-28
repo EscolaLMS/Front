@@ -127,13 +127,13 @@ const Index = () => {
                   mobile={isMobile}
                   title={
                     <MarkdownRenderer>
-                      {settings?.value.homepage?.heroBannerText || ""}
+                      {settings?.value?.homepage?.heroBannerText || ""}
                     </MarkdownRenderer>
                   }
                   btnText={t("Homepage.HeroBtnText")}
                   asset={
                     <ResponsiveImage
-                      path={settings?.value.homepage?.heroBannerImg || ""}
+                      path={settings?.value?.homepage?.heroBannerImg || ""}
                       srcSizes={[500, 750, 1000]}
                     />
                   }
