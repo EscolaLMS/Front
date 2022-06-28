@@ -196,7 +196,6 @@ const Navbar = () => {
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
-
   useEffect(() => {
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
