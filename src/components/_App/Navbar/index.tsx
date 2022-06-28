@@ -196,7 +196,6 @@ const Navbar = () => {
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
-
   useEffect(() => {
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -280,7 +279,7 @@ const Navbar = () => {
         <Navigation
           mobile
           logo={{
-            src: settings?.value.global?.logo || Logo,
+            src: settings?.value?.global?.logo || Logo,
             width: 150,
             height: 50,
           }}
@@ -295,7 +294,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo-container">
           <Link to="/">
-            <img src={settings?.value.global?.logo || Logo} alt="" />
+            <img src={settings?.value?.global?.logo || Logo} alt="" />
           </Link>
         </div>
         <div className="menu-container">
