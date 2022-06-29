@@ -284,7 +284,7 @@ const Navbar = () => {
           </Link>
         </CustomMobileMenuItem>
       ) : (
-        <Button mode={"secondary"} onClick={() => history.push("/login")}>
+        <Button mode={"secondary"} block onClick={() => history.push("/login")}>
           {t<string>("Header.Login")}
         </Button>
       ),
