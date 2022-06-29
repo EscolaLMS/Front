@@ -517,3 +517,15 @@
 .h5p-audio-minimal-slow {
   background: var(--main) !important;
 }
+
+.h5p-solution-icon {
+  width: auto !important;
+}
+
+.h5p-multichoice .h5p-answer-icon {
+  font-family: 'H5PFontAwesome4' !important
+}
+
+.h5p-multichoice .h5p-solution-icon {
+  font-family: 'icomoon-multichoice' !important;
+}
