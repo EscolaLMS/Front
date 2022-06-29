@@ -174,14 +174,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const CustomMobileMenuItem = styled.div`
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  display: flex !important;
-  padding: 0 !important;
-  margin: 0 !important;
-`;
+const CustomMobileMenuItem = styled.div``;
 
 const Navbar = () => {
   const { i18n, t } = useTranslation();
@@ -202,60 +195,74 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: (
-        <Text style={{ margin: 0, padding: 0 }}>
-          {t("Header.BrowsePlaceholder")}
-        </Text>
-      ),
+      title: t("Menu.Browse"),
       key: "menuItem1",
       children: [
         {
           title: (
             <Link to="/">
-              <Text>{t("Menu.HomePage")}</Text>
+              <Text noMargin bold>
+                {t("Menu.HomePage")}
+              </Text>
             </Link>
           ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/courses">{t("Menu.Courses")}</Link>,
+          title: (
+            <Link to="/courses">
+              <Text noMargin bold>
+                {t("Menu.Courses")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-2",
         },
         {
-          title: <Link to="/tutors">{t("Menu.Tutors")}</Link>,
+          title: (
+            <Link to="/tutors">
+              <Text noMargin bold>
+                {t("Menu.Tutors")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-3",
         },
       ],
     },
     {
-      title: <Text style={{ margin: 0, padding: 0 }}>{t("Menu.Me")}</Text>,
+      title: t("Menu.Me"),
       key: "menuItem2",
       children: [
         {
-          title: <Link to="/user/my-profile">{t("Menu.Profile")}</Link>,
+          title: (
+            <Link to="/user/my-profile">
+              <Text noMargin bold>
+                {t("Menu.Profile")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/user/my-profile">{t("Menu.Courses")}</Link>,
-          key: "submenu-2",
-        },
-        {
-          title: <Link to="/user/my-orders">{t("Menu.Orders")}</Link>,
+          title: (
+            <Link to="/user/my-orders">
+              <Text noMargin bold>
+                {t("Menu.Orders")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-3",
         },
         {
           title: (
-            <Link to="/user/my-notifications">{t("Menu.Notifications")}</Link>
+            <Link to="/user/my-notifications">
+              <Text noMargin bold>
+                {t("Menu.Notifications")}
+              </Text>
+            </Link>
           ),
           key: "submenu-4",
-        },
-        {
-          title: (
-            <Button onClick={() => logout().then(() => history.push("/"))}>
-              Wyloguj
-            </Button>
-          ),
-          key: "submenu-5",
         },
       ],
     },
@@ -263,15 +270,15 @@ const Navbar = () => {
       title: user ? (
         <CustomMobileMenuItem>
           <Link to="/user/my-profile">
-            {user?.first_name} {user?.last_name}
+            <Text noMargin bold>
+              {user?.first_name} {user?.last_name}
+            </Text>
           </Link>
         </CustomMobileMenuItem>
       ) : (
-        <Link to="/authentication">
-          <Text style={{ margin: 0, padding: 0 }}>
-            {t("Menu.LoginRegister")}
-          </Text>
-        </Link>
+        <Button mode={"secondary"} onClick={() => history.push("/login")}>
+          {t<string>("Header.Login")}
+        </Button>
       ),
       key: "menuItem3",
     },
@@ -288,6 +295,14 @@ const Navbar = () => {
             height: 50,
           }}
           menuItems={menuItems}
+          search={
+            <SearchCourses
+              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
+            />
+          }
         />
       </StyledHeader>
     );
