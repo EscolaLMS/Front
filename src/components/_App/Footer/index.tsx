@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
