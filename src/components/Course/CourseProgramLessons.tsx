@@ -27,6 +27,12 @@ const StyledCourse = styled.section`
     width: 100%;
     z-index: 100;
   }
+  .course-program-player-content {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
 `;
 
 export const courseIncomplete = 0;
