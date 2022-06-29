@@ -404,7 +404,7 @@ const CoursesCollection: React.FC = () => {
                 <Categories
                   backgroundColor={theme.primaryColor}
                   categories={categoryTree.list || []}
-                  label={"Kategoria"}
+                  label={t("CoursesPage.Category")}
                   selectedCategories={
                     filterState.categories && filterState.categories.length > 0
                       ? filterState.categories

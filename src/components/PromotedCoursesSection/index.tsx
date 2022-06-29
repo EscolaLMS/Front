@@ -343,7 +343,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       </Link>
                     }
                     hideImage
-                    buttonText="Jak to działa"
+                    buttonText={t<string>("HowItWorks")}
                     onButtonClick={() =>
                       history.push(`/courses/${courses[5].id}`)
                     }
