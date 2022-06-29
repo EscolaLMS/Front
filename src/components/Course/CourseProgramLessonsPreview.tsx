@@ -6,7 +6,7 @@ import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
-export const CourseProgramLessonsPreview: React.FC<{
+const CourseProgramLessonsPreview: React.FC<{
   program: API.CourseProgram;
 }> = ({ program }) => {
   const { topic, lesson, onNextTopicPreview } = useLessonProgram(

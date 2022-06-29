@@ -195,7 +195,7 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: t("Menu.Browse"),
+      title: <Text style={{ margin: 0 }}>{t("Menu.Browse")}</Text>,
       key: "menuItem1",
       children: [
         {
@@ -231,7 +231,7 @@ const Navbar = () => {
       ],
     },
     {
-      title: t("Menu.Me"),
+      title: <Text style={{ margin: 0 }}>{t("Menu.Me")}</Text>,
       key: "menuItem2",
       children: [
         {
@@ -293,6 +293,7 @@ const Navbar = () => {
             src: settings?.value?.global?.logo || Logo,
             width: 150,
             height: 50,
+            onClick: () => history.push("/"),
           }}
           menuItems={menuItems}
           search={
