@@ -195,7 +195,11 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: <Text style={{ margin: 0 }}>{t("Menu.Browse")}</Text>,
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Browse")}
+        </Text>
+      ),
       key: "menuItem1",
       children: [
         {
@@ -231,7 +235,11 @@ const Navbar = () => {
       ],
     },
     {
-      title: <Text style={{ margin: 0 }}>{t("Menu.Me")}</Text>,
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Me")}
+        </Text>
+      ),
       key: "menuItem2",
       children: [
         {
