@@ -345,16 +345,16 @@ const Navbar = () => {
             />
             {user?.id && (
               <Dropdown
-                placeholder={t("Profile")}
+                placeholder={t("Menu.Profile")}
                 options={[
-                  { label: t("MyCourses"), value: "/user/my-profile" },
-                  { label: t("MyOrders"), value: "/user/my-orders" },
+                  { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
+                  { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
                   {
                     label: t("MyProfilePage.Notifications"),
                     value: "/user/my-notifications",
                   },
-                  { label: t("EditProfile"), value: "/user/my-data" },
-                  { label: t("Logout"), value: "logout" },
+                  { label: t("Navbar.EditProfile"), value: "/user/my-data" },
+                  { label: t("Navbar.Logout"), value: "logout" },
                 ]}
                 onChange={(e) =>
                   e.value !== "logout"
