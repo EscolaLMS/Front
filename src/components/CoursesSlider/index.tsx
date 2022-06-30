@@ -25,7 +25,8 @@ type Props = {
 
 const SliderWrapper = styled.div`
   @media (max-width: 575px) {
-    margin-left: -50px;
+    margin-left: -55px;
+
     .image-section,
     img {
       max-height: 180px;
@@ -46,10 +47,14 @@ const SliderWrapper = styled.div`
   }
   .row {
     margin-top: 30px;
+    row-gap: 60px;
   }
   .slick-track {
     display: flex;
     gap: 0 20px;
+    @media (max-width: 991px) {
+      padding-bottom: 20px;
+    }
   }
 
   .slick-slide {
@@ -70,7 +75,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
 
   return (
     <SliderWrapper>
-      {courses.length >= 5 ? (
+      {courses.length >= 5 || isMobile ? (
         <Slider settings={{ ...sliderSettings, dots }} dotsPosition="top right">
           {courses &&
             courses.map((item) => (
