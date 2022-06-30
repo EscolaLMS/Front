@@ -602,7 +602,7 @@ const CoursesCollection: React.FC = () => {
           />
         )}
       {courses && courses.list && courses.list.data.length >= 6 && (
-        <PromotedCoursesSection courses={courses.list.data} />
+        <PromotedCoursesSection courses={courses.list.data || []} />
       )}
       {categoryTree && (
         <CategoriesSection
