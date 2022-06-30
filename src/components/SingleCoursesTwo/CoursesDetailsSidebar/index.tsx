@@ -124,10 +124,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           />
         )}
         {course.language && (
-          <IconText
-            icon={<IconSquares />}
-            text={`Język: ${course.lessons.length}`}
-          />
+          <IconText icon={<IconSquares />} text={`Język: ${course.language}`} />
         )}
         {course.level && (
           <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
