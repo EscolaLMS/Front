@@ -23,14 +23,9 @@ type Props = {
   sliderSettings: Settings;
 };
 
-const SliderWrapper = styled.div`
+const Content = styled.div`
   @media (max-width: 575px) {
-    margin-left: -55px;
-
-    .image-section,
-    img {
-      max-height: 180px;
-    }
+    margin-left: -59px;
   }
   .slick-slider {
     @media (max-width: 575px) {
@@ -74,102 +69,111 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
   const { t } = useTranslation();
 
   return (
-    <SliderWrapper>
+    <Content>
       {courses.length >= 5 || isMobile ? (
-        <Slider settings={{ ...sliderSettings, dots }} dotsPosition="top right">
-          {courses &&
-            courses.map((item) => (
-              <CourseCardWrapper key={item.id}>
-                <CourseCard
-                  mobile={isMobile}
-                  id={item.id}
-                  image={
-                    <Link to={`/courses/${item.id}`}>
-                      {item.image_path ? (
-                        <ResponsiveImage
-                          path={item.image_path}
-                          alt={item.title}
-                          srcSizes={[300, 600, 900]}
-                        />
-                      ) : (
-                        <CourseImgPlaceholder />
-                      )}
-                    </Link>
-                  }
-                  tags={
-                    <>
-                      {item.tags?.map((item, index) => (
-                        <Badge key={index} color={theme.primaryColor}>
+        <div>
+          <Slider
+            settings={{ ...sliderSettings, dots }}
+            dotsPosition="top right"
+          >
+            {courses &&
+              courses.map((item) => (
+                <CourseCardWrapper key={item.id}>
+                  <CourseCard
+                    mobile={isMobile}
+                    id={item.id}
+                    image={
+                      <Link to={`/courses/${item.id}`}>
+                        {item.image_path ? (
+                          <ResponsiveImage
+                            path={item.image_path}
+                            alt={item.title}
+                            srcSizes={[300, 600, 900]}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
+                      </Link>
+                    }
+                    tags={
+                      <>
+                        {item.tags?.map((item, index) => (
+                          <Badge key={index} color={theme.primaryColor}>
+                            <Link
+                              style={{ color: theme.white }}
+                              to={`/courses/?tag=${item.title}`}
+                            >
+                              {item.title}
+                            </Link>
+                          </Badge>
+                        ))}
+                      </>
+                    }
+                    subtitle={
+                      item.subtitle ? (
+                        <Text size="12">
                           <Link
-                            style={{ color: theme.white }}
-                            to={`/courses/?tag=${item.title}`}
+                            style={{ color: theme.primaryColor }}
+                            to={`/courses/${item.id}`}
                           >
-                            {item.title}
+                            <strong>{item.subtitle}</strong>
                           </Link>
-                        </Badge>
-                      ))}
-                    </>
-                  }
-                  subtitle={
-                    item.subtitle ? (
-                      <Text size="12">
-                        <Link
-                          style={{ color: theme.primaryColor }}
-                          to={`/courses/${item.id}`}
+                        </Text>
+                      ) : undefined
+                    }
+                    title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={item.categories?.map((category) => (
+                          <Link
+                            key={category.id}
+                            to={`/courses/?ids[]=${category.id}`}
+                          >
+                            {category.name}
+                          </Link>
+                        ))}
+                      />
+                    }
+                    actions={
+                      <>
+                        <Button
+                          mode="secondary"
+                          onClick={() => history.push(`/courses/${item.id}`)}
                         >
-                          <strong>{item.subtitle}</strong>
-                        </Link>
-                      </Text>
-                    ) : undefined
-                  }
-                  title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
-                  categories={
-                    <BreadCrumbs
-                      hyphen="/"
-                      items={item.categories?.map((category) => (
-                        <Link
-                          key={category.id}
-                          to={`/courses/?ids[]=${category.id}`}
-                        >
-                          {category.name}
-                        </Link>
-                      ))}
-                    />
-                  }
-                  actions={
-                    <>
-                      <Button
-                        mode="secondary"
-                        onClick={() => history.push(`/courses/${item.id}`)}
-                      >
-                        {t<string>("Start now")}
-                      </Button>
-                    </>
-                  }
-                  footer={
-                    <>
-                      {item.users_count && item.users_count > 0 ? (
-                        <IconText
-                          icon={<UserIcon />}
-                          text={`${item.users_count} ${t<string>("Students")}`}
-                        />
-                      ) : (
-                        ""
-                      )}{" "}
-                      {item.lessons_count && item.lessons_count > 0 ? (
-                        <IconText
-                          icon={<LessonsIcon />}
-                          text={`${item.lessons_count} ${t<string>("Lessons")}`}
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </>
-                  }
-                />
-              </CourseCardWrapper>
-            ))}
-        </Slider>
+                          {t<string>("Start now")}
+                        </Button>
+                      </>
+                    }
+                    footer={
+                      <>
+                        {item.users_count && item.users_count > 0 ? (
+                          <IconText
+                            icon={<UserIcon />}
+                            text={`${item.users_count} ${t<string>(
+                              "Students"
+                            )}`}
+                          />
+                        ) : (
+                          ""
+                        )}{" "}
+                        {item.lessons_count && item.lessons_count > 0 ? (
+                          <IconText
+                            icon={<LessonsIcon />}
+                            text={`${item.lessons_count} ${t<string>(
+                              "Lessons"
+                            )}`}
+                          />
+                        ) : (
+                          ""
+                        )}
+                      </>
+                    }
+                  />
+                </CourseCardWrapper>
+              ))}
+          </Slider>
+        </div>
       ) : (
         <div className="row">
           {courses.map((item) => (
@@ -267,7 +271,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
           ))}
         </div>
       )}
-    </SliderWrapper>
+    </Content>
   );
 };
 

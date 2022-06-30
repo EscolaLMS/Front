@@ -171,7 +171,7 @@ const Index = () => {
 
         {courses && courses.list && courses.list.data.length >= 6 && (
           <div className="promoted-courses-wrapper">
-            <PromotedCoursesSection courses={courses.list.data || []} />
+            <PromotedCoursesSection courses={courses.list.data} />
           </div>
         )}
 
