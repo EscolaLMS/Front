@@ -232,7 +232,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       }
                       image={
                         <Link to={`/courses/${courses[1].id}`}>
-                          {courses[1].image_url ? (
+                          {courses[1].image_path ? (
                             <ResponsiveImage
                               path={courses[1].image_path}
                               alt={courses[1].title}
@@ -283,7 +283,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       }
                       image={
                         <Link to={`/courses/${courses[2].id}`}>
-                          {courses[2].image_url ? (
+                          {courses[2].image_path ? (
                             <ResponsiveImage
                               path={courses[2].image_path}
                               alt={courses[2].title}
@@ -414,7 +414,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       }
                       image={
                         <Link to={`/courses/${courses[5].id}`}>
-                          {courses[5].image_url ? (
+                          {courses[5].image_path ? (
                             <ResponsiveImage
                               path={courses[5].image_path}
                               alt={courses[5].title}
@@ -465,7 +465,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                       }
                       image={
                         <Link to={`/courses/${courses[4].id}`}>
-                          {courses[4].image_url ? (
+                          {courses[4].image_path ? (
                             <ResponsiveImage
                               path={courses[4].image_path}
                               alt={courses[4].title}

@@ -476,7 +476,9 @@ const CoursePage = () => {
             </div>
             <div className="col-lg-3 col-md-12 sidebar-col">
               <div className="sidebar-wrapper">
-                <CoursesDetailsSidebar course={course.value} />
+                {course.value && (
+                  <CoursesDetailsSidebar course={course.value} />
+                )}
               </div>
             </div>
           </div>
