@@ -114,25 +114,31 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         {course.duration && (
           <IconText
             icon={<IconCamera />}
-            text={`Czas trwania: ${course.duration}`}
+            text={`${t("CoursePage.Duration")}: ${course.duration}`}
           />
         )}
         {course.lessons && (
           <IconText
             icon={<IconSquares />}
-            text={`Lekcje: ${course.lessons.length}`}
+            text={`${t("CoursePage.Lessons")}: ${course.lessons.length}`}
           />
         )}
         {course.language && (
-          <IconText icon={<IconSquares />} text={`Język: ${course.language}`} />
+          <IconText
+            icon={<IconSquares />}
+            text={`${t("CoursePage.Language")}: ${course.language}`}
+          />
         )}
         {course.level && (
-          <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
+          <IconText
+            icon={<IconSquares />}
+            text={`${t("CoursePage.Level")}: ${course.level}`}
+          />
         )}
         {course.users_count ? (
           <IconText
             icon={<IconSquares />}
-            text={`Uczniów: ${course.users_count}`}
+            text={`${t("CoStursePage.Students")}: ${course.users_count}`}
           />
         ) : (
           ""
