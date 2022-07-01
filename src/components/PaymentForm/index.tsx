@@ -7,6 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import styled, { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Col, Row } from "react-grid-system";
 
 type Props = {
   billingDetails: {
@@ -59,8 +60,8 @@ const PaymentForm: React.FC<Props> = ({
 
   return (
     <StyledForm>
-      <div className="row">
-        <div className="col-lg-6">
+      <Row>
+        <Col lg={6}>
           <div className="input-wrapper--custom">
             <Input
               label={t<string>("Cart.FullName")}
@@ -74,23 +75,25 @@ const PaymentForm: React.FC<Props> = ({
               value={billingDetails.name}
             />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardNumberElement options={options} />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardExpiryElement options={options} />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardCvcElement options={options} />
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </StyledForm>
   );
 };

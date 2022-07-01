@@ -27,6 +27,7 @@ import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 import { Search } from "@escolalms/components";
+import { Row, Col } from "react-grid-system";
 
 type updateParamType =
   | { key: "tag"; value: string | undefined }
@@ -210,10 +211,6 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
 
 const CoursesList = styled.section`
   margin-bottom: ${isMobile ? "50px" : "75px"};
-
-  .row {
-    gap: 30px 0;
-  }
 `;
 
 const CoursesCollection: React.FC = () => {
@@ -477,9 +474,13 @@ const CoursesCollection: React.FC = () => {
             </div>
           ) : (
             <CoursesList>
-              <div className="row">
+              <Row
+                style={{
+                  gap: "30px 0",
+                }}
+              >
                 {courses?.list?.data.map((item) => (
-                  <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
+                  <Col md={6} lg={4} xl={3} key={item.id}>
                     <CourseCardWrapper>
                       <CourseCard
                         mobile={isMobile}
@@ -577,9 +578,9 @@ const CoursesCollection: React.FC = () => {
                         }
                       />
                     </CourseCardWrapper>
-                  </div>
+                  </Col>
                 ))}
-              </div>
+              </Row>
             </CoursesList>
           )}
         </>

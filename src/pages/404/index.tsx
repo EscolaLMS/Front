@@ -1,6 +1,7 @@
 import Layout from "@/components/_App/Layout";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Container } from "react-grid-system";
 
 const Custom404 = () => {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ const Custom404 = () => {
       <div className="error-area">
         <div className="d-table">
           <div className="d-table-cell">
-            <div className="container">
+            <Container>
               <div className="error-content">
                 <img src={`/images/error.png`} alt="Error" />
                 <h3>{t("Custom404Page.Info")}</h3>
@@ -27,7 +28,7 @@ const Custom404 = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </Container>
           </div>
         </div>
       </div>

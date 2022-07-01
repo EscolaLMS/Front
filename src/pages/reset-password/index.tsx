@@ -5,6 +5,7 @@ import { ResetPasswordForm } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { Col, Container, Row } from "react-grid-system";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -20,9 +21,9 @@ const ResetPassword: React.FC = () => {
   return (
     <Layout>
       <div className="profile-authentication-area">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6 col-md-12">
+        <Container>
+          <Row justify={"center"}>
+            <Col md={12} lg={12}>
               <ResetPasswordForm
                 onSecondStepSuccess={() => {
                   push("/login");
@@ -34,9 +35,9 @@ const ResetPassword: React.FC = () => {
                 token={token}
                 email={email}
               />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </Layout>
   );

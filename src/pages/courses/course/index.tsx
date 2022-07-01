@@ -25,6 +25,7 @@ import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
+import { Col, Container, Row } from "react-grid-system";
 
 resetIdCounter();
 
@@ -196,6 +197,10 @@ const StyledCoursePage = styled.div`
     bottom: ${isMobile ? "0" : "unset"};
     z-index: 100;
   }
+
+  .single-content {
+    box-sizing: border-box;
+  }
 `;
 
 const ModalOverwriteGlobal = createGlobalStyle`
@@ -271,9 +276,9 @@ const CoursePage = () => {
   return (
     <Layout metaTitle={course.value.title}>
       <StyledCoursePage>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-9 col-md-12">
+        <Container>
+          <Row>
+            <Col md={12} lg={9}>
               <Breadcrumbs
                 items={[
                   <Link to="/">{t("Home")}</Link>,
@@ -282,8 +287,8 @@ const CoursePage = () => {
                 ]}
               />
               <section className="course-main-info with-border">
-                <div className="row flex-lg-row flex-column-reverse">
-                  <div className="col-lg-7">
+                <Row>
+                  <Col lg={7}>
                     <Title mobile={isMobile} level={2}>
                       {course.value.title}
                     </Title>
@@ -316,8 +321,8 @@ const CoursePage = () => {
                         </LabelListItem>
                       </div>
                     </div>
-                  </div>
-                  <div className="col-lg-4">
+                  </Col>
+                  <Col lg={4}>
                     {course.value.image_path && (
                       <div className="image-wrapper">
                         <ResponsiveImage
@@ -326,8 +331,8 @@ const CoursePage = () => {
                         />
                       </div>
                     )}
-                  </div>
-                </div>
+                  </Col>
+                </Row>
                 <div className="labels-row labels-row--bottom">
                   {course.value.categories &&
                     course.value.categories.length > 0 && (
@@ -473,20 +478,20 @@ const CoursePage = () => {
                   )}
                 </section>
               }
-            </div>
-            <div className="col-lg-3 col-md-12 sidebar-col">
+            </Col>
+            <Col md={12} lg={3} className="sidebar-col">
               <div className="sidebar-wrapper">
                 {course.value && (
                   <CoursesDetailsSidebar course={course.value} />
                 )}
               </div>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
         <section className="course-related-courses">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-9">
+          <Container>
+            <Row>
+              <Col lg={9}>
                 <div className="content-container">
                   <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
                   {courses && courses.list && (
@@ -505,9 +510,9 @@ const CoursePage = () => {
                     />
                   )}
                 </div>
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </section>
       </StyledCoursePage>
 

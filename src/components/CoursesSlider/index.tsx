@@ -17,6 +17,7 @@ import { LessonsIcon, UserIcon } from "../../icons";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "../CourseCardWrapper";
+import { Col, Row } from "react-grid-system";
 
 type Props = {
   courses: API.Course[];
@@ -39,10 +40,6 @@ const Content = styled.div`
       right: unset !important;
       left: 50px !important;
     }
-  }
-  .row {
-    margin-top: 30px;
-    row-gap: 60px;
   }
   .slick-track {
     display: flex;
@@ -175,9 +172,14 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
           </Slider>
         </div>
       ) : (
-        <div className="row">
+        <Row
+          style={{
+            marginTop: "30px",
+            rowGap: "60px",
+          }}
+        >
           {courses.map((item) => (
-            <div className="col-lg-3 col-md-6">
+            <Col md={6} lg={3} key={item.id}>
               <CourseCardWrapper key={item.id}>
                 <CourseCard
                   mobile={isMobile}
@@ -267,9 +269,9 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                   }
                 />
               </CourseCardWrapper>
-            </div>
+            </Col>
           ))}
-        </div>
+        </Row>
       )}
     </Content>
   );

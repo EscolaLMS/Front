@@ -16,6 +16,7 @@ import { LessonsIcon, UserIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
+import { Col, Row } from "react-grid-system";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -24,10 +25,6 @@ const StyledList = styled.div`
     a {
       text-decoration: none;
     }
-  }
-
-  > .row {
-    gap: 28px 0;
   }
 
   .slider-wrapper {
@@ -143,7 +140,11 @@ const ProfileCourses = ({
   return (
     <StyledList>
       {!isMobile ? (
-        <div className="row">
+        <Row
+          style={{
+            gap: "28px 0",
+          }}
+        >
           {progress.value?.length === 0 && (
             <StyledEmptyInfo>
               <Title level={3}>
@@ -159,7 +160,7 @@ const ProfileCourses = ({
           )}
           {coursesToMap &&
             coursesToMap.slice(0, 6).map((item) => (
-              <div className="col-md-4" key={item.course.id}>
+              <Col md={4} key={item.course.id}>
                 <CourseCardWrapper>
                   <CourseCard
                     mobile={isMobile}
@@ -248,11 +249,13 @@ const ProfileCourses = ({
                     }
                   />
                 </CourseCardWrapper>
-              </div>
+              </Col>
             ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
-            <div
-              className="col-12"
+            <Col
+              sm={12}
+              md={12}
+              lg={12}
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -262,13 +265,13 @@ const ProfileCourses = ({
               <Button onClick={() => setShowMore(true)} mode="outline">
                 {t<string>("MyProfilePage.ShowMore")}
               </Button>
-            </div>
+            </Col>
           )}
           {coursesToMap &&
             coursesToMap.length > 5 &&
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
-              <div className="col-md-4" key={item.course.id}>
+              <Col md={4} key={item.course.id}>
                 <CourseCardWrapper>
                   <CourseCard
                     mobile={isMobile}
@@ -357,9 +360,9 @@ const ProfileCourses = ({
                     }
                   />
                 </CourseCardWrapper>
-              </div>
+              </Col>
             ))}
-        </div>
+        </Row>
       ) : (
         <div className="slider-wrapper">
           {coursesToMap &&

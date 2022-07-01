@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
+import { Container } from "react-grid-system";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -73,7 +74,7 @@ const Footer = () => {
   }, []);
   return (
     <StyledFooter>
-      <div className="container">
+      <Container>
         <div className="links-row">
           <Link className="single-link" to="/">
             <Text size="14">{t<string>("Footer.HomePage")}</Text>
@@ -112,7 +113,7 @@ const Footer = () => {
 
           <img src={settings?.value?.global?.logo || ""} alt="" />
         </div>
-      </div>
+      </Container>
     </StyledFooter>
   );
 };

@@ -12,6 +12,7 @@ import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory } from "react-router-dom";
+import { Container } from "react-grid-system";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -122,7 +123,7 @@ const Index = () => {
             settings.value.homepage?.heroBannerText !== "" &&
             settings.value.homepage?.heroBannerImg &&
             settings.value.homepage?.heroBannerImg !== "" && (
-              <div className="container">
+              <Container>
                 <Banner
                   mobile={isMobile}
                   title={
@@ -139,11 +140,11 @@ const Index = () => {
                   }
                   handleBtn={() => history.push("/courses")}
                 />
-              </div>
+              </Container>
             )}
         </section>
         <section className="home-best-courses">
-          <div className="container">
+          <Container>
             <Title className="slider-title" level={3}>
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
@@ -153,10 +154,10 @@ const Index = () => {
                 sliderSettings={sliderSettings}
               />
             )}
-          </div>
+          </Container>
         </section>
         <section className="home-newest-courses">
-          <div className="container">
+          <Container>
             <Title className="slider-title" level={3}>
               <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
             </Title>
@@ -166,7 +167,7 @@ const Index = () => {
                 sliderSettings={sliderSettings}
               />
             )}
-          </div>
+          </Container>
         </section>
 
         {courses && courses.list && courses.list.data.length >= 6 && (

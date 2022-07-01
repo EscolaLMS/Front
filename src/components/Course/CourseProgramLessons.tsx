@@ -14,6 +14,7 @@ import { isMobile } from "react-device-detect";
 import CourseDownloads from "./CourseDownloads";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../Breadcrumbs";
+import { Col, Row, Container } from "react-grid-system";
 
 const StyledCourse = styled.section`
   padding-bottom: 60px;
@@ -153,7 +154,7 @@ export const CourseProgramLessons: React.FC<{
   return (
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
-        <div className="container">
+        <Container>
           <Breadcrumbs
             items={[
               <Link to="/">{t("Home")}</Link>,
@@ -164,8 +165,8 @@ export const CourseProgramLessons: React.FC<{
           <Title className="main-title" level={3}>
             {program.title}
           </Title>
-          <div className="row flex-lg-row flex-column-reverse">
-            <div className="col-lg-9">
+          <Row>
+            <Col lg={9}>
               <div className="course-program-player">
                 <div className="course-program-player-content">
                   {topic && topic.introduction && (
@@ -218,18 +219,18 @@ export const CourseProgramLessons: React.FC<{
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-3">
+            </Col>
+            <Col lg={3}>
               <CourseSidebar
                 course={program}
                 lessonId={Number(lesson?.id)}
                 topicId={Number(topic?.id)}
               />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
         <div className="course-nav">
-          <div className="container">
+          <Container>
             <CourseTopNav
               onFinish={() => onCompleteTopic()}
               mobile={isMobile}
@@ -242,7 +243,7 @@ export const CourseProgramLessons: React.FC<{
               }
               hasNext={!isDisabledNextTopicButton}
             />
-          </div>
+          </Container>
         </div>
       </StyledCourse>
     </React.Fragment>

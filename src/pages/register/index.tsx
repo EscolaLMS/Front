@@ -9,16 +9,13 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { RegisterForm } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .container {
-    padding-bottom: ${isMobile ? "50px" : "100px"};
-  }
 `;
 
 const StyledContent = styled.div`
@@ -89,9 +86,9 @@ const RegisterPage = () => {
   const EmailActivation = () => {
     return (
       <StyledContent>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-7">
+        <Container>
+          <Row justify={"center"}>
+            <Col md={12}>
               <div className="content-container">
                 <Title className="email-title" level={3}>
                   Aby dokończyć proces rejestracji sprawdź swoją pocztę
@@ -118,9 +115,9 @@ const RegisterPage = () => {
                   </button>
                 </Text>
               </div>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </StyledContent>
     );
   };
@@ -129,17 +126,21 @@ const RegisterPage = () => {
     <Layout metaTitle={t("LoginAndRegister")}>
       {view !== "success" ? (
         <StyledRegisterPage>
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-6 col-md-12">
+          <Container
+            style={{
+              paddingBottom: `${isMobile ? "50px" : "100px"}`,
+            }}
+          >
+            <Row justify="center">
+              <Col md={12}>
                 <RegisterForm
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
                   onSuccess={() => setView("success")}
                 />
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </StyledRegisterPage>
       ) : (
         <EmailActivation />

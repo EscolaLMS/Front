@@ -4,6 +4,7 @@ import Layout from "@/components/_App/Layout";
 import CoursesCollection from "@/components/Courses/CoursesCollection";
 import CoursesProvider from "@/components/Courses/CoursesProvider";
 import { useTranslation } from "react-i18next";
+import { Container } from "react-grid-system";
 
 const CoursesPage = () => {
   const { t } = useTranslation();
@@ -11,9 +12,9 @@ const CoursesPage = () => {
     <Layout metaTitle={t("CoursesPage.Courses")}>
       <CoursesProvider onlyFree={false}>
         <section className="courses-page">
-          <div className="container">
+          <Container>
             <CoursesCollection />
-          </div>
+          </Container>
         </section>
       </CoursesProvider>
     </Layout>

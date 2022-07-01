@@ -9,15 +9,13 @@ import { LoginForm, ResetPasswordForm } from "@escolalms/components";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledLoginPage = styled.div`
   min-height: calc(100vh - 583px);
   display: flex;
   align-items: center;
   justify-content: center;
-  .container {
-    padding-bottom: ${isMobile ? "50px" : "100px"};
-  }
 `;
 
 const Login = () => {
@@ -46,9 +44,13 @@ const Login = () => {
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
       <StyledLoginPage>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6 col-md-12">
+        <Container
+          style={{
+            paddingBottom: `${isMobile ? "50px" : "100px"}`,
+          }}
+        >
+          <Row justify={"center"}>
+            <Col md={12}>
               {view === "login" ? (
                 <LoginForm
                   onResetPasswordLink={() => setView("forgotPassword")}
@@ -69,9 +71,9 @@ const Login = () => {
                   }
                 />
               )}
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </StyledLoginPage>
     </Layout>
   );

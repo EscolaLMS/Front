@@ -13,6 +13,7 @@ import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
+import { Container } from "react-grid-system";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -26,12 +27,7 @@ const StyledHeader = styled.header`
       : "rgba(255, 255, 255, 0.95)"};
   backdrop-filter: blur(10px);
   padding: ${isMobile ? "11px 0" : "22px 0"};
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
+
   .logo-container {
     min-width: 150px;
     max-width: 150px;
@@ -319,7 +315,14 @@ const Navbar = () => {
 
   return (
     <StyledHeader>
-      <div className="container">
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
         <div className="logo-container">
           <Link to="/">
             <img src={settings?.value?.global?.logo || Logo} alt="" />
@@ -416,7 +419,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </StyledHeader>
   );
 };

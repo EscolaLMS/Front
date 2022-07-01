@@ -24,6 +24,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { Col, Container, Row } from "react-grid-system";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -285,10 +286,10 @@ const CartContent = () => {
   return (
     <Layout metaTitle={t("Cart.Cart")}>
       <CartPageStyled>
-        <div className="container">
+        <Container>
           {!(cart.value?.items.length === 0) ? (
-            <div className="row">
-              <div className="col-lg-9">
+            <Row>
+              <Col lg={9}>
                 <Breadcrumbs
                   items={[
                     <Link to="/">{t("Home")}</Link>,
@@ -382,8 +383,8 @@ const CartContent = () => {
                     />
                   )}
                 </section>
-              </div>
-              <div className="col-lg-3">
+              </Col>
+              <Col lg={3}>
                 <Title style={{ marginBottom: 20 }} level={4}>
                   {t<string>("Cart.Summary")}
                 </Title>
@@ -412,8 +413,8 @@ const CartContent = () => {
                     }}
                   />
                 </div>
-              </div>
-            </div>
+              </Col>
+            </Row>
           ) : (
             <>
               <div className="empty-cart">
@@ -437,7 +438,7 @@ const CartContent = () => {
               </section>
             </>
           )}
-        </div>
+        </Container>
         {(cart.loading || processing) && <Preloader />}
       </CartPageStyled>
     </Layout>

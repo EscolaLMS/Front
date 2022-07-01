@@ -22,6 +22,7 @@ import {
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledTutor = styled.section`
   .tutor-courses {
@@ -88,7 +89,7 @@ const TutorPage = () => {
   return (
     <Layout>
       <StyledTutor>
-        <div className="container">
+        <Container>
           <Breadcrumbs
             items={[
               <Link to="/">{t<string>("Home")}</Link>,
@@ -100,8 +101,8 @@ const TutorPage = () => {
           />
           {tutor.value && (
             <div className="profile-box">
-              <div className="row align-items-start">
-                <div className="col-lg-3">
+              <Row align={"start"}>
+                <Col lg={3}>
                   {tutor.value.path_avatar && (
                     <div className="image">
                       <ResponsiveImage
@@ -110,8 +111,8 @@ const TutorPage = () => {
                       />
                     </div>
                   )}
-                </div>
-                <div className="col-lg-8 offset-lg-1">
+                </Col>
+                <Col lg={8}>
                   <div className="content">
                     <Title level={3}>
                       {tutor.value.first_name} {tutor.value.last_name}
@@ -123,8 +124,8 @@ const TutorPage = () => {
                       </MarkdownRenderer>
                     </div>
                   </div>
-                </div>
-              </div>
+                </Col>
+              </Row>
             </div>
           )}
           <div className="tutor-courses">
@@ -139,10 +140,10 @@ const TutorPage = () => {
                 courses={courses.list?.data || []}
               />
             ) : (
-              <div className="row">
+              <Row>
                 {courses.list &&
                   courses.list.data.map((item) => (
-                    <div className="col-lg-3 col-md-6">
+                    <Col md={6} lg={3} key={item.id}>
                       <CourseCardWrapper>
                         <CourseCard
                           mobile={isMobile}
@@ -240,12 +241,12 @@ const TutorPage = () => {
                           }
                         />
                       </CourseCardWrapper>
-                    </div>
+                    </Col>
                   ))}
-              </div>
+              </Row>
             )}
           </div>
-        </div>
+        </Container>
       </StyledTutor>
       {tutor.loading && <Preloader />}
     </Layout>

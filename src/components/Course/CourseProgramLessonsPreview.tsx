@@ -5,6 +5,7 @@ import CourseSidebar from "@/components/Course/CourseSidebar";
 import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { Col, Row } from "react-grid-system";
 
 export const CourseProgramLessonsPreview: React.FC<{
   program: API.CourseProgram;
@@ -20,19 +21,18 @@ export const CourseProgramLessonsPreview: React.FC<{
 
   return (
     <React.Fragment>
-      <div className="container-fluid course-program course-program-page">
+      <div className="course-program course-program-page">
         <div className="course-program-container">
           <div className="course-program-wrapper course-program-wrapper-preview">
             <div className="course-program-player">
               <div className="course-program-player-content">
                 <h2>{topic?.title}</h2>
-
                 {topic && topic.introduction && (
-                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                  <Col sm={12} md={12} lg={12}>
                     <div className="container-md">
                       <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
                     </div>
-                  </div>
+                  </Col>
                 )}
                 <div
                   className="course-program-player-content__wrapper"
@@ -48,7 +48,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                 </div>
               </div>
 
-              <div className="row">
+              <Row>
                 {lesson && lesson.summary && (
                   <div className={`col-lg-12 col-md-12 col-sm-12`}>
                     <div className="course-program-summary">
@@ -76,7 +76,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                     </div>
                   </div>
                 )}
-              </div>
+              </Row>
 
               <div className="course-program-player-next">
                 <button

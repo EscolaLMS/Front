@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
+import { Col, Container } from "react-grid-system";
 
 type Props = {
   categories: API.Category[];
@@ -62,7 +63,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
   };
   return (
     <StyledSection>
-      <div className="container">
+      <Container>
         <Title level={3}>
           <strong>{t<string>("Homepage.CategoriesTitle")}</strong>
         </Title>
@@ -98,7 +99,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
         ) : (
           <div className="row">
             {categories.slice(-4).map((item) => (
-              <div className="col-md-3" key={item.id}>
+              <Col md={3} key={item.id}>
                 <CategoryCard
                   icon={<img src={item.icon} alt={item.name} />}
                   title={item.name}
@@ -116,11 +117,11 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   }
                   variant="gradient"
                 />
-              </div>
+              </Col>
             ))}
           </div>
         )}
-      </div>
+      </Container>
     </StyledSection>
   );
 };
