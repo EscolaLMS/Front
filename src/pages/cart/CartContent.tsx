@@ -24,8 +24,6 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { IconStar } from "../../icons";
-import { IconText } from "@escolalms/components";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -315,23 +313,20 @@ const CartContent = () => {
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
-                        summary={[
-                          // <IconText
-                          //   icon={<IconThumbsUp />}
-                          //   text={"90%"}
-                          //   noMargin
-                          // />,
-                          // <IconText
-                          //   icon={<IconBadge />}
-                          //   text={"Gwarancja"}
-                          //   noMargin
-                          // />,
-                          <IconText
-                            icon={<IconStar />}
-                            text={"asd"}
-                            noMargin
-                          />,
-                        ]}
+                        summary={
+                          [
+                            // <IconText
+                            //   icon={<IconThumbsUp />}
+                            //   text={"90%"}
+                            //   noMargin
+                            // />,
+                            // <IconText
+                            //   icon={<IconBadge />}
+                            //   text={"Gwarancja"}
+                            //   noMargin
+                            // />,
+                          ]
+                        }
                       />
                     ))}
                   </div>
