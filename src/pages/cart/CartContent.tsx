@@ -315,16 +315,23 @@ const CartContent = () => {
                         }
                         summary={
                           [
-                            // <IconText
-                            //   icon={<IconThumbsUp />}
-                            //   text={"90%"}
-                            //   noMargin
-                            // />,
-                            // <IconText
-                            //   icon={<IconBadge />}
-                            //   text={"Gwarancja"}
-                            //   noMargin
-                            // />,
+                            // summary={[
+                            //   <IconText
+                            //     icon={<IconThumbsUp />}
+                            //     text={"90%"}
+                            //     noMargin
+                            //   />,
+                            //   <IconText
+                            //     icon={<IconBadge />}
+                            //     text={"Gwarancja"}
+                            //     noMargin
+                            //   />,
+                            //   <IconText
+                            //     icon={<IconStar />}
+                            //     text={"5.0"}
+                            //     noMargin
+                            //   />,
+                            // ]}
                           ]
                         }
                       />
