@@ -24,6 +24,8 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { IconStar } from "../../icons";
+import { IconText } from "@escolalms/components";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -175,7 +177,7 @@ const CartContent = () => {
     realizeVoucher,
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { location, push } = useHistory();
+  const { push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
@@ -222,7 +224,6 @@ const CartContent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(cart);
 
   const onPay = useCallback((paymentMethodId: string) => {
     setProcessing(true);
@@ -314,23 +315,23 @@ const CartContent = () => {
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
-                        // summary={[
-                        //   <IconText
-                        //     icon={<IconThumbsUp />}
-                        //     text={"90%"}
-                        //     noMargin
-                        //   />,
-                        //   <IconText
-                        //     icon={<IconBadge />}
-                        //     text={"Gwarancja"}
-                        //     noMargin
-                        //   />,
-                        //   <IconText
-                        //     icon={<IconStar />}
-                        //     text={"5.0"}
-                        //     noMargin
-                        //   />,
-                        // ]}
+                        summary={[
+                          // <IconText
+                          //   icon={<IconThumbsUp />}
+                          //   text={"90%"}
+                          //   noMargin
+                          // />,
+                          // <IconText
+                          //   icon={<IconBadge />}
+                          //   text={"Gwarancja"}
+                          //   noMargin
+                          // />,
+                          <IconText
+                            icon={<IconStar />}
+                            text={"asd"}
+                            noMargin
+                          />,
+                        ]}
                       />
                     ))}
                   </div>

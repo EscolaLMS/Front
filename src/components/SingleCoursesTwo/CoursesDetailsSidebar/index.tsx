@@ -15,7 +15,6 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
   const theme = useTheme();
-  console.log(course);
   const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
