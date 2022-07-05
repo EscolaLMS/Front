@@ -175,7 +175,7 @@ const CartContent = () => {
     realizeVoucher,
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { location, push } = useHistory();
+  const { push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
@@ -221,7 +221,7 @@ const CartContent = () => {
       fetchCart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, user]);
+  }, []);
 
   const onPay = useCallback((paymentMethodId: string) => {
     setProcessing(true);
