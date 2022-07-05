@@ -221,7 +221,8 @@ const CartContent = () => {
       fetchCart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, user]);
+  }, []);
+  console.log(cart);
 
   const onPay = useCallback((paymentMethodId: string) => {
     setProcessing(true);

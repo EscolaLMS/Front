@@ -15,6 +15,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
   const theme = useTheme();
+  console.log(course);
   const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
@@ -27,9 +28,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(id)
+      (item: any) => Number(item.product_id) === Number(course.product?.id)
     );
-  }, [id, cart]);
+  }, [course.product?.id, cart]);
 
   const userOwnThisCourse = useMemo(() => {
     return (
@@ -52,7 +53,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const finishedLessons = currentCourse
-        ? currentCourse[0].progress?.filter((item: any) => item.status === 1)
+        ? currentCourse[0].progress?.filter((item) => item.status === 1)
         : [];
       return finishedLessons.length;
     } else {
@@ -100,7 +101,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <Button
           loading={cart.loading}
           mode="secondary"
-          onClick={() => addToCart(Number(course.id)).then(() => push("/cart"))}
+          onClick={() =>
+            addToCart(Number(course.product?.id)).then(() => push("/cart"))
+          }
         >
           {t("Buy Course")}
         </Button>
@@ -218,7 +221,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               block
               mode="secondary"
               onClick={() =>
-                addToCart(Number(course.id)).then(() => push("/cart"))
+                addToCart(Number(course.product?.id)).then(() => push("/cart"))
               }
             >
               {t("Buy Course")}

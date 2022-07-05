@@ -248,7 +248,7 @@ const CoursePage = () => {
     fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
-      questionnaireStars(apiUrl, "Course", Number(id)).then((res) => {
+      questionnaireStars("Course", Number(id)).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
     }
