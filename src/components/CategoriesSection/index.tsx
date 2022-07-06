@@ -57,12 +57,6 @@ const StyledSection = styled.section`
       margin: 0 auto;
       min-width: 300px;
     }
-    /* @media (max-width: 390px) {
-      max-width: 230px;
-    }
-    @media (max-width: 330px) {
-      max-width: 200px;
-    } */
   }
 `;
 
