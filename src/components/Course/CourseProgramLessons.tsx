@@ -1,19 +1,22 @@
 //@ts-nocheck - remove when Course Top Nav will have fixed notes props
 import React, { useCallback, useEffect, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
-import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
-import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
-import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
-import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
+import CourseProgramContent from "@/components/Course/CourseProgramContent";
+import CourseSidebar from "@/components/Course/CourseSidebar";
+import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
-import CourseDownloads from "../../escolalms/sdk/components/Course/CourseDownloads";
+import CourseDownloads from "./CourseDownloads";
+import { useTranslation } from "react-i18next";
+import Breadcrumbs from "../Breadcrumbs";
 
 const StyledCourse = styled.section`
+  padding-bottom: 60px;
   .main-title {
     margin-bottom: 20px;
   }
@@ -23,6 +26,12 @@ const StyledCourse = styled.section`
     left: 0;
     width: 100%;
     z-index: 100;
+  }
+  .course-program-player-content {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 `;
 
@@ -47,6 +56,7 @@ export const CourseProgramLessons: React.FC<{
   } = useLessonProgram(program);
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
+  const { t } = useTranslation();
   const location = useLocation();
   // if pathname contain 3 splited items we cannot fire topicbreakpoint effect otherwise we can
   const startWithBreakPoint = location.pathname.split("/").length === 3;
@@ -138,19 +148,19 @@ export const CourseProgramLessons: React.FC<{
   }, [topic?.id, program]);
 
   const columnWidth =
-    lesson &&
-    lesson.summary &&
-    fixContentForMarkdown(`${lesson.summary}`) !== "" &&
-    topic &&
-    topic.summary &&
-    fixContentForMarkdown(`${topic.summary}`) !== ""
-      ? 6
-      : 12;
+    lesson && lesson.summary && topic && topic.summary ? 6 : 12;
 
   return (
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              <Link to="/">{t("Home")}</Link>,
+              <Link to="/courses">{t("Courses")}</Link>,
+              <Text size="12">{program.title}</Text>,
+            ]}
+          />
           <Title className="main-title" level={3}>
             {program.title}
           </Title>
@@ -158,17 +168,9 @@ export const CourseProgramLessons: React.FC<{
             <div className="col-lg-9">
               <div className="course-program-player">
                 <div className="course-program-player-content">
-                  {topic &&
-                    topic.introduction &&
-                    fixContentForMarkdown(`${topic.introduction}`) !== "" && (
-                      <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                        <div className="container-md">
-                          <MarkdownRenderer>
-                            {topic.introduction}
-                          </MarkdownRenderer>
-                        </div>
-                      </div>
-                    )}
+                  {topic && topic.introduction && (
+                    <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
+                  )}
                   <div
                     className="course-program-player-content__wrapper"
                     style={{
@@ -186,45 +188,33 @@ export const CourseProgramLessons: React.FC<{
                 </div>
                 <div className="course-program-content__container">
                   <div className="row">
-                    {lesson &&
-                      lesson.summary &&
-                      fixContentForMarkdown(`${lesson.summary}`) !== "" && (
-                        <div
-                          className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                        >
-                          <div className="course-program-summary">
-                            <div className="container-md">
-                              <MarkdownRenderer>
-                                {lesson.summary}
-                              </MarkdownRenderer>
-                            </div>
-                          </div>
+                    {lesson && lesson.summary && (
+                      <div
+                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
+                      >
+                        <div className="course-program-summary">
+                          <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                         </div>
-                      )}
-                    {topic &&
-                      topic.summary &&
-                      fixContentForMarkdown(`${topic.summary}`) !== "" && (
-                        <div
-                          className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                        >
-                          <div className="course-program-summary">
-                            <div className="container-md">
-                              <MarkdownRenderer>
-                                {topic.summary}
-                              </MarkdownRenderer>
-                            </div>
+                      </div>
+                    )}
+                    {topic && topic.summary && (
+                      <div
+                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
+                      >
+                        <div className="course-program-summary">
+                          <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
 
-                            {topic &&
-                              topic.resources &&
-                              topic.resources?.length > 0 && (
-                                <CourseDownloads
-                                  resources={topic.resources || []}
-                                  subtitle={topic.introduction || ""}
-                                />
-                              )}
-                          </div>
+                          {topic &&
+                            topic.resources &&
+                            topic.resources?.length > 0 && (
+                              <CourseDownloads
+                                resources={topic.resources || []}
+                                subtitle={topic.introduction || ""}
+                              />
+                            )}
                         </div>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -239,15 +229,20 @@ export const CourseProgramLessons: React.FC<{
           </div>
         </div>
         <div className="course-nav">
-          <CourseTopNav
-            onFinish={() => onCompleteTopic()}
-            mobile={isMobile}
-            onNext={onNextTopic}
-            isFinished={false}
-            onPrev={onPrevTopic}
-            hasPrev={getNextPrevTopic(Number(topic?.id), false) ? true : false}
-            hasNext={!isDisabledNextTopicButton}
-          />
+          <div className="container">
+            <CourseTopNav
+              onFinish={() => onCompleteTopic()}
+              mobile={isMobile}
+              onNext={onNextTopic}
+              isFinished={false}
+              onPrev={onPrevTopic}
+              addNotes={false}
+              hasPrev={
+                getNextPrevTopic(Number(topic?.id), false) ? true : false
+              }
+              hasNext={!isDisabledNextTopicButton}
+            />
+          </div>
         </div>
       </StyledCourse>
     </React.Fragment>

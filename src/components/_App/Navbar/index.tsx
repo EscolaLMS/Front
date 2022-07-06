@@ -6,15 +6,13 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
-import { Notifications } from "@escolalms/components/lib/components/molecules/Notifications/Notifications";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import "./index.scss";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderUser, LogoutIcon } from "../../../icons";
-import { t } from "i18next";
-import { getEventType } from "../../../utils";
+import { HeaderCard } from "../../../icons";
+import { useTranslation } from "react-i18next";
+import { Button } from "@escolalms/components";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -43,6 +41,13 @@ const StyledHeader = styled.header`
       min-width: 100px;
       max-width: 100px;
     }
+
+    img {
+      transition: opacity 0.25s;
+      &:hover {
+        opacity: 0.55;
+      }
+    }
   }
   .menu-container {
     display: flex;
@@ -65,7 +70,7 @@ const StyledHeader = styled.header`
       justify-content: flex-end;
       align-items: center;
       margin: 0 85px 0 80px;
-      column-gap: 55px;
+      column-gap: 20px;
       .Dropdown-root {
         min-width: 105px;
       }
@@ -120,6 +125,18 @@ const StyledHeader = styled.header`
       &.cart-icon {
         position: relative;
         top: -1px;
+        svg {
+          path {
+            transition: fill 0.25s;
+          }
+        }
+        &:hover {
+          svg {
+            path {
+              fill: ${({ theme }) => theme.primaryColor};
+            }
+          }
+        }
         span {
           position: absolute;
           right: -5px;
@@ -157,21 +174,14 @@ const StyledHeader = styled.header`
   }
 `;
 
-const CustomMobileMenuItem = styled.div`
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  display: flex !important;
-  padding: 0 !important;
-  margin: 0 !important;
-`;
+const CustomMobileMenuItem = styled.div``;
 
 const Navbar = () => {
+  const { i18n, t } = useTranslation();
+
   const {
     user: userObj,
     settings,
-    notifications,
-    fetchNotifications,
     cart,
     fetchCart,
     logout,
@@ -179,62 +189,87 @@ const Navbar = () => {
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
-  // const platformVisibility =
-  //   config?.escolalms_courses?.platform_visibility === "public" || false;
-  // const fullVisibility =
-  //   config?.escolalms_courses?.course_visibility === "show_all" || false;
-
-  // useEffect(() => {
-  //   user && fetchCart();
-  //   user && fetchNotifications();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
   useEffect(() => {
-    fetchNotifications();
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   const menuItems = [
     {
-      title: <Text style={{ margin: 0, padding: 0 }}>Przeglądaj</Text>,
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Browse")}
+        </Text>
+      ),
       key: "menuItem1",
       children: [
         {
           title: (
             <Link to="/">
-              <Text>Strona główna</Text>
+              <Text noMargin bold>
+                {t("Menu.HomePage")}
+              </Text>
             </Link>
           ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/courses">Kursy</Link>,
+          title: (
+            <Link to="/courses">
+              <Text noMargin bold>
+                {t("Menu.Courses")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-2",
         },
         {
-          title: <Link to="/tutors">Trenerzy</Link>,
+          title: (
+            <Link to="/tutors">
+              <Text noMargin bold>
+                {t("Menu.Tutors")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-3",
         },
       ],
     },
     {
-      title: <Text style={{ margin: 0, padding: 0 }}>Moje</Text>,
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Me")}
+        </Text>
+      ),
       key: "menuItem2",
       children: [
         {
-          title: <Link to="/user/my-profile">Konto</Link>,
+          title: (
+            <Link to="/user/my-profile">
+              <Text noMargin bold>
+                {t("Menu.Profile")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-1",
         },
         {
-          title: <Link to="/user/my-profile">Kursy</Link>,
-          key: "submenu-2",
-        },
-        {
-          title: <Link to="/user/my-orders">Zamówienia</Link>,
+          title: (
+            <Link to="/user/my-orders">
+              <Text noMargin bold>
+                {t("Menu.Orders")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-3",
         },
         {
-          title: <Link to="/user/my-notifications">Notyfikacje</Link>,
+          title: (
+            <Link to="/user/my-notifications">
+              <Text noMargin bold>
+                {t("Menu.Notifications")}
+              </Text>
+            </Link>
+          ),
           key: "submenu-4",
         },
       ],
@@ -243,29 +278,19 @@ const Navbar = () => {
       title: user ? (
         <CustomMobileMenuItem>
           <Link to="/user/my-profile">
-            {user?.first_name} {user?.last_name}
+            <Text noMargin bold>
+              {user?.first_name} {user?.last_name}
+            </Text>
           </Link>
         </CustomMobileMenuItem>
       ) : (
-        <Link to="/authentication">
-          <Text style={{ margin: 0, padding: 0 }}>Zaloguj/zarejestruj się</Text>
-        </Link>
+        <Button mode={"secondary"} block onClick={() => history.push("/login")}>
+          {t<string>("Header.Login")}
+        </Button>
       ),
       key: "menuItem3",
     },
   ];
-
-  const mappedNotifications = notifications.list
-    ? notifications.list.map((item) => {
-        return {
-          id: item.id,
-          unread: item.read_at ? true : false,
-          description: "",
-          title: t<string>(`Notifications.${getEventType(item.event)}`),
-          dateTime: new Date(item.created_at),
-        };
-      })
-    : [];
 
   if (isMobile) {
     return (
@@ -273,11 +298,20 @@ const Navbar = () => {
         <Navigation
           mobile
           logo={{
-            src: settings?.global?.logo || Logo,
+            src: settings?.value?.global?.logo || Logo,
             width: 150,
             height: 50,
+            onClick: () => history.push("/"),
           }}
           menuItems={menuItems}
+          search={
+            <SearchCourses
+              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
+            />
+          }
         />
       </StyledHeader>
     );
@@ -288,36 +322,54 @@ const Navbar = () => {
       <div className="container">
         <div className="logo-container">
           <Link to="/">
-            <img src={settings?.global?.logo || Logo} alt="" />
+            <img src={settings?.value?.global?.logo || Logo} alt="" />
           </Link>
         </div>
         <div className="menu-container">
           <div className="search-container">
             <SearchCourses
               onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) => console.log("submitted", input)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
             />
           </div>
           <nav className="navigation">
             <Dropdown
-              placeholder="Przeglądaj"
+              placeholder={t("Menu.Browse")}
               onChange={(e) => history.push(e.value)}
               options={[
-                { label: "Strona główna", value: "/" },
-                { label: "Kursy", value: "/courses" },
-                { label: "Instruktorzy", value: "/tutors" },
+                { label: t("Menu.HomePage"), value: "/" },
+                { label: t("Menu.Courses"), value: "/courses" },
+                { label: t("Menu.Tutors"), value: "/tutors" },
+              ]}
+            />
+            <Dropdown
+              placeholder={t("Menu.Language")}
+              onChange={(e) => i18n.changeLanguage(e.value)}
+              options={[
+                { label: "Polski", value: "pl" },
+                { label: "English", value: "en" },
               ]}
             />
             {user?.id && (
               <Dropdown
-                placeholder="Profil"
-                onChange={(e) => history.push(e.value)}
+                placeholder={t("Menu.Profile")}
                 options={[
-                  { label: "Moje szkolenia", value: "/user/my-profile" },
-                  { label: "Historia zakupów", value: "/user/my-orders" },
-                  { label: "Powiadomienia", value: "/user/my-notifications" },
-                  { label: "Edytuj dane", value: "/user/my-data" },
+                  { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
+                  { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
+                  {
+                    label: t("MyProfilePage.Notifications"),
+                    value: "/user/my-notifications",
+                  },
+                  { label: t("Navbar.EditProfile"), value: "/user/my-data" },
+                  { label: t("Navbar.Logout"), value: "logout" },
                 ]}
+                onChange={(e) =>
+                  e.value !== "logout"
+                    ? history.push(e.value)
+                    : logout().then(() => history.push("/"))
+                }
               />
             )}
           </nav>
@@ -339,38 +391,30 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="not-logged-container">
-              <Link to="/authentication?path=login">
+              <Link to="/login">
                 <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
-              <Link to="/authentication?path=register">
+              <Link to="/register">
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
             </div>
           )}
-          <div className="icons-container">
-            <button
-              type="button"
-              className="cart-icon"
-              onClick={() => history.push("/cart")}
-              data-tooltip={String(cart.value?.items.length)}
-            >
-              {cart.value && cart.value.items?.length > 0 && (
-                <span>{cart.value.items.length}</span>
-              )}
-              <HeaderCard mode={theme.mode} />
-            </button>
-
-            {/* {user && (
+          {user && (
+            <div className="icons-container">
               <button
                 type="button"
-                className="logout-icon"
-                onClick={() => logout().then(() => history.push("/"))}
+                className="cart-icon"
+                onClick={() => history.push("/cart")}
+                data-tooltip={String(cart.value?.items.length)}
               >
-                <LogoutIcon />
+                {cart.value && cart.value.items?.length > 0 && (
+                  <span>{cart.value.items.length}</span>
+                )}{" "}
+                <HeaderCard mode={theme.mode} />
               </button>
-            )} */}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </StyledHeader>

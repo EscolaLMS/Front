@@ -5,7 +5,7 @@ import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Notification } from "@escolalms/components/lib/components/molecules/Notification/Notification";
 import styled from "styled-components";
 import { getEventType } from "../../utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import Preloader from "@/components/Preloader";
 
 const NotificationsContainer = styled.div`
@@ -23,22 +23,22 @@ const MyNotificationsPage = () => {
   const { user, fetchNotifications, notifications, readNotify } =
     useContext(EscolaLMSContext);
   const history = useHistory();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     } else {
       fetchNotifications();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   return (
     <ProfileLayout title={t("MyProfilePage.Notifications")}>
       <NotificationsContainer>
         {notifications &&
-          notifications.list?.map((item) => (
-            <div className="single-notification">
+          notifications.list?.map((item, index) => (
+            <div key={index} className="single-notification">
               <Notification
                 key={item.id}
                 notification={{

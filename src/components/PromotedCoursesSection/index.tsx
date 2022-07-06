@@ -6,17 +6,21 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { ImageBubble } from "@escolalms/components/lib/components/molecules/ImageBubble/ImageBubble";
 import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
+import CourseImgPlaceholder from "../CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import CourseCardWrapper from "../CourseCardWrapper";
 
 type Props = {
   courses: API.Course[];
 };
 
 const StyledSection = styled.section`
-  margin: 60px 0;
+  margin: 40px 0;
   @media (max-width: 768px) {
     margin: 30px 0;
   }
@@ -48,9 +52,6 @@ const StyledSection = styled.section`
             : "linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)"};
       }
     }
-  }
-  a {
-    text-decoration: none !important;
   }
   .small-padding {
     padding-left: 10px;
@@ -140,6 +141,8 @@ const StyledSection = styled.section`
 const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
   const history = useHistory();
   const theme = useTheme();
+  const { t } = useTranslation();
+  const subtitleColor = theme.mode === "dark" ? theme.white : theme.black;
   return (
     <StyledSection>
       <div className="container">
@@ -154,134 +157,155 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="row justify-content-end">
               <div className="col-6 small-padding-wrapper">
                 <div className="course-wrapper course-wrapper--small">
-                  <CourseCard
-                    id={Number(courses[0].id)}
-                    title=""
-                    tags={
-                      <>
-                        {courses[0].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
+                  <CourseCardWrapper>
+                    <CourseCard
+                      id={Number(courses[0].id)}
+                      title=""
+                      tags={
+                        <>
+                          {courses[0].tags?.map((item, index) => (
+                            <Badge key={index} color={theme.primaryColor}>
+                              <Link
+                                style={{ color: theme.white }}
                                 //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
-                    }
-                    image={
-                      <Link to={`/courses/${courses[0].id}`}>
-                        <img
-                          src={courses[0].image_url}
-                          alt={courses[0].title}
-                        />
-                      </Link>
-                    }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/courses/${courses[0].id}`}
-                        >
-                          <strong>{courses[0].title}</strong>
+                                to={`/courses/?tag=${item.title}`}
+                              >
+                                {
+                                  //@ts-ignore
+                                  item.title
+                                }
+                              </Link>
+                            </Badge>
+                          ))}
+                        </>
+                      }
+                      image={
+                        <Link to={`/courses/${courses[0].id}`}>
+                          {courses[0].image_path ? (
+                            <ResponsiveImage
+                              path={courses[0].image_path}
+                              alt={courses[0].title}
+                              srcSizes={[300, 600, 900]}
+                            />
+                          ) : (
+                            <CourseImgPlaceholder />
+                          )}
                         </Link>
-                      </Text>
-                    }
-                  />
+                      }
+                      subtitle={
+                        <Text size="12" style={{ lineHeight: 1.2 }}>
+                          <Link
+                            style={{ color: subtitleColor }}
+                            to={`/courses/${courses[0].id}`}
+                          >
+                            <strong>{courses[0].title}</strong>
+                          </Link>
+                        </Text>
+                      }
+                    />
+                  </CourseCardWrapper>
                 </div>
               </div>
               <div className="col-6 small-padding-wrapper">
                 <div className="course-wrapper course-wrapper--small">
-                  <CourseCard
-                    id={Number(courses[1].id)}
-                    title=""
-                    tags={
-                      <>
-                        {courses[1].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
+                  <CourseCardWrapper>
+                    <CourseCard
+                      id={Number(courses[1].id)}
+                      title=""
+                      tags={
+                        <>
+                          {courses[1].tags?.map((item, index) => (
+                            <Badge key={index} color={theme.primaryColor}>
+                              <Link
+                                style={{ color: theme.white }}
                                 //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
-                    }
-                    image={
-                      <Link to={`/courses/${courses[1].id}`}>
-                        <img
-                          src={courses[1].image_url}
-                          alt={courses[1].title}
-                        />
-                      </Link>
-                    }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/courses/${courses[1].id}`}
-                        >
-                          <strong>{courses[1].title}</strong>
+                                to={`/courses/?tag=${item.title}`}
+                              >
+                                {
+                                  //@ts-ignore
+                                  item.title
+                                }
+                              </Link>
+                            </Badge>
+                          ))}
+                        </>
+                      }
+                      image={
+                        <Link to={`/courses/${courses[1].id}`}>
+                          {courses[1].image_path ? (
+                            <ResponsiveImage
+                              path={courses[1].image_path}
+                              alt={courses[1].title}
+                              srcSizes={[300, 600, 900]}
+                            />
+                          ) : (
+                            <CourseImgPlaceholder />
+                          )}
                         </Link>
-                      </Text>
-                    }
-                  />
+                      }
+                      subtitle={
+                        <Text size="12" style={{ lineHeight: 1.2 }}>
+                          <Link
+                            style={{ color: subtitleColor }}
+                            to={`/courses/${courses[1].id}`}
+                          >
+                            <strong>{courses[1].title}</strong>
+                          </Link>
+                        </Text>
+                      }
+                    />
+                  </CourseCardWrapper>
                 </div>
               </div>
               <div className="col-lg-9 small-padding-wrapper mobile-hide">
                 <div className="course-wrapper course-wrapper--small">
-                  <CourseCard
-                    id={Number(courses[2].id)}
-                    title=""
-                    tags={
-                      <>
-                        {courses[2].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
+                  <CourseCardWrapper>
+                    <CourseCard
+                      id={Number(courses[2].id)}
+                      title=""
+                      tags={
+                        <>
+                          {courses[2].tags?.map((item, index) => (
+                            <Badge key={index} color={theme.primaryColor}>
+                              <Link
+                                style={{ color: theme.white }}
                                 //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
-                    }
-                    image={
-                      <Link to={`/courses/${courses[2].id}`}>
-                        <img
-                          src={courses[2].image_url}
-                          alt={courses[2].title}
-                        />
-                      </Link>
-                    }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/courses/${courses[2].id}`}
-                        >
-                          <strong>{courses[2].title}</strong>
+                                to={`/courses/?tag=${item.title}`}
+                              >
+                                {
+                                  //@ts-ignore
+                                  item.title
+                                }
+                              </Link>
+                            </Badge>
+                          ))}
+                        </>
+                      }
+                      image={
+                        <Link to={`/courses/${courses[2].id}`}>
+                          {courses[2].image_path ? (
+                            <ResponsiveImage
+                              path={courses[2].image_path}
+                              alt={courses[2].title}
+                              srcSizes={[300, 600, 900]}
+                            />
+                          ) : (
+                            <CourseImgPlaceholder />
+                          )}
                         </Link>
-                      </Text>
-                    }
-                  />
+                      }
+                      subtitle={
+                        <Text size="12" style={{ lineHeight: 1.2 }}>
+                          <Link
+                            style={{ color: subtitleColor }}
+                            to={`/courses/${courses[2].id}`}
+                          >
+                            <strong>{courses[2].title}</strong>
+                          </Link>
+                        </Text>
+                      }
+                    />
+                  </CourseCardWrapper>
                 </div>
               </div>
             </div>
@@ -290,12 +314,12 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="course-wrapper course-wrapper--big">
               <ImageBubble
                 image={{
-                  src: courses[4].image_url || "",
-                  alt: courses[4].title || "",
+                  src: courses[5].image_url || "",
+                  alt: courses[5].title || "",
                 }}
                 header={
                   <div style={{ textAlign: "right" }}>
-                    {courses[4].tags?.map(
+                    {courses[5].tags?.map(
                       (
                         item: any //TODO: Fix types of tags in sdk
                       ) => (
@@ -310,43 +334,55 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   </div>
                 }
               >
-                <CourseCard
-                  id={Number(courses[4].id)}
-                  title={
-                    <Title level={4}>
-                      <Link to={`/courses/${courses[4].id}`}>
-                        {courses[4].title}
+                <CourseCardWrapper>
+                  <CourseCard
+                    id={Number(courses[5].id)}
+                    title={
+                      <Link to={`/courses/${courses[5].id}`}>
+                        {courses[5].title}
                       </Link>
-                    </Title>
-                  }
-                  hideImage
-                  buttonText="Jak to działa"
-                  onButtonClick={() =>
-                    history.push(`/courses/${courses[4].id}`)
-                  }
-                  subtitle={
-                    <Text>
-                      <strong
-                        style={{
-                          fontSize: 14,
-                          display: "inline-block",
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        {courses[4].title}
-                      </strong>
-                    </Text>
-                  }
-                  categories={{
-                    categoryElements: courses[4].categories || [],
-                    onCategoryClick: (id) =>
-                      history.push(`/courses/?ids[]=${id}`),
-                  }}
-                  onSecondaryButtonClick={() =>
-                    history.push(`/courses/${courses[4].id}`)
-                  }
-                  secondaryButtonText="Jak to działa"
-                />
+                    }
+                    hideImage
+                    buttonText={t<string>("HowItWorks")}
+                    onButtonClick={() =>
+                      history.push(`/courses/${courses[5].id}`)
+                    }
+                    subtitle={
+                      <Text>
+                        <strong
+                          style={{
+                            fontSize: 14,
+                            display: "inline-block",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {courses[5].title}
+                        </strong>
+                      </Text>
+                    }
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={
+                          courses[5].categories?.map((category) => (
+                            <Link
+                              style={{
+                                color: subtitleColor,
+                              }}
+                              key={category.id}
+                              to={`/courses/?ids[]=${category.id}`}
+                            >
+                              {category.name}
+                            </Link>
+                          )) || []
+                        }
+                      />
+                    }
+                    onSecondaryButtonClick={() =>
+                      history.push(`/courses/${courses[5].id}`)
+                    }
+                  />
+                </CourseCardWrapper>
               </ImageBubble>
             </div>
           </div>
@@ -354,90 +390,104 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="row">
               <div className="col-xl-12 col-6 small-padding-wrapper">
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
-                  <CourseCard
-                    id={Number(courses[5].id)}
-                    title=""
-                    tags={
-                      <>
-                        {courses[5].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
+                  <CourseCardWrapper>
+                    <CourseCard
+                      id={Number(courses[5].id)}
+                      title=""
+                      tags={
+                        <>
+                          {courses[5].tags?.map((item, index) => (
+                            <Badge key={index} color={theme.primaryColor}>
+                              <Link
+                                style={{ color: theme.white }}
                                 //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
-                    }
-                    image={
-                      <Link to={`/courses/${courses[5].id}`}>
-                        <img
-                          src={courses[5].image_url}
-                          alt={courses[5].title}
-                        />
-                      </Link>
-                    }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/courses/${courses[5].id}`}
-                        >
-                          <strong>{courses[5].title}</strong>
+                                to={`/courses/?tag=${item.title}`}
+                              >
+                                {
+                                  //@ts-ignore
+                                  item.title
+                                }
+                              </Link>
+                            </Badge>
+                          ))}
+                        </>
+                      }
+                      image={
+                        <Link to={`/courses/${courses[5].id}`}>
+                          {courses[5].image_path ? (
+                            <ResponsiveImage
+                              path={courses[5].image_path}
+                              alt={courses[5].title}
+                              srcSizes={[300, 600, 900]}
+                            />
+                          ) : (
+                            <CourseImgPlaceholder />
+                          )}
                         </Link>
-                      </Text>
-                    }
-                  />
+                      }
+                      subtitle={
+                        <Text size="12" style={{ lineHeight: 1.2 }}>
+                          <Link
+                            style={{ color: subtitleColor }}
+                            to={`/courses/${courses[5].id}`}
+                          >
+                            <strong>{courses[5].title}</strong>
+                          </Link>
+                        </Text>
+                      }
+                    />
+                  </CourseCardWrapper>
                 </div>
               </div>
               <div className="col-xl-9 col-6 small-padding-wrapper">
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
-                  <CourseCard
-                    id={Number(courses[4].id)}
-                    title=""
-                    tags={
-                      <>
-                        {courses[4].tags?.map((item) => (
-                          <Badge color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
+                  <CourseCardWrapper>
+                    <CourseCard
+                      id={Number(courses[4].id)}
+                      title=""
+                      tags={
+                        <>
+                          {courses[4].tags?.map((item, index) => (
+                            <Badge key={index} color={theme.primaryColor}>
+                              <Link
+                                style={{ color: theme.white }}
                                 //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
-                    }
-                    image={
-                      <Link to={`/courses/${courses[4].id}`}>
-                        <img
-                          src={courses[4].image_url}
-                          alt={courses[4].title}
-                        />
-                      </Link>
-                    }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: theme.black }}
-                          to={`/courses/${courses[4].id}`}
-                        >
-                          <strong>{courses[4].title}</strong>
+                                to={`/courses/?tag=${item.title}`}
+                              >
+                                {
+                                  //@ts-ignore
+                                  item.title
+                                }
+                              </Link>
+                            </Badge>
+                          ))}
+                        </>
+                      }
+                      image={
+                        <Link to={`/courses/${courses[4].id}`}>
+                          {courses[4].image_path ? (
+                            <ResponsiveImage
+                              path={courses[4].image_path}
+                              alt={courses[4].title}
+                              srcSizes={[300, 600, 900]}
+                            />
+                          ) : (
+                            <CourseImgPlaceholder />
+                          )}
                         </Link>
-                      </Text>
-                    }
-                  />
+                      }
+                      subtitle={
+                        <Text size="12" style={{ lineHeight: 1.2 }}>
+                          <Link
+                            style={{ color: subtitleColor }}
+                            to={`/courses/${courses[4].id}`}
+                          >
+                            <strong>{courses[4].title}</strong>
+                          </Link>
+                        </Text>
+                      }
+                    />
+                  </CourseCardWrapper>
                 </div>
               </div>
             </div>

@@ -9,7 +9,7 @@ import { API } from "@escolalms/sdk/lib";
 import UserSidebar from "@/components/Profile/UserSidebar";
 import { HeaderUser, ProgressTropy, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type NavigationTab = {
   title: string;
@@ -158,33 +158,11 @@ const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
   }
 `;
 
-const mainTabs: NavigationTab[] = [
-  {
-    key: "COURSES",
-    title: "Moje szkolenia",
-    url: "/user/my-profile",
-  },
-  {
-    key: "ORDERS",
-    title: "Historia zakupów",
-    url: "/user/my-orders",
-  },
-  {
-    key: "NOTIFICATIONS",
-    title: "Powiadomienia",
-    url: "/user/my-notifications",
-  },
-  {
-    key: "EDIT",
-    title: "Edytuj dane",
-    url: "/user/my-data",
-  },
-];
-
 const ProfileAside: React.FC = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const { user, logout, certificates, progress, fetchProgress } =
     useContext(EscolaLMSContext);
+  const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
   useEffect(() => {
@@ -196,6 +174,28 @@ const ProfileAside: React.FC = () => {
       (course: API.CourseProgressItem) => course.finish_date
     );
   }, [progress]);
+  const mainTabs: NavigationTab[] = [
+    {
+      key: "COURSES",
+      title: t("MyProfilePage.MyCourses"),
+      url: "/user/my-profile",
+    },
+    {
+      key: "ORDERS",
+      title: t("MyProfilePage.OrdersHistory"),
+      url: "/user/my-orders",
+    },
+    {
+      key: "NOTIFICATIONS",
+      title: t("MyProfilePage.Notifications"),
+      url: "/user/my-notifications",
+    },
+    {
+      key: "EDIT",
+      title: t("MyProfilePage.EditData"),
+      url: "/user/my-data",
+    },
+  ];
   return (
     <StyledAside opened={menuOpened}>
       {isMobile && (

@@ -5,7 +5,7 @@ import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
 import isPast from "date-fns/isPast";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconSquares, IconWin, IconCamera } from "../../../icons";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -18,6 +18,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const { cart, addToCart, progress, user, fetchProgress } =
     useContext(EscolaLMSContext);
   const { id } = course;
+  const { t } = useTranslation();
   const { push } = useHistory();
   useEffect(() => {
     user && user.value && fetchProgress();
@@ -26,9 +27,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(id)
+      (item: any) => Number(item.product_id) === Number(course.product?.id)
     );
-  }, [id, cart]);
+  }, [course.product?.id, cart]);
 
   const userOwnThisCourse = useMemo(() => {
     return (
@@ -51,7 +52,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const finishedLessons = currentCourse
-        ? currentCourse[0].progress?.filter((item: any) => item.status === 1)
+        ? currentCourse[0].progress?.filter((item) => item.status === 1)
         : [];
       return finishedLessons.length;
     } else {
@@ -99,51 +100,56 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <Button
           loading={cart.loading}
           mode="secondary"
-          onClick={() => addToCart(Number(course.id)).then(() => push("/cart"))}
+          onClick={() =>
+            addToCart(Number(course.product?.id)).then(() => push("/cart"))
+          }
         >
           {t("Buy Course")}
         </Button>
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        <Link to="/authentication">
-          <Text>{t("Login to buy")}</Text>
-        </Link>
+        ""
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
         {course.duration && (
           <IconText
             icon={<IconCamera />}
-            text={`Czas trwania: ${course.duration}`}
+            text={`${t("CoursePage.Duration")}: ${course.duration}`}
           />
         )}
         {course.lessons && (
           <IconText
             icon={<IconSquares />}
-            text={`Lekcje: ${course.lessons.length}`}
+            text={`${t("CoursePage.Lessons")}: ${course.lessons.length}`}
           />
         )}
         {course.language && (
           <IconText
             icon={<IconSquares />}
-            text={`Język: ${course.lessons.length}`}
+            text={`${t("CoursePage.Language")}: ${course.language}`}
           />
         )}
         {course.level && (
-          <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
-        )}
-        {course.users_count && (
           <IconText
             icon={<IconSquares />}
-            text={`Uczniów: ${course.users_count}`}
+            text={`${t("CoursePage.Level")}: ${course.level}`}
           />
+        )}
+        {course.users_count ? (
+          <IconText
+            icon={<IconSquares />}
+            text={`${t("CoStursePage.Students")}: ${course.users_count}`}
+          />
+        ) : (
+          ""
         )}
       </div>
       {!user.value ? (
         <Text size="12">
           <Link
-            to="/authentication"
+            to={`/login?referrer=/courses/${course.id}`}
             style={{
               marginRight: "4px",
               color: theme.primaryColor,
@@ -202,7 +208,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               {t("CoursePage.GoToCheckout")}
             </Button>
           ) : userOwnThisCourse ? (
-            <Button block mode="secondary">
+            <Button
+              block
+              mode="secondary"
+              onClick={() => push(`/course/${course.id}`)}
+            >
               {t("Attend to Course")}
             </Button>
           ) : user.value && course.product ? (
@@ -210,7 +220,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               block
               mode="secondary"
               onClick={() =>
-                addToCart(Number(course.id)).then(() => push("/cart"))
+                addToCart(Number(course.product?.id)).then(() => push("/cart"))
               }
             >
               {t("Buy Course")}
@@ -218,7 +228,11 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           ) : !course.product ? (
             <Text>{t("CoursePage.UnavailableCourse")}</Text>
           ) : (
-            <Button block mode="secondary">
+            <Button
+              onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+              block
+              mode="secondary"
+            >
               {t("Login to buy")}
             </Button>
           )}

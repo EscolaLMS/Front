@@ -15,7 +15,7 @@ import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { CloseIcon } from "../../../icons";
+import { CloseIcon, UserIcon } from "../../../icons";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import qs from "query-string";
 import Pagination from "@/components/Pagination";
@@ -23,12 +23,23 @@ import { isMobile } from "react-device-detect";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { LessonsIcon } from "../../../icons";
+import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import CourseCardWrapper from "@/components/CourseCardWrapper";
+import { Search } from "@escolalms/components";
 
 type updateParamType =
-  | { key: "free" | "tag"; value: string | undefined }
-  | { key: "categories"; value: number[] };
+  | { key: "tag"; value: string | undefined }
+  | { key: "categories"; value: number[] }
+  | { key: "title"; value: string };
 
-const StyledHeader = styled.div`
+type InitialFilters = {
+  categories: number[] | undefined;
+  tag: string | undefined;
+  title: string | undefined;
+};
+
+const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
   background: ${({ theme }) => theme.primaryColor};
   padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
   margin-bottom: ${isMobile ? "100px" : "40px"};
@@ -37,7 +48,17 @@ const StyledHeader = styled.div`
 
   h1 {
     color: ${({ theme }) => theme.white};
-    margin-bottom: 35px;
+    margin-bottom: ${({ filters }) =>
+      isMobile
+        ? 0
+        : filters && Object.keys(filters).length > 1
+        ? "35px"
+        : filters && Object.keys(filters).length === 1 && "page" in filters
+        ? "-35px"
+        : filters === undefined
+        ? "-35px"
+        : "35px"};
+    transition: margin-bottom 0.5s ease-out;
   }
 
   .filters-container {
@@ -47,18 +68,6 @@ const StyledHeader = styled.div`
     align-items: center;
     position: relative;
 
-    .Dropdown-control {
-      background: transparent;
-      border-color: transparent;
-      .Dropdown-placeholder {
-        color: ${({ theme }) => theme.white};
-      }
-      .Dropdown-arrow-wrapper {
-        svg {
-          filter: brightness(0) invert(1);
-        }
-      }
-    }
     .categories-container {
       display: flex;
       justify-content: flex-start;
@@ -160,59 +169,50 @@ const StyledHeader = styled.div`
         min-width: 110px;
       }
     }
+
     .selects-row {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
+
       @media (max-width: 991px) {
-        justify-content: space-between;
-        width: 100%;
-      }
-      @media (max-width: 575px) {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        row-gap: 15px;
+        margin-top: 40px;
       }
-      .single-select {
-        min-width: 130px;
-        &--category {
-          min-width: 200px;
-          div {
-            border: none !important;
-            &:not(.categories-dropdown-options) {
-              background: transparent !important;
-              color: ${({ theme }) => theme.white};
-            }
-          }
-          button {
-            ${isMobile &&
-            css`
-              color: ${({ theme }) => theme.white};
-              border-color: ${({ theme }) => theme.white};
-            `}
-          }
+      @media (max-width: 575px) {
+        row-gap: 15px;
+        margin-top: 20px;
+      }
 
-          label {
-            input {
-              min-width: 20px;
-            }
-          }
+      .single-select--search {
+        .search-input-options {
+          display: none !important;
         }
+        input {
+          background: transparent;
+          border-bottom: 1px solid #fff;
+          color: #fff;
+        }
+        svg {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      .single-select--category {
+        min-width: 200px;
       }
     }
   }
 `;
 
 const CoursesList = styled.section`
-  .course-wrapper {
-    margin-bottom: ${isMobile ? "50px" : "75px"};
-    padding-bottom: 15px;
-    overflow: hidden;
-    a {
-      text-decoration: none;
-    }
+  margin-bottom: ${isMobile ? "50px" : "75px"};
+
+  .row {
+    gap: 30px 0;
   }
 `;
 
@@ -222,12 +222,16 @@ const CoursesCollection: React.FC = () => {
   const [parsedParams, setParsedParams] = useState<
     API.CourseParams | undefined
   >();
-  const [filterState, setFilterState] = useState<{
-    categories: number[];
-    free?: string;
-    tag?: string;
-  }>({ categories: [], free: "", tag: "" });
-  const [paramsLoaded, setParamsLoaded] = useState(false);
+  const initialFilters = {
+    categories: [],
+    tag: "",
+    title: "",
+  };
+  const [filterState, setFilterState] =
+    useState<InitialFilters>(initialFilters);
+  const [paramsLoaded, setParamsLoaded] = useState<API.CourseParams | false>(
+    false
+  );
   const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
@@ -243,17 +247,9 @@ const CoursesCollection: React.FC = () => {
   );
 
   const resetFilters = () => {
-    setFilterState({
-      categories: [],
-      free: "",
-      tag: "",
-    });
+    setFilterState(initialFilters);
   };
 
-  const typeFilters = [
-    { label: "Wszystkie", value: "false" },
-    { label: "Darmowe", value: "true" },
-  ];
   const tagsFilters = uniqueTags.list
     ? uniqueTags.list?.map((item) => {
         return { label: String(item.title), value: String(item.title) };
@@ -261,7 +257,7 @@ const CoursesCollection: React.FC = () => {
     : [];
 
   useEffect(() => {
-    params && setParamsLoaded(true);
+    params && setParamsLoaded(params);
   }, [params]);
 
   useEffect(() => {
@@ -272,6 +268,7 @@ const CoursesCollection: React.FC = () => {
           parseNumbers: true,
         })
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsLoaded]);
 
   useEffect(() => {
@@ -279,13 +276,12 @@ const CoursesCollection: React.FC = () => {
       setFilterState({
         categories: parsedParams.ids,
         tag: parsedParams.tag,
-        free: parsedParams.free,
+        title: parsedParams.title,
       });
   }, [parsedParams]);
-
   return (
     <>
-      <StyledHeader>
+      <StyledHeader filters={params}>
         <Title level={1}> {t("CoursesPage.Courses")}</Title>
         <div className="filters-container">
           <div
@@ -294,8 +290,7 @@ const CoursesCollection: React.FC = () => {
             }`}
           >
             <div className="categories-row">
-              {(filterState.free ||
-                filterState.tag ||
+              {(filterState.tag ||
                 (filterState.categories &&
                   filterState.categories?.length > 0)) &&
                 isMobile && (
@@ -360,19 +355,16 @@ const CoursesCollection: React.FC = () => {
                       {category.name}
                     </Text>
                   ))}
-              {filterState && filterState.free === "true" && (
-                <Text className="single-filter"> {t("CoursesPage.Free")}</Text>
-              )}
-              {filterState && filterState.free === "false" && (
-                <Text className="single-filter"> {t("CoursesPage.All")}</Text>
-              )}
               {filterState?.tag && (
                 <Text className="single-filter">{params?.tag}</Text>
               )}
+              {filterState?.title && (
+                <Text className="single-filter">{params?.title}</Text>
+              )}
             </div>
-            {(filterState.free ||
-              filterState.tag ||
-              (filterState.categories && filterState.categories?.length > 0)) &&
+            {((filterState.categories && filterState.categories?.length > 0) ||
+              filterState.title ||
+              filterState.tag) &&
               !isMobile && (
                 <button
                   type="button"
@@ -388,11 +380,31 @@ const CoursesCollection: React.FC = () => {
               )}
           </div>
           <div className="selects-row">
+            <div className="single-select single-select--search">
+              <Search
+                placeholder={t("CoursesPage.Search")}
+                onSubmit={(e) => {
+                  const title = e;
+                  updateState({
+                    key: "title",
+                    value: title,
+                  });
+                  if (e === "") {
+                    params && delete params["title"];
+                    setParams && setParams({ ...params, page: 1 });
+                  } else {
+                    setParams &&
+                      setParams({ ...params, page: 1, title: title });
+                  }
+                }}
+              />
+            </div>
             {!isMobile && (
               <div className="single-select single-select--category">
                 <Categories
+                  backgroundColor={theme.primaryColor}
                   categories={categoryTree.list || []}
-                  label={"Kategoria"}
+                  label={t("CoursesPage.Category")}
                   selectedCategories={
                     filterState.categories && filterState.categories.length > 0
                       ? filterState.categories
@@ -424,26 +436,7 @@ const CoursesCollection: React.FC = () => {
                 />
               </div>
             )}
-            <div className="single-select">
-              <Dropdown
-                onChange={(e) => {
-                  updateState({
-                    key: "free",
-                    value: e.value,
-                  });
-                  setParams &&
-                    setParams({
-                      ...params,
-                      page: 1,
-                      free: e.value === "true" ? true : false,
-                    });
-                }}
-                placeholder={t("CoursesPage.Type")}
-                value={filterState.free}
-                options={typeFilters}
-              />
-            </div>
-            <div className="single-select">
+            <div className="single-select single-select--tag">
               <Dropdown
                 onChange={(e) => {
                   updateState({
@@ -457,6 +450,7 @@ const CoursesCollection: React.FC = () => {
                       tag: e.value,
                     });
                 }}
+                backgroundColor={theme.primaryColor}
                 value={filterState.tag}
                 placeholder="Tag"
                 options={[
@@ -486,19 +480,27 @@ const CoursesCollection: React.FC = () => {
               <div className="row">
                 {courses?.list?.data.map((item) => (
                   <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
-                    <div className="course-wrapper">
+                    <CourseCardWrapper>
                       <CourseCard
                         mobile={isMobile}
                         id={item.id}
                         image={
                           <Link to={`/courses/${item.id}`}>
-                            <img src={item.image_url} alt={item.title} />
+                            {item.image_path ? (
+                              <ResponsiveImage
+                                path={item.image_path}
+                                alt={item.title}
+                                srcSizes={[300, 600, 900]}
+                              />
+                            ) : (
+                              <CourseImgPlaceholder />
+                            )}
                           </Link>
                         }
                         tags={
                           <>
-                            {item.tags?.map((item) => (
-                              <Badge color={theme.primaryColor}>
+                            {item.tags?.map((item, index) => (
+                              <Badge key={index} color={theme.primaryColor}>
                                 <Link
                                   style={{ color: theme.white }}
                                   to={`/courses/?tag=${item.title}`}
@@ -528,7 +530,10 @@ const CoursesCollection: React.FC = () => {
                           <BreadCrumbs
                             hyphen="/"
                             items={item.categories?.map((category) => (
-                              <Link to={`/courses/?ids[]=${category.id}`}>
+                              <Link
+                                key={category.id}
+                                to={`/courses/?ids[]=${category.id}`}
+                              >
                                 {category.name}
                               </Link>
                             ))}
@@ -548,22 +553,30 @@ const CoursesCollection: React.FC = () => {
                         }
                         footer={
                           <>
-                            {item.users_count && item.users_count > 0 && (
+                            {item.users_count && item.users_count > 0 ? (
                               <IconText
-                                icon={<LessonsIcon />}
-                                text={`${item.users_count} kursantów`}
+                                icon={<UserIcon />}
+                                text={`${item.users_count} ${t<string>(
+                                  "Students"
+                                )}`}
                               />
+                            ) : (
+                              ""
                             )}{" "}
-                            {item.lessons_count && item.lessons_count > 0 && (
+                            {item.lessons_count && item.lessons_count > 0 ? (
                               <IconText
                                 icon={<LessonsIcon />}
-                                text={`${item.lessons_count} lekcji`}
+                                text={`${item.lessons_count} ${t<string>(
+                                  "Lessons"
+                                )}`}
                               />
+                            ) : (
+                              ""
                             )}
                           </>
                         }
                       />
-                    </div>
+                    </CourseCardWrapper>
                   </div>
                 ))}
               </div>
@@ -592,7 +605,11 @@ const CoursesCollection: React.FC = () => {
         <PromotedCoursesSection courses={courses.list.data} />
       )}
       {categoryTree && (
-        <CategoriesSection categories={categoryTree.list || []} />
+        <CategoriesSection
+          categories={
+            categoryTree.list?.filter((category) => !!category.icon) || []
+          }
+        />
       )}
     </>
   );

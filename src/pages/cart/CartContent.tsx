@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
+import { useContext, useEffect, useCallback, useState } from "react";
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
@@ -23,6 +23,7 @@ import {
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -55,7 +56,7 @@ const CartPageStyled = styled.section`
   }
   .summary-box-wrapper {
     position: sticky;
-    top: 60px;
+    top: 100px;
     ${isMobile &&
     css`
       position: fixed;
@@ -174,7 +175,7 @@ const CartContent = () => {
     realizeVoucher,
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { location, push } = useHistory();
+  const { push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
@@ -214,13 +215,13 @@ const CartContent = () => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      push("/authentication");
+      push("/login");
     } else {
       fetchCourses({ per_page: 6 });
       fetchCart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, user]);
+  }, []);
 
   const onPay = useCallback((paymentMethodId: string) => {
     setProcessing(true);
@@ -263,7 +264,8 @@ const CartContent = () => {
         .then((res) => {
           if (res.error) {
             setProcessing(false);
-            toast.error(t("UnexpectedError"));
+            toast.error(res.error.message);
+            console.log(res.error);
           } else {
             onPay(res?.paymentMethod?.id);
             setTimeout(() => {
@@ -287,6 +289,12 @@ const CartContent = () => {
           {!(cart.value?.items.length === 0) ? (
             <div className="row">
               <div className="col-lg-9">
+                <Breadcrumbs
+                  items={[
+                    <Link to="/">{t("Home")}</Link>,
+                    <Text size="12">{t("Cart.YourCart")}</Text>,
+                  ]}
+                />
                 <div className="module-wrapper">
                   <Title level={4}>{t<string>("Cart.YourCart")}</Title>
                   <div className="products-container">
@@ -376,19 +384,15 @@ const CartContent = () => {
                 </section>
               </div>
               <div className="col-lg-3">
-                <Title level={4}>{t<string>("Cart.Summary")}</Title>
+                <Title style={{ marginBottom: 20 }} level={4}>
+                  {t<string>("Cart.Summary")}
+                </Title>
                 <div className="summary-box-wrapper">
-                  {/* TODO: Mobile when ready in components package */}
                   <CartCard
                     mobile={isMobile}
                     onBuyClick={() => handleSubmit()}
                     id={1}
                     title={`${String(cart.value?.total)} zł`}
-                    description={
-                      <Text style={{ fontSize: 12, margin: 0 }}>
-                        {t<string>("Cart.Guaranteed")}
-                      </Text>
-                    }
                     discount={{
                       onDiscountClick: (discountValue) =>
                         realizeVoucher(discountValue)

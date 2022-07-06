@@ -3,7 +3,6 @@ import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsS
 import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
-import Image from "@escolalms/sdk/lib/react/components/Image";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { resetIdCounter } from "react-tabs";
@@ -17,14 +16,15 @@ import { Ratings } from "@escolalms/components/lib/components/molecules/Ratings/
 import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-import CourseProgramPreview from "../../../escolalms/sdk/components/Course/CourseProgramPreview";
+import CourseProgramPreview from "@/components/Course/CourseProgramPreview";
 import styled, { createGlobalStyle } from "styled-components";
 import { Medal, StarOrange, ThumbUp } from "../../../icons";
 import { questionnaireStars } from "@escolalms/sdk/lib/services/questionnaire";
 import CoursesSlider from "@/components/CoursesSlider";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { fixContentForMarkdown } from "../../../escolalms/sdk/utils/markdown";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
 
 resetIdCounter();
 
@@ -212,6 +212,7 @@ const CoursePage = () => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const {
+    apiUrl,
     course,
     settings,
     fetchCourse,
@@ -220,7 +221,6 @@ const CoursePage = () => {
     fetchCart,
     user,
   } = useContext(EscolaLMSContext);
-
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -248,7 +248,7 @@ const CoursePage = () => {
     fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
-      questionnaireStars("Course", Number(id)).then((res) => {
+      questionnaireStars(apiUrl, "Course", Number(id)).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
     }
@@ -262,20 +262,26 @@ const CoursePage = () => {
     return <Loader />;
   }
 
-  if (course.value.id !== Number(id) && course.loading) {
+  if (Number(course.value.id) !== Number(id) && course.loading) {
     return <Loader />;
   }
 
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
   return (
     <Layout metaTitle={course.value.title}>
       <StyledCoursePage>
         <div className="container">
           <div className="row">
             <div className="col-lg-9 col-md-12">
+              <Breadcrumbs
+                items={[
+                  <Link to="/">{t("Home")}</Link>,
+                  <Link to="/courses">{t("Courses")}</Link>,
+                  <Text size="12">{course.value.title}</Text>,
+                ]}
+              />
               <section className="course-main-info with-border">
                 <div className="row flex-lg-row flex-column-reverse">
                   <div className="col-lg-7">
@@ -315,7 +321,7 @@ const CoursePage = () => {
                   <div className="col-lg-4">
                     {course.value.image_path && (
                       <div className="image-wrapper">
-                        <Image
+                        <ResponsiveImage
                           path={course.value.image_path}
                           srcSizes={[790 * 0.5, 790, 2 * 790]}
                         />
@@ -377,23 +383,30 @@ const CoursePage = () => {
                   <strong>{t("CoursePage.CompaniesTitle")}</strong>
                 </Text>
                 <div className="companies-row">
-                  {Object.values(settings.courseLogos).map((_, index) => (
-                    <div className="single-company">
-                      <ResponsiveImage
-                        path={settings?.courseLogos[`logo${index + 1}`] || ""}
-                        srcSizes={[100, 100, 100]}
-                      />
-                    </div>
-                  ))}
+                  {settings &&
+                    settings.value.courseLogos &&
+                    Object.values(settings.value.courseLogos).map(
+                      (_, index) => (
+                        <div className="single-company" key={index}>
+                          <ResponsiveImage
+                            path={
+                              settings?.value?.courseLogos[
+                                `logo${index + 1}`
+                              ] || ""
+                            }
+                            srcSizes={[100, 200, 300]}
+                          />
+                        </div>
+                      )
+                    )}
                 </div>
               </section>
-              {course.value.summary && (
-                <section className="course-description">
-                  <MarkdownRenderer>
-                    {fixContentForMarkdown(`${course.value.summary}`)}
-                  </MarkdownRenderer>
-                </section>
-              )}
+              {course.value.summary &&
+                fixContentForMarkdown(course.value.summary) !== "" && (
+                  <section className="course-description">
+                    <MarkdownRenderer>{course.value.summary}</MarkdownRenderer>
+                  </section>
+                )}
               {course.value.author && (
                 <section className="course-tutor with-border padding-right">
                   <Link to={`/tutors/${course.value.author_id}`}>
@@ -421,20 +434,23 @@ const CoursePage = () => {
                   </Link>
                 </section>
               )}
-              <section className="course-description-short with-border padding-right">
-                <Title level={4}>
-                  {t("CoursePage.CourseDescriptionTitle")}
-                </Title>
-                {course.value.description && (
-                  <MarkdownRenderer>
-                    {fixContentForMarkdown(course.value.description)}
-                  </MarkdownRenderer>
+              {course.value.description &&
+                fixContentForMarkdown(course.value.description) !== "" && (
+                  <section className="course-description-short with-border padding-right">
+                    <Title level={4}>
+                      {t("CoursePage.CourseDescriptionTitle")}
+                    </Title>
+                    <MarkdownRenderer>
+                      {course.value.description}
+                    </MarkdownRenderer>
+                  </section>
                 )}
-              </section>
-              <CourseProgram
-                lessons={course.value.lessons}
-                onTopicClick={(topic) => setPreviewTopic(topic)}
-              />
+              {course.value.lessons && course.value.lessons.length > 0 && (
+                <CourseProgram
+                  lessons={course.value.lessons}
+                  onTopicClick={(topic) => setPreviewTopic(topic)}
+                />
+              )}
               {
                 <section className="course-ratings padding-right">
                   {ratings && ratings.count_answers > 0 ? (
@@ -461,7 +477,9 @@ const CoursePage = () => {
             </div>
             <div className="col-lg-3 col-md-12 sidebar-col">
               <div className="sidebar-wrapper">
-                <CoursesDetailsSidebar course={course.value} />
+                {course.value && (
+                  <CoursesDetailsSidebar course={course.value} />
+                )}
               </div>
             </div>
           </div>

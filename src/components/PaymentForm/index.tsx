@@ -6,7 +6,7 @@ import {
   CardNumberElement,
 } from "@stripe/react-stripe-js";
 import styled, { useTheme } from "styled-components";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   billingDetails: {
@@ -34,6 +34,7 @@ const PaymentForm: React.FC<Props> = ({
   setBillingDetails,
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const options = useMemo(() => {
     return {

@@ -28,19 +28,15 @@ const StyledProfile = styled.section`
 `;
 
 const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
-  const { user, fetchProgress, fetchCertificates } =
-    useContext(EscolaLMSContext);
+  const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
-    } else {
-      fetchProgress();
-      fetchCertificates();
+      history.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, user]);
+  }, []);
 
   return (
     <Layout metaTitle={title}>

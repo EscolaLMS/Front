@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import styled from "styled-components";
 import Preloader from "@/components/Preloader";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const StyledOrdersList = styled.section`
@@ -28,15 +28,15 @@ const Orders = () => {
     useContext(EscolaLMSContext);
   const [mappedOrders, setMappedOrders] = useState<any>([]);
   const history = useHistory();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     } else {
       fetchOrders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   const handleDownloadInvoice = useCallback((id: number) => {
     fetchOrderInvoice(id)
@@ -74,7 +74,7 @@ const Orders = () => {
             title: (
               <div className="name-container">
                 {item?.items?.map((product: API.CartItem, index) => (
-                  <Text>
+                  <Text key={index}>
                     <strong>
                       {product?.product?.name}
                       {index + 1 !== item?.items?.length && ", "}

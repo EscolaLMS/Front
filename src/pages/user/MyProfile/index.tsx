@@ -9,7 +9,7 @@ import ProfileCourses from "@/components/Profile/ProfileCourses";
 import ProfileCertificates from "@/components/Profile/ProfileCertificates";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Content = styled.section`
   .courses-wrapper {
@@ -34,13 +34,13 @@ const Content = styled.section`
 const MyProfile = () => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/authentication");
+      history.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, user]);
+  }, []);
 
   const coursesTabs = {
     tabs: [

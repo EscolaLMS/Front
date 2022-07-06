@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -6,10 +6,12 @@ import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Ba
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import CoursesSlider from "@/components/CoursesSlider";
 import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { useHistory } from "react-router-dom";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -22,9 +24,12 @@ const HomePageStyled = styled.div`
     margin-top: -30px;
   }
   .home-hero {
-    margin-bottom: 60px;
+    margin-bottom: 45px;
     padding-top: 42px;
     order: 1;
+    h1 {
+      margin-top: 0 !important;
+    }
     @media (max-width: 768px) {
       margin-bottom: 30px;
       padding-top: 0;
@@ -40,7 +45,7 @@ const HomePageStyled = styled.div`
   }
 
   .home-best-courses {
-    margin: 65px 0;
+    margin: 40px 0;
     order: ${({ theme }) => (theme.theme === "velvetTheme" ? 3 : 2)};
     @media (max-width: 768px) {
       margin: 30px 0;
@@ -49,7 +54,7 @@ const HomePageStyled = styled.div`
 
   .home-newest-courses {
     order: ${({ theme }) => (theme.theme === "orangeTheme" ? 3 : 4)};
-    margin: 65px 0;
+    margin: 40px 0;
     @media (max-width: 768px) {
       margin: 30px 0;
     }
@@ -72,7 +77,9 @@ const HomePageStyled = styled.div`
 const Index = () => {
   const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
     useContext(EscolaLMSContext);
-  React.useEffect(() => {
+  const history = useHistory();
+  const { t } = useTranslation();
+  useEffect(() => {
     fetchConfig();
     fetchCourses({ per_page: 6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,7 +92,7 @@ const Index = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 992,
+        breakpoint: 1201,
         settings: {
           slidesToShow: 3,
         },
@@ -110,20 +117,30 @@ const Index = () => {
     <Layout metaTitle={t("Home")}>
       <HomePageStyled>
         <section className="home-hero">
-          <div className="container">
-            <Banner
-              mobile={isMobile}
-              title={settings?.homepage?.heroBannerText || ""}
-              btnText={t("Homepage.HeroBtnText")}
-              img={
-                <ResponsiveImage
-                  path={settings?.homepage?.heroBannerImg || ""}
-                  srcSizes={[500, 750, 1000]}
+          {settings.value?.homepage &&
+            settings.value?.homepage.heroBannerText &&
+            settings.value.homepage?.heroBannerText !== "" &&
+            settings.value.homepage?.heroBannerImg &&
+            settings.value.homepage?.heroBannerImg !== "" && (
+              <div className="container">
+                <Banner
+                  mobile={isMobile}
+                  title={
+                    <MarkdownRenderer>
+                      {settings?.value?.homepage?.heroBannerText || ""}
+                    </MarkdownRenderer>
+                  }
+                  btnText={t("Homepage.HeroBtnText")}
+                  asset={
+                    <ResponsiveImage
+                      path={settings?.value?.homepage?.heroBannerImg || ""}
+                      srcSizes={[500, 750, 1000]}
+                    />
+                  }
+                  handleBtn={() => history.push("/courses")}
                 />
-              }
-              handleBtn={() => console.log("clicked")}
-            />
-          </div>
+              </div>
+            )}
         </section>
         <section className="home-best-courses">
           <div className="container">
@@ -157,9 +174,14 @@ const Index = () => {
             <PromotedCoursesSection courses={courses.list.data} />
           </div>
         )}
+
         {categoryTree && (
           <div className="categories-section-wrapper">
-            <CategoriesSection categories={categoryTree.list || []} />
+            <CategoriesSection
+              categories={
+                categoryTree.list?.filter((category) => !!category.icon) || []
+              }
+            />
           </div>
         )}
       </HomePageStyled>

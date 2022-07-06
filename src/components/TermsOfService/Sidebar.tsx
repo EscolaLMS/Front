@@ -27,9 +27,9 @@ const Sidebar = () => {
                 </Link>
               )}
               <div className="info">
-                {settings.currencies && course.base_price && (
+                {settings.value.currencies && course.base_price && (
                   <span>
-                    {settings.currencies.default}{" "}
+                    {settings.value.currencies.default}{" "}
                     {(course.base_price / 100).toFixed(2)}
                   </span>
                 )}

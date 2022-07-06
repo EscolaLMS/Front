@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { API } from "@escolalms/sdk/lib";
-import CourseProgramContent from "../../escolalms/sdk/components/Course/CourseProgramContent";
-import CourseSidebar from "../../escolalms/sdk/components/Course/CourseSidebar";
-import MarkdownReader from "../../escolalms/sdk/components/Markdown/MarkdownReader";
-import { fixContentForMarkdown } from "../../escolalms/sdk/utils/markdown";
-import { useLessonProgram } from "../../escolalms/sdk/hooks/useLessonProgram";
+import CourseProgramContent from "@/components/Course/CourseProgramContent";
+import CourseSidebar from "@/components/Course/CourseSidebar";
+import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 export const CourseProgramLessonsPreview: React.FC<{
   program: API.CourseProgram;
@@ -28,15 +27,13 @@ export const CourseProgramLessonsPreview: React.FC<{
               <div className="course-program-player-content">
                 <h2>{topic?.title}</h2>
 
-                {topic &&
-                  topic.introduction &&
-                  fixContentForMarkdown(`${topic.introduction}`) !== "" && (
-                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                      <div className="container-md">
-                        <MarkdownReader>{topic.introduction}</MarkdownReader>
-                      </div>
+                {topic && topic.introduction && (
+                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                    <div className="container-md">
+                      <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
                     </div>
-                  )}
+                  </div>
+                )}
                 <div
                   className="course-program-player-content__wrapper"
                   style={{
@@ -52,23 +49,19 @@ export const CourseProgramLessonsPreview: React.FC<{
               </div>
 
               <div className="row">
-                {lesson &&
-                  lesson.summary &&
-                  fixContentForMarkdown(`${lesson.summary}`) !== "" && (
-                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                      <div className="course-program-summary">
-                        <MarkdownReader>{lesson.summary}</MarkdownReader>
-                      </div>
+                {lesson && lesson.summary && (
+                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                    <div className="course-program-summary">
+                      <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                     </div>
-                  )}
-                {topic &&
-                  topic.summary &&
-                  fixContentForMarkdown(`${topic.summary}`) !== "" && (
-                    <div className={`col-lg-12 col-md-12 col-sm-12`}>
-                      <div className="course-program-summary">
-                        <MarkdownReader>{topic.summary}</MarkdownReader>
-                        {/* Leave it in case the business changes its mind. */}
-                        {/* {topic && topic.resources && topic.resources?.length > 0 && (
+                  </div>
+                )}
+                {topic && topic.summary && (
+                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                    <div className="course-program-summary">
+                      <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
+                      {/* Leave it in case the business changes its mind. */}
+                      {/* {topic && topic.resources && topic.resources?.length > 0 && (
                         <React.Fragment>
                           <h3>{t('CourseProgram.TopicAttachment')}</h3>
                           <div className="file-list">
@@ -80,9 +73,9 @@ export const CourseProgramLessonsPreview: React.FC<{
                           </div>
                         </React.Fragment>
                       )} */}
-                      </div>
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
 
               <div className="course-program-player-next">
