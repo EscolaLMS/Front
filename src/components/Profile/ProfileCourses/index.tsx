@@ -25,6 +25,11 @@ const StyledList = styled.div`
       text-decoration: none;
     }
   }
+
+  > .row {
+    gap: 28px 0;
+  }
+
   .slider-wrapper {
     width: 100%;
     display: flex;
@@ -39,6 +44,7 @@ const StyledList = styled.div`
     .single-slide {
       width: 272px;
       max-width: 272px;
+      flex-shrink: 0;
     }
   }
 `;
@@ -154,96 +160,94 @@ const ProfileCourses = ({
           {coursesToMap &&
             coursesToMap.slice(0, 6).map((item) => (
               <div className="col-md-4" key={item.course.id}>
-                <div className="course-wrapper">
-                  <CourseCardWrapper>
-                    <CourseCard
-                      mobile={isMobile}
-                      id={item.course.id}
-                      image={
-                        <Link to={`/course/${item.course.id}`}>
-                          {item.course.image_path ? (
-                            <ResponsiveImage
-                              path={item.course.image_path}
-                              alt={item.course.title}
-                              srcSizes={[300, 600, 900]}
+                <CourseCardWrapper>
+                  <CourseCard
+                    mobile={isMobile}
+                    id={item.course.id}
+                    image={
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.image_path ? (
+                          <ResponsiveImage
+                            path={item.course.image_path}
+                            alt={item.course.title}
+                            srcSizes={[300, 600, 900]}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
+                      </Link>
+                    }
+                    subtitle={
+                      item.course.subtitle ? (
+                        <Text>
+                          <Link
+                            style={{ color: theme.primaryColor }}
+                            to={`/course/${item.course.id}`}
+                          >
+                            {item.course.subtitle}
+                          </Link>
+                        </Text>
+                      ) : undefined
+                    }
+                    title={
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.title}
+                      </Link>
+                    }
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={item.categories?.map((category) => (
+                          <Link to={`/courses/?ids[]=${category.id}`}>
+                            {category.name}
+                          </Link>
+                        ))}
+                      />
+                    }
+                    actions={
+                      <>
+                        {progressMap[item.course.id] === 100 && (
+                          <Button
+                            mode="secondary"
+                            onClick={() => console.log("clicked")}
+                          >
+                            {t<string>("MyProfilePage.RateCourse")}
+                          </Button>
+                        )}
+                      </>
+                    }
+                    footer={
+                      <>
+                        {item.course.users_count &&
+                          item.course.users_count > 0 && (
+                            <IconText
+                              icon={<UserIcon />}
+                              text={`${item.course.users_count} ${t<string>(
+                                "Students"
+                              )}`}
                             />
-                          ) : (
-                            <CourseImgPlaceholder />
+                          )}{" "}
+                        {item.course.lessons_count &&
+                          item.course.lessons_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.lessons_count} ${t<string>(
+                                "Lessons"
+                              )}`}
+                            />
                           )}
-                        </Link>
-                      }
-                      subtitle={
-                        item.course.subtitle ? (
-                          <Text>
-                            <Link
-                              style={{ color: theme.primaryColor }}
-                              to={`/course/${item.course.id}`}
-                            >
-                              {item.course.subtitle}
-                            </Link>
-                          </Text>
-                        ) : undefined
-                      }
-                      title={
-                        <Link to={`/course/${item.course.id}`}>
-                          {item.course.title}
-                        </Link>
-                      }
-                      categories={
-                        <BreadCrumbs
-                          hyphen="/"
-                          items={item.categories?.map((category) => (
-                            <Link to={`/courses/?ids[]=${category.id}`}>
-                              {category.name}
-                            </Link>
-                          ))}
-                        />
-                      }
-                      actions={
-                        <>
-                          {progressMap[item.course.id] === 100 && (
-                            <Button
-                              mode="secondary"
-                              onClick={() => console.log("clicked")}
-                            >
-                              {t<string>("MyProfilePage.RateCourse")}
-                            </Button>
-                          )}
-                        </>
-                      }
-                      footer={
-                        <>
-                          {item.course.users_count &&
-                            item.course.users_count > 0 && (
-                              <IconText
-                                icon={<UserIcon />}
-                                text={`${item.course.users_count} ${t<string>(
-                                  "Students"
-                                )}`}
-                              />
-                            )}{" "}
-                          {item.course.lessons_count &&
-                            item.course.lessons_count > 0 && (
-                              <IconText
-                                icon={<LessonsIcon />}
-                                text={`${item.course.lessons_count} ${t<string>(
-                                  "Lessons"
-                                )}`}
-                              />
-                            )}
-                        </>
-                      }
-                      progress={
-                        progressMap[item.course.id] !== 100
-                          ? {
-                              currentProgress: progressMap[item.course.id],
-                              maxProgress: 100,
-                            }
-                          : undefined
-                      }
-                    />
-                  </CourseCardWrapper>
-                </div>
+                      </>
+                    }
+                    progress={
+                      progressMap[item.course.id] !== 100
+                        ? {
+                            currentProgress: progressMap[item.course.id],
+                            maxProgress: 100,
+                          }
+                        : undefined
+                    }
+                  />
+                </CourseCardWrapper>
               </div>
             ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
@@ -265,96 +269,94 @@ const ProfileCourses = ({
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
               <div className="col-md-4" key={item.course.id}>
-                <div className="course-wrapper">
-                  <CourseCardWrapper>
-                    <CourseCard
-                      mobile={isMobile}
-                      id={item.course.id}
-                      image={
-                        <Link to={`/course/${item.course.id}`}>
-                          {item.course.image_path ? (
-                            <ResponsiveImage
-                              path={item.course.image_path}
-                              alt={item.course.title}
-                              srcSizes={[300, 600, 900]}
+                <CourseCardWrapper>
+                  <CourseCard
+                    mobile={isMobile}
+                    id={item.course.id}
+                    image={
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.image_path ? (
+                          <ResponsiveImage
+                            path={item.course.image_path}
+                            alt={item.course.title}
+                            srcSizes={[300, 600, 900]}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
+                      </Link>
+                    }
+                    subtitle={
+                      item.course.subtitle ? (
+                        <Text>
+                          <Link
+                            style={{ color: theme.primaryColor }}
+                            to={`/course/${item.course.id}`}
+                          >
+                            {item.course.subtitle}
+                          </Link>
+                        </Text>
+                      ) : undefined
+                    }
+                    title={
+                      <Link to={`/course/${item.course.id}`}>
+                        {item.course.title}
+                      </Link>
+                    }
+                    categories={
+                      <BreadCrumbs
+                        hyphen="/"
+                        items={item.categories?.map((category) => (
+                          <Link to={`/courses/?ids[]=${category.id}`}>
+                            {category.name}
+                          </Link>
+                        ))}
+                      />
+                    }
+                    actions={
+                      <>
+                        {progressMap[item.course.id] === 100 && (
+                          <Button
+                            mode="secondary"
+                            onClick={() => console.log("clicked")}
+                          >
+                            {t<string>("MyProfilePage.RateCourse")}
+                          </Button>
+                        )}
+                      </>
+                    }
+                    footer={
+                      <>
+                        {item.course.users_count &&
+                          item.course.users_count > 0 && (
+                            <IconText
+                              icon={<UserIcon />}
+                              text={`${item.course.users_count} ${t<string>(
+                                "Students"
+                              )}`}
                             />
-                          ) : (
-                            <CourseImgPlaceholder />
+                          )}{" "}
+                        {item.course.lessons_count &&
+                          item.course.lessons_count > 0 && (
+                            <IconText
+                              icon={<LessonsIcon />}
+                              text={`${item.course.lessons_count} ${t<string>(
+                                "Lessons"
+                              )}`}
+                            />
                           )}
-                        </Link>
-                      }
-                      subtitle={
-                        item.course.subtitle ? (
-                          <Text>
-                            <Link
-                              style={{ color: theme.primaryColor }}
-                              to={`/course/${item.course.id}`}
-                            >
-                              {item.course.subtitle}
-                            </Link>
-                          </Text>
-                        ) : undefined
-                      }
-                      title={
-                        <Link to={`/course/${item.course.id}`}>
-                          {item.course.title}
-                        </Link>
-                      }
-                      categories={
-                        <BreadCrumbs
-                          hyphen="/"
-                          items={item.categories?.map((category) => (
-                            <Link to={`/courses/?ids[]=${category.id}`}>
-                              {category.name}
-                            </Link>
-                          ))}
-                        />
-                      }
-                      actions={
-                        <>
-                          {progressMap[item.course.id] === 100 && (
-                            <Button
-                              mode="secondary"
-                              onClick={() => console.log("clicked")}
-                            >
-                              {t<string>("MyProfilePage.RateCourse")}
-                            </Button>
-                          )}
-                        </>
-                      }
-                      footer={
-                        <>
-                          {item.course.users_count &&
-                            item.course.users_count > 0 && (
-                              <IconText
-                                icon={<UserIcon />}
-                                text={`${item.course.users_count} ${t<string>(
-                                  "Students"
-                                )}`}
-                              />
-                            )}{" "}
-                          {item.course.lessons_count &&
-                            item.course.lessons_count > 0 && (
-                              <IconText
-                                icon={<LessonsIcon />}
-                                text={`${item.course.lessons_count} ${t<string>(
-                                  "Lessons"
-                                )}`}
-                              />
-                            )}
-                        </>
-                      }
-                      progress={
-                        progressMap[item.course.id] !== 100
-                          ? {
-                              currentProgress: progressMap[item.course.id],
-                              maxProgress: 100,
-                            }
-                          : undefined
-                      }
-                    />
-                  </CourseCardWrapper>
-                </div>
+                      </>
+                    }
+                    progress={
+                      progressMap[item.course.id] !== 100
+                        ? {
+                            currentProgress: progressMap[item.course.id],
+                            maxProgress: 100,
+                          }
+                        : undefined
+                    }
+                  />
+                </CourseCardWrapper>
               </div>
             ))}
         </div>

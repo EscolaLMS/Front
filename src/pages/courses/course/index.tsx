@@ -212,6 +212,7 @@ const CoursePage = () => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const {
+    apiUrl,
     course,
     settings,
     fetchCourse,
@@ -247,7 +248,7 @@ const CoursePage = () => {
     fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
-      questionnaireStars("Course", Number(id)).then((res) => {
+      questionnaireStars(apiUrl, "Course", Number(id)).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
     }
@@ -476,7 +477,9 @@ const CoursePage = () => {
             </div>
             <div className="col-lg-3 col-md-12 sidebar-col">
               <div className="sidebar-wrapper">
-                <CoursesDetailsSidebar course={course.value} />
+                {course.value && (
+                  <CoursesDetailsSidebar course={course.value} />
+                )}
               </div>
             </div>
           </div>

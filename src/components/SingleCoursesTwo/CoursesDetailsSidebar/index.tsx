@@ -27,9 +27,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(id)
+      (item: any) => Number(item.product_id) === Number(course.product?.id)
     );
-  }, [id, cart]);
+  }, [course.product?.id, cart]);
 
   const userOwnThisCourse = useMemo(() => {
     return (
@@ -52,7 +52,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
       const finishedLessons = currentCourse
-        ? currentCourse[0].progress?.filter((item: any) => item.status === 1)
+        ? currentCourse[0].progress?.filter((item) => item.status === 1)
         : [];
       return finishedLessons.length;
     } else {
@@ -100,7 +100,9 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <Button
           loading={cart.loading}
           mode="secondary"
-          onClick={() => addToCart(Number(course.id)).then(() => push("/cart"))}
+          onClick={() =>
+            addToCart(Number(course.product?.id)).then(() => push("/cart"))
+          }
         >
           {t("Buy Course")}
         </Button>
@@ -114,28 +116,31 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         {course.duration && (
           <IconText
             icon={<IconCamera />}
-            text={`Czas trwania: ${course.duration}`}
+            text={`${t("CoursePage.Duration")}: ${course.duration}`}
           />
         )}
         {course.lessons && (
           <IconText
             icon={<IconSquares />}
-            text={`Lekcje: ${course.lessons.length}`}
+            text={`${t("CoursePage.Lessons")}: ${course.lessons.length}`}
           />
         )}
         {course.language && (
           <IconText
             icon={<IconSquares />}
-            text={`Język: ${course.lessons.length}`}
+            text={`${t("CoursePage.Language")}: ${course.language}`}
           />
         )}
         {course.level && (
-          <IconText icon={<IconSquares />} text={`Poziom: ${course.level}`} />
+          <IconText
+            icon={<IconSquares />}
+            text={`${t("CoursePage.Level")}: ${course.level}`}
+          />
         )}
         {course.users_count ? (
           <IconText
             icon={<IconSquares />}
-            text={`Uczniów: ${course.users_count}`}
+            text={`${t("CoStursePage.Students")}: ${course.users_count}`}
           />
         ) : (
           ""
@@ -215,7 +220,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               block
               mode="secondary"
               onClick={() =>
-                addToCart(Number(course.id)).then(() => push("/cart"))
+                addToCart(Number(course.product?.id)).then(() => push("/cart"))
               }
             >
               {t("Buy Course")}

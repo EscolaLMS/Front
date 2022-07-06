@@ -195,7 +195,11 @@ const Navbar = () => {
   }, [user]);
   const menuItems = [
     {
-      title: t("Menu.Browse"),
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Browse")}
+        </Text>
+      ),
       key: "menuItem1",
       children: [
         {
@@ -231,7 +235,11 @@ const Navbar = () => {
       ],
     },
     {
-      title: t("Menu.Me"),
+      title: (
+        <Text noMargin bold>
+          {t("Menu.Me")}
+        </Text>
+      ),
       key: "menuItem2",
       children: [
         {
@@ -276,7 +284,7 @@ const Navbar = () => {
           </Link>
         </CustomMobileMenuItem>
       ) : (
-        <Button mode={"secondary"} onClick={() => history.push("/login")}>
+        <Button mode={"secondary"} block onClick={() => history.push("/login")}>
           {t<string>("Header.Login")}
         </Button>
       ),
@@ -293,6 +301,7 @@ const Navbar = () => {
             src: settings?.value?.global?.logo || Logo,
             width: 150,
             height: 50,
+            onClick: () => history.push("/"),
           }}
           menuItems={menuItems}
           search={
