@@ -38,7 +38,7 @@ const Content = styled.div`
     @media (max-width: 575px) {
       top: -30px !important;
       right: unset !important;
-      left: 50px !important;
+      left: 60px !important;
     }
   }
   .slick-track {
@@ -58,7 +58,6 @@ const Content = styled.div`
     }
   }
 `;
-
 const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
   const [dots] = useState(true);
   const history = useHistory();

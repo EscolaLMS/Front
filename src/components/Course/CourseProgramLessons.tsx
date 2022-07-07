@@ -17,7 +17,7 @@ import Breadcrumbs from "../Breadcrumbs";
 import { Col, Row, Container } from "react-grid-system";
 
 const StyledCourse = styled.section`
-  padding-bottom: 60px;
+  padding-bottom: 110px;
   .main-title {
     margin-bottom: 20px;
   }
@@ -28,11 +28,9 @@ const StyledCourse = styled.section`
     width: 100%;
     z-index: 100;
   }
-  .course-program-player-content {
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+  img {
+    max-width: 100%;
+    height: auto;
   }
 `;
 

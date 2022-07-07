@@ -1,37 +1,41 @@
 import Layout from "@/components/_App/Layout";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { Button, Text, Title } from "@escolalms/components";
+import { isMobile } from "react-device-detect";
 import { Container } from "react-grid-system";
+
+const Styled404 = styled.div`
+  height: 100vh;
+  margin-top: ${isMobile ? 0 : "-167px"};
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    row-gap: 30px;
+  }
+`;
 
 const Custom404 = () => {
   const { t } = useTranslation();
-
+  const history = useHistory();
   return (
     <Layout>
-      <div className="error-area">
-        <div className="d-table">
-          <div className="d-table-cell">
-            <Container>
-              <div className="error-content">
-                <img src={`/images/error.png`} alt="Error" />
-                <h3>{t("Custom404Page.Info")}</h3>
-                <p>{t("Custom404Page.NotFound")}</p>
-
-                <div className="btn-box">
-                  <Link to="/" className="default-btn">
-                    <i className="flaticon-history"></i>
-                    {t("Back")}
-                    <span></span>
-                  </Link>
-                  <Link to="/" className="default-btn">
-                    <i className="flaticon-home"></i> {t("Home")} <span></span>
-                  </Link>
-                </div>
-              </div>
-            </Container>
+      <Styled404>
+        <Container>
+          <div className="content">
+            <Title level={3}>{t("Custom404Page.Info")}</Title>
+            <Text>{t("Custom404Page.NotFound")}</Text>
+            <Button onClick={() => history.push("/courses")}>
+              {t("Home")}
+            </Button>
           </div>
-        </div>
-      </div>
+        </Container>
+      </Styled404>
     </Layout>
   );
 };

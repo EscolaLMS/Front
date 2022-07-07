@@ -10,6 +10,7 @@ import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import { Col, Container } from "react-grid-system";
+import { Settings } from "react-slick";
 
 type Props = {
   categories: API.Category[];
@@ -31,20 +32,31 @@ const StyledSection = styled.section`
     }
   }
   .categories-slider {
-    margin-left: -60px;
     .slick-dots {
-      margin-left: 30px;
       bottom: 40px;
     }
   }
-  .single-category-slide {
-    max-width: 272px;
-    margin: 0 8px;
-    @media (max-width: 390px) {
-      max-width: 230px;
+  .slick-track {
+    display: flex;
+    gap: 0 20px;
+  }
+  .slick-slide {
+    @media (max-width: 991px) {
+      display: flex !important;
+      justify-content: center;
     }
-    @media (max-width: 330px) {
-      max-width: 200px;
+  }
+  .single-category-slide {
+    margin: 0 8px;
+    .category-card-icon {
+      img {
+        margin: 0 auto;
+        display: block;
+      }
+    }
+    @media (max-width: 991px) {
+      margin: 0 auto;
+      min-width: 300px;
     }
   }
 `;
@@ -53,13 +65,21 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
   const [dots] = useState(true);
   const { t } = useTranslation();
   const history = useHistory();
-  const categoriesSliderSettings = {
+  const categoriesSliderSettings: Settings = {
     arrows: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
-    centerMode: true,
+    centerMode: false,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
   return (
     <StyledSection>
