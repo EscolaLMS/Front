@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useMemo, useCallback } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { TopicType } from "@escolalms/sdk/lib/services/courses";
+import {
+  TopicType,
+  completed,
+  noCompletedEventsIds,
+} from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
 import { API } from "@escolalms/sdk/lib";
@@ -33,6 +37,7 @@ export const CourseProgramContent: React.FC<{
     h5pProgress,
     apiUrl,
   } = useContext(EscolaLMSContext);
+
   const topic = useMemo(() => {
     return program.value?.lessons
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
@@ -62,16 +67,15 @@ export const CourseProgramContent: React.FC<{
       ]);
     }
   }, [program, topicId, setIsDisabledNextTopicButton, sendProgress]);
+
   const onXAPI = useCallback(
     (event: XAPIEvent): void => {
       setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);
 
       if (event?.statement) {
-        /* 
-        TODO This doesn't work 
         if (
           (event?.statement?.verb?.id &&
-            completed.includes(event?.statement?.verb?.id)) ||
+            completed.includes(event?.statement?.verb?.id as API.IEvent)) ||
           [...noCompletedEventsIds, ...customNoCompletedEventsIds].includes(
             event?.statement?.context?.contextActivities?.category &&
               event?.statement?.context?.contextActivities?.category[0]?.id
@@ -79,14 +83,12 @@ export const CourseProgramContent: React.FC<{
         ) {
           setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
         }
-        
 
         h5pProgress(
           String(program?.value?.id),
           Number(topicId),
-          event?.statement
+          event?.statement as API.IStatement
         );
-        */
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

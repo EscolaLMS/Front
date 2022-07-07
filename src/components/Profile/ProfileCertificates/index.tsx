@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, lazy, Suspense, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
-import { PdfGenerate } from "@/components/PdfGenerate/index";
+
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
 import styled, { useTheme } from "styled-components";
 import { DownloadIcon } from "../../../icons";
+import { Spin } from "@escolalms/components";
+
+const PdfGenerate = lazy(() => import("@/components/PdfGenerate/index"));
 
 type CertType = API.Certificate;
 
@@ -37,10 +40,15 @@ const CertificatesList = styled.section`
 `;
 
 const ProfileCertificates: React.FC = () => {
-  const { fetchCertificate, certificates } = useContext(EscolaLMSContext);
+  const { fetchCertificate, certificates, fetchCertificates } =
+    useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const theme = useTheme();
   const [certificatePreview, setCertificatePreview] = React.useState(undefined);
+
+  useEffect(() => {
+    fetchCertificates();
+  }, [fetchCertificates]);
 
   const handlePreview = async (id: number) => {
     try {
@@ -86,10 +94,12 @@ const ProfileCertificates: React.FC = () => {
 
         <div className="fabric-preview-wrapper">
           {certificatePreview && (
-            <PdfGenerate
-              initialValue={certificatePreview}
-              onRendered={() => setCertificatePreview(undefined)}
-            />
+            <Suspense fallback={<Spin color={theme.primaryColor} />}>
+              <PdfGenerate
+                initialValue={certificatePreview}
+                onRendered={() => setCertificatePreview(undefined)}
+              />
+            </Suspense>
           )}
         </div>
       </CertificatesList>
