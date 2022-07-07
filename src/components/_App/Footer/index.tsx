@@ -72,10 +72,10 @@ const Footer = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(settings);
   const footerFromApi =
-    settings.value.footerMenu &&
-    settings.value.footerMenu.menu.filter(
+    settings.value?.footerMenu &&
+    settings.value?.footerMenu.menu.filter(
       (item: Record<string, string | Record<string, string>>) =>
         user.value ? item : !item.auth
     );
