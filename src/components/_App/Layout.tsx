@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
+import { setConfiguration } from "react-grid-system";
 declare global {
   interface Window {
     ybug_settings: Ybug;
@@ -21,6 +22,8 @@ window.ybug_settings = window.ybug_settings || {};
 const YBUG_ID =
   window.REACT_APP_YBUG_ID ||
   (process && process.env && process.env.REACT_APP_YBUG_ID);
+
+setConfiguration({ maxScreenClass: "xl" });
 
 const Layout: React.FC<{
   children: React.ReactNode;

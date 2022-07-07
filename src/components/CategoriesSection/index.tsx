@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
-import { Col, Container } from "react-grid-system";
+import { Col, Container, Row } from "react-grid-system";
 import { Settings } from "react-slick";
 
 type Props = {
@@ -117,7 +117,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
             </Slider>
           </div>
         ) : (
-          <div className="row">
+          <Row>
             {categories.slice(-4).map((item) => (
               <Col md={3} key={item.id}>
                 <CategoryCard
@@ -139,7 +139,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                 />
               </Col>
             ))}
-          </div>
+          </Row>
         )}
       </Container>
     </StyledSection>

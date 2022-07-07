@@ -50,14 +50,14 @@ export const CourseProgramLessonsPreview: React.FC<{
 
               <Row>
                 {lesson && lesson.summary && (
-                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                  <Col sm={12} md={12} lg={12}>
                     <div className="course-program-summary">
                       <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                     </div>
-                  </div>
+                  </Col>
                 )}
                 {topic && topic.summary && (
-                  <div className={`col-lg-12 col-md-12 col-sm-12`}>
+                  <Col sm={12} md={12} lg={12}>
                     <div className="course-program-summary">
                       <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
                       {/* Leave it in case the business changes its mind. */}
@@ -74,7 +74,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                         </React.Fragment>
                       )} */}
                     </div>
-                  </div>
+                  </Col>
                 )}
               </Row>
 

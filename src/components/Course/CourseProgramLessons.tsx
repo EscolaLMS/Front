@@ -186,20 +186,16 @@ export const CourseProgramLessons: React.FC<{
                   </div>
                 </div>
                 <div className="course-program-content__container">
-                  <div className="row">
+                  <Row>
                     {lesson && lesson.summary && (
-                      <div
-                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                      >
+                      <Col sm={12} md={columnWidth} lg={columnWidth}>
                         <div className="course-program-summary">
                           <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
                         </div>
-                      </div>
+                      </Col>
                     )}
                     {topic && topic.summary && (
-                      <div
-                        className={`col-lg-${columnWidth} col-md-${columnWidth} col-sm-12`}
-                      >
+                      <Col sm={12} md={columnWidth} lg={columnWidth}>
                         <div className="course-program-summary">
                           <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
 
@@ -212,9 +208,9 @@ export const CourseProgramLessons: React.FC<{
                               />
                             )}
                         </div>
-                      </div>
+                      </Col>
                     )}
-                  </div>
+                  </Row>
                 </div>
               </div>
             </Col>
