@@ -1,7 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Rate } from "@escolalms/components/lib/components/molecules/Rate/Rate";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { toast } from "react-toastify";
