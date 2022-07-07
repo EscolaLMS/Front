@@ -66,38 +66,65 @@ const StyledFooter = styled.footer`
 
 const Footer = () => {
   const { settings, fetchPages, pages, user } = useContext(EscolaLMSContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     fetchPages();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const footerFromApi =
+    settings.value.footerMenu &&
+    settings.value.footerMenu.menu.filter(
+      (item: Record<string, string | Record<string, string>>) =>
+        user.value ? item : !item.auth
+    );
+
   return (
     <StyledFooter>
       <div className="container">
         <div className="links-row">
-          <Link className="single-link" to="/">
-            <Text size="14">{t<string>("Footer.HomePage")}</Text>
-          </Link>
-          <Link className="single-link" to="/courses">
-            <Text size="14">{t<string>("Footer.Courses")}</Text>
-          </Link>
-          {user.value ? (
-            <Link className="single-link" to="/user/my-profile">
-              <Text size="14">{t<string>("Footer.UserProfile")}</Text>
-            </Link>
+          {footerFromApi && footerFromApi.length > 0 ? (
+            <>
+              {footerFromApi.map(
+                (link: Record<string, string | Record<string, string>>) => {
+                  return (
+                    <Link className="single-link" to={link.link}>
+                      {typeof link.label === "object" && (
+                        <Text size="14">{link.label[i18n.language]}</Text>
+                      )}
+                    </Link>
+                  );
+                }
+              )}
+            </>
           ) : (
             <>
-              <Link className="single-link" to="/login">
-                <Text size="14">{t<string>("Header.Login")}</Text>
+              <Link className="single-link" to="/">
+                <Text size="14">{t<string>("Footer.HomePage")}</Text>
               </Link>
-              <Link className="single-link" to="/register">
-                <Text size="14">{t<string>("Header.Register")}</Text>
+              <Link className="single-link" to="/courses">
+                <Text size="14">{t<string>("Footer.Courses")}</Text>
+              </Link>
+              {user.value ? (
+                <Link className="single-link" to="/user/my-profile">
+                  <Text size="14">{t<string>("Footer.UserProfile")}</Text>
+                </Link>
+              ) : (
+                <>
+                  <Link className="single-link" to="/login">
+                    <Text size="14">{t<string>("Header.Login")}</Text>
+                  </Link>
+                  <Link className="single-link" to="/register">
+                    <Text size="14">{t<string>("Header.Register")}</Text>
+                  </Link>
+                </>
+              )}
+              <Link className="single-link" to="/cart">
+                <Text size="14">{t<string>("Footer.Cart")}</Text>
               </Link>
             </>
           )}
-          <Link className="single-link" to="/cart">
-            <Text size="14">{t<string>("Footer.Cart")}</Text>
-          </Link>
         </div>
         <div className="links-row pages">
           {pages &&
