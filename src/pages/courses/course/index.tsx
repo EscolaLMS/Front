@@ -301,7 +301,7 @@ const CoursePage = () => {
                       <div className="single-label">
                         <LabelListItem
                           mobile={isMobile}
-                          title="Gwarancja"
+                          title={t<string>("CoursePage.Guarantee")}
                           icon={<Medal />}
                         >
                           {t("CoursePage.Satisfaction")}
@@ -426,7 +426,7 @@ const CoursePage = () => {
                       rating={{
                         ratingValue: 4.1,
                       }}
-                      title={"Teacher"}
+                      title={t<string>("CoursePage.Teacher")}
                       fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
                       coursesInfo={"8 Curses"}
                       description={course.value.author.bio}
@@ -468,7 +468,7 @@ const CoursePage = () => {
                         {t("CoursePage.CourseRatingsTitle")}
                       </Title>
                       <Text style={{ marginTop: 20 }}>
-                        Ten kurs nie został jeszcze oceniony
+                        {t<string>("CoursePage.CourseRatingsEmpty")}
                       </Text>
                     </>
                   )}
