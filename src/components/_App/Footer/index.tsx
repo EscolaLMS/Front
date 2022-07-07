@@ -69,24 +69,33 @@ const Footer = () => {
   const { t, i18n } = useTranslation();
   useEffect(() => {
     fetchPages();
-    console.log(settings);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const footerFromApi =
+    settings.value.footerMenu &&
+    settings.value.footerMenu.menu.filter(
+      (item: Record<string, string | Record<string, string>>) =>
+        user.value ? item : !item.auth
+    );
+
   return (
     <StyledFooter>
       <div className="container">
         <div className="links-row">
-          {settings.value.footerMenu &&
-          settings.value.footerMenu.menu.length > 0 ? (
+          {footerFromApi && footerFromApi.length > 0 ? (
             <>
-              {settings.value.footerMenu.menu.map(
-                (link: Record<string, string | Record<string, string>>) => (
-                  <Link className="single-link" to={link.link}>
-                    {typeof link.label !== "string" && (
-                      <Text size="14">{link.label[i18n.language]}</Text>
-                    )}
-                  </Link>
-                )
+              {footerFromApi.map(
+                (link: Record<string, string | Record<string, string>>) => {
+                  return (
+                    <Link className="single-link" to={link.link}>
+                      {typeof link.label === "object" && (
+                        <Text size="14">{link.label[i18n.language]}</Text>
+                      )}
+                    </Link>
+                  );
+                }
               )}
             </>
           ) : (
