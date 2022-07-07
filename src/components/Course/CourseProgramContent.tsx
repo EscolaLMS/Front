@@ -11,7 +11,7 @@ import { API } from "@escolalms/sdk/lib";
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/AudioVideoPlayer/AudioVideoPlayer";
 import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
-import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
+import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 import { isMobile } from "react-device-detect";
 
@@ -126,7 +126,7 @@ export const CourseProgramContent: React.FC<{
     switch (topic.topicable_type) {
       case TopicType.H5P:
         return (
-          <H5P
+          <H5Player
             onXAPI={(e: XAPIEvent) => onXAPI(e)}
             id={topic?.topicable?.value}
           />
@@ -138,7 +138,7 @@ export const CourseProgramContent: React.FC<{
               url={topic.topicable.value}
               key={topicId}
               FallbackElement={
-                <H5P
+                <H5Player
                   onXAPI={(e: XAPIEvent) => onXAPI(e)}
                   id={topic?.topicable?.value}
                 />
