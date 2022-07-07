@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
     position: fixed;
     top: 5px;
     right: 5px;
-    z-index: 9999;
+    z-index: 1049;
     width: 24px;
     height: 24px;
     color: ${({ theme }) =>
