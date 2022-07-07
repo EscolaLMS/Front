@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Placeholder from "../../images/placeholder-course.jpeg";
 
 const StyledPlaceholder = styled.div`
   width: 100%;
@@ -8,7 +9,11 @@ const StyledPlaceholder = styled.div`
 `;
 
 const CourseImgPlaceholder = () => {
-  return <StyledPlaceholder />;
+  return (
+    <StyledPlaceholder>
+      <img src={Placeholder} alt="" />
+    </StyledPlaceholder>
+  );
 };
 
 export default CourseImgPlaceholder;
