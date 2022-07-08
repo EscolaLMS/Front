@@ -75,13 +75,20 @@ const HomePageStyled = styled.div`
 `;
 
 const Index = () => {
-  const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
-    useContext(EscolaLMSContext);
+  const {
+    fetchConfig,
+    categoryTree,
+    fetchCategories,
+    courses,
+    fetchCourses,
+    settings,
+  } = useContext(EscolaLMSContext);
   const history = useHistory();
   const { t, i18n } = useTranslation();
   useEffect(() => {
     fetchConfig();
     fetchCourses({ per_page: 6 });
+    fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const sliderSettings = {
