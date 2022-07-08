@@ -28,7 +28,7 @@ WebFont.load({
 ReactDOM.createRoot(document.getElementById("root") as Element).render(
   <React.StrictMode>
     {API_URL ? (
-      <EscolaLMSContextProvider apiUrl={API_URL}>
+      <EscolaLMSContextProvider apiUrl={API_URL} initialFetch={false}>
         <GlobalThemeProvider>
           <App />
         </GlobalThemeProvider>

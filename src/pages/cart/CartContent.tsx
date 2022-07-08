@@ -101,67 +101,6 @@ const CartPageStyled = styled.section`
   }
 `;
 
-const ThankYouPageStyled = styled.section`
-  text-align: center;
-  .thank-you-title {
-    font-weight: 700;
-    font-size: 28px;
-  }
-  .course-name {
-    position: relative;
-    display: inline-block;
-    font-weight: 700;
-    margin: 25px 0 55px;
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 2px;
-      background-color: ${({ theme }) => theme.primaryColor};
-    }
-  }
-  button {
-    max-width: 440px;
-    margin: 0 auto;
-  }
-  .small-text {
-    margin-top: 20px;
-    font-size: 12px;
-  }
-`;
-
-// const ThankYouPage = () => {
-//   return (
-//     <Layout>
-//       <ThankYouPageStyled>
-//         <div className="container">
-//           <div className="row justify-content-center">
-//             <div className="col-md-9">
-//               <Title className="thank-you-title" level={3}>
-//                 Gratulacje! <br />
-//                 Od teraz posiadasz pełny dostęp do kursu:
-//               </Title>
-//               <Title level={4} className="course-name">
-//                 Księgowość dla początkujących
-//               </Title>
-//               <Text className="email-info">
-//                 Aby rozpocząć zaloguj się na podany adres e-mail lub kliknij w
-//                 poniższy przycisk
-//               </Text>
-//               <Button block>Rozpocznij kurs</Button>
-//               <Text className="small-text">
-//                 Zapraszamy do dalszych zakupów w platformie Wellms
-//               </Text>
-//             </div>
-//           </div>
-//         </div>
-//       </ThankYouPageStyled>
-//     </Layout>
-//   );
-// };
-
 const CartContent = () => {
   const {
     user,

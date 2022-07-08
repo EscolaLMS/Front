@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
 import { IconTitle } from "@escolalms/components/lib/components/atoms/IconTitle/IconTitle";
 
