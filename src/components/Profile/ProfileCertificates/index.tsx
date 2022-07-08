@@ -25,6 +25,7 @@ const CertificatesList = styled.section`
     column-gap: 60px;
     align-items: center;
     justify-content: flex-end;
+
     .download-btn {
       appearance: none;
       outline: none;
@@ -35,6 +36,8 @@ const CertificatesList = styled.section`
       align-items: center;
       justify-content: flex-start;
       column-gap: 10px;
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.white : theme.gray1};
     }
   }
 `;
@@ -78,7 +81,11 @@ const ProfileCertificates: React.FC = () => {
               <NoteAction
                 color={theme.primaryColor}
                 title={<Title level={4}>{cert.title}</Title>}
-                subtitle={new Date(cert.created_at).toLocaleDateString("pl-PL")}
+                subtitle={
+                  <Text noMargin size={"12"}>
+                    {new Date(cert.created_at).toLocaleDateString("pl-PL")}
+                  </Text>
+                }
                 actions={
                   <div className="buttons-container">
                     <button

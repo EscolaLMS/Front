@@ -7,7 +7,7 @@ import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlaye
 import { MarkdownPlayer } from "@escolalms/components/lib/components/players/MarkdownPlayer/MarkdownPlayer";
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { H5P } from "@escolalms/components/lib/components/players/H5Player/H5Player";
+import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -17,7 +17,7 @@ export const CourseProgramPreview: React.FC<{
     if (topic && topic.topicable_type) {
       switch (topic.topicable_type) {
         case TopicType.H5P:
-          return <H5P id={topic?.topicable?.value} />;
+          return <H5Player id={topic?.topicable?.value} />;
         case TopicType.OEmbed:
           return <OEmbedPlayer url={topic?.topicable?.value} />;
         case TopicType.RichText:

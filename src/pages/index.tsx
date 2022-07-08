@@ -75,13 +75,20 @@ const HomePageStyled = styled.div`
 `;
 
 const Index = () => {
-  const { fetchConfig, categoryTree, courses, fetchCourses, settings } =
-    useContext(EscolaLMSContext);
+  const {
+    fetchConfig,
+    categoryTree,
+    fetchCategories,
+    courses,
+    fetchCourses,
+    settings,
+  } = useContext(EscolaLMSContext);
   const history = useHistory();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     fetchConfig();
     fetchCourses({ per_page: 6 });
+    fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const sliderSettings = {
@@ -118,8 +125,7 @@ const Index = () => {
       <HomePageStyled>
         <section className="home-hero">
           {settings.value?.homepage &&
-            settings.value?.homepage.heroBannerText &&
-            settings.value.homepage?.heroBannerText !== "" &&
+            settings.value.homepage?.heroBannerText &&
             settings.value.homepage?.heroBannerImg &&
             settings.value.homepage?.heroBannerImg !== "" && (
               <div className="container">
@@ -127,7 +133,11 @@ const Index = () => {
                   mobile={isMobile}
                   title={
                     <MarkdownRenderer>
-                      {settings?.value?.homepage?.heroBannerText || ""}
+                      {`<h1>${
+                        settings.value.homepage?.heroBannerText[
+                          i18n.language
+                        ] || ""
+                      }</h1>`}
                     </MarkdownRenderer>
                   }
                   btnText={t("Homepage.HeroBtnText")}

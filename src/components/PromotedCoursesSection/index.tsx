@@ -14,6 +14,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import CourseCardWrapper from "../CourseCardWrapper";
+import Placeholder from "../../images/placeholder-course.jpeg";
 
 type Props = {
   courses: API.Course[];
@@ -314,7 +315,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="course-wrapper course-wrapper--big">
               <ImageBubble
                 image={{
-                  src: courses[5].image_url || "",
+                  src: courses[5].image_url || Placeholder,
                   alt: courses[5].title || "",
                 }}
                 header={

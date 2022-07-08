@@ -16,6 +16,7 @@ import { LessonsIcon, UserIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
+import RateCourse from "@/components/RateCourse";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -71,6 +72,7 @@ const ProfileCourses = ({
 }: {
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
+  const [rateModalVisible, setRateModalVisible] = useState(false);
   const { progress, fetchProgress } = useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<
@@ -209,7 +211,7 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => setRateModalVisible(true)}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -318,7 +320,7 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => setRateModalVisible(true)}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -458,6 +460,13 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <Preloader />}
+      {rateModalVisible && (
+        <RateCourse
+          visible={rateModalVisible}
+          onClose={() => setRateModalVisible(false)}
+          courseId={53}
+        />
+      )}
     </StyledList>
   );
 };

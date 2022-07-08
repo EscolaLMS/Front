@@ -155,7 +155,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               color: theme.primaryColor,
             }}
           >
-            {t<string>("Zaloguj się")}
+            {t<string>("CoursePage.Login")}
           </Link>
           {t("CoursePage.ToSeeProgress")}
         </Text>
