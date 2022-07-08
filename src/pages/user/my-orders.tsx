@@ -8,10 +8,10 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { API } from "@escolalms/sdk/lib";
 import { format } from "date-fns";
 import styled from "styled-components";
-import Preloader from "@/components/Preloader";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import ContentLoader from "@/components/ContentLoader";
 
 const StyledOrdersList = styled.section`
   margin-top: 35px;
@@ -113,8 +113,8 @@ const Orders = () => {
         ) : (
           <OrdersList mobile={isMobile} data={mappedOrders} />
         )}
+        {orders.loading && <ContentLoader />}
       </StyledOrdersList>
-      {orders.loading && <Preloader />}
     </ProfileLayout>
   );
 };
