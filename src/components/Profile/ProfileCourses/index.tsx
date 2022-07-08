@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
-import Preloader from "@/components/Preloader";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -17,6 +16,7 @@ import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 import RateCourse from "@/components/RateCourse";
+import ContentLoader from "@/components/ContentLoader";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -146,7 +146,7 @@ const ProfileCourses = ({
     <StyledList>
       {!isMobile ? (
         <div className="row">
-          {progress.value?.length === 0 && (
+          {progress.value?.length === 0 && !progress.loading && (
             <StyledEmptyInfo>
               <Title level={3}>
                 {t<string>("MyProfilePage.EmptyCoursesTitle")}
@@ -241,7 +241,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -350,7 +351,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -446,7 +448,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -459,7 +462,7 @@ const ProfileCourses = ({
             ))}
         </div>
       )}
-      {progress.loading && <Preloader />}
+      {progress.loading && <ContentLoader />}
       {rateModalVisible && (
         <RateCourse
           visible={rateModalVisible}
