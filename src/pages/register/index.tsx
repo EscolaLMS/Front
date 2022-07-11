@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Link, RegisterForm } from "@escolalms/components";
+import { RegisterForm } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -79,13 +79,13 @@ const RegisterPage = () => {
     "AdditionalFields.Privacy Policy": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <Link href="https://wellms.io">{t("PrivacyPolicy")}</Link>
+        <Link to="/privacy-policy">{t("PrivacyPolicy")}</Link>
       </Text>
     ),
     "AdditionalFields.Terms of Service": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <Link href="https://wellms.io">{t("TermsOfService")}</Link>
+        <Link to="/privacy-policy">{t("TermsOfService")}</Link>
       </Text>
     ),
   };
