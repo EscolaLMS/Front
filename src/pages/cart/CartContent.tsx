@@ -102,7 +102,7 @@ const CartPageStyled = styled.section`
   }
 `;
 
-const CartContent = () => {
+const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
     user,
     cart,
@@ -119,7 +119,6 @@ const CartContent = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  // const options = useOptions();
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
@@ -130,6 +129,7 @@ const CartContent = () => {
     //@ts-ignore TODO: add additional_discount type to SDK types
     cart.value.additional_discount > 0 ? "granted" : undefined
   );
+  const isTestKey = stripeKey.includes("_test_");
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -220,7 +220,6 @@ const CartContent = () => {
           toast.error(t("UnexpectedError"));
         });
   };
-  console.log(cart);
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
   // }
@@ -313,6 +312,20 @@ const CartContent = () => {
                         PayPal
                       </Collapse>
                     </div> */}
+                    {isTestKey && (
+                      <div className="card-info">
+                        <Text size="14">
+                          Use test cards for Stripe:{" "}
+                          <a
+                            href="https://docs.wellms.io/getting-started/demo.html"
+                            target="_blank"
+                            rel="noreferrer nofollow"
+                          >
+                            Learn more
+                          </a>
+                        </Text>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <section className="slider-section">

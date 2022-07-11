@@ -36,8 +36,6 @@ const RateCourse: React.FC<Props> = ({ visible, onClose, courseId }) => {
     return () => clearTimeout(timer);
   }, [courseId, getQuestionnaires]);
 
-  console.log(questionnaires);
-
   return (
     <div>
       <Modal
