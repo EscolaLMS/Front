@@ -299,6 +299,7 @@ const resources = {
         Register: "Sign up",
         Login: "Sign in",
       },
+      "RegisterForm.Already have account": "Already have account?",
     },
   },
   pl: {
@@ -611,6 +612,7 @@ const resources = {
         Register: "Zarejestruj",
         Login: "Logowanie",
       },
+      "RegisterForm.Already have account": "Masz już konto?",
     },
   },
 };
