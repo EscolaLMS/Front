@@ -82,10 +82,13 @@ const Index = () => {
     courses,
     fetchCourses,
     settings,
+    fetchSettings,
   } = useContext(EscolaLMSContext);
+
   const history = useHistory();
   const { t, i18n } = useTranslation();
   useEffect(() => {
+    fetchSettings();
     fetchConfig();
     fetchCourses({ per_page: 6 });
     fetchCategories();
