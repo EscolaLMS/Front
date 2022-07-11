@@ -139,7 +139,7 @@ const resources = {
         AvarageRating: "Average rating of Jan Kamiński's training courses",
         Satisfaction: "satisfaction or your money back *",
         Guarantee: "Guarantee",
-        Recommends: "He recommends training of Jan Kaminski",
+        Recommends: "recommend training of Jan Kamiński",
         SeeOtherCourses: "See other courses",
         Language: "Language",
         Students: "Students",
