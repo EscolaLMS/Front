@@ -78,14 +78,14 @@ const RegisterPage = () => {
   const fieldLabels = {
     "AdditionalFields.Privacy Policy": (
       <Text size="14">
-        By checking this fields you accept{" "}
-        <Link href="https://wellms.io">Privacy Policy</Link>
+        {t("AcceptCheckbox")}{" "}
+        <Link href="https://wellms.io">{t("PrivacyPolicy")}</Link>
       </Text>
     ),
     "AdditionalFields.Terms of Service": (
       <Text size="14">
-        By checking this fields you accept{" "}
-        <Link href="https://wellms.io">Terms of service</Link>
+        {t("AcceptCheckbox")}{" "}
+        <Link href="https://wellms.io">{t("TermsOfService")}</Link>
       </Text>
     ),
   };

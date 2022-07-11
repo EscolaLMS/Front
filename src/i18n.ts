@@ -300,6 +300,9 @@ const resources = {
         Login: "Sign in",
       },
       "RegisterForm.Already have account": "Already have account?",
+      AcceptCheckbox: "By checking this fields you accept",
+      PrivacyPolicy: "Privacy Policy",
+      TermsOfService: "Terms of Service",
     },
   },
   pl: {
@@ -613,6 +616,9 @@ const resources = {
         Login: "Logowanie",
       },
       "RegisterForm.Already have account": "Masz już konto?",
+      AcceptCheckbox: "Zaznaczając to pole, akceptujesz",
+      PrivacyPolicy: "Politykę prywatności",
+      TermsOfService: "Warunki usługi",
     },
   },
 };
