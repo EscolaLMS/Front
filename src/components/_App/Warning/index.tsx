@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Note } from "@escolalms/components/lib/components/atoms/Note/Note";
