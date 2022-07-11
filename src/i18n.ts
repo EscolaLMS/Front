@@ -124,7 +124,7 @@ const resources = {
         InterestTitle: "Maybe it will interest you",
         GoToCheckout: "Go to checkout",
         NotStarted: "Not started",
-        "30Days": "Guaranteed 30 days for returns",
+        "30Days": "30 day money return guarantee",
         ContentToDownload: "Content to download",
         SmartphoneAccess: "Access on smartphone and tablet",
         Certificate: "Certificate of completion",
