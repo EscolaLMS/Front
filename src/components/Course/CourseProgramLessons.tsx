@@ -147,7 +147,6 @@ export const CourseProgramLessons: React.FC<{
 
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
-
   return (
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">
@@ -157,6 +156,7 @@ export const CourseProgramLessons: React.FC<{
               <Link to="/">{t("Home")}</Link>,
               <Link to="/courses">{t("Courses")}</Link>,
               <Text size="12">{program.title}</Text>,
+              <Text size="12">{topic.title}</Text>,
             ]}
           />
           <Title className="main-title" level={3}>

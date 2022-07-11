@@ -14,7 +14,7 @@ const TextPlayer: FunctionComponent<{
 
   return (
     <div
-      className={`container-xl center-image-richtext typebase size-${fontSizes[fontSize]}`}
+      className={`center-image-richtext typebase size-${fontSizes[fontSize]}`}
     >
       {value && <MarkdownRenderer>{value}</MarkdownRenderer>}
     </div>

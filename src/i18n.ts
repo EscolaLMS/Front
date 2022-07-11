@@ -147,6 +147,8 @@ const resources = {
         Login: "Log in",
       },
       Cart: {
+        UseTestCard: "Use test cards for Stripe",
+        LearnMore: "Learn more",
         Cart: "Cart",
         PayWithStripe: "Pay with stripe",
         ChoosePaymentMethod: "Choose payment method",
@@ -455,6 +457,8 @@ const resources = {
         Login: "Zaloguj się",
       },
       Cart: {
+        UseTestCard: "Użyj testowej karty Stripe",
+        LearnMore: "Sprawdź karty",
         Cart: "Koszyk",
         PayWithStripe: "Płać za pomocą stripe Checkout",
         ChoosePaymentMethod: "Wybierz metodę płatności",

@@ -226,11 +226,13 @@ const CoursePage = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    draggable: false,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
         },
       },

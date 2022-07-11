@@ -24,6 +24,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Placeholder from "../../images/placeholder-course.jpeg";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -101,7 +102,7 @@ const CartPageStyled = styled.section`
   }
 `;
 
-const CartContent = () => {
+const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
     user,
     cart,
@@ -118,7 +119,6 @@ const CartContent = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  // const options = useOptions();
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
@@ -129,16 +129,19 @@ const CartContent = () => {
     //@ts-ignore TODO: add additional_discount type to SDK types
     cart.value.additional_discount > 0 ? "granted" : undefined
   );
+  const isTestKey = stripeKey.includes("_test_");
   const sliderSettings = {
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    draggable: false,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
         },
       },
@@ -217,7 +220,6 @@ const CartContent = () => {
           toast.error(t("UnexpectedError"));
         });
   };
-
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
   // }
@@ -242,13 +244,13 @@ const CartContent = () => {
                         key={item.id}
                         mobile={isMobile}
                         img={{
-                          src: item.product?.poster_url || "",
+                          src: item.product?.poster_url || Placeholder,
                           alt: item.product?.name || "",
                         }}
                         title={item.product?.name}
                         // subtitle="5 lekcji"
                         price={`${String(item.product?.price)} zł`}
-                        oldPrice={`${String(item.product?.price_old || "")}`}
+                        oldPrice={`${String(item.product?.price_old || "")} zł`}
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
@@ -310,6 +312,20 @@ const CartContent = () => {
                         PayPal
                       </Collapse>
                     </div> */}
+                    {isTestKey && (
+                      <div className="card-info">
+                        <Text size="14">
+                          Use test cards for Stripe:{" "}
+                          <a
+                            href="https://docs.wellms.io/getting-started/demo.html"
+                            target="_blank"
+                            rel="noreferrer nofollow"
+                          >
+                            Learn more
+                          </a>
+                        </Text>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <section className="slider-section">
