@@ -128,6 +128,7 @@ const Index = () => {
       <HomePageStyled>
         <section className="home-hero">
           {settings.value?.homepage &&
+            settings.value.homepage?.heroBannerText &&
             settings.value.homepage?.heroBannerImg &&
             settings.value.homepage?.heroBannerImg !== "" && (
               <div className="container">
