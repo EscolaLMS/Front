@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { RegisterForm } from "@escolalms/components";
+import { Link, RegisterForm } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -75,6 +75,14 @@ const RegisterPage = () => {
   const history = useHistory();
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
+  const fieldLabels = {
+    "AdditionalFields.Privacy Policy": (
+      <Text>
+        By checking this fields you accept{" "}
+        <Link href="https://wellms.io">Privacy Policy</Link>
+      </Text>
+    ),
+  };
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
@@ -133,6 +141,7 @@ const RegisterPage = () => {
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-12">
                 <RegisterForm
+                  fieldLabels={fieldLabels}
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
                   onSuccess={() => setView("success")}

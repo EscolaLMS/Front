@@ -144,6 +144,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const subtitleColor = theme.mode === "dark" ? theme.white : theme.black;
+  console.log(courses);
   return (
     <StyledSection>
       <div className="container">
