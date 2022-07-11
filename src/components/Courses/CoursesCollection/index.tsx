@@ -274,7 +274,7 @@ const CoursesCollection: React.FC = () => {
   useEffect(() => {
     parsedParams &&
       setFilterState({
-        categories: parsedParams.ids,
+        categories: parsedParams.category_id,
         tag: parsedParams.tag,
         title: parsedParams.title,
       });
@@ -316,7 +316,7 @@ const CoursesCollection: React.FC = () => {
                       filterState.categories &&
                       filterState.categories.length > 0
                         ? filterState.categories
-                        : parsedParams && parsedParams.ids
+                        : parsedParams && parsedParams.category_id
                     }
                     drawerTitle={
                       <Title
@@ -338,7 +338,7 @@ const CoursesCollection: React.FC = () => {
                         setParams({
                           ...params,
                           page: 1,
-                          "ids[]": newValue,
+                          "category_id[]": newValue,
                         });
                     }}
                   />
@@ -408,7 +408,7 @@ const CoursesCollection: React.FC = () => {
                   selectedCategories={
                     filterState.categories && filterState.categories.length > 0
                       ? filterState.categories
-                      : parsedParams && parsedParams.ids
+                      : parsedParams && parsedParams.category_id
                   }
                   drawerTitle={
                     <Title
@@ -430,7 +430,7 @@ const CoursesCollection: React.FC = () => {
                       setParams({
                         ...params,
                         page: 1,
-                        "ids[]": newValue,
+                        "category_id[]": newValue,
                       });
                   }}
                 />
@@ -532,7 +532,7 @@ const CoursesCollection: React.FC = () => {
                             items={item.categories?.map((category) => (
                               <Link
                                 key={category.id}
-                                to={`/courses/?ids[]=${category.id}`}
+                                to={`/courses/?category_id[]=${category.id}`}
                               >
                                 {category.name}
                               </Link>
