@@ -24,6 +24,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Placeholder from "../../images/placeholder-course.jpeg";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -134,11 +135,13 @@ const CartContent = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    draggable: false,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
         },
       },
@@ -217,7 +220,7 @@ const CartContent = () => {
           toast.error(t("UnexpectedError"));
         });
   };
-
+  console.log(cart);
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
   // }
@@ -242,13 +245,13 @@ const CartContent = () => {
                         key={item.id}
                         mobile={isMobile}
                         img={{
-                          src: item.product?.poster_url || "",
+                          src: item.product?.poster_url || Placeholder,
                           alt: item.product?.name || "",
                         }}
                         title={item.product?.name}
                         // subtitle="5 lekcji"
                         price={`${String(item.product?.price)} zł`}
-                        oldPrice={`${String(item.product?.price_old || "")}`}
+                        oldPrice={`${String(item.product?.price_old || "")} zł`}
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }

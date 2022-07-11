@@ -98,6 +98,7 @@ const Index = () => {
     arrows: false,
     infinite: true,
     speed: 500,
+    draggable: false,
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
@@ -110,6 +111,7 @@ const Index = () => {
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
         },
       },

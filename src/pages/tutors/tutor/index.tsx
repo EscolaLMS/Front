@@ -53,6 +53,7 @@ const TutorPage = () => {
   const sliderSettings = {
     arrows: false,
     infinite: true,
+    draggable: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -66,6 +67,7 @@ const TutorPage = () => {
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
         },
       },
