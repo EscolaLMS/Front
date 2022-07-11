@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
   --main: #fe4a55;
@@ -16,7 +16,7 @@
 
 /* INTERACTIVE VIDEO  */
 .h5p-interactive-video * {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-interactive-video .h5p-splash-wrapper .h5p-splash {
@@ -24,19 +24,19 @@
 }
 
 .h5p-interactive-video .h5p-dialog-interaction * {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-size: 17px !important;
   font-weight: bold !important;
 }
 
 .h5p-interactive-video .h5p-question-introduction * {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-size: 20px !important;
   font-weight: bold !important;
 }
 
 .h5p-interactive-video .h5p-splash-wrapper .h5p-splash .h5p-splash-title {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-size: 30px !important;
 }
 
@@ -52,17 +52,17 @@
 .h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text {
   font-size: 20px !important;
   color: var(--white) !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text {
   font-size: 20px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-interactive-video .h5p-interaction-label .h5p-interaction-label-text p {
   font-size: 20px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-weight: bold !important;
 }
 
@@ -70,7 +70,7 @@
 .h5p-interactive-video .h5p-interaction-outer {
   border-radius: 12px !important;
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-interactive-video .h5p-interaction-button {
@@ -95,11 +95,11 @@
 .h5p-question-feedback {
   text-align: center !important;
   margin-bottom: 0px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-question-feedback-content-text {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-question-feedback .h5p-question-feedback-content {
@@ -124,11 +124,11 @@
 }
 
 .h5p-joubelui-score-numeric {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-question-buttons.h5p-question-visible.has-scorebar {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 /* DRAG THE WORDS  */
@@ -142,7 +142,7 @@
 .h5p-drag-text .h5p-question-introduction p {
   text-align: center !important;
   font-size: 20px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task {
@@ -155,7 +155,11 @@
   border: none !important;
 }
 
-.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-droppable-words {
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-droppable-words {
   order: 1 !important;
 }
 
@@ -166,7 +170,7 @@
   .h5p-drag-droppable-words
   > span {
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-weight: 600;
 }
 
@@ -185,7 +189,11 @@
   margin: 0.3em !important;
 }
 
-.h5p-drag-text .h5p-question-content .h5p-drag-inner .h5p-drag-task .h5p-drag-draggables-container {
+.h5p-drag-text
+  .h5p-question-content
+  .h5p-drag-inner
+  .h5p-drag-task
+  .h5p-drag-draggables-container {
   order: 2 !important;
   padding: 0 !important;
 }
@@ -207,7 +215,7 @@
   border: 1px solid var(--bright-gray) !important;
   padding: 0 !important;
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-drag-text [aria-grabbed].h5p-drag-dropped {
@@ -229,13 +237,13 @@
   border: 1px solid var(--bright-gray) !important;
   border-radius: 22px !important;
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-drag-text .h5p-question-feedback.h5p-question-visible {
   text-align: center !important;
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-drag-text .h5p-question-buttons.h5p-question-visible.has-scorebar {
@@ -251,13 +259,13 @@
 
 .h5p-drag-text .h5p-question-buttons.h5p-question-visible button {
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-weight: 600;
 }
 
 .h5p-drag-text .h5p-drag-show-solution-container.incorrect {
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   border-radius: 22px !important;
   background-color: var(--success) !important;
   box-shadow: 0px 3px 6px #00000012 !important;
@@ -281,7 +289,7 @@
 
 .h5p-accordion .h5p-panel-title {
   font-size: 20px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   font-weight: 600 !important;
   color: var(--black) !important;
   padding: 24px 40px !important;
@@ -296,7 +304,7 @@
 .h5p-accordion .h5p-panel-content {
   font-size: 15px !important;
   font-weight: 400 !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   color: var(--granite-gray) !important;
   padding: 17px 40px !important;
 }
@@ -320,7 +328,7 @@
 
 .h5p-dialogcards .h5p-dialogcards-title .h5p-dialogcards-title-inner {
   text-align: center !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   margin-bottom: 20px !important;
   font-size: 17px !important;
 }
@@ -348,7 +356,7 @@
 
 .h5p-dialogcards .h5p-dialogcards-card-text-area {
   font-size: 17px !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 
   margin-top: 15px !important;
 }
@@ -366,7 +374,7 @@
 }
 
 .h5p-flashcards * {
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
 }
 
 .h5p-flashcards .h5p-description {
@@ -426,19 +434,20 @@
 .h5p-blanks .h5p-question-introduction {
   font-size: 20px !important;
   font-weight: 600 !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   width: 100% !important;
 }
 
 .h5p-blanks .h5p-question-content {
   font-size: 15px !important;
   font-weight: 400 !important;
-  font-family: 'Nunito' !important;
+  font-family: "Nunito" !important;
   color: var(--granite-gray) !important;
   width: 100% !important;
 }
 
-.h5p-container.h5p-standalone.h5p-question.h5p-blanks .h5p-question-scorebar.h5p-question-visible {
+.h5p-container.h5p-standalone.h5p-question.h5p-blanks
+  .h5p-question-scorebar.h5p-question-visible {
   margin: 30px 0 !important;
 }
 
@@ -461,9 +470,9 @@
 }
 
 /* TEMPORARY SOLUTION */
-.h5p-iframe * {
+/* .h5p-iframe * {
   font-family: 'Nunito' !important;
-}
+} */
 
 .h5p-joubelui-button,
 .h5p-audio-minimal-play {
@@ -523,9 +532,9 @@
 }
 
 .h5p-multichoice .h5p-answer-icon {
-  font-family: 'H5PFontAwesome4' !important
+  font-family: "H5PFontAwesome4" !important;
 }
 
 .h5p-multichoice .h5p-solution-icon {
-  font-family: 'icomoon-multichoice' !important;
+  font-family: "icomoon-multichoice" !important;
 }
