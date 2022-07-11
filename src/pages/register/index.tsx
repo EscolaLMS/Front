@@ -77,9 +77,15 @@ const RegisterPage = () => {
   const { t } = useTranslation();
   const fieldLabels = {
     "AdditionalFields.Privacy Policy": (
-      <Text>
+      <Text size="14">
         By checking this fields you accept{" "}
         <Link href="https://wellms.io">Privacy Policy</Link>
+      </Text>
+    ),
+    "AdditionalFields.Terms of Service": (
+      <Text size="14">
+        By checking this fields you accept{" "}
+        <Link href="https://wellms.io">Terms of service</Link>
       </Text>
     ),
   };
