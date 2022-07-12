@@ -116,10 +116,10 @@ const StyledCoursePage = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      column-gap: 90px;
+      column-gap: 70px;
       .single-company {
-        max-height: 55px;
-        max-width: 45px;
+        max-height: 85px;
+        max-width: 65px;
       }
       @media (max-width: 768px) {
         column-gap: 0;
