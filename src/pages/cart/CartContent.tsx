@@ -10,6 +10,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Link as ComponentLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
 import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
@@ -316,13 +317,13 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                       <div className="card-info">
                         <Text size="14">
                           Use test cards for Stripe:{" "}
-                          <a
+                          <ComponentLink
                             href="https://docs.wellms.io/getting-started/demo.html"
                             target="_blank"
                             rel="noreferrer nofollow"
                           >
                             Learn more
-                          </a>
+                          </ComponentLink>
                         </Text>
                       </div>
                     )}
