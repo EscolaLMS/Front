@@ -26,9 +26,6 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledContent = styled.div`
-  .styled-link {
-    color: ${({ theme }) => theme.primaryColor}!important;
-  }
   .content-container {
     display: flex;
     justify-content: flex-start;
