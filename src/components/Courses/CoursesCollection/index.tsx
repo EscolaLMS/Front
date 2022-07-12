@@ -195,7 +195,13 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
           background: transparent;
           border-bottom: 1px solid #fff;
           color: #fff;
+          border-radius: 0;
         }
+
+        .fieldset {
+          border-color: transparent;
+        }
+
         svg {
           filter: brightness(0) invert(1);
         }

@@ -15,7 +15,7 @@ const StyledSidebar = styled.div`
     theme.mode === "dark"
       ? theme.cardBackgroundColorLight
       : theme.cardBackgroundColorDark};
-  border-radius: ${({ theme }) => theme.cardRadius};
+  border-radius: ${({ theme }) => theme.cardRadius}px;
 `;
 
 const UserSidebar: React.FC<Props> = ({ title, icon, children }) => {
