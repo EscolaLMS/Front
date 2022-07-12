@@ -21,6 +21,10 @@ const StyledRegisterPage = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.primaryColor}!important;
+`;
+
 const StyledContent = styled.div`
   .content-container {
     display: flex;
@@ -79,13 +83,13 @@ const RegisterPage = () => {
     "AdditionalFields.Privacy Policy": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <Link to="/privacy-policy">{t("PrivacyPolicy")}</Link>
+        <StyledLink to="/privacy-policy">{t("PrivacyPolicy")}</StyledLink>
       </Text>
     ),
     "AdditionalFields.Terms of Service": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <Link to="/privacy-policy">{t("TermsOfService")}</Link>
+        <StyledLink to="/privacy-policy">{t("TermsOfService")}</StyledLink>
       </Text>
     ),
   };

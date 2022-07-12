@@ -227,7 +227,7 @@ const CoursePage = () => {
     speed: 500,
     slidesToShow: 3,
     draggable: false,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 768,
