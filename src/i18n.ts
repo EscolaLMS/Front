@@ -305,6 +305,7 @@ const resources = {
       AcceptCheckbox: "By checking this fields you accept",
       PrivacyPolicy: "Privacy Policy",
       TermsOfService: "Terms of Service",
+      EmailWasVerified: "Email has been verified.",
     },
   },
   pl: {
@@ -623,6 +624,7 @@ const resources = {
       AcceptCheckbox: "Zaznaczając to pole, akceptujesz",
       PrivacyPolicy: "Politykę prywatności",
       TermsOfService: "Warunki usługi",
+      EmailWasVerified: "Email został potwierdzony.",
     },
   },
 };
