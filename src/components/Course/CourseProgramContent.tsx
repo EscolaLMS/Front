@@ -26,7 +26,9 @@ export const CourseProgramContent: React.FC<{
   topicId,
   preview = false,
   setIsDisabledNextTopicButton,
-  customNoCompletedEventsIds = [],
+  customNoCompletedEventsIds = [
+    "http://h5p.org/libraries/H5P.GuessTheAnswer-1.5",
+  ],
 }) => {
   const {
     program,

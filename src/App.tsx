@@ -17,6 +17,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100%;
   }
+  #__ybug-launcher {
+    right: 135px!important;
+  }
   .table-responsive {
     td,
     tr,
