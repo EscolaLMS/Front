@@ -62,6 +62,7 @@ const TutorPage = () => {
         breakpoint: 1201,
         settings: {
           slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
       {
@@ -69,6 +70,7 @@ const TutorPage = () => {
         settings: {
           draggable: true,
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
@@ -76,6 +78,7 @@ const TutorPage = () => {
         settings: {
           slidesToShow: 1,
           centerMode: true,
+          slidesToScroll: 1,
         },
       },
     ],
