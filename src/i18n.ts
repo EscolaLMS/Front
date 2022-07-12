@@ -138,7 +138,7 @@ const resources = {
         UnavailableCourse: "This course is unavailable to buy",
         AvarageRating: "Average rating of Jan Kamiński's training courses",
         Satisfaction: "satisfaction or your money back *",
-        Guarantee: "Guarantee",
+        Guarantee: "Guaranteed",
         Recommends: "recommend training of Jan Kamiński",
         SeeOtherCourses: "See other courses",
         Language: "Language",
