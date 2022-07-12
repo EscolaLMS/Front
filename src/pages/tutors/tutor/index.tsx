@@ -56,7 +56,7 @@ const TutorPage = () => {
     draggable: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     responsive: [
       {
         breakpoint: 1201,
