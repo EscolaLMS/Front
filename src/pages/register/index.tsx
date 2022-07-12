@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
@@ -75,6 +75,20 @@ const RegisterPage = () => {
   const history = useHistory();
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
+  const fieldLabels = {
+    "AdditionalFields.Privacy Policy": (
+      <Text size="14">
+        {t("AcceptCheckbox")}{" "}
+        <Link to="/privacy-policy">{t("PrivacyPolicy")}</Link>
+      </Text>
+    ),
+    "AdditionalFields.Terms of Service": (
+      <Text size="14">
+        {t("AcceptCheckbox")}{" "}
+        <Link to="/privacy-policy">{t("TermsOfService")}</Link>
+      </Text>
+    ),
+  };
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
@@ -133,6 +147,7 @@ const RegisterPage = () => {
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-12">
                 <RegisterForm
+                  fieldLabels={fieldLabels}
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
                   onSuccess={() => setView("success")}
