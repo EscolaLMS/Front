@@ -234,6 +234,7 @@ const CoursePage = () => {
         settings: {
           draggable: true,
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
@@ -241,6 +242,7 @@ const CoursePage = () => {
         settings: {
           slidesToShow: 1,
           centerMode: true,
+          slidesToScroll: 1,
         },
       },
     ],
