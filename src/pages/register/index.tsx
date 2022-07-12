@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { RegisterForm } from "@escolalms/components";
+import { Link, RegisterForm } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
