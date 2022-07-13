@@ -305,6 +305,7 @@ const resources = {
       AcceptCheckbox: "By checking this fields you accept",
       PrivacyPolicy: "Privacy Policy",
       TermsOfService: "Terms of Service",
+      EmailWasVerified: "Email has been verified.",
       RateCourse: {
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
@@ -627,6 +628,7 @@ const resources = {
       AcceptCheckbox: "Zaznaczając to pole, akceptujesz",
       PrivacyPolicy: "Politykę prywatności",
       TermsOfService: "Warunki usługi",
+      EmailWasVerified: "Email został potwierdzony.",
       RateCourse: {
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",

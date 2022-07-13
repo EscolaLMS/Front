@@ -18,6 +18,7 @@ const HomePage = lazy(() => import("../../pages/index"));
 
 const RegisterPage = lazy(() => import("../../pages/register/index"));
 const LoginPage = lazy(() => import("../../pages/login/index"));
+const VerifyEmail = lazy(() => import("../../pages/verify-email"));
 
 const StaticPage = lazy(() => import("../../pages/static-page/index"));
 const NotFoundPage = lazy(() => import("../../pages/404/index"));
@@ -84,6 +85,7 @@ const Routes: React.FC = (): ReactElement => {
     myData,
     login,
     register,
+    emailVerify,
   } = routes;
 
   return (
@@ -96,7 +98,7 @@ const Routes: React.FC = (): ReactElement => {
           <Route exact path={register} component={RegisterPage} />
           <Route exact path={login} component={LoginPage} />
           <Route exact path={reset} component={ResetPage} />
-
+          <Route exact path={emailVerify} component={VerifyEmail} />
           {/* <Route exact path={authentication} component={AuthPage} /> */}
           {/* platform visibility pages*/}
           <ConfigRoute exact path={tutors} component={TutorsPage} />

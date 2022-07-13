@@ -151,6 +151,7 @@ const RegisterPage = () => {
             <div className="row justify-content-center">
               <div className="col-lg-6 col-md-12">
                 <RegisterForm
+                  return_url={"#/email-verify"}
                   fieldLabels={fieldLabels}
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
