@@ -69,11 +69,6 @@ const CartPageStyled = styled.section`
       left: 0;
       z-index: 99999;
     `}
-    .discount-form-container {
-      input {
-        background: ${({ theme }) => theme.white};
-      }
-    }
   }
   .empty-cart {
     display: flex;
