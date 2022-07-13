@@ -36,6 +36,7 @@ const Layout: React.FC<{
   useEffect(() => {
     fetchSettings();
     fetchConfig();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
