@@ -6,7 +6,7 @@ import { Notification } from "@escolalms/components/lib/components/molecules/Not
 import styled from "styled-components";
 import { getEventType } from "../../utils";
 import { useTranslation } from "react-i18next";
-import Preloader from "@/components/Preloader";
+import ContentLoader from "@/components/ContentLoader";
 
 const NotificationsContainer = styled.div`
   margin-top: 11px;
@@ -40,6 +40,7 @@ const MyNotificationsPage = () => {
   return (
     <ProfileLayout title={t("MyProfilePage.Notifications")}>
       <NotificationsContainer>
+        {notifications.loading && <ContentLoader />}
         {notifications &&
           notifications.list?.map((item, index) => (
             <div key={index} className="single-notification">
@@ -60,7 +61,6 @@ const MyNotificationsPage = () => {
             </div>
           ))}
       </NotificationsContainer>
-      {notifications.loading && <Preloader />}
     </ProfileLayout>
   );
 };

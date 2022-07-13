@@ -81,6 +81,9 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
       },
     ],
   };
+  const filteredCategories = categories.filter(
+    (category) => category.count && category.count > 0
+  );
   return (
     <StyledSection>
       <Container>
@@ -93,7 +96,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
               settings={{ ...categoriesSliderSettings, dots }}
               dotsPosition="bottom"
             >
-              {categories.slice(-4).map((item) => (
+              {filteredCategories.slice(-4).map((item) => (
                 <div className="single-category-slide" key={item.id}>
                   <CategoryCard
                     icon={<img src={item.icon} alt={item.name} />}
@@ -108,7 +111,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                       />
                     }
                     onButtonClick={() =>
-                      history.push(`/courses/?ids[]=${item.id}`)
+                      history.push(`/courses/?category_id[]=${item.id}`)
                     }
                     variant="gradient"
                   />
@@ -118,7 +121,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
           </div>
         ) : (
           <Row>
-            {categories.slice(-4).map((item) => (
+            {filteredCategories.slice(-4).map((item) => (
               <Col md={3} key={item.id}>
                 <CategoryCard
                   icon={<img src={item.icon} alt={item.name} />}
@@ -133,7 +136,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     />
                   }
                   onButtonClick={() =>
-                    history.push(`/courses/?ids[]=${item.id}`)
+                    history.push(`/courses/?category_id[]=${item.id}`)
                   }
                   variant="gradient"
                 />

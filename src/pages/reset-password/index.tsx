@@ -13,6 +13,7 @@ const ResetPassword: React.FC = () => {
   const email = search && search.split("&")[0].split("=")[1];
   const token = search && search.split("&")[1].split("=")[1];
   const { t } = useTranslation();
+
   React.useEffect(() => {
     !token && push("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps

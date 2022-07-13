@@ -10,6 +10,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Link as ComponentLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
 import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
@@ -24,6 +25,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Placeholder from "../../images/image.svg";
 import { Col, Container, Row } from "react-grid-system";
 
 const CartPageStyled = styled.section`
@@ -68,11 +70,6 @@ const CartPageStyled = styled.section`
       left: 0;
       z-index: 99999;
     `}
-    .discount-form-container {
-      input {
-        background: ${({ theme }) => theme.white};
-      }
-    }
   }
   .empty-cart {
     display: flex;
@@ -102,68 +99,7 @@ const CartPageStyled = styled.section`
   }
 `;
 
-const ThankYouPageStyled = styled.section`
-  text-align: center;
-  .thank-you-title {
-    font-weight: 700;
-    font-size: 28px;
-  }
-  .course-name {
-    position: relative;
-    display: inline-block;
-    font-weight: 700;
-    margin: 25px 0 55px;
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 2px;
-      background-color: ${({ theme }) => theme.primaryColor};
-    }
-  }
-  button {
-    max-width: 440px;
-    margin: 0 auto;
-  }
-  .small-text {
-    margin-top: 20px;
-    font-size: 12px;
-  }
-`;
-
-// const ThankYouPage = () => {
-//   return (
-//     <Layout>
-//       <ThankYouPageStyled>
-//         <div className="container">
-//           <div className="row justify-content-center">
-//             <div className="col-md-9">
-//               <Title className="thank-you-title" level={3}>
-//                 Gratulacje! <br />
-//                 Od teraz posiadasz pełny dostęp do kursu:
-//               </Title>
-//               <Title level={4} className="course-name">
-//                 Księgowość dla początkujących
-//               </Title>
-//               <Text className="email-info">
-//                 Aby rozpocząć zaloguj się na podany adres e-mail lub kliknij w
-//                 poniższy przycisk
-//               </Text>
-//               <Button block>Rozpocznij kurs</Button>
-//               <Text className="small-text">
-//                 Zapraszamy do dalszych zakupów w platformie Wellms
-//               </Text>
-//             </div>
-//           </div>
-//         </div>
-//       </ThankYouPageStyled>
-//     </Layout>
-//   );
-// };
-
-const CartContent = () => {
+const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
     user,
     cart,
@@ -180,7 +116,6 @@ const CartContent = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  // const options = useOptions();
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
@@ -191,17 +126,21 @@ const CartContent = () => {
     //@ts-ignore TODO: add additional_discount type to SDK types
     cart.value.additional_discount > 0 ? "granted" : undefined
   );
+  const isTestKey = stripeKey.includes("_test_");
   const sliderSettings = {
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    draggable: false,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
@@ -209,6 +148,7 @@ const CartContent = () => {
         settings: {
           slidesToShow: 1,
           centerMode: true,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -279,7 +219,6 @@ const CartContent = () => {
           toast.error(t("UnexpectedError"));
         });
   };
-
   // if (location.search === "?status=success") {
   //   return <ThankYouPage />;
   // }
@@ -304,13 +243,13 @@ const CartContent = () => {
                         key={item.id}
                         mobile={isMobile}
                         img={{
-                          src: item.product?.poster_url || "",
+                          src: item.product?.poster_url || Placeholder,
                           alt: item.product?.name || "",
                         }}
                         title={item.product?.name}
                         // subtitle="5 lekcji"
                         price={`${String(item.product?.price)} zł`}
-                        oldPrice={`${String(item.product?.price_old || "")}`}
+                        oldPrice={`${String(item.product?.price_old || "")} zł`}
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
@@ -372,6 +311,20 @@ const CartContent = () => {
                         PayPal
                       </Collapse>
                     </div> */}
+                    {isTestKey && (
+                      <div className="card-info">
+                        <Text size="14">
+                          Use test cards for Stripe:{" "}
+                          <ComponentLink
+                            href="https://docs.wellms.io/getting-started/demo.html"
+                            target="_blank"
+                            rel="noreferrer nofollow"
+                          >
+                            Learn more
+                          </ComponentLink>
+                        </Text>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <section className="slider-section">

@@ -1,7 +1,12 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
-import Preloader from "@/components/Preloader";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -16,6 +21,10 @@ import { LessonsIcon, UserIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
+import RateCourse from "@/components/RateCourse";
+import ContentLoader from "@/components/ContentLoader";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 import { Col, Row } from "react-grid-system";
 
 const StyledList = styled.div`
@@ -68,7 +77,11 @@ const ProfileCourses = ({
 }: {
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
-  const { progress, fetchProgress } = useContext(EscolaLMSContext);
+  const [rateModalVisible, setRateModalVisible] = useState(false);
+  const [fetched, setFetched] = useState(false);
+  const [courseId, setCourseId] = useState<number | undefined>(undefined);
+  const { progress, fetchProgress, fetchQuestionnaires } =
+    useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<
     API.CourseProgressItem[] | []
@@ -77,10 +90,59 @@ const ProfileCourses = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const [state, setState] = useState({
+    show: false,
+    step: 0,
+  });
+
+  const [questionnaires, setQuestionnaires] = useState<
+    EscolaLms.Questionnaire.Models.Questionnaire[]
+  >([]);
+
+  const getQuestionnaires = useCallback(async () => {
+    try {
+      const request =
+        courseId && (await fetchQuestionnaires("Course", courseId));
+      if (request && request.success) {
+        setQuestionnaires(request.data);
+        setFetched(true);
+      }
+    } catch (error) {
+      toast.error(t<string>("UnexpectedError"));
+      console.log(error);
+    }
+  }, [courseId, fetchQuestionnaires]);
+
   useEffect(() => {
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    getQuestionnaires();
+  }, [courseId]);
+
+  const handleClose = useCallback(() => {
+    setState((prevState) => ({
+      ...prevState,
+      show: false,
+    }));
+
+    if (state.step < questionnaires.length - 1) {
+      setState((prevState) => ({
+        ...prevState,
+        step: prevState.step + 1,
+      }));
+
+      const timer = setTimeout(() => {
+        setState((prevState) => ({
+          ...prevState,
+          show: true,
+        }));
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [questionnaires, state.step]);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -145,7 +207,7 @@ const ProfileCourses = ({
             gap: "28px 0",
           }}
         >
-          {progress.value?.length === 0 && (
+          {progress.value?.length === 0 && !progress.loading && (
             <StyledEmptyInfo>
               <Title level={3}>
                 {t<string>("MyProfilePage.EmptyCoursesTitle")}
@@ -199,7 +261,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?ids[]=${category.id}`}>
+                          <Link to={`/courses/?category_id[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}
@@ -210,7 +272,13 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => {
+                              setCourseId(item.course.id);
+                              setState((prevState) => ({
+                                ...prevState,
+                                show: true,
+                              }));
+                            }}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -240,7 +308,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -310,7 +379,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?ids[]=${category.id}`}>
+                          <Link to={`/courses/?category_id[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}
@@ -321,7 +390,7 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => setRateModalVisible(true)}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -351,7 +420,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -406,7 +476,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?ids[]=${category.id}`}>
+                          <Link to={`/courses/?category_id[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}
@@ -447,7 +517,8 @@ const ProfileCourses = ({
                       </>
                     }
                     progress={
-                      progressMap[item.course.id] !== 100
+                      progressMap[item.course.id] !== 100 &&
+                      !isNaN(progressMap[item.course.id])
                         ? {
                             currentProgress: progressMap[item.course.id],
                             maxProgress: 100,
@@ -460,7 +531,16 @@ const ProfileCourses = ({
             ))}
         </div>
       )}
-      {progress.loading && <Preloader />}
+      {progress.loading && <ContentLoader />}
+      {state.show && courseId && fetched && (
+        <RateCourse
+          course={"Course"}
+          courseId={courseId}
+          visible={state.show}
+          onClose={() => handleClose()}
+          questionnaire={questionnaires[state.step]}
+        />
+      )}
     </StyledList>
   );
 };

@@ -140,7 +140,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         {course.users_count ? (
           <IconText
             icon={<IconSquares />}
-            text={`${t("CoStursePage.Students")}: ${course.users_count}`}
+            text={`${t("CoursePage.Students")}: ${course.users_count}`}
           />
         ) : (
           ""
@@ -155,7 +155,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               color: theme.primaryColor,
             }}
           >
-            {t<string>("Zaloguj się")}
+            {t<string>("CoursePage.Login")}
           </Link>
           {t("CoursePage.ToSeeProgress")}
         </Text>

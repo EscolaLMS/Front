@@ -117,10 +117,10 @@ const StyledCoursePage = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      column-gap: 90px;
+      column-gap: 70px;
       .single-company {
-        max-height: 55px;
-        max-width: 45px;
+        max-height: 85px;
+        max-width: 65px;
       }
       @media (max-width: 768px) {
         column-gap: 0;
@@ -231,12 +231,15 @@ const CoursePage = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    draggable: false,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
@@ -244,6 +247,7 @@ const CoursePage = () => {
         settings: {
           slidesToShow: 1,
           centerMode: true,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -306,7 +310,7 @@ const CoursePage = () => {
                       <div className="single-label">
                         <LabelListItem
                           mobile={isMobile}
-                          title="Gwarancja"
+                          title={t<string>("CoursePage.Guarantee")}
                           icon={<Medal />}
                         >
                           {t("CoursePage.Satisfaction")}
@@ -431,7 +435,7 @@ const CoursePage = () => {
                       rating={{
                         ratingValue: 4.1,
                       }}
-                      title={"Teacher"}
+                      title={t<string>("CoursePage.Teacher")}
                       fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
                       coursesInfo={"8 Curses"}
                       description={course.value.author.bio}
@@ -461,7 +465,8 @@ const CoursePage = () => {
                   {ratings && ratings.count_answers > 0 ? (
                     <Ratings
                       mobile={isMobile}
-                      sumRates={ratings.sum_rate}
+                      //@ts-ignore TODO: Add sum_rates to type QuestionnaireStars in SDK
+                      sumRates={ratings.sum_rates}
                       avgRate={Number(ratings.avg_rate)}
                       //@ts-ignore TODO: Add rates to type QuestionnaireStars in SDK
                       rates={ratings.rates}
@@ -473,7 +478,7 @@ const CoursePage = () => {
                         {t("CoursePage.CourseRatingsTitle")}
                       </Title>
                       <Text style={{ marginTop: 20 }}>
-                        Ten kurs nie został jeszcze oceniony
+                        {t<string>("CoursePage.CourseRatingsEmpty")}
                       </Text>
                     </>
                   )}

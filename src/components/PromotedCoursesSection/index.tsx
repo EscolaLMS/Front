@@ -15,6 +15,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import CourseCardWrapper from "../CourseCardWrapper";
 import { Container, Row, Col } from "react-grid-system";
+import Placeholder from "../../images/placeholder-course.jpeg";
 
 type Props = {
   courses: API.Course[];
@@ -315,7 +316,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
             <div className="course-wrapper course-wrapper--big">
               <ImageBubble
                 image={{
-                  src: courses[5].image_url || "",
+                  src: courses[5].image_url || Placeholder,
                   alt: courses[5].title || "",
                 }}
                 header={
@@ -371,7 +372,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                                 color: subtitleColor,
                               }}
                               key={category.id}
-                              to={`/courses/?ids[]=${category.id}`}
+                              to={`/courses/?category_id[]=${category.id}`}
                             >
                               {category.name}
                             </Link>

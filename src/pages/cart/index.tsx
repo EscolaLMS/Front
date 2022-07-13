@@ -16,7 +16,7 @@ const CartPage: React.FC<Props> = ({ children }) => {
   const stripeKey = stripeConfigs?.stripe?.publishable_key;
   return (
     <Elements stripe={stripePromise(stripeKey)}>
-      <CartContent />
+      <CartContent stripeKey={stripeKey} />
     </Elements>
   );
 };

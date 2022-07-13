@@ -54,20 +54,24 @@ const TutorPage = () => {
   const sliderSettings = {
     arrows: false,
     infinite: true,
+    draggable: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     responsive: [
       {
         breakpoint: 1201,
         settings: {
           slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 768,
         settings: {
+          draggable: true,
           slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
       {
@@ -75,6 +79,7 @@ const TutorPage = () => {
         settings: {
           slidesToShow: 1,
           centerMode: true,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -196,7 +201,7 @@ const TutorPage = () => {
                               items={item.categories?.map((category) => (
                                 <Link
                                   key={category.id}
-                                  to={`/courses/?ids[]=${category.id}`}
+                                  to={`/courses/?category_id[]=${category.id}`}
                                 >
                                   {category.name}
                                 </Link>

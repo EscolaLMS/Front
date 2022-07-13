@@ -7,6 +7,8 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { setConfiguration } from "react-grid-system";
+import Warning from "./Warning";
+
 declare global {
   interface Window {
     ybug_settings: Ybug;
@@ -77,6 +79,7 @@ const Layout: React.FC<{
         <Navbar />
         {children}
         {!isCourse && <Footer />}
+        <Warning />
       </div>
       {/* <GoTop scrollStepInPx="100" delayInMs={10} /> */}
     </React.Fragment>

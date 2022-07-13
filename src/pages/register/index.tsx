@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
@@ -16,6 +16,10 @@ const StyledRegisterPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.primaryColor}!important;
 `;
 
 const StyledContent = styled.div`
@@ -72,6 +76,20 @@ const RegisterPage = () => {
   const history = useHistory();
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
+  const fieldLabels = {
+    "AdditionalFields.Privacy Policy": (
+      <Text size="14">
+        {t("AcceptCheckbox")}{" "}
+        <StyledLink to="/privacy-policy">{t("PrivacyPolicy")}</StyledLink>
+      </Text>
+    ),
+    "AdditionalFields.Terms of Service": (
+      <Text size="14">
+        {t("AcceptCheckbox")}{" "}
+        <StyledLink to="/privacy-policy">{t("TermsOfService")}</StyledLink>
+      </Text>
+    ),
+  };
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
@@ -134,6 +152,8 @@ const RegisterPage = () => {
             <Row justify="center">
               <Col md={12}>
                 <RegisterForm
+                  return_url={"#/email-verify"}
+                  fieldLabels={fieldLabels}
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
                   onSuccess={() => setView("success")}
