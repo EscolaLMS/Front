@@ -180,7 +180,7 @@ const resources = {
 - Check the SPAM folder
 - Check that you have entered your e-mail address correctly
 - We cannot deliver the message to your address (usually via firewall or mail filters)`,
-        RegisterAgain: "Wpisz adres ponownie",
+        RegisterAgain: "Try registering again",
       },
       CoursesPage: {
         Category: "Category",
