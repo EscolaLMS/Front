@@ -302,6 +302,10 @@ const resources = {
         Login: "Sign in",
       },
       "RegisterForm.Already have account": "Already have account?",
+      RateCourse: {
+        ThankYou: "Thank you for rating this course",
+        ThankYouMessage: "Your rating has been saved",
+      },
     },
   },
   pl: {
@@ -617,6 +621,10 @@ const resources = {
         Login: "Logowanie",
       },
       "RegisterForm.Already have account": "Masz już konto?",
+      RateCourse: {
+        ThankYou: "Dziękujemy za wystawienie oceny",
+        ThankYouMessage: "Twoja ocena została zapisana",
+      },
     },
   },
 };

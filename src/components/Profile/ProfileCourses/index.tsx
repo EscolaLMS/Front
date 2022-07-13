@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
@@ -17,6 +23,8 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -73,7 +81,10 @@ const ProfileCourses = ({
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
   const [rateModalVisible, setRateModalVisible] = useState(false);
-  const { progress, fetchProgress } = useContext(EscolaLMSContext);
+  const [fetched, setFetched] = useState(false);
+  const [courseId, setCourseId] = useState<number | undefined>(undefined);
+  const { progress, fetchProgress, fetchQuestionnaires } =
+    useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<
     API.CourseProgressItem[] | []
@@ -82,10 +93,32 @@ const ProfileCourses = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const [questionnaires, setQuestionnaires] = useState<
+    EscolaLms.Questionnaire.Models.Questionnaire[]
+  >([]);
+
+  const getQuestionnaires = useCallback(async () => {
+    try {
+      const request =
+        courseId && (await fetchQuestionnaires("Course", courseId));
+      if (request && request.success) {
+        setQuestionnaires(request.data);
+        setFetched(true);
+      }
+    } catch (error) {
+      toast.error(t<string>("UnexpectedError"));
+      console.log(error);
+    }
+  }, [courseId, fetchQuestionnaires]);
+
   useEffect(() => {
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    getQuestionnaires();
+  }, [courseId]);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -211,7 +244,10 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => setRateModalVisible(true)}
+                            onClick={() => {
+                              setCourseId(item.course.id);
+                              setRateModalVisible(true);
+                            }}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -463,11 +499,13 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <ContentLoader />}
-      {rateModalVisible && (
+      {rateModalVisible && courseId && fetched && (
         <RateCourse
+          course={"Course"}
+          courseId={courseId}
           visible={rateModalVisible}
           onClose={() => setRateModalVisible(false)}
-          courseId={53}
+          questionnaire={questionnaires[0]}
         />
       )}
     </StyledList>
