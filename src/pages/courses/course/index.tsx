@@ -460,7 +460,8 @@ const CoursePage = () => {
                   {ratings && ratings.count_answers > 0 ? (
                     <Ratings
                       mobile={isMobile}
-                      sumRates={ratings.sum_rate}
+                      //@ts-ignore TODO: Add sum_rates to type QuestionnaireStars in SDK
+                      sumRates={ratings.sum_rates}
                       avgRate={Number(ratings.avg_rate)}
                       //@ts-ignore TODO: Add rates to type QuestionnaireStars in SDK
                       rates={ratings.rates}
