@@ -15,7 +15,7 @@ const routeRoutes = {
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
   cart: "/cart",
   contact: "/contact",
-  emailVerified: "/email-verified",
+  emailVerify: "/email-verify",
   notFound: "/404",
   register: "/register",
   login: "/login",
