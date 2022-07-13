@@ -93,6 +93,11 @@ const ProfileCourses = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const [state, setState] = useState({
+    show: false,
+    step: 0,
+  });
+
   const [questionnaires, setQuestionnaires] = useState<
     EscolaLms.Questionnaire.Models.Questionnaire[]
   >([]);
@@ -119,6 +124,28 @@ const ProfileCourses = ({
   useEffect(() => {
     getQuestionnaires();
   }, [courseId]);
+
+  const handleClose = useCallback(() => {
+    setState((prevState) => ({
+      ...prevState,
+      show: false,
+    }));
+
+    if (state.step < questionnaires.length - 1) {
+      setState((prevState) => ({
+        ...prevState,
+        step: prevState.step + 1,
+      }));
+
+      const timer = setTimeout(() => {
+        setState((prevState) => ({
+          ...prevState,
+          show: true,
+        }));
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [questionnaires, state.step]);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -246,7 +273,10 @@ const ProfileCourses = ({
                             mode="secondary"
                             onClick={() => {
                               setCourseId(item.course.id);
-                              setRateModalVisible(true);
+                              setState((prevState) => ({
+                                ...prevState,
+                                show: true,
+                              }));
                             }}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
@@ -499,13 +529,13 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <ContentLoader />}
-      {rateModalVisible && courseId && fetched && (
+      {state.show && courseId && fetched && (
         <RateCourse
           course={"Course"}
           courseId={courseId}
-          visible={rateModalVisible}
-          onClose={() => setRateModalVisible(false)}
-          questionnaire={questionnaires[0]}
+          visible={state.show}
+          onClose={() => handleClose()}
+          questionnaire={questionnaires[state.step]}
         />
       )}
     </StyledList>
