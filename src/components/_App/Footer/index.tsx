@@ -88,7 +88,11 @@ const Footer = () => {
               {footerFromApi.map(
                 (link: Record<string, string | Record<string, string>>) => {
                   return (
-                    <Link className="single-link" to={link.link}>
+                    <Link
+                      key={link.link.toString()}
+                      className="single-link"
+                      to={link.link}
+                    >
                       {typeof link.label === "object" && (
                         <Text size="14">{link.label[i18n.language]}</Text>
                       )}

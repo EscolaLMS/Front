@@ -9,6 +9,9 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { RegisterForm } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);
@@ -74,11 +77,17 @@ const StyledContent = styled.div`
 const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
-  const [view, setView] = useState<string>("");
-  const [email] = useState("");
+  const [view, setView] = useState<"" | "success" | "register">("success");
+  const [modalVisible, setModalVisible] = useState(true);
+  const { settings } = useContext(EscolaLMSContext);
+
+  const [email] = useState("aaa");
   const history = useHistory();
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
+
+  const footerFromApi: string = settings?.value?.config?.footerWarning;
+
   const fieldLabels = {
     "AdditionalFields.Privacy Policy": (
       <Text size="14">
@@ -112,27 +121,18 @@ const RegisterPage = () => {
             <div className="col-lg-7">
               <div className="content-container">
                 <Title className="email-title" level={3}>
-                  Aby dokończyć proces rejestracji sprawdź swoją pocztę
+                  {t("EmailActivation.Title")}
                 </Title>
-                <Text className="email-main-text" size="16">
-                  Wysłaliśmy wiadomość na adres <br /> <span>{email}</span> z
-                  linkiem do aktywacji Twojego konta. <br /> Przejdź do poczty i
-                  potwierdź swój adres e-mail.
-                </Text>
-                <Text className="email-help-text" size="14">
-                  <strong>Nie dostałeś maila?</strong> <br />
-                  <ul>
-                    <li>Sprawdź folder SPAM</li>
-                    <li>Sprawdź czy poprawnie wpisałeś adres e-mail</li>
-                    <li>
-                      Nie możemy dostarczyć wiadomości na Twój adres (zazwyczaj
-                      przez firewalla lub filtry na poczcie)
-                    </li>
-                  </ul>
-                </Text>
+                <MarkdownRenderer>
+                  {t("EmailActivation.Text", { email })}
+                </MarkdownRenderer>
+                <MarkdownRenderer>
+                  {t("EmailActivation.HelpText")}
+                </MarkdownRenderer>
+
                 <Text className="back-text" size="14">
                   <button type="button" onClick={() => setView("register")}>
-                    Wpisz adres ponownie
+                    {t("EmailActivation.RegisterAgain")}
                   </button>
                 </Text>
               </div>
@@ -145,6 +145,25 @@ const RegisterPage = () => {
 
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
+      {footerFromApi && (
+        <Modal
+          onClose={() => setModalVisible(false)}
+          visible={modalVisible}
+          animation="zoom"
+          maskAnimation="fade"
+          destroyOnClose={true}
+          width={800}
+        >
+          <Title level={4} className="modal-title">
+            {t("Warning")}
+          </Title>
+          <MarkdownRenderer>{footerFromApi}</MarkdownRenderer>
+          <Button mode="outline" onClick={() => setModalVisible(false)}>
+            {t("I'm aware")}
+          </Button>
+        </Modal>
+      )}
+
       {view !== "success" ? (
         <StyledRegisterPage>
           <div className="container">
