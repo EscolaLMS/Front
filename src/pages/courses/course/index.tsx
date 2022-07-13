@@ -116,10 +116,10 @@ const StyledCoursePage = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      column-gap: 90px;
+      column-gap: 70px;
       .single-company {
-        max-height: 55px;
-        max-width: 45px;
+        max-height: 85px;
+        max-width: 65px;
       }
       @media (max-width: 768px) {
         column-gap: 0;
@@ -460,7 +460,8 @@ const CoursePage = () => {
                   {ratings && ratings.count_answers > 0 ? (
                     <Ratings
                       mobile={isMobile}
-                      sumRates={ratings.sum_rate}
+                      //@ts-ignore TODO: Add sum_rates to type QuestionnaireStars in SDK
+                      sumRates={ratings.sum_rates}
                       avgRate={Number(ratings.avg_rate)}
                       //@ts-ignore TODO: Add rates to type QuestionnaireStars in SDK
                       rates={ratings.rates}

@@ -25,7 +25,7 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Placeholder from "../../images/placeholder-course.jpeg";
+import Placeholder from "../../images/image.svg";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
