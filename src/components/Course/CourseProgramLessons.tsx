@@ -160,7 +160,7 @@ export const CourseProgramLessons: React.FC<{
             ]}
           />
           <Title className="main-title" level={3}>
-            {program.title}
+            {topic.title}
           </Title>
           <div className="row flex-lg-row flex-column-reverse">
             <div className="col-lg-9">
