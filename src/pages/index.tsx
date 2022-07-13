@@ -75,21 +75,12 @@ const HomePageStyled = styled.div`
 `;
 
 const Index = () => {
-  const {
-    fetchConfig,
-    categoryTree,
-    fetchCategories,
-    courses,
-    fetchCourses,
-    settings,
-    fetchSettings,
-  } = useContext(EscolaLMSContext);
+  const { categoryTree, fetchCategories, courses, fetchCourses, settings } =
+    useContext(EscolaLMSContext);
 
   const history = useHistory();
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    fetchSettings();
-    fetchConfig();
     fetchCourses({ per_page: 6 });
     fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps

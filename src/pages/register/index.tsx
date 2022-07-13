@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Link, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -77,8 +77,8 @@ const StyledContent = styled.div`
 const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
-  const [view, setView] = useState<"" | "success" | "register">("success");
-  const [modalVisible, setModalVisible] = useState(true);
+  const [view, setView] = useState<"" | "success" | "register">("");
+  const [modalVisible, setModalVisible] = useState(false);
   const { settings } = useContext(EscolaLMSContext);
 
   const [email] = useState("aaa");
@@ -86,7 +86,7 @@ const RegisterPage = () => {
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
 
-  const footerFromApi: string = settings?.value?.config?.footerWarning;
+  const footerFromApi: string = settings?.value?.config?.registerWarning;
 
   const fieldLabels = {
     "AdditionalFields.Privacy Policy": (
@@ -112,6 +112,10 @@ const RegisterPage = () => {
   if (!user.loading && !token && user.value) {
     history.push("/");
   }
+
+  useEffect(() => {
+    setModalVisible(view === "success");
+  }, [view]);
 
   const EmailActivation = () => {
     return (
