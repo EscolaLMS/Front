@@ -383,8 +383,8 @@ const Navbar = () => {
                 </Text>
                 {user?.avatar ? (
                   <Avatar
-                    src={user?.avatar}
-                    alt={user?.first_name}
+                    src={user.avatar}
+                    alt={user.first_name}
                     size={"small"}
                   />
                 ) : (
