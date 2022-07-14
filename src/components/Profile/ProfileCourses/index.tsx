@@ -24,7 +24,6 @@ import CourseCardWrapper from "@/components/CourseCardWrapper";
 import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
 import { toast } from "react-toastify";
-import { t } from "i18next";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -114,6 +113,7 @@ const ProfileCourses = ({
       toast.error(t<string>("UnexpectedError"));
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, fetchQuestionnaires]);
 
   useEffect(() => {
@@ -123,6 +123,7 @@ const ProfileCourses = ({
 
   useEffect(() => {
     getQuestionnaires();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
 
   const handleClose = useCallback(() => {

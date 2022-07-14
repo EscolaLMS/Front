@@ -10,7 +10,7 @@ import { SearchCourses } from "@escolalms/components/lib/components/organisms/Se
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard } from "../../../icons";
+import { HeaderCard, HeaderUser } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 
@@ -382,11 +382,17 @@ const Navbar = () => {
                     {user?.first_name} {user?.last_name}
                   </strong>
                 </Text>
-                <Avatar
-                  src={user?.avatar || ExampleAvatar}
-                  alt={user?.first_name}
-                  size={"small"}
-                />
+                {user?.avatar ? (
+                  <Avatar
+                    src={user?.avatar || ExampleAvatar}
+                    alt={user?.first_name}
+                    size={"small"}
+                  />
+                ) : (
+                  <Link to="/user/my-data">
+                    <HeaderUser mode={theme.mode} />
+                  </Link>
+                )}
               </Link>
             </div>
           ) : (
