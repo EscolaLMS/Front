@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import Logo from "../../../images/logo-orange.svg";
-import ExampleAvatar from "../../../images/example-avatar.png";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
@@ -384,7 +383,7 @@ const Navbar = () => {
                 </Text>
                 {user?.avatar ? (
                   <Avatar
-                    src={user?.avatar || ExampleAvatar}
+                    src={user?.avatar}
                     alt={user?.first_name}
                     size={"small"}
                   />
