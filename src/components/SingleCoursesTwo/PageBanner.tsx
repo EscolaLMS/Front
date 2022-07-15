@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Container } from "react-grid-system";
 
 const PageBanner: React.FC<{
   pageTitle: string;
@@ -20,7 +21,7 @@ const PageBanner: React.FC<{
 }) => {
   return (
     <div className="page-title-area">
-      <div className="container">
+      <Container>
         <div className="page-title-content">
           <ul>
             <li>
@@ -35,7 +36,7 @@ const PageBanner: React.FC<{
           <h2>{pageTitle}</h2>
           {subtitle && <h3>{subtitle}</h3>}
         </div>
-      </div>
+      </Container>
 
       <div className="shape9">
         <img src={`/images/shape8.svg`} alt="Main Banner " />

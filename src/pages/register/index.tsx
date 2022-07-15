@@ -12,16 +12,13 @@ import styled from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .container {
-    padding-bottom: ${isMobile ? "50px" : "100px"};
-  }
 `;
 
 const StyledLink = styled(Link)`
@@ -120,9 +117,9 @@ const RegisterPage = () => {
   const EmailActivation = () => {
     return (
       <StyledContent>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-7">
+        <Container>
+          <Row justify={"center"}>
+            <Col md={12}>
               <div className="content-container">
                 <Title className="email-title" level={3}>
                   {t("EmailActivation.Title")}
@@ -140,9 +137,9 @@ const RegisterPage = () => {
                   </button>
                 </Text>
               </div>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </StyledContent>
     );
   };
@@ -170,9 +167,13 @@ const RegisterPage = () => {
 
       {view !== "success" ? (
         <StyledRegisterPage>
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-6 col-md-12">
+          <Container
+            style={{
+              paddingBottom: `${isMobile ? "50px" : "100px"}`,
+            }}
+          >
+            <Row justify="center">
+              <Col md={12}>
                 <RegisterForm
                   return_url={"#/email-verify"}
                   fieldLabels={fieldLabels}
@@ -180,9 +181,9 @@ const RegisterPage = () => {
                   onLoginLink={() => history.push("/login")}
                   onSuccess={() => setView("success")}
                 />
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </StyledRegisterPage>
       ) : (
         <EmailActivation />

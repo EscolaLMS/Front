@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { Col, Row } from "react-grid-system";
+import { Container, Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 
 const StyledFooter = styled.footer`
@@ -94,7 +94,7 @@ const Footer = () => {
 
   return (
     <StyledFooter>
-      <div className="container">
+      <Container>
         <div className="links-row">
           {footerFromApi && footerFromApi.length > 0 ? (
             <>
@@ -162,7 +162,7 @@ const Footer = () => {
 
           <img src={settings?.value?.global?.logo || ""} alt="" />
         </div>
-      </div>
+      </Container>
     </StyledFooter>
   );
 };

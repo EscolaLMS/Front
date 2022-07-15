@@ -21,6 +21,10 @@ const StyledOrdersList = styled.section`
       margin: 0;
     }
   }
+
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 const Orders = () => {

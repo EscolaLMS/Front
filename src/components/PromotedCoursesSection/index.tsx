@@ -14,6 +14,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import CourseCardWrapper from "../CourseCardWrapper";
+import { Container, Row, Col } from "react-grid-system";
 import Placeholder from "../../images/placeholder-course.jpeg";
 
 type Props = {
@@ -146,17 +147,17 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
   const subtitleColor = theme.mode === "dark" ? theme.white : theme.black;
   return (
     <StyledSection>
-      <div className="container">
+      <Container className={"container"}>
         <div className="header-wrapper">
           <Title level={3}>{t<string>("Homepage.AwardedCoursesTitle")}</Title>
           <Button mode="outline" onClick={() => history.push("/courses")}>
             {t<string>("Homepage.AwardedCoursesBtnText")}
           </Button>
         </div>
-        <div className="row">
-          <div className="col-xl-4 small-padding main-col-1">
-            <div className="row justify-content-end">
-              <div className="col-6 small-padding-wrapper">
+        <Row>
+          <Col xl={4} className="small-padding main-col-1">
+            <Row justify={"end"}>
+              <Col xs={6} className={"small-padding-wrapper"}>
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
@@ -206,8 +207,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     />
                   </CourseCardWrapper>
                 </div>
-              </div>
-              <div className="col-6 small-padding-wrapper">
+              </Col>
+              <Col xs={6} className={"small-padding-wrapper"}>
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
@@ -257,8 +258,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     />
                   </CourseCardWrapper>
                 </div>
-              </div>
-              <div className="col-lg-9 small-padding-wrapper mobile-hide">
+              </Col>
+              <Col lg={9} className={"small-padding-wrapper mobile-hide"}>
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
@@ -308,10 +309,10 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     />
                   </CourseCardWrapper>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-5 small-padding main-col-2">
+              </Col>
+            </Row>
+          </Col>
+          <Col xl={5} className={"small-padding main-col-2"}>
             <div className="course-wrapper course-wrapper--big">
               <ImageBubble
                 image={{
@@ -386,10 +387,10 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 </CourseCardWrapper>
               </ImageBubble>
             </div>
-          </div>
-          <div className="col-xl-3 small-padding main-col-3">
-            <div className="row">
-              <div className="col-xl-12 col-6 small-padding-wrapper">
+          </Col>
+          <Col xl={3} className={"small-padding main-col-3"}>
+            <Row>
+              <Col xs={6} xl={12} className={"small-padding-wrapper"}>
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
                   <CourseCardWrapper>
                     <CourseCard
@@ -439,8 +440,8 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     />
                   </CourseCardWrapper>
                 </div>
-              </div>
-              <div className="col-xl-9 col-6 small-padding-wrapper">
+              </Col>
+              <Col xs={6} xl={9} className={"small-padding-wrapper"}>
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
                   <CourseCardWrapper>
                     <CourseCard
@@ -490,10 +491,10 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                     />
                   </CourseCardWrapper>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <Button
           className="show-more-btn"
           onClick={() => history.push("/courses")}
@@ -502,7 +503,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
         >
           {t<string>("Homepage.AwardedCoursesBtnText")}
         </Button>
-      </div>
+      </Container>
     </StyledSection>
   );
 };
