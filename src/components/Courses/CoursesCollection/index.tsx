@@ -138,6 +138,7 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
           min-height: 50px;
           display: flex;
           align-items: center;
+          box-sizing: border-box;
           justify-content: center;
           border-color: ${({ theme }) =>
             isMobile ? theme.primaryColor : theme.white};
