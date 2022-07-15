@@ -169,6 +169,19 @@ const resources = {
         TopicAttachment: "Topic attachments",
         ShowAgenda: "Show agenda",
       },
+      Warning: "Warning",
+      "I'm aware": "I'm aware",
+      EmailActivation: {
+        Title: "Please check your email to complete the registration process",
+        Text: `We sent a message to the address **{{email}}** z
+        link to activate your account.
+        Go to e-mail and confirm your e-mail address.`,
+        HelpText: `**You did not receive the e-mail?**
+- Check the SPAM folder
+- Check that you have entered your e-mail address correctly
+- We cannot deliver the message to your address (usually via firewall or mail filters)`,
+        RegisterAgain: "Try registering again",
+      },
       CoursesPage: {
         Category: "Category",
         Free: "Free",
@@ -315,6 +328,7 @@ const resources = {
   pl: {
     translation: {
       ...ComponentTranslations.pl.translation,
+      Warning: "Uwaga",
       HowItWorks: "Jak to działa",
       "Start now": "Zacznij teraz",
       UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
@@ -424,6 +438,18 @@ const resources = {
       CoursesLength_one: "{{count}} kurs",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
+      "I'm aware": "Tak, wiem",
+      EmailActivation: {
+        Title: "Aby dokończyć proces rejestracji sprawdź swoją pocztę",
+        Text: `Wysłaliśmy wiadomość na adres **{{email}}** z
+          linkiem do aktywacji Twojego konta. 
+          Przejdź do poczty i potwierdź swój adres e-mail.`,
+        HelpText: `**Nie dostałeś maila?**       
+  - Sprawdź folder SPAM
+  - Sprawdź czy poprawnie wpisałeś adres e-mail
+  - Nie możemy dostarczyć wiadomości na Twój adres (zazwyczaj  przez firewalla lub filtry na poczcie)`,
+        RegisterAgain: "Wpisz adres ponownie",
+      },
       CoursePage: {
         ErrorOccurred: "Wystąpił błąd",
         HeroBtnText: "Zobacz więcej",
@@ -642,7 +668,7 @@ i18n
   .init({
     resources,
     fallbackLng: "pl",
-    debug: true,
+    // debug: true,
     //lng: "pl",
     //supportedLngs: ["pl", "en"],
     // fallbackLng: "pl",

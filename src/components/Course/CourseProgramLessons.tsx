@@ -161,7 +161,7 @@ export const CourseProgramLessons: React.FC<{
             ]}
           />
           <Title className="main-title" level={3}>
-            {program.title}
+            {topic.title}
           </Title>
           <Row>
             <Col lg={9}>

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Rate } from "@escolalms/components/lib/components/molecules/Rate/Rate";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -66,6 +66,7 @@ const RateCourse: React.FC<Props> = ({
         }
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [course, courseId, questionnaire.id, state]
   );
 
