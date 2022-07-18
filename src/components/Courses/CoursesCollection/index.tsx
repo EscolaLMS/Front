@@ -255,7 +255,7 @@ const CoursesCollection: React.FC = () => {
       top: 0,
       behavior: "smooth",
     });
-  }, [params]);
+  }, [filterState.categories]);
 
   const resetFilters = () => {
     setFilterState(initialFilters);
