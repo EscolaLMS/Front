@@ -13,6 +13,7 @@ import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Col, Container, Row } from "react-grid-system";
+import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);
@@ -57,16 +58,8 @@ const StyledContent = styled.div`
     }
 
     .back-text {
-      margin: 0 auto 0 0;
-      button {
-        appearance: none;
-        outline: none;
-        border: none;
-        background: transparent;
-        text-decoration: underline;
-        font-size: 16px;
-        cursor: pointer;
-      }
+      text-align: center;
+      margin-top: 20px;
     }
   }
 `;
@@ -131,11 +124,11 @@ const RegisterPage = () => {
                   {t("EmailActivation.HelpText")}
                 </MarkdownRenderer>
 
-                <Text className="back-text" size="14">
-                  <button type="button" onClick={() => setView("register")}>
+                <div className="back-text">
+                  <LinkComponent onClick={() => setView("register")}>
                     {t("EmailActivation.RegisterAgain")}
-                  </button>
-                </Text>
+                  </LinkComponent>
+                </div>
               </div>
             </Col>
           </Row>
