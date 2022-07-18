@@ -250,6 +250,13 @@ const CoursesCollection: React.FC = () => {
     []
   );
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [params]);
+
   const resetFilters = () => {
     setFilterState(initialFilters);
   };
@@ -613,11 +620,13 @@ const CoursesCollection: React.FC = () => {
         <PromotedCoursesSection courses={courses.list.data} />
       )}
       {categoryTree && (
-        <CategoriesSection
-          categories={
-            categoryTree.list?.filter((category) => !!category.icon) || []
-          }
-        />
+        <>
+          <CategoriesSection
+            categories={
+              categoryTree.list?.filter((category) => !!category.icon) || []
+            }
+          />
+        </>
       )}
     </>
   );
