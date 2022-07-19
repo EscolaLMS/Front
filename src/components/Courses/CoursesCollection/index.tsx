@@ -487,135 +487,135 @@ const CoursesCollection: React.FC = () => {
               <Spin color={theme.primaryColor} />
             </div>
           ) : (
-            <CoursesList>
-              <Row
-                style={{
-                  gap: "30px 0",
-                }}
-              >
-                {courses?.list?.data.map((item) => (
-                  <Col md={6} lg={4} xl={3} key={item.id}>
-                    <CourseCardWrapper>
-                      <CourseCard
-                        mobile={isMobile}
-                        id={item.id}
-                        image={
-                          <Link to={`/courses/${item.id}`}>
-                            {item.image_path ? (
-                              <ResponsiveImage
-                                path={item.image_path}
-                                alt={item.title}
-                                srcSizes={[300, 600, 900]}
-                              />
-                            ) : (
-                              <CourseImgPlaceholder />
-                            )}
-                          </Link>
-                        }
-                        tags={
-                          <>
-                            {item.tags?.map((item, index) => (
-                              <Badge key={index} color={theme.primaryColor}>
+            <React.Fragment>
+              <CoursesList>
+                <Row
+                  style={{
+                    gap: "30px 0",
+                  }}
+                >
+                  {courses?.list?.data.map((item) => (
+                    <Col md={6} lg={4} xl={3} key={item.id}>
+                      <CourseCardWrapper>
+                        <CourseCard
+                          mobile={isMobile}
+                          id={item.id}
+                          image={
+                            <Link to={`/courses/${item.id}`}>
+                              {item.image_path ? (
+                                <ResponsiveImage
+                                  path={item.image_path}
+                                  alt={item.title}
+                                  srcSizes={[300, 600, 900]}
+                                />
+                              ) : (
+                                <CourseImgPlaceholder />
+                              )}
+                            </Link>
+                          }
+                          tags={
+                            <>
+                              {item.tags?.map((item, index) => (
+                                <Badge key={index} color={theme.primaryColor}>
+                                  <Link
+                                    style={{ color: theme.white }}
+                                    to={`/courses/?tag=${item.title}`}
+                                  >
+                                    {item.title}
+                                  </Link>
+                                </Badge>
+                              ))}
+                            </>
+                          }
+                          subtitle={
+                            item.subtitle ? (
+                              <Text size="12">
                                 <Link
-                                  style={{ color: theme.white }}
-                                  to={`/courses/?tag=${item.title}`}
+                                  style={{ color: theme.primaryColor }}
+                                  to={`/courses/${item.id}`}
                                 >
-                                  {item.title}
+                                  <strong>{item.subtitle}</strong>
                                 </Link>
-                              </Badge>
-                            ))}
-                          </>
-                        }
-                        subtitle={
-                          item.subtitle ? (
-                            <Text size="12">
-                              <Link
-                                style={{ color: theme.primaryColor }}
-                                to={`/courses/${item.id}`}
+                              </Text>
+                            ) : undefined
+                          }
+                          title={
+                            <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                          }
+                          categories={
+                            <BreadCrumbs
+                              hyphen="/"
+                              items={item.categories?.map((category) => (
+                                <Link
+                                  key={category.id}
+                                  to={`/courses/?category_id[]=${category.id}`}
+                                >
+                                  {category.name}
+                                </Link>
+                              ))}
+                            />
+                          }
+                          actions={
+                            <>
+                              <Button
+                                mode="secondary"
+                                onClick={() =>
+                                  history.push(`/courses/${item.id}`)
+                                }
                               >
-                                <strong>{item.subtitle}</strong>
-                              </Link>
-                            </Text>
-                          ) : undefined
-                        }
-                        title={
-                          <Link to={`/courses/${item.id}`}>{item.title}</Link>
-                        }
-                        categories={
-                          <BreadCrumbs
-                            hyphen="/"
-                            items={item.categories?.map((category) => (
-                              <Link
-                                key={category.id}
-                                to={`/courses/?category_id[]=${category.id}`}
-                              >
-                                {category.name}
-                              </Link>
-                            ))}
-                          />
-                        }
-                        actions={
-                          <>
-                            <Button
-                              mode="secondary"
-                              onClick={() =>
-                                history.push(`/courses/${item.id}`)
-                              }
-                            >
-                              {t<string>("Start now")}
-                            </Button>
-                          </>
-                        }
-                        footer={
-                          <>
-                            {item.users_count && item.users_count > 0 ? (
-                              <IconText
-                                icon={<UserIcon />}
-                                text={`${item.users_count} ${t<string>(
-                                  "Students"
-                                )}`}
-                              />
-                            ) : (
-                              ""
-                            )}{" "}
-                            {item.lessons_count && item.lessons_count > 0 ? (
-                              <IconText
-                                icon={<LessonsIcon />}
-                                text={`${item.lessons_count} ${t<string>(
-                                  "Lessons"
-                                )}`}
-                              />
-                            ) : (
-                              ""
-                            )}
-                          </>
-                        }
-                      />
-                    </CourseCardWrapper>
-                  </Col>
-                ))}
-              </Row>
-            </CoursesList>
+                                {t<string>("Start now")}
+                              </Button>
+                            </>
+                          }
+                          footer={
+                            <>
+                              {item.users_count && item.users_count > 0 ? (
+                                <IconText
+                                  icon={<UserIcon />}
+                                  text={`${item.users_count} ${t<string>(
+                                    "Students"
+                                  )}`}
+                                />
+                              ) : (
+                                ""
+                              )}{" "}
+                              {item.lessons_count && item.lessons_count > 0 ? (
+                                <IconText
+                                  icon={<LessonsIcon />}
+                                  text={`${item.lessons_count} ${t<string>(
+                                    "Lessons"
+                                  )}`}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </>
+                          }
+                        />
+                      </CourseCardWrapper>
+                    </Col>
+                  ))}
+                </Row>
+              </CoursesList>
+              {courses.list.meta.total > courses.list.meta.per_page && (
+                <Pagination
+                  total={courses.list.meta.total}
+                  perPage={courses.list.meta.per_page}
+                  currentPage={courses.list.meta.current_page}
+                  onPage={(i) =>
+                    setParams &&
+                    setParams({
+                      ...params,
+                      page: i,
+                      per_page: 6,
+                    })
+                  }
+                />
+              )}
+            </React.Fragment>
           )}
         </>
       )}
-      {courses &&
-        courses.list &&
-        courses.list.meta.total > courses.list.meta.per_page && (
-          <Pagination
-            total={courses.list.meta.total}
-            perPage={courses.list.meta.per_page}
-            currentPage={courses.list.meta.current_page}
-            onPage={(i) =>
-              setParams &&
-              setParams({
-                ...params,
-                page: i,
-                per_page: 6,
-              })
-            }
-          />
-        )}
       {courses && courses.list && courses.list.data.length >= 6 && (
         <PromotedCoursesSection courses={courses.list.data} />
       )}
