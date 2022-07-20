@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Link, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
@@ -71,7 +71,7 @@ const RegisterPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { settings } = useContext(EscolaLMSContext);
 
-  const [email] = useState("aaa");
+  const [email, setEmail] = useState<string>("");
   const history = useHistory();
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
@@ -172,7 +172,13 @@ const RegisterPage = () => {
                   fieldLabels={fieldLabels}
                   mobile={isMobile}
                   onLoginLink={() => history.push("/login")}
-                  onSuccess={() => setView("success")}
+                  onSuccess={(
+                    _: any,
+                    values: { email: SetStateAction<string> }
+                  ) => {
+                    setView("success");
+                    setEmail(values.email);
+                  }}
                 />
               </Col>
             </Row>
