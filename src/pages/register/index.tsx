@@ -125,7 +125,7 @@ const RegisterPage = () => {
                 </MarkdownRenderer>
 
                 <div className="back-text">
-                  <LinkComponent onClick={() => setView("register")}>
+                  <LinkComponent onClick={() => setView("register")} underline>
                     {t("EmailActivation.RegisterAgain")}
                   </LinkComponent>
                 </div>
