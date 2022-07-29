@@ -64,6 +64,12 @@ const StyledContent = styled.div`
   }
 `;
 
+const StyledModal = styled(Modal)`
+  a {
+    font-size: 1.14em;
+  }
+`;
+
 const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
@@ -117,7 +123,11 @@ const RegisterPage = () => {
                 <Title className="email-title" level={3}>
                   {t("EmailActivation.Title")}
                 </Title>
-                <MarkdownRenderer>
+                <MarkdownRenderer
+                  components={{
+                    a: (props) => <span>{props.children}</span>,
+                  }}
+                >
                   {t("EmailActivation.Text", { email })}
                 </MarkdownRenderer>
                 <MarkdownRenderer>
@@ -140,7 +150,7 @@ const RegisterPage = () => {
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
       {footerFromApi && (
-        <Modal
+        <StyledModal
           onClose={() => setModalVisible(false)}
           visible={modalVisible}
           animation="zoom"
@@ -155,7 +165,7 @@ const RegisterPage = () => {
           <Button mode="outline" onClick={() => setModalVisible(false)}>
             {t("I'm aware")}
           </Button>
-        </Modal>
+        </StyledModal>
       )}
 
       {view !== "success" ? (
