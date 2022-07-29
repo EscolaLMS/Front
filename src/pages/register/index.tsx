@@ -117,7 +117,11 @@ const RegisterPage = () => {
                 <Title className="email-title" level={3}>
                   {t("EmailActivation.Title")}
                 </Title>
-                <MarkdownRenderer>
+                <MarkdownRenderer
+                  components={{
+                    a: (props) => <span>{props.children}</span>,
+                  }}
+                >
                   {t("EmailActivation.Text", { email })}
                 </MarkdownRenderer>
                 <MarkdownRenderer>
