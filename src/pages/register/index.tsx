@@ -152,7 +152,7 @@ const RegisterPage = () => {
       {footerFromApi && (
         <StyledModal
           onClose={() => setModalVisible(false)}
-          visible={true}
+          visible={modalVisible}
           animation="zoom"
           maskAnimation="fade"
           destroyOnClose={true}
