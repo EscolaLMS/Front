@@ -76,7 +76,6 @@ const ProfileCourses = ({
 }: {
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
-  const [rateModalVisible, setRateModalVisible] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [courseId, setCourseId] = useState<number | undefined>(undefined);
   const { progress, fetchProgress, fetchQuestionnaires } =
@@ -391,7 +390,13 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => setRateModalVisible(true)}
+                            onClick={() => {
+                              setCourseId(item.course.id);
+                              setState((prevState) => ({
+                                ...prevState,
+                                show: true,
+                              }));
+                            }}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
@@ -533,7 +538,7 @@ const ProfileCourses = ({
         </div>
       )}
       {progress.loading && <ContentLoader />}
-      {state.show && courseId && fetched && (
+      {state.show && courseId && fetched && questionnaires[state.step] && (
         <RateCourse
           course={"Course"}
           courseId={courseId}
