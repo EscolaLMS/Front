@@ -64,6 +64,12 @@ const StyledContent = styled.div`
   }
 `;
 
+const StyledModal = styled(Modal)`
+  a {
+    font-size: 1.14em;
+  }
+`;
+
 const RegisterPage = () => {
   const { search } = useLocation();
   const { user, socialAuthorize } = useContext(EscolaLMSContext);
@@ -144,9 +150,9 @@ const RegisterPage = () => {
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
       {footerFromApi && (
-        <Modal
+        <StyledModal
           onClose={() => setModalVisible(false)}
-          visible={modalVisible}
+          visible={true}
           animation="zoom"
           maskAnimation="fade"
           destroyOnClose={true}
@@ -159,7 +165,7 @@ const RegisterPage = () => {
           <Button mode="outline" onClick={() => setModalVisible(false)}>
             {t("I'm aware")}
           </Button>
-        </Modal>
+        </StyledModal>
       )}
 
       {view !== "success" ? (
