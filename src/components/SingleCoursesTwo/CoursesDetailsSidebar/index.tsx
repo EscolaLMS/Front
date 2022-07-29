@@ -90,7 +90,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               onClick={() => push(`/course/${course.id}`)}
               mode="secondary"
             >
-              {t("Attend to Course")}
+              {t("Go to the course")}
             </Button>
           ) : (
             <Text>{t("CoursePage.NotStarted")}</Text>
@@ -213,7 +213,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               mode="secondary"
               onClick={() => push(`/course/${course.id}`)}
             >
-              {t("Attend to Course")}
+              {t("Go to the course")}
             </Button>
           ) : user.value && course.product ? (
             <Button

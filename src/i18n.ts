@@ -17,7 +17,7 @@ const resources = {
       "Add to Cart": "Add to Cart",
       "All Categories": "All categories",
       "All Tutors": "All tutors",
-      "Attend to Course": "Attend to Course",
+      "Go to the course": "Go to the course",
       Authentication: "Authentication",
       Back: "Back",
       "Back to website": "Back to website",
@@ -341,7 +341,7 @@ const resources = {
       "Add to Cart": "Dodaj do koszyka",
       "All Categories": "Wszystkie kategorie",
       "All Tutors": "Wszyscy Instruktorzy",
-      "Attend to Course": "Uruchom kurs",
+      "Go to the course": "Idź do kursu",
       Authentication: "Uwierzytelnianie",
       Back: "Wróć",
       "Back to website": "Wróć do strony głównej",
@@ -442,9 +442,9 @@ const resources = {
       EmailActivation: {
         Title: "Aby dokończyć proces rejestracji sprawdź swoją pocztę",
         Text: `Wysłaliśmy wiadomość na adres **{{email}}** z
-          linkiem do aktywacji Twojego konta. 
+          linkiem do aktywacji Twojego konta.
           Przejdź do poczty i potwierdź swój adres e-mail.`,
-        HelpText: `**Nie dostałeś maila?**       
+        HelpText: `**Nie dostałeś maila?**
   - Sprawdź folder SPAM
   - Sprawdź czy poprawnie wpisałeś adres e-mail
   - Nie możemy dostarczyć wiadomości na Twój adres (zazwyczaj  przez firewalla lub filtry na poczcie)`,
