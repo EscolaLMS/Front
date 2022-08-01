@@ -311,8 +311,8 @@ const resources = {
         AccountConfirmed: "Account confirmed",
       },
       Header: {
-        Register: "Sign up",
-        Login: "Sign in",
+        Register: "Register",
+        Login: "Log in",
       },
       "RegisterForm.Already have account": "Already have account?",
       AcceptCheckbox: "By checking this fields you accept",
