@@ -109,7 +109,12 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        ""
+        <Button
+          onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+          mode="secondary"
+        >
+          {t("Buy Course")}
+        </Button>
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
