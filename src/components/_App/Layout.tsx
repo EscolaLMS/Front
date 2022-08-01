@@ -88,7 +88,7 @@ const Layout: React.FC<{
         <Navbar />
         {children}
         {!isCourse && <Footer />}
-        <Warning />
+        {localStorage.getItem("hideWarning") !== "true" && <Warning />}
       </div>
       {/* <GoTop scrollStepInPx="100" delayInMs={10} /> */}
     </React.Fragment>
