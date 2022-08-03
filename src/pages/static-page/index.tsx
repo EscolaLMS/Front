@@ -12,6 +12,7 @@ import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useTranslation } from "react-i18next";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledStaticPage = styled.section`
   .content {
@@ -55,15 +56,15 @@ const StaticPage = () => {
   return (
     <Layout metaTitle={page.value?.title}>
       <StyledStaticPage>
-        <div className="container">
+        <Container>
           <Breadcrumbs
             items={[
               <Link to="/">{t<string>("Home")}</Link>,
               <Text size="12">{page.value?.title}</Text>,
             ]}
           />
-          <div className="row">
-            <div className="col-lg-4">
+          <Row>
+            <Col lg={4}>
               {pages &&
                 pages.list?.data.map((item, index) => (
                   <AsideMenu key={index} active={slug === item.slug}>
@@ -77,8 +78,8 @@ const StaticPage = () => {
                     </Link>
                   </AsideMenu>
                 ))}
-            </div>
-            <div className="col-lg-8">
+            </Col>
+            <Col lg={8}>
               <div className="content">
                 {page.loading ||
                 (!page.value && !page.error) ||
@@ -93,9 +94,9 @@ const StaticPage = () => {
                   </MarkdownRenderer>
                 )}
               </div>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </StyledStaticPage>
     </Layout>
   );

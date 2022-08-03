@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 // import GoTop from "@/components/_App/GoTop";
@@ -6,7 +6,9 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
+import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 declare global {
   interface Window {
@@ -24,11 +26,21 @@ const YBUG_ID =
   window.REACT_APP_YBUG_ID ||
   (process && process.env && process.env.REACT_APP_YBUG_ID);
 
+setConfiguration({ maxScreenClass: "xl" });
+
 const Layout: React.FC<{
   children: React.ReactNode;
   metaTitle?: string | undefined;
 }> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
+
+  const { fetchConfig, fetchSettings } = useContext(EscolaLMSContext);
+
+  useEffect(() => {
+    fetchSettings();
+    fetchConfig();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     // ybug
@@ -76,7 +88,7 @@ const Layout: React.FC<{
         <Navbar />
         {children}
         {!isCourse && <Footer />}
-        <Warning />
+        {localStorage.getItem("hideWarning") !== "true" && <Warning />}
       </div>
       {/* <GoTop scrollStepInPx="100" delayInMs={10} /> */}
     </React.Fragment>

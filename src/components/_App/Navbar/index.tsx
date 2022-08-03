@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import Logo from "../../../images/logo-orange.svg";
-import ExampleAvatar from "../../../images/example-avatar.png";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
@@ -10,9 +9,10 @@ import { SearchCourses } from "@escolalms/components/lib/components/organisms/Se
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard } from "../../../icons";
+import { HeaderCard, HeaderUser } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
+import { Container } from "react-grid-system";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -26,12 +26,7 @@ const StyledHeader = styled.header`
       : "rgba(255, 255, 255, 0.95)"};
   backdrop-filter: blur(10px);
   padding: ${isMobile ? "11px 0" : "22px 0"};
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
+
   .logo-container {
     min-width: 150px;
     max-width: 150px;
@@ -319,7 +314,14 @@ const Navbar = () => {
 
   return (
     <StyledHeader>
-      <div className="container">
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
         <div className="logo-container">
           <Link to="/">
             <img src={settings?.value?.global?.logo || Logo} alt="" />
@@ -382,11 +384,17 @@ const Navbar = () => {
                     {user?.first_name} {user?.last_name}
                   </strong>
                 </Text>
-                <Avatar
-                  src={user?.avatar || ExampleAvatar}
-                  alt={user?.first_name}
-                  size={"small"}
-                />
+                {user?.avatar ? (
+                  <Avatar
+                    src={user.avatar}
+                    alt={user.first_name}
+                    size={"small"}
+                  />
+                ) : (
+                  <Link to="/user/my-data">
+                    <HeaderUser mode={theme.mode} />
+                  </Link>
+                )}
               </Link>
             </div>
           ) : (
@@ -416,7 +424,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </StyledHeader>
   );
 };

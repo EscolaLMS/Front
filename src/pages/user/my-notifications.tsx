@@ -16,6 +16,10 @@ const NotificationsContainer = styled.div`
   .single-notification {
     background: ${({ theme }) =>
       theme.mode === "dark" ? theme.gray1 : theme.gray5};
+
+    > section {
+      box-sizing: border-box;
+    }
   }
 `;
 

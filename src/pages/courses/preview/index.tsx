@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { API } from '@escolalms/sdk/lib';
-import { useTranslation } from 'react-i18next';
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react/context';
-import Preloader from '@/components/Preloader';
-import Layout from '@/components/_App/Layout';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { API } from "@escolalms/sdk/lib";
+import { useTranslation } from "react-i18next";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import Preloader from "@/components/Preloader";
+import Layout from "@/components/_App/Layout";
 
-import CourseProgramLessonsPreview from '@/components/Course/CourseProgramLessonsPreview';
+import CourseProgramLessonsPreview from "@/components/Course/CourseProgramLessonsPreview";
+import { Container } from "react-grid-system";
 
 // TODO: 99% same as: src/pages/course/index.tsx
 
-const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program }) => {
+const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
+  program,
+}) => {
   const sco = program?.scorm?.scos?.find((sco) => sco.entry_url !== undefined);
   const uuid = sco?.uuid;
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -20,7 +23,9 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
 
   useEffect(() => {
     if (iframeRef.current) {
-      setHeight(iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0);
+      setHeight(
+        iframeRef.current?.contentWindow?.document?.body?.scrollHeight || 0
+      );
     }
   }, [iframeRef]);
 
@@ -38,7 +43,7 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({ program 
           }}
         >
           <iframe
-            title={'scorm-player'}
+            title={"scorm-player"}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"
@@ -67,17 +72,17 @@ const CourseProgram = () => {
 
   if (program.error) {
     return (
-      <div className="container">
+      <Container>
         <div className="alert alert-danger" role="alert">
-          <h4 className="alert-heading">{t('Error')}</h4>
+          <h4 className="alert-heading">{t("Error")}</h4>
           <p> {program.error.message || program.error.error}</p>
           <hr />
           <p className="mb-0">
-            {t('CoursePage.Preview.SeeOther')}
-            <Link to="/courses">{t('Courses')}</Link>.
+            {t("CoursePage.Preview.SeeOther")}
+            <Link to="/courses">{t("Courses")}</Link>.
           </p>
         </div>
-      </div>
+      </Container>
     );
   }
 

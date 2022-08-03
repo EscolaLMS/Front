@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { ReactNode, useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { Col, Container, Row } from "react-grid-system";
 
 type Props = {
   children: ReactNode;
@@ -41,17 +42,17 @@ const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
   return (
     <Layout metaTitle={title}>
       <StyledProfile>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-9">
+        <Container>
+          <Row>
+            <Col lg={9}>
               <ProfileHeader title={title} withTabs={withTabs} />
               {children}
-            </div>
-            <div className="col-lg-3">
+            </Col>
+            <Col lg={3}>
               <ProfileAside />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </StyledProfile>
     </Layout>
   );

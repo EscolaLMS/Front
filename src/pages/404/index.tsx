@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Button, Text, Title } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
+import { Container } from "react-grid-system";
 
 const Styled404 = styled.div`
   height: 100vh;
@@ -25,7 +26,7 @@ const Custom404 = () => {
   return (
     <Layout>
       <Styled404>
-        <div className="container">
+        <Container>
           <div className="content">
             <Title level={3}>{t("Custom404Page.Info")}</Title>
             <Text>{t("Custom404Page.NotFound")}</Text>
@@ -33,7 +34,7 @@ const Custom404 = () => {
               {t("Home")}
             </Button>
           </div>
-        </div>
+        </Container>
       </Styled404>
     </Layout>
   );

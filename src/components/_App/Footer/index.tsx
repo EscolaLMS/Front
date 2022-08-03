@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
+import { Container, Col, Row } from "react-grid-system";
+import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -22,29 +24,28 @@ const StyledFooter = styled.footer`
     &:nth-of-type(1) {
       margin-bottom: 30px;
     }
-    .single-link {
-      text-decoration: none;
-      transition: all 0.25s;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-    }
+
     &.pages {
       display: block;
-      columns: ${isMobile ? "1 auto" : "4 auto"};
       text-align: ${isMobile ? "center" : "left"};
       border-top: 1px solid ${({ theme }) => theme.gray3};
       padding: 2em 0;
+
       a > p {
-        opacity: 0.6;
         margin-bottom: 0.5em;
-        &:hover {
-          opacity: 1;
-        }
       }
     }
   }
+
+  .single-link {
+    text-decoration: none;
+    transition: all 0.25s;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   .copyrights {
     text-align: center;
     display: flex;
@@ -79,9 +80,21 @@ const Footer = () => {
         user.value ? item : !item.auth
     );
 
+  const chunkArray = (
+    arr: PaginatedMetaList<PageListItem> | undefined,
+    chunkSize: number
+  ) => {
+    if (!arr) return [];
+    const tempArray = [];
+    for (let i = 0; i < arr.data.length; i += chunkSize) {
+      tempArray.push(arr.data.slice(i, i + chunkSize));
+    }
+    return tempArray;
+  };
+
   return (
     <StyledFooter>
-      <div className="container">
+      <Container>
         <div className="links-row">
           {footerFromApi && footerFromApi.length > 0 ? (
             <>
@@ -129,20 +142,27 @@ const Footer = () => {
             </>
           )}
         </div>
-        <div className="links-row pages">
-          {pages &&
-            pages.list?.data.map((item) => (
-              <Link key={item.id} className="single-link" to={`/${item.slug}`}>
-                <Text size="12">{item.title}</Text>
-              </Link>
-            ))}
+
+        <div className={"links-row pages"}>
+          {chunkArray(pages.list, 4).map((chunk: any[]) => (
+            <Row key={chunk.toString()}>
+              {chunk.map((page: PageListItem) => (
+                <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
+                  <Link className="single-link" to={`/${page.slug}`}>
+                    <Text size="14">{page.title}</Text>
+                  </Link>
+                </Col>
+              ))}
+            </Row>
+          ))}
         </div>
+
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
 
           <img src={settings?.value?.global?.logo || ""} alt="" />
         </div>
-      </div>
+      </Container>
     </StyledFooter>
   );
 };

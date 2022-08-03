@@ -2,8 +2,6 @@ import React, { lazy } from "react";
 
 import Routes from "./components/Routes";
 
-import "./style/css/bootstrap.min.css";
-
 import styled, { createGlobalStyle } from "styled-components";
 import { isMobile } from "react-device-detect";
 

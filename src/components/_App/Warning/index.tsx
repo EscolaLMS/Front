@@ -36,6 +36,11 @@ const Warning = () => {
 
   const footerFromApi: string = settings?.value?.config?.footerWarning;
 
+  const handleClick = () => {
+    localStorage.setItem("hideWarning", "true");
+    setShowWarning(false);
+  };
+
   if (!showWarning || !footerFromApi) {
     return <React.Fragment />;
   }
@@ -44,7 +49,7 @@ const Warning = () => {
     <StyledAside>
       <Note
         time={
-          <Button mode="outline" onClick={() => setShowWarning(false)}>
+          <Button mode="outline" onClick={handleClick}>
             {t("I'm aware")}
           </Button>
         }

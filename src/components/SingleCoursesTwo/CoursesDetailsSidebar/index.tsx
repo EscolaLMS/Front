@@ -90,7 +90,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               onClick={() => push(`/course/${course.id}`)}
               mode="secondary"
             >
-              {t("Attend to Course")}
+              {t("Go to the course")}
             </Button>
           ) : (
             <Text>{t("CoursePage.NotStarted")}</Text>
@@ -109,7 +109,12 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
       ) : !course.product ? (
         <Text>{t("CoursePage.UnavailableCourse")}</Text>
       ) : (
-        ""
+        <Button
+          onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+          mode="secondary"
+        >
+          {t("Buy Course")}
+        </Button>
       )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
@@ -213,7 +218,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
               mode="secondary"
               onClick={() => push(`/course/${course.id}`)}
             >
-              {t("Attend to Course")}
+              {t("Go to the course")}
             </Button>
           ) : user.value && course.product ? (
             <Button

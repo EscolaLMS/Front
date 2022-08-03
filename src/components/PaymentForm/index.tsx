@@ -7,6 +7,8 @@ import {
 } from "@stripe/react-stripe-js";
 import styled, { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Col, Row } from "react-grid-system";
+import { getFontFromTheme } from "@escolalms/components/lib/theme/provider";
 
 type Props = {
   billingDetails: {
@@ -35,16 +37,19 @@ const PaymentForm: React.FC<Props> = ({
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const font = getFontFromTheme(theme).fontFamily;
+  const fontFamily = font.split(",")[0].replace(/['"]/g, "");
 
   const options = useMemo(() => {
     return {
       style: {
         base: {
-          backgroundColor: theme.mode === "dark" ? theme.gray1 : theme.gray5,
+          fontFamily: fontFamily,
+          backgroundColor: "transparent",
           padding: "11px 12px 13px",
           border: `1px solid red`,
           color: theme.mode === "dark" ? theme.white : theme.gray1,
-          fontSize: "16px",
+          fontSize: "12px",
           "::placeholder": {
             color: theme.mode === "dark" ? theme.white : theme.gray1,
           },
@@ -59,8 +64,8 @@ const PaymentForm: React.FC<Props> = ({
 
   return (
     <StyledForm>
-      <div className="row">
-        <div className="col-lg-6">
+      <Row>
+        <Col lg={6}>
           <div className="input-wrapper--custom">
             <Input
               label={t<string>("Cart.FullName")}
@@ -74,23 +79,25 @@ const PaymentForm: React.FC<Props> = ({
               value={billingDetails.name}
             />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardNumberElement options={options} />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardExpiryElement options={options} />
           </div>
-        </div>
-        <div className="col-lg-6">
+        </Col>
+        <Col lg={6}>
           <div className="input-wrapper">
             <CardCvcElement options={options} />
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </StyledForm>
   );
 };

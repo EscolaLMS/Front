@@ -12,6 +12,7 @@ import Image from "@escolalms/sdk/lib/react/components/Image";
 import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { Col, Container, Row } from "react-grid-system";
 
 const StyledTitleWrapper = styled.div`
   margin-bottom: 10px;
@@ -31,7 +32,7 @@ const TutorsPage = () => {
   return (
     <Layout>
       <div className="advisor-area">
-        <div className="container">
+        <Container>
           <Breadcrumbs
             items={[
               <Link to="/">{t<string>("Home")}</Link>,
@@ -42,7 +43,7 @@ const TutorsPage = () => {
             <Title level={1}> {t("Tutors")}</Title>
           </StyledTitleWrapper>
 
-          <div className="row">
+          <Row>
             {tutors.loading && (
               <div
                 style={{
@@ -60,7 +61,7 @@ const TutorsPage = () => {
             )}
             {!tutors.loading &&
               (tutors.list || []).map((tutor: API.UserItem) => (
-                <div key={tutor.id} className="col-lg-4 col-sm-6 col-md-6">
+                <Col sm={6} md={6} lg={4} key={tutor.id}>
                   <CourseCard
                     id={Number(tutor.id)}
                     title={tutor.name}
@@ -90,10 +91,10 @@ const TutorsPage = () => {
                       </Link>
                     }
                   />
-                </div>
+                </Col>
               ))}
-          </div>
-        </div>
+          </Row>
+        </Container>
       </div>
     </Layout>
   );
