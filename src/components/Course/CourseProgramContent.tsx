@@ -130,22 +130,14 @@ export const CourseProgramContent: React.FC<{
         return (
           <H5Player
             onXAPI={(e: XAPIEvent) => onXAPI(e)}
-            id={topic?.topicable?.value}
+            //@ts-ignore
+            h5pObject={topic.topicable.content as API.H5PObject}
           />
         );
       case TopicType.OEmbed:
         return (
           <>
-            <OEmbedPlayer
-              url={topic.topicable.value}
-              key={topicId}
-              FallbackElement={
-                <H5Player
-                  onXAPI={(e: XAPIEvent) => onXAPI(e)}
-                  id={topic?.topicable?.value}
-                />
-              }
-            />
+            <OEmbedPlayer url={topic.topicable.value} key={topicId} />
           </>
         );
       case TopicType.RichText:
