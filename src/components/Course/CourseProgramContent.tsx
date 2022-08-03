@@ -5,7 +5,7 @@ import {
   completed,
   noCompletedEventsIds,
 } from "@escolalms/sdk/lib/services/courses";
-import { H5PObject, XAPIEvent } from "@escolalms/h5p-react";
+import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
 import { API } from "@escolalms/sdk/lib";
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
