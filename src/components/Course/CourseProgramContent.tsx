@@ -14,6 +14,7 @@ import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbe
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 import { isMobile } from "react-device-detect";
+import ScormPlayer from "./Players/ScormPlayer";
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -37,7 +38,6 @@ export const CourseProgramContent: React.FC<{
     fontSize,
     sendProgress,
     h5pProgress,
-    apiUrl,
   } = useContext(EscolaLMSContext);
 
   const topic = useMemo(() => {
@@ -169,14 +169,7 @@ export const CourseProgramContent: React.FC<{
         return <PdfPlayer url={topic.topicable.url} />;
 
       case TopicType.Scorm:
-        return (
-          <div className="scorm-wrapper">
-            <iframe
-              title={topic.topicable.value}
-              src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
-            />
-          </div>
-        );
+        return <ScormPlayer value={topic} />;
       default:
         return <pre>{topic.topicable_type}</pre>;
     }
