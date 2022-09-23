@@ -18,6 +18,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "../CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
+import { Title } from "@escolalms/components";
 
 type Props = {
   courses: API.Course[];
@@ -69,7 +70,32 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
       {courses.length >= 5 || isMobile ? (
         <div>
           <Slider
-            settings={{ ...sliderSettings, dots }}
+            settings={{
+              ...sliderSettings,
+              dots,
+              onSwipe: () => {
+                const allHiddenSlides = document.querySelectorAll(
+                  '.slick-slide[aria-hidden="true"]'
+                );
+                const allVisibleSlides = document.querySelectorAll(
+                  '.slick-slide[aria-hidden="false"]'
+                );
+                allVisibleSlides.forEach((visibleSlide) =>
+                  visibleSlide.removeAttribute("aria-modal")
+                );
+                allHiddenSlides.forEach((hiddenSlide) =>
+                  hiddenSlide.setAttribute("aria-modal", "true")
+                );
+              },
+              onInit: () => {
+                const allHiddenSlides = document.querySelectorAll(
+                  '.slick-slide[aria-hidden="true"]'
+                );
+                allHiddenSlides.forEach((hiddenSlide) =>
+                  hiddenSlide.setAttribute("aria-modal", "true")
+                );
+              },
+            }}
             dotsPosition="top right"
           >
             {courses &&
@@ -117,7 +143,13 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                         </Text>
                       ) : undefined
                     }
-                    title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
+                    title={
+                      <Link to={`/courses/${item.id}`} className="title">
+                        <Title level={4} as="h2">
+                          {item.title}
+                        </Title>
+                      </Link>
+                    }
                     categories={
                       <BreadCrumbs
                         hyphen="/"

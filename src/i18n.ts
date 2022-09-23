@@ -18,6 +18,7 @@ const resources = {
       "All Categories": "All categories",
       "All Tutors": "All tutors",
       "Go to the course": "Go to the course",
+      "Go to the main page": "Go to the main page",
       Authentication: "Authentication",
       Back: "Back",
       "Back to website": "Back to website",
@@ -109,6 +110,8 @@ const resources = {
       CoursesLength_few: "{{count}} courses",
       CoursesLength_many: "{{count}} courses",
       CoursesLength_one: "{{count}} course",
+      ShowCustomizer: "Show theme customizer",
+      HideCustomizer: "Hide theme customizer",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -341,6 +344,7 @@ const resources = {
       "All Categories": "Wszystkie kategorie",
       "All Tutors": "Wszyscy Instruktorzy",
       "Go to the course": "Idź do kursu",
+      "Go to the main page": "Idź do strony głównej",
       Authentication: "Uwierzytelnianie",
       Back: "Wróć",
       "Back to website": "Wróć do strony głównej",
@@ -435,6 +439,8 @@ const resources = {
       CoursesLength_few: "{{count}} kursy",
       CoursesLength_many: "{{count}} kursów",
       CoursesLength_one: "{{count}} kurs",
+      ShowCustomizer: "Pokaż edytor motywu",
+      HideCustomizer: "Ukryj edytor motywu",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
