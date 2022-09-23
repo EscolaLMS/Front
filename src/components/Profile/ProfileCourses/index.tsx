@@ -253,8 +253,10 @@ const ProfileCourses = ({
                       ) : undefined
                     }
                     title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
+                      <Link to={`/courses/${item.course.id}`} className="title">
+                        <Title level={4} as="h2">
+                          {item.course.title}
+                        </Title>
                       </Link>
                     }
                     categories={

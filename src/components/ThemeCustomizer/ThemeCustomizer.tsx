@@ -3,6 +3,7 @@ import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalThem
 import defaultTheme from "@escolalms/components/lib/theme/blue";
 import { useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledDiv = styled.div`
   > button {
@@ -53,11 +54,15 @@ const StyledDiv = styled.div`
 
 export const ThemeCustomizer = () => {
   const [, setTheme] = useLocalTheme(defaultTheme);
+  const { t } = useTranslation();
 
   const [hidden, setHidden] = useState(true);
   return (
     <StyledDiv>
-      <button onClick={() => setHidden((prevState) => !prevState)}>
+      <button
+        onClick={() => setHidden((prevState) => !prevState)}
+        aria-label={t(hidden ? "ShowCustomizer" : "HideCustomizer")}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

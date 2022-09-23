@@ -297,6 +297,7 @@ const Navbar = () => {
             width: 150,
             height: 50,
             onClick: () => history.push("/"),
+            alt: "Logo",
           }}
           menuItems={menuItems}
           search={
@@ -323,8 +324,8 @@ const Navbar = () => {
         }}
       >
         <div className="logo-container">
-          <Link to="/">
-            <img src={settings?.value?.global?.logo || Logo} alt="" />
+          <Link to="/" aria-label={t("Go to the main page")}>
+            <img src={settings?.value?.global?.logo || Logo} alt="Logo" />
           </Link>
         </div>
         <div className="menu-container">
@@ -415,6 +416,7 @@ const Navbar = () => {
                 className="cart-icon"
                 onClick={() => history.push("/cart")}
                 data-tooltip={String(cart.value?.items.length)}
+                aria-label={t("CoursePage.GoToCheckout")}
               >
                 {cart.value && cart.value.items?.length > 0 && (
                   <span>{cart.value.items.length}</span>

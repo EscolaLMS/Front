@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -7,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
+import StyledLink from "@/components/StyledLink";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -54,7 +54,6 @@ const StyledFooter = styled.footer`
     margin-top: 42px;
     p {
       margin: 0;
-      opacity: 0.5;
     }
     img {
       max-width: 100%;
@@ -101,7 +100,7 @@ const Footer = () => {
               {footerFromApi.map(
                 (link: Record<string, string | Record<string, string>>) => {
                   return (
-                    <Link
+                    <StyledLink
                       key={link.link.toString()}
                       className="single-link"
                       to={link.link}
@@ -109,36 +108,36 @@ const Footer = () => {
                       {typeof link.label === "object" && (
                         <Text size="14">{link.label[i18n.language]}</Text>
                       )}
-                    </Link>
+                    </StyledLink>
                   );
                 }
               )}
             </>
           ) : (
             <>
-              <Link className="single-link" to="/">
+              <StyledLink className="single-link" to="/">
                 <Text size="14">{t<string>("Footer.HomePage")}</Text>
-              </Link>
-              <Link className="single-link" to="/courses">
+              </StyledLink>
+              <StyledLink className="single-link" to="/courses">
                 <Text size="14">{t<string>("Footer.Courses")}</Text>
-              </Link>
+              </StyledLink>
               {user.value ? (
-                <Link className="single-link" to="/user/my-profile">
+                <StyledLink className="single-link" to="/user/my-profile">
                   <Text size="14">{t<string>("Footer.UserProfile")}</Text>
-                </Link>
+                </StyledLink>
               ) : (
                 <>
-                  <Link className="single-link" to="/login">
+                  <StyledLink className="single-link" to="/login">
                     <Text size="14">{t<string>("Header.Login")}</Text>
-                  </Link>
-                  <Link className="single-link" to="/register">
+                  </StyledLink>
+                  <StyledLink className="single-link" to="/register">
                     <Text size="14">{t<string>("Header.Register")}</Text>
-                  </Link>
+                  </StyledLink>
                 </>
               )}
-              <Link className="single-link" to="/cart">
+              <StyledLink className="single-link" to="/cart">
                 <Text size="14">{t<string>("Footer.Cart")}</Text>
-              </Link>
+              </StyledLink>
             </>
           )}
         </div>
@@ -148,9 +147,9 @@ const Footer = () => {
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
-                  <Link className="single-link" to={`/${page.slug}`}>
+                  <StyledLink className="single-link" to={`/${page.slug}`}>
                     <Text size="14">{page.title}</Text>
-                  </Link>
+                  </StyledLink>
                 </Col>
               ))}
             </Row>

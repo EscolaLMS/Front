@@ -80,7 +80,11 @@ const ProfileCertificates: React.FC = () => {
             .map((cert: CertType) => (
               <NoteAction
                 color={theme.primaryColor}
-                title={<Title level={4}>{cert.title}</Title>}
+                title={
+                  <Title level={4} as="h3">
+                    {cert.title}
+                  </Title>
+                }
                 subtitle={
                   <Text noMargin size={"12"}>
                     {new Date(cert.created_at).toLocaleDateString("pl-PL")}
