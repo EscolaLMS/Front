@@ -163,7 +163,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
-                      title={null}
                       id={Number(courses[0].id)}
                       tags={
                         <>
@@ -214,7 +213,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
-                      title={null}
                       id={Number(courses[1].id)}
                       tags={
                         <>
@@ -265,7 +263,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <div className="course-wrapper course-wrapper--small">
                   <CourseCardWrapper>
                     <CourseCard
-                      title={null}
                       id={Number(courses[2].id)}
                       tags={
                         <>
@@ -398,7 +395,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
                   <CourseCardWrapper>
                     <CourseCard
-                      title={null}
                       id={Number(courses[5].id)}
                       tags={
                         <>
@@ -449,7 +445,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                 <div className="course-wrapper course-wrapper--small course-wrapper--hidden-section">
                   <CourseCardWrapper>
                     <CourseCard
-                      title={null}
                       id={Number(courses[4].id)}
                       tags={
                         <>

@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import StyledLink from "@/components/StyledLink";
+import { Link } from "@escolalms/components";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -40,9 +40,9 @@ const StyledFooter = styled.footer`
   .single-link {
     text-decoration: none;
     transition: all 0.25s;
-    opacity: 0.5;
+    opacity: 1;
     &:hover {
-      opacity: 1;
+      opacity: 0.5;
     }
   }
 
@@ -100,7 +100,7 @@ const Footer = () => {
               {footerFromApi.map(
                 (link: Record<string, string | Record<string, string>>) => {
                   return (
-                    <StyledLink
+                    <Link
                       key={link.link.toString()}
                       className="single-link"
                       to={link.link}
@@ -108,36 +108,36 @@ const Footer = () => {
                       {typeof link.label === "object" && (
                         <Text size="14">{link.label[i18n.language]}</Text>
                       )}
-                    </StyledLink>
+                    </Link>
                   );
                 }
               )}
             </>
           ) : (
             <>
-              <StyledLink className="single-link" to="/">
+              <Link className="single-link" to="/">
                 <Text size="14">{t<string>("Footer.HomePage")}</Text>
-              </StyledLink>
-              <StyledLink className="single-link" to="/courses">
+              </Link>
+              <Link className="single-link" to="/courses">
                 <Text size="14">{t<string>("Footer.Courses")}</Text>
-              </StyledLink>
+              </Link>
               {user.value ? (
-                <StyledLink className="single-link" to="/user/my-profile">
+                <Link className="single-link" to="/user/my-profile">
                   <Text size="14">{t<string>("Footer.UserProfile")}</Text>
-                </StyledLink>
+                </Link>
               ) : (
                 <>
-                  <StyledLink className="single-link" to="/login">
+                  <Link className="single-link" to="/login">
                     <Text size="14">{t<string>("Header.Login")}</Text>
-                  </StyledLink>
-                  <StyledLink className="single-link" to="/register">
+                  </Link>
+                  <Link className="single-link" to="/register">
                     <Text size="14">{t<string>("Header.Register")}</Text>
-                  </StyledLink>
+                  </Link>
                 </>
               )}
-              <StyledLink className="single-link" to="/cart">
+              <Link className="single-link" to="/cart">
                 <Text size="14">{t<string>("Footer.Cart")}</Text>
-              </StyledLink>
+              </Link>
             </>
           )}
         </div>
@@ -147,9 +147,9 @@ const Footer = () => {
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
-                  <StyledLink className="single-link" to={`/${page.slug}`}>
+                  <Link className="single-link" to={`/${page.slug}`}>
                     <Text size="14">{page.title}</Text>
-                  </StyledLink>
+                  </Link>
                 </Col>
               ))}
             </Row>

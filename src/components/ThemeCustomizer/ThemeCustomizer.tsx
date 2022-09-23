@@ -1,7 +1,7 @@
 import { ThemeCustomizer as Wrapper } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
 import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
-import defaultTheme from "@escolalms/components/lib/theme/blue";
-import { useState } from "react";
+import defaultTheme from "@escolalms/components/lib/theme/contrast";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
@@ -57,6 +57,11 @@ export const ThemeCustomizer = () => {
   const { t } = useTranslation();
 
   const [hidden, setHidden] = useState(true);
+
+  useEffect(() => {
+    setTheme(defaultTheme);
+  }, [setTheme]);
+
   return (
     <StyledDiv>
       <button
