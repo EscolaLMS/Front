@@ -1,7 +1,7 @@
 import { ThemeCustomizer as Wrapper } from "@escolalms/components/lib/styleguide/ThemeCustomizer";
 import { useLocalTheme } from "@escolalms/components/lib/styleguide/useLocalTheme";
 import defaultTheme from "@escolalms/components/lib/theme/contrast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
@@ -53,14 +53,13 @@ const StyledDiv = styled.div`
 `;
 
 export const ThemeCustomizer = () => {
-  const [, setTheme] = useLocalTheme(defaultTheme);
+  const [theme, setTheme] = useLocalTheme({
+    ...defaultTheme,
+    theme: "contrastTheme",
+  });
   const { t } = useTranslation();
 
   const [hidden, setHidden] = useState(true);
-
-  useEffect(() => {
-    setTheme(defaultTheme);
-  }, [setTheme]);
 
   return (
     <StyledDiv>
@@ -84,6 +83,7 @@ export const ThemeCustomizer = () => {
         </svg>
       </button>
       <Wrapper
+        initialTheme={{ ...defaultTheme, theme: "contrastTheme" }}
         hasAll={false}
         hidden={hidden}
         onUpdate={(theme) => {
