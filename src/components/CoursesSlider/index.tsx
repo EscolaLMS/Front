@@ -144,9 +144,9 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                       ) : undefined
                     }
                     title={
-                      <Link to={`/courses/${courses[5].id}`} className="title">
+                      <Link to={`/courses/${item.id}`} className="title">
                         <Title level={4} as="h2">
-                          {courses[5].title}
+                          {item.title}
                         </Title>
                       </Link>
                     }
