@@ -53,7 +53,7 @@ const StyledDiv = styled.div`
 `;
 
 export const ThemeCustomizer = () => {
-  const [theme, setTheme] = useLocalTheme({
+  const [, setTheme] = useLocalTheme({
     ...defaultTheme,
     theme: "contrastTheme",
   });
