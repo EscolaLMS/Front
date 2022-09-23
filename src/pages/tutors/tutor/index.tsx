@@ -193,7 +193,11 @@ const TutorPage = () => {
                             ) : undefined
                           }
                           title={
-                            <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                            <Link to={`/courses/${item.id}`} className="title">
+                              <Title level={4} as="h2">
+                                {item.title}
+                              </Title>
+                            </Link>
                           }
                           categories={
                             <BreadCrumbs

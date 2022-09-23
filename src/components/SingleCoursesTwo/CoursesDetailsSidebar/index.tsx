@@ -62,7 +62,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   }, [progress]);
   return !isMobile ? (
     <PricingCard>
-      <Title level={4} as="h4">
+      <Title level={4} as="h2">
         {course.title}
       </Title>
       <div className="pricing-card-price">

@@ -154,7 +154,7 @@ const Index = () => {
         </section>
         <section className="home-best-courses">
           <Container>
-            <Title className="slider-title" level={3}>
+            <Title className="slider-title" level={3} as="h1">
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
             {courses && courses.list && (
@@ -167,7 +167,7 @@ const Index = () => {
         </section>
         <section className="home-newest-courses">
           <Container>
-            <Title className="slider-title" level={3}>
+            <Title className="slider-title" level={3} as="h1">
               <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
             </Title>
             {courses && courses.list && (

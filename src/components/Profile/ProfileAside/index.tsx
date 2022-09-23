@@ -225,7 +225,7 @@ const ProfileAside: React.FC = () => {
             ) : (
               <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
             )}
-            <Title className="name" level={4}>
+            <Title className="name" level={4} as="h3">
               {user.value?.first_name} {user.value?.last_name}
             </Title>
           </div>

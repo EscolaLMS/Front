@@ -149,7 +149,9 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
     <StyledSection>
       <Container className={"container"}>
         <div className="header-wrapper">
-          <Title level={3}>{t<string>("Homepage.AwardedCoursesTitle")}</Title>
+          <Title level={3} as="h1">
+            {t<string>("Homepage.AwardedCoursesTitle")}
+          </Title>
           <Button mode="outline" onClick={() => history.push("/courses")}>
             {t<string>("Homepage.AwardedCoursesBtnText")}
           </Button>
@@ -162,7 +164,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCardWrapper>
                     <CourseCard
                       id={Number(courses[0].id)}
-                      title=""
                       tags={
                         <>
                           {courses[0].tags?.map((item, index) => (
@@ -213,7 +214,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCardWrapper>
                     <CourseCard
                       id={Number(courses[1].id)}
-                      title=""
                       tags={
                         <>
                           {courses[1].tags?.map((item, index) => (
@@ -264,7 +264,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCardWrapper>
                     <CourseCard
                       id={Number(courses[2].id)}
-                      title=""
                       tags={
                         <>
                           {courses[2].tags?.map((item, index) => (
@@ -340,8 +339,10 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCard
                     id={Number(courses[5].id)}
                     title={
-                      <Link to={`/courses/${courses[5].id}`}>
-                        {courses[5].title}
+                      <Link to={`/courses/${courses[5].id}`} className="title">
+                        <Title level={4} as="h2">
+                          {courses[5].title}
+                        </Title>
                       </Link>
                     }
                     hideImage
@@ -395,7 +396,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCardWrapper>
                     <CourseCard
                       id={Number(courses[5].id)}
-                      title=""
                       tags={
                         <>
                           {courses[5].tags?.map((item, index) => (
@@ -446,7 +446,6 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                   <CourseCardWrapper>
                     <CourseCard
                       id={Number(courses[4].id)}
-                      title=""
                       tags={
                         <>
                           {courses[4].tags?.map((item, index) => (

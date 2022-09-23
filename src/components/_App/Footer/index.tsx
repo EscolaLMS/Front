@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -7,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Container, Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
+import { Link } from "@escolalms/components";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -40,9 +40,9 @@ const StyledFooter = styled.footer`
   .single-link {
     text-decoration: none;
     transition: all 0.25s;
-    opacity: 0.5;
+    opacity: 1;
     &:hover {
-      opacity: 1;
+      opacity: 0.5;
     }
   }
 
@@ -54,7 +54,6 @@ const StyledFooter = styled.footer`
     margin-top: 42px;
     p {
       margin: 0;
-      opacity: 0.5;
     }
     img {
       max-width: 100%;

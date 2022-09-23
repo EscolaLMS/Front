@@ -501,7 +501,10 @@ const CoursesCollection: React.FC = () => {
                           mobile={isMobile}
                           id={item.id}
                           image={
-                            <Link to={`/courses/${item.id}`}>
+                            <Link
+                              to={`/courses/${item.id}`}
+                              aria-label={item.title}
+                            >
                               {item.image_path ? (
                                 <ResponsiveImage
                                   path={item.image_path}
@@ -540,7 +543,11 @@ const CoursesCollection: React.FC = () => {
                             ) : undefined
                           }
                           title={
-                            <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                            <Link to={`/courses/${item.id}`} className="title">
+                              <Title level={4} as="h2">
+                                {item.title}
+                              </Title>
+                            </Link>
                           }
                           categories={
                             <BreadCrumbs

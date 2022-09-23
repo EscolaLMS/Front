@@ -435,7 +435,11 @@ const CoursePage = () => {
                       rating={{
                         ratingValue: 4.1,
                       }}
-                      title={t<string>("CoursePage.Teacher")}
+                      title={
+                        <Title as="h3" level={4} className="title">
+                          {t<string>("CoursePage.Teacher")}
+                        </Title>
+                      }
                       fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
                       coursesInfo={"8 Curses"}
                       description={course.value.author.bio}
@@ -474,7 +478,7 @@ const CoursePage = () => {
                     />
                   ) : (
                     <>
-                      <Title level={4}>
+                      <Title level={4} as="h2">
                         {t("CoursePage.CourseRatingsTitle")}
                       </Title>
                       <Text style={{ marginTop: 20 }}>
@@ -499,7 +503,9 @@ const CoursePage = () => {
             <Row>
               <Col lg={9}>
                 <div className="content-container">
-                  <Title level={4}>{t("CoursePage.RelatedCoursesTitle")}</Title>
+                  <Title level={4} as="h2">
+                    {t("CoursePage.RelatedCoursesTitle")}
+                  </Title>
                   {courses && courses.list && (
                     <CoursesSlider
                       courses={courses.list.data}
@@ -508,7 +514,9 @@ const CoursePage = () => {
                   )}
                 </div>
                 <div className="content-container">
-                  <Title level={4}>{t("CoursePage.InterestTitle")}</Title>
+                  <Title level={4} as="h2">
+                    {t("CoursePage.InterestTitle")}
+                  </Title>
                   {courses && courses.list && (
                     <CoursesSlider
                       courses={courses.list.data}

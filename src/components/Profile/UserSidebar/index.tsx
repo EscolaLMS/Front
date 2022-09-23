@@ -21,7 +21,7 @@ const StyledSidebar = styled.div`
 const UserSidebar: React.FC<Props> = ({ title, icon, children }) => {
   return (
     <StyledSidebar>
-      <IconTitle title={title} icon={icon} as={"h4"} level={4} />
+      <IconTitle title={title} icon={icon} as={"h2"} level={4} />
       {children}
     </StyledSidebar>
   );
