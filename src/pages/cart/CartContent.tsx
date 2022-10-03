@@ -338,7 +338,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                 </section>
               </Col>
               <Col lg={3}>
-                <Title style={{ marginBottom: 20 }} level={4}>
+                <Title style={{ marginBottom: 20 }} level={4} as="h3">
                   {t<string>("Cart.Summary")}
                 </Title>
                 <div className="summary-box-wrapper">
