@@ -74,7 +74,7 @@ const CourseProgram = () => {
   }
 
   if (program.error) {
-    return <ErrorBox error={program.error.message || program.error.error} />;
+    return <ErrorBox error={"No program"} />;
   }
 
   if (program.value && program?.value?.scorm_sco_id) {
