@@ -171,6 +171,7 @@ const resources = {
       CourseProgram: {
         TopicAttachment: "Topic attachments",
         ShowAgenda: "Show agenda",
+        NoProgram: "No program",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -514,6 +515,7 @@ const resources = {
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
         ShowAgenda: "Pokaż agendę",
+        NoProgram: "Lekcja nie istnieje",
       },
       CoursesPage: {
         Category: "Kategoria",

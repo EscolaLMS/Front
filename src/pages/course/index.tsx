@@ -7,6 +7,7 @@ import Layout from "@/components/_App/Layout";
 
 import CourseProgramLessons from "@/components/Course/CourseProgramLessons";
 import ErrorBox from "@/components/Errorbox";
+import { t } from "i18next";
 
 // TODO: 99% same as: src/pages/courses/preview/index.tsx
 
@@ -74,7 +75,7 @@ const CourseProgram = () => {
   }
 
   if (program.error) {
-    return <ErrorBox error={"No program"} />;
+    return <ErrorBox error={t("CourseProgram.NoProgram")} />;
   }
 
   if (program.value && program?.value?.scorm_sco_id) {
