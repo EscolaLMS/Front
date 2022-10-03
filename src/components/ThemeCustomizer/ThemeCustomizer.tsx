@@ -83,7 +83,6 @@ export const ThemeCustomizer = () => {
         </svg>
       </button>
       <Wrapper
-        initialTheme={{ ...defaultTheme, theme: "contrastTheme" }}
         hasAll={false}
         hidden={hidden}
         onUpdate={(theme) => {
