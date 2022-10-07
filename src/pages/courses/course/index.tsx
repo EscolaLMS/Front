@@ -268,11 +268,27 @@ const CoursePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   if (!course.value) {
-    return <Loader />;
+    return (
+      <Layout>
+        <StyledCoursePage>
+          <Container>
+            <Loader />
+          </Container>
+        </StyledCoursePage>
+      </Layout>
+    );
   }
 
   if (Number(course.value.id) !== Number(id) && course.loading) {
-    return <Loader />;
+    return (
+      <Layout>
+        <StyledCoursePage>
+          <Container>
+            <Loader />
+          </Container>
+        </StyledCoursePage>
+      </Layout>
+    );
   }
 
   if (course.error) {
