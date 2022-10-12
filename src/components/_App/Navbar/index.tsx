@@ -46,6 +46,7 @@ const StyledHeader = styled.header`
 
     img {
       width: 100%;
+      height: auto;
       transition: opacity 0.25s;
       &:hover {
         opacity: 0.55;
