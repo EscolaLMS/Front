@@ -28,16 +28,25 @@ const StyledHeader = styled.header`
   padding: ${isMobile ? "11px 0" : "22px 0"};
 
   .logo-container {
-    min-width: 150px;
-    max-width: 150px;
     margin-right: 30px;
 
+    &,
+    & img {
+      min-width: 150px;
+      max-width: 150px;
+    }
+
     @media (max-width: 1200px) {
-      min-width: 100px;
-      max-width: 100px;
+      &,
+      & img {
+        min-width: 100px;
+        max-width: 100px;
+      }
     }
 
     img {
+      width: 100%;
+      height: auto;
       transition: opacity 0.25s;
       &:hover {
         opacity: 0.55;
