@@ -32,14 +32,14 @@ const StyledHeader = styled.header`
 
     &,
     & img {
-      min-width: 150px;
+      width: 100%;
+      height: auto;
       max-width: 150px;
     }
 
     @media (max-width: 1200px) {
       &,
       & img {
-        min-width: 100px;
         max-width: 100px;
       }
     }
