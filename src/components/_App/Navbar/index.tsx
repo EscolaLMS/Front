@@ -35,6 +35,7 @@ const StyledHeader = styled.header`
       width: 100%;
       height: auto;
       max-width: 150px;
+      max-height: 37px;
     }
 
     @media (max-width: 1200px) {
