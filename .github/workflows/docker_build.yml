@@ -23,5 +23,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: escolalms/demo:${{github.ref_name}}, escolalms/demo:latest
           build-args: APP_VERSION=${{github.ref_name}}
