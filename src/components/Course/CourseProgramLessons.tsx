@@ -177,6 +177,7 @@ export const CourseProgramLessons: React.FC<{
                     }}
                   >
                     <CourseProgramContent
+                      key={topic.id}
                       lessonId={Number(lesson?.id)}
                       topicId={topic && Number(topic.id)}
                       setIsDisabledNextTopicButton={
