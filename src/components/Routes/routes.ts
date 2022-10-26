@@ -11,6 +11,8 @@ const routeRoutes = {
   myNotifications: "/user/my-notifications",
   myData: "/user/my-data",
   tutors: "/tutors",
+  consultations: "/consultations",
+  consultation: "/consultations/:id",
   tutor: "/tutors/:id",
   preview: "/courses/preview/:id/:lessonID?/:topicID?",
   cart: "/cart",

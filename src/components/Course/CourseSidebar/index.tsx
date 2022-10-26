@@ -106,6 +106,7 @@ export const CourseSidebar: React.FC<{
           finishedTopicIds={finishedTopics}
           onMarkFinished={() => onCompleteTopic()}
           onTopicClick={(topic) => {
+            console.log("topic", topic);
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
           }}

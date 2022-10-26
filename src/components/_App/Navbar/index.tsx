@@ -236,6 +236,16 @@ const Navbar = () => {
           ),
           key: "submenu-3",
         },
+        {
+          title: (
+            <Link to="/consultations">
+              <Text noMargin bold>
+                {t("Menu.Consultations")}
+              </Text>
+            </Link>
+          ),
+          key: "submenu-4",
+        },
       ],
     },
     {
@@ -354,6 +364,7 @@ const Navbar = () => {
                 { label: t("Menu.HomePage"), value: "/" },
                 { label: t("Menu.Courses"), value: "/courses" },
                 { label: t("Menu.Tutors"), value: "/tutors" },
+                { label: t("Menu.Consultations"), value: "/consultations" },
               ]}
             />
             <Dropdown
