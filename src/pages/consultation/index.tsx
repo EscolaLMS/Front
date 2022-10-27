@@ -1,4 +1,3 @@
-import Layout from "@/components/_App/Layout";
 import Consultation from "@/components/Consultation";
 
 const ConsultationPage = () => {

@@ -8,9 +8,11 @@ import { API } from "@escolalms/sdk/lib";
 import ConsultationCard from "@/components/ConsultationCard";
 import { Col, Row } from "react-grid-system";
 import Preloader from "@/components/Preloader";
+import { useTranslation } from "react-i18next";
 
 const ConsultationsCollection = () => {
   const { consultations } = useContext(ConsultationsContext);
+  const { t } = useTranslation();
 
   const consultationsCategories = consultations?.list?.data?.map((item) =>
     item?.categories
@@ -66,12 +68,12 @@ const ConsultationsCollection = () => {
   const consultationsTabs = {
     tabs: [
       {
-        label: "Według dziedzin",
+        label: t("ConsultationPage.ByFields"),
         key: 1,
         component: <ConsultationsLayoutSlider />,
       },
       {
-        label: "Alfabetycznie",
+        label: t("ConsultationPage.Alphabetically"),
         key: 2,
         component: <ConsultationsLayoutGrid />,
       },

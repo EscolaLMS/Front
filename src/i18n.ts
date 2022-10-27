@@ -184,6 +184,8 @@ const resources = {
         SidebarFeature1: "Meet one-on-one with your expert",
         SidebarFeature2: "Ask whatever you want",
         SidebarFeature3: "Another value from meeting",
+        ByFields: "By fields",
+        Alphabetically: "Alphabetically",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -550,6 +552,8 @@ const resources = {
         SidebarFeature1: "Spotkanie jeden na jeden",
         SidebarFeature2: "Zadaj pytania jakie chcesz",
         SidebarFeature3: "Kolejna wartość ze spotkania",
+        ByFields: "Według dziedzin",
+        Alphabetically: "Alfabetycznie",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",
