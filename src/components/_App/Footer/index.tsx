@@ -103,7 +103,7 @@ const Footer = () => {
                     <Link
                       key={link.link.toString()}
                       className="single-link"
-                      to={link.link}
+                      href={link.link}
                     >
                       {typeof link.label === "object" && (
                         <Text size="14">{link.label[i18n.language]}</Text>
@@ -115,27 +115,27 @@ const Footer = () => {
             </>
           ) : (
             <>
-              <Link className="single-link" to="/">
+              <Link className="single-link" href="/">
                 <Text size="14">{t<string>("Footer.HomePage")}</Text>
               </Link>
-              <Link className="single-link" to="/courses">
+              <Link className="single-link" href="/courses">
                 <Text size="14">{t<string>("Footer.Courses")}</Text>
               </Link>
               {user.value ? (
-                <Link className="single-link" to="/user/my-profile">
+                <Link className="single-link" href="/user/my-profile">
                   <Text size="14">{t<string>("Footer.UserProfile")}</Text>
                 </Link>
               ) : (
                 <>
-                  <Link className="single-link" to="/login">
+                  <Link className="single-link" href="/login">
                     <Text size="14">{t<string>("Header.Login")}</Text>
                   </Link>
-                  <Link className="single-link" to="/register">
+                  <Link className="single-link" href="/register">
                     <Text size="14">{t<string>("Header.Register")}</Text>
                   </Link>
                 </>
               )}
-              <Link className="single-link" to="/cart">
+              <Link className="single-link" href="/cart">
                 <Text size="14">{t<string>("Footer.Cart")}</Text>
               </Link>
             </>
@@ -147,7 +147,7 @@ const Footer = () => {
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
-                  <Link className="single-link" to={`/${page.slug}`}>
+                  <Link className="single-link" href={`/${page.slug}`}>
                     <Text size="14">{page.title}</Text>
                   </Link>
                 </Col>
