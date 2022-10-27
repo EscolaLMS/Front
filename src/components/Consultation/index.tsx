@@ -15,6 +15,7 @@ import {
   StyledRelatedConsultations,
 } from "@/components/Consultation/style";
 import ConsultationsSlider from "@/components/ConsultationsSlider";
+import Layout from "@/components/_App/Layout";
 
 const Consultation = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const Consultation = () => {
   }
 
   return (
-    <>
+    <Layout metaTitle={`${t("Consultation")} ${consultation.value?.name}`}>
       <Container>
         <Row>
           <Col xs={12}>
@@ -84,7 +85,7 @@ const Consultation = () => {
           ))}
         </Container>
       </StyledRelatedConsultations>
-    </>
+    </Layout>
   );
 };
 

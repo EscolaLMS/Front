@@ -3,7 +3,7 @@ import { isMobile } from "react-device-detect";
 
 export const StyledHeader = styled.div`
   background: ${({ theme }) => theme.primaryColor};
-  padding: ${isMobile ? "60px 20px 20px 20px" : "80px 40px 100px"};
+  padding: ${isMobile ? "60px 20px 90px 20px" : "80px 40px 100px"};
   position: relative;
 
   h1 {
@@ -17,6 +17,6 @@ export const StyledTabs = styled.div`
   z-index: 1;
 
   .tabs-menu {
-    margin-left: 40px;
+    margin-left: ${isMobile ? "20px" : "40px"};
   }
 `;

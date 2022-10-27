@@ -174,6 +174,7 @@ const resources = {
         ShowAgenda: "Show agenda",
         NoProgram: "No program",
       },
+      ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
         Book: "Book your consultation",
         SidebarHeader: "Online consultation with your expert",
@@ -539,6 +540,7 @@ const resources = {
         Courses: "Kursy",
         Search: "Szukaj kursów",
       },
+      ConsultationsPageMeta: "Konsultacje",
       ConsultationPage: {
         Book: "Umów spotkanie",
         SidebarHeader: "Konsultacja online z ekspertem",
