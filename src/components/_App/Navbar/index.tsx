@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -183,6 +183,7 @@ const CustomMobileMenuItem = styled.div``;
 
 const Navbar = () => {
   const { i18n, t } = useTranslation();
+  const i18nRef = useRef(i18n.language);
 
   const {
     user: userObj,
@@ -194,10 +195,38 @@ const Navbar = () => {
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
+
+  const currentLanguageObject = useMemo(
+    () =>
+      i18n.language === "pl"
+        ? { label: "Polski", value: "pl" }
+        : { label: "English", value: "en" },
+    [i18n.language]
+  );
+
   useEffect(() => {
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    const defaultLanguage = localStorage.getItem("defaultLanguage");
+
+    if (!defaultLanguage) {
+      const currentLanguage = currentLanguageObject;
+      localStorage.setItem("defaultLanguage", JSON.stringify(currentLanguage));
+    }
+
+    defaultLanguage && i18n.changeLanguage(JSON.parse(defaultLanguage).value);
+  }, []);
+
+  useEffect(() => {
+    if (i18nRef.current === currentLanguageObject.value) return;
+    i18nRef.current = currentLanguageObject.value;
+    const currentLanguage = currentLanguageObject;
+    localStorage.setItem("defaultLanguage", JSON.stringify(currentLanguage));
+  }, [currentLanguageObject]);
+
   const menuItems = [
     {
       title: (
