@@ -210,6 +210,7 @@ const Navbar = () => {
   }, [user]);
 
   useEffect(() => {
+    if (i18n.language !== i18nRef.current) return;
     const defaultLanguage = localStorage.getItem("defaultLanguage");
 
     if (!defaultLanguage) {
@@ -218,7 +219,7 @@ const Navbar = () => {
     }
 
     defaultLanguage && i18n.changeLanguage(JSON.parse(defaultLanguage).value);
-  }, []);
+  }, [i18n, currentLanguageObject]);
 
   useEffect(() => {
     if (i18nRef.current === currentLanguageObject.value) return;
