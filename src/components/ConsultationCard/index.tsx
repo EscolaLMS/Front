@@ -58,6 +58,7 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
           mode="secondary"
           onClick={() => history.push(`/consultations/${consultation.id}`)}
           block
+          disabled={consultation.is_ended}
         >
           {t("ConsultationPage.Book")}
         </Button>

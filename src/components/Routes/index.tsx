@@ -41,6 +41,9 @@ const MyOrdersPage = lazy(() => import("../../pages/user/my-orders"));
 const MyNotificationsPage = lazy(
   () => import("../../pages/user/my-notifications")
 );
+const MyConsultationsPage = lazy(
+  () => import("../../pages/user/my-consultations")
+);
 const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
 const CartPage = lazy(() => import("../../pages/cart/index"));
@@ -73,6 +76,7 @@ const Routes: React.FC = (): ReactElement => {
     // authentication,
     page,
     myProfile,
+    myConsultations,
     myOrders,
     tutors,
     tutor,
@@ -118,6 +122,11 @@ const Routes: React.FC = (): ReactElement => {
           <ConfigRouteExtend exact path={courses} component={CoursesPage} />
           {/* privates pages*/}
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
+          <PrivateRoute
+            exact
+            path={myConsultations}
+            component={MyConsultationsPage}
+          />
           <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
           <PrivateRoute
             exact

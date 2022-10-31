@@ -73,18 +73,20 @@ const Consultation = () => {
           )}
         </Row>
       </Container>
-      <StyledRelatedConsultations>
-        <Container>
-          {consultationCategories?.map((category) => (
-            <ConsultationsSlider
-              key={category}
-              category={category}
-              title={`${t("Inni specjaliści")} ${category}`}
-              consultations={consultations?.list?.data || []}
-            />
-          ))}
-        </Container>
-      </StyledRelatedConsultations>
+      {consultationCategories && consultationCategories.length > 0 && (
+        <StyledRelatedConsultations>
+          <Container>
+            {consultationCategories.map((category) => (
+              <ConsultationsSlider
+                key={category}
+                category={category}
+                title={`${t("Inni specjaliści")} ${category}`}
+                consultations={consultations?.list?.data || []}
+              />
+            ))}
+          </Container>
+        </StyledRelatedConsultations>
+      )}
     </Layout>
   );
 };

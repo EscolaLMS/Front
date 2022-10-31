@@ -7,6 +7,7 @@ const routeRoutes = {
   courses: "/courses",
   page: "/:slug",
   myProfile: "/user/my-profile",
+  myConsultations: "/user/my-consultations",
   myOrders: "/user/my-orders",
   myNotifications: "/user/my-notifications",
   myData: "/user/my-data",
