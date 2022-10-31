@@ -29,6 +29,8 @@ const TutorPage = lazy(() => import("../../pages/tutors/tutor/index"));
 const CoursesPage = lazy(() => import("../../pages/courses"));
 const CoursePage = lazy(() => import("../../pages/courses/course/index"));
 const CoursePreviewPage = lazy(() => import("../../pages/courses/preview"));
+const ConsultationPage = lazy(() => import("../../pages/consultation/index"));
+const ConsultationsPage = lazy(() => import("../../pages/consultations"));
 const ResetPage = lazy(() => import("../../pages/reset-password/index"));
 // const RegisterPage = lazy(() => import("../../pages/register"));
 // const LoginPage = lazy(() => import("../../pages/login"));
@@ -38,6 +40,9 @@ const MyProfilePage = lazy(() => import("../../pages/user/MyProfile"));
 const MyOrdersPage = lazy(() => import("../../pages/user/my-orders"));
 const MyNotificationsPage = lazy(
   () => import("../../pages/user/my-notifications")
+);
+const MyConsultationsPage = lazy(
+  () => import("../../pages/user/my-consultations")
 );
 const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
@@ -71,6 +76,7 @@ const Routes: React.FC = (): ReactElement => {
     // authentication,
     page,
     myProfile,
+    myConsultations,
     myOrders,
     tutors,
     tutor,
@@ -78,6 +84,8 @@ const Routes: React.FC = (): ReactElement => {
     course,
     preview,
     courseProgram,
+    consultation,
+    consultations,
     cart,
     reset,
     notFound,
@@ -102,12 +110,23 @@ const Routes: React.FC = (): ReactElement => {
           {/* <Route exact path={authentication} component={AuthPage} /> */}
           {/* platform visibility pages*/}
           <ConfigRoute exact path={tutors} component={TutorsPage} />
+          <ConfigRoute
+            exact
+            path={consultations}
+            component={ConsultationsPage}
+          />
+          <ConfigRoute exact path={consultation} component={ConsultationPage} />
           <ConfigRoute exact path={tutor} component={TutorPage} />
           <ConfigRoute exact path={course} component={CoursePage} />
           <ConfigRoute exact path={preview} component={CoursePreviewPage} />
           <ConfigRouteExtend exact path={courses} component={CoursesPage} />
           {/* privates pages*/}
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
+          <PrivateRoute
+            exact
+            path={myConsultations}
+            component={MyConsultationsPage}
+          />
           <PrivateRoute exact path={myOrders} component={MyOrdersPage} />
           <PrivateRoute
             exact
