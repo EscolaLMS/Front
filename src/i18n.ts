@@ -234,6 +234,8 @@ const resources = {
       },
       MyProfilePage: {
         Avatar: "Select file to replace Avatar",
+        Archived: "Archived",
+        Upcoming: "Upcoming",
         InvoiceTitle: "Invoice for order no",
         Invoice: "Invoice",
         OrdersEmpty: "You have not placed any orders yet",
@@ -254,6 +256,7 @@ const resources = {
         RateCourse: "Rate this course",
         ShowMore: "Show more",
         MyCertificates: "My certificates",
+        MyConsultations: "My consultations",
         ALlCourses: "All courses",
         InProgress: "In progress",
         Planned: "Planned",
@@ -608,6 +611,8 @@ const resources = {
       MyProfilePage: {
         InvoiceTitle: "Faktura za zamówienie nr",
         Invoice: "Rachunek",
+        Archived: "Archiwalne",
+        Upcoming: "Nadchodzące",
         OrdersEmpty: "Nie złożyłeś jeszcze żadnych zamówień",
         MyCourses: "Moje szkolenia",
         OrdersHistory: "Historia zakupów",
@@ -626,6 +631,7 @@ const resources = {
         RateCourse: "Oceń kurs",
         ShowMore: "Pokaż więcej",
         MyCertificates: "Moje certyfikaty",
+        MyConsultations: "Moje konsultacje",
         ALlCourses: "Wszystkie kursy",
         InProgress: "W trakcie",
         Planned: "Zaplanowane",
