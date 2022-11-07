@@ -15,6 +15,17 @@ import { H5Player } from "@escolalms/components/lib/components/players/H5Player/
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
+import styled from "styled-components";
+
+const StyledPdfPlayer = styled(PdfPlayer)`
+  .course-pdf-player {
+    .react-pdf__Page__svg,
+    svg {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+`;
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
@@ -166,7 +177,15 @@ export const CourseProgramContent: React.FC<{
         );
 
       case TopicType.Pdf:
-        return <PdfPlayer url={topic.topicable.url} />;
+        return (
+          <StyledPdfPlayer
+            url={topic.topicable.url}
+            pageConfig={{
+              renderMode: "svg",
+              className: "course-pdf-player",
+            }}
+          />
+        );
 
       case TopicType.Scorm:
         return <ScormPlayer value={topic} />;
