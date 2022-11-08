@@ -47,8 +47,7 @@ export const CourseSidebar: React.FC<{
   lessonId: number;
   topicId: number;
 }> = ({ course, lessonId, topicId }) => {
-  const { setIsDisabledNextTopicButton, sendProgress } =
-    useLessonProgram(course);
+  const { disableNextTopicButton, sendProgress } = useLessonProgram(course);
   const history = useHistory();
   const [agendaVisible, setAgendaVisible] = useState(false);
   const program = (course?.lessons || []).filter(
@@ -63,12 +62,12 @@ export const CourseSidebar: React.FC<{
     .map((item: API.Topic) => item.id);
 
   const onCompleteTopic = useCallback((): void => {
-    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
+    disableNextTopicButton && disableNextTopicButton(false);
     if (course?.id) {
       sendProgress(course?.id, [{ topic_id: Number(topicId), status: 1 }]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [program, topicId, setIsDisabledNextTopicButton, sendProgress]);
+  }, [program, topicId, disableNextTopicButton, sendProgress]);
   if (!course && !program) {
     return <React.Fragment />;
   }

@@ -48,8 +48,8 @@ export const CourseProgramLessons: React.FC<{
     onNextTopic,
     onPrevTopic,
     getNextPrevTopic,
-    isDisabledNextTopicButton,
-    setIsDisabledNextTopicButton,
+    isNextTopicButtonDisabled,
+    disableNextTopicButton,
     sendProgress,
     progress,
   } = useLessonProgram(program);
@@ -72,11 +72,10 @@ export const CourseProgramLessons: React.FC<{
   }, [progress, courseId]);
 
   const onCompleteTopic = useCallback((): void => {
-    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
     if (program?.id) {
       sendProgress(program?.id, [{ topic_id: Number(topicID), status: 1 }]);
     }
-  }, [program, topicID, setIsDisabledNextTopicButton, sendProgress]);
+  }, [program, topicID, sendProgress]);
 
   const topicBreakPoint = useMemo(() => {
     const currentProgress =
@@ -138,10 +137,10 @@ export const CourseProgramLessons: React.FC<{
   }, [lesson?.id, topic?.id]);
 
   useEffect(() => {
-    // if last topic send progress
-
-    if (!getNextPrevTopic(Number(topic?.id))) {
+    if (getNextPrevTopic(Number(topic?.id)) === null) {
+      disableNextTopicButton(true);
       sendProgress(program.id, [{ topic_id: Number(topic?.id), status: 1 }]);
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topic?.id, program]);
@@ -176,13 +175,15 @@ export const CourseProgramLessons: React.FC<{
                       ...((topic?.json?.wrapperStyle as object) || {}),
                     }}
                   >
+                    {getNextPrevTopic(Number(topic?.id)) ? "true" : "false"}
                     <CourseProgramContent
                       key={topic.id}
                       lessonId={Number(lesson?.id)}
                       topicId={topic && Number(topic.id)}
-                      setIsDisabledNextTopicButton={
-                        setIsDisabledNextTopicButton
-                      }
+                      disableNextTopicButton={disableNextTopicButton}
+                      isThereAnotherTopic={Boolean(
+                        getNextPrevTopic(Number(topic?.id))
+                      )}
                     />
                   </div>
                 </div>
@@ -236,7 +237,7 @@ export const CourseProgramLessons: React.FC<{
               hasPrev={
                 getNextPrevTopic(Number(topic?.id), false) ? true : false
               }
-              hasNext={!isDisabledNextTopicButton}
+              hasNext={!isNextTopicButtonDisabled}
             />
           </Container>
         </div>
