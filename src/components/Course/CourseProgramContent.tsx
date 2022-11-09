@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useMemo, useCallback } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import {
-  TopicType,
-  completed,
-  noCompletedEventsIds,
-} from "@escolalms/sdk/lib/services/courses";
+import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
 import { API } from "@escolalms/sdk/lib";
@@ -29,18 +25,20 @@ const StyledPdfPlayer = styled(PdfPlayer)`
 
 export const CourseProgramContent: React.FC<{
   lessonId: number;
+  isThereAnotherTopic?: boolean;
   topicId?: number;
   preview?: boolean;
   customNoCompletedEventsIds?: string[];
-  setIsDisabledNextTopicButton?: (b: boolean) => void;
+  disableNextTopicButton?: (b: boolean) => void;
 }> = ({
   lessonId,
   topicId,
   preview = false,
-  setIsDisabledNextTopicButton,
+  disableNextTopicButton,
   customNoCompletedEventsIds = [
     "http://h5p.org/libraries/H5P.GuessTheAnswer-1.5",
   ],
+  isThereAnotherTopic = true,
 }) => {
   const {
     program,
@@ -56,47 +54,22 @@ export const CourseProgramContent: React.FC<{
       ?.find((lesson: API.Lesson) => lesson.id === lessonId)
       ?.topics?.find((topic: API.Topic) => topic.id === topicId);
   }, [program, lessonId, topicId]);
-  useEffect(() => {
-    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
 
-    if (
-      topic?.topicable_type === TopicType.Video ||
-      topic?.topicable_type === TopicType.Audio
-    ) {
-      setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);
-    }
-  }, [
-    topicId,
-    lessonId,
-    program,
-    topic?.topicable_type,
-    setIsDisabledNextTopicButton,
-  ]);
   const onCompleteTopic = useCallback((): void => {
-    setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
     if (program?.value?.id) {
       sendProgress(program?.value?.id, [
         { topic_id: Number(topicId), status: 1 },
       ]);
     }
-  }, [program, topicId, setIsDisabledNextTopicButton, sendProgress]);
+  }, [program, topicId, sendProgress]);
 
   const onXAPI = useCallback(
     (event: XAPIEvent): void => {
-      setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(true);
+      isThereAnotherTopic &&
+        disableNextTopicButton &&
+        disableNextTopicButton(!Boolean(event?.statement?.verb?.id));
 
       if (event?.statement) {
-        if (
-          (event?.statement?.verb?.id &&
-            completed.includes(event?.statement?.verb?.id as API.IEvent)) ||
-          [...noCompletedEventsIds, ...customNoCompletedEventsIds].includes(
-            event?.statement?.context?.contextActivities?.category &&
-              event?.statement?.context?.contextActivities?.category[0]?.id
-          )
-        ) {
-          setIsDisabledNextTopicButton && setIsDisabledNextTopicButton(false);
-        }
-
         h5pProgress(
           String(program?.value?.id),
           Number(topicId),
@@ -109,10 +82,17 @@ export const CourseProgramContent: React.FC<{
       program,
       topicId,
       h5pProgress,
-      setIsDisabledNextTopicButton,
+      disableNextTopicButton,
       customNoCompletedEventsIds,
     ]
   );
+
+  useEffect(() => {
+    isThereAnotherTopic &&
+      disableNextTopicButton &&
+      disableNextTopicButton(!Boolean(topic?.can_skip));
+  }, [disableNextTopicButton, topic, isThereAnotherTopic]);
+
   useEffect(() => {
     if (!preview) {
       const ping = () =>

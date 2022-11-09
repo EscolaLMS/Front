@@ -9,8 +9,7 @@ export function useLessonProgram(
 ) {
   const { sendProgress, getNextPrevTopic, progress } =
     useContext(EscolaLMSContext);
-  const [isDisabledNextTopicButton, setIsDisabledNextTopicButton] =
-    useState(false);
+  const [isNextTopicButtonDisabled, disableNextTopicButton] = useState(false);
   const { lessonID, topicID } =
     useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
@@ -86,8 +85,8 @@ export function useLessonProgram(
     onNextTopic,
     onPrevTopic,
     getNextPrevTopic,
-    isDisabledNextTopicButton,
-    setIsDisabledNextTopicButton,
+    isNextTopicButtonDisabled,
+    disableNextTopicButton,
     onNextTopicPreview,
     sendProgress,
     progress,
