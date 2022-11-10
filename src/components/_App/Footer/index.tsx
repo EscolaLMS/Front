@@ -147,7 +147,7 @@ const Footer = () => {
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
-                  <Link className="single-link" href={`/${page.slug}`}>
+                  <Link className="single-link" href={`/#/${page.slug}`}>
                     <Text size="14">{page.title}</Text>
                   </Link>
                 </Col>
