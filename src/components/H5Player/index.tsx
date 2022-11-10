@@ -1,15 +1,19 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from "react";
 
-import { Player, XAPIEvent } from '@escolalms/h5p-react';
+import { Player, XAPIEvent } from "@escolalms/h5p-react";
 
-import { EscolaLMSContext } from '@escolalms/sdk/lib/react';
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
-const H5Player: React.FC<{ id: string; onXAPI?: (e: XAPIEvent) => void }> = ({ id, onXAPI }) => {
+const H5Player: React.FC<{ id: string; onXAPI?: (e: XAPIEvent) => void }> = ({
+  id,
+  onXAPI,
+}) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchH5P(id);
   }, [id, fetchH5P]);
+
 
   return (
     <React.Fragment>
