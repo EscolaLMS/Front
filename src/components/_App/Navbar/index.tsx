@@ -442,12 +442,14 @@ const Navbar = () => {
           </nav>
 
           {!!user?.avatar && (
-            <Avatar
-              src={user.avatar}
-              alt={user.first_name}
-              size={"small"}
-              className="user-avatar"
-            />
+            <Link to="/user/my-profile">
+              <Avatar
+                src={user.avatar}
+                alt={user.first_name}
+                size={"small"}
+                className="user-avatar"
+              />
+            </Link>
           )}
 
           {!user?.id && (
