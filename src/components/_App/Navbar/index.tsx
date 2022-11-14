@@ -63,7 +63,7 @@ const StyledHeader = styled.header`
     .search-container {
       min-width: 250px;
       @media (max-width: 1200px) {
-        min-width: 250px;
+        min-width: 180px;
       }
       @media (max-width: 991px) {
         min-width: 200px;
@@ -91,6 +91,10 @@ const StyledHeader = styled.header`
         column-gap: 30px;
       }
     }
+  }
+  .logo {
+    width: auto;
+    height: 37px;
   }
   .user-container {
     display: flex;
@@ -373,11 +377,13 @@ const Navbar = () => {
           width: "100%",
         }}
       >
-        <div className="logo-container">
-          <Link to="/" aria-label={t("Go to the main page")}>
-            <img src={settings?.value?.global?.logo || Logo} alt="Logo" />
-          </Link>
-        </div>
+        <Link to="/" aria-label={t("Go to the main page")}>
+          <img
+            src={settings?.value?.global?.logo || Logo}
+            alt="Logo"
+            className="logo"
+          />
+        </Link>
         <div className="menu-container">
           <div className="search-container">
             <SearchCourses
@@ -428,38 +434,6 @@ const Navbar = () => {
             )}
           </nav>
 
-          {user?.id ? (
-            <div className="user-container">
-              <Link to="/user/my-profile" className="user-details">
-                <Text className="name">
-                  <strong>
-                    {user?.first_name} {user?.last_name}
-                  </strong>
-                </Text>
-                {user?.avatar ? (
-                  <Avatar
-                    src={user.avatar}
-                    alt={user.first_name}
-                    size={"small"}
-                  />
-                ) : (
-                  <Link to="/user/my-data">
-                    <HeaderUser mode={theme.mode} />
-                  </Link>
-                )}
-              </Link>
-            </div>
-          ) : (
-            <div className="not-logged-container">
-              <Link to="/login">
-                <Text>{t<string>("Header.Login")}</Text>
-              </Link>
-              <div className="divider" />
-              <Link to="/register">
-                <Text>{t<string>("Header.Register")}</Text>
-              </Link>
-            </div>
-          )}
           {user && (
             <div className="icons-container">
               <button
