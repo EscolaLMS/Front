@@ -74,7 +74,7 @@ const StyledHeader = styled.header`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin: 0 85px 0 80px;
+      margin: 0 24px;
       column-gap: 20px;
       .Dropdown-root {
         min-width: 105px;
@@ -180,6 +180,9 @@ const StyledHeader = styled.header`
         }
       }
     }
+  }
+  .user-avatar {
+    margin-right: 16px;
   }
 `;
 
@@ -414,7 +417,11 @@ const Navbar = () => {
             />
             {user?.id && (
               <Dropdown
-                placeholder={t("Menu.Profile")}
+                placeholder={
+                  user?.first_name && user?.last_name
+                    ? `${user?.first_name} ${user?.last_name}`
+                    : t("Menu.Profile")
+                }
                 options={[
                   { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
                   { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
@@ -433,6 +440,27 @@ const Navbar = () => {
               />
             )}
           </nav>
+
+          {!!user?.avatar && (
+            <Avatar
+              src={user.avatar}
+              alt={user.first_name}
+              size={"small"}
+              className="user-avatar"
+            />
+          )}
+
+          {!user?.id && (
+            <div className="not-logged-container">
+              <Link to="/login">
+                <Text>{t<string>("Header.Login")}</Text>
+              </Link>
+              <div className="divider" />
+              <Link to="/register">
+                <Text>{t<string>("Header.Register")}</Text>
+              </Link>
+            </div>
+          )}
 
           {user && (
             <div className="icons-container">
