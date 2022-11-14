@@ -63,7 +63,7 @@ const StyledHeader = styled.header`
     .search-container {
       min-width: 250px;
       @media (max-width: 1200px) {
-        min-width: 250px;
+        min-width: 180px;
       }
       @media (max-width: 991px) {
         min-width: 200px;
@@ -74,7 +74,7 @@ const StyledHeader = styled.header`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin: 0 85px 0 80px;
+      margin: 0 24px;
       column-gap: 20px;
       .Dropdown-root {
         min-width: 105px;
@@ -91,6 +91,10 @@ const StyledHeader = styled.header`
         column-gap: 30px;
       }
     }
+  }
+  .logo {
+    width: auto;
+    height: 37px;
   }
   .user-container {
     display: flex;
@@ -176,6 +180,9 @@ const StyledHeader = styled.header`
         }
       }
     }
+  }
+  .user-avatar {
+    margin-right: 16px;
   }
 `;
 
@@ -373,11 +380,13 @@ const Navbar = () => {
           width: "100%",
         }}
       >
-        <div className="logo-container">
-          <Link to="/" aria-label={t("Go to the main page")}>
-            <img src={settings?.value?.global?.logo || Logo} alt="Logo" />
-          </Link>
-        </div>
+        <Link to="/" aria-label={t("Go to the main page")}>
+          <img
+            src={settings?.value?.global?.logo || Logo}
+            alt="Logo"
+            className="logo"
+          />
+        </Link>
         <div className="menu-container">
           <div className="search-container">
             <SearchCourses
@@ -408,7 +417,11 @@ const Navbar = () => {
             />
             {user?.id && (
               <Dropdown
-                placeholder={t("Menu.Profile")}
+                placeholder={
+                  user?.first_name && user?.last_name
+                    ? `${user?.first_name} ${user?.last_name}`
+                    : t("Menu.Profile")
+                }
                 options={[
                   { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
                   { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
@@ -428,28 +441,18 @@ const Navbar = () => {
             )}
           </nav>
 
-          {user?.id ? (
-            <div className="user-container">
-              <Link to="/user/my-profile" className="user-details">
-                <Text className="name">
-                  <strong>
-                    {user?.first_name} {user?.last_name}
-                  </strong>
-                </Text>
-                {user?.avatar ? (
-                  <Avatar
-                    src={user.avatar}
-                    alt={user.first_name}
-                    size={"small"}
-                  />
-                ) : (
-                  <Link to="/user/my-data">
-                    <HeaderUser mode={theme.mode} />
-                  </Link>
-                )}
-              </Link>
-            </div>
-          ) : (
+          {!!user?.avatar && (
+            <Link to="/user/my-profile">
+              <Avatar
+                src={user.avatar}
+                alt={user.first_name}
+                size={"small"}
+                className="user-avatar"
+              />
+            </Link>
+          )}
+
+          {!user?.id && (
             <div className="not-logged-container">
               <Link to="/login">
                 <Text>{t<string>("Header.Login")}</Text>
@@ -460,6 +463,7 @@ const Navbar = () => {
               </Link>
             </div>
           )}
+
           {user && (
             <div className="icons-container">
               <button
