@@ -175,6 +175,7 @@ export const CourseProgramLessons: React.FC<{
                       ...((topic?.json?.wrapperStyle as object) || {}),
                     }}
                   >
+                    {getNextPrevTopic(Number(topic?.id)) ? "true" : "false"}
                     <CourseProgramContent
                       key={topic.id}
                       lessonId={Number(lesson?.id)}
