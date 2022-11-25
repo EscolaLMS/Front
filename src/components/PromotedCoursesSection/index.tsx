@@ -114,9 +114,9 @@ const StyledSection = styled.section`
   .course-wrapper {
     background-color: ${({ theme }) =>
       theme.theme === "orangeTheme" && theme.mode === "dark"
-        ? theme.backgroundDark
+        ? theme.dm__background
         : theme.theme === "orangeTheme" && theme.mode === "light"
-        ? theme.backgroundLight
+        ? theme.background
         : "transparent"};
     padding: ${({ theme }) =>
       theme.theme === "orangeTheme" ? "12px 10px 1px 10px" : 0};
