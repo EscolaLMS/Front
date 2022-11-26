@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 
 const StyledMain = styled.main`
   background-color: ${({ theme }) =>
-    theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+    theme.mode === "dark" ? theme.dm__background : theme.background};
   padding-top: ${isMobile ? "92px" : "167px"};
 `;
 const App = () => {

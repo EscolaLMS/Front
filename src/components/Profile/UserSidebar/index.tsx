@@ -13,8 +13,8 @@ const StyledSidebar = styled.div`
   padding: ${isMobile ? "20px" : "40px"};
   background: ${({ theme }) =>
     theme.mode === "dark"
-      ? theme.cardBackgroundColorLight
-      : theme.cardBackgroundColorDark};
+      ? theme.dm__cardBackgroundColor
+      : theme.cardBackgroundColor};
   border-radius: ${({ theme }) => theme.cardRadius}px;
 `;
 

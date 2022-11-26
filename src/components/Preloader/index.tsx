@@ -13,7 +13,7 @@ const StyledLoader = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) =>
-    theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+    theme.mode === "dark" ? theme.dm__background : theme.background};
 `;
 
 const Preloader = () => {

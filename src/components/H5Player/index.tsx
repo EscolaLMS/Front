@@ -14,7 +14,6 @@ const H5Player: React.FC<{ id: string; onXAPI?: (e: XAPIEvent) => void }> = ({
     fetchH5P(id);
   }, [id, fetchH5P]);
 
-
   return (
     <React.Fragment>
       {h5p.value && (

@@ -28,7 +28,7 @@ const StyledSidebar = styled.aside`
       padding: 40px 0 55px;
       z-index: 10;
       background-color: ${({ theme }) =>
-        theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+        theme.mode === "dark" ? theme.dm__background : theme.background};
 
       &--visible {
         transform: translate(0, 0);

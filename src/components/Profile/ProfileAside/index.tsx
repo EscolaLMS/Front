@@ -37,7 +37,7 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       ? "translate(0, 91%)"
       : "translate(0, 0)"};
   background: ${({ theme }) =>
-    theme.mode === "dark" ? theme.backgroundDark : theme.backgroundLight};
+    theme.mode === "dark" ? theme.dm__background : theme.background};
   .user-main-sidebar {
     margin-bottom: ${isMobile ? "70px" : "22px"};
     .avatar-wrapper {
