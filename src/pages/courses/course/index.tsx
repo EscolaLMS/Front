@@ -209,6 +209,10 @@ const ModalOverwriteGlobal = createGlobalStyle`
   }
 `;
 
+const API_URL =
+  window.REACT_APP_API_URL ||
+  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
+
 const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
     undefined
@@ -440,13 +444,8 @@ const CoursePage = () => {
                       avatar={{
                         alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
                         src:
-                          `${
-                            process &&
-                            process.env &&
-                            process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${
-                            course.value.author.path_avatar
-                          }` || "",
+                          `${API_URL}/api/images/img?path=${course.value.author.path_avatar}` ||
+                          "",
                       }}
                       rating={{
                         ratingValue: 4.1,
