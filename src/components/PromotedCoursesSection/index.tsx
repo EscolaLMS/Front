@@ -14,8 +14,9 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import CourseCardWrapper from "../CourseCardWrapper";
-import { Container, Row, Col } from "react-grid-system";
+import { Row, Col } from "react-grid-system";
 import Placeholder from "../../images/placeholder-course.jpeg";
+import Container from "../Container";
 
 type Props = {
   courses: API.Course[];

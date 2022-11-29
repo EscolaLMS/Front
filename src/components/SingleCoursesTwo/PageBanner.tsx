@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container } from "react-grid-system";
+import Container from "../Container";
 
 const PageBanner: React.FC<{
   pageTitle: string;

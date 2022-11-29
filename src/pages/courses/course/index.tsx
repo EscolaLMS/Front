@@ -25,7 +25,8 @@ import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 resetIdCounter();
 

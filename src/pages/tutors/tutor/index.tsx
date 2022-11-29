@@ -22,7 +22,8 @@ import {
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 const StyledTutor = styled.section`
   .tutor-courses {

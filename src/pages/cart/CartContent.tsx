@@ -26,7 +26,8 @@ import {
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Placeholder from "../../images/image.svg";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
