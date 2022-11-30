@@ -60,6 +60,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress]);
+
   return !isMobile ? (
     <PricingCard>
       <Title level={4} as="h2">
@@ -168,8 +169,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         <CourseProgress
           progress={
             currentCourse && currentCourse?.length > 0
-              ? (currentCourse[0].progress.length * (progressMap || 0 / 10)) /
-                1000
+              ? progressMap / currentCourse[0].progress.length
               : 0
           }
           icon={<IconWin />}
