@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Button, Text, Title } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
-import { Container } from "react-grid-system";
+import Container from "@/components/Container";
 
 const Styled404 = styled.div`
   height: 100vh;

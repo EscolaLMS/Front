@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { ReactNode, useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 type Props = {
   children: ReactNode;

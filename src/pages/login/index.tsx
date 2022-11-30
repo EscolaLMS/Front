@@ -9,7 +9,8 @@ import { LoginForm, ResetPasswordForm } from "@escolalms/components";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 const StyledLoginPage = styled.div`
   min-height: calc(100vh - 583px);

@@ -12,7 +12,7 @@ import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory } from "react-router-dom";
-import { Container } from "react-grid-system";
+import Container from "@/components/Container";
 
 const HomePageStyled = styled.div`
   display: flex;

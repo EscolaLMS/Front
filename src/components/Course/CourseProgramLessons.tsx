@@ -14,7 +14,8 @@ import { isMobile } from "react-device-detect";
 import CourseDownloads from "./CourseDownloads";
 import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../Breadcrumbs";
-import { Col, Row, Container } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "../Container";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
