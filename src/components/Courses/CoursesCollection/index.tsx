@@ -502,7 +502,7 @@ const CoursesCollection: React.FC = () => {
                           id={item.id}
                           image={
                             <Link
-                              to={`/courses/${item.id}`}
+                              to={`/course/${item.id}`}
                               aria-label={item.title}
                             >
                               {item.image_path ? (
@@ -535,7 +535,7 @@ const CoursesCollection: React.FC = () => {
                               <Text size="12">
                                 <Link
                                   style={{ color: theme.primaryColor }}
-                                  to={`/courses/${item.id}`}
+                                  to={`/course/${item.id}`}
                                 >
                                   <strong>{item.subtitle}</strong>
                                 </Link>
@@ -543,7 +543,7 @@ const CoursesCollection: React.FC = () => {
                             ) : undefined
                           }
                           title={
-                            <Link to={`/courses/${item.id}`} className="title">
+                            <Link to={`/course/${item.id}`} className="title">
                               <Title level={4} as="h2">
                                 {item.title}
                               </Title>
@@ -567,7 +567,7 @@ const CoursesCollection: React.FC = () => {
                               <Button
                                 mode="secondary"
                                 onClick={() =>
-                                  history.push(`/courses/${item.id}`)
+                                  history.push(`/course/${item.id}`)
                                 }
                               >
                                 {t<string>("Start now")}
