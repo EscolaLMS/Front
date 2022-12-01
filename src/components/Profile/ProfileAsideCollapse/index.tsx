@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+import { Theme } from "react-toastify";
 import styled from "styled-components";
 
 interface Props {
@@ -13,7 +14,7 @@ const StyledCollapse = styled.div<{ isOpen: boolean }>`
   max-height: 5000px;
   ${({ isOpen }) =>
     !isOpen
-      ? "max-height: 20px; overflow: hidden; transition: max-height 1s cubic-bezier(0, 1, 0, 1);"
+      ? "max-height: 1.2em; overflow: hidden; transition: max-height 1s cubic-bezier(0, 1, 0, 1);"
       : ""};
 
   .collapse-header {
@@ -27,10 +28,14 @@ const StyledCollapse = styled.div<{ isOpen: boolean }>`
     &__heading {
         text-overflow: ellipsis;
         overflow: hidden;
+        color: ${({ theme }) =>
+          theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
     }
 
-
     &__icon {
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
+        opacity: 0.6;
         width: 12px;
         margin-top: 3.5px;
         transition: rotate 0.2s ease-in-out;
@@ -38,7 +43,7 @@ const StyledCollapse = styled.div<{ isOpen: boolean }>`
 
         &:hover {
             svg {
-                opacity: 0.6;
+                opacity: 1;
             }
         }
     }

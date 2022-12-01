@@ -146,7 +146,9 @@ const SingleProgress = styled.div`
     }
 
     &__time {
-      color: rgb(0 0 0 /0.6);
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
+      opacity: 0.6;
       margin: 0;
       display: flex;
       align-items: center;
@@ -158,7 +160,9 @@ const SingleProgress = styled.div`
       svg {
         width: 12px;
         height: auto;
-        fill: rgb(0 0 0 /0.6);
+        fill: ${({ theme }) =>
+          theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
+        opacity: 0.6;
       }
     }
 
