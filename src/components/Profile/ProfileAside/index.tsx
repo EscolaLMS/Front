@@ -330,28 +330,29 @@ const ProfileAside: React.FC = () => {
                       headerTitle={finishedCourse.course.title}
                       headerClassName="list-box-item__title"
                     >
-                      <p className="list-box-item__time">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z" />
-                        </svg>
-                        {finishedCourse.start_date &&
-                          finishedCourse.finish_date && (
-                            <span className="list-box-item__value">
-                              {new Date(
-                                finishedCourse.start_date
-                              ).toLocaleDateString()}
-                              {" - "}
-                              {new Date(
-                                finishedCourse.finish_date
-                              ).toLocaleDateString()}
-                            </span>
-                          )}
-                      </p>
+                      {finishedCourse.start_date && finishedCourse.finish_date && (
+                        <p className="list-box-item__time">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z" />
+                          </svg>
+
+                          <span className="list-box-item__value">
+                            {new Date(
+                              finishedCourse.start_date
+                            ).toLocaleDateString()}
+                            {" - "}
+                            {new Date(
+                              finishedCourse.finish_date
+                            ).toLocaleDateString()}
+                          </span>
+                        </p>
+                      )}
+
                       <p className="list-box-item__time">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
