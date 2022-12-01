@@ -22,16 +22,17 @@ const StyledCollapse = styled.div<{ isOpen: boolean }>`
     justify-content: space-between;
     align-items: start;
     gap: 6px;
+    cursor: pointer;
 
     &__heading {
         text-overflow: ellipsis;
         overflow: hidden;
-        cursor: pointer;
     }
 
 
     &__icon {
         width: 12px;
+        margin-top: 3.5px;
         transition: rotate 0.2s ease-in-out;
         rotate: ${({ isOpen }) => (isOpen ? "180deg" : "0")};
 
