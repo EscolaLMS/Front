@@ -502,7 +502,7 @@ const CoursesCollection: React.FC = () => {
                           id={item.id}
                           image={
                             <Link
-                              to={`/course/${item.id}`}
+                              to={`/courses/${item.id}`}
                               aria-label={item.title}
                             >
                               {item.image_path ? (
@@ -535,7 +535,7 @@ const CoursesCollection: React.FC = () => {
                               <Text size="12">
                                 <Link
                                   style={{ color: theme.primaryColor }}
-                                  to={`/course/${item.id}`}
+                                  to={`/courses/${item.id}`}
                                 >
                                   <strong>{item.subtitle}</strong>
                                 </Link>
