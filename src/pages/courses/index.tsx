@@ -4,7 +4,7 @@ import Layout from "@/components/_App/Layout";
 import CoursesCollection from "@/components/Courses/CoursesCollection";
 import CoursesProvider from "@/components/Courses/CoursesProvider";
 import { useTranslation } from "react-i18next";
-import { Container } from "react-grid-system";
+import Container from "@/components/Container";
 
 const CoursesPage = () => {
   const { t } = useTranslation();

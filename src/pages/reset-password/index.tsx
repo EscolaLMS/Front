@@ -5,7 +5,8 @@ import { ResetPasswordForm } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();

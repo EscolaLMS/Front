@@ -11,8 +11,9 @@ import styled from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
+import Container from "@/components/Container";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);

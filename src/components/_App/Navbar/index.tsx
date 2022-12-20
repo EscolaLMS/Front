@@ -9,10 +9,10 @@ import { SearchCourses } from "@escolalms/components/lib/components/organisms/Se
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderUser } from "../../../icons";
+import { HeaderCard } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
-import { Container } from "react-grid-system";
+import Container from "@/components/Container";
 
 const StyledHeader = styled.header`
   width: 100%;

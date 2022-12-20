@@ -543,7 +543,7 @@ const CoursesCollection: React.FC = () => {
                             ) : undefined
                           }
                           title={
-                            <Link to={`/courses/${item.id}`} className="title">
+                            <Link to={`/course/${item.id}`} className="title">
                               <Title level={4} as="h2">
                                 {item.title}
                               </Title>
@@ -567,7 +567,7 @@ const CoursesCollection: React.FC = () => {
                               <Button
                                 mode="secondary"
                                 onClick={() =>
-                                  history.push(`/courses/${item.id}`)
+                                  history.push(`/course/${item.id}`)
                                 }
                               >
                                 {t<string>("Start now")}

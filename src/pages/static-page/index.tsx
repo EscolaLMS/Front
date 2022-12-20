@@ -12,7 +12,8 @@ import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useTranslation } from "react-i18next";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 const StyledStaticPage = styled.section`
   .content {

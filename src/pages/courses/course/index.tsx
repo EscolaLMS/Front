@@ -25,7 +25,8 @@ import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
+import Container from "@/components/Container";
 
 resetIdCounter();
 
@@ -208,6 +209,10 @@ const ModalOverwriteGlobal = createGlobalStyle`
     z-index: 1500 !important;
   }
 `;
+
+const API_URL =
+  window.REACT_APP_API_URL ||
+  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
 
 const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
@@ -440,13 +445,8 @@ const CoursePage = () => {
                       avatar={{
                         alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
                         src:
-                          `${
-                            process &&
-                            process.env &&
-                            process.env.REACT_APP_PUBLIC_API_URL
-                          }/api/images/img?path=${
-                            course.value.author.path_avatar
-                          }` || "",
+                          `${API_URL}/api/images/img?path=${course.value.author.path_avatar}` ||
+                          "",
                       }}
                       rating={{
                         ratingValue: 4.1,

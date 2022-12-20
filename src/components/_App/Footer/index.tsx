@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { Container, Col, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import { Link } from "@escolalms/components";
+import Container from "@/components/Container";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};

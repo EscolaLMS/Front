@@ -4,7 +4,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Preloader from "@/components/Preloader";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import ConsultationHero from "@/components/Consultation/ConsultationHero";
 import ConsultationSidebar from "@/components/Consultation/ConsultationSidebar";
@@ -16,6 +16,7 @@ import {
 } from "@/components/Consultation/style";
 import ConsultationsSlider from "@/components/ConsultationsSlider";
 import Layout from "@/components/_App/Layout";
+import Container from "../Container";
 
 const Consultation = () => {
   const { t } = useTranslation();

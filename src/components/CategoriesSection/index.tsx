@@ -9,8 +9,9 @@ import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
-import { Col, Container, Row } from "react-grid-system";
+import { Col, Row } from "react-grid-system";
 import { Settings } from "react-slick";
+import Container from "../Container";
 
 type Props = {
   categories: API.Category[];

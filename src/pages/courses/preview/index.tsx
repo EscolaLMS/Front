@@ -7,7 +7,7 @@ import Preloader from "@/components/Preloader";
 import Layout from "@/components/_App/Layout";
 
 import CourseProgramLessonsPreview from "@/components/Course/CourseProgramLessonsPreview";
-import { Container } from "react-grid-system";
+import Container from "@/components/Container";
 
 // TODO: 99% same as: src/pages/course/index.tsx
 
