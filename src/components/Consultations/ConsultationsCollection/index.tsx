@@ -1,7 +1,7 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { StyledHeader, StyledTabs } from "./styles";
 import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import ConsultationsSlider from "@/components/ConsultationsSlider";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import { API } from "@escolalms/sdk/lib";
@@ -21,6 +21,7 @@ const ConsultationsCollection = () => {
         if (category.parent_id === null) {
           return category.name;
         }
+        return;
       })
   );
 

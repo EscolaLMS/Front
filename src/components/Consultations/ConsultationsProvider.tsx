@@ -10,6 +10,7 @@ const ConsultationsProvider: React.FC<PropsWithChildren> = (props) => {
     fetchConsultations({
       only_with_categories: true,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
