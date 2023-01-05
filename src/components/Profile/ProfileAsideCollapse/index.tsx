@@ -1,5 +1,4 @@
 import React, { ReactNode, useState } from "react";
-import { Theme } from "react-toastify";
 import styled from "styled-components";
 
 interface Props {

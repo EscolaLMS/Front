@@ -32,6 +32,7 @@ const Consultation = () => {
     if (id) {
       fetchConsultation(Number(id));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (consultation.loading) {

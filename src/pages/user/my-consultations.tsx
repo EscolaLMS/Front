@@ -39,6 +39,7 @@ const MyConsultationsPage = () => {
     } else {
       fetchUserConsultations();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const MyConsultationsTabsPanel: React.FC<MyConsultationsTabsPanelProps> = (
