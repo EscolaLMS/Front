@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
 declare global {
   interface Window {
@@ -14,6 +15,8 @@ function configSentry() {
   if (SENTRYDSN && window.location.hostname.indexOf("localhost") === -1) {
     Sentry.init({
       dsn: SENTRYDSN,
+      integrations: [new BrowserTracing()],
+      tracesSampleRate: 1,
     });
   }
   return null;
