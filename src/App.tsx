@@ -4,6 +4,7 @@ import Routes from "./components/Routes";
 
 import styled, { createGlobalStyle } from "styled-components";
 import { isMobile } from "react-device-detect";
+import * as Sentry from "@sentry/react";
 
 const Customizer = lazy(
   () => import("./components/ThemeCustomizer/ThemeCustomizer")
@@ -51,4 +52,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Sentry.withProfiler(App);
