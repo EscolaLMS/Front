@@ -8,7 +8,7 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.71",
+    "@escolalms/components": "^0.0.73",
     "@escolalms/h5p-react": "^0.2.10",
     "@escolalms/sdk": "^0.4.10",
     "@escolalms/ts-models": "^0",
@@ -87,7 +87,8 @@
     "eject": "react-app-rewired  eject",
     "postinstall": "husky install",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "proxy": "npx auto-cors"
   },
   "eslintConfig": {
     "extends": [

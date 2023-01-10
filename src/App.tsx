@@ -52,4 +52,14 @@ const App = () => {
   );
 };
 
+// preventing local storage persist store versioning error
+window.addEventListener("error", (event: ErrorEvent) => {
+  if (event.message.includes("Cannot read properties of undefined")) {
+    if (!window.location.href.includes("noerrorrefresh")) {
+      localStorage.removeItem("lms");
+      window.location.href = window.location.href + "#noerrorrefresh";
+    }
+  }
+});
+
 export default Sentry.withProfiler(App);
