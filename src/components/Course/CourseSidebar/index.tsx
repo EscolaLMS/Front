@@ -8,6 +8,7 @@ import styled, { css } from "styled-components";
 import { useLessonProgram } from "../../../hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
 import { t } from "i18next";
+import { Topic } from "@escolalms/sdk/lib/types/api";
 
 const StyledSidebar = styled.aside`
   padding-bottom: 100px;
@@ -99,6 +100,40 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          onNextTopicClick={() => {
+            let nextTopic;
+
+            course.lessons.forEach((lesson, lIndex, lessons) => {
+              lesson.topics &&
+                lesson.topics.forEach((topic, tIndex) => {
+                  if (topic.id === topicId) {
+                    // try find next topic in current lesson
+                    if (lesson.topics && lesson.topics[tIndex + 1]) {
+                      nextTopic =
+                        lesson.topics[tIndex + 1] && lesson.topics[tIndex + 1];
+                      // try find first topic in next lesson
+                    } else if (lessons[lIndex + 1]) {
+                      nextTopic =
+                        lessons[lIndex + 1].topics &&
+                        //@ts-ignore
+                        lessons[lIndex + 1].topics[0];
+                      // otherwise this is end so going back to first lesson and topic
+                    } else {
+                      nextTopic = lessons[0].topics && lessons[0].topics[0];
+                    }
+                  }
+                });
+            });
+
+            if (nextTopic) {
+              history.push(
+                `/course/${course.id}/${(nextTopic as Topic).lesson_id}/${
+                  (nextTopic as Topic).id
+                }`
+              );
+              setAgendaVisible(false);
+            }
+          }}
           mobile={isMobile}
           lessons={course.lessons}
           currentTopicId={topicId}
