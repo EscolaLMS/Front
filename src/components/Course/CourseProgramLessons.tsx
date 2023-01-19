@@ -1,5 +1,5 @@
 //@ts-nocheck - remove when Course Top Nav will have fixed notes props
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useContext } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseSidebar from "@/components/Course/CourseSidebar";
@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import Breadcrumbs from "../Breadcrumbs";
 import { Col, Row } from "react-grid-system";
 import Container from "../Container";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
@@ -54,6 +55,8 @@ export const CourseProgramLessons: React.FC<{
     sendProgress,
     progress,
   } = useLessonProgram(program);
+  const { courseProgressDetails } = useContext(EscolaLMSContext);
+
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
   const { t } = useTranslation();
@@ -62,14 +65,22 @@ export const CourseProgramLessons: React.FC<{
   const startWithBreakPoint = location.pathname.split("/").length === 3;
 
   const getCourseProgress = useMemo(() => {
+    if (
+      //courseProgress. &&
+      courseProgressDetails.byId[Number(courseId)] &&
+      courseProgressDetails.byId[Number(courseId)].value
+    ) {
+      return courseProgressDetails.byId[Number(courseId)].value;
+    }
     return (
       progress &&
       progress.value &&
       progress.value.find(
         (courseProgress: API.CourseProgressItem) =>
           courseProgress.course.id === Number(courseId)
-      )
+      )?.progress
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, courseId]);
 
   const onCompleteTopic = useCallback((): void => {
@@ -79,8 +90,7 @@ export const CourseProgramLessons: React.FC<{
   }, [program, topicID, sendProgress]);
 
   const topicBreakPoint = useMemo(() => {
-    const currentProgress =
-      (getCourseProgress && getCourseProgress.progress) || [];
+    const currentProgress = getCourseProgress || [];
 
     const lastStartedLesson = currentProgress
       .filter(

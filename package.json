@@ -10,7 +10,7 @@
   "dependencies": {
     "@escolalms/components": "^0.0.74",
     "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.4.10",
+    "@escolalms/sdk": "^0.4.16",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -88,7 +88,8 @@
     "postinstall": "husky install",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "proxy": "npx auto-cors"
+    "proxy": "npx auto-cors",
+    "proxy2": "npx cors-tunnel -p 3001 -t https://api.escolalms.com"
   },
   "eslintConfig": {
     "extends": [
@@ -111,6 +112,7 @@
     "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "http-proxy-middleware": "^2.0.6",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "prettier": "2.4.1",

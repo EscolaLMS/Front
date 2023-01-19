@@ -56,19 +56,18 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
 
 const CourseProgram = () => {
   const { id } = useParams<{ id: string }>();
-  const { program, fetchProgram, fetchProgress } = useContext(EscolaLMSContext);
+  const { program, fetchProgram, fetchCourseProgress } =
+    useContext(EscolaLMSContext);
 
   useEffect(() => {
     if (id) {
       fetchProgram(Number(id));
+      fetchCourseProgress(Number(id));
+      //fetchCourseProgress(Number(id));
+      //fetchProgress();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
-  useEffect(() => {
-    fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (program.loading) {
     return <Preloader />;

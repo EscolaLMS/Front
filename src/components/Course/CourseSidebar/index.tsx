@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -48,7 +48,10 @@ export const CourseSidebar: React.FC<{
   lessonId: number;
   topicId: number;
 }> = ({ course, lessonId, topicId }) => {
-  const { disableNextTopicButton, sendProgress } = useLessonProgram(course);
+  const { disableNextTopicButton, sendProgress, progress } =
+    useLessonProgram(course);
+  const { courseProgressDetails } = useContext(EscolaLMSContext);
+
   const history = useHistory();
   const [agendaVisible, setAgendaVisible] = useState(false);
   const program = (course?.lessons || []).filter(
@@ -58,9 +61,6 @@ export const CourseSidebar: React.FC<{
   const allTopics = course.lessons.map((item) => item.topics);
   //@ts-ignore
   const arrayOfTopics = [].concat.apply([], allTopics);
-  const finishedTopics = arrayOfTopics
-    .filter((item: API.Topic) => topicIsFinished(item.id))
-    .map((item: API.Topic) => item.id);
 
   const onCompleteTopic = useCallback((): void => {
     disableNextTopicButton && disableNextTopicButton(false);
@@ -69,6 +69,40 @@ export const CourseSidebar: React.FC<{
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [program, topicId, disableNextTopicButton, sendProgress]);
+
+  const getCourseProgress = useMemo(() => {
+    const courseId = course.id;
+    if (
+      courseProgressDetails &&
+      courseProgressDetails.byId &&
+      courseProgressDetails.byId[Number(courseId)] &&
+      courseProgressDetails.byId[Number(courseId)].value
+    ) {
+      return courseProgressDetails.byId[Number(courseId)].value;
+    }
+    return (
+      progress &&
+      progress.value &&
+      progress.value.find(
+        (courseProgress: API.CourseProgressItem) =>
+          courseProgress.course.id === Number(courseId)
+      )?.progress
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progress, course]);
+
+  const finishedTopics = arrayOfTopics
+    .filter((item: API.Topic) => {
+      return (
+        topicIsFinished(item.id) ||
+        getCourseProgress?.some(
+          (progressItem) =>
+            progressItem.topic_id === item.id && progressItem.status === 1
+        )
+      );
+    })
+    .map((item: API.Topic) => item.id);
+
   if (!course && !program) {
     return <React.Fragment />;
   }
