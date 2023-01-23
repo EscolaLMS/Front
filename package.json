@@ -88,8 +88,7 @@
     "postinstall": "husky install",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "proxy": "npx auto-cors",
-    "proxy2": "npx cors-tunnel -p 3001 -t https://api.escolalms.com"
+    "proxy": "node proxy.js"
   },
   "eslintConfig": {
     "extends": [
