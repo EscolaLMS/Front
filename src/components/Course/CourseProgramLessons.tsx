@@ -241,7 +241,14 @@ export const CourseProgramLessons: React.FC<{
               onFinish={() => onCompleteTopic()}
               mobile={isMobile}
               onNext={onNextTopic}
-              isFinished={false}
+              isFinished={
+                getCourseProgress?.findIndex(
+                  (ttopic) =>
+                    ttopic.topic_id === topic.id &&
+                    ttopic.status ===
+                      API.CourseProgressItemElementStatus.COMPLETE
+                ) > -1
+              }
               onPrev={onPrevTopic}
               addNotes={false}
               hasPrev={
