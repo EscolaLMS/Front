@@ -156,19 +156,6 @@ export const CourseProgramLessons: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topic?.id, program]);
 
-  console.log(
-    "topic?.id",
-    topic?.id,
-    "getCourseProgress",
-    getCourseProgress,
-    "index",
-    getCourseProgress?.findIndex(
-      (ttopic) =>
-        ttopic.topic_id === topic.id &&
-        ttopic.status === API.CourseProgressItemElementStatus.COMPLETE
-    )
-  );
-
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
   return (
