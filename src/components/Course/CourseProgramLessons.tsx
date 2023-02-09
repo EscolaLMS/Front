@@ -17,6 +17,8 @@ import Breadcrumbs from "../Breadcrumbs";
 import { Col, Row } from "react-grid-system";
 import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import ErrorBox from "../Errorbox";
+import { Button } from "@escolalms/components";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
@@ -148,6 +150,7 @@ export const CourseProgramLessons: React.FC<{
   }, [lesson?.id, topic?.id]);
 
   useEffect(() => {
+    if (!program || !topic) return;
     if (getNextPrevTopic(Number(topic?.id)) === null) {
       disableNextTopicButton(true);
       sendProgress(program.id, [{ topic_id: Number(topic?.id), status: 1 }]);
@@ -158,6 +161,25 @@ export const CourseProgramLessons: React.FC<{
 
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
+
+  if (!program) {
+    return <ErrorBox error={t("CourseProgram.NoProgram")} />;
+  }
+
+  if (!topic) {
+    return (
+      <ErrorBox
+        error={t("CourseProgram.NoTopic")}
+        goTo={`/course/${program.id}`}
+        goToText={t("CoursePage.BackToCourse")}
+        alternativeButton={{
+          goTo: "/courses",
+          goToText: t("CoursePage.SeeOtherCourses"),
+        }}
+      />
+    );
+  }
+
   return (
     <React.Fragment>
       <StyledCourse className="course-program-wrapper">

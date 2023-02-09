@@ -11,11 +11,35 @@ const StyledErrorPage = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  .buttons-block {
+    display: grid;
+    gap: 8px;
+  }
 `;
 
-const ErrorBox: React.FC<{ error: string }> = ({ error }) => {
+interface AlternativeButton {
+  goTo: string;
+  goToText: string;
+}
+
+interface Props {
+  error: string;
+  goTo?: string;
+  goToText?: string;
+  alternativeButton?: AlternativeButton;
+}
+
+const ErrorBox: React.FC<Props> = ({
+  error,
+  goTo = "/courses",
+  goToText,
+  alternativeButton,
+}) => {
   const { t } = useTranslation();
   const history = useHistory();
+  const buttonText = goToText ?? t("CoursePage.SeeOtherCourses");
+
   return (
     <Layout>
       <StyledErrorPage>
@@ -24,9 +48,19 @@ const ErrorBox: React.FC<{ error: string }> = ({ error }) => {
         </Text>
         <Text size="14">{error}</Text>
         <hr />
-        <Button mode="secondary" onClick={() => history.push("/courses")}>
-          {t("CoursePage.SeeOtherCourses")}
-        </Button>
+        <div className="buttons-block">
+          <Button mode="secondary" onClick={() => history.push(goTo)}>
+            {buttonText}
+          </Button>
+          {alternativeButton && (
+            <Button
+              mode="outline"
+              onClick={() => history.push(alternativeButton.goTo)}
+            >
+              {alternativeButton.goToText}
+            </Button>
+          )}
+        </div>
       </StyledErrorPage>
     </Layout>
   );
