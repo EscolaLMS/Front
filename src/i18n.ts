@@ -145,6 +145,7 @@ const resources = {
         Guarantee: "Guaranteed",
         Recommends: "recommend training of Jan Kamiński",
         SeeOtherCourses: "See other courses",
+        BackToCourse: "Go back to the course",
         Language: "Language",
         Students: "Students",
         Teacher: "Teacher",
@@ -174,6 +175,7 @@ const resources = {
         TopicAttachment: "Topic attachments",
         ShowAgenda: "Show agenda",
         NoProgram: "No program",
+        NoTopic: "No topic",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -509,6 +511,7 @@ const resources = {
         Guarantee: "Gwarancja",
         Recommends: "Poleca szkolenia Jana Kaminskiego",
         SeeOtherCourses: "Zobacz inne kursy",
+        BackToCourse: "Powrót do kursu",
         Language: "Język",
         Students: "Uczniów",
         Teacher: "Nauczyciel",
@@ -538,6 +541,7 @@ const resources = {
         TopicAttachment: "Załączniki lekcji",
         ShowAgenda: "Pokaż agendę",
         NoProgram: "Lekcja nie istnieje",
+        NoTopic: "Temat nie istnieje",
       },
       CoursesPage: {
         Category: "Kategoria",
