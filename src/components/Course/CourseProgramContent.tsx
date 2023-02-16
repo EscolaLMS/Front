@@ -88,10 +88,13 @@ export const CourseProgramContent: React.FC<{
   );
 
   useEffect(() => {
+    const isTopicFinished = topic?.id && topicIsFinished(topic.id);
+
     isThereAnotherTopic &&
       disableNextTopicButton &&
-      disableNextTopicButton(!Boolean(topic?.can_skip));
-  }, [disableNextTopicButton, topic, isThereAnotherTopic]);
+      isTopicFinished &&
+      disableNextTopicButton(!isTopicFinished && !Boolean(topic?.can_skip));
+  }, [disableNextTopicButton, topic, isThereAnotherTopic, topicIsFinished]);
 
   useEffect(() => {
     if (!preview) {

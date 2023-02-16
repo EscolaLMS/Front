@@ -162,6 +162,16 @@ export const CourseProgramLessons: React.FC<{
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
 
+  window.resetProgress = () =>
+    (async () => {
+      await sendProgress(
+        program.id,
+        program.lessons
+          .flatMap((lesson) => lesson.topics)
+          .map((topic) => ({ topic_id: Number(topic?.id), status: 0 }))
+      );
+    })();
+
   if (!program) {
     return <ErrorBox error={t("CourseProgram.NoProgram")} />;
   }
