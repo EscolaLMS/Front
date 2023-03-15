@@ -68,7 +68,7 @@ const ScormPlayer: FunctionComponent<{
           {t("Scorm.Resize")} <ResizeIcon />
         </Button>
         <iframe
-          title={value.title}
+          title={value.title ?? ""}
           src={`${apiUrl}/api/scorm/play/${value.topicable?.uuid}`}
         />
       </StyledDiv>

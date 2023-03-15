@@ -42,7 +42,7 @@ const MyNotificationsPage = () => {
       <NotificationsContainer>
         {notifications.loading && <ContentLoader />}
         {notifications &&
-          notifications.list?.map((item, index) => (
+          notifications.list?.data?.map((item, index) => (
             <div key={index} className="single-notification">
               <Notification
                 key={item.id}

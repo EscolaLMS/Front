@@ -10,7 +10,7 @@
   "dependencies": {
     "@escolalms/components": "^0.0.75",
     "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.4.16",
+    "@escolalms/sdk": "^0.4.43",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -81,6 +81,7 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
+    "dev": "yarn start",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "jest --no-cache",
