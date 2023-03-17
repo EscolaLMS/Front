@@ -1,5 +1,4 @@
-import { memo, useContext, useEffect, useMemo, useState } from "react";
-import { API } from "@escolalms/sdk/lib";
+import { memo, useContext, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { isMobile } from "react-device-detect";
 import { Col, Row } from "react-grid-system";
@@ -14,41 +13,23 @@ interface ProfileConsultationsProps {
 }
 
 const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
-  const [consultationsData, setConsultationsData] = useState<
-    API.Consultation[]
-  >([]);
   const { userConsultations, fetchUserConsultations } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const upcomingConsultations = useMemo(
+  const consultationsData = useMemo(
     () =>
-      userConsultations.list?.data.filter(
-        (consultation) => consultation.in_coming || consultation.is_started
+      userConsultations.list?.data.filter((consultation) =>
+        type === ConsultationStatus.STARTED ||
+        type === ConsultationStatus.UPCOMING
+          ? consultation.in_coming || consultation.is_started
+          : consultation.is_ended
       ) || [],
-    [userConsultations.list?.data]
-  );
-  const endedConsultations = useMemo(
-    () =>
-      userConsultations.list?.data.filter(
-        (consultation) => consultation.is_ended
-      ) || [],
-    [userConsultations.list?.data]
+    [type, userConsultations.list?.data]
   );
 
   useEffect(() => {
     fetchUserConsultations();
   }, [type, fetchUserConsultations]);
-
-  useEffect(() => {
-    if (
-      type === ConsultationStatus.STARTED ||
-      type === ConsultationStatus.UPCOMING
-    ) {
-      setConsultationsData(upcomingConsultations);
-    } else {
-      setConsultationsData(endedConsultations);
-    }
-  }, [endedConsultations, type, upcomingConsultations]);
 
   return userConsultations.loading ? (
     <ContentLoader />
