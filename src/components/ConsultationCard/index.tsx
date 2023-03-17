@@ -9,6 +9,8 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import React from "react";
 import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
+import { formatDate } from "@/utils/date";
+import { APP_CONFIG } from "@/config/app";
 
 interface ConsultationCardProps {
   consultation: API.Consultation;
@@ -18,6 +20,8 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
   const { consultation } = props;
   const history = useHistory();
   const { t } = useTranslation();
+  const isEnded = consultation.is_ended;
+  const isStarted = consultation.is_started;
 
   return (
     <CourseCard
@@ -41,27 +45,39 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
           <IconText
             icon={<IconTime />}
             text={
-              <>
-                {consultation.duration}
-                {consultation.product &&
-                  ` - ${getPriceWithTax(
-                    consultation.product.price,
-                    consultation.product.tax_rate
-                  )} zł`}
-              </>
+              isEnded ? (
+                <>
+                  {`${t("ConsultationPage.Finished")}: ${formatDate(
+                    consultation.active_to,
+                    APP_CONFIG.defaultDateTimeFormat
+                  )}`}
+                </>
+              ) : (
+                <>
+                  {consultation.duration}
+                  {consultation.product &&
+                    ` - ${getPriceWithTax(
+                      consultation.product.price,
+                      consultation.product.tax_rate
+                    )} zł`}
+                </>
+              )
             }
           />
         </React.Fragment>
       }
       actions={
-        <Button
-          mode="secondary"
-          onClick={() => history.push(`/consultations/${consultation.id}`)}
-          block
-          disabled={consultation.is_ended}
-        >
-          {t("ConsultationPage.Book")}
-        </Button>
+        !isEnded && (
+          <Button
+            mode="secondary"
+            onClick={() => history.push(`/consultations/${consultation.id}`)}
+            block
+          >
+            {isStarted
+              ? t("ConsultationPage.Join")
+              : t("ConsultationPage.Book")}
+          </Button>
+        )
       }
     />
   );

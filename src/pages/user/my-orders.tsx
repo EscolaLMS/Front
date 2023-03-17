@@ -6,12 +6,12 @@ import { Orders as OrdersList } from "@escolalms/components/lib/components/molec
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { API } from "@escolalms/sdk/lib";
-import { format } from "date-fns";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import ContentLoader from "@/components/ContentLoader";
+import { formatDate } from "@/utils/date";
 
 const StyledOrdersList = styled.section`
   margin-top: 35px;
@@ -89,7 +89,7 @@ const Orders = () => {
             ),
             price: <Text>{item.subtotal} zł</Text>,
             date: item.created_at ? (
-              <Text>{format(new Date(item.created_at), "dd.MM.yyyy")}</Text>
+              <Text>{formatDate(item.created_at)}</Text>
             ) : (
               ""
             ),

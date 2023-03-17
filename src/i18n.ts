@@ -189,6 +189,8 @@ const resources = {
         SidebarFeature3: "Another value from meeting",
         ByFields: "By fields",
         Alphabetically: "Alphabetically",
+        Join: "Join",
+        Finished: "Finished",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -563,6 +565,8 @@ const resources = {
         SidebarFeature3: "Kolejna wartość ze spotkania",
         ByFields: "Według dziedzin",
         Alphabetically: "Alfabetycznie",
+        Join: "Dołącz",
+        Finished: "Ukończono",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",
