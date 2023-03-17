@@ -5,6 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
 import qs from "query-string";
 import { CoursesContext } from "./CoursesContext";
+import { COURSES_ON_PAGE } from "@/config/courses";
 
 const parseParams = (params: API.CourseParams = {}) => {
   return qs.stringify(params);
@@ -21,8 +22,11 @@ const CoursesProvider: React.FC<{
   const [params, setParams] = useState<API.CourseParams | undefined>();
 
   const getApiParams = (params: API.CourseParams = {}): API.CourseParams => {
-    const apiParams = { ...params };
-
+    const apiParams = {
+      page: 1,
+      per_page: COURSES_ON_PAGE,
+      ...params,
+    };
     if (onlyFree) apiParams.free = true;
     return apiParams;
   };

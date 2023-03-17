@@ -28,6 +28,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 import { Search } from "@escolalms/components";
 import { Row, Col } from "react-grid-system";
+import { COURSES_ON_PAGE } from "@/config/courses";
 
 type updateParamType =
   | { key: "tag"; value: string | undefined }
@@ -614,7 +615,7 @@ const CoursesCollection: React.FC = () => {
                     setParams({
                       ...params,
                       page: i,
-                      per_page: 6,
+                      per_page: COURSES_ON_PAGE,
                     })
                   }
                 />
