@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { resetIdCounter } from "react-tabs";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import { format } from "date-fns";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -27,6 +26,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import { formatDate } from "@/utils/date";
 
 resetIdCounter();
 
@@ -388,10 +388,7 @@ const CoursePage = () => {
                         variant={"label"}
                       >
                         {course.value.active_from
-                          ? format(
-                              new Date(String(course.value.active_from)),
-                              "dd/MM/yyyy"
-                            )
+                          ? formatDate(course.value.active_from)
                           : "---"}
                       </LabelListItem>
                     </div>
