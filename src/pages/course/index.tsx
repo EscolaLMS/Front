@@ -34,13 +34,13 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
 
 const CourseProgram = () => {
   const { id } = useParams<{ id: string }>();
-  const { program, fetchProgram, fetchCourseProgress } =
-    useContext(EscolaLMSContext);
+  const { program, fetchProgram } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     if (id) {
+      // Probably here we only need program to show SCORM
       fetchProgram(Number(id));
-      fetchCourseProgress(Number(id));
+      // fetchCourseProgress(Number(id));
       //fetchCourseProgress(Number(id));
       //fetchProgress();
     }
