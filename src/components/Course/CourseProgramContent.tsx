@@ -171,7 +171,14 @@ export const CourseProgramContent: React.FC<{
         );
 
       case TopicType.Scorm:
-        return <ScormPlayer value={topic} />;
+        return (
+          <ScormPlayer
+            value={{
+              title: topic.title,
+              uuid: topic.topicable.uuid,
+            }}
+          />
+        );
       default:
         return <pre>{topic.topicable_type}</pre>;
     }
