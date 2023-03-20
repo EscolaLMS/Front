@@ -53,8 +53,13 @@ const StyledDiv = styled.div<{ fullview: boolean }>`
   }}
 `;
 
+interface ScormPlayerProps {
+  title: string;
+  uuid: string;
+}
+
 const ScormPlayer: FunctionComponent<{
-  value: API.TopicScorm;
+  value: ScormPlayerProps;
 }> = ({ value }): ReactElement => {
   const { apiUrl } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -68,8 +73,8 @@ const ScormPlayer: FunctionComponent<{
           {t("Scorm.Resize")} <ResizeIcon />
         </Button>
         <iframe
-          title={value.title ?? ""}
-          src={`${apiUrl}/api/scorm/play/${value.topicable?.uuid}`}
+          title={value.title}
+          src={`${apiUrl}/api/scorm/play/${value.uuid}`}
         />
       </StyledDiv>
     </div>
