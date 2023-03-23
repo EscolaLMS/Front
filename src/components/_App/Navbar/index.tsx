@@ -284,6 +284,16 @@ const Navbar = () => {
           ),
           key: "submenu-4",
         },
+        {
+          title: (
+            <Link to="/events">
+              <Text noMargin bold>
+                {t("Menu.Events")}
+              </Text>
+            </Link>
+          ),
+          key: "submenu-5",
+        },
       ],
     },
     {
@@ -405,6 +415,7 @@ const Navbar = () => {
                 { label: t("Menu.Courses"), value: "/courses" },
                 { label: t("Menu.Tutors"), value: "/tutors" },
                 { label: t("Menu.Consultations"), value: "/consultations" },
+                { label: t("Menu.Events"), value: "/events" },
               ]}
             />
             <Dropdown
@@ -425,6 +436,10 @@ const Navbar = () => {
                 options={[
                   { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
                   { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
+                  {
+                    label: t("Navbar.MyStationaryEvents"),
+                    value: "/user/my-stationary-events",
+                  },
                   {
                     label: t("MyProfilePage.Notifications"),
                     value: "/user/my-notifications",

@@ -9,11 +9,13 @@ const resources = {
   en: {
     translation: {
       ...ComponentTranslations.en.translation,
+      Show: "Show",
+      Agenda: "Agenda",
       HowItWorks: "How it works",
       "Access from": "Access from",
       "Access to": "Access to",
       Access: "Access",
-      "Start now": "Start now",
+      StartNow: "Start now",
       "Add to Cart": "Add to Cart",
       "All Categories": "All categories",
       "All Tutors": "All tutors",
@@ -213,6 +215,9 @@ const resources = {
         Courses: "Courses",
         Search: "Search courses",
       },
+      EventsPage: {
+        Events: "Stationary events",
+      },
       TutorPage: {
         Courses: "Tutor Courses",
         TutorCoursesEmpty: "No courses",
@@ -267,6 +272,11 @@ const resources = {
         Planned: "Planned",
         Finished: "Finished",
         EditData: "Edit data",
+        MyStationaryEvents: "My stationary events",
+        EmptyEventTitle: "Start your development",
+        EmptyEventText:
+          "You don't have any stationary events yet, but thanks to our offer you can start learning today!",
+        EmptyEventsBtnText: "Choose a stationary event for yourself",
       },
       Menu: {
         Browse: "Browse",
@@ -280,6 +290,7 @@ const resources = {
         Language: "Language",
         Orders: "Orders",
         Consultations: "Consultations",
+        Events: "Stationary events",
       },
       Footer: {
         HomePage: "Home Page",
@@ -297,6 +308,7 @@ const resources = {
         MyPayments: "My Payments",
         EditProfile: "Edit data",
         Logout: "Logout",
+        MyStationaryEvents: "Stationary events",
       },
       Custom404Page: {
         NotFound: "Error 404 : Page Not Found",
@@ -349,14 +361,26 @@ const resources = {
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
       },
+      Filters: {
+        Category: "Category",
+        Search: "Search",
+      },
+      EventPage: {
+        IsFinished: "The stationary event is over",
+        GoToCheckout: "Go to checkout",
+        NotStarted: "Not started",
+        UnavailableEvent: "This event is unavailable to buy",
+        "30Days": "30 day money return guarantee",
+      },
     },
   },
   pl: {
     translation: {
       ...ComponentTranslations.pl.translation,
+      Show: "Zobacz",
+      Agenda: "Program",
       Warning: "Uwaga",
       HowItWorks: "Jak to działa",
-      "Start now": "Zacznij teraz",
       UnexpectedError: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie",
       StartNow: "Zacznij teraz",
       Students: "kursantów",
@@ -553,6 +577,9 @@ const resources = {
         Courses: "Kursy",
         Search: "Szukaj kursów",
       },
+      EventsPage: {
+        Events: "Wydarzenia stacjonarne",
+      },
       ConsultationsPageMeta: "Konsultacje",
       ConsultationPage: {
         Book: "Umów spotkanie",
@@ -610,6 +637,7 @@ const resources = {
         Language: "Język",
         Orders: "Zamównienia",
         Consultations: "Konsultacje",
+        Events: "Wydarzenia stacjonarne",
       },
       Footer: {
         HomePage: "Strona Główna",
@@ -647,6 +675,11 @@ const resources = {
         Planned: "Zaplanowane",
         Finished: "Ukończone",
         EditData: "Edytuj dane",
+        MyStationaryEvents: "Moje wydarzenia stacjonarne",
+        EmptyEventTitle: "Rozpocznij swój rozwój",
+        EmptyEventText:
+          "Nie masz jeszcze żadnych wydarzeń stacjonarnych, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
+        EmptyEventsBtnText: " Wybierz wydarzenie stacjonarne dla siebie",
       },
       Navbar: {
         MyProfile: "Mój Profil",
@@ -657,6 +690,7 @@ const resources = {
         MyPayments: "Płatności",
         EditProfile: "Edytuj dane",
         Logout: "Wyloguj",
+        MyStationaryEvents: "Moje wydarzenia stacjonarne",
       },
       Custom404Page: {
         NotFound: "Error 404 : Nie znaleziono strony",
@@ -711,6 +745,17 @@ const resources = {
       RateCourse: {
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",
+      },
+      Filters: {
+        Category: "Kategoria",
+        Search: "Szukaj",
+      },
+      EventPage: {
+        IsFinished: "Wydarzenie zakończyło się",
+        GoToCheckout: "Do kasy",
+        NotStarted: "Wydarzenie jeszcze się nie rozpoczęło",
+        UnavailableEvent: "Wydarzenie niemożliwe do kupienia",
+        "30Days": "Gwarantowane 30 dni na zwrot",
       },
     },
   },

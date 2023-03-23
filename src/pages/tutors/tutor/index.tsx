@@ -221,7 +221,7 @@ const TutorPage = () => {
                                   history.push(`/courses/${item.id}`)
                                 }
                               >
-                                {t<string>("Start now")}
+                                {t("StartNow")}
                               </Button>
                             </>
                           }

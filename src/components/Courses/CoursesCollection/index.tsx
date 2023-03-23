@@ -571,7 +571,7 @@ const CoursesCollection: React.FC = () => {
                                   history.push(`/course/${item.id}`)
                                 }
                               >
-                                {t<string>("Start now")}
+                                {t("StartNow")}
                               </Button>
                             </>
                           }
