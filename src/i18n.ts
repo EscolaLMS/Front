@@ -9,6 +9,7 @@ const resources = {
   en: {
     translation: {
       ...ComponentTranslations.en.translation,
+      ReadAll: "Read all",
       HowItWorks: "How it works",
       "Access from": "Access from",
       "Access to": "Access to",
@@ -336,6 +337,10 @@ const resources = {
         SettingPackageConfigUpdated: "Setting package config updated",
         CourseTutorAssigned: "Course tutor assigned",
         AccountConfirmed: "Account confirmed",
+        ProductableAttached: "Productable attached???",
+        ProductBought: "Product bought",
+        ProductAttached: "Product attached",
+        OrderCreated: "Order created",
       },
       Header: {
         Register: "Register",
@@ -354,6 +359,7 @@ const resources = {
   pl: {
     translation: {
       ...ComponentTranslations.pl.translation,
+      ReadAll: "Odznacz wszystkie",
       Warning: "Uwaga",
       HowItWorks: "Jak to działa",
       "Start now": "Zacznij teraz",
@@ -699,6 +705,10 @@ const resources = {
         AccountConfirmed: "Konto potwierdzone",
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
+        ProductableAttached: "Produkt dołączony???",
+        ProductBought: "Produkt kupiony",
+        ProductAttached: "Produkt dołączony",
+        OrderCreated: "Zamówienie utworzone",
       },
       Header: {
         Register: "Zarejestruj",
