@@ -9,6 +9,7 @@ const resources = {
   en: {
     translation: {
       ...ComponentTranslations.en.translation,
+      ReadAll: "Read all",
       HowItWorks: "How it works",
       "Access from": "Access from",
       "Access to": "Access to",
@@ -432,6 +433,11 @@ const resources = {
           "You have been added to the group",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "You have been removed from the group",
+        AccountConfirmed: "Account confirmed",
+        ProductableAttached: "Productable attached???",
+        ProductBought: "Product bought",
+        ProductAttached: "Product attached",
+        OrderCreated: "Order created",
       },
       Header: {
         Register: "Register",
@@ -450,6 +456,7 @@ const resources = {
   pl: {
     translation: {
       ...ComponentTranslations.pl.translation,
+      ReadAll: "Odznacz wszystkie",
       Warning: "Uwaga",
       HowItWorks: "Jak to działa",
       "Start now": "Zacznij teraz",
@@ -890,6 +897,13 @@ const resources = {
         "EscolaLms\\Auth\\Events\\UserAddedToGroup": "Zostałeś dodany do grupy",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "Zostałeś usunięty z grupy",
+        AccountConfirmed: "Konto potwierdzone",
+        ProductAddedToCart: "Produkt dodany do koszyka",
+        ProductRemovedFromCart: "Produkt usunięty z koszyka",
+        ProductableAttached: "Produkt dołączony???",
+        ProductBought: "Produkt kupiony",
+        ProductAttached: "Produkt dołączony",
+        OrderCreated: "Zamówienie utworzone",
       },
       Header: {
         Register: "Zarejestruj",
