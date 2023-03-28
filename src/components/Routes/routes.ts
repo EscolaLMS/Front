@@ -7,6 +7,7 @@ const routeRoutes = {
   courses: "/courses",
   page: "/:slug",
   myProfile: "/user/my-profile",
+  myStationaryEvents: "/user/my-stationary-events",
   myConsultations: "/user/my-consultations",
   myOrders: "/user/my-orders",
   myNotifications: "/user/my-notifications",
@@ -22,6 +23,8 @@ const routeRoutes = {
   notFound: "/404",
   register: "/register",
   login: "/login",
+  events: "/events",
+  event: "/event/:id",
 };
 
 export default routeRoutes;

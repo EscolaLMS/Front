@@ -221,16 +221,8 @@ const CoursePage = () => {
   const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const {
-    apiUrl,
-    course,
-    settings,
-    fetchCourse,
-    fetchCourses,
-    courses,
-    fetchCart,
-    user,
-  } = useContext(EscolaLMSContext);
+  const { apiUrl, course, settings, fetchCourse, fetchCourses, courses } =
+    useContext(EscolaLMSContext);
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -268,10 +260,7 @@ const CoursePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  useEffect(() => {
-    user.value && fetchCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+
   if (!course.value) {
     return (
       <Layout>
