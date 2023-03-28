@@ -12,6 +12,7 @@ type Props = {
   children: ReactNode;
   title: string;
   withTabs?: boolean;
+  actions?: ReactNode;
 };
 
 const StyledProfile = styled.section`
@@ -29,7 +30,12 @@ const StyledProfile = styled.section`
   }
 `;
 
-const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
+const ProfileLayout: React.FC<Props> = ({
+  children,
+  title,
+  withTabs,
+  actions,
+}) => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
 
@@ -46,7 +52,11 @@ const ProfileLayout: React.FC<Props> = ({ children, title, withTabs }) => {
         <Container>
           <Row>
             <Col lg={9}>
-              <ProfileHeader title={title} withTabs={withTabs} />
+              <ProfileHeader
+                title={title}
+                withTabs={withTabs}
+                actions={actions}
+              />
               {children}
             </Col>
             <Col lg={3}>
