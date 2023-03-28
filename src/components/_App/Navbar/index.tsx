@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -13,6 +13,7 @@ import { HeaderCard } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 import Container from "@/components/Container";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -189,8 +190,8 @@ const StyledHeader = styled.header`
 const CustomMobileMenuItem = styled.div``;
 
 const Navbar = () => {
-  const { i18n, t } = useTranslation();
-  const i18nRef = useRef(i18n.language);
+  const { t } = useTranslation();
+  const { languageObject, handleLanguageChange } = useLanguage();
 
   const {
     user: userObj,
@@ -203,37 +204,10 @@ const Navbar = () => {
   const history = useHistory();
   const theme = useTheme();
 
-  const currentLanguageObject = useMemo(
-    () =>
-      i18n.language === "pl"
-        ? { label: "Polski", value: "pl" }
-        : { label: "English", value: "en" },
-    [i18n.language]
-  );
-
   useEffect(() => {
     user && fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  useEffect(() => {
-    if (i18n.language !== i18nRef.current) return;
-    const defaultLanguage = localStorage.getItem("defaultLanguage");
-
-    if (!defaultLanguage) {
-      const currentLanguage = currentLanguageObject;
-      localStorage.setItem("defaultLanguage", JSON.stringify(currentLanguage));
-    }
-
-    defaultLanguage && i18n.changeLanguage(JSON.parse(defaultLanguage).value);
-  }, [i18n, currentLanguageObject]);
-
-  useEffect(() => {
-    if (i18nRef.current === currentLanguageObject.value) return;
-    i18nRef.current = currentLanguageObject.value;
-    const currentLanguage = currentLanguageObject;
-    localStorage.setItem("defaultLanguage", JSON.stringify(currentLanguage));
-  }, [currentLanguageObject]);
 
   const menuItems = [
     {
@@ -398,8 +372,16 @@ const Navbar = () => {
           </div>
           <nav className="navigation">
             <Dropdown
-              placeholder={t("Menu.Browse")}
-              onChange={(e) => history.push(e.value)}
+              // placeholder={t("Menu.Browse")}
+              // HACKED we need use default value with translation insted placeholder
+              // placeholder prop doesn't re-render when we changing language
+              // this bug is in all Dropdowns
+              value={{ label: t("Menu.Browse"), value: "" }}
+              onChange={(e) => {
+                if (e.value !== "") {
+                  history.push(e.value);
+                }
+              }}
               options={[
                 { label: t("Menu.HomePage"), value: "/" },
                 { label: t("Menu.Courses"), value: "/courses" },
@@ -409,11 +391,17 @@ const Navbar = () => {
             />
             <Dropdown
               placeholder={t("Menu.Language")}
-              onChange={(e) => i18n.changeLanguage(e.value)}
+              onChange={(e) =>
+                handleLanguageChange({
+                  label: String(e.label),
+                  value: e.value,
+                })
+              }
               options={[
                 { label: "Polski", value: "pl" },
                 { label: "English", value: "en" },
               ]}
+              value={languageObject}
             />
             {user?.id && (
               <Dropdown
