@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Notification } from "@escolalms/components/lib/components/molecules/Notification/Notification";
-import { getEventType } from "../../utils";
+import { getNotificationTranslationObject } from "../../utils";
 import ContentLoader from "@/components/ContentLoader";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Pagination from "@/components/Pagination";
@@ -74,7 +74,10 @@ const MyNotificationsPage = () => {
                 notification={{
                   id: "324241",
                   unread: true,
-                  title: t<string>(`Notifications.${getEventType(item.event)}`),
+                  title: t(
+                    getNotificationTranslationObject(item).translation,
+                    getNotificationTranslationObject(item).object
+                  ),
                   description: "",
                   dateTime: new Date(item.created_at),
                 }}
