@@ -169,7 +169,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                           mode="secondary"
                           onClick={() => history.push(`/courses/${item.id}`)}
                         >
-                          {t<string>("Start now")}
+                          {t("StartNow")}
                         </Button>
                       </>
                     }
@@ -274,7 +274,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
                         mode="secondary"
                         onClick={() => history.push(`/courses/${item.id}`)}
                       >
-                        {t<string>("Start now")}
+                        {t("StartNow")}
                       </Button>
                     </>
                   }

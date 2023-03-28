@@ -33,6 +33,9 @@ const GlobalStyle = createGlobalStyle`
       border-collapse: collapse;
     }
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 const StyledMain = styled.main`
