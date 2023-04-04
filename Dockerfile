@@ -3,7 +3,7 @@ FROM node:16-buster AS base
 ARG APP_VERSION="xxx"
 WORKDIR /home/node/app
 COPY / /home/node/app
-RUN yarn install && yarn run build && cp build/index.html build/tpl.html
+RUN yarn install --network-timeout 1000000000  && yarn run build && cp build/index.html build/tpl.html
 RUN echo $APP_VERSION >> build/version.html
 
 
