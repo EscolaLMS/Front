@@ -12,6 +12,7 @@ import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlaye
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
+import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
 
 const StyledPdfPlayer = styled(PdfPlayer)`
   .course-pdf-player {
@@ -179,6 +180,9 @@ export const CourseProgramContent: React.FC<{
             }}
           />
         );
+
+      case API.TopicType.GiftQuiz:
+        return <GiftQuizPlayer topic={topic} />;
       default:
         return <pre>{topic.topicable_type}</pre>;
     }

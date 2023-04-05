@@ -18,7 +18,6 @@ import { Col, Row } from "react-grid-system";
 import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ErrorBox from "../Errorbox";
-import { Button } from "@escolalms/components";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
