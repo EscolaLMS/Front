@@ -24,6 +24,6 @@ jobs:
         with:
           push: true
 # Cannot be built at the moment https://github.com/nodejs/docker-node/issues/1335 
-          platforms: linux/amd64,linux/arm64
+          # platforms: linux/amd64,linux/arm64
           tags: escolalms/demo:${{github.ref_name}}, escolalms/demo:latest
           build-args: APP_VERSION=${{github.ref_name}}
