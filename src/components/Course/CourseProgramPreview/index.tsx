@@ -8,7 +8,7 @@ import { MarkdownPlayer } from "@escolalms/components/lib/components/players/Mar
 import { ImagePlayer } from "@escolalms/components/lib/components/players/ImagePlayer/ImagePlayer";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
-import { GiftQuizPlayer } from "@escolalms/components/lib/components/quizzes";
+import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;

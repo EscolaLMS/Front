@@ -12,7 +12,7 @@ import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlaye
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
-import { GiftQuizPlayer } from "@escolalms/components/lib/components/quizzes";
+import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
 
 const StyledPdfPlayer = styled(PdfPlayer)`
   .course-pdf-player {
