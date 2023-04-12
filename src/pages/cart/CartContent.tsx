@@ -250,7 +250,11 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                         title={item.product?.name}
                         // subtitle="5 lekcji"
                         price={`${String(item.product?.price)} zł`}
-                        oldPrice={`${String(item.product?.price_old || "")} zł`}
+                        oldPrice={
+                          item.product?.price_old
+                            ? `${String(item.product?.price_old || "")} zł`
+                            : undefined
+                        }
                         handleDelete={() =>
                           removeFromCart(Number(item.product?.id))
                         }
