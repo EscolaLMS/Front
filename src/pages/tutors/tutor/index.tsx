@@ -52,40 +52,6 @@ const TutorPage = () => {
   const theme = useTheme();
   const history = useHistory();
 
-  const sliderSettings = {
-    arrows: false,
-    infinite: true,
-    draggable: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    responsive: [
-      {
-        breakpoint: 1201,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          draggable: true,
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   useEffect(() => {
     fetchTutor(Number(id));
     //@ts-ignore
@@ -141,10 +107,7 @@ const TutorPage = () => {
             {courses.list && courses.list.data?.length === 0 ? (
               <Text>{t<string>("TutorCoursesEmpty")}</Text>
             ) : courses.list && courses.list.data?.length > 4 ? (
-              <CoursesSlider
-                sliderSettings={sliderSettings}
-                courses={courses.list?.data || []}
-              />
+              <CoursesSlider courses={courses.list?.data || []} />
             ) : (
               <Row>
                 {courses.list &&

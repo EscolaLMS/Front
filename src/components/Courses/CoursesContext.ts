@@ -1,14 +1,9 @@
-import React from 'react';
-import { API } from '@escolalms/sdk/lib';
-
-interface ReactCoursesList {
-  loading: boolean;
-  list?: API.PaginatedMetaList<API.CourseListItem>;
-  error?: API.DefaultResponseError;
-}
+import React from "react";
+import { API } from "@escolalms/sdk/lib";
 
 export const CoursesContext: React.Context<{
-  courses?: ReactCoursesList;
+  courses?: API.PaginatedMetaList<API.Course>;
+  loading?: boolean;
   params?: API.CourseParams;
   setParams?: (params: API.CourseParams) => void;
   onlyFree?: boolean;
