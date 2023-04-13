@@ -17,6 +17,7 @@ import {
 import ConsultationsSlider from "@/components/ConsultationsSlider";
 import Layout from "@/components/_App/Layout";
 import Container from "../Container";
+import ContentLoader from "@/components/ContentLoader";
 
 const Consultation = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const Consultation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (consultation.loading) {
+  if (consultation.loading && !consultation.value?.id) {
     return <Preloader />;
   }
 
@@ -45,36 +46,40 @@ const Consultation = () => {
 
   return (
     <Layout metaTitle={`${t("Consultation")} ${consultation.value?.name}`}>
-      <Container>
-        <Row>
-          <Col xs={12}>
-            <Breadcrumbs
-              items={[
-                <Link to="/">{t("Home")}</Link>,
-                <Link to="/consultations">{t("Consultations")}</Link>,
-                <Text size="12">{consultation?.value?.name}</Text>,
-              ]}
-            />
-          </Col>
-          <Col xs={12} md={9}>
-            <ConsultationHero consultation={consultation.value} />
-
-            {consultation?.value?.description &&
-              fixContentForMarkdown(consultation.value.description) !== "" && (
-                <StyledDescription>
-                  <MarkdownRenderer>
-                    {consultation.value.description}
-                  </MarkdownRenderer>
-                </StyledDescription>
-              )}
-          </Col>
-          {consultation?.value?.product && (
-            <Col xs={12} md={3}>
-              <ConsultationSidebar consultation={consultation.value} />
+      {consultation.loading && <ContentLoader />}
+      {!consultation.loading && (
+        <Container>
+          <Row>
+            <Col xs={12}>
+              <Breadcrumbs
+                items={[
+                  <Link to="/">{t("Home")}</Link>,
+                  <Link to="/consultations">{t("Consultations")}</Link>,
+                  <Text size="12">{consultation?.value?.name}</Text>,
+                ]}
+              />
             </Col>
-          )}
-        </Row>
-      </Container>
+            <Col xs={12} md={9}>
+              <ConsultationHero consultation={consultation.value} />
+
+              {consultation?.value?.description &&
+                fixContentForMarkdown(consultation.value.description) !==
+                  "" && (
+                  <StyledDescription>
+                    <MarkdownRenderer>
+                      {consultation.value.description}
+                    </MarkdownRenderer>
+                  </StyledDescription>
+                )}
+            </Col>
+            {consultation?.value?.product && (
+              <Col xs={12} md={3}>
+                <ConsultationSidebar consultation={consultation.value} />
+              </Col>
+            )}
+          </Row>
+        </Container>
+      )}
       {consultationCategories && consultationCategories.length > 0 && (
         <StyledRelatedConsultations>
           <Container>
@@ -83,7 +88,11 @@ const Consultation = () => {
                 key={category}
                 category={category}
                 title={`${t("Inni specjaliści")} ${category}`}
-                consultations={consultations?.list?.data || []}
+                consultations={
+                  consultations?.list?.data?.filter(
+                    (consultation) => consultation.id !== Number(id)
+                  ) || []
+                }
               />
             ))}
           </Container>
