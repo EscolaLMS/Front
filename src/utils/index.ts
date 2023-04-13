@@ -270,3 +270,8 @@ export const getNotificationTranslationObject = (
       return { translation };
   }
 };
+
+export const roundTo = (val: number, places = 2): number => {
+  if (!val || typeof val !== "number") return 0;
+  return Math.round(val * Math.pow(10, places)) / Math.pow(10, places);
+};

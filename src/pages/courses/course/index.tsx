@@ -27,6 +27,7 @@ import { fixContentForMarkdown } from "@escolalms/components/lib/utils/component
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { formatDate } from "@/utils/date";
+import { roundTo } from "@/utils/index";
 
 resetIdCounter();
 
@@ -471,10 +472,8 @@ const CoursePage = () => {
                   {ratings && ratings.count_answers > 0 ? (
                     <Ratings
                       mobile={isMobile}
-                      //@ts-ignore TODO: Add sum_rates to type QuestionnaireStars in SDK
-                      sumRates={ratings.sum_rates}
-                      avgRate={Number(ratings.avg_rate)}
-                      //@ts-ignore TODO: Add rates to type QuestionnaireStars in SDK
+                      sumRates={roundTo(ratings.sum_rates)}
+                      avgRate={roundTo(ratings.avg_rate)}
                       rates={ratings.rates}
                       header={t("CoursePage.CourseRatingsTitle")}
                     />
