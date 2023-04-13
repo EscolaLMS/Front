@@ -15,7 +15,7 @@ const EventsHeaderFilters = () => {
     parseNumbers: true,
   });
   const filters: FiltersState = {
-    categories: (parsedParams?.category as number[]) || [],
+    categories: (parsedParams?.categories as number[]) || [],
     name: (parsedParams?.name as string) || "",
     tags: (parsedParams?.tags as string[]) || [],
   };
@@ -53,14 +53,14 @@ const EventsHeaderFilters = () => {
         </div>
         <div className="single-select single-select--category">
           <CategoriesFilter
-            selectedCategories={(parsedParams?.category as number[]) || []}
+            selectedCategories={(parsedParams?.categories as number[]) || []}
             handleChange={(categories) => {
               if (setParams) {
                 setParams({
                   ...params,
                   page: 1,
                   // @ts-ignore
-                  "category[]": categories,
+                  "categories[]": categories,
                 });
               }
             }}

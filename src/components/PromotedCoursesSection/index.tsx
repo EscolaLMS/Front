@@ -374,7 +374,7 @@ const PromotedCoursesSection: React.FC<Props> = ({ courses }) => {
                                 color: subtitleColor,
                               }}
                               key={category.id}
-                              to={`/courses/?category_id[]=${category.id}`}
+                              to={`/courses/?categories[]=${category.id}`}
                             >
                               {category.name}
                             </Link>

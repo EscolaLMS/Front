@@ -206,7 +206,7 @@ const TutorPage = () => {
                               items={item.categories?.map((category) => (
                                 <Link
                                   key={category.id}
-                                  to={`/courses/?category_id[]=${category.id}`}
+                                  to={`/courses/?categories[]=${category.id}`}
                                 >
                                   {category.name}
                                 </Link>
