@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -13,6 +13,9 @@ import CategoriesSection from "@/components/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory } from "react-router-dom";
 import Container from "@/components/Container";
+import NewestCourses from "@/components/NewestCourses";
+import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
+import ContentLoader from "@/components/ContentLoader";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -47,14 +50,14 @@ const HomePageStyled = styled.div`
 
   .home-best-courses {
     margin: 40px 0;
-    order: ${({ theme }) => (theme.theme === "velvetTheme" ? 3 : 2)};
+    order: 2;
     @media (max-width: 768px) {
       margin: 30px 0;
     }
   }
 
   .home-newest-courses {
-    order: ${({ theme }) => (theme.theme === "orangeTheme" ? 3 : 4)};
+    order: 1;
     margin: 40px 0;
     @media (max-width: 768px) {
       margin: 30px 0;
@@ -62,12 +65,7 @@ const HomePageStyled = styled.div`
   }
 
   .promoted-courses-wrapper {
-    order: ${({ theme }) =>
-      theme.theme === "orangeTheme"
-        ? 4
-        : theme.theme === "velvetTheme"
-        ? 2
-        : 3};
+    order: 3;
   }
 
   .categories-section-wrapper {
@@ -76,49 +74,25 @@ const HomePageStyled = styled.div`
 `;
 
 const Index = () => {
-  const { categoryTree, fetchCategories, courses, fetchCourses, settings } =
+  const [courses, setCourses] = useState<Course[]>();
+  const [loading, setLoading] = useState(true);
+  const { categoryTree, fetchCategories, fetchCourses, settings } =
     useContext(EscolaLMSContext);
 
   const history = useHistory();
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    fetchCourses({ per_page: 6 });
+    fetchCourses({
+      per_page: 8,
+    })
+      .then((res) => {
+        setCourses((res as PaginatedMetaList<Course>).data);
+      })
+      .catch(() => setLoading(false))
+      .finally(() => setLoading(false));
     fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const sliderSettings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    draggable: false,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    responsive: [
-      {
-        breakpoint: 1201,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          draggable: true,
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   return (
     <Layout metaTitle={t("Home")}>
@@ -152,38 +126,24 @@ const Index = () => {
               </Container>
             )}
         </section>
+
+        <section className="home-newest-courses">
+          <NewestCourses />
+        </section>
+
         <section className="home-best-courses">
           <Container>
             <Title className="slider-title" level={3} as="h1">
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
-            {courses && courses.list && (
-              <CoursesSlider
-                courses={courses.list.data}
-                sliderSettings={sliderSettings}
-              />
-            )}
-          </Container>
-        </section>
-        <section className="home-newest-courses">
-          <Container>
-            <Title className="slider-title" level={3} as="h1">
-              <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
-            </Title>
-            {courses && courses.list && (
-              <CoursesSlider
-                courses={courses.list.data}
-                sliderSettings={sliderSettings}
-              />
-            )}
+            {loading && <ContentLoader />}
+            {!loading && courses && <CoursesSlider courses={courses} />}
           </Container>
         </section>
 
-        {courses && courses.list && courses.list.data.length >= 6 && (
-          <div className="promoted-courses-wrapper">
-            <PromotedCoursesSection courses={courses.list.data} />
-          </div>
-        )}
+        <div className="promoted-courses-wrapper">
+          <PromotedCoursesSection />
+        </div>
 
         {categoryTree && (
           <div className="categories-section-wrapper">

@@ -226,7 +226,7 @@ const CoursesList = styled.section`
 `;
 
 const CoursesCollection: React.FC = () => {
-  const { params, setParams, courses } = useContext(CoursesContext);
+  const { params, setParams, courses, loading } = useContext(CoursesContext);
   const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
   const [parsedParams, setParsedParams] = useState<
     API.CourseParams | undefined
@@ -295,6 +295,7 @@ const CoursesCollection: React.FC = () => {
         title: parsedParams.title,
       });
   }, [parsedParams]);
+
   return (
     <>
       <StyledHeader filters={params}>
@@ -302,7 +303,7 @@ const CoursesCollection: React.FC = () => {
         <div className="filters-container">
           <div
             className={`categories-container ${
-              courses?.loading && "categories-container--loading"
+              loading && "categories-container--loading"
             }`}
           >
             <div className="categories-row">
@@ -478,13 +479,11 @@ const CoursesCollection: React.FC = () => {
           </div>
         </div>
       </StyledHeader>
-      {courses &&
-      !courses.loading &&
-      (!courses.list || !courses.list.data?.length) ? (
+      {courses && !loading && (!courses.data || !courses.data.length) ? (
         <Title level={4}>{t("NoCourses")}</Title>
       ) : (
         <>
-          {courses?.loading ? (
+          {loading ? (
             <div
               style={{ display: "flex", justifyContent: "center" }}
               className="loader-wrapper"
@@ -499,7 +498,7 @@ const CoursesCollection: React.FC = () => {
                     gap: "30px 0",
                   }}
                 >
-                  {courses?.list?.data.map((item) => (
+                  {courses?.data.map((item) => (
                     <Col md={6} lg={4} xl={3} key={item.id}>
                       <CourseCardWrapper>
                         <CourseCard
@@ -609,11 +608,11 @@ const CoursesCollection: React.FC = () => {
                   ))}
                 </Row>
               </CoursesList>
-              {courses.list.meta.total > courses.list.meta.per_page && (
+              {courses.meta.total > courses.meta.per_page && (
                 <Pagination
-                  total={courses.list.meta.total}
-                  perPage={courses.list.meta.per_page}
-                  currentPage={courses.list.meta.current_page}
+                  total={courses.meta.total}
+                  perPage={courses.meta.per_page}
+                  currentPage={courses.meta.current_page}
                   onPage={(i) =>
                     setParams &&
                     setParams({
@@ -628,9 +627,7 @@ const CoursesCollection: React.FC = () => {
           )}
         </>
       )}
-      {courses && courses.list && courses.list.data.length >= 6 && (
-        <PromotedCoursesSection courses={courses.list.data} />
-      )}
+      <PromotedCoursesSection />
       {categoryTree && (
         <>
           <CategoriesSection

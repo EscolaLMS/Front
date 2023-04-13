@@ -22,7 +22,7 @@ import { Title } from "@escolalms/components";
 
 type Props = {
   courses: API.Course[];
-  sliderSettings: Settings;
+  sliderSettings?: Settings;
 };
 
 const Content = styled.div`
@@ -59,7 +59,45 @@ const Content = styled.div`
     }
   }
 `;
-const CoursesSlider: React.FC<Props> = ({ courses, sliderSettings }) => {
+
+const defaultSliderSettings = {
+  arrows: false,
+  infinite: true,
+  speed: 500,
+  draggable: false,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  responsive: [
+    {
+      breakpoint: 1201,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        draggable: true,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+        centerMode: true,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
+const CoursesSlider: React.FC<Props> = ({
+  courses,
+  sliderSettings = defaultSliderSettings,
+}) => {
   const [dots] = useState(true);
   const history = useHistory();
   const theme = useTheme();
