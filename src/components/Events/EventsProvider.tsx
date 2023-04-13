@@ -7,7 +7,7 @@ import qs from "query-string";
 import { EventsContext } from "./EventsContext";
 
 export type EventsParams = API.StationaryEventsParams & {
-  category?: number;
+  categories?: number;
 };
 
 const parseParams = (params: EventsParams = {}) => {

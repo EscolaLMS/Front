@@ -263,7 +263,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?category[]=${category.id}`}>
+                          <Link to={`/courses/?categories[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}
@@ -381,7 +381,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?category[]=${category.id}`}>
+                          <Link to={`/courses/?categories[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}
@@ -484,7 +484,7 @@ const ProfileCourses = ({
                       <BreadCrumbs
                         hyphen="/"
                         items={item.categories?.map((category) => (
-                          <Link to={`/courses/?category[]=${category.id}`}>
+                          <Link to={`/courses/?categories[]=${category.id}`}>
                             {category.name}
                           </Link>
                         ))}

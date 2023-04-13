@@ -51,7 +51,7 @@ const EventsContainerItem = ({ event, actions }: Props) => {
         <BreadCrumbs
           hyphen="/"
           items={event.categories?.map((category) => (
-            <Link key={category.id} to={`/events/?category[]=${category.id}`}>
+            <Link key={category.id} to={`/events/?categories[]=${category.id}`}>
               {category.name}
             </Link>
           ))}

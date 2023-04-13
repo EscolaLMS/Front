@@ -69,11 +69,14 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
     width: 100%;
     align-items: center;
     position: relative;
+    flex-wrap: wrap;
+    row-gap: 35px;
 
     .categories-container {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      width: 100%;
       &--loading {
         opacity: 0.6;
       }
@@ -107,7 +110,7 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
 
       .categories-row {
         display: flex;
-        max-width: ${isMobile ? "100%" : "500px"};
+        max-width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
         justify-content: flex-start;
@@ -178,6 +181,7 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
       justify-content: flex-end;
       align-items: center;
       column-gap: 35px;
+      margin-left: auto;
 
       @media (max-width: 991px) {
         flex-direction: column;
@@ -210,7 +214,7 @@ const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
         }
       }
 
-      .single-select--category {
+      .single-select {
         min-width: 200px;
       }
     }
@@ -286,7 +290,7 @@ const CoursesCollection: React.FC = () => {
   useEffect(() => {
     parsedParams &&
       setFilterState({
-        categories: parsedParams.category_id,
+        categories: parsedParams.categories,
         tag: parsedParams.tag,
         title: parsedParams.title,
       });
@@ -328,7 +332,7 @@ const CoursesCollection: React.FC = () => {
                       filterState.categories &&
                       filterState.categories.length > 0
                         ? filterState.categories
-                        : parsedParams && parsedParams.category_id
+                        : parsedParams && parsedParams.categories
                     }
                     drawerTitle={
                       <Title
@@ -350,7 +354,7 @@ const CoursesCollection: React.FC = () => {
                         setParams({
                           ...params,
                           page: 1,
-                          "category_id[]": newValue,
+                          "categories[]": newValue,
                         });
                     }}
                   />
@@ -420,7 +424,7 @@ const CoursesCollection: React.FC = () => {
                   selectedCategories={
                     filterState.categories && filterState.categories.length > 0
                       ? filterState.categories
-                      : parsedParams && parsedParams.category_id
+                      : parsedParams && parsedParams.categories
                   }
                   drawerTitle={
                     <Title
@@ -442,7 +446,7 @@ const CoursesCollection: React.FC = () => {
                       setParams({
                         ...params,
                         page: 1,
-                        "category_id[]": newValue,
+                        "categories[]": newValue,
                       });
                   }}
                 />
@@ -556,7 +560,7 @@ const CoursesCollection: React.FC = () => {
                               items={item.categories?.map((category) => (
                                 <Link
                                   key={category.id}
-                                  to={`/courses/?category_id[]=${category.id}`}
+                                  to={`/courses/?categories[]=${category.id}`}
                                 >
                                   {category.name}
                                 </Link>
