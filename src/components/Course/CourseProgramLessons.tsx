@@ -1,5 +1,10 @@
-//@ts-nocheck - remove when Course Top Nav will have fixed notes props
-import React, { useCallback, useEffect, useMemo, useContext } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useContext,
+  useState,
+} from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseSidebar from "@/components/Course/CourseSidebar";
@@ -18,6 +23,7 @@ import { Col, Row } from "react-grid-system";
 import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ErrorBox from "../Errorbox";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
@@ -34,6 +40,41 @@ const StyledCourse = styled.section`
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  .course-program-finish-modal {
+    font-family: "Mulish", sans-serif;
+    background: #f8f8f8;
+    inset: 0;
+    border: 1px solid #157493;
+    padding: 16px;
+    display: grid;
+    place-content: center;
+    gap: 16px;
+    height: 100%;
+    max-height: 500px;
+
+    p {
+      text-align: center;
+      margin: 0;
+    }
+
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    &__paragraph {
+      font-size: 18px;
+    }
+
+    &__buttons {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 8px;
+    }
   }
 `;
 
@@ -57,6 +98,7 @@ export const CourseProgramLessons: React.FC<{
     progress,
   } = useLessonProgram(program);
   const { courseProgressDetails } = useContext(EscolaLMSContext);
+  const [showFinishModal, setShowFinishModal] = useState<boolean>(false);
 
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
   const { push } = useHistory();
@@ -67,8 +109,7 @@ export const CourseProgramLessons: React.FC<{
 
   const getCourseProgress = useMemo(() => {
     if (
-      //courseProgress. &&
-      courseProgressDetails.byId[Number(courseId)] &&
+      courseProgressDetails.byId?.[Number(courseId)] &&
       courseProgressDetails.byId[Number(courseId)].value
     ) {
       return courseProgressDetails.byId[Number(courseId)].value;
@@ -152,7 +193,6 @@ export const CourseProgramLessons: React.FC<{
     if (!program || !topic) return;
     if (getNextPrevTopic(Number(topic?.id)) === null) {
       disableNextTopicButton(true);
-      sendProgress(program.id, [{ topic_id: Number(topic?.id), status: 1 }]);
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -161,6 +201,7 @@ export const CourseProgramLessons: React.FC<{
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
 
+  //@ts-ignore
   window.resetProgress = () =>
     (async () => {
       await sendProgress(
@@ -170,6 +211,13 @@ export const CourseProgramLessons: React.FC<{
           .map((topic) => ({ topic_id: Number(topic?.id), status: 0 }))
       );
     })();
+
+  const finishedTopicIndex = getCourseProgress?.findIndex((ttopic) => {
+    return (
+      ttopic.topic_id === topic?.id &&
+      ttopic.status === API.CourseProgressItemElementStatus.COMPLETE
+    );
+  });
 
   if (!program) {
     return <ErrorBox error={t("CourseProgram.NoProgram")} />;
@@ -206,62 +254,89 @@ export const CourseProgramLessons: React.FC<{
           </Title>
           <Row>
             <Col lg={9}>
-              <div className="course-program-player">
-                <div className="course-program-player-content">
-                  {topic && topic.introduction && (
-                    <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
-                  )}
-                  <div
-                    className="course-program-player-content__wrapper"
-                    style={{
-                      ...((topic?.json?.wrapperStyle as object) || {}),
-                    }}
-                  >
-                    <CourseProgramContent
-                      key={topic.id}
-                      lessonId={Number(lesson?.id)}
-                      topicId={topic && Number(topic.id)}
-                      disableNextTopicButton={disableNextTopicButton}
-                      isThereAnotherTopic={Boolean(
-                        getNextPrevTopic(Number(topic?.id))
-                      )}
-                    />
+              {!!showFinishModal && (
+                <div className="course-program-finish-modal">
+                  <p className="course-program-finish-modal__title">
+                    {t("CourseProgram.FinishTitle")}
+                  </p>
+                  <p className="course-program-finish-modal__paragraph">
+                    {t("CourseProgram.FinishSubtitle")}
+                  </p>
+
+                  <div className="course-program-finish-modal__buttons">
+                    <Button
+                      mode="primary"
+                      onClick={() => push("/user/my-profile")}
+                    >
+                      {t("Menu.Profile")}
+                    </Button>
+                    <Button mode="primary" onClick={() => push("/courses")}>
+                      {t("Menu.Courses")}
+                    </Button>
                   </div>
                 </div>
-                <div className="course-program-content__container">
-                  <Row>
-                    {lesson && lesson.summary && (
-                      <Col sm={12} md={columnWidth} lg={columnWidth}>
-                        <div className="course-program-summary">
-                          <MarkdownRenderer>{lesson.summary}</MarkdownRenderer>
-                        </div>
-                      </Col>
+              )}
+              {!showFinishModal && (
+                <div className="course-program-player">
+                  <div className="course-program-player-content">
+                    {topic && topic.introduction && (
+                      <MarkdownRenderer>{topic.introduction}</MarkdownRenderer>
                     )}
-                    {topic && topic.summary && (
-                      <Col sm={12} md={columnWidth} lg={columnWidth}>
-                        <div className="course-program-summary">
-                          <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
+                    <div
+                      className="course-program-player-content__wrapper"
+                      style={{
+                        ...((topic?.json?.wrapperStyle as object) || {}),
+                      }}
+                    >
+                      <CourseProgramContent
+                        key={topic.id}
+                        lessonId={Number(lesson?.id)}
+                        topicId={topic && Number(topic.id)}
+                        disableNextTopicButton={disableNextTopicButton}
+                        isThereAnotherTopic={Boolean(
+                          getNextPrevTopic(Number(topic?.id))
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="course-program-content__container">
+                    <Row>
+                      {lesson && lesson.summary && (
+                        <Col sm={12} md={columnWidth} lg={columnWidth}>
+                          <div className="course-program-summary">
+                            <MarkdownRenderer>
+                              {lesson.summary}
+                            </MarkdownRenderer>
+                          </div>
+                        </Col>
+                      )}
+                      {topic && topic.summary && (
+                        <Col sm={12} md={columnWidth} lg={columnWidth}>
+                          <div className="course-program-summary">
+                            <MarkdownRenderer>{topic.summary}</MarkdownRenderer>
 
-                          {topic &&
-                            topic.resources &&
-                            topic.resources?.length > 0 && (
-                              <CourseDownloads
-                                resources={topic.resources || []}
-                                subtitle={topic.introduction || ""}
-                              />
-                            )}
-                        </div>
-                      </Col>
-                    )}
-                  </Row>
+                            {topic &&
+                              topic.resources &&
+                              topic.resources?.length > 0 && (
+                                <CourseDownloads
+                                  resources={topic.resources || []}
+                                  subtitle={topic.introduction || ""}
+                                />
+                              )}
+                          </div>
+                        </Col>
+                      )}
+                    </Row>
+                  </div>
                 </div>
-              </div>
+              )}
             </Col>
             <Col lg={3}>
               <CourseSidebar
                 course={program}
                 lessonId={Number(lesson?.id)}
                 topicId={Number(topic?.id)}
+                onCourseFinish={() => setShowFinishModal(true)}
               />
             </Col>
           </Row>
@@ -272,16 +347,11 @@ export const CourseProgramLessons: React.FC<{
               onFinish={() => onCompleteTopic()}
               mobile={isMobile}
               onNext={onNextTopic}
-              isFinished={
-                getCourseProgress?.findIndex(
-                  (ttopic) =>
-                    ttopic.topic_id === topic.id &&
-                    ttopic.status ===
-                      API.CourseProgressItemElementStatus.COMPLETE
-                ) > -1
-              }
+              isFinished={finishedTopicIndex ? finishedTopicIndex > -1 : false}
               onPrev={onPrevTopic}
               addNotes={false}
+              // TODO: Handle when needed
+              onNoteClick={() => {}}
               hasPrev={
                 getNextPrevTopic(Number(topic?.id), false) ? true : false
               }

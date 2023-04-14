@@ -47,7 +47,8 @@ export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
   lessonId: number;
   topicId: number;
-}> = ({ course, lessonId, topicId }) => {
+  onCourseFinish?: () => void;
+}> = ({ course, lessonId, topicId, onCourseFinish }) => {
   const { disableNextTopicButton, sendProgress, progress } =
     useLessonProgram(course);
   const { courseProgressDetails } = useContext(EscolaLMSContext);
@@ -177,6 +178,7 @@ export const CourseSidebar: React.FC<{
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
           }}
+          onCourseFinished={() => onCourseFinish?.()}
         />
       </div>
     </StyledSidebar>

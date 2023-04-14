@@ -179,6 +179,8 @@ const resources = {
         ShowAgenda: "Show agenda",
         NoProgram: "No program",
         NoTopic: "No topic",
+        FinishTitle: "Congratulations! You have finished the course!",
+        FinishSubtitle: "Go to your profile or browse other courses.",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -671,6 +673,9 @@ const resources = {
         ShowAgenda: "Pokaż agendę",
         NoProgram: "Lekcja nie istnieje",
         NoTopic: "Temat nie istnieje",
+        FinishTitle: "Gratulacje! Ukończyłeś/aś kurs!",
+        FinishSubtitle:
+          "Przejdź do swojego profilu albo przeglądaj inne kursy.",
       },
       CoursesPage: {
         Category: "Kategoria",
