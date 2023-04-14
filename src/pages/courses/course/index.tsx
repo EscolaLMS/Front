@@ -262,286 +262,271 @@ const CoursePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!course.value) {
-    return (
-      <Layout>
-        <StyledCoursePage>
-          <Container>
-            <Loader />
-          </Container>
-        </StyledCoursePage>
-      </Layout>
-    );
-  }
-
-  if (Number(course.value.id) !== Number(id) && course.loading) {
-    return (
-      <Layout>
-        <StyledCoursePage>
-          <Container>
-            <Loader />
-          </Container>
-        </StyledCoursePage>
-      </Layout>
-    );
-  }
-
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
   return (
-    <Layout metaTitle={course.value.title}>
-      <StyledCoursePage>
-        <Container>
-          <Row>
-            <Col md={12} lg={9}>
-              <Breadcrumbs
-                items={[
-                  <Link to="/">{t("Home")}</Link>,
-                  <Link to="/courses">{t("Courses")}</Link>,
-                  <Text size="12">{course.value.title}</Text>,
-                ]}
-              />
-              <section className="course-main-info with-border">
-                <Row>
-                  <Col lg={7}>
-                    <Title mobile={isMobile} level={2}>
-                      {course.value.title}
-                    </Title>
-                    <div className="labels-row">
-                      <div className="single-label">
-                        <LabelListItem
-                          mobile={isMobile}
-                          title="90%"
-                          icon={<ThumbUp />}
-                        >
-                          {t("CoursePage.Recommends")}
-                        </LabelListItem>
-                      </div>
-                      <div className="single-label">
-                        <LabelListItem
-                          mobile={isMobile}
-                          title={t<string>("CoursePage.Guarantee")}
-                          icon={<Medal />}
-                        >
-                          {t("CoursePage.Satisfaction")}
-                        </LabelListItem>
-                      </div>
-                      <div className="single-label">
-                        <LabelListItem
-                          mobile={isMobile}
-                          title="5.0"
-                          icon={<StarOrange />}
-                        >
-                          {t("CoursePage.AvarageRating")}
-                        </LabelListItem>
-                      </div>
+    // Render Layout once
+    <Layout metaTitle={course?.value?.title || "Loading"}>
+      {/* LOADER */}
+      {course.loading && <Loader />}
+      {/* COURSE CONTENT */}
+      {!course.loading && course.value && (
+        <>
+          <StyledCoursePage>
+            <Container>
+              <Row>
+                <Col md={12} lg={9}>
+                  <Breadcrumbs
+                    items={[
+                      <Link to="/">{t("Home")}</Link>,
+                      <Link to="/courses">{t("Courses")}</Link>,
+                      <Text size="12">{course.value.title}</Text>,
+                    ]}
+                  />
+                  <section className="course-main-info with-border">
+                    <Row>
+                      <Col lg={7}>
+                        <Title mobile={isMobile} level={2}>
+                          {course.value.title}
+                        </Title>
+                        <div className="labels-row">
+                          <div className="single-label">
+                            <LabelListItem
+                              mobile={isMobile}
+                              title="90%"
+                              icon={<ThumbUp />}
+                            >
+                              {t("CoursePage.Recommends")}
+                            </LabelListItem>
+                          </div>
+                          <div className="single-label">
+                            <LabelListItem
+                              mobile={isMobile}
+                              title={t<string>("CoursePage.Guarantee")}
+                              icon={<Medal />}
+                            >
+                              {t("CoursePage.Satisfaction")}
+                            </LabelListItem>
+                          </div>
+                          <div className="single-label">
+                            <LabelListItem
+                              mobile={isMobile}
+                              title="5.0"
+                              icon={<StarOrange />}
+                            >
+                              {t("CoursePage.AvarageRating")}
+                            </LabelListItem>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col lg={4}>
+                        {course.value.image_path && (
+                          <div className="image-wrapper">
+                            <ResponsiveImage
+                              path={course.value.image_path}
+                              srcSizes={[790 * 0.5, 790, 2 * 790]}
+                            />
+                          </div>
+                        )}
+                      </Col>
+                    </Row>
+                    <div className="labels-row labels-row--bottom">
+                      {course.value.categories &&
+                        course.value.categories.length > 0 && (
+                          <div className="single-label">
+                            <LabelListItem
+                              title={t("CoursePage.CourseCategory")}
+                              variant={"label"}
+                            >
+                              {course.value.categories[0].name}
+                            </LabelListItem>
+                          </div>
+                        )}
+                      {course.value.level && (
+                        <div className="single-label">
+                          <LabelListItem
+                            title={t("CoursePage.Level")}
+                            variant={"label"}
+                          >
+                            {course.value.level}
+                          </LabelListItem>
+                        </div>
+                      )}
+                      {course.value.active_from && (
+                        <div className="single-label">
+                          <LabelListItem
+                            title={t("CoursePage.StartDate")}
+                            variant={"label"}
+                          >
+                            {course.value.active_from
+                              ? formatDate(course.value.active_from)
+                              : "---"}
+                          </LabelListItem>
+                        </div>
+                      )}
+                      {course.value.duration && (
+                        <div className="single-label">
+                          <LabelListItem
+                            title={t("CoursePage.Duration")}
+                            variant={"label"}
+                          >
+                            {course.value.duration}
+                          </LabelListItem>
+                        </div>
+                      )}
                     </div>
-                  </Col>
-                  <Col lg={4}>
-                    {course.value.image_path && (
-                      <div className="image-wrapper">
-                        <ResponsiveImage
-                          path={course.value.image_path}
-                          srcSizes={[790 * 0.5, 790, 2 * 790]}
-                        />
-                      </div>
+                  </section>
+                  <section className="course-companies">
+                    <Text>
+                      <strong>{t("CoursePage.CompaniesTitle")}</strong>
+                    </Text>
+                    <div className="companies-row">
+                      {settings &&
+                        settings.value.courseLogos &&
+                        Object.values(settings.value.courseLogos).map(
+                          (_, index) => (
+                            <div className="single-company" key={index}>
+                              <ResponsiveImage
+                                path={
+                                  settings?.value?.courseLogos[
+                                    `logo${index + 1}`
+                                  ] || ""
+                                }
+                                srcSizes={[100, 200, 300]}
+                              />
+                            </div>
+                          )
+                        )}
+                    </div>
+                  </section>
+                  {course.value.summary &&
+                    fixContentForMarkdown(course.value.summary) !== "" && (
+                      <section className="course-description">
+                        <MarkdownRenderer>
+                          {course.value.summary}
+                        </MarkdownRenderer>
+                      </section>
                     )}
+                  {course.value.author && (
+                    <section className="course-tutor with-border padding-right">
+                      <Link to={`/tutors/${course.value.author_id}`}>
+                        <Tutor
+                          mobile={isMobile}
+                          avatar={{
+                            alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
+                            src:
+                              `${API_URL}/api/images/img?path=${course.value.author.path_avatar}` ||
+                              "",
+                          }}
+                          rating={{
+                            ratingValue: 4.1,
+                          }}
+                          title={
+                            <Title as="h3" level={4} className="title">
+                              {t<string>("CoursePage.Teacher")}
+                            </Title>
+                          }
+                          fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
+                          coursesInfo={"8 Curses"}
+                          description={course.value.author.bio}
+                        />
+                      </Link>
+                    </section>
+                  )}
+                  {course.value.description &&
+                    fixContentForMarkdown(course.value.description) !== "" && (
+                      <section className="course-description-short with-border padding-right">
+                        <Title level={4}>
+                          {t("CoursePage.CourseDescriptionTitle")}
+                        </Title>
+                        <MarkdownRenderer>
+                          {course.value.description}
+                        </MarkdownRenderer>
+                      </section>
+                    )}
+                  {course.value.lessons && course.value.lessons.length > 0 && (
+                    <CourseProgram
+                      lessons={course.value.lessons}
+                      onTopicClick={(topic) => setPreviewTopic(topic)}
+                    />
+                  )}
+                  {
+                    <section className="course-ratings padding-right">
+                      {ratings && ratings.count_answers > 0 ? (
+                        <Ratings
+                          mobile={isMobile}
+                          sumRates={roundTo(ratings.sum_rates)}
+                          avgRate={roundTo(ratings.avg_rate)}
+                          rates={ratings.rates}
+                          header={t("CoursePage.CourseRatingsTitle")}
+                        />
+                      ) : (
+                        <>
+                          <Title level={4} as="h2">
+                            {t("CoursePage.CourseRatingsTitle")}
+                          </Title>
+                          <Text style={{ marginTop: 20 }}>
+                            {t<string>("CoursePage.CourseRatingsEmpty")}
+                          </Text>
+                        </>
+                      )}
+                    </section>
+                  }
+                </Col>
+                <Col md={12} lg={3} className="sidebar-col">
+                  <div className="sidebar-wrapper">
+                    {course.value && (
+                      <CoursesDetailsSidebar course={course.value} />
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+            <section className="course-related-courses">
+              <Container>
+                <Row>
+                  <Col lg={9}>
+                    <div className="content-container">
+                      <Title level={4} as="h2">
+                        {t("CoursePage.RelatedCoursesTitle")}
+                      </Title>
+                      {courses && courses.list && (
+                        <CoursesSlider
+                          courses={courses.list.data}
+                          sliderSettings={sliderSettings}
+                        />
+                      )}
+                    </div>
+                    <div className="content-container">
+                      <Title level={4} as="h2">
+                        {t("CoursePage.InterestTitle")}
+                      </Title>
+                      {courses && courses.list && (
+                        <CoursesSlider
+                          courses={courses.list.data}
+                          sliderSettings={sliderSettings}
+                        />
+                      )}
+                    </div>
                   </Col>
                 </Row>
-                <div className="labels-row labels-row--bottom">
-                  {course.value.categories &&
-                    course.value.categories.length > 0 && (
-                      <div className="single-label">
-                        <LabelListItem
-                          title={t("CoursePage.CourseCategory")}
-                          variant={"label"}
-                        >
-                          {course.value.categories[0].name}
-                        </LabelListItem>
-                      </div>
-                    )}
-                  {course.value.level && (
-                    <div className="single-label">
-                      <LabelListItem
-                        title={t("CoursePage.Level")}
-                        variant={"label"}
-                      >
-                        {course.value.level}
-                      </LabelListItem>
-                    </div>
-                  )}
-                  {course.value.active_from && (
-                    <div className="single-label">
-                      <LabelListItem
-                        title={t("CoursePage.StartDate")}
-                        variant={"label"}
-                      >
-                        {course.value.active_from
-                          ? formatDate(course.value.active_from)
-                          : "---"}
-                      </LabelListItem>
-                    </div>
-                  )}
-                  {course.value.duration && (
-                    <div className="single-label">
-                      <LabelListItem
-                        title={t("CoursePage.Duration")}
-                        variant={"label"}
-                      >
-                        {course.value.duration}
-                      </LabelListItem>
-                    </div>
-                  )}
-                </div>
-              </section>
-              <section className="course-companies">
-                <Text>
-                  <strong>{t("CoursePage.CompaniesTitle")}</strong>
-                </Text>
-                <div className="companies-row">
-                  {settings &&
-                    settings.value.courseLogos &&
-                    Object.values(settings.value.courseLogos).map(
-                      (_, index) => (
-                        <div className="single-company" key={index}>
-                          <ResponsiveImage
-                            path={
-                              settings?.value?.courseLogos[
-                                `logo${index + 1}`
-                              ] || ""
-                            }
-                            srcSizes={[100, 200, 300]}
-                          />
-                        </div>
-                      )
-                    )}
-                </div>
-              </section>
-              {course.value.summary &&
-                fixContentForMarkdown(course.value.summary) !== "" && (
-                  <section className="course-description">
-                    <MarkdownRenderer>{course.value.summary}</MarkdownRenderer>
-                  </section>
-                )}
-              {course.value.author && (
-                <section className="course-tutor with-border padding-right">
-                  <Link to={`/tutors/${course.value.author_id}`}>
-                    <Tutor
-                      mobile={isMobile}
-                      avatar={{
-                        alt: `${course.value.author.first_name} ${course.value.author.last_name}`,
-                        src:
-                          `${API_URL}/api/images/img?path=${course.value.author.path_avatar}` ||
-                          "",
-                      }}
-                      rating={{
-                        ratingValue: 4.1,
-                      }}
-                      title={
-                        <Title as="h3" level={4} className="title">
-                          {t<string>("CoursePage.Teacher")}
-                        </Title>
-                      }
-                      fullName={`${course.value.author.first_name} ${course.value.author.last_name}`}
-                      coursesInfo={"8 Curses"}
-                      description={course.value.author.bio}
-                    />
-                  </Link>
-                </section>
-              )}
-              {course.value.description &&
-                fixContentForMarkdown(course.value.description) !== "" && (
-                  <section className="course-description-short with-border padding-right">
-                    <Title level={4}>
-                      {t("CoursePage.CourseDescriptionTitle")}
-                    </Title>
-                    <MarkdownRenderer>
-                      {course.value.description}
-                    </MarkdownRenderer>
-                  </section>
-                )}
-              {course.value.lessons && course.value.lessons.length > 0 && (
-                <CourseProgram
-                  lessons={course.value.lessons}
-                  onTopicClick={(topic) => setPreviewTopic(topic)}
-                />
-              )}
-              {
-                <section className="course-ratings padding-right">
-                  {ratings && ratings.count_answers > 0 ? (
-                    <Ratings
-                      mobile={isMobile}
-                      sumRates={roundTo(ratings.sum_rates)}
-                      avgRate={roundTo(ratings.avg_rate)}
-                      rates={ratings.rates}
-                      header={t("CoursePage.CourseRatingsTitle")}
-                    />
-                  ) : (
-                    <>
-                      <Title level={4} as="h2">
-                        {t("CoursePage.CourseRatingsTitle")}
-                      </Title>
-                      <Text style={{ marginTop: 20 }}>
-                        {t<string>("CoursePage.CourseRatingsEmpty")}
-                      </Text>
-                    </>
-                  )}
-                </section>
-              }
-            </Col>
-            <Col md={12} lg={3} className="sidebar-col">
-              <div className="sidebar-wrapper">
-                {course.value && (
-                  <CoursesDetailsSidebar course={course.value} />
-                )}
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <section className="course-related-courses">
-          <Container>
-            <Row>
-              <Col lg={9}>
-                <div className="content-container">
-                  <Title level={4} as="h2">
-                    {t("CoursePage.RelatedCoursesTitle")}
-                  </Title>
-                  {courses && courses.list && (
-                    <CoursesSlider
-                      courses={courses.list.data}
-                      sliderSettings={sliderSettings}
-                    />
-                  )}
-                </div>
-                <div className="content-container">
-                  <Title level={4} as="h2">
-                    {t("CoursePage.InterestTitle")}
-                  </Title>
-                  {courses && courses.list && (
-                    <CoursesSlider
-                      courses={courses.list.data}
-                      sliderSettings={sliderSettings}
-                    />
-                  )}
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-      </StyledCoursePage>
-
-      <Modal
-        onClose={() => setPreviewTopic(undefined)}
-        visible={previewTopic ? true : false}
-        animation="zoom"
-        maskAnimation="fade"
-        destroyOnClose={true}
-        width={600}
-      >
-        <ModalOverwriteGlobal />
-        {previewTopic && <CourseProgramPreview topic={previewTopic} />}
-      </Modal>
+              </Container>
+            </section>
+          </StyledCoursePage>
+          <Modal
+            onClose={() => setPreviewTopic(undefined)}
+            visible={previewTopic ? true : false}
+            animation="zoom"
+            maskAnimation="fade"
+            destroyOnClose={true}
+            width={600}
+          >
+            <ModalOverwriteGlobal />
+            {previewTopic && <CourseProgramPreview topic={previewTopic} />}
+          </Modal>
+        </>
+      )}
     </Layout>
   );
 };

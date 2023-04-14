@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 import Container from "@/components/Container";
 import { useLanguage } from "../../../hooks/useLanguage";
+import { useCart } from "../../../hooks/useCart";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -193,21 +194,11 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { languageObject, handleLanguageChange } = useLanguage();
 
-  const {
-    user: userObj,
-    settings,
-    cart,
-    fetchCart,
-    logout,
-  } = useContext(EscolaLMSContext);
+  const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
-
-  useEffect(() => {
-    user && fetchCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  const { cart } = useCart();
 
   const menuItems = [
     {
@@ -473,11 +464,11 @@ const Navbar = () => {
                 type="button"
                 className="cart-icon"
                 onClick={() => history.push("/cart")}
-                data-tooltip={String(cart.value?.items.length)}
+                data-tooltip={String(cart.data?.items.length)}
                 aria-label={t("CoursePage.GoToCheckout")}
               >
-                {cart.value && cart.value.items?.length > 0 && (
-                  <span>{cart.value.items.length}</span>
+                {cart.data && cart.data.items?.length > 0 && (
+                  <span>{cart.data.items.length}</span>
                 )}{" "}
                 <HeaderCard mode={theme.mode} />
               </button>

@@ -1,53 +1,37 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { IconText, Text, Button, CourseProgress } from "@escolalms/components";
-import isPast from "date-fns/isPast";
+import { IconText, Text, CourseProgress } from "@escolalms/components";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconSquares, IconWin, IconCamera } from "../../../icons";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { useTheme } from "styled-components";
+import { useProgress } from "../../../hooks/useProgress";
+import CourseDetailsSidebarButtons from "./Buttons";
 
 const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
   course,
 }) => {
   const theme = useTheme();
-  const { cart, addToCart, progress, user, fetchProgress } =
-    useContext(EscolaLMSContext);
+  const { user } = useContext(EscolaLMSContext);
   const { id } = course;
   const { t } = useTranslation();
-  const { push } = useHistory();
-  useEffect(() => {
-    user && user.value && fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const courseInCart = useMemo(() => {
-    return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(course.product?.id)
-    );
-  }, [course.product?.id, cart]);
+  const { progress } = useProgress();
 
   const userOwnThisCourse = useMemo(() => {
     return (
-      progress.value &&
-      progress.value.findIndex(
+      progress.data &&
+      progress.data.findIndex(
         (item: API.CourseProgressItem) => item.course.id === id
       ) !== -1
     );
   }, [progress, id]);
-  // const priceLiteral = useMemo(() => {
-  //   return course.product?.price === 0
-  //     ? t("FREE")
-  //     : `${config?.escolalms_payments?.default_currency} ${(
-  //         (course.product?.price || 0) / 100
-  //       ).toFixed(2)}`;
-  // }, [course, config]);
-  const currentCourse = progress
-    ? progress.value?.filter((item) => item.course.id === id)
+
+  const currentCourse = progress.data
+    ? progress.data?.filter((item) => item.course.id === id)
     : [];
   const progressMap = useMemo(() => {
     if (user.value && userOwnThisCourse) {
@@ -78,45 +62,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           </div>
         )}
       </div>
-      {isPast(new Date(course.active_to || "")) ? (
-        <Text>{t("CoursePage.IsFinished")}</Text>
-      ) : courseInCart ? (
-        <Button mode="secondary" onClick={() => push("/cart")}>
-          {t("CoursePage.GoToCheckout")}
-        </Button>
-      ) : userOwnThisCourse ? (
-        <>
-          {isPast(new Date(course.active_from || "")) ? (
-            <Button
-              onClick={() => push(`/course/${course.id}`)}
-              mode="secondary"
-            >
-              {t("Go to the course")}
-            </Button>
-          ) : (
-            <Text>{t("CoursePage.NotStarted")}</Text>
-          )}
-        </>
-      ) : user.value && course.product ? (
-        <Button
-          loading={cart.loading}
-          mode="secondary"
-          onClick={() =>
-            addToCart(Number(course.product?.id)).then(() => push("/cart"))
-          }
-        >
-          {t("Buy Course")}
-        </Button>
-      ) : !course.product ? (
-        <Text>{t("CoursePage.UnavailableCourse")}</Text>
-      ) : (
-        <Button
-          onClick={() => push(`/login?referrer=/courses/${course.id}`)}
-          mode="secondary"
-        >
-          {t("Buy Course")}
-        </Button>
-      )}
+      <CourseDetailsSidebarButtons
+        course={course}
+        userOwnThisCourse={userOwnThisCourse}
+      />
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
         {course.duration && (
@@ -208,39 +157,10 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
           </Title>
         </div>
         <div>
-          {courseInCart ? (
-            <Button block mode="secondary" onClick={() => push("/cart")}>
-              {t("CoursePage.GoToCheckout")}
-            </Button>
-          ) : userOwnThisCourse ? (
-            <Button
-              block
-              mode="secondary"
-              onClick={() => push(`/course/${course.id}`)}
-            >
-              {t("Go to the course")}
-            </Button>
-          ) : user.value && course.product ? (
-            <Button
-              block
-              mode="secondary"
-              onClick={() =>
-                addToCart(Number(course.product?.id)).then(() => push("/cart"))
-              }
-            >
-              {t("Buy Course")}
-            </Button>
-          ) : !course.product ? (
-            <Text>{t("CoursePage.UnavailableCourse")}</Text>
-          ) : (
-            <Button
-              onClick={() => push(`/login?referrer=/courses/${course.id}`)}
-              block
-              mode="secondary"
-            >
-              {t("Login to buy")}
-            </Button>
-          )}
+          <CourseDetailsSidebarButtons
+            course={course}
+            userOwnThisCourse={userOwnThisCourse}
+          />
         </div>
       </div>
     </PricingCard>
