@@ -34,8 +34,8 @@ const EventsContainerItems = () => {
         ))}
       </Row>
       {eventsMeta &&
-        (events?.list?.meta?.total || 0) >
-          (events?.list?.meta?.per_page || 0) && (
+        (Number(events?.list?.meta?.total) || 0) >
+          (Number(events?.list?.meta?.per_page) || 0) && (
           <Pagination
             total={eventsMeta.total}
             perPage={Number(eventsMeta.per_page)}

@@ -2,14 +2,18 @@ import { FC, ReactNode, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import styled from "styled-components";
 import { API } from "@escolalms/sdk/lib";
-import { EventsContext } from "@/components/Events/EventsContext";
+import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
 
-interface EventsHeaderStylesProps {
+interface ConsultationsHeaderStylesProps {
   children: ReactNode | ReactNode[];
 }
 
-const EventsHeaderStyles: FC<EventsHeaderStylesProps> = ({ children }) => {
-  const StyledHeader = styled("div")<{ filters: API.EventsParams | undefined }>`
+const ConsultationsHeaderStyles: FC<ConsultationsHeaderStylesProps> = ({
+  children,
+}) => {
+  const StyledHeader = styled("div")<{
+    filters: API.ConsultationParams | undefined;
+  }>`
     background: ${({ theme }) => theme.primaryColor};
     padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
     margin-bottom: ${isMobile ? "100px" : "40px"};
@@ -29,9 +33,9 @@ const EventsHeaderStyles: FC<EventsHeaderStylesProps> = ({ children }) => {
       transition: margin-bottom 0.5s ease-out;
     }
   `;
-  const { params } = useContext(EventsContext);
+  const { params } = useContext(ConsultationsContext);
 
   return <StyledHeader filters={params}>{children}</StyledHeader>;
 };
 
-export default EventsHeaderStyles;
+export default ConsultationsHeaderStyles;

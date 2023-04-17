@@ -9,4 +9,6 @@ interface ReactConsultationsList {
 
 export const ConsultationsContext: React.Context<{
   consultations?: ReactConsultationsList;
+  params?: API.ConsultationParams;
+  setParams?: (params: API.ConsultationParams) => void;
 }> = React.createContext({});

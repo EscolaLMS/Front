@@ -1,15 +1,15 @@
 import { useContext, useMemo } from "react";
 import qs from "query-string";
 import { useLocation } from "react-router-dom";
-import { EventsContext } from "@/components/Events/EventsContext";
+import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
 import CategoriesFilter from "@/components/Filters/Categories";
 import SearchFilter from "@/components/Filters/Search";
 import FiltersTags from "@/components/Filters/Tags";
 import { FiltersState } from "@/types/filters";
-import { EventsFiltersStyles } from "./EventsFiltersStyles";
+import { ConsultationsFilterStyles } from "./ConsultationsFilterStyles";
 
-const EventsHeaderFilters = () => {
-  const { params, setParams } = useContext(EventsContext);
+const ConsultationsHeaderFilters = () => {
+  const { params, setParams } = useContext(ConsultationsContext);
   const location = useLocation();
   const parsedParams = qs.parse(location.search, {
     arrayFormat: "bracket",
@@ -19,13 +19,12 @@ const EventsHeaderFilters = () => {
     () => ({
       categories: (parsedParams?.categories as number[]) || [],
       name: (parsedParams?.name as string) || "",
-      tags: (parsedParams?.tags as string[]) || [],
     }),
     [parsedParams]
   );
 
   return (
-    <EventsFiltersStyles>
+    <ConsultationsFilterStyles>
       <div className="tags">
         <FiltersTags
           filters={filters}
@@ -71,8 +70,8 @@ const EventsHeaderFilters = () => {
           />
         </div>
       </div>
-    </EventsFiltersStyles>
+    </ConsultationsFilterStyles>
   );
 };
 
-export default EventsHeaderFilters;
+export default ConsultationsHeaderFilters;
