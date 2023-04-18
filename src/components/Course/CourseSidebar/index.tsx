@@ -30,11 +30,9 @@ const StyledSidebar = styled.aside`
       z-index: 10;
       background-color: ${({ theme }) =>
         theme.mode === "dark" ? theme.dm__background : theme.background};
-
       &--visible {
         transform: translate(0, 0);
       }
-
       .hide-agenda-btn {
         display: block;
         margin: 0 15px 0 auto;
@@ -47,7 +45,8 @@ export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
   lessonId: number;
   topicId: number;
-}> = ({ course, lessonId, topicId }) => {
+  onCourseFinish?: () => void;
+}> = ({ course, lessonId, topicId, onCourseFinish }) => {
   const { disableNextTopicButton, sendProgress, progress } =
     useLessonProgram(course);
   const { courseProgressDetails } = useContext(EscolaLMSContext);
@@ -177,6 +176,7 @@ export const CourseSidebar: React.FC<{
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
           }}
+          onCourseFinished={() => onCourseFinish?.()}
         />
       </div>
     </StyledSidebar>

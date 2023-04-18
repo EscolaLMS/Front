@@ -8,9 +8,9 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.84",
-    "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.4.58",
+    "@escolalms/components": "^0.0.86",
+    "@escolalms/h5p-react": "^0.2.17",
+    "@escolalms/sdk": "^0.4.60",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -116,6 +116,8 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "prettier": "2.4.1",
+    "rc-tree-select": "^5.8.0",
+    "react-icons": "^4.8.0",
     "source-map-explorer": "^2.5.2"
   },
   "lint-staged": {
