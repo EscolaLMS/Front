@@ -16,7 +16,7 @@ const Tasks = () => {
       content: (
         <IconText
           icon={showDone ? <MdCheck size="1.6em" /> : <MdClose size="1.6em" />}
-          text="Tasks.ShowDone"
+          text={t("MyProfilePage.ShowDone")}
           onClick={() => setShowDone(!showDone)}
         />
       ),
@@ -29,7 +29,7 @@ const Tasks = () => {
       content: (
         <IconText
           icon={<MdEditNote />}
-          text="Ascending"
+          text={t("MyProfilePage.Ascending")}
           onClick={() => setSort("Ascending")}
         />
       ),
@@ -39,7 +39,7 @@ const Tasks = () => {
       content: (
         <IconText
           icon={<MdEditNote />}
-          text="Descending"
+          text={t("MyProfilePage.Descending")}
           onClick={() => setSort("Descending")}
         />
       ),
@@ -52,7 +52,7 @@ const Tasks = () => {
       content: (
         <IconText
           icon={<MdEditNote />}
-          text="Personal"
+          text={t("MyProfilePage.Personal")}
           onClick={() => setCreateBy("Personal")}
         />
       ),
@@ -62,7 +62,7 @@ const Tasks = () => {
       content: (
         <IconText
           icon={<MdEditNote />}
-          text="Incoming"
+          text={t("MyProfilePage.Incoming")}
           onClick={() => setCreateBy("Incoming")}
         />
       ),
