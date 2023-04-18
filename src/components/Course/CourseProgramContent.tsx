@@ -154,7 +154,7 @@ export const CourseProgramContent: React.FC<{
           <AudioVideoPlayer
             mobile={isMobile}
             audio
-            url={topic.topicable.value}
+            url={topic.topicable.url}
             light
             onFinish={(): void => onCompleteTopic()}
           />
