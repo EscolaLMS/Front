@@ -5,9 +5,11 @@ import { Col, Row } from "react-grid-system";
 import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
 import ConsultationsContainerItem from "./Item";
 import Pagination from "@/components/Pagination";
+import { useSearchParams } from "../../../../hooks/useSearchParams";
 
 const ConsultationsContainerItems = () => {
-  const { params, setParams, consultations } = useContext(ConsultationsContext);
+  const { consultations } = useContext(ConsultationsContext);
+  const { setQueryParam } = useSearchParams();
   const ConsultationsLoading = consultations?.loading;
   const consultationsMeta = consultations?.list?.meta;
   const theme = useTheme();
@@ -41,14 +43,7 @@ const ConsultationsContainerItems = () => {
             total={consultationsMeta.total}
             perPage={Number(consultationsMeta.per_page)}
             currentPage={consultationsMeta.current_page}
-            onPage={(i) =>
-              setParams &&
-              setParams({
-                ...params,
-                page: i,
-                per_page: 8,
-              })
-            }
+            onPage={(i) => setQueryParam("page", `${i}`)}
           />
         )}
     </>

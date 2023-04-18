@@ -1,26 +1,26 @@
-import { useContext, useMemo } from "react";
-import qs from "query-string";
-import { useLocation } from "react-router-dom";
-import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
+import { useMemo } from "react";
 import CategoriesFilter from "@/components/Filters/Categories";
 import SearchFilter from "@/components/Filters/Search";
 import FiltersTags from "@/components/Filters/Tags";
 import { FiltersState } from "@/types/filters";
 import { ConsultationsFilterStyles } from "./ConsultationsFilterStyles";
+import { useSearchParams } from "../../../../hooks/useSearchParams";
 
 const ConsultationsHeaderFilters = () => {
-  const { params, setParams } = useContext(ConsultationsContext);
-  const location = useLocation();
-  const parsedParams = qs.parse(location.search, {
-    arrayFormat: "bracket",
-    parseNumbers: true,
-  });
+  const {
+    setPathname,
+    setQueryParam,
+    setQueryArrayParam,
+    getAllQueryValueByName,
+    getQueryValueByName,
+  } = useSearchParams();
   const filters: FiltersState = useMemo(
     () => ({
-      categories: (parsedParams?.categories as number[]) || [],
-      name: (parsedParams?.name as string) || "",
+      categories:
+        getAllQueryValueByName("categories[]").map((val) => Number(val)) || [],
+      name: getQueryValueByName("name") || "",
     }),
-    [parsedParams]
+    [getAllQueryValueByName, getQueryValueByName]
   );
 
   return (
@@ -29,11 +29,7 @@ const ConsultationsHeaderFilters = () => {
         <FiltersTags
           filters={filters}
           onReset={() => {
-            if (setParams) {
-              setParams({
-                page: 1,
-              });
-            }
+            setPathname();
           }}
         />
       </div>
@@ -41,31 +37,17 @@ const ConsultationsHeaderFilters = () => {
         <div className="single-select single-select--search">
           <SearchFilter
             onSubmit={(value) => {
-              if (setParams) {
-                const newParams = {
-                  ...params,
-                  page: 1,
-                  name: value,
-                };
-                setParams({
-                  ...newParams,
-                });
-              }
+              setQueryParam("name", value);
             }}
           />
         </div>
         <div className="single-select single-select--category">
           <CategoriesFilter
-            selectedCategories={(parsedParams?.categories as number[]) || []}
+            selectedCategories={getAllQueryValueByName("categories[]")?.map(
+              (catNumber) => Number(catNumber)
+            )}
             handleChange={(categories) => {
-              if (setParams) {
-                setParams({
-                  ...params,
-                  page: 1,
-                  // @ts-ignore
-                  "categories[]": categories,
-                });
-              }
+              setQueryArrayParam("categories[]", categories);
             }}
           />
         </div>

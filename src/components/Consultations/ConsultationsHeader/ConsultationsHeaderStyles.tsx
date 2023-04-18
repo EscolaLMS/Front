@@ -1,8 +1,8 @@
-import { FC, ReactNode, useContext } from "react";
+import { FC, ReactNode } from "react";
 import { isMobile } from "react-device-detect";
 import styled from "styled-components";
 import { API } from "@escolalms/sdk/lib";
-import { ConsultationsContext } from "@/components/Consultations/ConsultationsContext";
+import { useSearchParams } from "../../../hooks/useSearchParams";
 
 interface ConsultationsHeaderStylesProps {
   children: ReactNode | ReactNode[];
@@ -20,22 +20,17 @@ const ConsultationsHeaderStyles: FC<ConsultationsHeaderStylesProps> = ({
 
     h1 {
       color: ${({ theme }) => theme.white};
-      margin-bottom: ${({ filters }) =>
-        isMobile
-          ? 0
-          : filters && Object.keys(filters).length > 1
-          ? "35px"
-          : filters && Object.keys(filters).length === 1 && "page" in filters
-          ? "-35px"
-          : filters === undefined
-          ? "-35px"
-          : "35px"};
-      transition: margin-bottom 0.5s ease-out;
+    }
+
+    .tags {
+      display: ${({ filters }) =>
+        filters && Object.keys(filters).length > 2 ? "block" : "none"};
+      width: 100%;
+      margin-top: 35px;
     }
   `;
-  const { params } = useContext(ConsultationsContext);
-
-  return <StyledHeader filters={params}>{children}</StyledHeader>;
+  const { paramsToObject } = useSearchParams();
+  return <StyledHeader filters={paramsToObject}>{children}</StyledHeader>;
 };
 
 export default ConsultationsHeaderStyles;
