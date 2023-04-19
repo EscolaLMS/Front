@@ -5,7 +5,6 @@ import React, {
   useState,
 } from "react";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
