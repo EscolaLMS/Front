@@ -41,14 +41,8 @@ export const CourseProgramContent: React.FC<{
   ],
   isThereAnotherTopic = true,
 }) => {
-  const {
-    program,
-    topicPing,
-    topicIsFinished,
-    fontSize,
-    sendProgress,
-    h5pProgress,
-  } = useContext(EscolaLMSContext);
+  const { program, topicPing, topicIsFinished, sendProgress, h5pProgress } =
+    useContext(EscolaLMSContext);
 
   const topic = useMemo(() => {
     return program.value?.lessons
@@ -136,7 +130,7 @@ export const CourseProgramContent: React.FC<{
           </>
         );
       case API.TopicType.RichText:
-        return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
+        return <TextPlayer value={topic.topicable.value} fontSize={1} />;
       case API.TopicType.Video:
         return (
           <AudioVideoPlayer

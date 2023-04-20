@@ -59,7 +59,6 @@
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.1.1",
     "react-i18next": "^11.16.9",
-    "react-icons": "^4.8.0",
     "react-image-lightbox": "^5.1.4",
     "react-markdown": "^8.0.3",
     "react-modal-video": "^1.2.8",
@@ -118,6 +117,8 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "prettier": "2.4.1",
+    "rc-tree-select": "^5.8.0",
+    "react-icons": "^4.8.0",
     "source-map-explorer": "^2.5.2"
   },
   "lint-staged": {

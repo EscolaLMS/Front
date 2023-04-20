@@ -420,6 +420,10 @@ const Navbar = () => {
                     value: "/user/my-stationary-events",
                   },
                   {
+                    label: t("Navbar.MyTasks"),
+                    value: "/user/my-tasks",
+                  },
+                  {
                     label: t("MyProfilePage.Notifications"),
                     value: "/user/my-notifications",
                   },

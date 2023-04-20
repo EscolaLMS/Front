@@ -38,6 +38,7 @@ const EventPage = lazy(() => import("../../pages/event"));
 // const LoginPage = lazy(() => import("../../pages/login"));
 
 // privates
+const MyTasks = lazy(() => import("../../pages/user/MyTasks"));
 const MyProfilePage = lazy(() => import("../../pages/user/MyProfile"));
 const MyStationaryEvents = lazy(
   () => import("../../pages/user/MyStationaryEvents")
@@ -102,6 +103,7 @@ const Routes: React.FC = (): ReactElement => {
     events,
     event,
     myStationaryEvents,
+    myTasks,
   } = routes;
 
   return (
@@ -132,6 +134,7 @@ const Routes: React.FC = (): ReactElement => {
           <ConfigRouteExtend exact path={event} component={EventPage} />
           {/* privates pages*/}
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
+          <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute
             exact
             path={myStationaryEvents}
