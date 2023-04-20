@@ -15,14 +15,10 @@ const ConsultationsCollection = () => {
   const { t } = useTranslation();
 
   const consultationsCategories = consultations?.list?.data?.map((item) =>
-    item?.categories
-      ?.filter((cat) => cat.parent_id === null)
-      .map((category) => {
-        if (category.parent_id === null) {
-          return category.name;
-        }
-        return;
-      })
+    item?.categories?.reduce<string[]>(
+      (acc, cat) => (cat.parent_id === null ? [...acc, cat.name] : acc),
+      []
+    )
   );
 
   //@ts-ignore

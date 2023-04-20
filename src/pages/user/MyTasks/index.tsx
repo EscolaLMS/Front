@@ -2,22 +2,37 @@ import { useState } from "react";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
 import { IconText, TaskComponent } from "@escolalms/components";
-import { MdEditNote, MdCheck, MdClose } from "react-icons/md";
+import {
+  IconChevronDoubleDown,
+  IconChevronDoubleUp,
+  IconDoubleUser,
+  IconEye,
+  IconEyeOff,
+  IconUser,
+} from "../../../icons";
 
 const Tasks = () => {
   const { t } = useTranslation();
-  const [sort, setSort] = useState("Ascending");
-  const [createBy, setCreateBy] = useState("Personal");
-  const [showDone, setShowDone] = useState(true);
+  const [state, setState] = useState<{
+    sort: "Ascending" | "Descending";
+    createdBy: "Personal" | "Incoming";
+    done: boolean;
+  }>({ sort: "Ascending", createdBy: "Personal", done: true });
 
   const taskShowAction = [
     {
       id: 1,
       content: (
         <IconText
-          icon={showDone ? <MdCheck size="1.6em" /> : <MdClose size="1.6em" />}
-          text={t("MyProfilePage.ShowDone")}
-          onClick={() => setShowDone(!showDone)}
+          icon={state.done === true ? <IconEyeOff /> : <IconEye />}
+          text={
+            state.done === true
+              ? t("MyProfilePage.HideDone")
+              : t("MyProfilePage.ShowDone")
+          }
+          onClick={() =>
+            setState((prevState) => ({ ...prevState, done: !prevState.done }))
+          }
         />
       ),
     },
@@ -28,9 +43,11 @@ const Tasks = () => {
       id: 0,
       content: (
         <IconText
-          icon={<MdEditNote />}
+          icon={<IconChevronDoubleDown />}
           text={t("MyProfilePage.Ascending")}
-          onClick={() => setSort("Ascending")}
+          onClick={() =>
+            setState((prevState) => ({ ...prevState, sort: "Ascending" }))
+          }
         />
       ),
     },
@@ -38,9 +55,11 @@ const Tasks = () => {
       id: 1,
       content: (
         <IconText
-          icon={<MdEditNote />}
+          icon={<IconChevronDoubleUp />}
           text={t("MyProfilePage.Descending")}
-          onClick={() => setSort("Descending")}
+          onClick={() =>
+            setState((prevState) => ({ ...prevState, sort: "Descending" }))
+          }
         />
       ),
     },
@@ -51,9 +70,11 @@ const Tasks = () => {
       id: 0,
       content: (
         <IconText
-          icon={<MdEditNote />}
+          icon={<IconUser />}
           text={t("MyProfilePage.Personal")}
-          onClick={() => setCreateBy("Personal")}
+          onClick={() =>
+            setState((prevState) => ({ ...prevState, createdBy: "Personal" }))
+          }
         />
       ),
     },
@@ -61,9 +82,11 @@ const Tasks = () => {
       id: 1,
       content: (
         <IconText
-          icon={<MdEditNote />}
+          icon={<IconDoubleUser />}
           text={t("MyProfilePage.Incoming")}
-          onClick={() => setCreateBy("Incoming")}
+          onClick={() =>
+            setState((prevState) => ({ ...prevState, createdBy: "Incoming" }))
+          }
         />
       ),
     },
@@ -71,9 +94,9 @@ const Tasks = () => {
   return (
     <ProfileLayout title={t("MyProfilePage.MyTasks")}>
       <TaskComponent
-        taskShowAction={{ options: taskShowAction, showDone: showDone }}
-        sortOptions={{ options: sortType, type: sort }}
-        createBy={{ options: taskCreateBy, type: createBy }}
+        taskShowAction={{ options: taskShowAction, showDone: state.done }}
+        sortOptions={{ options: sortType, type: state.sort }}
+        createBy={{ options: taskCreateBy, type: state.createdBy }}
       />
     </ProfileLayout>
   );

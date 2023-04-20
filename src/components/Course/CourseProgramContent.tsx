@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useCallback } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { TopicType } from "@escolalms/sdk/lib/services/courses";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
 import { API } from "@escolalms/sdk/lib";
@@ -9,6 +8,7 @@ import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/A
 import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
+import { ProjectPlayer } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
@@ -41,14 +41,8 @@ export const CourseProgramContent: React.FC<{
   ],
   isThereAnotherTopic = true,
 }) => {
-  const {
-    program,
-    topicPing,
-    topicIsFinished,
-    fontSize,
-    sendProgress,
-    h5pProgress,
-  } = useContext(EscolaLMSContext);
+  const { program, topicPing, topicIsFinished, sendProgress, h5pProgress } =
+    useContext(EscolaLMSContext);
 
   const topic = useMemo(() => {
     return program.value?.lessons
@@ -121,7 +115,7 @@ export const CourseProgramContent: React.FC<{
   if (topic.topicable_type) {
     // TODO: specific interface for advanced topic players -> example: ImagePlayer
     switch (topic.topicable_type) {
-      case TopicType.H5P:
+      case API.TopicType.H5P:
         return (
           <H5Player
             onXAPI={(e: XAPIEvent) => onXAPI(e)}
@@ -129,15 +123,15 @@ export const CourseProgramContent: React.FC<{
             h5pObject={topic.topicable.content as API.H5PObject}
           />
         );
-      case TopicType.OEmbed:
+      case API.TopicType.OEmbed:
         return (
           <>
             <OEmbedPlayer url={topic.topicable.value} key={topicId} />
           </>
         );
-      case TopicType.RichText:
-        return <TextPlayer value={topic.topicable.value} fontSize={fontSize} />;
-      case TopicType.Video:
+      case API.TopicType.RichText:
+        return <TextPlayer value={topic.topicable.value} fontSize={1} />;
+      case API.TopicType.Video:
         return (
           <AudioVideoPlayer
             mobile={isMobile}
@@ -146,10 +140,10 @@ export const CourseProgramContent: React.FC<{
             onFinish={(): void => onCompleteTopic()}
           />
         );
-      case TopicType.Image:
+      case API.TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
 
-      case TopicType.Audio:
+      case API.TopicType.Audio:
         return (
           <AudioVideoPlayer
             mobile={isMobile}
@@ -160,7 +154,7 @@ export const CourseProgramContent: React.FC<{
           />
         );
 
-      case TopicType.Pdf:
+      case API.TopicType.Pdf:
         return (
           <StyledPdfPlayer
             url={topic.topicable.url}
@@ -171,7 +165,7 @@ export const CourseProgramContent: React.FC<{
           />
         );
 
-      case TopicType.Scorm:
+      case API.TopicType.Scorm:
         return (
           <ScormPlayer
             value={{
@@ -183,8 +177,16 @@ export const CourseProgramContent: React.FC<{
 
       case API.TopicType.GiftQuiz:
         return <GiftQuizPlayer topic={topic} />;
+      case API.TopicType.Project:
+        return (
+          <ProjectPlayer
+            course_id={program.value?.id ?? 0}
+            topic={topic}
+            onSuccess={onCompleteTopic}
+          />
+        );
       default:
-        return <pre>{topic.topicable_type}</pre>;
+        return <pre>{(topic as API.Topic).topicable_type}</pre>;
     }
   }
 

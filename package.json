@@ -8,9 +8,9 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.86",
-    "@escolalms/h5p-react": "^0.2.17",
-    "@escolalms/sdk": "^0.4.60",
+    "@escolalms/components": "^0.0.88",
+    "@escolalms/h5p-react": "^0.2.10",
+    "@escolalms/sdk": "^0.4.58",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -49,7 +49,6 @@
     "rc-dialog": "^8.8.2",
     "rc-drawer": "^4.4.3",
     "rc-tree-select": "^5.8.0",
-    "react-icons": "^4.8.0",
     "react": "^17||^18",
     "react-app-rewire-alias": "^1.1.3",
     "react-app-rewired": "^2.1.8",
