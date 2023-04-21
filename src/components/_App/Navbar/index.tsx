@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -418,6 +418,10 @@ const Navbar = () => {
                   {
                     label: t("Navbar.MyStationaryEvents"),
                     value: "/user/my-stationary-events",
+                  },
+                  {
+                    label: t("Navbar.MyTasks"),
+                    value: "/user/my-tasks",
                   },
                   {
                     label: t("MyProfilePage.Notifications"),

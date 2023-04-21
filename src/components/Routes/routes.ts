@@ -12,6 +12,7 @@ const routeRoutes = {
   myOrders: "/user/my-orders",
   myNotifications: "/user/my-notifications",
   myData: "/user/my-data",
+  myTasks: "/user/my-tasks",
   tutors: "/tutors",
   consultations: "/consultations",
   consultation: "/consultations/:id",
