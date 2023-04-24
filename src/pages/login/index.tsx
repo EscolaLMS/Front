@@ -45,11 +45,7 @@ const Login = () => {
   return (
     <Layout metaTitle={t("LoginAndRegister")}>
       <StyledLoginPage>
-        <Container
-          style={{
-            paddingBottom: `${isMobile ? "50px" : "100px"}`,
-          }}
-        >
+        <Container>
           <Row justify={"center"}>
             <Col md={12}>
               {view === "login" ? (
