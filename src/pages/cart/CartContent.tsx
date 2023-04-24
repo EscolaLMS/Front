@@ -290,12 +290,6 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                           setBillingDetails={setBillingDetails}
                           billingDetails={billingDetails}
                         />
-
-                        <Checkbox
-                          name="rememberCreditCard"
-                          label={t<string>("Cart.RememberCard")}
-                          onChange={() => console.log("clicked")}
-                        />
                       </Collapse>
                     </div>
                     {/* <div className="collapse-wrapper">
