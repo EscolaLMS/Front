@@ -1,3 +1,4 @@
+import queryString from "query-string";
 import { useCallback, useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -75,25 +76,8 @@ export const useSearchParams = () => {
   );
 
   const paramsToObject = useMemo(() => {
-    let params = {};
-    new URLSearchParams(query).forEach((value, key) => {
-      let decodedKey = decodeURIComponent(key);
-      let decodedValue = decodeURIComponent(value);
-      // This key is part of an array
-      if (decodedKey.endsWith("[]")) {
-        decodedKey = decodedKey.replace("[]", "");
-        // @ts-ignore
-        params[decodedKey] || (params[decodedKey] = []);
-        // @ts-ignore
-        params[decodedKey].push(decodedValue);
-        // Just a regular parameter
-      } else {
-        // @ts-ignore
-        params[decodedKey] = decodedValue;
-      }
-    });
-    return params;
-  }, [query]);
+    return queryString.parse(search);
+  }, [search]);
 
   return {
     query,
