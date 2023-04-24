@@ -5,7 +5,6 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Loader from "@/components/Preloader";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
-import { resetIdCounter } from "react-tabs";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -28,8 +27,6 @@ import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { formatDate } from "@/utils/date";
 import { roundTo } from "@/utils/index";
-
-resetIdCounter();
 
 const StyledCoursePage = styled.div`
   section {

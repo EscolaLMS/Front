@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import qs from "query-string";
 import { useLocation } from "react-router-dom";
 import { EventsContext } from "@/components/Events/EventsContext";
@@ -6,6 +6,7 @@ import CategoriesFilter from "@/components/Filters/Categories";
 import SearchFilter from "@/components/Filters/Search";
 import FiltersTags from "@/components/Filters/Tags";
 import { FiltersState } from "@/types/filters";
+import { EventsFiltersStyles } from "./EventsFiltersStyles";
 
 const EventsHeaderFilters = () => {
   const { params, setParams } = useContext(EventsContext);
@@ -14,14 +15,17 @@ const EventsHeaderFilters = () => {
     arrayFormat: "bracket",
     parseNumbers: true,
   });
-  const filters: FiltersState = {
-    categories: (parsedParams?.categories as number[]) || [],
-    name: (parsedParams?.name as string) || "",
-    tags: (parsedParams?.tags as string[]) || [],
-  };
+  const filters: FiltersState = useMemo(
+    () => ({
+      categories: (parsedParams?.categories as number[]) || [],
+      name: (parsedParams?.name as string) || "",
+      tags: (parsedParams?.tags as string[]) || [],
+    }),
+    [parsedParams]
+  );
 
   return (
-    <div className="filters">
+    <EventsFiltersStyles>
       <div className="tags">
         <FiltersTags
           filters={filters}
@@ -67,7 +71,7 @@ const EventsHeaderFilters = () => {
           />
         </div>
       </div>
-    </div>
+    </EventsFiltersStyles>
   );
 };
 
