@@ -11,7 +11,6 @@ import { CheckoutCard } from "@escolalms/components/lib/components/molecules/Che
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Link as ComponentLink } from "@escolalms/components/lib/components/atoms/Link/Link";
-import { Checkbox } from "@escolalms/components/lib/components/atoms/Option/Checkbox";
 import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/Preloader";
@@ -289,12 +288,6 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                         <PaymentForm
                           setBillingDetails={setBillingDetails}
                           billingDetails={billingDetails}
-                        />
-
-                        <Checkbox
-                          name="rememberCreditCard"
-                          label={t<string>("Cart.RememberCard")}
-                          onChange={() => console.log("clicked")}
                         />
                       </Collapse>
                     </div>
