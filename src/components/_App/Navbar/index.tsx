@@ -424,6 +424,10 @@ const Navbar = () => {
                     value: "/user/my-tasks",
                   },
                   {
+                    label: t("Navbar.MyBookmarks"),
+                    value: "/user/my-bookmarks",
+                  },
+                  {
                     label: t("MyProfilePage.Notifications"),
                     value: "/user/my-notifications",
                   },

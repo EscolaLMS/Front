@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, {
   useCallback,
   useEffect,
@@ -10,7 +11,10 @@ import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseSidebar from "@/components/Course/CourseSidebar";
 import { useLessonProgram } from "../../hooks/useLessonProgram";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { CourseTopNav } from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
+import {
+  CourseTopNav,
+  NoteData,
+} from "@escolalms/components/lib/components/molecules/CourseTopNav/CourseTopNav";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
@@ -24,6 +28,7 @@ import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ErrorBox from "../Errorbox";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { toast } from "react-toastify";
 
 const StyledCourse = styled.section`
   padding-bottom: 110px;
@@ -97,10 +102,17 @@ export const CourseProgramLessons: React.FC<{
     sendProgress,
     progress,
   } = useLessonProgram(program);
-  const { courseProgressDetails } = useContext(EscolaLMSContext);
+  const {
+    courseProgressDetails,
+    bookmarkNotes,
+    fetchBookmarkNotes,
+    createBookmarkNote,
+    deleteBookmarkNote,
+  } = useContext(EscolaLMSContext);
   const [showFinishModal, setShowFinishModal] = useState<boolean>(false);
 
   const { topicID } = useParams<{ lessonID: string; topicID: string }>();
+
   const { push } = useHistory();
   const { t } = useTranslation();
   const location = useLocation();
@@ -167,6 +179,39 @@ export const CourseProgramLessons: React.FC<{
       )
     );
   }, [program, topicBreakPoint]);
+
+  const topicBookmark = useMemo(
+    () =>
+      bookmarkNotes.list?.data.filter(
+        (item) =>
+          item.bookmarkable_id === Number(topic?.id) && item.value === null
+      ),
+    [bookmarkNotes.list?.data, topic?.id]
+  );
+
+  const topicNote = useMemo(
+    () =>
+      bookmarkNotes.list?.data.filter(
+        (item) =>
+          item.bookmarkable_id === Number(topic?.id) && item.value !== null
+      ),
+    [bookmarkNotes.list?.data, topic?.id]
+  );
+
+  const handleBookmark = () => {
+    return !topicBookmark?.length
+      ? createBookmarkNote({
+          bookmarkable_id: Number(topic?.id),
+          bookmarkable_type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}`,
+        }).then(() => {
+          fetchBookmarkNotes();
+          toast.success(t<string>("Notifications.CreateBookmark"));
+        })
+      : deleteBookmarkNote(topicBookmark[0].id).then(() => {
+          fetchBookmarkNotes();
+          toast.success(t<string>("Notifications.DeleteBookmark"));
+        });
+  };
 
   useEffect(() => {
     if (startWithBreakPoint) {
@@ -349,9 +394,19 @@ export const CourseProgramLessons: React.FC<{
               onNext={onNextTopic}
               isFinished={finishedTopicIndex ? finishedTopicIndex > -1 : false}
               onPrev={onPrevTopic}
-              addNotes={false}
-              // TODO: Handle when needed
-              onNoteClick={() => {}}
+              addNotes={true}
+              newNoteData={{
+                id: topic.id,
+                type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}`,
+              }}
+              currentNote={
+                topicNote?.length ? (topicNote[0] as NoteData) : undefined
+              }
+              addBookmarks={true}
+              bookmarkBtnText={
+                topicBookmark?.length ? "deleteBookmark" : "addBookmark"
+              }
+              onBookmarkClick={() => handleBookmark()}
               hasPrev={
                 getNextPrevTopic(Number(topic?.id), false) ? true : false
               }
