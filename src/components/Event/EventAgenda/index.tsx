@@ -18,6 +18,8 @@ type Agenda = {
 
 const EventAgenda = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
+  // TODO: fix this
+  // @ts-ignore
   const agenda: Agenda[] = stationaryEvent.value?.agenda as any;
   const theme = useTheme();
   const { t } = useTranslation();
