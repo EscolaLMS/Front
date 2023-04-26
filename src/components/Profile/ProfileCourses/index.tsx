@@ -495,7 +495,13 @@ const ProfileCourses = ({
                         {progressMap[item.course.id] === 100 && (
                           <Button
                             mode="secondary"
-                            onClick={() => console.log("clicked")}
+                            onClick={() => {
+                              setCourseId(item.course.id);
+                              setState((prevState) => ({
+                                ...prevState,
+                                show: true,
+                              }));
+                            }}
                           >
                             {t<string>("MyProfilePage.RateCourse")}
                           </Button>
