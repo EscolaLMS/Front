@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
 import { IconText, TaskComponent } from "@escolalms/components";
@@ -10,14 +10,23 @@ import {
   IconEyeOff,
   IconUser,
 } from "../../../icons";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { PageParams } from "@escolalms/sdk/lib/types/api";
 
 const Tasks = () => {
   const { t } = useTranslation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(2);
+  const previousDisabled = currentPage <= 1;
+  const nextDisabled = currentPage >= lastPage;
   const [state, setState] = useState<{
     sort: "Ascending" | "Descending";
     createdBy: "Personal" | "Incoming";
     done: boolean;
   }>({ sort: "Ascending", createdBy: "Personal", done: true });
+
+  const { fetchTasks, fetchProgress, progress, fetchProgram, tasks } =
+    useContext(EscolaLMSContext);
 
   const taskShowAction = [
     {
@@ -91,12 +100,32 @@ const Tasks = () => {
       ),
     },
   ];
+
+  useEffect(() => {
+    fetchTasks({ page: currentPage, per_page: 25 } as PageParams);
+    setLastPage(Number(tasks.list?.meta.last_page));
+    fetchProgress();
+  }, [fetchProgress, fetchTasks, currentPage, tasks.list?.meta.last_page]);
+
+  useEffect(() => {
+    if (progress.value) {
+      progress.value.forEach((progItem) => fetchProgram(progItem.course.id));
+    }
+  }, [progress, fetchProgram]);
+
   return (
     <ProfileLayout title={t("MyProfilePage.MyTasks")}>
       <TaskComponent
         taskShowAction={{ options: taskShowAction, showDone: state.done }}
         sortOptions={{ options: sortType, type: state.sort }}
         createBy={{ options: taskCreateBy, type: state.createdBy }}
+        tasksPagination={{
+          previousDisabled,
+          nextDisabled,
+          currentPage,
+          lastPage,
+          setCurrentPage,
+        }}
       />
     </ProfileLayout>
   );
