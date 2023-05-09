@@ -6,13 +6,14 @@ import { toast } from "react-toastify";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
+import { API } from "@escolalms/sdk/lib";
 
 type Props = {
   course: string;
   courseId: number;
   onClose: () => void;
   visible: boolean;
-  questionnaire: EscolaLms.Questionnaire.Models.Questionnaire;
+  questionnaire: API.Questionnaire;
 };
 
 const RateCourse: React.FC<Props> = ({
