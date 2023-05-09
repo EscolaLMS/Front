@@ -93,9 +93,7 @@ const ProfileCourses = ({
     step: 0,
   });
 
-  const [questionnaires, setQuestionnaires] = useState<
-    EscolaLms.Questionnaire.Models.Questionnaire[]
-  >([]);
+  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
 
   const getQuestionnaires = useCallback(async () => {
     try {
