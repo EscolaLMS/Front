@@ -32,17 +32,23 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     [courseAccess.list?.data]
   );
 
-  return currentCourseAccess ? (
-    currentCourseAccess.status === "approved" ? null : (
+  if (!currentCourseAccess) {
+    return (
+      <StyledButton mode="secondary" onClick={onRequestAccess}>
+        {t("CourseAccess.RequestAccess")}
+      </StyledButton>
+    );
+  }
+
+  if (currentCourseAccess.status !== "approved") {
+    return (
       <StyledButton mode="secondary" disabled>
         {t("CourseAccess.Pending")}
       </StyledButton>
-    )
-  ) : (
-    <StyledButton mode="secondary" onClick={onRequestAccess}>
-      {t("CourseAccess.RequestAccess")}
-    </StyledButton>
-  );
+    );
+  }
+
+  return null;
 };
 
 type Props = {
