@@ -489,6 +489,10 @@ const resources = {
         UnavailableEvent: "This event is unavailable to buy",
         "30Days": "30 day money return guarantee",
       },
+      CourseAccess: {
+        RequestAccess: "Request access",
+        Pending: "Request Pending",
+      },
     },
   },
   pl: {
@@ -992,6 +996,10 @@ const resources = {
         NotStarted: "Wydarzenie jeszcze się nie rozpoczęło",
         UnavailableEvent: "Wydarzenie niemożliwe do kupienia",
         "30Days": "Gwarantowane 30 dni na zwrot",
+      },
+      CourseAccess: {
+        RequestAccess: "Poproś o dostęp",
+        Pending: "Wysłano prośbę",
       },
     },
   },
