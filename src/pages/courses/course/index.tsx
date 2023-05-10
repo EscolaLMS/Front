@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
 import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
@@ -27,6 +27,7 @@ import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { formatDate } from "@/utils/date";
 import { roundTo } from "@/utils/index";
+import { ModalCourseAccess } from "@escolalms/components/lib/components/organisms/ModalCourseAccess";
 
 const StyledCoursePage = styled.div`
   section {
@@ -216,11 +217,20 @@ const CoursePage = () => {
   const [ratings, setRatings] = useState<undefined | API.QuestionnaireStars>(
     undefined
   );
+  const [courseAccessModalVisible, setCourseAccessModalVisible] =
+    useState(false);
   const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { apiUrl, course, settings, fetchCourse, fetchCourses, courses } =
-    useContext(EscolaLMSContext);
+  const {
+    apiUrl,
+    course,
+    settings,
+    fetchCourse,
+    fetchCourses,
+    courses,
+    fetchCourseAccess,
+  } = useContext(EscolaLMSContext);
   const sliderSettings = {
     arrows: false,
     infinite: true,
@@ -248,10 +258,30 @@ const CoursePage = () => {
     ],
   };
 
+  const closeCourseAccessModal = useCallback(
+    () => setCourseAccessModalVisible(false),
+    []
+  );
+  const openCourseAccessModal = useCallback(
+    () => setCourseAccessModalVisible(true),
+    []
+  );
+
+  const refreshCurrentCourseAccess = useCallback(
+    () =>
+      fetchCourseAccess({
+        course_id: Number(id),
+        current_page: 1,
+        per_page: 1,
+      }),
+    [id, fetchCourseAccess]
+  );
+
   useEffect(() => {
     fetchCourses({ per_page: 6 });
     if (id) {
       fetchCourse(Number(id));
+      refreshCurrentCourseAccess();
       questionnaireStars(apiUrl, "Course", Number(id)).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
@@ -474,7 +504,10 @@ const CoursePage = () => {
                 <Col md={12} lg={3} className="sidebar-col">
                   <div className="sidebar-wrapper">
                     {course.value && (
-                      <CoursesDetailsSidebar course={course.value} />
+                      <CoursesDetailsSidebar
+                        course={course.value}
+                        onRequestAccess={openCourseAccessModal}
+                      />
                     )}
                   </div>
                 </Col>
@@ -513,7 +546,7 @@ const CoursePage = () => {
           </StyledCoursePage>
           <Modal
             onClose={() => setPreviewTopic(undefined)}
-            visible={previewTopic ? true : false}
+            visible={!!previewTopic}
             animation="zoom"
             maskAnimation="fade"
             destroyOnClose={true}
@@ -521,6 +554,24 @@ const CoursePage = () => {
           >
             <ModalOverwriteGlobal />
             {previewTopic && <CourseProgramPreview topic={previewTopic} />}
+          </Modal>
+          <Modal
+            onClose={closeCourseAccessModal}
+            visible={courseAccessModalVisible}
+            animation="zoom"
+            maskAnimation="fade"
+            destroyOnClose
+            width={600}
+          >
+            <ModalOverwriteGlobal />
+            <ModalCourseAccess
+              course={course.value}
+              onCancel={closeCourseAccessModal}
+              onSuccess={() => {
+                refreshCurrentCourseAccess();
+                closeCourseAccessModal();
+              }}
+            />
           </Modal>
         </>
       )}

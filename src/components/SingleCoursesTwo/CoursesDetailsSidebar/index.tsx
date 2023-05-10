@@ -12,8 +12,14 @@ import { useTheme } from "styled-components";
 import { useProgress } from "../../../hooks/useProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
 
-const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
+interface Props {
+  course: API.Course;
+  onRequestAccess: () => void;
+}
+
+const CoursesDetailsSidebar: React.FC<Props> = ({
   course,
+  onRequestAccess,
 }) => {
   const theme = useTheme();
   const { user } = useContext(EscolaLMSContext);
@@ -63,6 +69,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         )}
       </div>
       <CourseDetailsSidebarButtons
+        onRequestAccess={onRequestAccess}
         course={course}
         userOwnThisCourse={userOwnThisCourse}
       />
@@ -158,6 +165,7 @@ const CoursesDetailsSidebar: React.FC<{ course: API.Course }> = ({
         </div>
         <div>
           <CourseDetailsSidebarButtons
+            onRequestAccess={onRequestAccess}
             course={course}
             userOwnThisCourse={userOwnThisCourse}
           />

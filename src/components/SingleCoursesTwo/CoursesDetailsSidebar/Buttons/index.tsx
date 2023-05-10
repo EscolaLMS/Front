@@ -1,4 +1,5 @@
-import { useContext, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
+import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import isPast from "date-fns/isPast";
 import { useTranslation } from "react-i18next";
@@ -6,14 +7,60 @@ import { useHistory } from "react-router-dom";
 import { Button, Text } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 
+interface CourseAccessButtonProps {
+  course: API.Course;
+  onRequestAccess: () => void;
+}
+
+const StyledButton = styled(Button)`
+  display: block;
+  margin-bottom: 10px;
+`;
+
+const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
+  course,
+  onRequestAccess,
+}) => {
+  const { t } = useTranslation();
+
+  const { courseAccess } = useContext(EscolaLMSContext);
+  const currentCourseAccess = useMemo(
+    () =>
+      courseAccess.list?.data?.find(
+        (courseAccessItem) => courseAccessItem?.course?.id === course.id
+      ),
+    [courseAccess.list?.data]
+  );
+
+  if (!currentCourseAccess) {
+    return (
+      <StyledButton mode="secondary" onClick={onRequestAccess}>
+        {t("CourseAccess.RequestAccess")}
+      </StyledButton>
+    );
+  }
+
+  if (currentCourseAccess.status !== "approved") {
+    return (
+      <StyledButton mode="secondary" disabled>
+        {t("CourseAccess.Pending")}
+      </StyledButton>
+    );
+  }
+
+  return null;
+};
+
 type Props = {
   course: API.Course;
   userOwnThisCourse: boolean | undefined;
+  onRequestAccess: () => void;
 };
 
 const CourseDetailsSidebarButtons: React.FC<Props> = ({
   course,
   userOwnThisCourse,
+  onRequestAccess,
 }) => {
   const { cart, addToCart, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -47,15 +94,18 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   if (user.value && course.product) {
     return (
-      <Button
-        loading={cart.loading}
-        mode="secondary"
-        onClick={() =>
-          addToCart(Number(course.product?.id)).then(() => push("/cart"))
-        }
-      >
-        {t("Buy Course")}
-      </Button>
+      <>
+        <CourseAccessButton course={course} onRequestAccess={onRequestAccess} />
+        <Button
+          loading={cart.loading}
+          mode="secondary"
+          onClick={() =>
+            addToCart(Number(course.product?.id)).then(() => push("/cart"))
+          }
+        >
+          {t("Buy Course")}
+        </Button>
+      </>
     );
   }
   if (!course.product) {
