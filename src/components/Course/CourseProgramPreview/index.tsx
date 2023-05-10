@@ -37,12 +37,24 @@ export const CourseProgramPreview: React.FC<{
         case TopicType.Image:
           return <ImagePlayer topic={topic} onLoad={() => console.log("")} />;
         case TopicType.Pdf:
-          return <PdfPlayer url={topic.topicable.url} />;
+          return (
+            <PdfPlayer
+              url={topic.topicable.url}
+              pageConfig={{
+                width: 550,
+              }}
+            />
+          );
         case TopicType.Scorm:
           return (
             <div className="scorm-wrapper">
               <iframe
                 title={topic.topicable.value}
+                width="100%"
+                height="400px"
+                style={{
+                  border: "none",
+                }}
                 src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
               />
             </div>

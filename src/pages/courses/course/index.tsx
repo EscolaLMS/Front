@@ -551,6 +551,10 @@ const CoursePage = () => {
             maskAnimation="fade"
             destroyOnClose={true}
             width={600}
+            bodyStyle={{
+              maxHeight: "80vh",
+              overflow: "auto",
+            }}
           >
             <ModalOverwriteGlobal />
             {previewTopic && <CourseProgramPreview topic={previewTopic} />}
