@@ -1,32 +1,37 @@
-import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import React, { ReactElement, FunctionComponent, useEffect } from "react";
-import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
+import styled from "styled-components";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
-const fontSizes = ["small", "regular", "bigger", "big"];
+const TextPlayerStyles = styled.div`
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.17em;
+  }
+  h4 {
+    font-size: 1em;
+  }
+  h5 {
+    font-size: 0.9em;
+  }
+`;
 
 const TextPlayer: FunctionComponent<{
   value?: string;
   onLoad?: () => void;
-  fontSize: number;
-}> = ({ value, onLoad, fontSize }): ReactElement => {
+}> = ({ value, onLoad }): ReactElement => {
   useEffect(() => {
     value && onLoad && onLoad();
   }, [value, onLoad]);
 
   return (
-    <div
-      className={`center-image-richtext typebase size-${fontSizes[fontSize]}`}
-    >
-      {value && (
-        <MarkdownRenderer
-          components={{
-            a: (props) => <Link {...props} underline />,
-          }}
-        >
-          {value}
-        </MarkdownRenderer>
-      )}
-    </div>
+    <TextPlayerStyles>
+      {value && <MarkdownRenderer>{value}</MarkdownRenderer>}
+    </TextPlayerStyles>
   );
 };
 

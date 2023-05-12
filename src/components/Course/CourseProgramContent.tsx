@@ -130,7 +130,7 @@ export const CourseProgramContent: React.FC<{
           </>
         );
       case API.TopicType.RichText:
-        return <TextPlayer value={topic.topicable.value} fontSize={1} />;
+        return <TextPlayer value={topic.topicable.value} />;
       case API.TopicType.Video:
         return (
           <AudioVideoPlayer
