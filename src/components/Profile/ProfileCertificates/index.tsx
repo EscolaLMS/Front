@@ -55,10 +55,18 @@ const ProfileCertificates: React.FC = () => {
 
   const handlePreview = async (id: number) => {
     try {
-      const request = await fetchCertificate(id);
-      if (request.success) {
-        setCertificatePreview(request.data.content);
-      }
+      // const response = await generateCertificate(id);
+      // if (response) {
+      //   // setCertificatePreview(response.data.content);
+      //   // create hidden link
+      //   var element = document.createElement("a");
+      //   document.body.appendChild(element);
+      //   element.setAttribute("href", window.URL.createObjectURL(response));
+      //   element.setAttribute("download", 'Certificate.pdf');
+      //   element.style.display = "";
+      //   element.click();
+      //   document.body.removeChild(element);
+      // }
     } catch (error) {
       console.log(error);
     }
