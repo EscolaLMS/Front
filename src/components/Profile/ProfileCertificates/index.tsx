@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
@@ -51,26 +51,32 @@ const ProfileCertificates: React.FC = () => {
     fetchCertificates();
   }, [fetchCertificates]);
 
-  const handlePreview = async (id: number, title?: string) => {
-    setLoadingId(id);
-    try {
-      const response = await generateCertificate(id);
-      if (response) {
-        // create hidden link
-        const element = document.createElement("a");
-        document.body.appendChild(element);
-        element.setAttribute("href", URL.createObjectURL(new Blob([response])));
-        element.setAttribute("download", `${title || "Certificate"}.pdf`);
-        element.style.display = "";
-        element.click();
-        document.body.removeChild(element);
+  const downloadCertificate = useCallback(
+    async (id: number, title?: string) => {
+      setLoadingId(id);
+      try {
+        const response = await generateCertificate(id);
+        if (response) {
+          // create hidden link
+          const element = document.createElement("a");
+          document.body.appendChild(element);
+          element.setAttribute(
+            "href",
+            URL.createObjectURL(new Blob([response]))
+          );
+          element.setAttribute("download", `${title || "Certificate"}.pdf`);
+          element.style.display = "";
+          element.click();
+          document.body.removeChild(element);
+          setLoadingId(-1);
+        }
+      } catch (error) {
         setLoadingId(-1);
+        console.log(error);
       }
-    } catch (error) {
-      setLoadingId(-1);
-      console.log(error);
-    }
-  };
+    },
+    [generateCertificate]
+  );
 
   return (
     <>
@@ -105,7 +111,7 @@ const ProfileCertificates: React.FC = () => {
                     ) : (
                       <button
                         className="download-btn"
-                        onClick={() => handlePreview(cert.id, cert.title)}
+                        onClick={() => downloadCertificate(cert.id, cert.title)}
                       >
                         <DownloadIcon /> <Text>(.pdf)</Text>
                       </button>
