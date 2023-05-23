@@ -33,6 +33,7 @@ const Orders = () => {
   const [mappedOrders, setMappedOrders] = useState<any>([]);
   const history = useHistory();
   const { t } = useTranslation();
+  const [loadingId, setLoadingId] = useState(-1);
   useEffect(() => {
     if (!user.loading && !user.value) {
       history.push("/login");
@@ -42,32 +43,36 @@ const Orders = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDownloadInvoice = useCallback((id: number) => {
-    fetchOrderInvoice(id)
-      .then((response) => {
-        const url = `data:application/pdf;base64,${response}`;
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute(
-          "download",
-          `${t("MyProfilePage.InvoiceTitle")} ${id}.pdf`
-        );
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        // Clean up and remove the link
-        link && link.parentNode && link.parentNode.removeChild(link);
-      })
-      .catch((err) => {
-        if (err) {
-          toast.error(t<string>("UnexpectedError"));
-          console.log(err);
+  const handleDownloadInvoice = useCallback(
+    async (id: number) => {
+      setLoadingId(id);
+      try {
+        const response = await fetchOrderInvoice(id);
+        if (response) {
+          // create hidden link
+          const element = document.createElement("a");
+          document.body.appendChild(element);
+          element.setAttribute(
+            "href",
+            URL.createObjectURL(new Blob([response]))
+          );
+          element.setAttribute(
+            "download",
+            `${t("MyProfilePage.InvoiceTitle")} ${id}.pdf`
+          );
+          element.style.display = "";
+          element.click();
+          document.body.removeChild(element);
+          setLoadingId(-1);
         }
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      } catch (error) {
+        setLoadingId(-1);
+        toast.error(t<string>("UnexpectedError"));
+        console.log(error);
+      }
+    },
+    [fetchOrderInvoice, t]
+  );
 
   useEffect(() => {
     orders.list &&
@@ -97,6 +102,7 @@ const Orders = () => {
               <Button
                 mode="outline"
                 onClick={() => handleDownloadInvoice(item.id)}
+                loading={loadingId === item.id}
               >
                 {t<string>("MyProfilePage.Invoice")}
               </Button>

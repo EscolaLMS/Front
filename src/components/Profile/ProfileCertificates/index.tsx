@@ -1,4 +1,4 @@
-import React, { useContext, lazy, Suspense, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
@@ -9,8 +9,6 @@ import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteActio
 import styled, { useTheme } from "styled-components";
 import { DownloadIcon } from "../../../icons";
 import { Spin } from "@escolalms/components";
-
-const PdfGenerate = lazy(() => import("@/components/PdfGenerate/index"));
 
 type CertType = API.Certificate;
 
@@ -43,26 +41,42 @@ const CertificatesList = styled.section`
 `;
 
 const ProfileCertificates: React.FC = () => {
-  const { fetchCertificate, certificates, fetchCertificates } =
+  const { generateCertificate, certificates, fetchCertificates } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const theme = useTheme();
-  const [certificatePreview, setCertificatePreview] = React.useState(undefined);
+  const [loadingId, setLoadingId] = useState<number>(-1);
 
   useEffect(() => {
     fetchCertificates();
   }, [fetchCertificates]);
 
-  const handlePreview = async (id: number) => {
-    try {
-      const request = await fetchCertificate(id);
-      if (request.success) {
-        setCertificatePreview(request.data.content);
+  const downloadCertificate = useCallback(
+    async (id: number, title?: string) => {
+      setLoadingId(id);
+      try {
+        const response = await generateCertificate(id);
+        if (response) {
+          // create hidden link
+          const element = document.createElement("a");
+          document.body.appendChild(element);
+          element.setAttribute(
+            "href",
+            URL.createObjectURL(new Blob([response]))
+          );
+          element.setAttribute("download", `${title || "Certificate"}.pdf`);
+          element.style.display = "";
+          element.click();
+          document.body.removeChild(element);
+          setLoadingId(-1);
+        }
+      } catch (error) {
+        setLoadingId(-1);
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+    [generateCertificate]
+  );
 
   return (
     <>
@@ -92,27 +106,20 @@ const ProfileCertificates: React.FC = () => {
                 }
                 actions={
                   <div className="buttons-container">
-                    <button
-                      className="download-btn"
-                      onClick={() => handlePreview(cert.id)}
-                    >
-                      <DownloadIcon /> <Text>(.pdf)</Text>
-                    </button>
+                    {loadingId === cert.id ? (
+                      <Spin color={theme.primaryColor} />
+                    ) : (
+                      <button
+                        className="download-btn"
+                        onClick={() => downloadCertificate(cert.id, cert.title)}
+                      >
+                        <DownloadIcon /> <Text>(.pdf)</Text>
+                      </button>
+                    )}
                   </div>
                 }
               />
             ))}
-
-        <div className="fabric-preview-wrapper">
-          {certificatePreview && (
-            <Suspense fallback={<Spin color={theme.primaryColor} />}>
-              <PdfGenerate
-                initialValue={certificatePreview}
-                onRendered={() => setCertificatePreview(undefined)}
-              />
-            </Suspense>
-          )}
-        </div>
       </CertificatesList>
     </>
   );
