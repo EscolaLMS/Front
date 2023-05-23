@@ -312,13 +312,13 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                     {isTestKey && (
                       <div className="card-info">
                         <Text size="14">
-                          Use test cards for Stripe:{" "}
+                          {t("Cart.UseTestCard")}:{" "}
                           <ComponentLink
                             href="https://docs.wellms.io/getting-started/demo.html"
                             target="_blank"
                             rel="noreferrer nofollow"
                           >
-                            Learn more
+                            {t("Cart.LearnMore")}
                           </ComponentLink>
                         </Text>
                       </div>
