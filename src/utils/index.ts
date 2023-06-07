@@ -6,7 +6,7 @@ export const getTopicType = (type: string) => type.split("\\")?.pop();
 
 export const getPriceWithTax = (price: number, taxPercentage: number) => {
   const totalTax = ((price / 100) * taxPercentage).toFixed(2);
-  const totalPrice = Number(price) + Number(totalTax);
+  const totalPrice = Number(price / 100) + Number(totalTax);
   return totalPrice.toFixed(2);
 };
 
@@ -271,7 +271,21 @@ export const getNotificationTranslationObject = (
   }
 };
 
-export const roundTo = (val: number, places = 2): number => {
+export const roundTo = (val: number, places = 2, divider?: number): number => {
   if (!val || typeof val !== "number") return 0;
-  return Math.round(val * Math.pow(10, places)) / Math.pow(10, places);
+  const returnedValue =
+    Math.round(val * Math.pow(10, places)) / Math.pow(10, places);
+  if (divider) {
+    return returnedValue / divider;
+  }
+  return returnedValue;
+};
+
+export const formatPrice = (price: number) => {
+  const roundedPrice = roundTo(price, 2, 100);
+  const formatted = roundedPrice.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return formatted;
 };

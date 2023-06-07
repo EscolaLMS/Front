@@ -4,7 +4,7 @@ import React, { useContext, useMemo } from "react";
 import { Consultation } from "@escolalms/sdk/lib/types/api";
 import { Button, IconText, Text } from "@escolalms/components";
 import { IconBadge, IconQuestion, IconTime, IconUsers } from "../../icons";
-import { getPriceWithTax } from "@/utils/index";
+import { formatPrice } from "@/utils/index";
 import isPast from "date-fns/isPast";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
@@ -48,10 +48,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
               }}
             >
               {consultation?.product &&
-                `${getPriceWithTax(
-                  consultation.product.price,
-                  consultation.product.tax_rate
-                )} zł`}
+                `${formatPrice(consultation.product.gross_price)} zł`}
             </Title>
           </div>
           <div>
@@ -103,10 +100,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
           }}
         >
           {consultation?.product &&
-            `${getPriceWithTax(
-              consultation.product.price,
-              consultation.product.tax_rate
-            )} zł`}
+            `${formatPrice(consultation.product.gross_price)} zł`}
         </Title>
         <IconText
           icon={<IconTime />}
