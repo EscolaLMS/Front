@@ -49,15 +49,17 @@ const StyledSection = styled.section`
   }
   .single-category-slide {
     margin: 0 8px;
-    .category-card-icon {
-      img {
-        margin: 0 auto;
-        display: block;
-      }
-    }
+
     @media (max-width: 991px) {
       margin: 0 auto;
       min-width: 300px;
+    }
+  }
+  .category-card-icon {
+    img {
+      margin: 0 auto;
+      display: block;
+      max-height: 70px;
     }
   }
 `;
