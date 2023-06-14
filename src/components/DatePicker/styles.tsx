@@ -53,4 +53,33 @@ export const StyledDatePicker = styled.div`
     border-top-right-radius: ${({ theme }) => theme.buttonRadius || 2}px;
     border-top-left-radius: ${({ theme }) => theme.buttonRadius || 2}px;
   }
+
+  .react-datepicker__input-time-container {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .react-datepicker__input-time-container .react-datepicker-time__caption {
+    font-size: 14px;
+  }
+
+  .react-datepicker__input-time-container
+    .react-datepicker-time__input-container
+    .react-datepicker-time__input
+    input {
+    font-size: 14px;
+    padding: 1em;
+    border-radius: ${({ theme }) => theme.buttonRadius || 2}px;
+    border-color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray1 : theme.gray3};
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .react-datepicker__input-time-container
+    .react-datepicker-time__input-container
+    .react-datepicker-time__input
+    input:focus {
+    outline: none;
+  }
 `;

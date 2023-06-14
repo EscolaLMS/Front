@@ -116,6 +116,7 @@ const resources = {
       CoursesLength_one: "{{count}} course",
       ShowCustomizer: "Show theme customizer",
       HideCustomizer: "Hide theme customizer",
+      Time: "Time",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -201,6 +202,7 @@ const resources = {
         Show: "Show",
         WaitForTutorDecision: "Term {{date}} waiting for acceptation",
         TutorAcceptedTerm: "Tutor accepted term {{date}}",
+        NoTermsAvailable: "No terms available",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -618,6 +620,7 @@ const resources = {
       CoursesLength_one: "{{count}} kurs",
       ShowCustomizer: "Pokaż edytor motywu",
       HideCustomizer: "Ukryj edytor motywu",
+      Time: "Czas",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
@@ -729,6 +732,7 @@ const resources = {
         Show: "Zobacz",
         WaitForTutorDecision: "Termin {{date}} czeka na akceptację",
         TutorAcceptedTerm: "Trener zaakceptował termin {{date}}",
+        NoTermsAvailable: "Brak dostępnych terminów",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",

@@ -12,6 +12,9 @@ interface Props {
   onChange: (date: Date) => void;
   includeDates?: Date[];
   includeTimes?: Date[];
+  minDate?: Date | null;
+  showTimeInput?: boolean;
+  timeInputLabel?: string;
 }
 
 const DatePicker = ({
@@ -19,6 +22,9 @@ const DatePicker = ({
   onChange,
   includeDates,
   includeTimes,
+  minDate,
+  showTimeInput,
+  timeInputLabel,
 }: Props) => {
   const { i18n } = useTranslation();
 
@@ -31,6 +37,9 @@ const DatePicker = ({
         includeTimes={includeTimes}
         inline
         locale={i18n.language}
+        minDate={minDate}
+        showTimeInput={showTimeInput}
+        timeInputLabel={timeInputLabel}
       />
     </StyledDatePicker>
   );
