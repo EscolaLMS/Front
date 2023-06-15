@@ -27,6 +27,7 @@ const routeRoutes = {
   login: "/login",
   events: "/events",
   event: "/event/:id",
+  webinars: "/webinars",
 };
 
 export default routeRoutes;

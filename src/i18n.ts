@@ -302,6 +302,7 @@ const resources = {
         Orders: "Orders",
         Consultations: "Consultations",
         Events: "Stationary events",
+        Webinars: "Webinars",
       },
       Footer: {
         HomePage: "Home Page",
@@ -492,6 +493,9 @@ const resources = {
       CourseAccess: {
         RequestAccess: "Request access",
         Pending: "Request Pending",
+      },
+      WebinarsPage: {
+        Webinars: "Webinars",
       },
     },
   },
@@ -763,6 +767,7 @@ const resources = {
         Orders: "Zamównienia",
         Consultations: "Konsultacje",
         Events: "Wydarzenia stacjonarne",
+        Webinars: "Webinary",
       },
       Footer: {
         HomePage: "Strona Główna",
@@ -1000,6 +1005,9 @@ const resources = {
       CourseAccess: {
         RequestAccess: "Poproś o dostęp",
         Pending: "Wysłano prośbę",
+      },
+      WebinarsPage: {
+        Webinars: "Webinary",
       },
     },
   },
