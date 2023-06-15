@@ -17,7 +17,7 @@ const CoursesProvider: React.FC<{
 }> = ({ onlyFree = true, children }) => {
   const [courses, setCourses] = useState<API.PaginatedMetaList<API.Course>>();
   const [loading, setLoading] = useState(true);
-  const { fetchCourses } = useContext(EscolaLMSContext);
+  const { fetchCourses, fetchCategories } = useContext(EscolaLMSContext);
   const location = useLocation();
   const { push } = useHistory();
 
@@ -34,6 +34,10 @@ const CoursesProvider: React.FC<{
     if (onlyFree) apiParams.free = true;
     return apiParams;
   };
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   useEffect(() => {
     push(`${location.pathname}?${parseParams(params)}`);
@@ -59,6 +63,7 @@ const CoursesProvider: React.FC<{
       location.search.split("?")[1] !== parseParams(params)
     ) {
       const parsedParams = qs.parse(location.search);
+      push(`${location.pathname}?${parseParams(parsedParams)}`);
       setParams(parsedParams);
       fetchCoursesData(
         parsedParams
