@@ -13,6 +13,17 @@ const CardWrapper = styled.div`
       text-decoration: underline;
     }
   }
+
+  .image-section {
+    .information-in-image {
+      .card {
+        .content:after,
+        .content:before {
+          box-shadow: inset 0px -6px 14px -8px rgba(0, 0, 0, 1);
+        }
+      }
+    }
+  }
 `;
 
 const CourseCardWrapper: React.FC<PropsWithChildren> = ({ children }) => {
