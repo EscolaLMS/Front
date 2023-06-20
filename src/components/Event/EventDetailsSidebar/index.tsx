@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { formatPrice } from "@/utils/index";
 
 enum ButtonStatus {
   FINISHED,
@@ -72,12 +73,13 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
       </Title>
       <div className="pricing-card-price">
         <Title level={3} as={"h3"}>
-          {event.product?.price || 0} zł
+          {formatPrice(event.product?.price, event.product?.tax_rate)} zł
         </Title>
         {event.product?.price_old && (
           <div className="pricing-card-discount">
             <Title level={5} as={"h5"}>
-              {event.product?.price_old} zł
+              {formatPrice(event.product?.price_old, event.product?.tax_rate)}{" "}
+              zł
             </Title>
           </div>
         )}
@@ -153,12 +155,13 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
           {event.product?.price_old && (
             <div className="pricing-card-discount">
               <Title level={5} as={"h5"}>
-                {event.product?.price_old} zł
+                {formatPrice(event.product?.price_old, event.product?.tax_rate)}{" "}
+                zł
               </Title>
             </div>
           )}
           <Title level={4} as={"h4"}>
-            {event.product?.price} zł
+            {formatPrice(event.product?.price, event.product?.tax_rate)} zł
           </Title>
         </div>
         <div>
