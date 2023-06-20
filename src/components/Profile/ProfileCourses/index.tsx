@@ -11,7 +11,6 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import styled, { useTheme } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
@@ -25,6 +24,7 @@ import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
 import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -258,13 +258,13 @@ const ProfileCourses = ({
                       </Link>
                     }
                     categories={
-                      <BreadCrumbs
-                        hyphen="/"
-                        items={item.categories?.map((category) => (
-                          <Link to={`/courses/?categories[]=${category.id}`}>
-                            {category.name}
-                          </Link>
-                        ))}
+                      <CategoriesBreadCrumbs
+                        categories={
+                          item.categories as EscolaLms.Categories.Models.Category[]
+                        }
+                        onCategoryClick={(id) => {
+                          history.push(`/courses/?categories[]=${id}`);
+                        }}
                       />
                     }
                     actions={
@@ -376,13 +376,13 @@ const ProfileCourses = ({
                       </Link>
                     }
                     categories={
-                      <BreadCrumbs
-                        hyphen="/"
-                        items={item.categories?.map((category) => (
-                          <Link to={`/courses/?categories[]=${category.id}`}>
-                            {category.name}
-                          </Link>
-                        ))}
+                      <CategoriesBreadCrumbs
+                        categories={
+                          item.categories as EscolaLms.Categories.Models.Category[]
+                        }
+                        onCategoryClick={(id) => {
+                          history.push(`/courses/?categories[]=${id}`);
+                        }}
                       />
                     }
                     actions={
@@ -479,13 +479,13 @@ const ProfileCourses = ({
                       </Link>
                     }
                     categories={
-                      <BreadCrumbs
-                        hyphen="/"
-                        items={item.categories?.map((category) => (
-                          <Link to={`/courses/?categories[]=${category.id}`}>
-                            {category.name}
-                          </Link>
-                        ))}
+                      <CategoriesBreadCrumbs
+                        categories={
+                          item.categories as EscolaLms.Categories.Models.Category[]
+                        }
+                        onCategoryClick={(id) => {
+                          history.push(`/courses/?categories[]=${id}`);
+                        }}
                       />
                     }
                     actions={

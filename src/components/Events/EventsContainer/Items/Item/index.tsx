@@ -2,17 +2,17 @@ import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { isMobile } from "react-device-detect";
 import { Link, useHistory } from "react-router-dom";
-import { useTheme } from "styled-components";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { API } from "@escolalms/sdk/lib";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import BreadCrumbs from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import Title from "@escolalms/components/lib/components/atoms/Typography/Title";
-import Badge from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import Button from "@escolalms/components/lib/components/atoms/Button/Button";
 import IconText from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { IconLocation, UserIcon } from "../../../../../icons";
+import Tags from "@/components/Tags";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { Category, Tag } from "@escolalms/sdk/lib/types/api";
 
 interface Props {
   event: API.StationaryEvent;
@@ -20,7 +20,6 @@ interface Props {
 }
 
 const EventsContainerItem = ({ event, actions }: Props) => {
-  const theme = useTheme();
   const history = useHistory();
   const { t } = useTranslation();
   return (
@@ -48,29 +47,20 @@ const EventsContainerItem = ({ event, actions }: Props) => {
         </Link>
       }
       categories={
-        <BreadCrumbs
-          hyphen="/"
-          items={event.categories?.map((category) => (
-            <Link key={category.id} to={`/events/?categories[]=${category.id}`}>
-              {category.name}
-            </Link>
-          ))}
+        <CategoriesBreadCrumbs
+          categories={
+            event.categories as EscolaLms.Categories.Models.Category[]
+          }
+          onCategoryClick={(id) => {
+            history.push(`/events/?categories[]=${id}`);
+          }}
         />
       }
       tags={
-        <>
-          {event.product?.tags?.map((tagName, index) => (
-            <Badge key={index} color={theme.primaryColor}>
-              <Link
-                style={{ color: theme.white }}
-                to={`/events/?tag=${tagName}`}
-              >
-                {/* @ts-ignore */}
-                {tagName}
-              </Link>
-            </Badge>
-          ))}
-        </>
+        <Tags
+          tags={(event.product?.tags as Tag[]) || []}
+          onTagClick={(tagName) => history.push(`/events/?tag=${tagName}`)}
+        />
       }
       actions={
         actions ?? (

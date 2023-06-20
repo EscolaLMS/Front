@@ -3,7 +3,6 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
@@ -14,9 +13,10 @@ import CourseCardWrapper from "../CourseCardWrapper";
 import { Row, Col } from "react-grid-system";
 import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
+import { Course, PaginatedMetaList, Tag } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
+import Tags from "@/components/Tags";
 
 const StyledSection = styled.section`
   margin: 40px 0;
@@ -122,22 +122,12 @@ const PromotedCoursesSection: React.FC = () => {
                     mobile={isMobile}
                     id={Number(course.id)}
                     tags={
-                      <>
-                        {course.tags?.map((item, index) => (
-                          <Badge key={index} color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              //@ts-ignore
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {
-                                //@ts-ignore
-                                item.title
-                              }
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
+                      <Tags
+                        tags={course.tags as Tag[]}
+                        onTagClick={(tagName) =>
+                          history.push(`/courses/?tag=${tagName}`)
+                        }
+                      />
                     }
                     image={
                       <Link to={`/courses/${course.id}`}>

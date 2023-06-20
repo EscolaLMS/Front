@@ -4,10 +4,8 @@ import styled, { useTheme } from "styled-components";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
@@ -19,6 +17,8 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CourseCardWrapper from "../CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
 import { Title } from "@escolalms/components";
+import Tags from "@/components/Tags";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 
 type Props = {
   courses: API.Course[];
@@ -156,18 +156,12 @@ const CoursesSlider: React.FC<Props> = ({
                       </Link>
                     }
                     tags={
-                      <>
-                        {item.tags?.map((item, index) => (
-                          <Badge key={index} color={theme.primaryColor}>
-                            <Link
-                              style={{ color: theme.white }}
-                              to={`/courses/?tag=${item.title}`}
-                            >
-                              {item.title}
-                            </Link>
-                          </Badge>
-                        ))}
-                      </>
+                      <Tags
+                        tags={item.tags}
+                        onTagClick={(tagName) =>
+                          history.push(`/courses/?tag=${tagName}`)
+                        }
+                      />
                     }
                     subtitle={
                       item.subtitle ? (
@@ -189,16 +183,11 @@ const CoursesSlider: React.FC<Props> = ({
                       </Link>
                     }
                     categories={
-                      <BreadCrumbs
-                        hyphen="/"
-                        items={item.categories?.map((category) => (
-                          <Link
-                            key={category.id}
-                            to={`/courses/?categories[]=${category.id}`}
-                          >
-                            {category.name}
-                          </Link>
-                        ))}
+                      <CategoriesBreadCrumbs
+                        categories={item.categories}
+                        onCategoryClick={(id) => {
+                          history.push(`/courses/?categories[]=${id}`);
+                        }}
                       />
                     }
                     actions={
@@ -267,18 +256,12 @@ const CoursesSlider: React.FC<Props> = ({
                     </Link>
                   }
                   tags={
-                    <>
-                      {item.tags?.map((item, index) => (
-                        <Badge key={index} color={theme.primaryColor}>
-                          <Link
-                            style={{ color: theme.white }}
-                            to={`/courses/?tag=${item.title}`}
-                          >
-                            {item.title}
-                          </Link>
-                        </Badge>
-                      ))}
-                    </>
+                    <Tags
+                      tags={item.tags}
+                      onTagClick={(tagName) =>
+                        history.push(`/courses/?tag=${tagName}`)
+                      }
+                    />
                   }
                   subtitle={
                     item.subtitle ? (
@@ -294,16 +277,11 @@ const CoursesSlider: React.FC<Props> = ({
                   }
                   title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
                   categories={
-                    <BreadCrumbs
-                      hyphen="/"
-                      items={item.categories?.map((category) => (
-                        <Link
-                          key={category.id}
-                          to={`/courses/?categories[]=${category.id}`}
-                        >
-                          {category.name}
-                        </Link>
-                      ))}
+                    <CategoriesBreadCrumbs
+                      categories={item.categories}
+                      onCategoryClick={(id) => {
+                        history.push(`/courses/?categories[]=${id}`);
+                      }}
                     />
                   }
                   actions={

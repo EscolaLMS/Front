@@ -11,8 +11,6 @@ import { CourseCard } from "@escolalms/components/lib/components/molecules/Cours
 import { Categories } from "@escolalms/components/lib/components/molecules/Categories/Categories";
 import styled, { css, useTheme } from "styled-components";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
-import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CloseIcon, UserIcon } from "../../../icons";
@@ -29,6 +27,8 @@ import CourseCardWrapper from "@/components/CourseCardWrapper";
 import { Search } from "@escolalms/components";
 import { Row, Col } from "react-grid-system";
 import { COURSES_ON_PAGE } from "@/config/courses";
+import Tags from "@/components/Tags";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 
 type updateParamType =
   | { key: "tag"; value: string | undefined }
@@ -521,18 +521,12 @@ const CoursesCollection: React.FC = () => {
                             </Link>
                           }
                           tags={
-                            <>
-                              {item.tags?.map((item, index) => (
-                                <Badge key={index} color={theme.primaryColor}>
-                                  <Link
-                                    style={{ color: theme.white }}
-                                    to={`/courses/?tag=${item.title}`}
-                                  >
-                                    {item.title}
-                                  </Link>
-                                </Badge>
-                              ))}
-                            </>
+                            <Tags
+                              tags={item.tags}
+                              onTagClick={(tagName) =>
+                                history.push(`/courses/?tag=${tagName}`)
+                              }
+                            />
                           }
                           subtitle={
                             item.subtitle ? (
@@ -554,16 +548,11 @@ const CoursesCollection: React.FC = () => {
                             </Link>
                           }
                           categories={
-                            <BreadCrumbs
-                              hyphen="/"
-                              items={item.categories?.map((category) => (
-                                <Link
-                                  key={category.id}
-                                  to={`/courses/?categories[]=${category.id}`}
-                                >
-                                  {category.name}
-                                </Link>
-                              ))}
+                            <CategoriesBreadCrumbs
+                              categories={item.categories}
+                              onCategoryClick={(id) => {
+                                history.push(`/courses/?categories[]=${id}`);
+                              }}
                             />
                           }
                           actions={
