@@ -12,18 +12,15 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import {
-  Badge,
-  BreadCrumbs,
-  Button,
-  CourseCard,
-  IconText,
-} from "@escolalms/components";
+import { Button, CourseCard, IconText } from "@escolalms/components";
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import { Tag } from "@escolalms/sdk/lib/types/api";
+import Tags from "@/components/Tags";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 
 const StyledTutor = styled.section`
   .tutor-courses {
@@ -127,22 +124,12 @@ const TutorPage = () => {
                             </Link>
                           }
                           tags={
-                            <>
-                              {item.tags?.map((item, index) => (
-                                <Badge key={index} color={theme.primaryColor}>
-                                  <Link
-                                    style={{ color: theme.white }}
-                                    //@ts-ignore
-                                    to={`/courses/?tag=${item.title}`}
-                                  >
-                                    {
-                                      //@ts-ignore
-                                      item.title
-                                    }
-                                  </Link>
-                                </Badge>
-                              ))}
-                            </>
+                            <Tags
+                              tags={item.tags as Tag[]}
+                              onTagClick={(tagName) =>
+                                history.push(`/courses/?tag=${tagName}`)
+                              }
+                            />
                           }
                           subtitle={
                             item.subtitle ? (
@@ -164,16 +151,13 @@ const TutorPage = () => {
                             </Link>
                           }
                           categories={
-                            <BreadCrumbs
-                              hyphen="/"
-                              items={item.categories?.map((category) => (
-                                <Link
-                                  key={category.id}
-                                  to={`/courses/?categories[]=${category.id}`}
-                                >
-                                  {category.name}
-                                </Link>
-                              ))}
+                            <CategoriesBreadCrumbs
+                              categories={
+                                item.categories as EscolaLms.Categories.Models.Category[]
+                              }
+                              onCategoryClick={(id) => {
+                                history.push(`/courses/?categories[]=${id}`);
+                              }}
                             />
                           }
                           actions={
