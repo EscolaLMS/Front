@@ -117,6 +117,8 @@ const resources = {
       ShowCustomizer: "Show theme customizer",
       HideCustomizer: "Hide theme customizer",
       Time: "Time",
+      Hour: "Hour",
+      Hours: "Hours",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -309,6 +311,7 @@ const resources = {
         Orders: "Orders",
         Consultations: "Consultations",
         Events: "Stationary events",
+        Webinars: "Webinars",
       },
       Footer: {
         HomePage: "Home Page",
@@ -500,6 +503,9 @@ const resources = {
         RequestAccess: "Request access",
         Pending: "Request Pending",
       },
+      WebinarsPage: {
+        Webinars: "Webinars",
+      },
     },
   },
   pl: {
@@ -621,6 +627,8 @@ const resources = {
       ShowCustomizer: "Pokaż edytor motywu",
       HideCustomizer: "Ukryj edytor motywu",
       Time: "Czas",
+      Hour: "Godzina",
+      Hours: "Godziny",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
@@ -777,6 +785,7 @@ const resources = {
         Orders: "Zamównienia",
         Consultations: "Konsultacje",
         Events: "Wydarzenia stacjonarne",
+        Webinars: "Webinary",
       },
       Footer: {
         HomePage: "Strona Główna",
@@ -1014,6 +1023,9 @@ const resources = {
       CourseAccess: {
         RequestAccess: "Poproś o dostęp",
         Pending: "Wysłano prośbę",
+      },
+      WebinarsPage: {
+        Webinars: "Webinary",
       },
     },
   },
