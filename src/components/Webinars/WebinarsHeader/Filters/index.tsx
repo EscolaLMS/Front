@@ -6,6 +6,7 @@ import SearchFilter from "@/components/Filters/Search";
 import FiltersTags from "@/components/Filters/Tags";
 import { FiltersState } from "@/types/filters";
 import { WebinarsFiltersStyles } from "./WebinarsFiltersStyles";
+import TagsSelectFilter from "@/components/Filters/TagsSelect";
 
 const WebinarsHeaderFilters = () => {
   const { params, setParams } = useContext(WebinarsContext);
@@ -49,6 +50,19 @@ const WebinarsHeaderFilters = () => {
                 };
                 setParams({
                   ...newParams,
+                });
+              }
+            }}
+          />
+        </div>
+        <div className="single-select single-select--tag">
+          <TagsSelectFilter
+            selectedTags={parsedParams?.tags as string[]}
+            handleChange={(tagName) => {
+              if (setParams) {
+                setParams({
+                  ...params,
+                  "tags[]": tagName,
                 });
               }
             }}

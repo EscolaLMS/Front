@@ -117,6 +117,8 @@ const resources = {
       ShowCustomizer: "Show theme customizer",
       HideCustomizer: "Hide theme customizer",
       Time: "Time",
+      Hour: "Hour",
+      Hours: "Hours",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -625,6 +627,8 @@ const resources = {
       ShowCustomizer: "Pokaż edytor motywu",
       HideCustomizer: "Ukryj edytor motywu",
       Time: "Czas",
+      Hour: "Godzina",
+      Hours: "Godziny",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",

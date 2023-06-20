@@ -2,20 +2,23 @@ import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { isMobile } from "react-device-detect";
 import { Link, useHistory } from "react-router-dom";
+import { differenceInHours } from "date-fns";
+
 import { useTheme } from "styled-components";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { API } from "@escolalms/sdk/lib";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-// import BreadCrumbs from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import Title from "@escolalms/components/lib/components/atoms/Typography/Title";
 import Badge from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import Button from "@escolalms/components/lib/components/atoms/Button/Button";
 import IconText from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { IconLocation, UserIcon } from "../../../../../icons";
+import { IconTime } from "../../../../../icons";
 
 interface Props {
-  webinar: API.Webinar;
+  webinar: API.Webinar & {
+    deadline?: string;
+  };
   actions?: ReactNode;
 }
 
@@ -23,6 +26,13 @@ const WebinarsContainerItem = ({ webinar, actions }: Props) => {
   const theme = useTheme();
   const history = useHistory();
   const { t } = useTranslation();
+  const duration =
+    webinar.active_to && webinar.deadline
+      ? differenceInHours(
+          new Date(webinar.deadline),
+          new Date(webinar.active_to)
+        ) || null
+      : null;
   return (
     <CourseCard
       id={webinar.id}
@@ -49,14 +59,14 @@ const WebinarsContainerItem = ({ webinar, actions }: Props) => {
       }
       tags={
         <>
-          {webinar.product?.tags?.map((tagName, index) => (
+          {webinar.tags?.map(({ title }, index) => (
             <Badge key={index} color={theme.primaryColor}>
               <Link
                 style={{ color: theme.white }}
-                to={`/webinars/?tag=${tagName}`}
+                to={`/webinars/?tags[]=${title}`}
               >
                 {/* @ts-ignore */}
-                {tagName}
+                {title}
               </Link>
             </Badge>
           ))}
@@ -76,17 +86,12 @@ const WebinarsContainerItem = ({ webinar, actions }: Props) => {
       }
       footer={
         <>
-          {webinar.users_count && webinar.users_count > 0 ? (
+          {!!duration && (
             <IconText
-              icon={<UserIcon />}
-              text={`${webinar.users_count} ${t<string>("Students")}`}
+              icon={<IconTime />}
+              text={`${duration} ${duration === 1 ? t("Hour") : t("Hours")}`}
             />
-          ) : (
-            ""
-          )}{" "}
-          {/* {!!webinar.place && (
-            <IconText icon={<IconLocation />} text={`${webinar.place}`} />
-          )} */}
+          )}
         </>
       }
     />

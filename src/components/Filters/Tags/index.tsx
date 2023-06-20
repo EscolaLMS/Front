@@ -77,10 +77,10 @@ interface FiltersTagsProps {
   onReset: () => void;
 }
 
-// TODO: Add tags from courses
 const FiltersTags: FC<FiltersTagsProps> = ({ filters, onReset }) => {
   const { categoryTree } = useContext(EscolaLMSContext);
-  const isButton = !!filters?.categories?.length || !!filters?.name;
+  const isButton =
+    !!filters?.categories?.length || !!filters?.name || !!filters?.tags?.length;
 
   const renderText = useCallback(
     (value: string) => <Text className="tag">{value}</Text>,
@@ -94,6 +94,7 @@ const FiltersTags: FC<FiltersTagsProps> = ({ filters, onReset }) => {
           categoryTree.list
             ?.filter((item) => filters.categories?.indexOf(item.id) > -1)
             .map((category) => renderText(category.name))}
+        {!!filters?.tags && filters?.tags.map((tagName) => renderText(tagName))}
         {!!filters?.name && renderText(filters.name)}
       </div>
       {isButton && (

@@ -6,7 +6,9 @@ import { API } from "@escolalms/sdk/lib";
 import qs from "query-string";
 import { WebinarsContext } from "./WebinarsContext";
 
-export type WebinarsParams = API.WebinarParams;
+export type WebinarsParams = API.WebinarParams & {
+  "tags[]"?: string[];
+};
 
 const parseParams = (params: WebinarsParams = {}) => {
   return qs.stringify(params);
@@ -15,7 +17,7 @@ const parseParams = (params: WebinarsParams = {}) => {
 const WebinarsProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const { fetchWebinars, webinars } = useContext(EscolaLMSContext);
+  const { fetchWebinars, webinars, fetchTags } = useContext(EscolaLMSContext);
   const location = useLocation();
   const { push } = useHistory();
 
@@ -25,10 +27,15 @@ const WebinarsProvider: React.FC<{
     const apiParams = {
       page: 1,
       per_page: 8,
+      // order_by: 'created_at',
       ...params,
     };
     return apiParams;
   };
+
+  useEffect(() => {
+    fetchTags();
+  }, [fetchTags]);
 
   useEffect(() => {
     push(`${location.pathname}?${parseParams(params)}`);
