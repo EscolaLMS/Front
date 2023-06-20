@@ -11,6 +11,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { useTheme } from "styled-components";
 import { useProgress } from "../../../hooks/useProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
+import { formatPrice } from "@/utils/index";
 
 interface Props {
   course: API.Course;
@@ -58,12 +59,13 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
       </Title>
       <div className="pricing-card-price">
         <Title level={3} as={"h3"}>
-          {course.product?.price || 0} zł
+          {formatPrice(course.product?.price, course.product?.tax_rate)} zł
         </Title>
         {course.product?.price_old && (
           <div className="pricing-card-discount">
             <Title level={5} as={"h5"}>
-              {course.product?.price_old} zł
+              {formatPrice(course.product?.price_old, course.product?.tax_rate)}{" "}
+              zł
             </Title>
           </div>
         )}
@@ -155,12 +157,16 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
           {course.product?.price_old && (
             <div className="pricing-card-discount">
               <Title level={5} as={"h5"}>
-                {course.product?.price_old} zł
+                {formatPrice(
+                  course.product?.price_old,
+                  course.product?.tax_rate
+                )}{" "}
+                zł
               </Title>
             </div>
           )}
           <Title level={4} as={"h4"}>
-            {course.product?.price} zł
+            {formatPrice(course.product?.price, course.product?.tax_rate)} zł
           </Title>
         </div>
         <div>

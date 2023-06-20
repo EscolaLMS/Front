@@ -43,7 +43,10 @@ const ConsultationCardContent = ({ consultation }: Props) => {
             <>
               {consultation.duration}
               {consultation.product &&
-                ` - ${formatPrice(consultation.product.gross_price)} zł`}
+                ` - ${formatPrice(
+                  consultation.product.price,
+                  consultation.product.tax_rate
+                )} zł`}
             </>
           )
         }

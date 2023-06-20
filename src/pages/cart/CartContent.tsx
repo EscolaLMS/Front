@@ -27,6 +27,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Placeholder from "../../images/image.svg";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import { formatPrice } from "@/utils/index";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -248,10 +249,16 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                         }}
                         title={item.product?.name}
                         // subtitle="5 lekcji"
-                        price={`${String(item.product?.price)} zł`}
+                        price={`${formatPrice(
+                          item.product?.price,
+                          item.product?.tax_rate
+                        )} zł`}
                         oldPrice={
                           item.product?.price_old
-                            ? `${String(item.product?.price_old || "")} zł`
+                            ? `${formatPrice(
+                                item.product?.price_old,
+                                item.product?.tax_rate
+                              )} zł`
                             : undefined
                         }
                         handleDelete={() =>
@@ -344,7 +351,9 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                     mobile={isMobile}
                     onBuyClick={() => handleSubmit()}
                     id={1}
-                    title={`${String(cart.value?.total)} zł`}
+                    title={`${formatPrice(
+                      Number(cart.value?.total_with_tax || 0)
+                    )} zł`}
                     discount={{
                       onDiscountClick: (discountValue) =>
                         realizeVoucher(discountValue)

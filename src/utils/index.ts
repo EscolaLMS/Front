@@ -281,8 +281,11 @@ export const roundTo = (val: number, places = 2, divider?: number): number => {
   return returnedValue;
 };
 
-export const formatPrice = (price: number) => {
-  const roundedPrice = roundTo(price, 2, 100);
+export const formatPrice = (price: number | undefined, taxRate?: number) => {
+  if (!price) return 0;
+  const roundedPrice = taxRate
+    ? roundTo(price, 2, 100) * (1 + taxRate / 100)
+    : roundTo(price, 2, 100);
   const formatted = roundedPrice.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

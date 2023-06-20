@@ -48,7 +48,10 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
               }}
             >
               {consultation?.product &&
-                `${formatPrice(consultation.product.gross_price)} zł`}
+                `${formatPrice(
+                  consultation.product.price,
+                  consultation.product.tax_rate
+                )} zł`}
             </Title>
           </div>
           <div>
@@ -100,7 +103,10 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
           }}
         >
           {consultation?.product &&
-            `${formatPrice(consultation.product.gross_price)} zł`}
+            `${formatPrice(
+              consultation.product.price,
+              consultation.product.tax_rate
+            )} zł`}
         </Title>
         <IconText
           icon={<IconTime />}
