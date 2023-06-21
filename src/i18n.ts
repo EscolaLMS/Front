@@ -176,6 +176,9 @@ const resources = {
         EmptyCartText: "Add courses to your cart and checkout",
         EmptyCartBtnText: "Browse courses",
         EmptyNameWarning: "Enter your full name",
+        ThankYouTitle: "Thank you for your purchase",
+        ThankYouText:
+          "Go to profile to see purchased products or go to browse courses",
       },
       CourseProgram: {
         TopicAttachment: "Topic attachments",
@@ -700,6 +703,9 @@ const resources = {
         EmptyCartText: "Dodaj kursy do koszyka",
         EmptyCartBtnText: "Przeglądaj kursy",
         EmptyNameWarning: "Podaj imię i nazwisko",
+        ThankYouTitle: "Dziękujemy za zakup",
+        ThankYouText:
+          "Przejdź do profilu, aby zobaczyć zakupione produkty lub przejdź do przeglądania kursów",
       },
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",

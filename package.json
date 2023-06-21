@@ -10,7 +10,7 @@
   "dependencies": {
     "@escolalms/components": "^0.0.100",
     "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.4.75",
+    "@escolalms/sdk": "^0.4.87",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -80,6 +80,7 @@
     "babel-plugin-styled-components"
   ],
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",

@@ -24,10 +24,11 @@ import {
 } from "@stripe/react-stripe-js";
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Placeholder from "../../images/image.svg";
+import Placeholder from "../../../images/image.svg";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { formatPrice } from "@/utils/index";
+import CartSuccess from "@/components/Cart/CartSuccess";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -107,16 +108,14 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
     fetchCart,
     removeFromCart,
     payWithStripe,
-    fetchProgress,
     fetchCourses,
     courses,
     realizeVoucher,
   } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { push } = useHistory();
+  const { push, location } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
-  const history = useHistory();
   const [processing, setProcessing] = useState(false);
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
@@ -127,6 +126,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
     //@ts-ignore TODO: add additional_discount type to SDK types
     cart.value.additional_discount > 0 ? "granted" : undefined
   );
+
   const isTestKey = stripeKey.includes("_test_");
   const sliderSettings = {
     arrows: false,
@@ -173,9 +173,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
     )
       .then(() => {
         setProcessing(false);
-        push("/user/my-profile");
-        fetchCart();
-        fetchProgress();
+        push("/cart?status=success");
       })
       .catch(() => {
         toast.error(t("UnexpectedError"));
@@ -220,9 +218,9 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
           toast.error(t("UnexpectedError"));
         });
   };
-  // if (location.search === "?status=success") {
-  //   return <ThankYouPage />;
-  // }
+  if (location.search === "?status=success") {
+    return <CartSuccess />;
+  }
   return (
     <Layout metaTitle={t("Cart.Cart")}>
       <CartPageStyled>
@@ -380,10 +378,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
               <div className="empty-cart">
                 <Title level={3}>{t<string>("Cart.EmptyCartTitle")}</Title>
                 <Text>{t<string>("Cart.EmptyCartText")}</Text>
-                <Button
-                  mode="secondary"
-                  onClick={() => history.push("/courses")}
-                >
+                <Button mode="secondary" onClick={() => push("/courses")}>
                   {t<string>("Cart.EmptyCartBtnText")}
                 </Button>
               </div>
