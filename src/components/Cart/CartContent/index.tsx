@@ -218,7 +218,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
           toast.error(t("UnexpectedError"));
         });
   };
-  if (location.search === "?status=success") {
+  if (location.search.includes("?status=success")) {
     return <CartSuccess />;
   }
   return (
