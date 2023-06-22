@@ -35,6 +35,7 @@ const ResetPage = lazy(() => import("../../pages/reset-password/index"));
 const EventsPage = lazy(() => import("../../pages/events"));
 const EventPage = lazy(() => import("../../pages/event"));
 const WebinarsPage = lazy(() => import("../../pages/webinars"));
+const WebinarPage = lazy(() => import("../../pages/webinar"));
 // const RegisterPage = lazy(() => import("../../pages/register"));
 // const LoginPage = lazy(() => import("../../pages/login"));
 
@@ -108,6 +109,7 @@ const Routes: React.FC = (): ReactElement => {
     myTasks,
     myBookmarks,
     webinars,
+    webinar,
   } = routes;
 
   return (
@@ -137,6 +139,7 @@ const Routes: React.FC = (): ReactElement => {
           <ConfigRouteExtend exact path={events} component={EventsPage} />
           <ConfigRouteExtend exact path={event} component={EventPage} />
           <ConfigRouteExtend exact path={webinars} component={WebinarsPage} />
+          <ConfigRouteExtend exact path={webinar} component={WebinarPage} />
           {/* privates pages*/}
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           <PrivateRoute exact path={myTasks} component={MyTasks} />

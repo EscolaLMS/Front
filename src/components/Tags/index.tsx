@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { Badge } from "@escolalms/components/lib/components/atoms/Badge/Badge";
 
-const StyledDiv = styled("div")<{ isOpen?: boolean }>`
+const StyledDiv = styled("div")`
   align-self: end;
   display: flex;
   gap: 10px;
@@ -59,7 +59,7 @@ const Tags = (props: TagsProps) => {
   );
 
   return (
-    <StyledDiv ref={parentRef} isOpen={open}>
+    <StyledDiv ref={parentRef}>
       {firstTags.map((tag: Tag, index) => (
         <Badge
           className="badge"

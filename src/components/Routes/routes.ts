@@ -28,6 +28,7 @@ const routeRoutes = {
   events: "/events",
   event: "/event/:id",
   webinars: "/webinars",
+  webinar: "/webinar/:id",
 };
 
 export default routeRoutes;
