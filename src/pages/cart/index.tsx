@@ -1,10 +1,10 @@
 import React, { ReactNode, useContext } from "react";
 import { Elements } from "@stripe/react-stripe-js";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { loadStripe } from "@stripe/stripe-js";
-import CartContent from "./CartContent";
-import { getFontFromTheme } from "@escolalms/components/lib/theme/provider";
 import { useTheme } from "styled-components";
+import { loadStripe } from "@stripe/stripe-js";
+import CartContent from "@/components/Cart/CartContent";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { getFontFromTheme } from "@escolalms/components/lib/theme/provider";
 
 type Props = {
   children: ReactNode;
