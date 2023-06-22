@@ -8,6 +8,7 @@ import { formatPrice } from "@/utils/index";
 import { IconText } from "@escolalms/components";
 import { IconCamera, IconSquares } from "../../../icons";
 import { useTranslation } from "react-i18next";
+import WebinarSidebarButtons from "./Buttons";
 
 const WebinarSidebar = () => {
   const {
@@ -42,7 +43,8 @@ const WebinarSidebar = () => {
             </div>
           )}
         </div>
-
+        {/* BUTTONS */}
+        <WebinarSidebarButtons />
         {/* FOOTER */}
         <div className="pricing-card-features">
           {/* {webinarObject?.place && (

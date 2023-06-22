@@ -16,9 +16,7 @@ import Tags from "@/components/Tags";
 import { Tag } from "@escolalms/sdk/lib/types/api";
 
 interface Props {
-  webinar: API.Webinar & {
-    deadline?: string;
-  };
+  webinar: API.Webinar;
   actions?: ReactNode;
 }
 

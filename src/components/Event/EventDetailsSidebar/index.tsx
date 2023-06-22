@@ -33,7 +33,7 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
 
   const eventInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(event.product?.id)
+      (item) => Number(item.product_id) === Number(event.product?.id)
     );
   }, [event.product?.id, cart]);
 

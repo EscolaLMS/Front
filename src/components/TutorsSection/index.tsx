@@ -25,7 +25,7 @@ const TutorsSection = ({ users, title }: TutorsSectionProps) => {
     <TutorsSectionStyles>
       {users.map((user) => (
         <section className="section-tutor with-border padding-right">
-          <Link to={`tutors/${user.id}`}>
+          <Link to={`/tutors/${user.id}`}>
             <Tutor
               mobile={isMobile}
               avatar={{
