@@ -259,6 +259,16 @@ const Navbar = () => {
           ),
           key: "submenu-5",
         },
+        {
+          title: (
+            <Link to="/webinars">
+              <Text noMargin bold>
+                {t("Menu.Webinars")}
+              </Text>
+            </Link>
+          ),
+          key: "submenu-6",
+        },
       ],
     },
     {
@@ -389,7 +399,7 @@ const Navbar = () => {
                 { label: t("Menu.Tutors"), value: "/tutors" },
                 { label: t("Menu.Consultations"), value: "/consultations" },
                 { label: t("Menu.Events"), value: "/events" },
-                // { label: t("Menu.Webinars"), value: "/webinars" }, // TODO: Uncomment when webinars be ready
+                { label: t("Menu.Webinars"), value: "/webinars" },
               ]}
             />
             <Dropdown

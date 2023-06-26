@@ -119,6 +119,8 @@ const resources = {
       Time: "Time",
       Hour: "Hour",
       Hours: "Hours",
+      SectionDescriptionTitle: "Description",
+      Join: "Dołącz",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -509,6 +511,13 @@ const resources = {
       WebinarsPage: {
         Webinars: "Webinars",
       },
+      WebinarPage: {
+        Webinar: "Webinar",
+        StartDate: "Start date",
+        EndDate: "End date",
+        WebinarTags: "Webinar tags",
+        CompaniesTitle: "Companies that offer this webinar to their employees",
+      },
     },
   },
   pl: {
@@ -549,7 +558,7 @@ const resources = {
       Courses: "Kursy",
       DateAdded: "Data dodania",
       Description: "Opis",
-      Duration: "Czas Trwania",
+      Duration: "Czas trwania",
       Found: "Znaleźliśmy",
       FoundCourses_few:
         "Znaleźliśmy <strong>{{count}}</strong> kursy dostępne dla Ciebie",
@@ -632,6 +641,8 @@ const resources = {
       Time: "Czas",
       Hour: "Godzina",
       Hours: "Godziny",
+      SectionDescriptionTitle: "Opis",
+      Join: "Dołącz",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
@@ -1032,6 +1043,13 @@ const resources = {
       },
       WebinarsPage: {
         Webinars: "Webinary",
+      },
+      WebinarPage: {
+        Webinar: "Webinar",
+        StartDate: "Termin rozpoczęcia",
+        EndDate: "Termin zakończenia",
+        WebinarTags: "Tagi webinaru",
+        CompaniesTitle: "Firmy które oferują ten webinar swoim pracownikom",
       },
     },
   },

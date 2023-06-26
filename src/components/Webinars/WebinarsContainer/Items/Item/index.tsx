@@ -4,26 +4,23 @@ import { isMobile } from "react-device-detect";
 import { Link, useHistory } from "react-router-dom";
 import { differenceInHours } from "date-fns";
 
-import { useTheme } from "styled-components";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { API } from "@escolalms/sdk/lib";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import Title from "@escolalms/components/lib/components/atoms/Typography/Title";
-import Badge from "@escolalms/components/lib/components/atoms/Badge/Badge";
 import Button from "@escolalms/components/lib/components/atoms/Button/Button";
 import IconText from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { IconTime } from "../../../../../icons";
+import Tags from "@/components/Tags";
+import { Tag } from "@escolalms/sdk/lib/types/api";
 
 interface Props {
-  webinar: API.Webinar & {
-    deadline?: string;
-  };
+  webinar: API.Webinar;
   actions?: ReactNode;
 }
 
 const WebinarsContainerItem = ({ webinar, actions }: Props) => {
-  const theme = useTheme();
   const history = useHistory();
   const { t } = useTranslation();
   const duration =
@@ -58,19 +55,10 @@ const WebinarsContainerItem = ({ webinar, actions }: Props) => {
         </Link>
       }
       tags={
-        <>
-          {webinar.tags?.map(({ title }, index) => (
-            <Badge key={index} color={theme.primaryColor}>
-              <Link
-                style={{ color: theme.white }}
-                to={`/webinars/?tags[]=${title}`}
-              >
-                {/* @ts-ignore */}
-                {title}
-              </Link>
-            </Badge>
-          ))}
-        </>
+        <Tags
+          tags={webinar.tags as Tag[]}
+          onTagClick={(tagName) => history.push(`/webinars/?tags[]=${tagName}`)}
+        />
       }
       actions={
         actions ?? (
