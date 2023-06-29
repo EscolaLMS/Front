@@ -5,13 +5,14 @@ import { IconText, Text, CourseProgress } from "@escolalms/components";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconSquares, IconWin, IconCamera } from "../../../icons";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { useTheme } from "styled-components";
-import { useProgress } from "../../../hooks/useProgress";
+import { useCourseProgress } from "../../../hooks/useCourseProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
 import { formatPrice } from "@/utils/index";
+import ContentLoader from "@/components/ContentLoader";
 
 interface Props {
   course: API.Course;
@@ -23,34 +24,36 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   onRequestAccess,
 }) => {
   const theme = useTheme();
-  const { user } = useContext(EscolaLMSContext);
-  const { id } = course;
+  const { user, courseAccess } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { progress } = useProgress();
+  const { id } = useParams<{ id: string }>();
+  const { progress } = useCourseProgress(Number(id));
 
-  const userOwnThisCourse = useMemo(() => {
-    return (
-      progress.data &&
-      progress.data.findIndex(
-        (item: API.CourseProgressItem) => item.course.id === id
-      ) !== -1
-    );
-  }, [progress, id]);
+  const userOwnThisCourse = useMemo(
+    () => course?.product?.owned,
+    [course?.product?.owned]
+  );
+  const userCourseAccess = useMemo(
+    () =>
+      !!courseAccess.list?.data?.find(
+        (courseAccessItem) =>
+          courseAccessItem?.course?.id === course.id &&
+          courseAccessItem.status === "approved"
+      ),
+    [course.id, courseAccess.list?.data]
+  );
 
-  const currentCourse = progress.data
-    ? progress.data?.filter((item) => item.course.id === id)
-    : [];
+  const currentCourse = useMemo(() => progress.data || [], [progress.data]);
+
   const progressMap = useMemo(() => {
-    if (user.value && userOwnThisCourse) {
-      const finishedLessons = currentCourse
-        ? currentCourse[0].progress?.filter((item) => item.status === 1)
-        : [];
+    if (user.value && (userOwnThisCourse || userCourseAccess)) {
+      const finishedLessons =
+        currentCourse?.filter((item) => item.status === 1) || [];
       return finishedLessons.length;
     } else {
       return 0;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progress]);
+  }, [currentCourse, user.value, userCourseAccess, userOwnThisCourse]);
 
   return !isMobile ? (
     <PricingCard>
@@ -70,11 +73,15 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <CourseDetailsSidebarButtons
-        onRequestAccess={onRequestAccess}
-        course={course}
-        userOwnThisCourse={userOwnThisCourse}
-      />
+      {progress.loaded ? (
+        <CourseDetailsSidebarButtons
+          onRequestAccess={onRequestAccess}
+          course={course}
+          userOwnThisCourse={userOwnThisCourse}
+        />
+      ) : (
+        <ContentLoader />
+      )}
       <Text size={"12"}> {t("CoursePage.30Days")}</Text>
       <div className="pricing-card-features">
         {course.duration && (
@@ -127,17 +134,23 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
         <CourseProgress
           progress={
             currentCourse && currentCourse?.length > 0
-              ? progressMap / currentCourse[0].progress.length
+              ? progressMap / currentCourse.length
               : 0
           }
-          icon={<IconWin />}
+          icon={
+            progress.loaded ? (
+              <IconWin />
+            ) : (
+              <ContentLoader width="22px" height="22px" />
+            )
+          }
           title={t("CoursePage.MyProgress")}
         >
           <strong style={{ fontSize: 14 }}>
             {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
             {t<string>("CoursePage.Of")}{" "}
             {currentCourse && currentCourse?.length > 0
-              ? currentCourse[0].progress.length
+              ? currentCourse.length
               : 0}{" "}
             {t<string>("CoursePage.Lessons")}
           </strong>
@@ -170,11 +183,15 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
           </Title>
         </div>
         <div>
-          <CourseDetailsSidebarButtons
-            onRequestAccess={onRequestAccess}
-            course={course}
-            userOwnThisCourse={userOwnThisCourse}
-          />
+          {progress.loaded ? (
+            <CourseDetailsSidebarButtons
+              onRequestAccess={onRequestAccess}
+              course={course}
+              userOwnThisCourse={userOwnThisCourse}
+            />
+          ) : (
+            <ContentLoader />
+          )}
         </div>
       </div>
     </PricingCard>

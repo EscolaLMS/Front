@@ -10,8 +10,6 @@ import ErrorBox from "@/components/Errorbox";
 import { t } from "i18next";
 import ScormPlayer from "@/components/Course/Players/ScormPlayer";
 
-// TODO: 99% same as: src/pages/courses/preview/index.tsx
-
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
   program,
 }) => {
@@ -34,15 +32,13 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
 
 const CourseProgram = () => {
   const { id } = useParams<{ id: string }>();
-  const { program, fetchProgram } = useContext(EscolaLMSContext);
+  const { program, fetchProgram, fetchCourseProgress } =
+    useContext(EscolaLMSContext);
 
   useEffect(() => {
     if (id) {
-      // Probably here we only need program to show SCORM
       fetchProgram(Number(id));
-      // fetchCourseProgress(Number(id));
-      //fetchCourseProgress(Number(id));
-      //fetchProgress();
+      fetchCourseProgress(Number(id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
