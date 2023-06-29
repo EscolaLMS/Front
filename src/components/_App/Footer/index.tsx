@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -73,12 +73,14 @@ const Footer = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const footerFromApi =
-    settings?.value?.footerMenu &&
-    settings?.value?.footerMenu.menu.filter(
-      (item: Record<string, string | Record<string, string>>) =>
-        user.value ? item : !item.auth
-    );
+  const footerFromApi = useMemo(
+    () =>
+      (settings?.value?.footerMenu?.menu ?? []).filter(
+        (item: Record<string, string | Record<string, string>>) =>
+          user.value ? item : !item.auth
+      ),
+    [settings?.value?.footerMenu?.menu, user.value]
+  );
 
   const chunkArray = (
     arr: PaginatedMetaList<PageListItem> | undefined,
