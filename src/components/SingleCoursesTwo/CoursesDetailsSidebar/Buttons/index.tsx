@@ -22,8 +22,9 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
   onRequestAccess,
 }) => {
   const { t } = useTranslation();
+  const { push } = useHistory();
+  const { courseAccess, cart, addToCart } = useContext(EscolaLMSContext);
 
-  const { courseAccess } = useContext(EscolaLMSContext);
   const currentCourseAccess = useMemo(
     () =>
       courseAccess.list?.data?.find(
@@ -32,23 +33,52 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     [courseAccess.list?.data]
   );
 
+  const BuyButton = useMemo(
+    () => (
+      <Button
+        loading={cart.loading}
+        mode="secondary"
+        onClick={() =>
+          addToCart(Number(course.product?.id)).then(() => push("/cart"))
+        }
+      >
+        {t("Buy Course")}
+      </Button>
+    ),
+    [addToCart, cart.loading, course.product?.id, push, t]
+  );
+
   if (!currentCourseAccess) {
     return (
-      <StyledButton mode="secondary" onClick={onRequestAccess}>
-        {t("CourseAccess.RequestAccess")}
-      </StyledButton>
+      <>
+        <StyledButton mode="secondary" onClick={onRequestAccess}>
+          {t("CourseAccess.RequestAccess")}
+        </StyledButton>
+        {BuyButton}
+      </>
     );
   }
 
   if (currentCourseAccess.status !== "approved") {
     return (
-      <StyledButton mode="secondary" disabled>
-        {t("CourseAccess.Pending")}
-      </StyledButton>
+      <>
+        <StyledButton mode="secondary" disabled>
+          {t("CourseAccess.Pending")}
+        </StyledButton>
+        {BuyButton}
+      </>
     );
   }
 
-  return null;
+  if (currentCourseAccess.status === "approved") {
+    return (
+      <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
+        {t("Go to the course")}
+      </Button>
+    );
+  }
+
+  return BuyButton;
 };
 
 type Props = {
@@ -62,7 +92,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   userOwnThisCourse,
   onRequestAccess,
 }) => {
-  const { cart, addToCart, user } = useContext(EscolaLMSContext);
+  const { cart, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { push } = useHistory();
 
@@ -94,18 +124,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   if (user.value && course.product) {
     return (
-      <>
-        <CourseAccessButton course={course} onRequestAccess={onRequestAccess} />
-        <Button
-          loading={cart.loading}
-          mode="secondary"
-          onClick={() =>
-            addToCart(Number(course.product?.id)).then(() => push("/cart"))
-          }
-        >
-          {t("Buy Course")}
-        </Button>
-      </>
+      <CourseAccessButton course={course} onRequestAccess={onRequestAccess} />
     );
   }
   if (!course.product) {

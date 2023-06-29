@@ -1,6 +1,11 @@
 import { Spin } from "@escolalms/components";
 import styled, { useTheme } from "styled-components";
 
+interface Props {
+  width?: string;
+  height?: string;
+}
+
 const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -9,10 +14,15 @@ const SpinnerWrapper = styled.div`
   width: 100%;
 `;
 
-const ContentLoader = () => {
+const ContentLoader = ({ width, height }: Props) => {
   const theme = useTheme();
   return (
-    <SpinnerWrapper>
+    <SpinnerWrapper
+      style={{
+        width: width || "100%",
+        height: height || "100%",
+      }}
+    >
       <Spin color={theme.primaryColor} />
     </SpinnerWrapper>
   );
