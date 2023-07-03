@@ -47,7 +47,6 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
     <Button
       mode="secondary"
       onClick={() => history.push(`/consultations/${consultation.id}`)}
-      block
     >
       {t("ConsultationPage.Show")}
     </Button>

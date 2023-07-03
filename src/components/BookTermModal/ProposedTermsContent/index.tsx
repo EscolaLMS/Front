@@ -13,6 +13,8 @@ import {
   formatDate,
 } from "@/utils/date";
 import { Tag } from "@escolalms/components/lib/components/atoms/Tag/Tag";
+import SelectedTermContent from "../SelectedTermContent";
+import { ProfileConsultationsContext } from "@/components/Profile/ProfileConsultations/ProfileConsultationsProvider";
 import { StyledBookTermButtons } from "../styles";
 
 interface Props {
@@ -26,6 +28,8 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
   const [selectedDate, setSelectedDay] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const { setShowBookTermSuccess } = useContext(ProfileConsultationsContext);
   const { t } = useTranslation();
   const { bookConsultationTerm } = useContext(EscolaLMSContext);
   const terms = sortDates(
@@ -57,10 +61,11 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
   };
 
   const close = useCallback(() => {
+    setShowBookTermSuccess(true);
     onClose();
     setSelectedDay(null);
     setSelectedTime(null);
-  }, [onClose]);
+  }, [onClose, setShowBookTermSuccess]);
 
   const onClick = useCallback(async () => {
     if (consultation.consultation_term_id && selectedTime) {
@@ -71,7 +76,6 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
       );
       if (response.success) {
         close();
-        toast.success(t("ConsultationPage.ReportTermSuccess"));
       }
       setLoading(false);
     }
@@ -80,8 +84,18 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
     selectedTime,
     bookConsultationTerm,
     close,
-    t,
   ]);
+
+  if (step === 2) {
+    return (
+      <SelectedTermContent
+        selectedDate={selectedDate}
+        consultation={consultation}
+        loading={loading}
+        onClick={onClick}
+      />
+    );
+  }
 
   return (
     <>
@@ -109,7 +123,7 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
       {isAnyTerm && (
         <Button
           mode="secondary"
-          onClick={onClick}
+          onClick={() => setStep(2)}
           block
           disabled={!selectedDate || !selectedTime}
           loading={loading}

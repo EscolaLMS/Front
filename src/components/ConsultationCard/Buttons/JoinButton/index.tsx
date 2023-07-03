@@ -19,7 +19,7 @@ const ConsultationCardJoinButton = ({ consultationTermId }: Props) => {
   }, [consultationTermId, generateConsultationJitsy]);
 
   return (
-    <Button mode="secondary" onClick={onClick} block>
+    <Button mode="secondary" onClick={onClick}>
       {t("ConsultationPage.Join")}
     </Button>
   );

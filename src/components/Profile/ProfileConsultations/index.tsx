@@ -7,6 +7,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import ConsultationCard from "@/components/ConsultationCard";
 import ContentLoader from "@/components/ContentLoader";
+import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 
 interface ProfileConsultationsProps {
   type: ConsultationStatus;
@@ -31,24 +32,28 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     fetchUserConsultations();
   }, [type, fetchUserConsultations]);
 
-  return userConsultations.loading ? (
-    <ContentLoader />
-  ) : consultationsData.length === 0 ? (
-    <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
-      {t<string>("MyProfilePage.OrdersEmpty")}
-    </Text>
-  ) : (
-    <Row
-      style={{
-        gap: "30px 0",
-      }}
-    >
-      {consultationsData.map((consultation) => (
-        <Col key={consultation.id} xs={12} md={6} lg={4}>
-          <ConsultationCard consultation={consultation} />
-        </Col>
-      ))}
-    </Row>
+  return (
+    <ProfileConsultationsProvider>
+      {userConsultations.loading ? (
+        <ContentLoader />
+      ) : consultationsData.length === 0 ? (
+        <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
+          {t<string>("MyProfilePage.OrdersEmpty")}
+        </Text>
+      ) : (
+        <Row
+          style={{
+            gap: "30px 0",
+          }}
+        >
+          {consultationsData.map((consultation) => (
+            <Col key={consultation.id} xs={12} md={6} lg={4}>
+              <ConsultationCard consultation={consultation} />
+            </Col>
+          ))}
+        </Row>
+      )}
+    </ProfileConsultationsProvider>
   );
 };
 

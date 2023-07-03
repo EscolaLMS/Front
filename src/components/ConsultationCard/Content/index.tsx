@@ -1,10 +1,13 @@
-import { t } from "i18next";
+import styled from "styled-components";
 import { API } from "@escolalms/sdk/lib";
-import { IconText, Tag } from "@escolalms/components";
-import { APP_CONFIG } from "@/config/app";
-import { formatPrice } from "@/utils/index";
-import { addTimeToDate, extractTimeUnits, formatDate } from "@/utils/date";
-import { IconTime } from "../../../icons";
+import { addTimeToDate, extractTimeUnits } from "@/utils/date";
+import DateInfo, { DateInfoTypes } from "@/components/DateInfo";
+
+const ConsultationCardContentStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 interface Props {
   consultation: API.Consultation;
@@ -14,54 +17,33 @@ const ConsultationCardContent = ({ consultation }: Props) => {
   const isEnded = consultation.is_ended;
   const isReported = consultation.executed_status === "reported";
   const isApproved = consultation.executed_status === "approved";
-  const executedDate = formatDate(
-    consultation.executed_at,
-    APP_CONFIG.defaultDateTimeFormat
-  );
+  const isNotReported = consultation.executed_status === "not_reported";
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <IconText
-        icon={<IconTime />}
-        text={
-          isEnded && consultation.executed_at ? (
-            <>
-              {`${t("ConsultationPage.Finished")}: ${formatDate(
-                addTimeToDate(
-                  consultation.executed_at,
-                  extractTimeUnits(`${consultation.duration}`)
-                ),
-                APP_CONFIG.defaultDateTimeFormat
-              )}`}
-            </>
-          ) : (
-            <>
-              {consultation.duration}
-              {consultation.product &&
-                ` - ${formatPrice(
-                  consultation.product.price,
-                  consultation.product.tax_rate
-                )} zł`}
-            </>
-          )
-        }
-      />
+    <ConsultationCardContentStyles>
+      {isEnded && consultation.executed_at && (
+        <DateInfo
+          type={DateInfoTypes.ENDED}
+          date={addTimeToDate(
+            consultation.executed_at,
+            extractTimeUnits(`${consultation.duration}`)
+          )}
+        />
+      )}
       {isReported && !isEnded && (
-        <Tag>
-          {t("ConsultationPage.WaitForTutorDecision", { date: executedDate })}
-        </Tag>
+        <DateInfo
+          type={DateInfoTypes.WAITING}
+          date={consultation.executed_at}
+        />
       )}
       {isApproved && !isEnded && (
-        <Tag>
-          {t("ConsultationPage.TutorAcceptedTerm", { date: executedDate })}
-        </Tag>
+        <DateInfo
+          type={DateInfoTypes.ACCEPTED}
+          date={consultation.executed_at}
+        />
       )}
-    </div>
+      {isNotReported && <DateInfo type={DateInfoTypes.DEFAULT} />}
+    </ConsultationCardContentStyles>
   );
 };
 
