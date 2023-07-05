@@ -46,6 +46,11 @@ export const useCourseProgress = (courseId: number) => {
           loading: false,
         })
       );
+    } else if (!progress.loaded) {
+      setProgress({
+        ...progress,
+        loaded: true,
+      });
     }
   }, [user, progress, fetchCourseProgress, courseId]);
 

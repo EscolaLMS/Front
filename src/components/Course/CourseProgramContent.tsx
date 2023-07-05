@@ -141,7 +141,9 @@ export const CourseProgramContent: React.FC<{
           />
         );
       case API.TopicType.Image:
-        return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
+        return <ImagePlayer topic={topic} onLoad={() => {}} />;
+      // Commented, we want complete topic on button click
+      // return <ImagePlayer topic={topic} onLoad={() => onCompleteTopic()} />;
 
       case API.TopicType.Audio:
         return (
