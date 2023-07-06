@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -43,12 +43,11 @@ const StyledSidebar = styled.aside`
 
 export const CourseSidebar: React.FC<{
   course: API.CourseProgram;
-  lessonId: number;
   topicId: number;
+  onCompleteTopic?: () => void;
   onCourseFinish?: () => void;
-}> = ({ course, lessonId, topicId, onCourseFinish }) => {
-  const { disableNextTopicButton, sendProgress, progress } =
-    useLessonProgram(course);
+}> = ({ course, topicId, onCompleteTopic, onCourseFinish }) => {
+  const { progress } = useLessonProgram(course);
   const { courseProgressDetails } = useContext(EscolaLMSContext);
 
   const history = useHistory();
@@ -60,14 +59,6 @@ export const CourseSidebar: React.FC<{
   const allTopics = course.lessons.map((item) => item.topics);
   //@ts-ignore
   const arrayOfTopics = [].concat.apply([], allTopics);
-
-  const onCompleteTopic = useCallback((): void => {
-    disableNextTopicButton && disableNextTopicButton(false);
-    if (course?.id) {
-      sendProgress(course?.id, [{ topic_id: Number(topicId), status: 1 }]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [program, topicId, disableNextTopicButton, sendProgress]);
 
   const getCourseProgress = useMemo(() => {
     const courseId = course.id;
@@ -171,7 +162,7 @@ export const CourseSidebar: React.FC<{
           lessons={course.lessons}
           currentTopicId={topicId}
           finishedTopicIds={finishedTopics}
-          onMarkFinished={() => onCompleteTopic()}
+          onMarkFinished={() => onCompleteTopic?.()}
           onTopicClick={(topic) => {
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
