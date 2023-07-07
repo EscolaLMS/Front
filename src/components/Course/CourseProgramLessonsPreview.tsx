@@ -91,11 +91,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                 </button>
               </div>
             </div>
-            <CourseSidebar
-              course={program}
-              lessonId={Number(lesson?.id)}
-              topicId={Number(topic?.id)}
-            />
+            <CourseSidebar course={program} topicId={Number(topic?.id)} />
           </div>
         </div>
       </div>
