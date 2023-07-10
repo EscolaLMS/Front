@@ -282,7 +282,7 @@ const CoursePage = () => {
     if (id) {
       fetchCourse(Number(id));
       refreshCurrentCourseAccess();
-      questionnaireStars(apiUrl, "Course", Number(id)).then((res) => {
+      questionnaireStars(apiUrl, "course", Number(id)).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
     }
