@@ -4,7 +4,9 @@ import { API } from "@escolalms/sdk/lib";
 import DatePicker from "@/components/DatePicker";
 import Button from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { toast } from "react-toastify";
+import ModalTitle from "@/components/StyledTitle/ModalTitle";
+import SelectedTermContent from "../SelectedTermContent";
+import { ProfileConsultationsContext } from "@/components/Profile/ProfileConsultations/ProfileConsultationsProvider";
 
 interface Props {
   consultation: API.Consultation & {
@@ -17,6 +19,8 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const [selectedDate, setSelectedDay] = useState<Date | null>(null);
   const { bookConsultationTerm } = useContext(EscolaLMSContext);
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const { setShowBookTermSuccess } = useContext(ProfileConsultationsContext);
   const { t } = useTranslation();
   const inComing = consultation.in_coming;
   const isApproved = consultation.executed_status === "approved";
@@ -26,9 +30,10 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   };
 
   const close = useCallback(() => {
+    setShowBookTermSuccess(true);
     onClose();
     setSelectedDay(null);
-  }, [onClose]);
+  }, [onClose, setShowBookTermSuccess]);
 
   const onClick = useCallback(async () => {
     if (consultation.consultation_term_id && selectedDate) {
@@ -39,7 +44,6 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
       );
       if (response.success) {
         close();
-        toast.success(t("ConsultationPage.ReportTermSuccess"));
       }
       setLoading(false);
     }
@@ -48,11 +52,22 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
     selectedDate,
     bookConsultationTerm,
     close,
-    t,
   ]);
+
+  if (step === 2) {
+    return (
+      <SelectedTermContent
+        selectedDate={selectedDate}
+        consultation={consultation}
+        loading={loading}
+        onClick={onClick}
+      />
+    );
+  }
 
   return (
     <>
+      <ModalTitle>{t("ConsultationPage.SelectDateAndHour")}</ModalTitle>
       <DatePicker
         onChange={onChange}
         selectedDate={selectedDate}
@@ -60,30 +75,16 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
         showTimeInput
         timeInputLabel={`${t("Time")}: `}
       />
-      {/* <StyledBookTermButtons>
-        {currentTimes.map((date) => (
-          <Button
-            mode={
-              isTwoDatesEqual(date, selectedTime, "HH:mm")
-                ? "secondary"
-                : "outline"
-            }
-            onClick={() => setSelectedTime(date)}
-          >
-            {formatDate(date, "HH:mm")}
-          </Button>
-        ))}
-      </StyledBookTermButtons> */}
       <Button
         mode="secondary"
-        onClick={onClick}
+        onClick={() => setStep(2)}
         block
         disabled={!selectedDate}
         loading={loading}
       >
         {inComing && isApproved
           ? t("ConsultationPage.ChangeTerm")
-          : t("ConsultationPage.Book")}
+          : t("ConsultationPage.Choose")}
       </Button>
     </>
   );

@@ -14,7 +14,7 @@ const ConsultationCardBookButton = ({ showBookTerm }: Props) => {
   }, [showBookTerm]);
 
   return (
-    <Button mode="secondary" onClick={onClick} block>
+    <Button mode="secondary" onClick={onClick}>
       {t("ConsultationPage.Book")}
     </Button>
   );

@@ -1,10 +1,23 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { API } from "@escolalms/sdk/lib";
 import BookTermModal from "@/components/BookTermModal";
 import ConsultationCardButtons from "./Buttons";
 import ConsultationCardContent from "./Content";
 import ConsultationCardImage from "./Image";
+
+const ConsultationCardStyles = styled.div`
+  .course-card-buttons-group {
+    margin: 0;
+    width: 100%;
+
+    button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+`;
 
 interface ConsultationCardProps {
   consultation: API.Consultation;
@@ -15,7 +28,7 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
   const [showBookTerm, setShowBookTerm] = useState(false);
 
   return (
-    <>
+    <ConsultationCardStyles>
       <CourseCard
         id={consultation.id}
         image={<ConsultationCardImage consultation={consultation} />}
@@ -34,7 +47,7 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
         onClose={() => setShowBookTerm(false)}
         consultation={consultation as any}
       />
-    </>
+    </ConsultationCardStyles>
   );
 };
 

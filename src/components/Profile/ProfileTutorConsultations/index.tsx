@@ -5,36 +5,37 @@ import { Col, Row } from "react-grid-system";
 import { ConsultationStatus } from "../../../pages/user/my-consultations";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import ConsultationCard from "@/components/ConsultationCard";
+import ConsultationTutorCard from "@/components/ConsultationTutorCard";
 import ContentLoader from "@/components/ContentLoader";
-import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 
-interface ProfileConsultationsProps {
+interface ProfileTutorConsultationsProps {
   type: ConsultationStatus;
 }
 
-const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
-  const { userConsultations, fetchUserConsultations } =
+const ProfileTutorConsultations = ({
+  type,
+}: ProfileTutorConsultationsProps) => {
+  const { tutorConsultations, fetchTutorConsultations } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const consultationsData = useMemo(
     () =>
-      userConsultations.list?.data.filter((consultation) =>
+      tutorConsultations.list?.data.filter((consultation) =>
         type === ConsultationStatus.STARTED ||
         type === ConsultationStatus.UPCOMING
           ? consultation.in_coming || consultation.is_started
           : consultation.is_ended
       ) || [],
-    [type, userConsultations.list?.data]
+    [type, tutorConsultations.list?.data]
   );
 
   useEffect(() => {
-    fetchUserConsultations();
-  }, [type, fetchUserConsultations]);
+    fetchTutorConsultations();
+  }, [fetchTutorConsultations]);
 
   return (
-    <ProfileConsultationsProvider>
-      {userConsultations.loading ? (
+    <>
+      {tutorConsultations.loading ? (
         <ContentLoader />
       ) : consultationsData.length === 0 ? (
         <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
@@ -47,14 +48,14 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
           }}
         >
           {consultationsData.map((consultation) => (
-            <Col key={consultation.id} xs={12} md={6} lg={4}>
-              <ConsultationCard consultation={consultation} />
+            <Col key={consultation.consultation_term_id} xs={12} md={6} lg={4}>
+              <ConsultationTutorCard consultation={consultation} />
             </Col>
           ))}
         </Row>
       )}
-    </ProfileConsultationsProvider>
+    </>
   );
 };
 
-export default memo(ProfileConsultations);
+export default memo(ProfileTutorConsultations);

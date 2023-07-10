@@ -1,27 +1,27 @@
-import { useCallback, useContext } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import ConsultationMeetModal from "@/components/ConsultationCard/MeetModal";
 
 interface Props {
   consultationTermId: number;
 }
 
 const ConsultationCardJoinButton = ({ consultationTermId }: Props) => {
+  const [showModal, setShowModal] = useState(false);
   const { t } = useTranslation();
-  const { generateConsultationJitsy } = useContext(EscolaLMSContext);
-
-  const onClick = useCallback(async () => {
-    const response = await generateConsultationJitsy(consultationTermId);
-    if (response.success) {
-      window.open(response.data.url, "_blank", "noreferrer");
-    }
-  }, [consultationTermId, generateConsultationJitsy]);
 
   return (
-    <Button mode="secondary" onClick={onClick} block>
-      {t("ConsultationPage.Join")}
-    </Button>
+    <>
+      <Button mode="secondary" onClick={() => setShowModal(true)}>
+        {t("ConsultationPage.Join")}
+      </Button>
+      <ConsultationMeetModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        consultationTermId={consultationTermId}
+      />
+    </>
   );
 };
 
