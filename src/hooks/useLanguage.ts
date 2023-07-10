@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import en from "date-fns/locale/en-GB";
+import pl from "date-fns/locale/pl";
+import setDefaultOptions from "date-fns/setDefaultOptions";
 
 type LanguageObject = {
   label: string;
@@ -27,7 +30,9 @@ export const useLanguage = (): UseLanguageReturnType => {
   );
 
   useEffect(() => {
-    i18n.changeLanguage(getLangFromLocalStorage().value);
+    const currentLangObject = getLangFromLocalStorage().value;
+    i18n.changeLanguage(currentLangObject);
+    setDefaultOptions({ locale: currentLangObject === "pl" ? pl : en });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -39,6 +44,7 @@ export const useLanguage = (): UseLanguageReturnType => {
     (language: LanguageObject) => {
       i18n.changeLanguage(language.value);
       setDefaultLanguage(language);
+      setDefaultOptions({ locale: language.value === "pl" ? pl : en });
     },
     [i18n]
   );

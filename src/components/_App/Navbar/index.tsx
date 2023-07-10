@@ -427,6 +427,10 @@ const Navbar = () => {
                   { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
                   { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
                   {
+                    label: t("Navbar.MyConsultations"),
+                    value: "/user/my-consultations",
+                  },
+                  {
                     label: t("Navbar.MyStationaryEvents"),
                     value: "/user/my-stationary-events",
                   },

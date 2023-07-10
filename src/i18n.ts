@@ -31,6 +31,7 @@ const resources = {
       Category: "Category",
       "change font size": "change font size",
       Confirm: "Confirm",
+      Cancel: "Cancel",
       "Contact Us": "Contact Us",
       "Course Preview": "Course Preview",
       "Course Program": "Course Program",
@@ -310,6 +311,8 @@ const resources = {
         EmptyEventText:
           "You don't have any stationary events yet, but thanks to our offer you can start learning today!",
         EmptyEventsBtnText: "Choose a stationary event for yourself",
+        BoughtUpcoming: "Bought upcoming",
+        BoughtArchived: "Bought archived",
       },
       Menu: {
         Browse: "Browse",
@@ -344,7 +347,8 @@ const resources = {
         MyPayments: "My Payments",
         EditProfile: "Edit data",
         Logout: "Logout",
-        MyStationaryEvents: "Stationary events",
+        MyStationaryEvents: "My stationary events",
+        MyConsultations: "My consultations",
       },
       Custom404Page: {
         NotFound: "Error 404 : Page Not Found",
@@ -526,6 +530,16 @@ const resources = {
         WebinarTags: "Webinar tags",
         CompaniesTitle: "Companies that offer this webinar to their employees",
       },
+      ConsultationStatus: {
+        Unconfirmed: "Unconfirmed",
+        Bought: "Bought",
+        Canceled: "Canceled",
+        Appointment: "Appointment",
+        Ended: "Ended",
+        UnconfirmedInfo:
+          "Confirm the date of the meeting proposed by the client or contact us to arrange another date.",
+        AppointmentInfo: "The meeting link will be availlable on {{date}}",
+      },
     },
   },
   pl: {
@@ -558,6 +572,7 @@ const resources = {
       Category: "Kategoria",
       "change font size": "zmień wielkość tekstu",
       Confirm: "Potwierdź",
+      Cancel: "Odrzuć",
       Consultations: "Konsultacje",
       Consultation: "Konsultacja",
       "Contact Us": "Kontakt",
@@ -869,6 +884,8 @@ const resources = {
         EmptyEventText:
           "Nie masz jeszcze żadnych wydarzeń stacjonarnych, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
         EmptyEventsBtnText: " Wybierz wydarzenie stacjonarne dla siebie",
+        BoughtUpcoming: "Kupione nadchodzące",
+        BoughtArchived: "Kupione archiwalne",
       },
       Navbar: {
         MyProfile: "Mój profil",
@@ -882,6 +899,7 @@ const resources = {
         EditProfile: "Edytuj dane",
         Logout: "Wyloguj",
         MyStationaryEvents: "Moje wydarzenia stacjonarne",
+        MyConsultations: "Moje konsultacje",
       },
       Custom404Page: {
         NotFound: "Error 404 : Nie znaleziono strony",
@@ -1066,6 +1084,16 @@ const resources = {
         EndDate: "Termin zakończenia",
         WebinarTags: "Tagi webinaru",
         CompaniesTitle: "Firmy które oferują ten webinar swoim pracownikom",
+      },
+      ConsultationStatus: {
+        Unconfirmed: "Niepotwierdzona",
+        Bought: "Kupiona",
+        Canceled: "Odrzucona",
+        Appointment: "Umówiona",
+        Ended: "Zakończona",
+        UnconfirmedInfo:
+          "Potwierdź zaproponowany termin spotkania przez klienta lub skontaktuj się w celu ustalenie innego terminu.",
+        AppointmentInfo: "Link do spotkania pojawi się w {{date}}",
       },
     },
   },
