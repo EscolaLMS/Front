@@ -11,6 +11,7 @@ import { HeaderUser, ProgressTropy, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import ProfileAsideCollapse from "../ProfileAsideCollapse";
+import AvatarUpload from "../AvatarUpload";
 
 type NavigationTab = {
   title: string;
@@ -41,13 +42,6 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
     theme.mode === "dark" ? theme.dm__background : theme.background};
   .user-main-sidebar {
     margin-bottom: ${isMobile ? "70px" : "22px"};
-    .avatar-wrapper {
-      margin-bottom: ${isMobile ? "30px" : "21px"};
-      display: flex;
-      justify-content: flex-start;
-      align-items: ${isMobile ? "center" : "flex-start"};
-      flex-direction: ${isMobile ? "row" : "column"};
-    }
     .name {
       margin: ${isMobile ? "0 0 0 21px" : "16px 0 0 0"};
     }
@@ -197,6 +191,7 @@ const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
     justify-content: center;
     align-items: center;
     column-gap: 10px;
+    flex-direction: ${isMobile ? "column" : "row"};
   }
 `;
 
@@ -289,7 +284,7 @@ const ProfileAside: React.FC = () => {
         >
           <div className="content-wrapper">
             {user.value?.avatar ? (
-              <Avatar size="extraSmall" src={user.value?.avatar} alt="" />
+              <AvatarUpload size="extraSmall" />
             ) : (
               <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
             )}
@@ -305,7 +300,7 @@ const ProfileAside: React.FC = () => {
         <UserSidebar title={t("MyProfilePage.YourAccount")} icon={<UserIcon />}>
           <div className="avatar-wrapper">
             {user.value?.avatar ? (
-              <Avatar size="small" src={user.value?.avatar} alt="" />
+              <AvatarUpload size="small" />
             ) : (
               <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
             )}
