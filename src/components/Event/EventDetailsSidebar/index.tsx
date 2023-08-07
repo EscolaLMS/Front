@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { formatPrice } from "@/utils/index";
+import ProductPrices from "@/components/ProductPrices";
 
 enum ButtonStatus {
   FINISHED,
@@ -71,19 +72,11 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
       <Title level={4} as="h2">
         {event.name}
       </Title>
-      <div className="pricing-card-price">
-        <Title level={3} as={"h3"}>
-          {formatPrice(event.product?.price, event.product?.tax_rate)} zł
-        </Title>
-        {event.product?.price_old && (
-          <div className="pricing-card-discount">
-            <Title level={5} as={"h5"}>
-              {formatPrice(event.product?.price_old, event.product?.tax_rate)}{" "}
-              zł
-            </Title>
-          </div>
-        )}
-      </div>
+      <ProductPrices
+        price={event.product?.price}
+        oldPrice={event.product?.price_old}
+        taxRate={event.product?.tax_rate}
+      />
       {/* BUTTONS START */}
       {buttonStatus === ButtonStatus.FINISHED && (
         <Text>{t("EventPage.IsFinished")}</Text>
