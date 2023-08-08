@@ -1,10 +1,11 @@
-import React, { lazy } from "react";
+import React, { lazy, useContext, useEffect } from "react";
 
 import Routes from "./components/Routes";
 
 import styled, { createGlobalStyle } from "styled-components";
 import { isMobile } from "react-device-detect";
 import * as Sentry from "@sentry/react";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 const Customizer = lazy(
   () => import("./components/ThemeCustomizer/ThemeCustomizer")
@@ -44,6 +45,13 @@ const StyledMain = styled.main`
   padding-top: ${isMobile ? "92px" : "167px"};
 `;
 const App = () => {
+  const { fetchSettings, settings } = useContext(EscolaLMSContext);
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  console.log(settings);
   return (
     <React.Fragment>
       <GlobalStyle />
