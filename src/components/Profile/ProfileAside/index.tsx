@@ -1,7 +1,6 @@
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import styled, { useTheme } from "styled-components";
-import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { NavLink, useHistory } from "react-router-dom";

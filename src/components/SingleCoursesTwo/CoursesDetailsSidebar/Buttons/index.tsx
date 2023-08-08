@@ -30,7 +30,7 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
       courseAccess.list?.data?.find(
         (courseAccessItem) => courseAccessItem?.course?.id === course.id
       ),
-    [courseAccess.list?.data]
+    [courseAccess.list?.data, course.id]
   );
 
   const BuyButton = useMemo(

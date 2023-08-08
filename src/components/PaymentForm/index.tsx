@@ -19,16 +19,47 @@ type Props = {
 
 const StyledForm = styled.div`
   .input-wrapper {
-    padding: 11px 12px 13px;
-    border: 1px solid
-      ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray4)};
-
+    background-color: ${({ theme }) =>
+      theme.mode === "dark" ? "#333" : theme.cardBackgroundColor};
     &--custom {
       @media (max-width: 991px) {
         margin-bottom: 30px;
       }
     }
+    .StripeElement {
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? "#c3c3c3" : theme.gray1};
+      padding: 11px 12px 13px;
+      border: 1px solid
+        ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray4)};
+      &--focus {
+        border: 1px solid
+          ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray3)};
+      }
+      &--empty + label {
+        display: none;
+      }
+      &--invalid + label,
+      &--focus + label,
+      &--complete + label {
+        display: block;
+        top: -8px;
+        left: 24px;
+      }
+    }
   }
+`;
+
+const StyledLabel = styled.label`
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: ${({ theme }) => theme.font};
+  color: ${({ theme }) => (theme.mode === "dark" ? "#c3c3c3" : theme.gray1)};
+  font-size: 10px;
+  padding: 0 2px;
+  background-color: ${({ theme }) =>
+    theme.mode === "dark" ? "#000" : theme.white};
 `;
 
 const PaymentForm: React.FC<Props> = ({
@@ -51,7 +82,7 @@ const PaymentForm: React.FC<Props> = ({
           color: theme.mode === "dark" ? theme.white : theme.gray1,
           fontSize: "12px",
           "::placeholder": {
-            color: theme.mode === "dark" ? theme.white : theme.gray1,
+            color: theme.mode === "dark" ? "#c3c3c3" : theme.gray1,
           },
         },
         invalid: {
@@ -82,19 +113,26 @@ const PaymentForm: React.FC<Props> = ({
         </Col>
         <Col lg={6}>
           <div className="input-wrapper">
-            <CardNumberElement options={options} />
+            <CardNumberElement options={options} id="cardNumber" />
+            <StyledLabel htmlFor="cardNumber">
+              {t<string>("Card number")}
+            </StyledLabel>
           </div>
         </Col>
       </Row>
       <Row>
         <Col lg={6}>
           <div className="input-wrapper">
-            <CardExpiryElement options={options} />
+            <CardExpiryElement options={options} id="cardExpiry" />
+            <StyledLabel htmlFor="cardExpiry">
+              {t<string>("Expiration date")}
+            </StyledLabel>
           </div>
         </Col>
         <Col lg={6}>
           <div className="input-wrapper">
-            <CardCvcElement options={options} />
+            <CardCvcElement options={options} id="cardCVC" />
+            <StyledLabel htmlFor="cardCVC">CVC</StyledLabel>
           </div>
         </Col>
       </Row>

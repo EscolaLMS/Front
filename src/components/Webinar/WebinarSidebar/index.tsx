@@ -4,11 +4,11 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { WebinarSidebarStyles } from "./WebinarSidebarStyles";
-import { formatPrice } from "@/utils/index";
 import { IconText } from "@escolalms/components";
 import { IconCamera, IconSquares } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import WebinarSidebarButtons from "./Buttons";
+import ProductPrices from "@/components/ProductPrices";
 
 const WebinarSidebar = () => {
   const {
@@ -23,26 +23,11 @@ const WebinarSidebar = () => {
           {webinarObject?.name}
         </Title>
         {/* PRICE */}
-        <div className="pricing-card-price">
-          <Title level={3} as={"h3"}>
-            {formatPrice(
-              webinarObject?.product?.price,
-              webinarObject?.product?.tax_rate
-            )}{" "}
-            zł
-          </Title>
-          {webinarObject?.product?.price_old && (
-            <div className="pricing-card-discount">
-              <Title level={5} as={"h5"}>
-                {formatPrice(
-                  webinarObject?.product?.price_old,
-                  webinarObject?.product?.tax_rate
-                )}{" "}
-                zł
-              </Title>
-            </div>
-          )}
-        </div>
+        <ProductPrices
+          price={webinarObject?.product?.price}
+          taxRate={webinarObject?.product?.tax_rate}
+          oldPrice={webinarObject?.product?.price_old || undefined}
+        />
         {/* BUTTONS */}
         <WebinarSidebarButtons />
         {/* FOOTER */}

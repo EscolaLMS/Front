@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useContext } from "react";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -30,30 +24,18 @@ const Container = styled.div`
 `;
 
 const AvatarUpload: React.FC<Props> = ({ size }) => {
-  const [selectedAvatar, setSelectedAvatar] = useState<File | null>(null);
   const { updateAvatar, user } = useContext(EscolaLMSContext);
 
   const handleAvatarChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files) {
-        const file = event.target.files[0];
-        setSelectedAvatar(file);
-      }
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target?.files?.[0];
+      if (!file) return;
+
+      updateAvatar(file);
     },
-    []
+    [updateAvatar]
   );
 
-  const handleUpload = useCallback(() => {
-    if (selectedAvatar) {
-      updateAvatar(selectedAvatar);
-      setSelectedAvatar(null);
-    }
-  }, [selectedAvatar, updateAvatar]);
-
-  useEffect(() => {
-    handleUpload();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAvatar]);
   return (
     <Container>
       <Avatar size={size} src={user.value?.avatar} alt="" />
