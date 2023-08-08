@@ -13,6 +13,7 @@ import { useCourseProgress } from "../../../hooks/useCourseProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
 import { formatPrice } from "@/utils/index";
 import ContentLoader from "@/components/ContentLoader";
+import ProductPrices from "@/components/ProductPrices";
 
 interface Props {
   course: API.Course;
@@ -60,19 +61,11 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
       <Title level={4} as="h2">
         {course.title}
       </Title>
-      <div className="pricing-card-price">
-        <Title level={3} as={"h3"}>
-          {formatPrice(course.product?.price, course.product?.tax_rate)} zł
-        </Title>
-        {course.product?.price_old && (
-          <div className="pricing-card-discount">
-            <Title level={5} as={"h5"}>
-              {formatPrice(course.product?.price_old, course.product?.tax_rate)}{" "}
-              zł
-            </Title>
-          </div>
-        )}
-      </div>
+      <ProductPrices
+        price={course.product?.price}
+        taxRate={course.product?.tax_rate}
+        oldPrice={course.product?.price_old}
+      />
       {progress.loaded ? (
         <CourseDetailsSidebarButtons
           onRequestAccess={onRequestAccess}

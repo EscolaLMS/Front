@@ -13,6 +13,7 @@ const API_URL =
 const EventTutor = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+  //@ts-ignore - TODO: fix types in sdk
   const authors = stationaryEvent.value?.product?.authors;
 
   if (!authors?.length) {
