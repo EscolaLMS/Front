@@ -13,6 +13,7 @@ const API_URL =
 const EventTutor = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
+
   const authors = stationaryEvent.value?.product?.authors;
 
   if (!authors?.length) {
