@@ -7,24 +7,22 @@ import React, {
 } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import styled, { useTheme } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { LessonsIcon, UserIcon } from "../../../icons";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "@/components/CourseCardWrapper";
 import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
 import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+
+import CourseCardItem from "./components/CourseCardItem";
+import { CourseStatus } from "src/pages/user/MyProfile";
+
+type CoursesState = Array<API.Course & { progress?: number }>;
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -72,20 +70,23 @@ const StyledEmptyInfo = styled.div`
 `;
 
 const ProfileCourses = ({
-  filter = "all",
+  filter = CourseStatus.ALL,
 }: {
-  filter: "all" | "inProgress" | "planned" | "finished";
+  filter: CourseStatus;
 }) => {
   const [fetched, setFetched] = useState(false);
   const [courseId, setCourseId] = useState<number | undefined>(undefined);
-  const { progress, fetchProgress, fetchQuestionnaires } =
-    useContext(EscolaLMSContext);
+  const {
+    progress,
+    fetchProgress,
+    fetchQuestionnaires,
+    fetchMyAuthoredCourses,
+    myAuthoredCourses,
+  } = useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
-  const [coursesToMap, setCoursesToMap] = useState<
-    API.CourseProgressItem[] | []
-  >([]);
+  const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
-  const theme = useTheme();
+
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -111,9 +112,10 @@ const ProfileCourses = ({
   }, [courseId, fetchQuestionnaires]);
 
   useEffect(() => {
-    fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    filter !== CourseStatus.AUTHORED
+      ? fetchProgress()
+      : fetchMyAuthoredCourses();
+  }, [fetchProgress, filter, fetchMyAuthoredCourses]);
 
   useEffect(() => {
     getQuestionnaires();
@@ -184,19 +186,50 @@ const ProfileCourses = ({
     );
   }, [progress]);
 
-  useEffect(() => {
-    setCoursesToMap(progress.value || []);
-  }, [progress]);
+  const remapNormalCourses = useCallback(
+    (courses: API.CourseProgressItem[]) => {
+      return courses.map((course: API.CourseProgressItem) => {
+        return {
+          ...course.course,
+          progress: progressMap[course.course.id ? course.course.id : -1],
+        };
+      });
+    },
+    [progressMap]
+  );
+
+  const onRateClick = useCallback(
+    (courseId: number) => {
+      setCourseId(courseId);
+      setState((prevState) => ({
+        ...prevState,
+        show: true,
+      }));
+    },
+
+    []
+  );
 
   useEffect(() => {
-    filter === "all"
-      ? setCoursesToMap(progress.value || [])
-      : filter === "finished"
-      ? setCoursesToMap(finishedCourses)
-      : filter === "inProgress"
-      ? setCoursesToMap(startedCourses)
-      : setCoursesToMap(plannedCourses);
-  }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
+    filter === CourseStatus.FINISHED
+      ? setCoursesToMap(remapNormalCourses(finishedCourses))
+      : filter === CourseStatus.PLANNED
+      ? setCoursesToMap(remapNormalCourses(plannedCourses))
+      : filter === CourseStatus.IN_PROGRESS
+      ? setCoursesToMap(remapNormalCourses(startedCourses))
+      : filter === CourseStatus.AUTHORED
+      ? setCoursesToMap(myAuthoredCourses.value || [])
+      : setCoursesToMap(remapNormalCourses(progress.value || []));
+  }, [
+    filter,
+    progress,
+    myAuthoredCourses,
+    startedCourses,
+    plannedCourses,
+    finishedCourses,
+    remapNormalCourses,
+  ]);
+
   return (
     <StyledList>
       {!isMobile ? (
@@ -205,121 +238,32 @@ const ProfileCourses = ({
             gap: "28px 0",
           }}
         >
-          {progress.value?.length === 0 && !progress.loading && (
-            <StyledEmptyInfo>
-              <Title level={3}>
-                {t<string>("MyProfilePage.EmptyCoursesTitle")}
-              </Title>
-              <Text className="small-text">
-                {t<string>("MyProfilePage.EmptyCoursesText")}
-              </Text>
-              <Button onClick={() => history.push("/courses")} mode="secondary">
-                {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-              </Button>
-            </StyledEmptyInfo>
-          )}
-          {coursesToMap &&
-            coursesToMap.slice(0, 6).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/courses/${item.course.id}`} className="title">
-                        <Title level={4} as="h2">
-                          {item.course.title}
-                        </Title>
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
-              </Col>
-            ))}
+          {coursesToMap.length === 0 &&
+            !progress.loading &&
+            !myAuthoredCourses.loading && (
+              <StyledEmptyInfo>
+                <Title level={3}>
+                  {t<string>("MyProfilePage.EmptyCoursesTitle")}
+                </Title>
+                <Text className="small-text">
+                  {t<string>("MyProfilePage.EmptyCoursesText")}
+                </Text>
+                <Button
+                  onClick={() => history.push("/courses")}
+                  mode="secondary"
+                >
+                  {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+                </Button>
+              </StyledEmptyInfo>
+            )}
+          {coursesToMap.slice(0, 6).map((item) => (
+            <Col md={4} key={item.id}>
+              <CourseCardItem
+                course={item}
+                onRateClick={(id) => onRateClick(id)}
+              />
+            </Col>
+          ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
             <Col
               sm={12}
@@ -340,102 +284,11 @@ const ProfileCourses = ({
             coursesToMap.length > 5 &&
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+              <Col md={4} key={item.id}>
+                <CourseCardItem
+                  course={item}
+                  onRateClick={(id) => onRateClick(id)}
+                />
               </Col>
             ))}
         </Row>
@@ -443,107 +296,16 @@ const ProfileCourses = ({
         <div className="slider-wrapper">
           {coursesToMap &&
             coursesToMap.map((item) => (
-              <div key={item.course.id} className="single-slide">
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+              <div key={item.id} className="single-slide">
+                <CourseCardItem
+                  course={item}
+                  onRateClick={(id) => onRateClick(id)}
+                />
               </div>
             ))}
         </div>
       )}
-      {progress.loading && <ContentLoader />}
+      {(progress.loading || myAuthoredCourses.loading) && <ContentLoader />}
       {state.show && courseId && fetched && questionnaires[state.step] && (
         <RateCourse
           course={"Course"}

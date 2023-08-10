@@ -5,11 +5,19 @@ import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileCourses from "@/components/Profile/ProfileCourses";
-
 import ProfileCertificates from "@/components/Profile/ProfileCertificates";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
+import { useRoles } from "@/hooks/useRoles";
+
+export enum CourseStatus {
+  IN_PROGRESS = "inProgress",
+  PLANNED = "planned",
+  FINISHED = "finished",
+  AUTHORED = "authored",
+  ALL = "all",
+}
 
 const Content = styled.section`
   .courses-wrapper {
@@ -35,6 +43,8 @@ const MyProfile = () => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
   const { t } = useTranslation();
+  const { isTutor } = useRoles();
+
   useEffect(() => {
     if (!user.loading && !user.value) {
       history.push("/login");
@@ -47,22 +57,27 @@ const MyProfile = () => {
       {
         label: t("MyProfilePage.ALlCourses"),
         key: 1,
-        component: <ProfileCourses filter="all" />,
+        component: <ProfileCourses filter={CourseStatus.ALL} />,
       },
       {
         label: t("MyProfilePage.InProgress"),
         key: 2,
-        component: <ProfileCourses filter="inProgress" />,
+        component: <ProfileCourses filter={CourseStatus.IN_PROGRESS} />,
       },
       {
         label: t("MyProfilePage.Planned"),
         key: 3,
-        component: <ProfileCourses filter="planned" />,
+        component: <ProfileCourses filter={CourseStatus.PLANNED} />,
       },
       {
         label: t("MyProfilePage.Finished"),
         key: 4,
-        component: <ProfileCourses filter="finished" />,
+        component: <ProfileCourses filter={CourseStatus.FINISHED} />,
+      },
+      {
+        label: "Autorskie",
+        key: 5,
+        component: <ProfileCourses filter={CourseStatus.AUTHORED} />,
       },
     ],
     defaultActiveKey: 1,
