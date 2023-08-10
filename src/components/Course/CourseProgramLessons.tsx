@@ -111,7 +111,9 @@ export const CourseProgramLessons: React.FC<{
           </Title>
           <Row>
             <Col lg={9}>
-              {!!showFinishModal && <CourseFinishModal />}
+              {!!showFinishModal && (
+                <CourseFinishModal program={program} courseId={courseId} />
+              )}
               {!showFinishModal && (
                 <CourseProgramPlayer
                   lesson={lesson}
