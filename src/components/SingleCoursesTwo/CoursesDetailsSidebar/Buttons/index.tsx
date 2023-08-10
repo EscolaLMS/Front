@@ -96,11 +96,26 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   const { t } = useTranslation();
   const { push } = useHistory();
 
+  const loggedUserIsAuthor = useMemo(
+    () =>
+      user?.value?.id &&
+      course.authors?.find((author) => author.id === user?.value?.id),
+    [course, user?.value?.id]
+  );
+
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
       (item: any) => Number(item.product_id) === Number(course.product?.id)
     );
   }, [course.product?.id, cart]);
+
+  if (!!loggedUserIsAuthor) {
+    return (
+      <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
+        {t("Go to the course")}
+      </Button>
+    );
+  }
 
   if (isPast(new Date(course.active_to || ""))) {
     return <Text>{t("CoursePage.IsFinished")}</Text>;
