@@ -7,6 +7,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import RateCourse from "@/components/RateCourse";
 import { toast } from "react-toastify";
 import { QuestionnaireModelType } from "@/types/questionnaire";
+import { Spin } from "@escolalms/components";
 
 interface FinishModalProps {
   courseId?: number;
@@ -18,6 +19,7 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   const [state, setState] = useState({
     show: false,
     step: 0,
+    loading: false,
   });
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const { fetchQuestionnaires, fetchQuestionnaire } =
@@ -108,6 +110,10 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
             (item) => !!item.questions.length
           )
         );
+        setState((prevState) => ({
+          ...prevState,
+          loading: false,
+        }));
       }
     } catch (error) {
       toast.error(t<string>("UnexpectedError"));
@@ -117,6 +123,10 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   }, [courseId, fetchQuestionnaires]);
 
   useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      loading: true,
+    }));
     getQuestionnaires();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
@@ -124,36 +134,42 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   return (
     <>
       <div className="course-program-finish-modal">
-        <p className="course-program-finish-modal__title">
-          {t("CourseProgram.FinishTitle")}
-        </p>
-        <p className="course-program-finish-modal__paragraph">
-          {!!questionnaires?.length
-            ? t("CourseProgram.FinishSubtitle")
-            : t("CourseProgram.FinishSubtitleNoRating")}
-        </p>
+        {state.loading ? (
+          <Spin />
+        ) : (
+          <>
+            <p className="course-program-finish-modal__title">
+              {t("CourseProgram.FinishTitle")}
+            </p>
 
-        <div className="course-program-finish-modal__buttons">
-          {!!questionnaires?.length && (
-            <Button
-              mode="primary"
-              onClick={() =>
-                setState((prevState) => ({
-                  ...prevState,
-                  show: true,
-                }))
-              }
-            >
-              {t("MyProfilePage.RateCourse")}
-            </Button>
-          )}
-          <Button mode="primary" onClick={() => push("/user/my-profile")}>
-            {t("Menu.Profile")}
-          </Button>
-          <Button mode="primary" onClick={() => push("/courses")}>
-            {t("Menu.Courses")}
-          </Button>
-        </div>
+            <p className="course-program-finish-modal__paragraph">
+              {!!questionnaires?.length
+                ? t("CourseProgram.FinishSubtitle")
+                : t("CourseProgram.FinishSubtitleNoRating")}
+            </p>
+            <div className="course-program-finish-modal__buttons">
+              {!!questionnaires?.length && (
+                <Button
+                  mode="primary"
+                  onClick={() =>
+                    setState((prevState) => ({
+                      ...prevState,
+                      show: true,
+                    }))
+                  }
+                >
+                  {t("MyProfilePage.RateCourse")}
+                </Button>
+              )}
+              <Button mode="primary" onClick={() => push("/user/my-profile")}>
+                {t("Menu.Profile")}
+              </Button>
+              <Button mode="primary" onClick={() => push("/courses")}>
+                {t("Menu.Courses")}
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
       {state.show && courseId && !!questionnaires.length && (

@@ -44,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const StyledMain = styled.main<{ noPadding?: boolean }>`
-  height: 100%;
+  height: fit-content;
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.dm__background : theme.background};
   padding-top: ${({ noPadding }) =>

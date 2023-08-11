@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const Content = styled.section`
   .courses-wrapper {
+    min-height: fit-content;
     margin-top: -70px;
     @media (max-width: 991px) {
       margin-top: 0;

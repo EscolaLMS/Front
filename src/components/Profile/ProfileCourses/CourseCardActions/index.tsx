@@ -3,7 +3,7 @@ import {
   getFormattedDifferenceRelativeToNow,
   relativeTimeFormatter,
 } from "@/utils/index";
-import { Button, Modal, Text, Title } from "@escolalms/components";
+import { Button, Modal, Spin, Text, Title } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CourseProgressItem } from "@escolalms/sdk/lib/types/api";
@@ -34,6 +34,11 @@ export const CourseCardActions: FC<Props> = ({
   const [showResetProgressModal, setShowResetProgressModal] = useState(false);
   const { fetchQuestionnaires, fetchQuestionnaire } =
     useContext(EscolaLMSContext);
+  const [state, setState] = useState({
+    show: false,
+    step: 0,
+    loading: false,
+  });
 
   const { t } = useTranslation();
 
@@ -58,17 +63,13 @@ export const CourseCardActions: FC<Props> = ({
     [deadlineDate]
   );
 
-  const [state, setState] = useState({
-    show: false,
-    step: 0,
-  });
-
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
 
   const handleClose = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
       show: false,
+      loading: false,
     }));
 
     if (state.step < questionnaires.length - 1) {
@@ -110,6 +111,10 @@ export const CourseCardActions: FC<Props> = ({
   );
 
   const getQuestionnaires = useCallback(async () => {
+    setState((prevState) => ({
+      ...prevState,
+      loading: true,
+    }));
     try {
       const response =
         courseData.course.id &&
@@ -153,6 +158,10 @@ export const CourseCardActions: FC<Props> = ({
             (item) => !!item.questions.length
           )
         );
+        setState((prevState) => ({
+          ...prevState,
+          loading: false,
+        }));
       }
     } catch (error) {
       toast.error(t<string>("UnexpectedError"));
@@ -180,7 +189,7 @@ export const CourseCardActions: FC<Props> = ({
               }));
             }}
           >
-            {t<string>("MyProfilePage.RateCourse")}
+            {state.loading ? <Spin /> : t<string>("MyProfilePage.RateCourse")}
           </Button>
 
           {!isDeadlineMissed && status.isDone && (
@@ -207,6 +216,7 @@ export const CourseCardActions: FC<Props> = ({
       />
       {state.show &&
         courseId &&
+        !state.loading &&
         (!!questionnaires.length ? (
           <>
             <RateCourse
