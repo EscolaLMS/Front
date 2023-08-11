@@ -1,28 +1,30 @@
 import React, { useCallback, useContext, useState } from "react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { Rate } from "@escolalms/components/lib/components/molecules/Rate/Rate";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { toast } from "react-toastify";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
+import { QuestionBox } from "../QuestionBox";
+import { QuestionType } from "@/types/questionnaire";
 
 type Props = {
   course: string;
   courseId: number;
-  onClose: () => void;
   visible: boolean;
   questionnaire: API.Questionnaire;
+  onClose: () => void;
 };
 
 const RateCourse: React.FC<Props> = ({
   course,
   courseId,
-  onClose,
   visible,
   questionnaire,
+  onClose,
 }) => {
+  const { sendQuestionnaireAnswer } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -31,10 +33,8 @@ const RateCourse: React.FC<Props> = ({
     showLastScreen: false,
   });
 
-  const { sendQuestionnaireAnswer } = useContext(EscolaLMSContext);
-
   const handleSendAnswer = useCallback(
-    async (rate: number) => {
+    async (rate: number, note?: string) => {
       if (questionnaire.questions) {
         setState((prevState) => ({
           ...prevState,
@@ -47,7 +47,8 @@ const RateCourse: React.FC<Props> = ({
             questionnaire.id,
             {
               question_id: questionnaire.questions[state.step].id,
-              rate: rate,
+              rate,
+              note,
             }
           );
           if (request.success) {
@@ -72,8 +73,8 @@ const RateCourse: React.FC<Props> = ({
   );
 
   const handleSave = useCallback(
-    (rate: number) => {
-      handleSendAnswer(rate);
+    (rate: number, note?: string) => {
+      handleSendAnswer(rate, note);
       if (
         questionnaire.questions &&
         state.step === questionnaire.questions.length - 1
@@ -98,9 +99,13 @@ const RateCourse: React.FC<Props> = ({
     >
       {!state.showLastScreen ? (
         questionnaire.questions && (
-          <Rate
-            onSubmit={(rate) => handleSave(rate)}
-            header={questionnaire.questions[state.step]?.title}
+          <QuestionBox
+            textareaPlaceholder={t("RateCourse.OptionalComment")}
+            data={questionnaire.questions[state.step]}
+            handleSubmit={(rate, note) => handleSave(rate, note)}
+            withStarsRating={
+              questionnaire.questions[state.step]?.type === QuestionType.REVIEW
+            }
           />
         )
       ) : (

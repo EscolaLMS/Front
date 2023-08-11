@@ -191,6 +191,9 @@ const resources = {
         FinishTitle: "Congratulations! You have finished the course!",
         FinishSubtitle:
           "Rate a course, go to your profile or browse other courses.",
+        FinishSubtitleNoRating:
+          "You have already rated this course. Go to your profile or browse other courses.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -514,6 +517,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
+        OptionalComment:
+          "Here you can write a comment or leave a review (optional)",
+        SendAnswer: "Send answer",
+        NoAnswer: "I don't want to answer",
       },
       Filters: {
         Category: "Category",
@@ -759,6 +766,9 @@ const resources = {
         FinishTitle: "Gratulacje! Ukończyłeś/aś kurs!",
         FinishSubtitle:
           "Oceń kurs, przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        FinishSubtitleNoRating:
+          "Już oceniłeś ten kurs. Przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       CoursesPage: {
         Category: "Kategoria",
@@ -1078,6 +1088,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",
+        OptionalComment:
+          "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
+        SendAnswer: "Prześlij odpowiedź",
+        NoAnswer: "Nie chcę odpowiadać",
       },
       Filters: {
         Category: "Kategoria",

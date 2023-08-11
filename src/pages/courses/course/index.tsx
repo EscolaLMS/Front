@@ -28,6 +28,7 @@ import Container from "@/components/Container";
 import { formatDate } from "@/utils/date";
 import { roundTo } from "@/utils/index";
 import { ModalCourseAccess } from "@escolalms/components/lib/components/organisms/ModalCourseAccess";
+import { QuestionnaireModelType } from "@/types/questionnaire";
 
 const StyledCoursePage = styled.div`
   section {
@@ -282,7 +283,11 @@ const CoursePage = () => {
     if (id) {
       fetchCourse(Number(id));
       refreshCurrentCourseAccess();
-      questionnaireStars(apiUrl, "course", Number(id)).then((res) => {
+      questionnaireStars(
+        apiUrl,
+        QuestionnaireModelType.COURSE,
+        Number(id)
+      ).then((res) => {
         res.success && setRatings(res.data ? res.data : undefined);
       });
     }

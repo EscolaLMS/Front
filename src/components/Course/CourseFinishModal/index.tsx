@@ -6,13 +6,13 @@ import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import RateCourse from "@/components/RateCourse";
 import { toast } from "react-toastify";
+import { QuestionnaireModelType } from "@/types/questionnaire";
 
 interface FinishModalProps {
-  program: API.CourseProgram;
   courseId?: number;
 }
 
-const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
+const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [state, setState] = useState({
@@ -20,7 +20,8 @@ const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
     step: 0,
   });
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
-  const { fetchQuestionnaires } = useContext(EscolaLMSContext);
+  const { fetchQuestionnaires, fetchQuestionnaire } =
+    useContext(EscolaLMSContext);
 
   const handleClose = useCallback(() => {
     setState((prevState) => ({
@@ -44,18 +45,69 @@ const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
     }
   }, [questionnaires, state.step]);
 
+  const getQuestionnaire = useCallback(
+    async (questionnaireId: number) => {
+      try {
+        const response =
+          courseId &&
+          (await fetchQuestionnaire(
+            QuestionnaireModelType.COURSE,
+            courseId,
+            questionnaireId
+          ));
+        if (response && response.success) {
+          return response.data.questions;
+        }
+      } catch (error) {
+        toast.error(t<string>("UnexpectedError"));
+        console.log(error);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [courseId, fetchQuestionnaire]
+  );
+
   const getQuestionnaires = useCallback(async () => {
     try {
-      const request =
-        courseId && (await fetchQuestionnaires("course", courseId));
-      if (request && request.success) {
-        const filteredResponse = request.data.map((data) => ({
-          ...data,
-          questions: data.questions.filter(
-            (question) => !question.public_answers
-          ),
-        }));
-        setQuestionnaires(filteredResponse);
+      const response =
+        courseId &&
+        (await fetchQuestionnaires(QuestionnaireModelType.COURSE, courseId));
+      if (response && response.success) {
+        const questionnairesWithCombinedQuestions = await Promise.all(
+          response.data.map(async (data) => {
+            const res = await getQuestionnaire(data.id);
+
+            const combinedQuestions = data.questions.reduce(
+              (result, element) => {
+                const matchingElement = res?.find(
+                  (item) => item.id === element.id
+                );
+
+                const updatedElement = {
+                  ...element,
+                  rate: matchingElement?.rate,
+                  note: matchingElement?.note,
+                };
+                updatedElement.public_answers === false &&
+                  updatedElement.rate === null &&
+                  updatedElement.note === null &&
+                  result.push(updatedElement);
+                return result;
+              },
+              [] as API.QuestionnaireQuestion[]
+            );
+
+            return {
+              ...data,
+              questions: combinedQuestions,
+            };
+          })
+        );
+        setQuestionnaires(
+          questionnairesWithCombinedQuestions.filter(
+            (item) => !!item.questions.length
+          )
+        );
       }
     } catch (error) {
       toast.error(t<string>("UnexpectedError"));
@@ -68,6 +120,7 @@ const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
     getQuestionnaires();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
+
   return (
     <>
       <div className="course-program-finish-modal">
@@ -75,7 +128,9 @@ const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
           {t("CourseProgram.FinishTitle")}
         </p>
         <p className="course-program-finish-modal__paragraph">
-          {t("CourseProgram.FinishSubtitle")}
+          {!!questionnaires?.length
+            ? t("CourseProgram.FinishSubtitle")
+            : t("CourseProgram.FinishSubtitleNoRating")}
         </p>
 
         <div className="course-program-finish-modal__buttons">
@@ -101,9 +156,9 @@ const CourseFinishModal = ({ program, courseId }: FinishModalProps) => {
         </div>
       </div>
 
-      {state.show && courseId && (
+      {state.show && courseId && !!questionnaires.length && (
         <RateCourse
-          course={"course"}
+          course={QuestionnaireModelType.COURSE}
           courseId={courseId}
           visible={state.show}
           onClose={() => handleClose()}

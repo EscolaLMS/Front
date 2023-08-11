@@ -3,7 +3,7 @@ import {
   getFormattedDifferenceRelativeToNow,
   relativeTimeFormatter,
 } from "@/utils/index";
-import { Button, Text } from "@escolalms/components";
+import { Button, Modal, Text, Title } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CourseProgressItem } from "@escolalms/sdk/lib/types/api";
@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 
 import { toast } from "react-toastify";
 import { ResetProgressModal } from "../ResetProgressModal";
+import { QuestionnaireModelType } from "@/types/questionnaire";
 
 interface Props {
   courseData: CourseProgressItem;
@@ -31,8 +32,8 @@ export const CourseCardActions: FC<Props> = ({
 }) => {
   const [courseId, setCourseId] = useState<number | undefined>(undefined);
   const [showResetProgressModal, setShowResetProgressModal] = useState(false);
-  const [fetched, setFetched] = useState(false);
-  const { fetchQuestionnaires } = useContext(EscolaLMSContext);
+  const { fetchQuestionnaires, fetchQuestionnaire } =
+    useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
 
@@ -64,32 +65,6 @@ export const CourseCardActions: FC<Props> = ({
 
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
 
-  const getQuestionnaires = useCallback(async () => {
-    try {
-      const request =
-        courseId && (await fetchQuestionnaires("course", courseId));
-      if (request && request.success) {
-        const filteredResponse = request.data.map((data) => ({
-          ...data,
-          questions: data.questions.filter(
-            (question) => !question.public_answers
-          ),
-        }));
-        setQuestionnaires(filteredResponse);
-
-        setFetched(true);
-      }
-    } catch (error) {
-      toast.error(t<string>("UnexpectedError"));
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId, fetchQuestionnaires]);
-  useEffect(() => {
-    getQuestionnaires();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId]);
-
   const handleClose = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
@@ -111,6 +86,86 @@ export const CourseCardActions: FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [questionnaires, state.step]);
+
+  const getQuestionnaire = useCallback(
+    async (questionnaireId: number) => {
+      try {
+        const response =
+          courseId &&
+          (await fetchQuestionnaire(
+            QuestionnaireModelType.COURSE,
+            courseId,
+            questionnaireId
+          ));
+        if (response && response.success) {
+          return response.data.questions;
+        }
+      } catch (error) {
+        toast.error(t<string>("UnexpectedError"));
+        console.log(error);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [courseId, fetchQuestionnaire]
+  );
+
+  const getQuestionnaires = useCallback(async () => {
+    try {
+      const response =
+        courseData.course.id &&
+        (await fetchQuestionnaires(
+          QuestionnaireModelType.COURSE,
+          courseData.course.id
+        ));
+      if (response && response.success) {
+        const questionnairesWithCombinedQuestions = await Promise.all(
+          response.data.map(async (data) => {
+            const res = await getQuestionnaire(data.id);
+
+            const combinedQuestions = data.questions.reduce(
+              (result, element) => {
+                const matchingElement = res?.find(
+                  (item) => item.id === element.id
+                );
+
+                const updatedElement = {
+                  ...element,
+                  rate: matchingElement?.rate,
+                  note: matchingElement?.note,
+                };
+                updatedElement.public_answers === false &&
+                  updatedElement.rate === null &&
+                  updatedElement.note === null &&
+                  result.push(updatedElement);
+                return result;
+              },
+              [] as API.QuestionnaireQuestion[]
+            );
+
+            return {
+              ...data,
+              questions: combinedQuestions,
+            };
+          })
+        );
+        setQuestionnaires(
+          questionnairesWithCombinedQuestions.filter(
+            (item) => !!item.questions.length
+          )
+        );
+      }
+    } catch (error) {
+      toast.error(t<string>("UnexpectedError"));
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseId, fetchQuestionnaires]);
+
+  useEffect(() => {
+    getQuestionnaires();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseId]);
+
   return (
     <>
       {courseProgress === 100 && (
@@ -127,6 +182,7 @@ export const CourseCardActions: FC<Props> = ({
           >
             {t<string>("MyProfilePage.RateCourse")}
           </Button>
+
           {!isDeadlineMissed && status.isDone && (
             <Button
               mode="secondary"
@@ -149,17 +205,30 @@ export const CourseCardActions: FC<Props> = ({
         visible={showResetProgressModal}
         onClose={() => setShowResetProgressModal(false)}
       />
-      {state.show && courseId && fetched && questionnaires[state.step] && (
-        <>
-          <RateCourse
-            course={"course"}
-            courseId={courseId}
-            visible={state.show}
+      {state.show &&
+        courseId &&
+        (!!questionnaires.length ? (
+          <>
+            <RateCourse
+              course={QuestionnaireModelType.COURSE}
+              courseId={courseId}
+              visible={state.show}
+              onClose={() => handleClose()}
+              questionnaire={questionnaires[state.step]}
+            />
+          </>
+        ) : (
+          <Modal
             onClose={() => handleClose()}
-            questionnaire={questionnaires[state.step]}
-          />
-        </>
-      )}
+            visible={state.show}
+            animation="zoom"
+            maskAnimation="fade"
+            destroyOnClose={true}
+            width={468}
+          >
+            <Title>{t<string>("CourseProgram.CourseRated")}</Title>
+          </Modal>
+        ))}
     </>
   );
 };
