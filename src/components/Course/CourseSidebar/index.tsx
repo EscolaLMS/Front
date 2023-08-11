@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import styled, { css } from "styled-components";
 import { useLessonProgram } from "../../../hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
-import { t, use } from "i18next";
+import { t } from "i18next";
 import { Topic } from "@escolalms/sdk/lib/types/api";
 
 const StyledSidebar = styled.aside`
