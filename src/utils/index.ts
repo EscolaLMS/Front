@@ -1,6 +1,7 @@
 import { EventTypes, Notification, Order } from "@escolalms/sdk/lib/types/api";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
+import { API } from "@escolalms/sdk/lib";
 
 export const getTopicType = (type: string) => type.split("\\")?.pop();
 
@@ -291,4 +292,11 @@ export const formatPrice = (price: number | undefined, taxRate?: number) => {
     maximumFractionDigits: 2,
   });
   return formatted;
+};
+
+export const userIsCourseAuthor = (
+  userId: number,
+  course: API.Course
+): boolean => {
+  return course.authors.findIndex((author) => author.id === userId) !== -1;
 };

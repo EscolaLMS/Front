@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { Button, Text } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
+import { userIsCourseAuthor } from "@/utils/index";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -96,20 +97,13 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   const { t } = useTranslation();
   const { push } = useHistory();
 
-  const loggedUserIsAuthor = useMemo(
-    () =>
-      user?.value?.id &&
-      course.authors?.find((author) => author.id === user?.value?.id),
-    [course, user?.value?.id]
-  );
-
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
       (item: any) => Number(item.product_id) === Number(course.product?.id)
     );
   }, [course.product?.id, cart]);
 
-  if (!!loggedUserIsAuthor) {
+  if (userIsCourseAuthor(Number(user.value?.id), course)) {
     return (
       <Button onClick={() => push(`/course/${course.id}`)} mode="secondary">
         {t("Go to the course")}

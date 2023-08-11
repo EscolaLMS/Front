@@ -9,6 +9,7 @@ import { useLessonProgram } from "../../../hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
 import { t } from "i18next";
 import { Topic } from "@escolalms/sdk/lib/types/api";
+import { userIsCourseAuthor } from "@/utils/index";
 
 const StyledSidebar = styled.aside`
   padding-bottom: 100px;
@@ -59,12 +60,6 @@ export const CourseSidebar: React.FC<{
   const allTopics = course.lessons.map((item) => item.topics);
   //@ts-ignore
   const arrayOfTopics = [].concat.apply([], allTopics);
-
-  const isAuthor = useMemo(() => {
-    return (
-      course.authors.findIndex((author) => author.id === user?.value?.id) !== -1
-    );
-  }, [course, user]);
 
   const getCourseProgress = useMemo(() => {
     const courseId = course.id;
@@ -130,7 +125,7 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
-          unlockAllTopics={isAuthor}
+          unlockAllTopics={userIsCourseAuthor(Number(user.value?.id), course)}
           onNextTopicClick={() => {
             let nextTopic;
 
