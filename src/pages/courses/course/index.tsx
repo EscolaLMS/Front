@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
 import { Link, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";

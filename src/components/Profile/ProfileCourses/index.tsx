@@ -112,9 +112,17 @@ const ProfileCourses = ({
   }, [courseId, fetchQuestionnaires]);
 
   useEffect(() => {
-    filter !== CourseStatus.AUTHORED
-      ? fetchProgress()
-      : fetchMyAuthoredCourses();
+    const fetchData = async () => {
+      if (filter === CourseStatus.ALL) {
+        await Promise.all([fetchProgress(), fetchMyAuthoredCourses()]);
+      } else if (filter !== CourseStatus.AUTHORED) {
+        await fetchProgress();
+      } else {
+        await fetchMyAuthoredCourses();
+      }
+    };
+
+    fetchData();
   }, [fetchProgress, filter, fetchMyAuthoredCourses]);
 
   useEffect(() => {

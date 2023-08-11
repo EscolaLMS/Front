@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import styled, { css } from "styled-components";
 import { useLessonProgram } from "../../../hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
-import { t } from "i18next";
+import { t, use } from "i18next";
 import { Topic } from "@escolalms/sdk/lib/types/api";
 
 const StyledSidebar = styled.aside`
@@ -48,7 +48,7 @@ export const CourseSidebar: React.FC<{
   onCourseFinish?: () => void;
 }> = ({ course, topicId, onCompleteTopic, onCourseFinish }) => {
   const { progress } = useLessonProgram(course);
-  const { courseProgressDetails } = useContext(EscolaLMSContext);
+  const { courseProgressDetails, user } = useContext(EscolaLMSContext);
 
   const history = useHistory();
   const [agendaVisible, setAgendaVisible] = useState(false);
@@ -59,6 +59,12 @@ export const CourseSidebar: React.FC<{
   const allTopics = course.lessons.map((item) => item.topics);
   //@ts-ignore
   const arrayOfTopics = [].concat.apply([], allTopics);
+
+  const isAuthor = useMemo(() => {
+    return (
+      course.authors.findIndex((author) => author.id === user?.value?.id) !== -1
+    );
+  }, [course, user]);
 
   const getCourseProgress = useMemo(() => {
     const courseId = course.id;
@@ -124,6 +130,7 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          unlockAllTopics={isAuthor}
           onNextTopicClick={() => {
             let nextTopic;
 
