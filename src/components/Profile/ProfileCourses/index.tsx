@@ -20,7 +20,7 @@ import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
 
 import CourseCardItem from "./components/CourseCardItem";
-import { CourseStatus } from "src/pages/user/MyProfile";
+import { CourseStatus } from "@/pages/user/MyProfile";
 
 type CoursesState = Array<API.Course & { progress?: number }>;
 
@@ -219,7 +219,10 @@ const ProfileCourses = ({
       ? setCoursesToMap(remapNormalCourses(startedCourses))
       : filter === CourseStatus.AUTHORED
       ? setCoursesToMap(myAuthoredCourses.value || [])
-      : setCoursesToMap(remapNormalCourses(progress.value || []));
+      : setCoursesToMap([
+          ...remapNormalCourses(progress.value || []),
+          ...(myAuthoredCourses.value || []),
+        ]);
   }, [
     filter,
     progress,

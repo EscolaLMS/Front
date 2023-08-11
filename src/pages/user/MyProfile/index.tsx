@@ -75,9 +75,10 @@ const MyProfile = () => {
         component: <ProfileCourses filter={CourseStatus.FINISHED} />,
       },
       {
-        label: "Autorskie",
+        label: t("MyProfilePage.Authored"),
         key: 5,
         component: <ProfileCourses filter={CourseStatus.AUTHORED} />,
+        hidden: !isTutor,
       },
     ],
     defaultActiveKey: 1,

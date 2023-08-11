@@ -306,6 +306,7 @@ const resources = {
         Planned: "Planned",
         Finished: "Finished",
         EditData: "Edit data",
+        Authored: "Authored",
         MyStationaryEvents: "My stationary events",
         EmptyEventTitle: "Start your development",
         EmptyEventText:
@@ -878,6 +879,7 @@ const resources = {
         InProgress: "W trakcie",
         Planned: "Zaplanowane",
         Finished: "Ukończone",
+        Authored: "Autorskie",
         EditData: "Edytuj dane",
         MyStationaryEvents: "Moje wydarzenia stacjonarne",
         EmptyEventTitle: "Rozpocznij swój rozwój",
