@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ResetProgressModal } from "../ResetProgressModal";
 import { QuestionnaireModelType } from "@/types/questionnaire";
+import { Wrapper } from "./styles";
 
 interface Props {
   courseData: CourseProgressItem;
@@ -176,7 +177,7 @@ export const CourseCardActions: FC<Props> = ({
   }, [courseId]);
 
   return (
-    <>
+    <Wrapper>
       {courseProgress === 100 && (
         <>
           <Button
@@ -239,6 +240,6 @@ export const CourseCardActions: FC<Props> = ({
             <Title>{t<string>("CourseProgram.CourseRated")}</Title>
           </Modal>
         ))}
-    </>
+    </Wrapper>
   );
 };

@@ -25,6 +25,15 @@ const CardWrapper = styled.div`
       }
     }
   }
+  .course-section {
+    margin-top: 6px;
+  }
+
+  .course-card-buttons-group {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const CourseCardWrapper: React.FC<PropsWithChildren> = ({ children }) => {
