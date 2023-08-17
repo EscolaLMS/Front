@@ -21,6 +21,7 @@ export enum CourseStatus {
 
 const Content = styled.section`
   .courses-wrapper {
+    min-height: fit-content;
     margin-top: -70px;
     @media (max-width: 991px) {
       margin-top: 0;

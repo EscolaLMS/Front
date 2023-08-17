@@ -189,7 +189,11 @@ const resources = {
         NoProgram: "No program",
         NoTopic: "No topic",
         FinishTitle: "Congratulations! You have finished the course!",
-        FinishSubtitle: "Go to your profile or browse other courses.",
+        FinishSubtitle:
+          "Rate a course, go to your profile or browse other courses.",
+        FinishSubtitleNoRating:
+          "You have already rated this course. Go to your profile or browse other courses.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -298,6 +302,8 @@ const resources = {
         EmptyCertificates:
           "Here you will see your certificates after completed courses",
         RateCourse: "Rate this course",
+        ResetCourseProgress: "Restart the course",
+        AccessCourseExpired: "Access to the course has expired",
         ShowMore: "Show more",
         MyCertificates: "My certificates",
         MyConsultations: "My consultations",
@@ -314,6 +320,13 @@ const resources = {
         EmptyEventsBtnText: "Choose a stationary event for yourself",
         BoughtUpcoming: "Bought upcoming",
         BoughtArchived: "Bought archived",
+      },
+      ResetProgressModal: {
+        Continue: "Do you want to continue?",
+        WantContinue: "I want to continue",
+        RestartCourse:
+          "If you start the course over again, you will lose your previous progress",
+        Cancel: "Cancel",
       },
       Menu: {
         Browse: "Browse",
@@ -505,6 +518,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
+        OptionalComment:
+          "Here you can write a comment or leave a review (optional)",
+        SendAnswer: "Send answer",
+        NoAnswer: "I don't want to answer",
       },
       Filters: {
         Category: "Category",
@@ -749,7 +766,10 @@ const resources = {
         NoTopic: "Temat nie istnieje",
         FinishTitle: "Gratulacje! Ukończyłeś/aś kurs!",
         FinishSubtitle:
-          "Przejdź do swojego profilu albo przeglądaj inne kursy.",
+          "Oceń kurs, przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        FinishSubtitleNoRating:
+          "Już oceniłeś ten kurs. Przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       CoursesPage: {
         Category: "Kategoria",
@@ -872,6 +892,8 @@ const resources = {
         EmptyCertificates:
           "Tu zobaczysz swoje certyfikaty po ukończonych kursach",
         RateCourse: "Oceń kurs",
+        ResetCourseProgress: "Rozpocznij od nowa",
+        AccessCourseExpired: "Dostęp do kursu wygasł",
         ShowMore: "Pokaż więcej",
         MyCertificates: "Moje certyfikaty",
         MyConsultations: "Moje konsultacje",
@@ -888,6 +910,13 @@ const resources = {
         EmptyEventsBtnText: " Wybierz wydarzenie stacjonarne dla siebie",
         BoughtUpcoming: "Kupione nadchodzące",
         BoughtArchived: "Kupione archiwalne",
+      },
+      ResetProgressModal: {
+        Continue: "Czy chcesz kontynuować?",
+        WantContinue: "Chcę kontynuować",
+        RestartCourse:
+          "Rozpoczynając kurs od nowa stracisz dotychczasowy postęp",
+        Cancel: "Anuluj",
       },
       Navbar: {
         MyProfile: "Mój profil",
@@ -1061,6 +1090,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",
+        OptionalComment:
+          "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
+        SendAnswer: "Prześlij odpowiedź",
+        NoAnswer: "Nie chcę odpowiadać",
       },
       Filters: {
         Category: "Kategoria",

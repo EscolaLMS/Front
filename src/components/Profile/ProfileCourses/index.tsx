@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -16,11 +10,11 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
-import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
 
 import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
+import { toast } from "react-toastify";
 
 type CoursesState = Array<API.Course & { progress?: number }>;
 
@@ -76,6 +70,7 @@ const ProfileCourses = ({
 }) => {
   const [fetched, setFetched] = useState(false);
   const [courseId, setCourseId] = useState<number | undefined>(undefined);
+  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const {
     progress,
     fetchProgress,
@@ -86,15 +81,12 @@ const ProfileCourses = ({
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
-
   const { t } = useTranslation();
 
   const [state, setState] = useState({
     show: false,
     step: 0,
   });
-
-  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
 
   const getQuestionnaires = useCallback(async () => {
     try {
