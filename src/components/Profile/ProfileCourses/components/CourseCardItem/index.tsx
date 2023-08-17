@@ -3,7 +3,6 @@ import React from "react";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
@@ -14,13 +13,16 @@ import CourseCardWrapper from "@/components/CourseCardWrapper";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { CourseCardActions } from "../../CourseCardActions";
 
 type Props = {
-  course: API.Course & { progress?: number };
-  onRateClick?: (id: number) => void;
+  course: API.Course & {
+    progress?: number;
+    courseData?: API.CourseProgressItem;
+  };
 };
 
-const CourseCardItem: React.FC<Props> = ({ course, onRateClick }) => {
+const CourseCardItem: React.FC<Props> = ({ course }) => {
   const theme = useTheme();
   const history = useHistory();
   const { t } = useTranslation();
@@ -72,13 +74,12 @@ const CourseCardItem: React.FC<Props> = ({ course, onRateClick }) => {
           />
         }
         actions={
-          <>
-            {course.progress === 100 && (
-              <Button mode="secondary" onClick={() => onRateClick?.(course.id)}>
-                {t<string>("MyProfilePage.RateCourse")}
-              </Button>
-            )}
-          </>
+          course.courseData && (
+            <CourseCardActions
+              courseData={course.courseData}
+              courseProgress={course.progress || 0}
+            />
+          )
         }
         footer={
           <>

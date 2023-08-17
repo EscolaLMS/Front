@@ -16,7 +16,9 @@ import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
 import { toast } from "react-toastify";
 
-type CoursesState = Array<API.Course & { progress?: number }>;
+type CoursesState = Array<
+  API.Course & { progress?: number; courseData?: API.CourseProgressItem }
+>;
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -191,6 +193,7 @@ const ProfileCourses = ({
       return courses.map((course: API.CourseProgressItem) => {
         return {
           ...course.course,
+          courseData: course,
           progress: progressMap[course.course.id ? course.course.id : -1],
         };
       });
@@ -261,10 +264,7 @@ const ProfileCourses = ({
             )}
           {coursesToMap.slice(0, 6).map((item) => (
             <Col md={4} key={item.id}>
-              <CourseCardItem
-                course={item}
-                onRateClick={(id) => onRateClick(id)}
-              />
+              <CourseCardItem course={item} />
             </Col>
           ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
@@ -288,10 +288,7 @@ const ProfileCourses = ({
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
               <Col md={4} key={item.id}>
-                <CourseCardItem
-                  course={item}
-                  onRateClick={(id) => onRateClick(id)}
-                />
+                <CourseCardItem course={item} />
               </Col>
             ))}
         </Row>
@@ -300,10 +297,7 @@ const ProfileCourses = ({
           {coursesToMap &&
             coursesToMap.map((item) => (
               <div key={item.id} className="single-slide">
-                <CourseCardItem
-                  course={item}
-                  onRateClick={(id) => onRateClick(id)}
-                />
+                <CourseCardItem course={item} />
               </div>
             ))}
         </div>
