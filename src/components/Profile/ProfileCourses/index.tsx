@@ -70,24 +70,12 @@ const ProfileCourses = ({
 }: {
   filter: CourseStatus;
 }) => {
-  const [fetched, setFetched] = useState(false);
-
-  const {
-    progress,
-    fetchProgress,
-
-    fetchMyAuthoredCourses,
-    myAuthoredCourses,
-  } = useContext(EscolaLMSContext);
+  const { progress, fetchProgress, fetchMyAuthoredCourses, myAuthoredCourses } =
+    useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
   const { t } = useTranslation();
-
-  const [state, setState] = useState({
-    show: false,
-    step: 0,
-  });
 
   useEffect(() => {
     const fetchData = async () => {
