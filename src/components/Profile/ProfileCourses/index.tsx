@@ -71,12 +71,11 @@ const ProfileCourses = ({
   filter: CourseStatus;
 }) => {
   const [fetched, setFetched] = useState(false);
-  const [courseId, setCourseId] = useState<number | undefined>(undefined);
-  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
+
   const {
     progress,
     fetchProgress,
-    fetchQuestionnaires,
+
     fetchMyAuthoredCourses,
     myAuthoredCourses,
   } = useContext(EscolaLMSContext);
@@ -89,21 +88,6 @@ const ProfileCourses = ({
     show: false,
     step: 0,
   });
-
-  const getQuestionnaires = useCallback(async () => {
-    try {
-      const request =
-        courseId && (await fetchQuestionnaires("Course", courseId));
-      if (request && request.success) {
-        setQuestionnaires(request.data);
-        setFetched(true);
-      }
-    } catch (error) {
-      toast.error(t<string>("UnexpectedError"));
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId, fetchQuestionnaires]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,33 +102,6 @@ const ProfileCourses = ({
 
     fetchData();
   }, [fetchProgress, filter, fetchMyAuthoredCourses]);
-
-  useEffect(() => {
-    getQuestionnaires();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId]);
-
-  const handleClose = useCallback(() => {
-    setState((prevState) => ({
-      ...prevState,
-      show: false,
-    }));
-
-    if (state.step < questionnaires.length - 1) {
-      setState((prevState) => ({
-        ...prevState,
-        step: prevState.step + 1,
-      }));
-
-      const timer = setTimeout(() => {
-        setState((prevState) => ({
-          ...prevState,
-          show: true,
-        }));
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [questionnaires, state.step]);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -199,18 +156,6 @@ const ProfileCourses = ({
       });
     },
     [progressMap]
-  );
-
-  const onRateClick = useCallback(
-    (courseId: number) => {
-      setCourseId(courseId);
-      setState((prevState) => ({
-        ...prevState,
-        show: true,
-      }));
-    },
-
-    []
   );
 
   useEffect(() => {
@@ -303,15 +248,6 @@ const ProfileCourses = ({
         </div>
       )}
       {(progress.loading || myAuthoredCourses.loading) && <ContentLoader />}
-      {state.show && courseId && fetched && questionnaires[state.step] && (
-        <RateCourse
-          course={"Course"}
-          courseId={courseId}
-          visible={state.show}
-          onClose={() => handleClose()}
-          questionnaire={questionnaires[state.step]}
-        />
-      )}
     </StyledList>
   );
 };
