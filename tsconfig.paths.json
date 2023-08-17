@@ -7,7 +7,8 @@
       "@/config/*": ["src/config/*"],
       "@/types/*": ["src/types/*"],
       "@/hooks/*": ["src/hooks/*"],
-      "@/icons/*": ["src/icons/*"]
+      "@/icons/*": ["src/icons/*"],
+      "@/pages/*": ["src/pages/*"]
     }
   }
 }

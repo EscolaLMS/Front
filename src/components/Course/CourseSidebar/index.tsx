@@ -9,6 +9,7 @@ import { useLessonProgram } from "../../../hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
 import { t } from "i18next";
 import { Topic } from "@escolalms/sdk/lib/types/api";
+import { userIsCourseAuthor } from "@/utils/index";
 
 const StyledSidebar = styled.aside`
   padding-bottom: 100px;
@@ -48,7 +49,7 @@ export const CourseSidebar: React.FC<{
   onCourseFinish?: () => void;
 }> = ({ course, topicId, onCompleteTopic, onCourseFinish }) => {
   const { progress } = useLessonProgram(course);
-  const { courseProgressDetails } = useContext(EscolaLMSContext);
+  const { courseProgressDetails, user } = useContext(EscolaLMSContext);
 
   const history = useHistory();
   const [agendaVisible, setAgendaVisible] = useState(false);
@@ -124,6 +125,7 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          unlockAllTopics={userIsCourseAuthor(Number(user.value?.id), course)}
           onNextTopicClick={() => {
             let nextTopic;
 

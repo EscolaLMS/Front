@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -8,9 +8,16 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
+
 import ContentLoader from "@/components/ContentLoader";
 import { Col, Row } from "react-grid-system";
-import { CourseCardComponent } from "./CourseCardComponent";
+
+import CourseCardItem from "./components/CourseCardItem";
+import { CourseStatus } from "@/pages/user/MyProfile";
+
+type CoursesState = Array<
+  API.Course & { progress?: number; courseData?: API.CourseProgressItem }
+>;
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -58,17 +65,30 @@ const StyledEmptyInfo = styled.div`
 `;
 
 const ProfileCourses = ({
-  filter = "all",
+  filter = CourseStatus.ALL,
 }: {
-  filter: "all" | "inProgress" | "planned" | "finished";
+  filter: CourseStatus;
 }) => {
+  const { progress, fetchProgress, fetchMyAuthoredCourses, myAuthoredCourses } =
+    useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
-  const [coursesToMap, setCoursesToMap] = useState<
-    API.CourseProgressItem[] | []
-  >([]);
+  const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
   const { t } = useTranslation();
-  const { progress } = useContext(EscolaLMSContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (filter === CourseStatus.ALL) {
+        await Promise.all([fetchProgress(), fetchMyAuthoredCourses()]);
+      } else if (filter !== CourseStatus.AUTHORED) {
+        await fetchProgress();
+      } else {
+        await fetchMyAuthoredCourses();
+      }
+    };
+
+    fetchData();
+  }, [fetchProgress, filter, fetchMyAuthoredCourses]);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -112,19 +132,42 @@ const ProfileCourses = ({
     );
   }, [progress]);
 
-  useEffect(() => {
-    setCoursesToMap(progress.value || []);
-  }, [progress]);
+  const remapNormalCourses = useCallback(
+    (courses: API.CourseProgressItem[]) => {
+      return courses.map((course: API.CourseProgressItem) => {
+        return {
+          ...course.course,
+          courseData: course,
+          progress: progressMap[course.course.id ? course.course.id : -1],
+        };
+      });
+    },
+    [progressMap]
+  );
 
   useEffect(() => {
-    filter === "all"
-      ? setCoursesToMap(progress.value || [])
-      : filter === "finished"
-      ? setCoursesToMap(finishedCourses)
-      : filter === "inProgress"
-      ? setCoursesToMap(startedCourses)
-      : setCoursesToMap(plannedCourses);
-  }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
+    filter === CourseStatus.FINISHED
+      ? setCoursesToMap(remapNormalCourses(finishedCourses))
+      : filter === CourseStatus.PLANNED
+      ? setCoursesToMap(remapNormalCourses(plannedCourses))
+      : filter === CourseStatus.IN_PROGRESS
+      ? setCoursesToMap(remapNormalCourses(startedCourses))
+      : filter === CourseStatus.AUTHORED
+      ? setCoursesToMap(myAuthoredCourses.value || [])
+      : setCoursesToMap([
+          ...remapNormalCourses(progress.value || []),
+          ...(myAuthoredCourses.value || []),
+        ]);
+  }, [
+    filter,
+    progress,
+    myAuthoredCourses,
+    startedCourses,
+    plannedCourses,
+    finishedCourses,
+    remapNormalCourses,
+  ]);
+
   return (
     <StyledList>
       {!isMobile ? (
@@ -133,28 +176,29 @@ const ProfileCourses = ({
             gap: "28px 0",
           }}
         >
-          {progress.value?.length === 0 && !progress.loading && (
-            <StyledEmptyInfo>
-              <Title level={3}>
-                {t<string>("MyProfilePage.EmptyCoursesTitle")}
-              </Title>
-              <Text className="small-text">
-                {t<string>("MyProfilePage.EmptyCoursesText")}
-              </Text>
-              <Button onClick={() => history.push("/courses")} mode="secondary">
-                {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-              </Button>
-            </StyledEmptyInfo>
-          )}
-          {coursesToMap &&
-            coursesToMap.slice(0, 6).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardComponent
-                  courseData={item}
-                  progress={progressMap[item.course.id]}
-                />
-              </Col>
-            ))}
+          {coursesToMap.length === 0 &&
+            !progress.loading &&
+            !myAuthoredCourses.loading && (
+              <StyledEmptyInfo>
+                <Title level={3}>
+                  {t<string>("MyProfilePage.EmptyCoursesTitle")}
+                </Title>
+                <Text className="small-text">
+                  {t<string>("MyProfilePage.EmptyCoursesText")}
+                </Text>
+                <Button
+                  onClick={() => history.push("/courses")}
+                  mode="secondary"
+                >
+                  {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+                </Button>
+              </StyledEmptyInfo>
+            )}
+          {coursesToMap.slice(0, 6).map((item) => (
+            <Col md={4} key={item.id}>
+              <CourseCardItem course={item} />
+            </Col>
+          ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
             <Col
               sm={12}
@@ -175,11 +219,8 @@ const ProfileCourses = ({
             coursesToMap.length > 5 &&
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardComponent
-                  courseData={item}
-                  progress={progressMap[item.course.id]}
-                />
+              <Col md={4} key={item.id}>
+                <CourseCardItem course={item} />
               </Col>
             ))}
         </Row>
@@ -187,17 +228,13 @@ const ProfileCourses = ({
         <div className="slider-wrapper">
           {coursesToMap &&
             coursesToMap.map((item) => (
-              <div key={item.course.id} className="single-slide">
-                <CourseCardComponent
-                  courseData={item}
-                  progress={progressMap[item.course.id]}
-                />
+              <div key={item.id} className="single-slide">
+                <CourseCardItem course={item} />
               </div>
             ))}
         </div>
       )}
-
-      {progress.loading && <ContentLoader />}
+      {(progress.loading || myAuthoredCourses.loading) && <ContentLoader />}
     </StyledList>
   );
 };

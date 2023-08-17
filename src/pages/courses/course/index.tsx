@@ -232,6 +232,7 @@ const CoursePage = () => {
     courses,
     fetchCourseAccess,
   } = useContext(EscolaLMSContext);
+
   const sliderSettings = {
     arrows: false,
     infinite: true,
