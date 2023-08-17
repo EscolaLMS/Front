@@ -1,30 +1,16 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import styled, { useTheme } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { LessonsIcon, UserIcon } from "../../../icons";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "@/components/CourseCardWrapper";
-import RateCourse from "@/components/RateCourse";
 import ContentLoader from "@/components/ContentLoader";
-import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { CourseCardComponent } from "./CourseCardComponent";
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -76,71 +62,13 @@ const ProfileCourses = ({
 }: {
   filter: "all" | "inProgress" | "planned" | "finished";
 }) => {
-  const [fetched, setFetched] = useState(false);
-  const [courseId, setCourseId] = useState<number | undefined>(undefined);
-  const { progress, fetchProgress, fetchQuestionnaires } =
-    useContext(EscolaLMSContext);
   const [showMore, setShowMore] = useState(false);
   const [coursesToMap, setCoursesToMap] = useState<
     API.CourseProgressItem[] | []
   >([]);
   const history = useHistory();
-  const theme = useTheme();
   const { t } = useTranslation();
-
-  const [state, setState] = useState({
-    show: false,
-    step: 0,
-  });
-
-  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
-
-  const getQuestionnaires = useCallback(async () => {
-    try {
-      const request =
-        courseId && (await fetchQuestionnaires("Course", courseId));
-      if (request && request.success) {
-        setQuestionnaires(request.data);
-        setFetched(true);
-      }
-    } catch (error) {
-      toast.error(t<string>("UnexpectedError"));
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId, fetchQuestionnaires]);
-
-  useEffect(() => {
-    fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    getQuestionnaires();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId]);
-
-  const handleClose = useCallback(() => {
-    setState((prevState) => ({
-      ...prevState,
-      show: false,
-    }));
-
-    if (state.step < questionnaires.length - 1) {
-      setState((prevState) => ({
-        ...prevState,
-        step: prevState.step + 1,
-      }));
-
-      const timer = setTimeout(() => {
-        setState((prevState) => ({
-          ...prevState,
-          show: true,
-        }));
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [questionnaires, state.step]);
+  const { progress } = useContext(EscolaLMSContext);
 
   const progressMap = useMemo(() => {
     return (progress.value || []).reduce(
@@ -221,103 +149,10 @@ const ProfileCourses = ({
           {coursesToMap &&
             coursesToMap.slice(0, 6).map((item) => (
               <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/courses/${item.course.id}`} className="title">
-                        <Title level={4} as="h2">
-                          {item.course.title}
-                        </Title>
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+                <CourseCardComponent
+                  courseData={item}
+                  progress={progressMap[item.course.id]}
+                />
               </Col>
             ))}
           {coursesToMap && coursesToMap.length > 6 && !showMore && (
@@ -341,101 +176,10 @@ const ProfileCourses = ({
             showMore &&
             coursesToMap.slice(6, coursesToMap.length).map((item) => (
               <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+                <CourseCardComponent
+                  courseData={item}
+                  progress={progressMap[item.course.id]}
+                />
               </Col>
             ))}
         </Row>
@@ -444,115 +188,16 @@ const ProfileCourses = ({
           {coursesToMap &&
             coursesToMap.map((item) => (
               <div key={item.course.id} className="single-slide">
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+                <CourseCardComponent
+                  courseData={item}
+                  progress={progressMap[item.course.id]}
+                />
               </div>
             ))}
         </div>
       )}
+
       {progress.loading && <ContentLoader />}
-      {state.show && courseId && fetched && questionnaires[state.step] && (
-        <RateCourse
-          course={"Course"}
-          courseId={courseId}
-          visible={state.show}
-          onClose={() => handleClose()}
-          questionnaire={questionnaires[state.step]}
-        />
-      )}
     </StyledList>
   );
 };
