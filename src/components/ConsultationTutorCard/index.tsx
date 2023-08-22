@@ -12,7 +12,6 @@ interface ConsultationTutorCardProps {
 
 const ConsultationTutorCard: React.FC<ConsultationTutorCardProps> = (props) => {
   const { consultation } = props;
-  console.log("consultation: ", consultation);
 
   return (
     <ConsultationTutorCardStyles>
