@@ -5,7 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import styled, { css } from "styled-components";
-import { useLessonProgram } from "../../../hooks/useLessonProgram";
+import { useLessonProgram } from "@/hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
 import { t } from "i18next";
 import { Topic } from "@escolalms/sdk/lib/types/api";
@@ -125,7 +125,10 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
-          unlockAllTopics={userIsCourseAuthor(Number(user.value?.id), course)}
+          areAllTopicsUnlocked={userIsCourseAuthor(
+            Number(user.value?.id),
+            course
+          )}
           onNextTopicClick={() => {
             let nextTopic;
 
