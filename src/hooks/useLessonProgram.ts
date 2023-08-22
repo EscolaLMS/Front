@@ -1,7 +1,11 @@
-import { API } from "@escolalms/sdk/lib";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useCallback, useContext, useMemo, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import {
+  getFlatLessons,
+  getFlatTopics,
+} from "@escolalms/components/lib/utils/course";
 
 export function useLessonProgram(
   program: API.CourseProgram,
@@ -10,31 +14,32 @@ export function useLessonProgram(
   const { sendProgress, getNextPrevTopic, progress } =
     useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, disableNextTopicButton] = useState(false);
-  const { lessonID, topicID } =
-    useParams<{ lessonID: string; topicID: string }>();
+  const { lessonID, topicID } = useParams<{
+    lessonID: string;
+    topicID: string;
+  }>();
   const { push } = useHistory();
 
-  const lessonId = lessonID ? lessonID : program.lessons[0].id;
-  const topicId = topicID
-    ? topicID
-    : (program &&
-        program.lessons &&
-        program.lessons[0] &&
-        program.lessons[0].topics &&
-        program?.lessons[0]?.topics[0]?.id) ||
-      0;
-
-  const lesson: API.Lesson | undefined = useMemo(
-    () => program.lessons.find((lesson) => lesson.id === Number(lessonId)),
-    [program, lessonId]
+  const flatLessons = useMemo(
+    () => getFlatLessons(program?.lessons ?? []),
+    [program?.lessons]
+  );
+  const flatTopics = useMemo(
+    () => getFlatTopics(program?.lessons ?? []),
+    [program?.lessons]
   );
 
-  const topic: API.Topic | undefined = useMemo(
-    () =>
-      lesson &&
-      lesson.topics &&
-      lesson.topics.find((topic) => topic.id === Number(topicId)),
-    [lesson, topicId]
+  const lessonId = lessonID ? Number(lessonID) : flatLessons?.[0]?.id;
+  const topicId = topicID ? Number(topicID) : flatTopics?.[0]?.id;
+
+  const lesson = useMemo(
+    () => flatLessons.find((lesson) => lesson.id === lessonId),
+    [flatLessons, lessonId]
+  );
+
+  const topic = useMemo(
+    () => flatTopics.find((topic) => topic.id === topicId),
+    [flatTopics, topicId]
   );
 
   const onNextTopic = useCallback(() => {
