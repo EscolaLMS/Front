@@ -67,10 +67,10 @@ export const CourseCardActions: FC<Props> = ({
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
 
   const handleClose = useCallback(() => {
+    setCourseId(undefined);
     setState((prevState) => ({
       ...prevState,
       show: false,
-      loading: false,
     }));
 
     if (state.step < questionnaires.length - 1) {
@@ -97,11 +97,12 @@ export const CourseCardActions: FC<Props> = ({
         fetchQuestionnaires,
         onSucces: (items) => {
           setQuestionnaires(items);
+        },
+        onFinish: () =>
           setState((prevState) => ({
             ...prevState,
             loading: false,
-          }));
-        },
+          })),
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
@@ -117,6 +118,7 @@ export const CourseCardActions: FC<Props> = ({
               setState((prevState) => ({
                 ...prevState,
                 show: true,
+                loading: true,
               }));
             }}
           >
@@ -154,13 +156,13 @@ export const CourseCardActions: FC<Props> = ({
               course={QuestionnaireModelType.COURSE}
               courseId={courseId}
               visible={state.show}
-              onClose={() => handleClose()}
+              onClose={handleClose}
               questionnaire={questionnaires[state.step]}
             />
           </>
         ) : (
           <Modal
-            onClose={() => handleClose()}
+            onClose={handleClose}
             visible={state.show}
             animation="zoom"
             maskAnimation="fade"

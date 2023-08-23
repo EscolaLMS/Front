@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTheme } from "styled-components";
-import { Dropdown, Row } from "@escolalms/components";
+import { Dropdown, Row, Spin } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 import { FC, useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -20,6 +20,7 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
     API.QuestionAnswer[]
   >([]);
   const [questionnaireId, setQuestionnaireId] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
   const { fetchQuestionnairesAnswers } = useContext(EscolaLMSContext);
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
@@ -38,12 +39,23 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
       value: String(item.id),
     }));
 
+  const sortAnswers = () =>
+    questionnaireAnswers.sort(
+      (a, b) =>
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+    );
+
   const handleFetchQuestionnairesAnswers = (questionId: number) =>
     fetchQuestionnairesAnswers(
       QuestionnaireModelType.COURSE,
       Number(id),
       questionId
-    ).then((res) => res.success && setQuestionnaireAnswers(res.data));
+    )
+      .then((res) => {
+        res.success && setQuestionnaireAnswers(res.data);
+      })
+      .catch(() => setLoading(false))
+      .finally(() => setLoading(false));
 
   return (
     <section className="course-ratings">
@@ -58,9 +70,10 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
               backgroundColor={theme.white}
             />
             <Dropdown
-              onChange={(e) =>
-                handleFetchQuestionnairesAnswers(Number(e.value))
-              }
+              onChange={(e) => {
+                setLoading(true);
+                handleFetchQuestionnairesAnswers(Number(e.value));
+              }}
               options={
                 questionnaireId ? [...(questionnaireQuestionFilter as [])] : []
               }
@@ -69,10 +82,14 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
             />
           </Row>
           <StyledStack>
-            {questionnaireAnswers &&
-              questionnaireAnswers.map((question) => (
+            {loading ? (
+              <Spin />
+            ) : (
+              questionnaireAnswers &&
+              sortAnswers().map((question) => (
                 <AnswerComponent question={question} />
-              ))}
+              ))
+            )}
           </StyledStack>
         </>
       ) : (

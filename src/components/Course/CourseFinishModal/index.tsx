@@ -24,7 +24,6 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const { fetchQuestionnaires, fetchQuestionnaire } =
     useContext(EscolaLMSContext);
-
   const handleClose = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
@@ -59,11 +58,12 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
         fetchQuestionnaires,
         onSucces: (items) => {
           setQuestionnaires(items);
+        },
+        onFinish: () =>
           setState((prevState) => ({
             ...prevState,
             loading: false,
-          }));
-        },
+          })),
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);

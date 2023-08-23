@@ -25,6 +25,7 @@ type getQuestionnairesProps = {
     id: number
   ) => Promise<API.DefaultMetaResponse<API.Questionnaire>>;
   onSucces: (questionnairesArray: API.Questionnaire[]) => void;
+  onFinish: () => void;
 };
 
 const getQuestionnaire = async ({
@@ -54,6 +55,7 @@ export const getQuestionnaires = async ({
   fetchQuestionnaires,
   fetchQuestionnaire,
   onSucces,
+  onFinish,
 }: getQuestionnairesProps) => {
   try {
     const response =
@@ -85,7 +87,9 @@ export const getQuestionnaires = async ({
 
           return {
             ...data,
-            questions: combinedQuestions,
+            questions: combinedQuestions.sort(
+              (a, b) => a.position - b.position
+            ),
           };
         })
       );
@@ -99,6 +103,8 @@ export const getQuestionnaires = async ({
   } catch (error) {
     toast.error(t<string>("UnexpectedError"));
     console.log(error);
+  } finally {
+    onFinish();
   }
 };
 

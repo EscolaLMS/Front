@@ -7,16 +7,20 @@ import { Container } from "./styles";
 import { Avatar, Row, Stack } from "@escolalms/components";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
-import { HeaderUser } from "@/icons/index";
+import { HeaderUser, StarOrange } from "@/icons/index";
 import { useTheme } from "styled-components";
 
-interface CourseRatingsProps {
+interface AnswerComponentProps {
   question: API.QuestionAnswer;
 }
 
-export const AnswerComponent: FC<CourseRatingsProps> = ({ question }) => {
-  const { user, note, updated_at } = question;
+export const AnswerComponent: FC<AnswerComponentProps> = ({ question }) => {
+  const { user, note, updated_at, rate } = question;
   const theme = useTheme();
+
+  if (!note) {
+    return <></>;
+  }
 
   return (
     <Container>
@@ -32,7 +36,17 @@ export const AnswerComponent: FC<CourseRatingsProps> = ({ question }) => {
           <Text>{note}</Text>
         </Stack>
       </Row>
-      <Text>{formatDate(updated_at, APP_CONFIG.defaultDateFormat)}</Text>
+      <Stack $gap={8}>
+        <Text noMargin>
+          {formatDate(updated_at, APP_CONFIG.defaultDateFormat)}
+        </Text>
+        {rate > 0 && (
+          <Row $gap={16}>
+            <StarOrange />
+            <Text>{rate}</Text>
+          </Row>
+        )}
+      </Stack>
     </Container>
   );
 };
