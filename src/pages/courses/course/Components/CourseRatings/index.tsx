@@ -1,16 +1,15 @@
 import { useTranslation } from "react-i18next";
 
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-
-import { Row } from "react-grid-system";
-
-import { Dropdown } from "@escolalms/components";
+import { useTheme } from "styled-components";
+import { Dropdown, Row } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 import { FC, useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { useParams } from "react-router-dom";
+import { AnswerComponent } from "./AnswerComponent";
+import { StyledStack, StyledTitle } from "./styles";
 
 interface CourseRatingsProps {
   questionnaires: API.Questionnaire[];
@@ -24,6 +23,7 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
   const { fetchQuestionnairesAnswers } = useContext(EscolaLMSContext);
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const questionnairesFilter = questionnaires.map((item) => ({
     label: item.title,
@@ -46,16 +46,16 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
     ).then((res) => res.success && setQuestionnaireAnswers(res.data));
 
   return (
-    <section className="course-ratings padding-right">
-      <Title level={4} as="h2">
-        {t("CoursePage.CourseRatingsTitle")}
-      </Title>
+    <section className="course-ratings">
+      <StyledTitle level={4}>{t("CoursePage.CourseRatingsTitle")}</StyledTitle>
       {questionnaires.length > 0 ? (
         <>
-          <Row>
+          <Row $gap={16}>
             <Dropdown
               onChange={(e) => setQuestionnaireId(Number(e.value))}
               options={[...questionnairesFilter]}
+              placeholder={t("CoursePage.SelectQuestionnaire")}
+              backgroundColor={theme.white}
             />
             <Dropdown
               onChange={(e) =>
@@ -64,19 +64,16 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
               options={
                 questionnaireId ? [...(questionnaireQuestionFilter as [])] : []
               }
+              placeholder={t("CoursePage.SelectQuestion")}
+              backgroundColor={theme.white}
             />
           </Row>
-
-          {questionnaireAnswers &&
-            questionnaireAnswers.map((question) => {
-              const { user, note } = question;
-              return (
-                <>
-                  <Title>{note}</Title>
-                  <Text>{user.name}</Text>
-                </>
-              );
-            })}
+          <StyledStack>
+            {questionnaireAnswers &&
+              questionnaireAnswers.map((question) => (
+                <AnswerComponent question={question} />
+              ))}
+          </StyledStack>
         </>
       ) : (
         <Text style={{ marginTop: 20 }}>
