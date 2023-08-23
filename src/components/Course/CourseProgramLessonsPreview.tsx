@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { API } from "@escolalms/sdk/lib";
 import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseSidebar from "@/components/Course/CourseSidebar";
-import { useLessonProgram } from "../../hooks/useLessonProgram";
+import { useLessonProgram } from "@/hooks/useLessonProgram";
 import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Col, Row } from "react-grid-system";
@@ -42,8 +42,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                 >
                   <CourseProgramContent
                     preview={true}
-                    lessonId={Number(lesson?.id)}
-                    topicId={Number(topic?.id)}
+                    topic={topic}
                     isThereAnotherTopic={!!getNextPrevTopic(Number(topic?.id))}
                   />
                 </div>

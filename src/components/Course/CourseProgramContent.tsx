@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
@@ -25,27 +25,19 @@ const StyledPdfPlayer = styled(PdfPlayer)`
 `;
 
 export const CourseProgramContent: React.FC<{
-  lessonId: number;
+  topic: API.Topic | undefined;
   isThereAnotherTopic?: boolean;
-  topicId?: number;
   preview?: boolean;
   disableNextTopicButton?: (b: boolean) => void;
   onXAPI?: (event: XAPIEvent) => void;
 }> = ({
-  lessonId,
-  topicId,
+  topic,
   preview = false,
   disableNextTopicButton,
   isThereAnotherTopic = true,
   onXAPI,
 }) => {
   const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
-
-  const topic = useMemo(() => {
-    return program.value?.lessons
-      ?.find((lesson: API.Lesson) => lesson.id === lessonId)
-      ?.topics?.find((topic: API.Topic) => topic.id === topicId);
-  }, [program, lessonId, topicId]);
 
   useEffect(() => {
     const isTopicFinished = topic?.id && topicIsFinished(topic.id);
@@ -59,14 +51,14 @@ export const CourseProgramContent: React.FC<{
   useEffect(() => {
     if (!preview) {
       const ping = () =>
-        topicId && !topicIsFinished(topicId) && topicPing(topicId);
+        topic?.id && !topicIsFinished(topic?.id) && topicPing(topic?.id);
       const interval = setInterval(() => {
         ping();
       }, 5000);
       ping();
       return () => clearInterval(interval);
     }
-  }, [topicPing, preview, topicId, topicIsFinished]);
+  }, [topicPing, preview, topic?.id, topicIsFinished]);
 
   if (!topic) {
     return <React.Fragment />;
@@ -90,7 +82,7 @@ export const CourseProgramContent: React.FC<{
       case API.TopicType.OEmbed:
         return (
           <>
-            <OEmbedPlayer url={topic.topicable.value} key={topicId} />
+            <OEmbedPlayer url={topic.topicable.value} key={topic.id} />
           </>
         );
       case API.TopicType.RichText:
