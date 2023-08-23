@@ -92,6 +92,10 @@ const StyledHeader = styled.header`
         margin: 0 30px;
         column-gap: 30px;
       }
+      .Dropdown-menu {
+        overflow-y: unset;
+        max-height: unset;
+      }
     }
   }
   .logo {
