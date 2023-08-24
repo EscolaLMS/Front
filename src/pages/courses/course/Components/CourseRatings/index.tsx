@@ -10,6 +10,7 @@ import { QuestionnaireModelType } from "@/types/questionnaire";
 import { useParams } from "react-router-dom";
 import { AnswerComponent } from "./AnswerComponent";
 import { StyledStack, StyledTitle } from "./styles";
+import { toast } from "react-toastify";
 
 interface CourseRatingsProps {
   questionnaires: API.Questionnaire[];
@@ -54,7 +55,10 @@ export const CourseRatings: FC<CourseRatingsProps> = ({ questionnaires }) => {
       .then((res) => {
         res.success && setQuestionnaireAnswers(res.data);
       })
-      .catch(() => setLoading(false))
+      .catch((error) => {
+        toast.error(t<string>("UnexpectedError"));
+        console.log(error);
+      })
       .finally(() => setLoading(false));
 
   return (
