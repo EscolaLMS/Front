@@ -49,6 +49,8 @@ const RateCourse: React.FC<Props> = ({
               question_id: questionnaire.questions[state.step].id,
               rate,
               note,
+              visible_on_front:
+                questionnaire.questions[state.step].public_answers,
             }
           );
           if (request.success) {
