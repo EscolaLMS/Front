@@ -119,20 +119,13 @@ const ProfileCourses = ({
   }, []);
 
   useEffect(() => {
-    if (filter === CourseStatus.ALL) {
-      fetchPaginatedProgress({
-        page: page ? parseInt(page) : 1,
-        per_page: 6,
-        status: getStatusName(Number(status)),
-      });
-      fetchMyAuthoredCourses();
-    } else if (filter !== CourseStatus.AUTHORED) {
-      fetchPaginatedProgress({
-        page: page ? parseInt(page) : 1,
-        per_page: 6,
-        status: getStatusName(Number(status)),
-      });
-    } else {
+    fetchPaginatedProgress({
+      page: page ? parseInt(page) : 1,
+      per_page: 6,
+      status: getStatusName(Number(status)),
+    });
+
+    if (filter === CourseStatus.ALL || filter === CourseStatus.AUTHORED) {
       fetchMyAuthoredCourses();
     }
   }, [
