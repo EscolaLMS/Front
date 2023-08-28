@@ -15,10 +15,17 @@ import { Col, Row } from "react-grid-system";
 import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
 import Pagination from "@/components/Pagination";
+import { useSearchParams } from "@/hooks/useSearchParams";
 
 type CoursesState = Array<
   API.Course & { progress?: number; courseData?: API.CourseProgressItem }
 >;
+
+enum TabName {
+  STARTED = "started",
+  PLANNED = "planned",
+  FINISHED = "finished",
+}
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -86,34 +93,56 @@ const ProfileCourses = ({
   const history = useHistory();
   const { t } = useTranslation();
 
-  //get query params from URL
+  const { setQueryParam } = useSearchParams();
   const { search } = useLocation();
-  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
-  const page = useMemo(() => searchParams.get("page"), [searchParams]);
-  console.log(page);
-  console.log(paginatedProgress);
-  useEffect(() => {
-    const fetchData = async () => {
-      if (filter === CourseStatus.ALL) {
-        await Promise.all([
-          fetchPaginatedProgress({
-            page: page ? parseInt(page) : 1,
-            per_page: 5,
-          }),
-          fetchMyAuthoredCourses(),
-        ]);
-      } else if (filter !== CourseStatus.AUTHORED) {
-        await fetchPaginatedProgress({
-          page: page ? parseInt(page) : 1,
-          per_page: 5,
-        });
-      } else {
-        await fetchMyAuthoredCourses();
-      }
-    };
+  const searchParams = new URLSearchParams(search);
+  const page = searchParams.get("page");
+  const status = searchParams.get("status");
 
-    fetchData();
-  }, [fetchPaginatedProgress, filter, fetchMyAuthoredCourses, page]);
+  const getStatusName = useCallback((key: number) => {
+    let tabName = "";
+    switch (key) {
+      case 1:
+      case 5:
+        break;
+      case 2:
+        tabName = TabName.STARTED;
+        break;
+      case 3:
+        tabName = TabName.PLANNED;
+        break;
+      case 4:
+        tabName = TabName.FINISHED;
+        break;
+    }
+    return tabName;
+  }, []);
+
+  useEffect(() => {
+    if (filter === CourseStatus.ALL) {
+      fetchPaginatedProgress({
+        page: page ? parseInt(page) : 1,
+        per_page: 6,
+        status: getStatusName(Number(status)),
+      });
+      fetchMyAuthoredCourses();
+    } else if (filter !== CourseStatus.AUTHORED) {
+      fetchPaginatedProgress({
+        page: page ? parseInt(page) : 1,
+        per_page: 6,
+        status: getStatusName(Number(status)),
+      });
+    } else {
+      fetchMyAuthoredCourses();
+    }
+  }, [
+    fetchPaginatedProgress,
+    filter,
+    fetchMyAuthoredCourses,
+    page,
+    status,
+    getStatusName,
+  ]);
 
   const progressMap = useMemo(() => {
     return (paginatedProgress.list?.data || []).reduce((acc: object, curr) => {
@@ -131,29 +160,6 @@ const ProfileCourses = ({
     }, {});
   }, [paginatedProgress]);
 
-  const startedCourses = useMemo(() => {
-    return (paginatedProgress.list?.data || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time &&
-        item.progress.length > 0 &&
-        item.total_spent_time > 0 &&
-        !item.finish_date
-    );
-  }, [paginatedProgress]);
-  console.log(startedCourses);
-  const plannedCourses = useMemo(() => {
-    return (paginatedProgress.list?.data || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time === 0 && !item.finish_date
-    );
-  }, [paginatedProgress]);
-
-  const finishedCourses = useMemo(() => {
-    return (paginatedProgress.list?.data || []).filter(
-      (course: API.CourseProgressItem) => course.finish_date
-    );
-  }, [paginatedProgress]);
-
   const remapNormalCourses = useCallback(
     (courses: API.CourseProgressItem[]) => {
       return courses.map((course: API.CourseProgressItem) => {
@@ -169,27 +175,15 @@ const ProfileCourses = ({
   );
 
   useEffect(() => {
-    filter === CourseStatus.FINISHED
-      ? setCoursesToMap(remapNormalCourses(finishedCourses))
-      : filter === CourseStatus.PLANNED
-      ? setCoursesToMap(remapNormalCourses(plannedCourses))
-      : filter === CourseStatus.IN_PROGRESS
-      ? setCoursesToMap(remapNormalCourses(startedCourses))
+    filter !== CourseStatus.AUTHORED
+      ? setCoursesToMap(remapNormalCourses(paginatedProgress.list?.data || []))
       : filter === CourseStatus.AUTHORED
       ? setCoursesToMap(myAuthoredCourses.value || [])
       : setCoursesToMap([
           ...remapNormalCourses(paginatedProgress.list?.data || []),
           ...(myAuthoredCourses.value || []),
         ]);
-  }, [
-    filter,
-    paginatedProgress,
-    myAuthoredCourses,
-    startedCourses,
-    plannedCourses,
-    finishedCourses,
-    remapNormalCourses,
-  ]);
+  }, [filter, paginatedProgress, myAuthoredCourses, remapNormalCourses]);
 
   return (
     <StyledList>
@@ -236,9 +230,7 @@ const ProfileCourses = ({
                 paginatedProgress.list?.meta?.current_page || 1
               )}
               onPage={(i) => {
-                history.push({
-                  search: `?page=${i}`,
-                });
+                setQueryParam("page", `${i}`);
                 window?.scrollTo(0, 0);
               }}
             />
