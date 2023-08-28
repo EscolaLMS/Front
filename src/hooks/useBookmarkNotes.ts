@@ -38,7 +38,8 @@ export const useBookmarkNotes = ({
     return !topicBookmark?.length
       ? createBookmarkNote({
           bookmarkable_id: Number(topic?.id),
-          bookmarkable_type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}`,
+          bookmarkable_type: API.BookmarkableType.Topic,
+          value: null,
         }).then(() => {
           fetchBookmarkNotes();
           toast.success(t<string>("Notifications.CreateBookmark"));
