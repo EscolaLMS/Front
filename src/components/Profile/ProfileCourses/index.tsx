@@ -159,8 +159,12 @@ const ProfileCourses = ({
         return {
           ...course.course,
           courseData: course,
-          //@ts-ignore TODO
-          progress: progressMap[course.course.id ? course.course.id : -1],
+          progress:
+            progressMap[
+              (course.course.id
+                ? course.course.id
+                : -1) as keyof typeof progressMap
+            ],
         };
       });
     },
