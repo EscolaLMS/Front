@@ -5,9 +5,9 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import RateCourse from "@/components/RateCourse";
-import { toast } from "react-toastify";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { Spin } from "@escolalms/components";
+import { getQuestionnaires } from "@/utils/questionnaires";
 
 interface FinishModalProps {
   courseId?: number;
@@ -24,7 +24,6 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const { fetchQuestionnaires, fetchQuestionnaire } =
     useContext(EscolaLMSContext);
-
   const handleClose = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
@@ -47,87 +46,25 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
     }
   }, [questionnaires, state.step]);
 
-  const getQuestionnaire = useCallback(
-    async (questionnaireId: number) => {
-      try {
-        const response =
-          courseId &&
-          (await fetchQuestionnaire(
-            QuestionnaireModelType.COURSE,
-            courseId,
-            questionnaireId
-          ));
-        if (response && response.success) {
-          return response.data.questions;
-        }
-      } catch (error) {
-        toast.error(t<string>("UnexpectedError"));
-        console.log(error);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [courseId, fetchQuestionnaire]
-  );
-
-  const getQuestionnaires = useCallback(async () => {
-    try {
-      const response =
-        courseId &&
-        (await fetchQuestionnaires(QuestionnaireModelType.COURSE, courseId));
-      if (response && response.success) {
-        const questionnairesWithCombinedQuestions = await Promise.all(
-          response.data.map(async (data) => {
-            const res = await getQuestionnaire(data.id);
-
-            const combinedQuestions = data.questions.reduce(
-              (result, element) => {
-                const matchingElement = res?.find(
-                  (item) => item.id === element.id
-                );
-
-                const updatedElement = {
-                  ...element,
-                  rate: matchingElement?.rate,
-                  note: matchingElement?.note,
-                };
-                updatedElement.public_answers === false &&
-                  updatedElement.rate === null &&
-                  updatedElement.note === null &&
-                  result.push(updatedElement);
-                return result;
-              },
-              [] as API.QuestionnaireQuestion[]
-            );
-
-            return {
-              ...data,
-              questions: combinedQuestions,
-            };
-          })
-        );
-        setQuestionnaires(
-          questionnairesWithCombinedQuestions.filter(
-            (item) => !!item.questions.length
-          )
-        );
-        setState((prevState) => ({
-          ...prevState,
-          loading: false,
-        }));
-      }
-    } catch (error) {
-      toast.error(t<string>("UnexpectedError"));
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId, fetchQuestionnaires]);
-
   useEffect(() => {
     setState((prevState) => ({
       ...prevState,
       loading: true,
     }));
-    getQuestionnaires();
+    courseId &&
+      getQuestionnaires({
+        courseId,
+        fetchQuestionnaire,
+        fetchQuestionnaires,
+        onSucces: (items) => {
+          setQuestionnaires(items);
+        },
+        onFinish: () =>
+          setState((prevState) => ({
+            ...prevState,
+            loading: false,
+          })),
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
 

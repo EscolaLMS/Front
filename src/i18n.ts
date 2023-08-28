@@ -149,6 +149,7 @@ const resources = {
         MyProgress: "My progress",
         ToSeeProgress: "to see your progress",
         UnavailableCourse: "This course is unavailable to buy",
+        NoRatings: "No ratings",
         AvarageRating: "Average rating of Jan Kamiński's training courses",
         Satisfaction: "satisfaction or your money back *",
         Guarantee: "Guaranteed",
@@ -159,6 +160,8 @@ const resources = {
         Students: "Students",
         Teacher: "Teacher",
         Login: "Log in",
+        SelectQuestionnaire: "Select a questionnaire...",
+        SelectQuestion: "Select a question...",
       },
       Cart: {
         UseTestCard: "Use test cards for Stripe",
@@ -725,6 +728,7 @@ const resources = {
         MyProgress: "Moje postępy",
         ToSeeProgress: "aby widzieć postępy",
         UnavailableCourse: "Kurs niemożliwy do kupienia",
+        NoRatings: "Brak ocen",
         AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Guarantee: "Gwarancja",
@@ -735,6 +739,8 @@ const resources = {
         Students: "Uczniów",
         Teacher: "Nauczyciel",
         Login: "Zaloguj się",
+        SelectQuestionnaire: "Wybierz ankietę...",
+        SelectQuestion: "Wybierz pytanie...",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",

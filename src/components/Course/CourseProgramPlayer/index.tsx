@@ -1,9 +1,11 @@
-import CourseProgramContent from "@/components/Course/CourseProgramContent";
-import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import CourseDownloads from "../CourseDownloads";
+import React from "react";
 import { Col, Row } from "react-grid-system";
 import { API } from "@escolalms/sdk/lib";
 import { XAPIEvent } from "@escolalms/h5p-react";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+
+import CourseProgramContent from "@/components/Course/CourseProgramContent";
+import CourseDownloads from "../CourseDownloads";
 
 interface Props {
   lesson: API.Lesson | undefined;
@@ -40,8 +42,7 @@ const CourseProgramPlayer = ({
         >
           <CourseProgramContent
             key={topic?.id}
-            lessonId={Number(lesson?.id)}
-            topicId={topic && Number(topic.id)}
+            topic={topic}
             disableNextTopicButton={disableNextTopicButton}
             isThereAnotherTopic={Boolean(getNextPrevTopic(Number(topic?.id)))}
             onXAPI={(event) => onXAPI?.(event)}
