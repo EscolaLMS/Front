@@ -10,6 +10,7 @@ import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "@/hooks/useRoles";
+import { useSearchParams } from "@/hooks/useSearchParams";
 
 export enum CourseStatus {
   IN_PROGRESS = "inProgress",
@@ -45,6 +46,7 @@ const MyProfile = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const { isTutor } = useRoles();
+  const { query, setQueryParam } = useSearchParams();
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -67,6 +69,7 @@ const MyProfile = () => {
       },
       {
         label: t("MyProfilePage.Planned"),
+
         key: 3,
         component: <ProfileCourses filter={CourseStatus.PLANNED} />,
       },
@@ -82,7 +85,7 @@ const MyProfile = () => {
         hidden: !isTutor,
       },
     ],
-    defaultActiveKey: 1,
+    defaultActiveKey: Number(query.get("status") || 1),
   };
 
   return (
@@ -90,6 +93,10 @@ const MyProfile = () => {
       <Content>
         <div className="courses-wrapper">
           <Tabs
+            onClick={(key) => {
+              setQueryParam("status", String(key));
+              setQueryParam("page", "1");
+            }}
             tabs={coursesTabs.tabs}
             defaultActiveKey={coursesTabs.defaultActiveKey}
           />

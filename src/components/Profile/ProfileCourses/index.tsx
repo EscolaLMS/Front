@@ -5,7 +5,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 
@@ -14,10 +14,18 @@ import { Col, Row } from "react-grid-system";
 
 import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
+import Pagination from "@/components/Pagination";
+import { useSearchParams } from "@/hooks/useSearchParams";
 
 type CoursesState = Array<
   API.Course & { progress?: number; courseData?: API.CourseProgressItem }
 >;
+
+enum TabName {
+  STARTED = "started",
+  PLANNED = "planned",
+  FINISHED = "finished",
+}
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -64,73 +72,86 @@ const StyledEmptyInfo = styled.div`
   }
 `;
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;
+
 const ProfileCourses = ({
   filter = CourseStatus.ALL,
 }: {
   filter: CourseStatus;
 }) => {
-  const { progress, fetchProgress, fetchMyAuthoredCourses, myAuthoredCourses } =
-    useContext(EscolaLMSContext);
-  const [showMore, setShowMore] = useState(false);
+  const {
+    fetchMyAuthoredCourses,
+    myAuthoredCourses,
+    fetchPaginatedProgress,
+    paginatedProgress,
+  } = useContext(EscolaLMSContext);
   const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (filter === CourseStatus.ALL) {
-        await Promise.all([fetchProgress(), fetchMyAuthoredCourses()]);
-      } else if (filter !== CourseStatus.AUTHORED) {
-        await fetchProgress();
-      } else {
-        await fetchMyAuthoredCourses();
-      }
-    };
+  const { setQueryParam } = useSearchParams();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const page = searchParams.get("page");
+  const status = searchParams.get("status");
 
-    fetchData();
-  }, [fetchProgress, filter, fetchMyAuthoredCourses]);
+  const getStatusName = useCallback((key: number) => {
+    let tabName = "";
+    switch (key) {
+      case 1:
+      case 5:
+        break;
+      case 2:
+        tabName = TabName.STARTED;
+        break;
+      case 3:
+        tabName = TabName.PLANNED;
+        break;
+      case 4:
+        tabName = TabName.FINISHED;
+        break;
+    }
+    return tabName;
+  }, []);
+
+  useEffect(() => {
+    fetchPaginatedProgress({
+      page: page ? parseInt(page) : 1,
+      per_page: 6,
+      status: getStatusName(Number(status)),
+    });
+
+    if (filter === CourseStatus.ALL || filter === CourseStatus.AUTHORED) {
+      fetchMyAuthoredCourses();
+    }
+  }, [
+    fetchPaginatedProgress,
+    filter,
+    fetchMyAuthoredCourses,
+    page,
+    status,
+    getStatusName,
+  ]);
 
   const progressMap = useMemo(() => {
-    return (progress.value || []).reduce(
-      (acc: object, curr: API.CourseProgressItem) => {
-        return {
-          ...acc,
-          [curr.course.id ? curr.course.id : -1]: Math.round(
-            ((curr.progress || []).reduce(
-              (pAcc, pCurr) => (pCurr.status === 1 ? pAcc + 1 : pAcc),
-              0
-            ) /
-              curr.progress.length) *
-              100
-          ),
-        };
-      },
-      {}
-    );
-  }, [progress]);
-
-  const startedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time &&
-        item.progress.length > 0 &&
-        item.total_spent_time > 0 &&
-        !item.finish_date
-    );
-  }, [progress]);
-
-  const plannedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time === 0 && !item.finish_date
-    );
-  }, [progress]);
-
-  const finishedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (course: API.CourseProgressItem) => course.finish_date
-    );
-  }, [progress]);
+    return (paginatedProgress.list?.data || []).reduce((acc: object, curr) => {
+      return {
+        ...acc,
+        [curr.course.id ? curr.course.id : -1]: Math.round(
+          ((curr.progress || []).reduce(
+            (pAcc, pCurr) => (pCurr.status === 1 ? pAcc + 1 : pAcc),
+            0
+          ) /
+            curr.progress.length) *
+            100
+        ),
+      };
+    }, {});
+  }, [paginatedProgress]);
 
   const remapNormalCourses = useCallback(
     (courses: API.CourseProgressItem[]) => {
@@ -138,7 +159,12 @@ const ProfileCourses = ({
         return {
           ...course.course,
           courseData: course,
-          progress: progressMap[course.course.id ? course.course.id : -1],
+          progress:
+            progressMap[
+              (course.course.id
+                ? course.course.id
+                : -1) as keyof typeof progressMap
+            ],
         };
       });
     },
@@ -146,84 +172,67 @@ const ProfileCourses = ({
   );
 
   useEffect(() => {
-    filter === CourseStatus.FINISHED
-      ? setCoursesToMap(remapNormalCourses(finishedCourses))
-      : filter === CourseStatus.PLANNED
-      ? setCoursesToMap(remapNormalCourses(plannedCourses))
-      : filter === CourseStatus.IN_PROGRESS
-      ? setCoursesToMap(remapNormalCourses(startedCourses))
+    filter !== CourseStatus.AUTHORED
+      ? setCoursesToMap(remapNormalCourses(paginatedProgress.list?.data || []))
       : filter === CourseStatus.AUTHORED
       ? setCoursesToMap(myAuthoredCourses.value || [])
       : setCoursesToMap([
-          ...remapNormalCourses(progress.value || []),
+          ...remapNormalCourses(paginatedProgress.list?.data || []),
           ...(myAuthoredCourses.value || []),
         ]);
-  }, [
-    filter,
-    progress,
-    myAuthoredCourses,
-    startedCourses,
-    plannedCourses,
-    finishedCourses,
-    remapNormalCourses,
-  ]);
+  }, [filter, paginatedProgress, myAuthoredCourses, remapNormalCourses]);
 
   return (
     <StyledList>
       {!isMobile ? (
-        <Row
-          style={{
-            gap: "28px 0",
-          }}
-        >
-          {coursesToMap.length === 0 &&
-            !progress.loading &&
-            !myAuthoredCourses.loading && (
-              <StyledEmptyInfo>
-                <Title level={3}>
-                  {t<string>("MyProfilePage.EmptyCoursesTitle")}
-                </Title>
-                <Text className="small-text">
-                  {t<string>("MyProfilePage.EmptyCoursesText")}
-                </Text>
-                <Button
-                  onClick={() => history.push("/courses")}
-                  mode="secondary"
-                >
-                  {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-                </Button>
-              </StyledEmptyInfo>
+        <>
+          <Row
+            style={{
+              gap: "28px 0",
+            }}
+          >
+            {coursesToMap.length === 0 &&
+              !paginatedProgress.loading &&
+              !myAuthoredCourses.loading && (
+                <StyledEmptyInfo>
+                  <Title level={3}>
+                    {t<string>("MyProfilePage.EmptyCoursesTitle")}
+                  </Title>
+                  <Text className="small-text">
+                    {t<string>("MyProfilePage.EmptyCoursesText")}
+                  </Text>
+                  <Button
+                    onClick={() => history.push("/courses")}
+                    mode="secondary"
+                  >
+                    {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+                  </Button>
+                </StyledEmptyInfo>
+              )}
+            {paginatedProgress.loading || myAuthoredCourses.loading ? (
+              <ContentLoader />
+            ) : (
+              coursesToMap.map((item) => (
+                <Col md={4} key={item.id}>
+                  <CourseCardItem course={item} />
+                </Col>
+              ))
             )}
-          {coursesToMap.slice(0, 6).map((item) => (
-            <Col md={4} key={item.id}>
-              <CourseCardItem course={item} />
-            </Col>
-          ))}
-          {coursesToMap && coursesToMap.length > 6 && !showMore && (
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: 30,
+          </Row>
+          <PaginationWrapper>
+            <Pagination
+              total={paginatedProgress.list?.meta?.total || 0}
+              perPage={Number(paginatedProgress.list?.meta?.per_page || 0)}
+              currentPage={Number(
+                paginatedProgress.list?.meta?.current_page || 1
+              )}
+              onPage={(i) => {
+                setQueryParam("page", `${i}`);
+                window?.scrollTo(0, 0);
               }}
-            >
-              <Button onClick={() => setShowMore(true)} mode="outline">
-                {t<string>("MyProfilePage.ShowMore")}
-              </Button>
-            </Col>
-          )}
-          {coursesToMap &&
-            coursesToMap.length > 5 &&
-            showMore &&
-            coursesToMap.slice(6, coursesToMap.length).map((item) => (
-              <Col md={4} key={item.id}>
-                <CourseCardItem course={item} />
-              </Col>
-            ))}
-        </Row>
+            />
+          </PaginationWrapper>
+        </>
       ) : (
         <div className="slider-wrapper">
           {coursesToMap &&
@@ -234,7 +243,6 @@ const ProfileCourses = ({
             ))}
         </div>
       )}
-      {(progress.loading || myAuthoredCourses.loading) && <ContentLoader />}
     </StyledList>
   );
 };
