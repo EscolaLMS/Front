@@ -249,6 +249,11 @@ const ProfileAside: React.FC = () => {
       url: "/user/my-consultations",
     },
     {
+      key: "WEBINARS",
+      title: t("MyProfilePage.MyWebinars"),
+      url: "/user/my-webinars",
+    },
+    {
       key: "EVENTS",
       title: t("MyProfilePage.MyStationaryEvents"),
       url: "/user/my-stationary-events",

@@ -56,6 +56,7 @@ const MyConsultationsPage = lazy(
 const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
 const CartPage = lazy(() => import("../../pages/cart/index"));
+const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
 
 const ConditionalRouter: React.FC<{
   basename: string;
@@ -110,6 +111,7 @@ const Routes: React.FC = (): ReactElement => {
     myBookmarks,
     webinars,
     webinar,
+    myWebinars,
   } = routes;
 
   return (
@@ -144,6 +146,7 @@ const Routes: React.FC = (): ReactElement => {
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} />
+          <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} />
           <PrivateRoute
             exact
             path={myStationaryEvents}

@@ -313,6 +313,7 @@ const resources = {
         EmptyEventsBtnText: "Choose a stationary event for yourself",
         BoughtUpcoming: "Bought upcoming",
         BoughtArchived: "Bought archived",
+        MyWebinars: "My webinars",
       },
       Menu: {
         Browse: "Browse",
@@ -886,6 +887,7 @@ const resources = {
         EmptyEventsBtnText: " Wybierz wydarzenie stacjonarne dla siebie",
         BoughtUpcoming: "Kupione nadchodzące",
         BoughtArchived: "Kupione archiwalne",
+        MyWebinars: "Moje webinaria",
       },
       Navbar: {
         MyProfile: "Mój profil",
