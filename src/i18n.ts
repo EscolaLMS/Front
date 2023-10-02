@@ -162,6 +162,7 @@ const resources = {
         Login: "Log in",
         SelectQuestionnaire: "Select a questionnaire...",
         SelectQuestion: "Select a question...",
+        Resources: "Resources",
       },
       Cart: {
         UseTestCard: "Use test cards for Stripe",
@@ -741,6 +742,7 @@ const resources = {
         Login: "Zaloguj się",
         SelectQuestionnaire: "Wybierz ankietę...",
         SelectQuestion: "Wybierz pytanie...",
+        Resources: "Zasoby",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",

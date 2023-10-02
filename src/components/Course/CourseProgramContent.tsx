@@ -86,7 +86,12 @@ export const CourseProgramContent: React.FC<{
           </>
         );
       case API.TopicType.RichText:
-        return <TextPlayer value={topic.topicable.value} />;
+        return (
+          <TextPlayer
+            value={topic.topicable.value}
+            resources={topic.resources}
+          />
+        );
       case API.TopicType.Video:
         return (
           <AudioVideoPlayer mobile={isMobile} url={topic.topicable.url} light />
