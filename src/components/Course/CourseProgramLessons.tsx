@@ -22,6 +22,7 @@ import ErrorBox from "../Errorbox";
 import { StyledCourse } from "./CourseProgramLessonsStyles";
 import CourseFinishModal from "./CourseFinishModal";
 import CourseProgramPlayer from "./CourseProgramPlayer";
+import { BookmarkableType } from "@escolalms/sdk/lib/types/api";
 
 export const CourseProgramLessons: React.FC<{
   program: API.CourseProgram;
@@ -142,7 +143,7 @@ export const CourseProgramLessons: React.FC<{
             addNotes
             newNoteData={{
               id: topic.id,
-              type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}`,
+              type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}` as BookmarkableType,
             }}
             currentNote={topicNote?.[0] as NoteData | undefined}
             addBookmarks
