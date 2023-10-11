@@ -77,6 +77,7 @@ export const CourseProgramContent: React.FC<{
             onXAPI={(e: XAPIEvent) => onXAPI?.(e)}
             //@ts-ignore
             h5pObject={topic.topicable.content as API.H5PObject}
+            hideActionButtons
           />
         );
       case API.TopicType.OEmbed:
