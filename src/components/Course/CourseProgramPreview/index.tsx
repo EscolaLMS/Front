@@ -19,7 +19,13 @@ export const CourseProgramPreview: React.FC<{
       switch (topic.topicable_type) {
         case TopicType.H5P:
           // @ts-ignore
-          return <H5Player h5pObject={topic?.topicable?.content} />;
+          return (
+            <H5Player
+              //@ts-ignore
+              h5pObject={topic?.topicable?.content as API.H5PObject}
+              hideActionButtons
+            />
+          );
         case TopicType.OEmbed:
           return <OEmbedPlayer url={topic?.topicable?.value} />;
         case TopicType.RichText:

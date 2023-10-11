@@ -15,15 +15,19 @@ const StyledDiv = styled("div")`
 
     .tags-menu {
       position: absolute;
-      top: 0;
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+      gap: 10px;
+      top: 0%;
       right: 0;
       list-style: none;
       padding-top: 12px;
-
-      li {
-        margin: 5px 0 5px 10px;
-        float: right;
-      }
+      height: 100px;
+      overflow-y: scroll;
+      background-color: ${(props) => props.theme.primaryColor};
+      max-width: 150px;
+      width: 100%;
     }
   }
 
@@ -85,13 +89,7 @@ const Tags = (props: TagsProps) => {
             {`+${otherTags.length}`}
           </Badge>
           {open && (
-            <ul
-              className="tags-menu"
-              style={{
-                width:
-                  parentRef.current?.getBoundingClientRect().width || "auto",
-              }}
-            >
+            <ul className="tags-menu">
               {otherTags.map((otherTag, index) => (
                 <li>
                   <Badge

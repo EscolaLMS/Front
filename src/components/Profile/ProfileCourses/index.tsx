@@ -1,30 +1,31 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import styled, { useTheme } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { useHistory, useLocation } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { LessonsIcon, UserIcon } from "../../../icons";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "@/components/CourseCardWrapper";
-import RateCourse from "@/components/RateCourse";
+
 import ContentLoader from "@/components/ContentLoader";
-import { toast } from "react-toastify";
 import { Col, Row } from "react-grid-system";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+
+import CourseCardItem from "./components/CourseCardItem";
+import { CourseStatus } from "@/pages/user/MyProfile";
+import Pagination from "@/components/Pagination";
+import { useSearchParams } from "@/hooks/useSearchParams";
+
+type CoursesState = Array<
+  API.Course & { progress?: number; courseData?: API.CourseProgressItem }
+>;
+
+enum TabName {
+  STARTED = "started",
+  PLANNED = "planned",
+  FINISHED = "finished",
+}
 
 const StyledList = styled.div`
   overflow: hidden;
@@ -71,487 +72,176 @@ const StyledEmptyInfo = styled.div`
   }
 `;
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;
+
 const ProfileCourses = ({
-  filter = "all",
+  filter = CourseStatus.ALL,
 }: {
-  filter: "all" | "inProgress" | "planned" | "finished";
+  filter: CourseStatus;
 }) => {
-  const [fetched, setFetched] = useState(false);
-  const [courseId, setCourseId] = useState<number | undefined>(undefined);
-  const { progress, fetchProgress, fetchQuestionnaires } =
-    useContext(EscolaLMSContext);
-  const [showMore, setShowMore] = useState(false);
-  const [coursesToMap, setCoursesToMap] = useState<
-    API.CourseProgressItem[] | []
-  >([]);
+  const {
+    fetchMyAuthoredCourses,
+    myAuthoredCourses,
+    fetchPaginatedProgress,
+    paginatedProgress,
+  } = useContext(EscolaLMSContext);
+  const [coursesToMap, setCoursesToMap] = useState<CoursesState>([]);
   const history = useHistory();
-  const theme = useTheme();
   const { t } = useTranslation();
 
-  const [state, setState] = useState({
-    show: false,
-    step: 0,
-  });
+  const { setQueryParam } = useSearchParams();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const page = searchParams.get("page");
+  const status = searchParams.get("status");
 
-  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
-
-  const getQuestionnaires = useCallback(async () => {
-    try {
-      const request =
-        courseId && (await fetchQuestionnaires("Course", courseId));
-      if (request && request.success) {
-        setQuestionnaires(request.data);
-        setFetched(true);
-      }
-    } catch (error) {
-      toast.error(t<string>("UnexpectedError"));
-      console.log(error);
+  const getStatusName = useCallback((key: number) => {
+    let tabName = "";
+    switch (key) {
+      case 1:
+      case 5:
+        break;
+      case 2:
+        tabName = TabName.STARTED;
+        break;
+      case 3:
+        tabName = TabName.PLANNED;
+        break;
+      case 4:
+        tabName = TabName.FINISHED;
+        break;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId, fetchQuestionnaires]);
-
-  useEffect(() => {
-    fetchProgress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return tabName;
   }, []);
 
   useEffect(() => {
-    getQuestionnaires();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId]);
+    fetchPaginatedProgress({
+      page: page ? parseInt(page) : 1,
+      per_page: 6,
+      status: getStatusName(Number(status)),
+    });
 
-  const handleClose = useCallback(() => {
-    setState((prevState) => ({
-      ...prevState,
-      show: false,
-    }));
-
-    if (state.step < questionnaires.length - 1) {
-      setState((prevState) => ({
-        ...prevState,
-        step: prevState.step + 1,
-      }));
-
-      const timer = setTimeout(() => {
-        setState((prevState) => ({
-          ...prevState,
-          show: true,
-        }));
-      }, 500);
-      return () => clearTimeout(timer);
+    if (filter === CourseStatus.ALL || filter === CourseStatus.AUTHORED) {
+      fetchMyAuthoredCourses();
     }
-  }, [questionnaires, state.step]);
+  }, [
+    fetchPaginatedProgress,
+    filter,
+    fetchMyAuthoredCourses,
+    page,
+    status,
+    getStatusName,
+  ]);
 
   const progressMap = useMemo(() => {
-    return (progress.value || []).reduce(
-      (acc: object, curr: API.CourseProgressItem) => {
+    return (paginatedProgress.list?.data || []).reduce((acc: object, curr) => {
+      return {
+        ...acc,
+        [curr.course.id ? curr.course.id : -1]: Math.round(
+          ((curr.progress || []).reduce(
+            (pAcc, pCurr) => (pCurr.status === 1 ? pAcc + 1 : pAcc),
+            0
+          ) /
+            curr.progress.length) *
+            100
+        ),
+      };
+    }, {});
+  }, [paginatedProgress]);
+
+  const remapNormalCourses = useCallback(
+    (courses: API.CourseProgressItem[]) => {
+      return courses.map((course: API.CourseProgressItem) => {
         return {
-          ...acc,
-          [curr.course.id ? curr.course.id : -1]: Math.round(
-            ((curr.progress || []).reduce(
-              (pAcc, pCurr) => (pCurr.status === 1 ? pAcc + 1 : pAcc),
-              0
-            ) /
-              curr.progress.length) *
-              100
-          ),
+          ...course.course,
+          courseData: course,
+          progress:
+            progressMap[
+              (course.course.id
+                ? course.course.id
+                : -1) as keyof typeof progressMap
+            ],
         };
-      },
-      {}
-    );
-  }, [progress]);
-
-  const startedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time &&
-        item.progress.length > 0 &&
-        item.total_spent_time > 0 &&
-        !item.finish_date
-    );
-  }, [progress]);
-
-  const plannedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (item: API.CourseProgressItem) =>
-        item.total_spent_time === 0 && !item.finish_date
-    );
-  }, [progress]);
-
-  const finishedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (course: API.CourseProgressItem) => course.finish_date
-    );
-  }, [progress]);
+      });
+    },
+    [progressMap]
+  );
 
   useEffect(() => {
-    setCoursesToMap(progress.value || []);
-  }, [progress]);
+    filter !== CourseStatus.AUTHORED
+      ? setCoursesToMap(remapNormalCourses(paginatedProgress.list?.data || []))
+      : filter === CourseStatus.AUTHORED
+      ? setCoursesToMap(myAuthoredCourses.value || [])
+      : setCoursesToMap([
+          ...remapNormalCourses(paginatedProgress.list?.data || []),
+          ...(myAuthoredCourses.value || []),
+        ]);
+  }, [filter, paginatedProgress, myAuthoredCourses, remapNormalCourses]);
 
-  useEffect(() => {
-    filter === "all"
-      ? setCoursesToMap(progress.value || [])
-      : filter === "finished"
-      ? setCoursesToMap(finishedCourses)
-      : filter === "inProgress"
-      ? setCoursesToMap(startedCourses)
-      : setCoursesToMap(plannedCourses);
-  }, [filter, finishedCourses, startedCourses, plannedCourses, progress]);
   return (
     <StyledList>
       {!isMobile ? (
-        <Row
-          style={{
-            gap: "28px 0",
-          }}
-        >
-          {progress.value?.length === 0 && !progress.loading && (
-            <StyledEmptyInfo>
-              <Title level={3}>
-                {t<string>("MyProfilePage.EmptyCoursesTitle")}
-              </Title>
-              <Text className="small-text">
-                {t<string>("MyProfilePage.EmptyCoursesText")}
-              </Text>
-              <Button onClick={() => history.push("/courses")} mode="secondary">
-                {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-              </Button>
-            </StyledEmptyInfo>
-          )}
-          {coursesToMap &&
-            coursesToMap.slice(0, 6).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/courses/${item.course.id}`} className="title">
-                        <Title level={4} as="h2">
-                          {item.course.title}
-                        </Title>
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
-              </Col>
-            ))}
-          {coursesToMap && coursesToMap.length > 6 && !showMore && (
-            <Col
-              sm={12}
-              md={12}
-              lg={12}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: 30,
+        <>
+          <Row
+            style={{
+              gap: "28px 0",
+            }}
+          >
+            {coursesToMap.length === 0 &&
+              !paginatedProgress.loading &&
+              !myAuthoredCourses.loading && (
+                <StyledEmptyInfo>
+                  <Title level={3}>
+                    {t<string>("MyProfilePage.EmptyCoursesTitle")}
+                  </Title>
+                  <Text className="small-text">
+                    {t<string>("MyProfilePage.EmptyCoursesText")}
+                  </Text>
+                  <Button
+                    onClick={() => history.push("/courses")}
+                    mode="secondary"
+                  >
+                    {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+                  </Button>
+                </StyledEmptyInfo>
+              )}
+            {paginatedProgress.loading || myAuthoredCourses.loading ? (
+              <ContentLoader />
+            ) : (
+              coursesToMap.map((item) => (
+                <Col md={4} key={item.id}>
+                  <CourseCardItem course={item} />
+                </Col>
+              ))
+            )}
+          </Row>
+          <PaginationWrapper>
+            <Pagination
+              total={paginatedProgress.list?.meta?.total || 0}
+              perPage={Number(paginatedProgress.list?.meta?.per_page || 0)}
+              currentPage={Number(
+                paginatedProgress.list?.meta?.current_page || 1
+              )}
+              onPage={(i) => {
+                setQueryParam("page", `${i}`);
+                window?.scrollTo(0, 0);
               }}
-            >
-              <Button onClick={() => setShowMore(true)} mode="outline">
-                {t<string>("MyProfilePage.ShowMore")}
-              </Button>
-            </Col>
-          )}
-          {coursesToMap &&
-            coursesToMap.length > 5 &&
-            showMore &&
-            coursesToMap.slice(6, coursesToMap.length).map((item) => (
-              <Col md={4} key={item.course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
-              </Col>
-            ))}
-        </Row>
+            />
+          </PaginationWrapper>
+        </>
       ) : (
         <div className="slider-wrapper">
           {coursesToMap &&
             coursesToMap.map((item) => (
-              <div key={item.course.id} className="single-slide">
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={item.course.id}
-                    image={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.image_path ? (
-                          <ResponsiveImage
-                            path={item.course.image_path}
-                            alt={item.course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={
-                      item.course.subtitle ? (
-                        <Text>
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/course/${item.course.id}`}
-                          >
-                            {item.course.subtitle}
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
-                    title={
-                      <Link to={`/course/${item.course.id}`}>
-                        {item.course.title}
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={
-                          item.categories as EscolaLms.Categories.Models.Category[]
-                        }
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        {progressMap[item.course.id] === 100 && (
-                          <Button
-                            mode="secondary"
-                            onClick={() => {
-                              setCourseId(item.course.id);
-                              setState((prevState) => ({
-                                ...prevState,
-                                show: true,
-                              }));
-                            }}
-                          >
-                            {t<string>("MyProfilePage.RateCourse")}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.course.users_count &&
-                          item.course.users_count > 0 && (
-                            <IconText
-                              icon={<UserIcon />}
-                              text={`${item.course.users_count} ${t<string>(
-                                "Students"
-                              )}`}
-                            />
-                          )}{" "}
-                        {item.course.lessons_count &&
-                          item.course.lessons_count > 0 && (
-                            <IconText
-                              icon={<LessonsIcon />}
-                              text={`${item.course.lessons_count} ${t<string>(
-                                "Lessons"
-                              )}`}
-                            />
-                          )}
-                      </>
-                    }
-                    progress={
-                      progressMap[item.course.id] !== 100 &&
-                      !isNaN(progressMap[item.course.id])
-                        ? {
-                            currentProgress: progressMap[item.course.id],
-                            maxProgress: 100,
-                          }
-                        : undefined
-                    }
-                  />
-                </CourseCardWrapper>
+              <div key={item.id} className="single-slide">
+                <CourseCardItem course={item} />
               </div>
             ))}
         </div>
-      )}
-      {progress.loading && <ContentLoader />}
-      {state.show && courseId && fetched && questionnaires[state.step] && (
-        <RateCourse
-          course={"Course"}
-          courseId={courseId}
-          visible={state.show}
-          onClose={() => handleClose()}
-          questionnaire={questionnaires[state.step]}
-        />
       )}
     </StyledList>
   );

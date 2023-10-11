@@ -149,6 +149,7 @@ const resources = {
         MyProgress: "My progress",
         ToSeeProgress: "to see your progress",
         UnavailableCourse: "This course is unavailable to buy",
+        NoRatings: "No ratings",
         AvarageRating: "Average rating of Jan Kamiński's training courses",
         Satisfaction: "satisfaction or your money back *",
         Guarantee: "Guaranteed",
@@ -159,6 +160,9 @@ const resources = {
         Students: "Students",
         Teacher: "Teacher",
         Login: "Log in",
+        SelectQuestionnaire: "Select a questionnaire...",
+        SelectQuestion: "Select a question...",
+        Resources: "Resources",
       },
       Cart: {
         UseTestCard: "Use test cards for Stripe",
@@ -189,7 +193,11 @@ const resources = {
         NoProgram: "No program",
         NoTopic: "No topic",
         FinishTitle: "Congratulations! You have finished the course!",
-        FinishSubtitle: "Go to your profile or browse other courses.",
+        FinishSubtitle:
+          "Rate a course, go to your profile or browse other courses.",
+        FinishSubtitleNoRating:
+          "You have already rated this course. Go to your profile or browse other courses.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -298,6 +306,8 @@ const resources = {
         EmptyCertificates:
           "Here you will see your certificates after completed courses",
         RateCourse: "Rate this course",
+        ResetCourseProgress: "Restart the course",
+        AccessCourseExpired: "Access to the course has expired",
         ShowMore: "Show more",
         MyCertificates: "My certificates",
         MyConsultations: "My consultations",
@@ -306,6 +316,7 @@ const resources = {
         Planned: "Planned",
         Finished: "Finished",
         EditData: "Edit data",
+        Authored: "Authored",
         MyStationaryEvents: "My stationary events",
         EmptyEventTitle: "Start your development",
         EmptyEventText:
@@ -314,6 +325,13 @@ const resources = {
         BoughtUpcoming: "Bought upcoming",
         BoughtArchived: "Bought archived",
         MyWebinars: "My webinars",
+      },
+      ResetProgressModal: {
+        Continue: "Do you want to continue?",
+        WantContinue: "I want to continue",
+        RestartCourse:
+          "If you start the course over again, you will lose your previous progress",
+        Cancel: "Cancel",
       },
       Menu: {
         Browse: "Browse",
@@ -505,6 +523,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
+        OptionalComment:
+          "Here you can write a comment or leave a review (optional)",
+        SendAnswer: "Send answer",
+        NoAnswer: "I don't want to answer",
       },
       Filters: {
         Category: "Category",
@@ -708,6 +730,7 @@ const resources = {
         MyProgress: "Moje postępy",
         ToSeeProgress: "aby widzieć postępy",
         UnavailableCourse: "Kurs niemożliwy do kupienia",
+        NoRatings: "Brak ocen",
         AvarageRating: "Średnia ocena szkoleń Jana Kamińskiego",
         Satisfaction: "zadowolenia lub zwrot pieniędzy*",
         Guarantee: "Gwarancja",
@@ -718,6 +741,9 @@ const resources = {
         Students: "Uczniów",
         Teacher: "Nauczyciel",
         Login: "Zaloguj się",
+        SelectQuestionnaire: "Wybierz ankietę...",
+        SelectQuestion: "Wybierz pytanie...",
+        Resources: "Zasoby",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",
@@ -749,7 +775,10 @@ const resources = {
         NoTopic: "Temat nie istnieje",
         FinishTitle: "Gratulacje! Ukończyłeś/aś kurs!",
         FinishSubtitle:
-          "Przejdź do swojego profilu albo przeglądaj inne kursy.",
+          "Oceń kurs, przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        FinishSubtitleNoRating:
+          "Już oceniłeś ten kurs. Przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
+        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
       },
       CoursesPage: {
         Category: "Kategoria",
@@ -872,6 +901,8 @@ const resources = {
         EmptyCertificates:
           "Tu zobaczysz swoje certyfikaty po ukończonych kursach",
         RateCourse: "Oceń kurs",
+        ResetCourseProgress: "Rozpocznij od nowa",
+        AccessCourseExpired: "Dostęp do kursu wygasł",
         ShowMore: "Pokaż więcej",
         MyCertificates: "Moje certyfikaty",
         MyConsultations: "Moje konsultacje",
@@ -879,6 +910,7 @@ const resources = {
         InProgress: "W trakcie",
         Planned: "Zaplanowane",
         Finished: "Ukończone",
+        Authored: "Autorskie",
         EditData: "Edytuj dane",
         MyStationaryEvents: "Moje wydarzenia stacjonarne",
         EmptyEventTitle: "Rozpocznij swój rozwój",
@@ -888,6 +920,13 @@ const resources = {
         BoughtUpcoming: "Kupione nadchodzące",
         BoughtArchived: "Kupione archiwalne",
         MyWebinars: "Moje webinaria",
+      },
+      ResetProgressModal: {
+        Continue: "Czy chcesz kontynuować?",
+        WantContinue: "Chcę kontynuować",
+        RestartCourse:
+          "Rozpoczynając kurs od nowa stracisz dotychczasowy postęp",
+        Cancel: "Anuluj",
       },
       Navbar: {
         MyProfile: "Mój profil",
@@ -1061,6 +1100,10 @@ const resources = {
       RateCourse: {
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",
+        OptionalComment:
+          "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
+        SendAnswer: "Prześlij odpowiedź",
+        NoAnswer: "Nie chcę odpowiadać",
       },
       Filters: {
         Category: "Kategoria",

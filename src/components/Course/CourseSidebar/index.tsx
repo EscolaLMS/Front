@@ -2,13 +2,14 @@ import React, { useContext, useState, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { getFlatTopics } from "@escolalms/components/lib/utils/course";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import styled, { css } from "styled-components";
-import { useLessonProgram } from "../../../hooks/useLessonProgram";
+import { useLessonProgram } from "@/hooks/useLessonProgram";
 import { Button } from "@escolalms/components";
 import { t } from "i18next";
-import { Topic } from "@escolalms/sdk/lib/types/api";
+import { userIsCourseAuthor } from "@/utils/index";
 
 const StyledSidebar = styled.aside`
   padding-bottom: 100px;
@@ -48,17 +49,18 @@ export const CourseSidebar: React.FC<{
   onCourseFinish?: () => void;
 }> = ({ course, topicId, onCompleteTopic, onCourseFinish }) => {
   const { progress } = useLessonProgram(course);
-  const { courseProgressDetails } = useContext(EscolaLMSContext);
+  const { courseProgressDetails, user } = useContext(EscolaLMSContext);
 
   const history = useHistory();
   const [agendaVisible, setAgendaVisible] = useState(false);
   const program = (course?.lessons || []).filter(
-    (lesson) => lesson && lesson.topics && lesson?.topics?.length > 0
-  ) as API.Lesson[];
+    (lesson) => (lesson?.topics?.length ?? 0) > 0
+  );
   const { topicIsFinished } = useContext(EscolaLMSContext);
-  const allTopics = course.lessons.map((item) => item.topics);
-  //@ts-ignore
-  const arrayOfTopics = [].concat.apply([], allTopics);
+  const flatTopics = useMemo(
+    () => getFlatTopics(course.lessons ?? []),
+    [course.lessons]
+  );
 
   const getCourseProgress = useMemo(() => {
     const courseId = course.id;
@@ -81,7 +83,7 @@ export const CourseSidebar: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, course]);
 
-  const finishedTopics = arrayOfTopics
+  const finishedTopics = flatTopics
     .filter((item: API.Topic) => {
       return (
         topicIsFinished(item.id) ||
@@ -124,36 +126,19 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          areAllTopicsUnlocked={userIsCourseAuthor(
+            Number(user.value?.id),
+            course
+          )}
           onNextTopicClick={() => {
-            let nextTopic;
+            const currentTopicIndex = flatTopics.findIndex(
+              (t) => t.id === topicId
+            );
+            const nextTopic = flatTopics?.[currentTopicIndex + 1];
 
-            course.lessons.forEach((lesson, lIndex, lessons) => {
-              lesson.topics &&
-                lesson.topics.forEach((topic, tIndex) => {
-                  if (topic.id === topicId) {
-                    // try find next topic in current lesson
-                    if (lesson.topics && lesson.topics[tIndex + 1]) {
-                      nextTopic =
-                        lesson.topics[tIndex + 1] && lesson.topics[tIndex + 1];
-                      // try find first topic in next lesson
-                    } else if (lessons[lIndex + 1]) {
-                      nextTopic =
-                        lessons[lIndex + 1].topics &&
-                        //@ts-ignore
-                        lessons[lIndex + 1].topics[0];
-                      // otherwise this is end so going back to first lesson and topic
-                    } else {
-                      nextTopic = lessons[0].topics && lessons[0].topics[0];
-                    }
-                  }
-                });
-            });
-
-            if (nextTopic) {
+            if (nextTopic && currentTopicIndex !== -1) {
               history.push(
-                `/course/${course.id}/${(nextTopic as Topic).lesson_id}/${
-                  (nextTopic as Topic).id
-                }`
+                `/course/${course.id}/${nextTopic.lesson_id}/${nextTopic.id}`
               );
               setAgendaVisible(false);
             }

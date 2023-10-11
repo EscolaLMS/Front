@@ -8,9 +8,9 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.103",
+    "@escolalms/components": "^0.0.108",
     "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.4.89",
+    "@escolalms/sdk": "^0.5.9",
     "@escolalms/ts-models": "^0",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -32,7 +32,7 @@
     "@types/webfontloader": "^1.6.33",
     "babel-plugin-styled-components": "^2.0.7",
     "babel-preset-react-app": "^10.0.0",
-    "date-fns": "^2.28.0",
+    "date-fns": "^2.30.0",
     "i18next": "^21.4.0",
     "leva": "^0.9.34",
     "react": "^17||^18",

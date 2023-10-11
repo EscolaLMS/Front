@@ -1,10 +1,12 @@
-import React, { lazy } from "react";
+import React, { lazy, useContext, useEffect } from "react";
 
 import Routes from "./components/Routes";
 
 import styled, { createGlobalStyle } from "styled-components";
 import { isMobile } from "react-device-detect";
 import * as Sentry from "@sentry/react";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceScreen";
 
 const Customizer = lazy(
   () => import("./components/ThemeCustomizer/ThemeCustomizer")
@@ -14,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+  }
+  #root {
     height: 100%;
   }
   #__ybug-launcher {
@@ -38,18 +43,32 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const StyledMain = styled.main`
+const StyledMain = styled.main<{ noPadding?: boolean }>`
+  height: fit-content;
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.dm__background : theme.background};
-  padding-top: ${isMobile ? "92px" : "167px"};
+  padding-top: ${({ noPadding }) =>
+    noPadding ? "0px" : isMobile ? "92px" : "167px"};
 `;
 const App = () => {
+  const { fetchSettings, settings } = useContext(EscolaLMSContext);
+
+  useEffect(() => {
+    fetchSettings();
+  }, [fetchSettings]);
+
   return (
     <React.Fragment>
       <GlobalStyle />
-      <StyledMain>
+      <StyledMain noPadding={settings?.value?.global?.technicalMaintenance}>
         <Customizer />
-        <Routes />
+        {settings?.value?.global?.technicalMaintenance ? (
+          <TechnicalMaintenanceScreen
+            text={settings?.value?.global?.technicalMaintenanceText}
+          />
+        ) : (
+          <Routes />
+        )}
       </StyledMain>
     </React.Fragment>
   );

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
 
@@ -23,6 +24,15 @@ const CardWrapper = styled.div`
         }
       }
     }
+  }
+  .course-section {
+    margin-top: 6px;
+  }
+
+  .course-card-buttons-group {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
   }
 `;
 

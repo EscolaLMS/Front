@@ -1,6 +1,12 @@
 import { EventTypes, Notification, Order } from "@escolalms/sdk/lib/types/api";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
+import { API } from "@escolalms/sdk/lib";
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+} from "date-fns";
 
 export const getTopicType = (type: string) => type.split("\\")?.pop();
 
@@ -292,3 +298,51 @@ export const formatPrice = (price: number | undefined, taxRate?: number) => {
   });
   return formatted;
 };
+
+export const userIsCourseAuthor = (
+  userId: number,
+  course: API.Course
+): boolean => {
+  return course.authors.findIndex((author) => author.id === userId) !== -1;
+};
+
+export const getFormattedDifferenceRelativeToNow = (time: Date) => {
+  const daysDifference = time
+    ? differenceInDays(time.getTime(), new Date().getTime())
+    : null;
+  const hoursDifference = time
+    ? differenceInHours(time.getTime(), new Date().getTime())
+    : null;
+  const minutesDifference = time
+    ? differenceInMinutes(time.getTime(), new Date().getTime())
+    : null;
+
+  const timeDifferenceInDays: null | Parameters<
+    Intl.RelativeTimeFormat["format"]
+  > =
+    daysDifference !== null && daysDifference !== 0
+      ? [daysDifference, "day"]
+      : null;
+
+  const timeDifferenceInHours: null | Parameters<
+    Intl.RelativeTimeFormat["format"]
+  > =
+    hoursDifference !== null && hoursDifference !== 0
+      ? [hoursDifference, "hour"]
+      : null;
+
+  const timeDifferenceInMinutes: null | Parameters<
+    Intl.RelativeTimeFormat["format"]
+  > =
+    minutesDifference !== null && minutesDifference !== 0
+      ? [minutesDifference, "minute"]
+      : null;
+
+  return (
+    timeDifferenceInDays ?? timeDifferenceInHours ?? timeDifferenceInMinutes
+  );
+};
+
+export const relativeTimeFormatter = new Intl.RelativeTimeFormat("pl", {
+  style: "short",
+});
