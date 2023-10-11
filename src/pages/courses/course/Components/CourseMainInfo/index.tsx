@@ -66,6 +66,7 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
   useEffect(() => {
     questionnaires.length > 0 && getReviewQuestions();
   }, [questionnaires]);
+
   return (
     <section className="course-main-info with-border">
       <Row>

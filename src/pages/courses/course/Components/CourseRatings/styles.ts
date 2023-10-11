@@ -4,11 +4,13 @@ import styled from "styled-components";
 
 export const StyledStack = styled(Stack)`
   gap: 16px;
-  margin: 16px 0px;
-  max-height: 280px;
-  overflow-y: auto;
+  margin: 16px auto;
 `;
 
 export const StyledTitle = styled(Title)`
   margin-bottom: 16px;
+`;
+
+export const PaginationContainerStyled = styled.div`
+  margin: 0 auto;
 `;
