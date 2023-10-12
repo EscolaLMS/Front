@@ -325,6 +325,10 @@ const resources = {
         BoughtUpcoming: "Bought upcoming",
         BoughtArchived: "Bought archived",
         MyWebinars: "My webinars",
+        EmptyWebinarTitle: "Start your development",
+        EmptyWebinarText:
+          "You don't have any webinars yet, but thanks to our offer you can start learning today!",
+        EmptyWebinarsBtnText: "Choose a webinar for yourself",
       },
       ResetProgressModal: {
         Continue: "Do you want to continue?",
@@ -920,6 +924,10 @@ const resources = {
         BoughtUpcoming: "Kupione nadchodzące",
         BoughtArchived: "Kupione archiwalne",
         MyWebinars: "Moje webinaria",
+        EmptyWebinarTitle: "Rozpocznij swój rozwój",
+        EmptyWebinarText:
+          "Nie masz jeszcze żadnych webinarów, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
+        EmptyWebinarsBtnText: " Wybierz webinary dla siebie",
       },
       ResetProgressModal: {
         Continue: "Czy chcesz kontynuować?",
