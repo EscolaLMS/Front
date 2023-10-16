@@ -46,7 +46,9 @@ export const CourseRatingProvider = ({
     useState<CourseRatingsContextProps["questionId"]>(null);
   const { id } = useParams<{ id: string }>();
   const firstQuestionnaire = questionnaires?.at(0);
-  const firstQuestion = firstQuestionnaire?.questions?.at(0);
+  const firstQuestion = firstQuestionnaire?.questions?.find(
+    ({ type }) => type === QuestionType.RATE
+  );
   const reviewId = getCourseQuestionnaireReviewQuestion({
     questionnaires,
     questionnaireId,
