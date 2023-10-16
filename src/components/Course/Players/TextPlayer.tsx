@@ -22,6 +22,13 @@ const TextPlayerStyles = styled.div`
   h5 {
     font-size: 0.9em;
   }
+  .resources-container {
+    padding: 24px 0;
+    margin-top: 24px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: ${({ theme }) => theme.primaryColor};
+  }
 `;
 
 const TextPlayer: FunctionComponent<{
@@ -30,6 +37,7 @@ const TextPlayer: FunctionComponent<{
   resources?: API.TopicResource[];
 }> = ({ value, onLoad, resources }): ReactElement => {
   const { t } = useTranslation();
+  const isResources = resources && resources.length > 0;
 
   useEffect(() => {
     value && onLoad && onLoad();
@@ -38,13 +46,13 @@ const TextPlayer: FunctionComponent<{
   return (
     <TextPlayerStyles>
       {value && <MarkdownRenderer>{value}</MarkdownRenderer>}
-      {resources && (
-        <>
+      {isResources && (
+        <div className="resources-container">
           <Text>{t("CoursePage.Resources")}</Text>
           {resources.map(({ name, url }) => (
             <Download href={url} fileName={name} />
           ))}
-        </>
+        </div>
       )}
     </TextPlayerStyles>
   );
