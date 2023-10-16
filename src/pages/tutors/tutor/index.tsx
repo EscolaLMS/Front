@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Preloader from "@/components/Preloader";
@@ -21,8 +21,13 @@ import Container from "@/components/Container";
 import { Tag } from "@escolalms/sdk/lib/types/api";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { APP_CONFIG } from "@/config/app";
 
 const StyledTutor = styled.section`
+  .tutor-avatar {
+    width: 100%;
+    max-width: 100%;
+  }
   .tutor-courses {
     margin-top: 120px;
     @media (max-width: 991px) {
@@ -51,7 +56,7 @@ const TutorPage = () => {
 
   useEffect(() => {
     fetchTutor(Number(id));
-    //@ts-ignore
+    // @ts-ignore
     fetchCourses({ "authors[]": [Number(id)] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -72,14 +77,20 @@ const TutorPage = () => {
             <div className="profile-box">
               <Row align={"start"}>
                 <Col lg={3}>
-                  {tutor.value.path_avatar && (
-                    <div className="image">
+                  <div className="image">
+                    {tutor.value.path_avatar ? (
                       <ResponsiveImage
                         path={tutor.value.path_avatar}
                         srcSizes={[355, 355 * 2]}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <img
+                        className="tutor-avatar"
+                        src={APP_CONFIG.tutorPlaceholderPath}
+                        alt={"Tutor avatar"}
+                      />
+                    )}
+                  </div>
                 </Col>
                 <Col lg={8}>
                   <div className="content">
