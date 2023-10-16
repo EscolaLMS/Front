@@ -9,6 +9,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
 
 import { API } from "@escolalms/sdk/lib";
+import { APP_CONFIG } from "@/config/app";
 
 interface CourseAuthorProps {
   courseData: API.Course;
@@ -19,6 +20,7 @@ const API_URL =
 
 export const CourseAuthor: FC<CourseAuthorProps> = ({ courseData }) => {
   const { t } = useTranslation();
+
   return (
     <section className="course-tutor with-border padding-right">
       <Link to={`/tutors/${courseData.author_id}`}>
@@ -26,9 +28,9 @@ export const CourseAuthor: FC<CourseAuthorProps> = ({ courseData }) => {
           mobile={isMobile}
           avatar={{
             alt: `${courseData.author.first_name} ${courseData.author.last_name}`,
-            src:
-              `${API_URL}/api/images/img?path=${courseData.author.path_avatar}` ||
-              "",
+            src: courseData.author.path_avatar
+              ? `${API_URL}/api/images/img?path=${courseData.author.path_avatar}`
+              : APP_CONFIG.tutorPlaceholderPath,
           }}
           rating={{
             ratingValue: 4.1,

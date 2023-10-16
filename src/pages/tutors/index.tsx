@@ -14,6 +14,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import { APP_CONFIG } from "@/config/app";
 
 const StyledTitleWrapper = styled.div`
   margin-bottom: 10px;
@@ -76,7 +77,7 @@ const TutorsPage = () => {
                         ) : (
                           <img
                             className="tutor-card__avatar"
-                            src={`/images/tutorblind.png`}
+                            src={APP_CONFIG.tutorPlaceholderPath}
                             alt="tutor_avatar"
                           />
                         )}
