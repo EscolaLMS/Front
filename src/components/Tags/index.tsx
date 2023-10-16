@@ -7,7 +7,6 @@ const StyledDiv = styled("div")`
   align-self: end;
   display: flex;
   gap: 10px;
-  z-index: 200;
   flex-wrap: wrap;
   justify-content: flex-end;
 
@@ -16,19 +15,24 @@ const StyledDiv = styled("div")`
 
     .tags-menu {
       position: absolute;
+      top: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
-      text-align: right;
-      gap: 10px;
-      top: 0%;
-      right: 0;
+      text-align: left;
+      gap: 4px;
       list-style: none;
-      padding-top: 12px;
-      height: 100px;
+      padding: 4px 0;
+      height: fit-content;
+      max-height: 230px;
       overflow-y: scroll;
       background-color: ${(props) => props.theme.primaryColor};
-      max-width: 150px;
-      width: 100%;
+      width: fit-content;
+      margin: 0;
+
+      li {
+        width: 100%;
+      }
     }
   }
 
@@ -45,7 +49,7 @@ export interface TagsProps {
 const Tags = (props: TagsProps) => {
   const { tags, onTagClick } = props;
   const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const firstTags = tags ? [...tags].splice(0, 2) : [];
   const otherTags = tags ? [...tags].splice(2) : [];
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -77,7 +81,10 @@ const Tags = (props: TagsProps) => {
         );
       })}
       {otherTags.length > 0 && (
-        <div className="tags-menu-container" onMouseLeave={() => setOpen(true)}>
+        <div
+          className="tags-menu-container"
+          onMouseLeave={() => setOpen(false)}
+        >
           <Badge
             className="badge"
             color={theme.primaryColor}
