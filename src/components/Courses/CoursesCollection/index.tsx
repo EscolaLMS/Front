@@ -29,6 +29,7 @@ import { Row, Col } from "react-grid-system";
 import { COURSES_ON_PAGE } from "@/config/courses";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { getSubtitleComponent } from "@/components/Subtitle";
 
 type updateParamType =
   | { key: "tag"; value: string | undefined }
@@ -528,18 +529,11 @@ const CoursesCollection: React.FC = () => {
                               }
                             />
                           }
-                          subtitle={
-                            item.subtitle ? (
-                              <Text size="12">
-                                <Link
-                                  style={{ color: theme.primaryColor }}
-                                  to={`/courses/${item.id}`}
-                                >
-                                  <strong>{item.subtitle}</strong>
-                                </Link>
-                              </Text>
-                            ) : undefined
-                          }
+                          subtitle={getSubtitleComponent({
+                            subtitle: item.subtitle,
+                            linkTo: `/courses/${item.id}`,
+                            textLength: 29,
+                          })}
                           title={
                             <Link to={`/course/${item.id}`} className="title">
                               <Title level={4} as="h2">

@@ -38,7 +38,7 @@ const StyledDiv = styled("div")<{ isOpen?: boolean }>`
 `;
 
 export interface CategoriesProps {
-  categories: EscolaLms.Categories.Models.Category[];
+  categories: EscolaLms.Categories.Models.Category[] | undefined;
   onCategoryClick?: (id: number) => void;
 }
 

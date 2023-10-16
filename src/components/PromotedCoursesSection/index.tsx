@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
@@ -17,6 +16,7 @@ import { Course, PaginatedMetaList, Tag } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
 import Tags from "@/components/Tags";
+import { getSubtitleComponent } from "../Subtitle";
 
 const StyledSection = styled.section`
   margin: 40px 0;
@@ -81,9 +81,7 @@ const PromotedCoursesSection: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { fetchCourses } = useContext(EscolaLMSContext);
   const history = useHistory();
-  const theme = useTheme();
   const { t } = useTranslation();
-  const subtitleColor = theme.mode === "dark" ? theme.white : theme.black;
 
   useEffect(() => {
     fetchCourses({
@@ -142,16 +140,11 @@ const PromotedCoursesSection: React.FC = () => {
                         )}
                       </Link>
                     }
-                    subtitle={
-                      <Text size="12" style={{ lineHeight: 1.2 }}>
-                        <Link
-                          style={{ color: subtitleColor }}
-                          to={`/courses/${course.id}`}
-                        >
-                          <strong>{course.title}</strong>
-                        </Link>
-                      </Text>
-                    }
+                    subtitle={getSubtitleComponent({
+                      subtitle: course.title,
+                      linkTo: `/courses/${course.id}`,
+                      textLength: 29,
+                    })}
                   />
                 </CourseCardWrapper>
               </Col>
