@@ -748,6 +748,7 @@ const resources = {
         SelectQuestionnaire: "Wybierz ankietę...",
         SelectQuestion: "Wybierz pytanie...",
         Resources: "Zasoby",
+        Questionnaires: "Ankiety",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",

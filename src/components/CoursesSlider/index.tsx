@@ -1,7 +1,5 @@
-//@ts-nocheck - TODO: remove when Tag type will be fixed in sdk
 import React, { useState } from "react";
-import styled, { useTheme } from "styled-components";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import styled from "styled-components";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
@@ -19,6 +17,7 @@ import { Col, Row } from "react-grid-system";
 import { Title } from "@escolalms/components";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { getSubtitleComponent } from "@/components/Subtitle";
 
 type Props = {
   courses: API.Course[];
@@ -100,7 +99,6 @@ const CoursesSlider: React.FC<Props> = ({
 }) => {
   const [dots] = useState(true);
   const history = useHistory();
-  const theme = useTheme();
   const { t } = useTranslation();
 
   return (
@@ -163,18 +161,10 @@ const CoursesSlider: React.FC<Props> = ({
                         }
                       />
                     }
-                    subtitle={
-                      item.subtitle ? (
-                        <Text size="12">
-                          <Link
-                            style={{ color: theme.primaryColor }}
-                            to={`/courses/${item.id}`}
-                          >
-                            <strong>{item.subtitle}</strong>
-                          </Link>
-                        </Text>
-                      ) : undefined
-                    }
+                    subtitle={getSubtitleComponent({
+                      subtitle: item.subtitle,
+                      linkTo: `/courses/${item.id}`,
+                    })}
                     title={
                       <Link to={`/courses/${item.id}`} className="title">
                         <Title level={4} as="h2">
@@ -263,18 +253,10 @@ const CoursesSlider: React.FC<Props> = ({
                       }
                     />
                   }
-                  subtitle={
-                    item.subtitle ? (
-                      <Text size="12">
-                        <Link
-                          style={{ color: theme.primaryColor }}
-                          to={`/courses/${item.id}`}
-                        >
-                          <strong>{item.subtitle}</strong>
-                        </Link>
-                      </Text>
-                    ) : undefined
-                  }
+                  subtitle={getSubtitleComponent({
+                    subtitle: item.subtitle,
+                    linkTo: `/courses/${item.id}`,
+                  })}
                   title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
                   categories={
                     <CategoriesBreadCrumbs

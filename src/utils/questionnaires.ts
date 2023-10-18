@@ -1,4 +1,4 @@
-import { QuestionnaireModelType } from "@/types/questionnaire";
+import { QuestionType, QuestionnaireModelType } from "@/types/questionnaire";
 import { API } from "@escolalms/sdk/lib";
 import { t } from "i18next";
 import { toast } from "react-toastify";
@@ -113,4 +113,19 @@ export const getAverageRate = (reviewQuestions: API.QuestionnaireStars[]) => {
     reviewQuestions.reduce((sum, item) => sum + item.avg_rate, 0) /
     reviewQuestions.length;
   return avgRate.toFixed(1);
+};
+
+export const getCourseQuestionnaireReviewQuestion = ({
+  questionnaires,
+  questionnaireId,
+  questionType,
+}: {
+  questionnaires: API.Questionnaire[];
+  questionnaireId: number | null;
+  questionType: QuestionType;
+}) => {
+  return questionnaires
+    ?.find((element) => element.id === questionnaireId)
+    ?.questions.filter((item) => item.public_answers)
+    .find((item) => item.type === questionType)?.id;
 };
