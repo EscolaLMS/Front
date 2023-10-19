@@ -48,24 +48,21 @@ const WebinarSidebarButtons = () => {
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isPast(new Date(webinarObj?.deadline))
+      webinarObj?.is_ended
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT_AND_WEBINAR_FINISHED);
       // If user bought product
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isPast(new Date(webinarObj.deadline))
+      webinarObj?.in_coming
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT);
       // If user bought product and webinar started
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isAfter(new Date(webinarObj?.deadline), new Date())
+      webinarObj?.is_started
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT_AND_WEBINAR_STARTED);
       // If user logged and product available and buyable
@@ -141,10 +138,11 @@ const WebinarSidebarButtons = () => {
       )}
 
       {/* MEET MODAL */}
-      {showMeetModal && (
+      {showMeetModal && webinarObj?.id && (
         <WebinarMeetModal
           visible={showMeetModal}
           onClose={() => setShowMeetModal(false)}
+          webinarId={webinarObj.id}
         />
       )}
     </>

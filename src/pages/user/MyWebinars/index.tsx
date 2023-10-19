@@ -21,9 +21,14 @@ const MyWebinarsStyled = styled.section`
 `;
 
 const MyWebinarsPage = () => {
+  const { userWebinars, fetchUserWebinars } = useContext(EscolaLMSContext);
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    fetchUserWebinars();
+  }, [fetchUserWebinars]);
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -32,23 +37,47 @@ const MyWebinarsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const upcomingWebinars = useMemo(
+    () =>
+      userWebinars.list?.filter(
+        (webinar) => webinar.in_coming || webinar.is_started
+      ) || [],
+    [userWebinars.list]
+  );
+
+  const pastWebinars = useMemo(
+    () => userWebinars.list?.filter((webinar) => webinar.is_ended) || [],
+    [userWebinars.list]
+  );
+
   const myTabs = useMemo(
     () => ({
       tabs: [
         {
           label: t("MyProfilePage.Upcoming"),
           key: 1,
-          component: <ProfileWebinars type={WebinarStatus.UPCOMING} />,
+          component: (
+            <ProfileWebinars
+              webinars={upcomingWebinars}
+              loading={userWebinars.loading}
+            />
+          ),
         },
         {
           label: t("MyProfilePage.Archived"),
           key: 2,
-          component: <ProfileWebinars type={WebinarStatus.PAST} />,
+          component: (
+            <ProfileWebinars
+              webinars={pastWebinars}
+              loading={userWebinars.loading}
+              isPast
+            />
+          ),
         },
       ],
       defaultActiveKey: 1,
     }),
-    [t]
+    [pastWebinars, t, upcomingWebinars, userWebinars.loading]
   );
 
   return (

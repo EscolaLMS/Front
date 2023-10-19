@@ -1,38 +1,36 @@
-import { memo, useContext, useEffect, useMemo } from "react";
+import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import { WebinarStatus } from "../../../pages/user/MyWebinars";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ContentLoader from "@/components/ContentLoader";
 import ProfileNoData from "../NoData";
 import routes from "../../Routes/routes";
+import WebinarsContainerItem from "../../Webinars/WebinarsContainer/Items/Item";
+import { API } from "@escolalms/sdk/lib";
+import { ProfileWebinarItemFooter } from "./ItemFooter";
+import { ProfileWebinarItemActions } from "./ItemActions";
+import WebinarMeetModal from "@/components/Webinar/WebinarMeetModal";
 
 interface ProfileWebinarsProps {
-  type: WebinarStatus;
+  webinars: API.Webinar[];
+  loading: boolean;
+  isPast?: boolean;
 }
 
-const ProfileWebinars = ({ type }: ProfileWebinarsProps) => {
-  const { userWebinars, fetchUserWebinars } = useContext(EscolaLMSContext);
+const ProfileWebinars = ({
+  webinars,
+  loading,
+  isPast,
+}: ProfileWebinarsProps) => {
+  const [webinarJoinId, setWebinarJoinId] = useState<number | undefined>(
+    undefined
+  );
   const { t } = useTranslation();
 
-  const webinarsData = useMemo(
-    () =>
-      userWebinars.list?.filter((webinar) =>
-        type === WebinarStatus.STARTED || type === WebinarStatus.UPCOMING
-          ? webinar.in_coming || webinar.is_started
-          : webinar.is_ended
-      ) || [],
-    [type, userWebinars.list]
-  );
-
-  useEffect(() => {
-    fetchUserWebinars();
-  }, [fetchUserWebinars]);
-
-  if (userWebinars.loading) {
+  if (loading) {
     return <ContentLoader />;
   }
-  if (webinarsData.length === 0) {
+
+  if (webinars.length === 0) {
     return (
       <ProfileNoData
         title={t("MyProfilePage.EmptyWebinarTitle")}
@@ -48,11 +46,28 @@ const ProfileWebinars = ({ type }: ProfileWebinarsProps) => {
         gap: "30px 0",
       }}
     >
-      {webinarsData.map((webinar) => (
+      {webinars.map((webinar) => (
         <Col key={webinar.id} xs={12} md={6} lg={4}>
-          {webinar.name}
+          <WebinarsContainerItem
+            webinar={webinar}
+            actions={
+              <ProfileWebinarItemActions
+                webinar={webinar}
+                onJoin={() => setWebinarJoinId(webinar.id)}
+              />
+            }
+            footer={<ProfileWebinarItemFooter webinar={webinar} />}
+          />
         </Col>
       ))}
+      {/* MEET MODAL */}
+      {!!webinarJoinId && (
+        <WebinarMeetModal
+          visible={!!webinarJoinId}
+          onClose={() => setWebinarJoinId(undefined)}
+          webinarId={webinarJoinId}
+        />
+      )}
     </Row>
   );
 };

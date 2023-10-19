@@ -4,29 +4,34 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { JitsyData } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
 import { WebinarMeetModalStyles } from "./WebinarMeetModalStyles";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onClose: () => void;
   visible: boolean;
+  webinarId: number;
 }
 
-const WebinarMeetModal = ({ onClose, visible }: Props) => {
+const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
   const [webinarMeetData, setWebinarMeetData] = useState<JitsyData | null>(
     null
   );
   const [loading, setLoading] = useState(false);
-  const {
-    webinar: { value: webinarObj },
-    generateWebinarJitsy,
-  } = useContext(EscolaLMSContext);
+  const { generateWebinarJitsy } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getMeetUrl = async () => {
       setLoading(true);
-      if (webinarObj?.id) {
-        const res = await generateWebinarJitsy(webinarObj.id);
+      if (webinarId) {
+        const res = await generateWebinarJitsy(webinarId);
         if (res.success) {
           setWebinarMeetData((res as { data: JitsyData }).data);
+        }
+        if (!res.success) {
+          toast.error(t("WebinarPage.ErrorWhileGeneratingUrl"));
+          onClose();
         }
       }
       setLoading(false);
@@ -34,7 +39,7 @@ const WebinarMeetModal = ({ onClose, visible }: Props) => {
 
     getMeetUrl();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [webinarId]);
 
   return (
     <Modal

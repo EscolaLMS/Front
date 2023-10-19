@@ -435,6 +435,10 @@ const Navbar = () => {
                     value: "/user/my-consultations",
                   },
                   {
+                    label: t("Navbar.MyWebinars"),
+                    value: "/user/my-webinars",
+                  },
+                  {
                     label: t("Navbar.MyStationaryEvents"),
                     value: "/user/my-stationary-events",
                   },
