@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Button, Text, Title } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const Styled404 = styled.div`
   height: 100vh;
@@ -30,7 +31,7 @@ const Custom404 = () => {
           <div className="content">
             <Title level={3}>{t("Custom404Page.Info")}</Title>
             <Text>{t("Custom404Page.NotFound")}</Text>
-            <Button onClick={() => history.push("/courses")}>
+            <Button onClick={() => history.push(routeRoutes.home)}>
               {t("Home")}
             </Button>
           </div>

@@ -11,6 +11,7 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import ProfileAsideCollapse from "../ProfileAsideCollapse";
 import AvatarUpload from "../AvatarUpload";
+import routeRoutes from "@/components/Routes/routes";
 
 type NavigationTab = {
   title: string;
@@ -231,53 +232,56 @@ const ProfileAside: React.FC = () => {
     );
   }, [progress]);
 
-  const mainTabs: NavigationTab[] = [
-    {
-      key: "COURSES",
-      title: t("MyProfilePage.MyCourses"),
-      url: "/user/my-profile",
-    },
-    {
-      key: "CONSULTATIONS",
-      title: t("MyProfilePage.MyConsultations"),
-      url: "/user/my-consultations",
-    },
-    {
-      key: "WEBINARS",
-      title: t("MyProfilePage.MyWebinars"),
-      url: "/user/my-webinars",
-    },
-    {
-      key: "EVENTS",
-      title: t("MyProfilePage.MyStationaryEvents"),
-      url: "/user/my-stationary-events",
-    },
-    {
-      key: "TASKS",
-      title: t("MyProfilePage.MyTasks"),
-      url: "/user/my-tasks",
-    },
-    {
-      key: "BOOKMARKS",
-      title: t("MyProfilePage.MyBookmarks"),
-      url: "/user/my-bookmarks",
-    },
-    {
-      key: "ORDERS",
-      title: t("MyProfilePage.OrdersHistory"),
-      url: "/user/my-orders",
-    },
-    {
-      key: "NOTIFICATIONS",
-      title: t("MyProfilePage.Notifications"),
-      url: "/user/my-notifications",
-    },
-    {
-      key: "EDIT",
-      title: t("MyProfilePage.EditData"),
-      url: "/user/my-data",
-    },
-  ];
+  const mainTabs: NavigationTab[] = useMemo(
+    () => [
+      {
+        key: "COURSES",
+        title: t("MyProfilePage.MyCourses"),
+        url: routeRoutes.myProfile,
+      },
+      {
+        key: "CONSULTATIONS",
+        title: t("MyProfilePage.MyConsultations"),
+        url: routeRoutes.myConsultations,
+      },
+      {
+        key: "WEBINARS",
+        title: t("MyProfilePage.MyWebinars"),
+        url: routeRoutes.myWebinars,
+      },
+      {
+        key: "EVENTS",
+        title: t("MyProfilePage.MyStationaryEvents"),
+        url: routeRoutes.myStationaryEvents,
+      },
+      {
+        key: "TASKS",
+        title: t("MyProfilePage.MyTasks"),
+        url: routeRoutes.myTasks,
+      },
+      {
+        key: "BOOKMARKS",
+        title: t("MyProfilePage.MyBookmarks"),
+        url: routeRoutes.myBookmarks,
+      },
+      {
+        key: "ORDERS",
+        title: t("MyProfilePage.OrdersHistory"),
+        url: routeRoutes.myOrders,
+      },
+      {
+        key: "NOTIFICATIONS",
+        title: t("MyProfilePage.Notifications"),
+        url: routeRoutes.myNotifications,
+      },
+      {
+        key: "EDIT",
+        title: t("MyProfilePage.EditData"),
+        url: routeRoutes.myData,
+      },
+    ],
+    [t]
+  );
 
   return (
     <StyledAside opened={menuOpened}>
@@ -320,7 +324,11 @@ const ProfileAside: React.FC = () => {
             ))}
           </nav>
           <div className="logout-wrapper">
-            <button onClick={() => logout().then(() => history.push("/"))}>
+            <button
+              onClick={() =>
+                logout().then(() => history.push(routeRoutes.home))
+              }
+            >
               <Text>{t<string>("MyProfilePage.Logout")}</Text>
             </button>
           </div>

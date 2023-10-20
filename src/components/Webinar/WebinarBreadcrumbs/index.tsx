@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import routeRoutes from "@/components/Routes/routes";
 
 const WebinarBreadcrumbs = () => {
   const { webinar } = useContext(EscolaLMSContext);
@@ -15,8 +16,8 @@ const WebinarBreadcrumbs = () => {
   return (
     <Breadcrumbs
       items={[
-        <Link to="/">{t("Home")}</Link>,
-        <Link to="/webinars">{t("Menu.Webinars")}</Link>,
+        <Link to={routeRoutes.home}>{t("Home")}</Link>,
+        <Link to={routeRoutes.webinars}>{t("Menu.Webinars")}</Link>,
         <Text size="12">{webinar.value.name}</Text>,
       ]}
     />

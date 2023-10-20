@@ -30,6 +30,8 @@ const routeRoutes = {
   webinars: "/webinars",
   webinar: "/webinar/:id",
   myWebinars: "/user/my-webinars",
+  logout: "logout",
+  privacyPolicy: "/privacy-policy",
 };
 
 export default routeRoutes;

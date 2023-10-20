@@ -13,8 +13,9 @@ import { HeaderCard } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components";
 import Container from "@/components/Container";
-import { useLanguage } from "../../../hooks/useLanguage";
-import { useCart } from "../../../hooks/useCart";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useCart } from "@/hooks/useCart";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -215,7 +216,7 @@ const Navbar = () => {
       children: [
         {
           title: (
-            <Link to="/">
+            <Link to={routeRoutes.home}>
               <Text noMargin bold>
                 {t("Menu.HomePage")}
               </Text>
@@ -225,7 +226,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/courses">
+            <Link to={routeRoutes.courses}>
               <Text noMargin bold>
                 {t("Menu.Courses")}
               </Text>
@@ -235,7 +236,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/tutors">
+            <Link to={routeRoutes.tutors}>
               <Text noMargin bold>
                 {t("Menu.Tutors")}
               </Text>
@@ -245,7 +246,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/consultations">
+            <Link to={routeRoutes.consultations}>
               <Text noMargin bold>
                 {t("Menu.Consultations")}
               </Text>
@@ -255,7 +256,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/events">
+            <Link to={routeRoutes.events}>
               <Text noMargin bold>
                 {t("Menu.Events")}
               </Text>
@@ -265,7 +266,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/webinars">
+            <Link to={routeRoutes.webinars}>
               <Text noMargin bold>
                 {t("Menu.Webinars")}
               </Text>
@@ -285,7 +286,7 @@ const Navbar = () => {
       children: [
         {
           title: (
-            <Link to="/user/my-profile">
+            <Link to={routeRoutes.myProfile}>
               <Text noMargin bold>
                 {t("Menu.Profile")}
               </Text>
@@ -295,7 +296,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/user/my-orders">
+            <Link to={routeRoutes.myOrders}>
               <Text noMargin bold>
                 {t("Menu.Orders")}
               </Text>
@@ -305,7 +306,7 @@ const Navbar = () => {
         },
         {
           title: (
-            <Link to="/user/my-notifications">
+            <Link to={routeRoutes.myNotifications}>
               <Text noMargin bold>
                 {t("Menu.Notifications")}
               </Text>
@@ -318,14 +319,18 @@ const Navbar = () => {
     {
       title: user ? (
         <CustomMobileMenuItem>
-          <Link to="/user/my-profile">
+          <Link to={routeRoutes.myProfile}>
             <Text noMargin bold>
               {user?.first_name} {user?.last_name}
             </Text>
           </Link>
         </CustomMobileMenuItem>
       ) : (
-        <Button mode={"secondary"} block onClick={() => history.push("/login")}>
+        <Button
+          mode={"secondary"}
+          block
+          onClick={() => history.push(routeRoutes.login)}
+        >
           {t<string>("Header.Login")}
         </Button>
       ),
@@ -342,7 +347,7 @@ const Navbar = () => {
             src: settings?.value?.global?.logo || Logo,
             width: 150,
             height: 50,
-            onClick: () => history.push("/"),
+            onClick: () => history.push(routeRoutes.home),
             alt: "Logo",
           }}
           menuItems={menuItems}
@@ -398,12 +403,15 @@ const Navbar = () => {
                 }
               }}
               options={[
-                { label: t("Menu.HomePage"), value: "/" },
-                { label: t("Menu.Courses"), value: "/courses" },
-                { label: t("Menu.Tutors"), value: "/tutors" },
-                { label: t("Menu.Consultations"), value: "/consultations" },
-                { label: t("Menu.Events"), value: "/events" },
-                { label: t("Menu.Webinars"), value: "/webinars" },
+                { label: t("Menu.HomePage"), value: routeRoutes.home },
+                { label: t("Menu.Courses"), value: routeRoutes.courses },
+                { label: t("Menu.Tutors"), value: routeRoutes.tutors },
+                {
+                  label: t("Menu.Consultations"),
+                  value: routeRoutes.consultations,
+                },
+                { label: t("Menu.Events"), value: routeRoutes.events },
+                { label: t("Menu.Webinars"), value: routeRoutes.webinars },
               ]}
             />
             <Dropdown
@@ -428,46 +436,49 @@ const Navbar = () => {
                     : t("Menu.Profile")
                 }
                 options={[
-                  { label: t("Navbar.MyCourses"), value: "/user/my-profile" },
-                  { label: t("Navbar.MyOrders"), value: "/user/my-orders" },
+                  {
+                    label: t("Navbar.MyCourses"),
+                    value: routeRoutes.myProfile,
+                  },
+                  { label: t("Navbar.MyOrders"), value: routeRoutes.myOrders },
                   {
                     label: t("Navbar.MyConsultations"),
-                    value: "/user/my-consultations",
+                    value: routeRoutes.myConsultations,
                   },
                   {
                     label: t("Navbar.MyWebinars"),
-                    value: "/user/my-webinars",
+                    value: routeRoutes.myWebinars,
                   },
                   {
                     label: t("Navbar.MyStationaryEvents"),
-                    value: "/user/my-stationary-events",
+                    value: routeRoutes.myStationaryEvents,
                   },
                   {
                     label: t("Navbar.MyTasks"),
-                    value: "/user/my-tasks",
+                    value: routeRoutes.myTasks,
                   },
                   {
                     label: t("Navbar.MyBookmarks"),
-                    value: "/user/my-bookmarks",
+                    value: routeRoutes.myBookmarks,
                   },
                   {
                     label: t("MyProfilePage.Notifications"),
-                    value: "/user/my-notifications",
+                    value: routeRoutes.myNotifications,
                   },
-                  { label: t("Navbar.EditProfile"), value: "/user/my-data" },
-                  { label: t("Navbar.Logout"), value: "logout" },
+                  { label: t("Navbar.EditProfile"), value: routeRoutes.myData },
+                  { label: t("Navbar.Logout"), value: routeRoutes.logout },
                 ]}
                 onChange={(e) =>
                   e.value !== "logout"
                     ? history.push(e.value)
-                    : logout().then(() => history.push("/"))
+                    : logout().then(() => history.push(routeRoutes.home))
                 }
               />
             )}
           </nav>
 
           {!!user?.avatar && (
-            <Link to="/user/my-profile">
+            <Link to={routeRoutes.myProfile}>
               <Avatar
                 src={user.avatar}
                 alt={user.first_name}
@@ -479,11 +490,11 @@ const Navbar = () => {
 
           {!user?.id && (
             <div className="not-logged-container">
-              <Link to="/login">
+              <Link to={routeRoutes.login}>
                 <Text>{t<string>("Header.Login")}</Text>
               </Link>
               <div className="divider" />
-              <Link to="/register">
+              <Link to={routeRoutes.register}>
                 <Text>{t<string>("Header.Register")}</Text>
               </Link>
             </div>
@@ -494,7 +505,7 @@ const Navbar = () => {
               <button
                 type="button"
                 className="cart-icon"
-                onClick={() => history.push("/cart")}
+                onClick={() => history.push(routeRoutes.cart)}
                 data-tooltip={String(cart.data?.items.length)}
                 aria-label={t("CoursePage.GoToCheckout")}
               >

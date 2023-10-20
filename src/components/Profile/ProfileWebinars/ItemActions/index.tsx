@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import Button from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Link } from "react-router-dom";
 
 interface Props {
   webinar: API.Webinar;
@@ -11,7 +11,6 @@ interface Props {
 export const ProfileWebinarItemActions = ({ webinar, onJoin }: Props) => {
   const isStarted = webinar.is_started;
   const { t } = useTranslation();
-  const history = useHistory();
 
   if (isStarted) {
     return (
@@ -22,11 +21,8 @@ export const ProfileWebinarItemActions = ({ webinar, onJoin }: Props) => {
   }
 
   return (
-    <Button
-      mode="secondary"
-      onClick={() => history.push(`/webinar/${webinar.id}`)}
-    >
-      {t("Show")}
-    </Button>
+    <Link to={`/webinar/${webinar.id}`}>
+      <Button mode="secondary">{t("Show")}</Button>
+    </Link>
   );
 };

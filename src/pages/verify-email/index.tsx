@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Spin, Text } from "@escolalms/components";
 import { useTheme } from "styled-components";
+import routeRoutes from "@/components/Routes/routes";
 
 const VerifyEmail: React.FC = () => {
   const { push } = useHistory();
@@ -52,7 +53,7 @@ const VerifyEmail: React.FC = () => {
 
   useEffect(() => {
     if (!hash) {
-      push("/");
+      push(routeRoutes.home);
     }
     id && hash && verifyEmail();
   }, [id, hash, verifyEmail, push]);

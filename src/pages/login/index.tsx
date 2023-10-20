@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledLoginPage = styled.div`
   min-height: calc(100vh - 583px);
@@ -51,14 +52,14 @@ const Login = () => {
               {view === "login" ? (
                 <LoginForm
                   onResetPasswordLink={() => setView("forgotPassword")}
-                  onRegisterLink={() => history.push("/register")}
+                  onRegisterLink={() => history.push(routeRoutes.register)}
                   mobile={isMobile}
                 />
               ) : (
                 <ResetPasswordForm
                   mobile={isMobile}
                   backToLogin={() => setView("login")}
-                  onRegisterLink={() => history.push("/register")}
+                  onRegisterLink={() => history.push(routeRoutes.register)}
                   return_url="#/reset-password"
                   onFirstStepSuccess={() =>
                     toast.success(t<string>("LoginPage.ForgotSuccess"))

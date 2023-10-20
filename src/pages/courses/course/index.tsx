@@ -27,6 +27,7 @@ import {
   CourseRatings,
   CourseRelated,
 } from "./Components";
+import routeRoutes from "@/components/Routes/routes";
 
 const CoursePage = () => {
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
@@ -90,8 +91,8 @@ const CoursePage = () => {
                 <Col md={12} lg={9}>
                   <Breadcrumbs
                     items={[
-                      <Link to="/">{t("Home")}</Link>,
-                      <Link to="/courses">{t("Courses")}</Link>,
+                      <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                      <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
                       <Text size="12">{course.value.title}</Text>,
                     ]}
                   />

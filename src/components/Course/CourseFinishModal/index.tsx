@@ -8,6 +8,7 @@ import RateCourse from "@/components/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { Spin } from "@escolalms/components";
 import { getQuestionnaires } from "@/utils/questionnaires";
+import routeRoutes from "@/components/Routes/routes";
 
 interface FinishModalProps {
   courseId?: number;
@@ -98,10 +99,13 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
                   {t("MyProfilePage.RateCourse")}
                 </Button>
               )}
-              <Button mode="primary" onClick={() => push("/user/my-profile")}>
+              <Button
+                mode="primary"
+                onClick={() => push(routeRoutes.myProfile)}
+              >
                 {t("Menu.Profile")}
               </Button>
-              <Button mode="primary" onClick={() => push("/courses")}>
+              <Button mode="primary" onClick={() => push(routeRoutes.courses)}>
                 {t("Menu.Courses")}
               </Button>
             </div>

@@ -14,6 +14,7 @@ import {
   StyledMobileConsultationSidebar,
 } from "@/components/Consultation/style";
 import { isMobile } from "react-device-detect";
+import routeRoutes from "@/components/Routes/routes";
 
 interface ConsultationSidebarProps {
   consultation: Consultation | undefined;
@@ -58,7 +59,11 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
             {isPast(new Date(consultation?.active_to || "")) ? (
               <Text>{t("ConsultationPage.IsFinished")}</Text>
             ) : consultationInCart ? (
-              <Button mode="secondary" block onClick={() => push("/cart")}>
+              <Button
+                mode="secondary"
+                block
+                onClick={() => push(routeRoutes.cart)}
+              >
                 {t("ConsultationPage.GoToCheckout")}
               </Button>
             ) : user.value && consultation?.product?.purchasable ? (
@@ -68,7 +73,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
                 mode="secondary"
                 onClick={() =>
                   addToCart(Number(consultation.product?.id)).then(() =>
-                    push("/cart")
+                    push(routeRoutes.cart)
                   )
                 }
               >
@@ -123,7 +128,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
         {isPast(new Date(consultation?.active_to || "")) ? (
           <Text>{t("ConsultationPage.IsFinished")}</Text>
         ) : consultationInCart ? (
-          <Button mode="secondary" onClick={() => push("/cart")}>
+          <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
             {t("ConsultationPage.GoToCheckout")}
           </Button>
         ) : user.value && consultation?.product?.purchasable ? (
@@ -132,7 +137,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
             mode="secondary"
             onClick={() =>
               addToCart(Number(consultation.product?.id)).then(() =>
-                push("/cart")
+                push(routeRoutes.cart)
               )
             }
           >

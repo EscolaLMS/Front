@@ -18,6 +18,7 @@ import ConsultationsSlider from "@/components/ConsultationsSlider";
 import Layout from "@/components/_App/Layout";
 import Container from "../Container";
 import ContentLoader from "@/components/ContentLoader";
+import routeRoutes from "@/components/Routes/routes";
 
 const Consultation = () => {
   const { t } = useTranslation();
@@ -53,8 +54,10 @@ const Consultation = () => {
             <Col xs={12}>
               <Breadcrumbs
                 items={[
-                  <Link to="/">{t("Home")}</Link>,
-                  <Link to="/consultations">{t("Consultations")}</Link>,
+                  <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                  <Link to={routeRoutes.consultations}>
+                    {t("Consultations")}
+                  </Link>,
                   <Text size="12">{consultation?.value?.name}</Text>,
                 ]}
               />

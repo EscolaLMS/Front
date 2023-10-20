@@ -11,6 +11,7 @@ import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { formatPrice } from "@/utils/index";
 import ProductPrices from "@/components/ProductPrices";
+import routeRoutes from "@/components/Routes/routes";
 
 enum ButtonStatus {
   FINISHED,
@@ -82,7 +83,7 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
         <Text>{t("EventPage.IsFinished")}</Text>
       )}
       {buttonStatus === ButtonStatus.IN_CART && (
-        <Button mode="secondary" onClick={() => push("/cart")}>
+        <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
           {t("EventPage.GoToCheckout")}
         </Button>
       )}
@@ -99,7 +100,9 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
           loading={cart.loading}
           mode="secondary"
           onClick={() =>
-            addToCart(Number(event.product?.id)).then(() => push("/cart"))
+            addToCart(Number(event.product?.id)).then(() =>
+              push(routeRoutes.cart)
+            )
           }
         >
           {t("Buy now")}
@@ -159,7 +162,11 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
         </div>
         <div>
           {eventInCart ? (
-            <Button block mode="secondary" onClick={() => push("/cart")}>
+            <Button
+              block
+              mode="secondary"
+              onClick={() => push(routeRoutes.cart)}
+            >
               {t("EventPage.GoToCheckout")}
             </Button>
           ) : user.value && event.product ? (
@@ -167,7 +174,9 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
               block
               mode="secondary"
               onClick={() =>
-                addToCart(Number(event.product?.id)).then(() => push("/cart"))
+                addToCart(Number(event.product?.id)).then(() =>
+                  push(routeRoutes.cart)
+                )
               }
             >
               {t("Buy now")}

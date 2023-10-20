@@ -23,6 +23,7 @@ import { StyledCourse } from "./CourseProgramLessonsStyles";
 import CourseFinishModal from "./CourseFinishModal";
 import CourseProgramPlayer from "./CourseProgramPlayer";
 import { BookmarkableType } from "@escolalms/sdk/lib/types/api";
+import routeRoutes from "@/components/Routes/routes";
 
 export const CourseProgramLessons: React.FC<{
   program: API.CourseProgram;
@@ -88,7 +89,7 @@ export const CourseProgramLessons: React.FC<{
         goTo={`/course/${program.id}`}
         goToText={t("CoursePage.BackToCourse")}
         alternativeButton={{
-          goTo: "/courses",
+          goTo: routeRoutes.courses,
           goToText: t("CoursePage.SeeOtherCourses"),
         }}
       />
@@ -100,8 +101,8 @@ export const CourseProgramLessons: React.FC<{
       <Container>
         <Breadcrumbs
           items={[
-            <Link to="/">{t("Home")}</Link>,
-            <Link to="/courses">{t("Courses")}</Link>,
+            <Link to={routeRoutes.home}>{t("Home")}</Link>,
+            <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
             <Text size="12">{program.title}</Text>,
             <Text size="12">{topic.title}</Text>,
           ]}

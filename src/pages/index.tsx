@@ -16,6 +16,7 @@ import Container from "@/components/Container";
 import NewestCourses from "@/components/NewestCourses";
 import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
+import routeRoutes from "@/components/Routes/routes";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -121,7 +122,7 @@ const Index = () => {
                       srcSizes={[500, 750, 1000]}
                     />
                   }
-                  handleBtn={() => history.push("/courses")}
+                  handleBtn={() => history.push(routeRoutes.courses)}
                 />
               </Container>
             )}

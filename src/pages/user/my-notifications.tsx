@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
@@ -28,24 +27,18 @@ const NotificationsContainer = styled.div`
 
 const MyNotificationsPage = () => {
   const {
-    user,
     fetchNotifications,
     notifications,
     readNotify,
     readAllNotifications,
   } = useContext(EscolaLMSContext);
-  const history = useHistory();
   const { t } = useTranslation();
   const meta = notifications.list?.meta;
   useEffect(() => {
-    if (!user.loading && !user.value) {
-      history.push("/login");
-    } else {
-      fetchNotifications({
-        page: 1,
-        per_page: 10,
-      });
-    }
+    fetchNotifications({
+      page: 1,
+      per_page: 10,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,7 +82,7 @@ const MyNotificationsPage = () => {
             </div>
           ))}
       </NotificationsContainer>
-      {meta && meta.total > meta.per_page && (
+      {meta && meta.total > Number(meta.per_page) && (
         <Pagination
           currentPage={meta.current_page}
           total={meta.total}

@@ -6,6 +6,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import Container from "@/components/Container";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import routeRoutes from "@/components/Routes/routes";
 
 const CartSuccessPageStyled = styled.section`
   .cart-success-container {
@@ -57,10 +58,13 @@ const CartSuccess = () => {
             <h2 className="cart-success-title">{t("Cart.ThankYouTitle")}</h2>
             <p className="cart-success-text">{t("Cart.ThankYouText")}</p>
             <div className="cart-success-buttons">
-              <Button mode="primary" onClick={() => push("/user/my-profile")}>
+              <Button
+                mode="primary"
+                onClick={() => push(routeRoutes.myProfile)}
+              >
                 {t("Menu.Profile")}
               </Button>
-              <Button mode="primary" onClick={() => push("/courses")}>
+              <Button mode="primary" onClick={() => push(routeRoutes.courses)}>
                 {t("Menu.Courses")}
               </Button>
             </div>

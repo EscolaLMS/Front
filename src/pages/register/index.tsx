@@ -14,6 +14,7 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledRegisterPage = styled.div`
   min-height: calc(100vh - 500px);
@@ -88,25 +89,29 @@ const RegisterPage = () => {
     "AdditionalFields.Privacy Policy": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <StyledLink to="/privacy-policy">{t("PrivacyPolicy")}</StyledLink>
+        <StyledLink to={routeRoutes.privacyPolicy}>
+          {t("PrivacyPolicy")}
+        </StyledLink>
       </Text>
     ),
     "AdditionalFields.Terms of Service": (
       <Text size="14">
         {t("AcceptCheckbox")}{" "}
-        <StyledLink to="/privacy-policy">{t("TermsOfService")}</StyledLink>
+        <StyledLink to={routeRoutes.privacyPolicy}>
+          {t("TermsOfService")}
+        </StyledLink>
       </Text>
     ),
   };
   if (token) {
     socialAuthorize(token);
     setTimeout(() => {
-      history.push("/");
+      history.push(routeRoutes.home);
     }, 1000);
   }
 
   if (!user.loading && !token && user.value) {
-    history.push("/");
+    history.push(routeRoutes.home);
   }
 
   useEffect(() => {
@@ -177,7 +182,7 @@ const RegisterPage = () => {
                   return_url={"#/email-verify"}
                   fieldLabels={fieldLabels}
                   mobile={isMobile}
-                  onLoginLink={() => history.push("/login")}
+                  onLoginLink={() => history.push(routeRoutes.login)}
                   onSuccess={(
                     _: any,
                     values: { email: SetStateAction<string> }

@@ -22,6 +22,7 @@ import { Tag } from "@escolalms/sdk/lib/types/api";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { APP_CONFIG } from "@/config/app";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledTutor = styled.section`
   .tutor-avatar {
@@ -66,8 +67,8 @@ const TutorPage = () => {
         <Container>
           <Breadcrumbs
             items={[
-              <Link to="/">{t<string>("Home")}</Link>,
-              <Link to="/tutors">{t<string>("Tutors")}</Link>,
+              <Link to={routeRoutes.home}>{t<string>("Home")}</Link>,
+              <Link to={routeRoutes.tutors}>{t<string>("Tutors")}</Link>,
               <Text size="12">{`${tutor.value?.first_name || ""} ${
                 tutor.value?.last_name || ""
               }`}</Text>,

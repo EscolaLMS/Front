@@ -17,6 +17,7 @@ import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
 import Tags from "@/components/Tags";
 import { getSubtitleComponent } from "../Subtitle";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledSection = styled.section`
   margin: 40px 0;
@@ -101,7 +102,10 @@ const PromotedCoursesSection: React.FC = () => {
           <Title level={3} as="h1">
             {t<string>("Homepage.AwardedCoursesTitle")}
           </Title>
-          <Button mode="outline" onClick={() => history.push("/courses")}>
+          <Button
+            mode="outline"
+            onClick={() => history.push(routeRoutes.courses)}
+          >
             {t<string>("Homepage.AwardedCoursesBtnText")}
           </Button>
         </div>
@@ -153,7 +157,7 @@ const PromotedCoursesSection: React.FC = () => {
         )}
         <Button
           className="show-more-btn"
-          onClick={() => history.push("/courses")}
+          onClick={() => history.push(routeRoutes.courses)}
           block
           mode="outline"
         >

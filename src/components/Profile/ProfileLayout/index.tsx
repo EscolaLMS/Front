@@ -7,6 +7,7 @@ import { ReactNode, useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 type Props = {
   children: ReactNode;
@@ -16,11 +17,9 @@ type Props = {
 };
 
 const StyledProfile = styled.section`
-  .courses-wrapper {
-    margin-top: -70px;
-    .tabs-menu {
-      margin: 0 0 70px 40px;
-    }
+  .tabs-menu {
+    padding: 0 0 70px 40px;
+    background: #f8f8f8;
   }
   .certificates-container {
     margin-top: 70px;
@@ -41,7 +40,7 @@ const ProfileLayout: React.FC<Props> = ({
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      history.push("/login");
+      history.push(routeRoutes.login);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
