@@ -1,44 +1,16 @@
 import React, { useEffect, useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileStationaryEvents from "@/components/Profile/ProfileStationaryEvents";
 
 import ProfileLayout from "@/components/Profile/ProfileLayout";
-import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 
-const Content = styled.section`
-  .events-wrapper {
-    margin-top: -70px;
-    @media (max-width: 991px) {
-      margin-top: 0;
-    }
-    .tabs-menu {
-      margin: 0 0 70px 40px;
-      @media (max-width: 991px) {
-        margin: 0 0 40px 0;
-      }
-    }
-  }
-  .certificates-container {
-    margin-top: 70px;
-    h2 {
-      margin: ${isMobile ? "0 0 22px 20px" : "0 0 22px 40px"};
-    }
-  }
-`;
 const MyStationaryEvents = () => {
-  const { user, fetchUserStationaryEvents } = useContext(EscolaLMSContext);
-  const history = useHistory();
+  const { fetchUserStationaryEvents } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   useEffect(() => {
-    if (!user.loading && !user.value) {
-      history.push("/login");
-    } else {
-      fetchUserStationaryEvents();
-    }
+    fetchUserStationaryEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -70,14 +42,10 @@ const MyStationaryEvents = () => {
 
   return (
     <ProfileLayout title={t("MyProfilePage.MyStationaryEvents")} withTabs>
-      <Content>
-        <div className="events-wrapper">
-          <Tabs
-            tabs={eventsTabs.tabs}
-            defaultActiveKey={eventsTabs.defaultActiveKey}
-          />
-        </div>
-      </Content>
+      <Tabs
+        tabs={eventsTabs.tabs}
+        defaultActiveKey={eventsTabs.defaultActiveKey}
+      />
     </ProfileLayout>
   );
 };

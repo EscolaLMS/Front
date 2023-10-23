@@ -29,6 +29,7 @@ import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { formatPrice } from "@/utils/index";
 import CartSuccess from "@/components/Cart/CartSuccess";
+import routeRoutes from "@/components/Routes/routes";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -157,7 +158,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
 
   useEffect(() => {
     if (!user.loading && !user.value) {
-      push("/login");
+      push(routeRoutes.login);
     } else {
       fetchCourses({ per_page: 6 });
       fetchCart();
@@ -230,7 +231,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
               <Col lg={9}>
                 <Breadcrumbs
                   items={[
-                    <Link to="/">{t("Home")}</Link>,
+                    <Link to={routeRoutes.home}>{t("Home")}</Link>,
                     <Text size="12">{t("Cart.YourCart")}</Text>,
                   ]}
                 />
@@ -378,7 +379,10 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
               <div className="empty-cart">
                 <Title level={3}>{t<string>("Cart.EmptyCartTitle")}</Title>
                 <Text>{t<string>("Cart.EmptyCartText")}</Text>
-                <Button mode="secondary" onClick={() => push("/courses")}>
+                <Button
+                  mode="secondary"
+                  onClick={() => push(routeRoutes.courses)}
+                >
                   {t<string>("Cart.EmptyCartBtnText")}
                 </Button>
               </div>

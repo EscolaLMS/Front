@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Orders as OrdersList } from "@escolalms/components/lib/components/molecules/Orders/Orders";
@@ -28,18 +27,13 @@ const StyledOrdersList = styled.section`
 `;
 
 const Orders = () => {
-  const { user, orders, fetchOrders, fetchOrderInvoice } =
+  const { orders, fetchOrders, fetchOrderInvoice } =
     useContext(EscolaLMSContext);
   const [mappedOrders, setMappedOrders] = useState<any>([]);
-  const history = useHistory();
   const { t } = useTranslation();
   const [loadingId, setLoadingId] = useState(-1);
   useEffect(() => {
-    if (!user.loading && !user.value) {
-      history.push("/login");
-    } else {
-      fetchOrders();
-    }
+    fetchOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

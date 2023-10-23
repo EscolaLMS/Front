@@ -3,6 +3,7 @@ import { Button, Text } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledErrorPage = styled.div`
   min-height: calc(100vh - 150px);
@@ -32,7 +33,7 @@ interface Props {
 
 const ErrorBox: React.FC<Props> = ({
   error,
-  goTo = "/courses",
+  goTo = routeRoutes.courses,
   goToText,
   alternativeButton,
 }) => {

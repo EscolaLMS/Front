@@ -8,6 +8,7 @@ import Layout from "@/components/_App/Layout";
 
 import CourseProgramLessonsPreview from "@/components/Course/CourseProgramLessonsPreview";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 // TODO: 99% same as: src/pages/course/index.tsx
 
@@ -79,7 +80,7 @@ const CourseProgram = () => {
           <hr />
           <p className="mb-0">
             {t("CoursePage.Preview.SeeOther")}
-            <Link to="/courses">{t("Courses")}</Link>.
+            <Link to={routeRoutes.courses}>{t("Courses")}</Link>.
           </p>
         </div>
       </Container>

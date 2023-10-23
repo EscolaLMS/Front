@@ -1,9 +1,6 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileConsultations from "@/components/Profile/ProfileConsultations";
 import ProfileTutorConsultations from "@/components/Profile/ProfileTutorConsultations";
@@ -15,25 +12,9 @@ export enum ConsultationStatus {
   STARTED = "is_started",
 }
 
-const StyledConsultations = styled.section`
-  margin-top: -70px;
-  .tabs-menu {
-    margin: 0 0 70px 40px;
-  }
-`;
-
 const MyConsultationsPage = () => {
-  const { user } = useContext(EscolaLMSContext);
-  const history = useHistory();
   const { t } = useTranslation();
   const { isTutor } = useRoles();
-
-  useEffect(() => {
-    if (!user.loading && !user.value) {
-      history.push("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const myConsultationsTabs = useMemo(
     () => ({
@@ -91,12 +72,10 @@ const MyConsultationsPage = () => {
 
   return (
     <ProfileLayout title={t("MyProfilePage.MyConsultations")} withTabs>
-      <StyledConsultations>
-        <Tabs
-          tabs={myConsultationsTabs.tabs}
-          defaultActiveKey={myConsultationsTabs.defaultActiveKey}
-        />
-      </StyledConsultations>
+      <Tabs
+        tabs={myConsultationsTabs.tabs}
+        defaultActiveKey={myConsultationsTabs.defaultActiveKey}
+      />
     </ProfileLayout>
   );
 };

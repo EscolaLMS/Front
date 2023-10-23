@@ -1,13 +1,10 @@
-import React, { useEffect, useContext } from "react";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileCourses from "@/components/Profile/ProfileCourses";
 import ProfileCertificates from "@/components/Profile/ProfileCertificates";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
-import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "@/hooks/useRoles";
 import { useSearchParams } from "@/hooks/useSearchParams";
@@ -23,37 +20,15 @@ export enum CourseStatus {
 const Content = styled.section`
   .courses-wrapper {
     min-height: fit-content;
-    margin-top: -70px;
     @media (max-width: 991px) {
       margin-top: 0;
-    }
-    .tabs-menu {
-      margin: 0 0 70px 40px;
-      @media (max-width: 991px) {
-        margin: 0 0 40px 0;
-      }
-    }
-  }
-  .certificates-container {
-    margin-top: 70px;
-    h2 {
-      margin: ${isMobile ? "0 0 22px 20px" : "0 0 22px 40px"};
     }
   }
 `;
 const MyProfile = () => {
-  const { user } = useContext(EscolaLMSContext);
-  const history = useHistory();
   const { t } = useTranslation();
   const { isTutor } = useRoles();
   const { query, setQueryParam } = useSearchParams();
-
-  useEffect(() => {
-    if (!user.loading && !user.value) {
-      history.push("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const coursesTabs = {
     tabs: [

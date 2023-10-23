@@ -8,6 +8,7 @@ import { Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import { Link } from "@escolalms/components";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 70px" : "50px 0 50px"};
@@ -120,27 +121,27 @@ const Footer = () => {
             </>
           ) : (
             <>
-              <Link className="single-link" href="/">
+              <Link className="single-link" href={routeRoutes.home}>
                 <Text size="14">{t<string>("Footer.HomePage")}</Text>
               </Link>
-              <Link className="single-link" href="/courses">
+              <Link className="single-link" href={routeRoutes.courses}>
                 <Text size="14">{t<string>("Footer.Courses")}</Text>
               </Link>
               {user.value ? (
-                <Link className="single-link" href="/user/my-profile">
+                <Link className="single-link" href={routeRoutes.myProfile}>
                   <Text size="14">{t<string>("Footer.UserProfile")}</Text>
                 </Link>
               ) : (
                 <>
-                  <Link className="single-link" href="/login">
+                  <Link className="single-link" href={routeRoutes.login}>
                     <Text size="14">{t<string>("Header.Login")}</Text>
                   </Link>
-                  <Link className="single-link" href="/register">
+                  <Link className="single-link" href={routeRoutes.register}>
                     <Text size="14">{t<string>("Header.Register")}</Text>
                   </Link>
                 </>
               )}
-              <Link className="single-link" href="/cart">
+              <Link className="single-link" href={routeRoutes.cart}>
                 <Text size="14">{t<string>("Footer.Cart")}</Text>
               </Link>
             </>

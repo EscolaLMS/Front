@@ -14,6 +14,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledStaticPage = styled.section`
   .content {
@@ -60,7 +61,7 @@ const StaticPage = () => {
         <Container>
           <Breadcrumbs
             items={[
-              <Link to="/">{t<string>("Home")}</Link>,
+              <Link to={routeRoutes.home}>{t<string>("Home")}</Link>,
               <Text size="12">{page.value?.title}</Text>,
             ]}
           />

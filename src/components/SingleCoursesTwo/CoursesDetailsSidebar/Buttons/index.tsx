@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Text } from "@escolalms/components";
 import { API } from "@escolalms/sdk/lib";
 import { userIsCourseAuthor } from "@/utils/index";
+import routeRoutes from "@/components/Routes/routes";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -40,7 +41,9 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
         loading={cart.loading}
         mode="secondary"
         onClick={() =>
-          addToCart(Number(course.product?.id)).then(() => push("/cart"))
+          addToCart(Number(course.product?.id)).then(() =>
+            push(routeRoutes.cart)
+          )
         }
       >
         {t("Buy Course")}
@@ -116,7 +119,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   if (courseInCart) {
     return (
-      <Button mode="secondary" onClick={() => push("/cart")}>
+      <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
         {t("CoursePage.GoToCheckout")}
       </Button>
     );

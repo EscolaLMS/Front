@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import routeRoutes from "@/components/Routes/routes";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -16,7 +17,7 @@ const ResetPassword: React.FC = () => {
   const { t } = useTranslation();
 
   React.useEffect(() => {
-    !token && push("/");
+    !token && push(routeRoutes.home);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,7 +29,7 @@ const ResetPassword: React.FC = () => {
             <Col md={12} lg={12}>
               <ResetPasswordForm
                 onSecondStepSuccess={() => {
-                  push("/login");
+                  push(routeRoutes.login);
                   toast.success(t<string>("LoginPage.ForgotSuccessStep2"));
                 }}
                 secondStep

@@ -1,10 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { isAfter, isPast } from "date-fns";
+import { isPast } from "date-fns";
 import { Text, Button } from "@escolalms/components";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import WebinarMeetModal from "@/components/Webinar/WebinarMeetModal";
+import routeRoutes from "@/components/Routes/routes";
 
 enum ButtonStatus {
   FINISHED,
@@ -48,24 +49,21 @@ const WebinarSidebarButtons = () => {
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isPast(new Date(webinarObj?.deadline))
+      webinarObj?.is_ended
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT_AND_WEBINAR_FINISHED);
       // If user bought product
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isPast(new Date(webinarObj.deadline))
+      webinarObj?.in_coming
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT);
       // If user bought product and webinar started
     } else if (
       user.value?.id &&
       webinarObj?.product?.owned &&
-      webinarObj?.deadline &&
-      isAfter(new Date(webinarObj?.deadline), new Date())
+      webinarObj?.is_started
     ) {
       setButtonStatus(ButtonStatus.USER_BOUGHT_AND_WEBINAR_STARTED);
       // If user logged and product available and buyable
@@ -93,7 +91,7 @@ const WebinarSidebarButtons = () => {
         <Text>{t("EventPage.IsFinished")}</Text>
       )}
       {buttonStatus === ButtonStatus.IN_CART && (
-        <Button mode="secondary" onClick={() => push("/cart")}>
+        <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
           {t("EventPage.GoToCheckout")}
         </Button>
       )}
@@ -122,7 +120,9 @@ const WebinarSidebarButtons = () => {
           loading={cart.loading}
           mode="secondary"
           onClick={() =>
-            addToCart(Number(webinarObj?.product?.id)).then(() => push("/cart"))
+            addToCart(Number(webinarObj?.product?.id)).then(() =>
+              push(routeRoutes.cart)
+            )
           }
         >
           {t("Buy now")}
@@ -141,10 +141,11 @@ const WebinarSidebarButtons = () => {
       )}
 
       {/* MEET MODAL */}
-      {showMeetModal && (
+      {showMeetModal && webinarObj?.id && (
         <WebinarMeetModal
           visible={showMeetModal}
           onClose={() => setShowMeetModal(false)}
+          webinarId={webinarObj.id}
         />
       )}
     </>

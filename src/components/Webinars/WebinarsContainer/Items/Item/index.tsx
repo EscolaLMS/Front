@@ -18,9 +18,10 @@ import { Tag } from "@escolalms/sdk/lib/types/api";
 interface Props {
   webinar: API.Webinar;
   actions?: ReactNode;
+  footer?: ReactNode;
 }
 
-const WebinarsContainerItem = ({ webinar, actions }: Props) => {
+const WebinarsContainerItem = ({ webinar, actions, footer }: Props) => {
   const history = useHistory();
   const { t } = useTranslation();
   const duration =
@@ -73,14 +74,16 @@ const WebinarsContainerItem = ({ webinar, actions }: Props) => {
         )
       }
       footer={
-        <>
-          {!!duration && (
-            <IconText
-              icon={<IconTime />}
-              text={`${duration} ${duration === 1 ? t("Hour") : t("Hours")}`}
-            />
-          )}
-        </>
+        footer ?? (
+          <>
+            {!!duration && (
+              <IconText
+                icon={<IconTime />}
+                text={`${duration} ${duration === 1 ? t("Hour") : t("Hours")}`}
+              />
+            )}
+          </>
+        )
       }
     />
   );

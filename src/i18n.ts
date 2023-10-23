@@ -324,6 +324,12 @@ const resources = {
         EmptyEventsBtnText: "Choose a stationary event for yourself",
         BoughtUpcoming: "Bought upcoming",
         BoughtArchived: "Bought archived",
+        MyWebinars: "My webinars",
+        EmptyWebinarTitle: "Start your development",
+        EmptyWebinarText:
+          "You don't have any webinars yet, but thanks to our offer you can start learning today!",
+        EmptyWebinarsBtnText: "Choose a webinar for yourself",
+        WebinarIsStarted: "The webinar has already started",
       },
       ResetProgressModal: {
         Continue: "Do you want to continue?",
@@ -367,6 +373,7 @@ const resources = {
         Logout: "Logout",
         MyStationaryEvents: "My stationary events",
         MyConsultations: "My consultations",
+        MyWebinars: "My webinars",
       },
       Custom404Page: {
         NotFound: "Error 404 : Page Not Found",
@@ -551,6 +558,7 @@ const resources = {
         EndDate: "End date",
         WebinarTags: "Webinar tags",
         CompaniesTitle: "Companies that offer this webinar to their employees",
+        ErrorWhileGeneratingUrl: "Error while generating webinar",
       },
       ConsultationStatus: {
         Unconfirmed: "Unconfirmed",
@@ -919,6 +927,12 @@ const resources = {
         EmptyEventsBtnText: " Wybierz wydarzenie stacjonarne dla siebie",
         BoughtUpcoming: "Kupione nadchodzące",
         BoughtArchived: "Kupione archiwalne",
+        MyWebinars: "Moje webinaria",
+        EmptyWebinarTitle: "Rozpocznij swój rozwój",
+        EmptyWebinarText:
+          "Nie masz jeszcze żadnych webinarów, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
+        EmptyWebinarsBtnText: " Wybierz webinary dla siebie",
+        WebinarIsStarted: "Webinar już się rozpoczął",
       },
       ResetProgressModal: {
         Continue: "Czy chcesz kontynuować?",
@@ -940,6 +954,7 @@ const resources = {
         Logout: "Wyloguj",
         MyStationaryEvents: "Moje wydarzenia stacjonarne",
         MyConsultations: "Moje konsultacje",
+        MyWebinars: "Moje webinaria",
       },
       Custom404Page: {
         NotFound: "Error 404 : Nie znaleziono strony",
@@ -1128,6 +1143,7 @@ const resources = {
         EndDate: "Termin zakończenia",
         WebinarTags: "Tagi webinaru",
         CompaniesTitle: "Firmy które oferują ten webinar swoim pracownikom",
+        ErrorWhileGeneratingUrl: "Błąd podczas generowania webinaria",
       },
       ConsultationStatus: {
         Unconfirmed: "Niepotwierdzona",

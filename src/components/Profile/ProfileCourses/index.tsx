@@ -16,6 +16,7 @@ import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
 import Pagination from "@/components/Pagination";
 import { useSearchParams } from "@/hooks/useSearchParams";
+import routeRoutes from "@/components/Routes/routes";
 
 type CoursesState = Array<
   API.Course & { progress?: number; courseData?: API.CourseProgressItem }
@@ -202,7 +203,7 @@ const ProfileCourses = ({
                     {t<string>("MyProfilePage.EmptyCoursesText")}
                   </Text>
                   <Button
-                    onClick={() => history.push("/courses")}
+                    onClick={() => history.push(routeRoutes.courses)}
                     mode="secondary"
                   >
                     {t<string>("MyProfilePage.EmptyCoursesBtnText")}

@@ -15,6 +15,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
 import { APP_CONFIG } from "@/config/app";
+import routeRoutes from "@/components/Routes/routes";
 
 const StyledTitleWrapper = styled.div`
   margin-bottom: 10px;
@@ -37,7 +38,7 @@ const TutorsPage = () => {
         <Container>
           <Breadcrumbs
             items={[
-              <Link to="/">{t<string>("Home")}</Link>,
+              <Link to={routeRoutes.home}>{t<string>("Home")}</Link>,
               <Text size="12">{t("Tutors")}</Text>,
             ]}
           />

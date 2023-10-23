@@ -13,6 +13,7 @@ import { routerType } from "@/utils/router";
 import ScrollToTop from "../ScrollToTop";
 
 import { Loader } from "./../_App/Loader/Loader";
+import routeRoutes from "./routes";
 
 const HomePage = lazy(() => import("../../pages/index"));
 
@@ -56,6 +57,7 @@ const MyConsultationsPage = lazy(
 const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
 const CartPage = lazy(() => import("../../pages/cart/index"));
+const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
 
 const ConditionalRouter: React.FC<{
   basename: string;
@@ -77,7 +79,7 @@ declare global {
 const BASENAME =
   window.REACT_APP_BASENAME ||
   (process && process.env && process.env.REACT_APP_BASENAME) ||
-  "/";
+  routeRoutes.home;
 
 const Routes: React.FC = (): ReactElement => {
   const {
@@ -110,6 +112,7 @@ const Routes: React.FC = (): ReactElement => {
     myBookmarks,
     webinars,
     webinar,
+    myWebinars,
   } = routes;
 
   return (
@@ -144,6 +147,7 @@ const Routes: React.FC = (): ReactElement => {
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} />
+          <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} />
           <PrivateRoute
             exact
             path={myStationaryEvents}
