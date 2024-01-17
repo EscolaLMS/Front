@@ -274,6 +274,16 @@ const Navbar = () => {
           ),
           key: "submenu-6",
         },
+        {
+          title: (
+            <Link to={routeRoutes.packages}>
+              <Text noMargin bold>
+                {t("Menu.Packages")}
+              </Text>
+            </Link>
+          ),
+          key: "submenu-7",
+        },
       ],
     },
     {
@@ -412,6 +422,7 @@ const Navbar = () => {
                 },
                 { label: t("Menu.Events"), value: routeRoutes.events },
                 { label: t("Menu.Webinars"), value: routeRoutes.webinars },
+                { label: t("Menu.Packages"), value: routeRoutes.packages },
               ]}
             />
             <Dropdown

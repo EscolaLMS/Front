@@ -13,7 +13,7 @@ const CompaniesSection = ({ title }: CompaniesSectionProps) => {
 
   return (
     <CompaniesSectionStyles>
-      <section className="section-companies">
+      <section className="section-companies with-border">
         <Text>
           <strong>{title}</strong>
         </Text>
