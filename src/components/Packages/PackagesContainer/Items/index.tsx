@@ -21,18 +21,16 @@ const PackagesContainerItems = () => {
   }
 
   return (
-    <>
-      <Row
-        style={{
-          gap: "30px 0",
-        }}
-      >
-        {packages?.list?.data.map((product) => (
-          <Col md={6} lg={4} xl={3} key={product.id}>
-            <PackagesContainerItem product={product} />
-          </Col>
-        ))}
-      </Row>
+    <Row
+      style={{
+        gap: "30px 0",
+      }}
+    >
+      {packages?.list?.data.map((product) => (
+        <Col md={6} lg={4} xl={3} key={product.id}>
+          <PackagesContainerItem product={product} />
+        </Col>
+      ))}
       {packagesMeta &&
         (Number(packages?.list?.meta?.total) || 0) >
           (Number(packages?.list?.meta?.per_page) || 0) && (
@@ -50,7 +48,7 @@ const PackagesContainerItems = () => {
             }
           />
         )}
-    </>
+    </Row>
   );
 };
 
