@@ -99,6 +99,13 @@ const ProfileCourses = ({
   const searchParams = new URLSearchParams(search);
   const page = searchParams.get("page");
   const status = searchParams.get("status");
+  const paginationMeta = useMemo(
+    () =>
+      filter === CourseStatus.AUTHORED
+        ? myAuthoredCourses.list?.meta
+        : paginatedProgress.list?.meta,
+    [filter, myAuthoredCourses.list?.meta, paginatedProgress.list?.meta]
+  );
 
   const getStatusName = useCallback((key: number) => {
     let tabName = "";
@@ -176,10 +183,10 @@ const ProfileCourses = ({
     filter !== CourseStatus.AUTHORED
       ? setCoursesToMap(remapNormalCourses(paginatedProgress.list?.data || []))
       : filter === CourseStatus.AUTHORED
-      ? setCoursesToMap(myAuthoredCourses.value || [])
+      ? setCoursesToMap(myAuthoredCourses.list?.data || [])
       : setCoursesToMap([
           ...remapNormalCourses(paginatedProgress.list?.data || []),
-          ...(myAuthoredCourses.value || []),
+          ...(myAuthoredCourses.list?.data || []),
         ]);
   }, [filter, paginatedProgress, myAuthoredCourses, remapNormalCourses]);
 
@@ -222,11 +229,9 @@ const ProfileCourses = ({
           </Row>
           <PaginationWrapper>
             <Pagination
-              total={paginatedProgress.list?.meta?.total || 0}
-              perPage={Number(paginatedProgress.list?.meta?.per_page || 0)}
-              currentPage={Number(
-                paginatedProgress.list?.meta?.current_page || 1
-              )}
+              total={paginationMeta?.total || 0}
+              perPage={Number(paginationMeta?.per_page || 0)}
+              currentPage={Number(paginationMeta?.current_page || 1)}
               onPage={(i) => {
                 setQueryParam("page", `${i}`);
                 window?.scrollTo(0, 0);
