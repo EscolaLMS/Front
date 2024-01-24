@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
@@ -78,6 +78,19 @@ export const CourseProgramLessons: React.FC<{
       );
     })();
 
+  const onCompleteTopicCb = useCallback(() => {
+    // If video or audio can't be skipped not allow to complete
+    // onAudioEnd or onVideoEnd in CourseProgramPlayer component will complete topic
+    if (
+      (topic?.topicable_type === API.TopicType.Video ||
+        topic?.topicable_type === API.TopicType.Audio) &&
+      topic?.can_skip === false
+    ) {
+      return false;
+    }
+    onCompleteTopic(topic?.can_skip);
+  }, [onCompleteTopic, topic]);
+
   if (!program) {
     return <ErrorBox error={t("CourseProgram.NoProgram")} />;
   }
@@ -120,6 +133,8 @@ export const CourseProgramLessons: React.FC<{
                 onXAPI={onXAPI}
                 disableNextTopicButton={disableNextTopicButton}
                 getNextPrevTopic={getNextPrevTopic}
+                onAudioEnd={onCompleteTopic}
+                onVideoEnd={onCompleteTopic}
               />
             )}
           </Col>
@@ -128,7 +143,7 @@ export const CourseProgramLessons: React.FC<{
               course={program}
               topicId={Number(topic?.id)}
               onCourseFinish={() => setShowFinishModal(true)}
-              onCompleteTopic={onCompleteTopic}
+              onCompleteTopic={onCompleteTopicCb}
             />
           </Col>
         </Row>
@@ -136,7 +151,7 @@ export const CourseProgramLessons: React.FC<{
       <div className="course-nav">
         <Container>
           <CourseTopNav
-            onFinish={() => onCompleteTopic()}
+            onFinish={onCompleteTopicCb}
             mobile={isMobile}
             onNext={onNextTopic}
             isFinished={finishedTopicIndex ? finishedTopicIndex > -1 : false}

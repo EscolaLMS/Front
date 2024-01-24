@@ -30,12 +30,16 @@ export const CourseProgramContent: React.FC<{
   preview?: boolean;
   disableNextTopicButton?: (b: boolean) => void;
   onXAPI?: (event: XAPIEvent) => void;
+  onVideoEnd?: () => void;
+  onAudioEnd?: () => void;
 }> = ({
   topic,
   preview = false,
   disableNextTopicButton,
   isThereAnotherTopic = true,
   onXAPI,
+  onVideoEnd,
+  onAudioEnd,
 }) => {
   const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
 
@@ -95,7 +99,12 @@ export const CourseProgramContent: React.FC<{
         );
       case API.TopicType.Video:
         return (
-          <AudioVideoPlayer mobile={isMobile} url={topic.topicable.url} light />
+          <AudioVideoPlayer
+            mobile={isMobile}
+            url={topic.topicable.url}
+            light
+            onTopicEnd={onVideoEnd}
+          />
         );
       case API.TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => {}} />;
@@ -106,6 +115,7 @@ export const CourseProgramContent: React.FC<{
             audio
             url={topic.topicable.url}
             light
+            onTopicEnd={onAudioEnd}
           />
         );
 

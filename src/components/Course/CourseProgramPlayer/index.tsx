@@ -16,6 +16,8 @@ interface Props {
     next?: boolean | undefined
   ) => API.Topic | null;
   onXAPI?: (event: XAPIEvent) => void;
+  onVideoEnd?: () => void;
+  onAudioEnd?: () => void;
 }
 
 const CourseProgramPlayer = ({
@@ -24,6 +26,8 @@ const CourseProgramPlayer = ({
   disableNextTopicButton,
   getNextPrevTopic,
   onXAPI,
+  onVideoEnd,
+  onAudioEnd,
 }: Props) => {
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
@@ -46,6 +50,8 @@ const CourseProgramPlayer = ({
             disableNextTopicButton={disableNextTopicButton}
             isThereAnotherTopic={Boolean(getNextPrevTopic(Number(topic?.id)))}
             onXAPI={(event) => onXAPI?.(event)}
+            onVideoEnd={onVideoEnd}
+            onAudioEnd={onAudioEnd}
           />
         </div>
       </div>
