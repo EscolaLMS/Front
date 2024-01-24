@@ -176,10 +176,10 @@ const ProfileCourses = ({
     filter !== CourseStatus.AUTHORED
       ? setCoursesToMap(remapNormalCourses(paginatedProgress.list?.data || []))
       : filter === CourseStatus.AUTHORED
-      ? setCoursesToMap(myAuthoredCourses.value || [])
+      ? setCoursesToMap(myAuthoredCourses.list?.data || [])
       : setCoursesToMap([
           ...remapNormalCourses(paginatedProgress.list?.data || []),
-          ...(myAuthoredCourses.value || []),
+          ...(myAuthoredCourses.list?.data || []),
         ]);
   }, [filter, paginatedProgress, myAuthoredCourses, remapNormalCourses]);
 
