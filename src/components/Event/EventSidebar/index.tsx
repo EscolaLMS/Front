@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import EventDetailsSidebar from "@/components/Event/EventDetailsSidebar";
-import { EventSidebarStyles } from "./EventSidebarStyles";
+import { DetailsSidebarContainer } from "@/components/DetailsSidebarContainer";
 
 const EventSidebar = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
@@ -10,9 +10,9 @@ const EventSidebar = () => {
     return null;
   }
   return (
-    <EventSidebarStyles>
+    <DetailsSidebarContainer>
       <EventDetailsSidebar event={stationaryEvent.value} />
-    </EventSidebarStyles>
+    </DetailsSidebarContainer>
   );
 };
 

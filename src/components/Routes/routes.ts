@@ -32,6 +32,8 @@ const routeRoutes = {
   myWebinars: "/user/my-webinars",
   logout: "logout",
   privacyPolicy: "/privacy-policy",
+  packages: "/packages",
+  packageProduct: "/package/:id",
 };
 
 export default routeRoutes;

@@ -5,5 +5,8 @@ export const TutorsSectionStyles = styled.div`
     .ranking-row {
       display: none !important;
     }
+    .title {
+      margin-bottom: 20px;
+    }
   }
 `;

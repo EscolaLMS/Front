@@ -352,6 +352,7 @@ const resources = {
         Consultations: "Consultations",
         Events: "Stationary events",
         Webinars: "Webinars",
+        Packages: "Packages",
       },
       Footer: {
         HomePage: "Home Page",
@@ -569,6 +570,18 @@ const resources = {
         UnconfirmedInfo:
           "Confirm the date of the meeting proposed by the client or contact us to arrange another date.",
         AppointmentInfo: "The meeting link will be availlable on {{date}}",
+      },
+      PackagesPage: {
+        Packages: "Packages",
+      },
+      PackagePage: {
+        PackageIncludes: "Package includes:",
+        CompaniesSectionTitle:
+          "Companies that offer this packages to their employees",
+        TutorsSectionTitle: "Autors",
+        ProductOwned:
+          "Go to your profile to see what's included in your purchased package.",
+        DescriptionTitle: "Package description",
       },
     },
   },
@@ -872,6 +885,7 @@ const resources = {
         Consultations: "Konsultacje",
         Events: "Wydarzenia stacjonarne",
         Webinars: "Webinary",
+        Packages: "Pakiety",
       },
       Footer: {
         HomePage: "Strona Główna",
@@ -1154,6 +1168,18 @@ const resources = {
         UnconfirmedInfo:
           "Potwierdź zaproponowany termin spotkania przez klienta lub skontaktuj się w celu ustalenie innego terminu.",
         AppointmentInfo: "Link do spotkania pojawi się w {{date}}",
+      },
+      PackagesPage: {
+        Packages: "Pakiety",
+      },
+      PackagePage: {
+        PackageIncludes: "Pakiet zawiera:",
+        CompaniesSectionTitle:
+          "Firmy które oferują ten pakiet swoim pracownikom",
+        TutorsSectionTitle: "Autorzy",
+        ProductOwned:
+          "Przejdź do swojego profilu, aby zobaczyć elementy zakupionego pakietu.",
+        DescriptionTitle: "Opis pakietu",
       },
     },
   },

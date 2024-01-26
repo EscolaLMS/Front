@@ -1,27 +1,18 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { API } from "@escolalms/sdk/lib";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { IconText, Text, Button } from "@escolalms/components";
-import isPast from "date-fns/isPast";
-import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
-import { IconSquares, IconCamera, IconLocation } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
+import isPast from "date-fns/isPast";
+import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { IconText, Text, Button } from "@escolalms/components";
+import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
+import { IconSquares, IconCamera, IconLocation } from "@/icons/index";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { formatPrice } from "@/utils/index";
 import ProductPrices from "@/components/ProductPrices";
 import routeRoutes from "@/components/Routes/routes";
-
-enum ButtonStatus {
-  FINISHED,
-  IN_CART,
-  USER_BOUGHT_AND_EVENT_FINISHED,
-  USER_BOUGHT,
-  USER_LOGGED_AND_PRODUCT_AVAILABLE,
-  PRODUCT_UNAVAILABLE,
-  DEFAULT,
-}
+import { ButtonStatus } from "@/types/buttons";
 
 const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
   event,
