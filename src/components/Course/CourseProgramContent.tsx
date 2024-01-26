@@ -32,6 +32,7 @@ export const CourseProgramContent: React.FC<{
   onXAPI?: (event: XAPIEvent) => void;
   onVideoEnd?: () => void;
   onAudioEnd?: () => void;
+  onPdfEnd?: () => void;
 }> = ({
   topic,
   preview = false,
@@ -40,6 +41,7 @@ export const CourseProgramContent: React.FC<{
   onXAPI,
   onVideoEnd,
   onAudioEnd,
+  onPdfEnd,
 }) => {
   const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
 
@@ -127,6 +129,7 @@ export const CourseProgramContent: React.FC<{
               renderMode: "svg",
               className: "course-pdf-player",
             }}
+            onTopicEnd={onPdfEnd}
           />
         );
 

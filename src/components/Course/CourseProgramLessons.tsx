@@ -59,8 +59,14 @@ export const CourseProgramLessons: React.FC<{
   }, [lesson?.id, topic?.id]);
 
   useEffect(() => {
+    console.log(
+      "getNextPrevTopic: ",
+      getNextPrevTopic(Number(topic?.id)),
+      getNextPrevTopic(Number(topic?.id), false)
+    );
+    const nextTopic = getNextPrevTopic(Number(topic?.id));
     if (!program || !topic) return;
-    if (getNextPrevTopic(Number(topic?.id)) === null) {
+    if (nextTopic === null || !!nextTopic.can_skip) {
       disableNextTopicButton(true);
       return;
     }
@@ -79,11 +85,12 @@ export const CourseProgramLessons: React.FC<{
     })();
 
   const onCompleteTopicCb = useCallback(() => {
-    // If video or audio can't be skipped not allow to complete
+    // If video, audio or pdf can't be skipped not allow to complete
     // onAudioEnd or onVideoEnd in CourseProgramPlayer component will complete topic
     if (
       (topic?.topicable_type === API.TopicType.Video ||
-        topic?.topicable_type === API.TopicType.Audio) &&
+        topic?.topicable_type === API.TopicType.Audio ||
+        topic?.topicable_type === API.TopicType.Pdf) &&
       topic?.can_skip === false
     ) {
       return false;
@@ -135,6 +142,7 @@ export const CourseProgramLessons: React.FC<{
                 getNextPrevTopic={getNextPrevTopic}
                 onAudioEnd={onCompleteTopic}
                 onVideoEnd={onCompleteTopic}
+                onPdfEnd={onCompleteTopic}
               />
             )}
           </Col>

@@ -18,6 +18,7 @@ interface Props {
   onXAPI?: (event: XAPIEvent) => void;
   onVideoEnd?: () => void;
   onAudioEnd?: () => void;
+  onPdfEnd?: () => void;
 }
 
 const CourseProgramPlayer = ({
@@ -28,6 +29,7 @@ const CourseProgramPlayer = ({
   onXAPI,
   onVideoEnd,
   onAudioEnd,
+  onPdfEnd,
 }: Props) => {
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
@@ -52,6 +54,7 @@ const CourseProgramPlayer = ({
             onXAPI={(event) => onXAPI?.(event)}
             onVideoEnd={onVideoEnd}
             onAudioEnd={onAudioEnd}
+            onPdfEnd={onPdfEnd}
           />
         </div>
       </div>
