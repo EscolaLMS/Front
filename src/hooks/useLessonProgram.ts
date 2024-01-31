@@ -11,7 +11,7 @@ export function useLessonProgram(
   program: API.CourseProgram,
   courseRouteName: string = "/course/"
 ) {
-  const { sendProgress, getNextPrevTopic, progress } =
+  const { sendProgress, getNextPrevTopic, progress, courseProgressDetails } =
     useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, disableNextTopicButton] = useState(false);
   const { lessonID, topicID } = useParams<{
@@ -42,12 +42,16 @@ export function useLessonProgram(
     [flatTopics, topicId]
   );
 
+  const isLastTopic = useMemo(
+    () => flatTopics.at(-1)?.id === topic?.id,
+    [flatTopics, topic?.id]
+  );
+
   const onNextTopic = useCallback(() => {
     program.id &&
       sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(
         () => {
           const nextTopic = getNextPrevTopic(Number(topicId));
-
           nextTopic &&
             push(
               `${courseRouteName}${program.id}/${nextTopic.lesson_id}/${nextTopic.id}`,
@@ -57,11 +61,10 @@ export function useLessonProgram(
       );
   }, [topicId, program, push, getNextPrevTopic, sendProgress, courseRouteName]);
   const onPrevTopic = useCallback(() => {
-    program.id &&
+    const prevTopic = getNextPrevTopic(Number(topicId), false);
+    if (program.id && topic?.can_skip) {
       sendProgress(program.id, [{ topic_id: Number(topicId), status: 1 }]).then(
         () => {
-          const prevTopic = getNextPrevTopic(Number(topicId), false);
-
           prevTopic &&
             push(
               `${courseRouteName}${program.id}/${prevTopic.lesson_id}/${prevTopic.id}`,
@@ -69,7 +72,22 @@ export function useLessonProgram(
             );
         }
       );
-  }, [topicId, program, push, getNextPrevTopic, sendProgress, courseRouteName]);
+      return;
+    }
+    prevTopic &&
+      push(
+        `${courseRouteName}${program.id}/${prevTopic.lesson_id}/${prevTopic.id}`,
+        null
+      );
+  }, [
+    topicId,
+    program,
+    push,
+    getNextPrevTopic,
+    sendProgress,
+    courseRouteName,
+    topic,
+  ]);
 
   const onNextTopicPreview = useCallback(
     (next = true) => {
@@ -95,5 +113,7 @@ export function useLessonProgram(
     onNextTopicPreview,
     sendProgress,
     progress,
+    courseProgressDetails,
+    isLastTopic,
   } as const;
 }

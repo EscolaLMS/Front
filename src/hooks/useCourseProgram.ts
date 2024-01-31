@@ -5,6 +5,23 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import { completed } from "@escolalms/sdk/lib/services/courses";
 
+export const noCompletedEventsIds: string[] = [
+  "http://h5p.org/libraries/H5P.ImageJuxtaposition-1.4",
+  "http://h5p.org/libraries/H5P.Crossword-0.4",
+];
+
+const isXAPIEventAllowed = (event: XAPIEvent) => {
+  const { statement } = event;
+  const eventContextCategoriesIds =
+    statement?.context?.contextActivities?.category?.map(({ id }) => id);
+  const isContextCategoryAllowed =
+    eventContextCategoriesIds &&
+    noCompletedEventsIds.some((value) =>
+      eventContextCategoriesIds?.some((id) => id.includes(value))
+    );
+  return isContextCategoryAllowed;
+};
+
 interface Props {
   program: API.CourseProgram;
   disableNextTopicButton?: (b: boolean) => void;
@@ -38,14 +55,7 @@ export const useCourseProgram = ({
   );
 
   const onCompleteTopic = useCallback(
-    (topicCanShip?: boolean): void => {
-      console.log(
-        "onCompleteTopic: ",
-        program?.id,
-        topicID,
-        lastH5pEvent,
-        topicCanShip
-      );
+    (topicCanSkip?: boolean): void => {
       disableNextTopicButton && disableNextTopicButton(false);
       if (program?.id && !lastH5pEvent) {
         sendProgress(program?.id, [{ topic_id: Number(topicID), status: 1 }]);
@@ -57,11 +67,12 @@ export const useCourseProgram = ({
               ...lastH5pEvent.statement,
               verb: {
                 ...lastH5pEvent.statement.verb,
-                id: topicCanShip
-                  ? (completed.find((value) =>
-                      value.includes("completed")
-                    ) as string)
-                  : lastH5pEvent.statement.verb.id,
+                id:
+                  topicCanSkip || isXAPIEventAllowed(lastH5pEvent)
+                    ? (completed.find((value) =>
+                        value.includes("completed")
+                      ) as string)
+                    : lastH5pEvent.statement.verb.id,
               },
             },
           },

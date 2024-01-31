@@ -8,7 +8,10 @@ import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/A
 import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
-import { ProjectPlayer } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
+import {
+  ProjectPlayer,
+  ProjectsData,
+} from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
@@ -33,6 +36,9 @@ export const CourseProgramContent: React.FC<{
   onVideoEnd?: () => void;
   onAudioEnd?: () => void;
   onPdfEnd?: () => void;
+  onQuizEnd?: () => void;
+  onProjectEnd?: () => void;
+  onProjectsChange?: (projects: ProjectsData) => void;
 }> = ({
   topic,
   preview = false,
@@ -42,6 +48,9 @@ export const CourseProgramContent: React.FC<{
   onVideoEnd,
   onAudioEnd,
   onPdfEnd,
+  onQuizEnd,
+  onProjectEnd,
+  onProjectsChange,
 }) => {
   const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
 
@@ -144,10 +153,15 @@ export const CourseProgramContent: React.FC<{
         );
 
       case API.TopicType.GiftQuiz:
-        return <GiftQuizPlayer topic={topic} />;
+        return <GiftQuizPlayer topic={topic} onTopicEnd={onQuizEnd} />;
       case API.TopicType.Project:
         return (
-          <ProjectPlayer course_id={program.value?.id ?? 0} topic={topic} />
+          <ProjectPlayer
+            course_id={program.value?.id ?? 0}
+            topic={topic}
+            onSuccess={onProjectEnd}
+            onProjectsChange={onProjectsChange}
+          />
         );
       default:
         return <pre>{(topic as API.Topic).topicable_type}</pre>;
