@@ -30,7 +30,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
           setWebinarMeetData((res as { data: JitsyData }).data);
         }
         if (!res.success) {
-          toast.error(t("WebinarPage.ErrorWhileGeneratingUrl"));
+          toast.error(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`);
           onClose();
         }
       }

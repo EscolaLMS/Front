@@ -53,7 +53,9 @@ const Layout: React.FC<{
             "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
           const s = document.getElementsByTagName("script")[0];
           s && s.parentNode && s.parentNode.insertBefore(ybug, s);
-        } catch (er) {}
+        } catch (er) {
+          // Handle the error or add a comment explaining the reason for the empty block.
+        }
       }
     })();
   }, []);

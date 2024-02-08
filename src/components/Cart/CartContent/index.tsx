@@ -177,7 +177,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
         push("/cart?status=success");
       })
       .catch(() => {
-        toast.error(t("UnexpectedError"));
+        toast.error(`${t("UnexpectedError")}`);
         setProcessing(false);
       })
       .finally(() => setProcessing(false));
@@ -185,12 +185,12 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   }, []);
   const handleSubmit = (): void => {
     if (!billingDetails.name) {
-      toast.error(t("Cart.EmptyNameWarning"));
+      toast.error(`${t("Cart.EmptyNameWarning")}`);
       return;
     }
 
     if (!stripe || !elements) {
-      toast.error(t("UnexpectedError"));
+      toast.error(`${t("UnexpectedError")}`);
       return;
     }
     const cardNumber = elements.getElement(CardNumberElement);
@@ -216,7 +216,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
         })
         .catch((error) => {
           setProcessing(false);
-          toast.error(t("UnexpectedError"));
+          toast.error(`${t("UnexpectedError")}`);
         });
   };
   if (location.search.includes("?status=success")) {

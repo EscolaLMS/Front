@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
@@ -15,12 +15,6 @@ export enum ConsultationStatus {
 const MyConsultationsPage = () => {
   const { t } = useTranslation();
   const { isTutor } = useRoles();
-
-  const elo = () => {
-    useEffect(() => {
-      isTutor && console.log("dad");
-    }, []);
-  };
 
   const myConsultationsTabs = useMemo(
     () => ({
@@ -73,7 +67,7 @@ const MyConsultationsPage = () => {
           ],
       defaultActiveKey: 1,
     }),
-    [isTutor, t],
+    [isTutor, t]
   );
 
   return (

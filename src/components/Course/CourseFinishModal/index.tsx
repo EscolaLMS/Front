@@ -81,7 +81,7 @@ const CourseFinishModal = ({ courseId }: FinishModalProps) => {
             </p>
 
             <p className="course-program-finish-modal__paragraph">
-              {!!questionnaires?.length
+              {questionnaires?.length
                 ? t("CourseProgram.FinishSubtitle")
                 : t("CourseProgram.FinishSubtitleNoRating")}
             </p>

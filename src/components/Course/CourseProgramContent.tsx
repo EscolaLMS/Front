@@ -45,7 +45,7 @@ export const CourseProgramContent: React.FC<{
     isThereAnotherTopic &&
       disableNextTopicButton &&
       isTopicFinished &&
-      disableNextTopicButton(!isTopicFinished && !Boolean(topic?.can_skip));
+      disableNextTopicButton(!isTopicFinished && !topic?.can_skip);
   }, [disableNextTopicButton, topic, isThereAnotherTopic, topicIsFinished]);
 
   useEffect(() => {

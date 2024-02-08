@@ -14,7 +14,6 @@ declare global {
   }
 }
 
-console.log("API_URL", API_URL);
 WebFont.load({
   google: {
     families: [

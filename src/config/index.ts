@@ -7,4 +7,4 @@ export const getAPIURL = () => {
 };
 
 // Usage
-export const API_URL = getAPIURL();
+export const API_URL = import.meta.env.VITE_APP_PUBLIC_API_URL;

@@ -150,7 +150,7 @@ export const CourseCardActions: FC<Props> = ({
       {state.show &&
         courseId &&
         !state.loading &&
-        (!!questionnaires.length ? (
+        (questionnaires.length ? (
           <>
             <RateCourse
               course={QuestionnaireModelType.COURSE}
