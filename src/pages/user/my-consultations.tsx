@@ -17,7 +17,9 @@ const MyConsultationsPage = () => {
   const { isTutor } = useRoles();
 
   const elo = () => {
-    useEffect(() => {}, [isTutor]);
+    useEffect(() => {
+      isTutor && console.log("dad");
+    }, []);
   };
 
   const myConsultationsTabs = useMemo(
