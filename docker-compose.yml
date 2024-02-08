@@ -1,11 +1,11 @@
-version: '3'
+version: "3.8"
 
 volumes:
   frontend-node-modules: ~
 
 services:
   build:
-    image: node:14-alpine
+    image: node:20-alpine
     volumes:
       - ./:/srv/app
       - frontend-node-modules:/srv/app/node_modules/

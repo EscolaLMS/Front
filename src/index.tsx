@@ -6,17 +6,15 @@ import WebFont from "webfontloader";
 import "./i18n";
 import "./sentry";
 import { GlobalThemeProvider } from "@escolalms/components/lib/theme/provider";
+import { API_URL } from "./config";
 
 declare global {
   interface Window {
-    REACT_APP_API_URL: string;
+    VITE_APP_API_URL: string;
   }
 }
 
-const API_URL =
-  window.REACT_APP_API_URL ||
-  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
-
+console.log("API_URL", API_URL);
 WebFont.load({
   google: {
     families: [
@@ -35,7 +33,7 @@ ReactDOM.createRoot(document.getElementById("root") as Element).render(
       </EscolaLMSContextProvider>
     ) : (
       <pre>
-        error `process.env.REACT_APP_PUBLIC_API_URL || window.REACT_APP_API_URL`
+        error `process.env.VITE_APP_PUBLIC_API_URL || window.VITE_APP_API_URL`
         not set
       </pre>
     )}

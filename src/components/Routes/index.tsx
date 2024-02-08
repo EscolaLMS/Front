@@ -74,14 +74,12 @@ const ConditionalRouter: React.FC<{
 
 declare global {
   interface Window {
-    REACT_APP_BASENAME: string;
+    VITE_APP_BASENAME: string;
   }
 }
 
 const BASENAME =
-  window.REACT_APP_BASENAME ||
-  (process && process.env && process.env.REACT_APP_BASENAME) ||
-  routeRoutes.home;
+  window.VITE_APP_BASENAME || import.meta.env.BASE_URL || routeRoutes.home;
 
 const Routes: React.FC = (): ReactElement => {
   const {

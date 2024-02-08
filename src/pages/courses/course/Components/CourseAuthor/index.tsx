@@ -10,13 +10,11 @@ import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tuto
 
 import { API } from "@escolalms/sdk/lib";
 import { APP_CONFIG } from "@/config/app";
+import { API_URL } from "@/config/index";
 
 interface CourseAuthorProps {
   courseData: API.Course;
 }
-const API_URL =
-  window.REACT_APP_API_URL ||
-  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
 
 export const CourseAuthor: FC<CourseAuthorProps> = ({ courseData }) => {
   const { t } = useTranslation();

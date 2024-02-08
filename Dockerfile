@@ -1,4 +1,4 @@
-FROM node:16-buster AS base
+FROM node:20-buster AS base
 
 ARG APP_VERSION="xxx"
 WORKDIR /home/node/app

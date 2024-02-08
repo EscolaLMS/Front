@@ -7,10 +7,7 @@ import { APP_CONFIG } from "@/config/app";
 import ModalTitle from "@/components/StyledTitle/ModalTitle";
 import InfoBox from "@/components/InfoBox";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
-
-const API_URL =
-  window.REACT_APP_API_URL ||
-  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
+import { API_URL } from "@/config/index";
 
 interface Props {
   consultation: API.Consultation;

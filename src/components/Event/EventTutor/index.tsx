@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import { Tutor, Title } from "@escolalms/components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { EventTutorStyles } from "./EventTutorStyles";
-
-const API_URL =
-  window.REACT_APP_API_URL ||
-  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
+import { API_URL } from "@/config/index";
 
 const EventTutor = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
