@@ -13,7 +13,7 @@ const Bookmarks = () => {
     return null;
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [push]);
 
   return (
     <ProfileLayout title={t("MyProfilePage.MyBookmarks")}>
