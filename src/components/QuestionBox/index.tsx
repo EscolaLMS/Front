@@ -33,7 +33,7 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
 
   return (
     <form onSubmit={submit}>
-      {withStarsRating ? (
+      {!!withStarsRating ? (
         <Rate
           onSubmit={(rate) => setAnswer((prev) => ({ ...prev, rate }))}
           header={data.title}
