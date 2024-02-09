@@ -27,5 +27,6 @@ module.exports = {
     "prefer-spread": "off",
     "@typescript-eslint/no-var-requires": "off",
     "no-extra-boolean-cast": "off",
+    "react-refresh/only-export-components": "off",
   },
 };
