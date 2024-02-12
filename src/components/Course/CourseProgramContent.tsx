@@ -8,7 +8,10 @@ import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/A
 import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
-import { ProjectPlayer } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
+import {
+  ProjectPlayer,
+  ProjectsData,
+} from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
@@ -30,12 +33,24 @@ export const CourseProgramContent: React.FC<{
   preview?: boolean;
   disableNextTopicButton?: (b: boolean) => void;
   onXAPI?: (event: XAPIEvent) => void;
+  onVideoEnd?: () => void;
+  onAudioEnd?: () => void;
+  onPdfEnd?: () => void;
+  onQuizEnd?: () => void;
+  onProjectEnd?: () => void;
+  onProjectsChange?: (projects: ProjectsData) => void;
 }> = ({
   topic,
   preview = false,
   disableNextTopicButton,
   isThereAnotherTopic = true,
   onXAPI,
+  onVideoEnd,
+  onAudioEnd,
+  onPdfEnd,
+  onQuizEnd,
+  onProjectEnd,
+  onProjectsChange,
 }) => {
   const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
 
@@ -95,7 +110,12 @@ export const CourseProgramContent: React.FC<{
         );
       case API.TopicType.Video:
         return (
-          <AudioVideoPlayer mobile={isMobile} url={topic.topicable.url} light />
+          <AudioVideoPlayer
+            mobile={isMobile}
+            url={topic.topicable.url}
+            light
+            onTopicEnd={onVideoEnd}
+          />
         );
       case API.TopicType.Image:
         return <ImagePlayer topic={topic} onLoad={() => {}} />;
@@ -106,6 +126,7 @@ export const CourseProgramContent: React.FC<{
             audio
             url={topic.topicable.url}
             light
+            onTopicEnd={onAudioEnd}
           />
         );
 
@@ -117,6 +138,7 @@ export const CourseProgramContent: React.FC<{
               renderMode: "svg",
               className: "course-pdf-player",
             }}
+            onTopicEnd={onPdfEnd}
           />
         );
 
@@ -131,10 +153,15 @@ export const CourseProgramContent: React.FC<{
         );
 
       case API.TopicType.GiftQuiz:
-        return <GiftQuizPlayer topic={topic} />;
+        return <GiftQuizPlayer topic={topic} onTopicEnd={onQuizEnd} />;
       case API.TopicType.Project:
         return (
-          <ProjectPlayer course_id={program.value?.id ?? 0} topic={topic} />
+          <ProjectPlayer
+            course_id={program.value?.id ?? 0}
+            topic={topic}
+            onSuccess={onProjectEnd}
+            onProjectsChange={onProjectsChange}
+          />
         );
       default:
         return <pre>{(topic as API.Topic).topicable_type}</pre>;

@@ -6,6 +6,7 @@ import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules
 
 import CourseProgramContent from "@/components/Course/CourseProgramContent";
 import CourseDownloads from "../CourseDownloads";
+import { ProjectsData } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 
 interface Props {
   lesson: API.Lesson | undefined;
@@ -16,6 +17,12 @@ interface Props {
     next?: boolean | undefined
   ) => API.Topic | null;
   onXAPI?: (event: XAPIEvent) => void;
+  onVideoEnd?: () => void;
+  onAudioEnd?: () => void;
+  onPdfEnd?: () => void;
+  onQuizEnd?: () => void;
+  onProjectEnd?: () => void;
+  onProjectsChange?: (projects: ProjectsData) => void;
 }
 
 const CourseProgramPlayer = ({
@@ -24,6 +31,12 @@ const CourseProgramPlayer = ({
   disableNextTopicButton,
   getNextPrevTopic,
   onXAPI,
+  onVideoEnd,
+  onAudioEnd,
+  onPdfEnd,
+  onQuizEnd,
+  onProjectEnd,
+  onProjectsChange,
 }: Props) => {
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
@@ -46,6 +59,12 @@ const CourseProgramPlayer = ({
             disableNextTopicButton={disableNextTopicButton}
             isThereAnotherTopic={Boolean(getNextPrevTopic(Number(topic?.id)))}
             onXAPI={(event) => onXAPI?.(event)}
+            onVideoEnd={onVideoEnd}
+            onAudioEnd={onAudioEnd}
+            onPdfEnd={onPdfEnd}
+            onQuizEnd={onQuizEnd}
+            onProjectEnd={onProjectEnd}
+            onProjectsChange={onProjectsChange}
           />
         </div>
       </div>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
+import { toast } from "react-toastify";
 import { API } from "@escolalms/sdk/lib";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -24,6 +25,23 @@ import CourseFinishModal from "./CourseFinishModal";
 import CourseProgramPlayer from "./CourseProgramPlayer";
 import { BookmarkableType } from "@escolalms/sdk/lib/types/api";
 import routeRoutes from "@/components/Routes/routes";
+import { ContextStateValue } from "@escolalms/sdk/lib/react/context/types";
+import { ProjectsData } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
+
+export const isTopicFinished = (
+  progress: ContextStateValue<API.CourseProgressDetails>,
+  topicId: number,
+  courseId: number | undefined
+) => {
+  if (!topicId || !courseId || !progress.byId) return false;
+  const findTopic = progress.byId[courseId]?.value?.find(
+    ({ topic_id: id }) => topicId === id
+  );
+  if (findTopic?.status === 1) {
+    return true;
+  }
+  return false;
+};
 
 export const CourseProgramLessons: React.FC<{
   program: API.CourseProgram;
@@ -38,8 +56,11 @@ export const CourseProgramLessons: React.FC<{
     isNextTopicButtonDisabled,
     disableNextTopicButton,
     sendProgress,
+    courseProgressDetails,
+    isLastTopic,
   } = useLessonProgram(program);
   const [showFinishModal, setShowFinishModal] = useState(false);
+  const [isLastTopicFinished, setIsLastTopicFinished] = useState(false);
   const { onCompleteTopic, onXAPI } = useCourseProgram({ program });
   const { topicBookmark, handleBookmark, topicNote } = useBookmarkNotes({
     topic,
@@ -59,13 +80,20 @@ export const CourseProgramLessons: React.FC<{
   }, [lesson?.id, topic?.id]);
 
   useEffect(() => {
+    const nextTopic = getNextPrevTopic(Number(topic?.id));
     if (!program || !topic) return;
-    if (getNextPrevTopic(Number(topic?.id)) === null) {
+    if (
+      nextTopic === null ||
+      (topic.can_skip === false &&
+        isTopicFinished(courseProgressDetails, topic.id, courseId) === false)
+    ) {
       disableNextTopicButton(true);
       return;
+    } else {
+      disableNextTopicButton(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic?.id, program]);
+  }, [topic?.id, program, courseProgressDetails, courseId]);
 
   //@ts-ignore
   window.resetProgress = () =>
@@ -77,6 +105,51 @@ export const CourseProgramLessons: React.FC<{
           .map((topic) => ({ topic_id: Number(topic?.id), status: 0 }))
       );
     })();
+
+  const onCompleteTopicCb = useCallback(
+    (showModal?: boolean) => {
+      // If video, audio or pdf etc can't be skipped not allow to complete
+      // onAudioEnd or onVideoEnd etc in CourseProgramPlayer component will complete topic
+      if (
+        (topic?.topicable_type === API.TopicType.Video ||
+          topic?.topicable_type === API.TopicType.Audio ||
+          topic?.topicable_type === API.TopicType.GiftQuiz ||
+          topic?.topicable_type === API.TopicType.Project ||
+          topic?.topicable_type === API.TopicType.Pdf) &&
+        topic?.can_skip === false &&
+        !isLastTopicFinished
+      ) {
+        return false;
+      }
+      onCompleteTopic(topic?.can_skip);
+      if (showModal) {
+        setShowFinishModal(true);
+      }
+    },
+    [
+      isLastTopicFinished,
+      onCompleteTopic,
+      topic?.can_skip,
+      topic?.topicable_type,
+    ]
+  );
+
+  const onAutoCompleteTopic = useCallback(() => {
+    isLastTopic ? setIsLastTopicFinished(true) : onCompleteTopic();
+  }, [isLastTopic, onCompleteTopic]);
+
+  const onProjectsChange = useCallback(
+    (projects: ProjectsData) => {
+      if (projects.data.length > 0) {
+        onAutoCompleteTopic();
+        return;
+      }
+      if (isLastTopic) {
+        setIsLastTopicFinished(false);
+      }
+    },
+    [isLastTopic, onAutoCompleteTopic]
+  );
 
   if (!program) {
     return <ErrorBox error={t("CourseProgram.NoProgram")} />;
@@ -120,6 +193,12 @@ export const CourseProgramLessons: React.FC<{
                 onXAPI={onXAPI}
                 disableNextTopicButton={disableNextTopicButton}
                 getNextPrevTopic={getNextPrevTopic}
+                onAudioEnd={onAutoCompleteTopic}
+                onVideoEnd={onAutoCompleteTopic}
+                onPdfEnd={onAutoCompleteTopic}
+                onQuizEnd={onAutoCompleteTopic}
+                onProjectEnd={onAutoCompleteTopic}
+                onProjectsChange={onProjectsChange}
               />
             )}
           </Col>
@@ -127,8 +206,8 @@ export const CourseProgramLessons: React.FC<{
             <CourseSidebar
               course={program}
               topicId={Number(topic?.id)}
-              onCourseFinish={() => setShowFinishModal(true)}
-              onCompleteTopic={onCompleteTopic}
+              onCourseFinish={() => onCompleteTopicCb(true)}
+              onCompleteTopic={onCompleteTopicCb}
             />
           </Col>
         </Row>
@@ -136,10 +215,14 @@ export const CourseProgramLessons: React.FC<{
       <div className="course-nav">
         <Container>
           <CourseTopNav
-            onFinish={() => onCompleteTopic()}
+            onFinish={onCompleteTopicCb}
             mobile={isMobile}
             onNext={onNextTopic}
-            isFinished={finishedTopicIndex ? finishedTopicIndex > -1 : false}
+            isFinished={
+              typeof finishedTopicIndex === "number"
+                ? finishedTopicIndex > -1
+                : false
+            }
             onPrev={onPrevTopic}
             addNotes
             newNoteData={{
@@ -154,6 +237,8 @@ export const CourseProgramLessons: React.FC<{
             onBookmarkClick={() => handleBookmark()}
             hasPrev={!!getNextPrevTopic(Number(topic?.id), false)}
             hasNext={!isNextTopicButtonDisabled}
+            isLast={isLastTopic}
+            onCourseFinished={() => onCompleteTopicCb(true)}
           />
         </Container>
       </div>
