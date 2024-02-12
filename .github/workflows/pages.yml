@@ -8,18 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
-      - uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         env:
           CI: false
-          REACT_APP_YBUG_ID: 01m1nn5zqystt1qq5n11
-          REACT_APP_PUBLIC_API_URL: https://api-stage.escolalms.com
-          REACT_APP_SENTRYDSN: https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
-          REACT_APP_ROUTING_TYPE: HashRouter
+          VITE_APP_YBUG_ID: 01m1nn5zqystt1qq5n11
+          VITE_APP_PUBLIC_API_URL: https://api-stage.escolalms.com
+          VITE_APP_SENTRYDSN: https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+          VITE_APP_ROUTING_TYPE: HashRouter
         run: |
           npm i --legacy-peer-deps
           npm run build
@@ -27,11 +27,11 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
-          
+          folder: dist # The folder the action should deploy.
+
       - name: Create the Mattermost Message
         run: |
           echo "{\"text\":\"There is a updated [demo-stage.escolalms.com](https://demo-stage.escolalms.com/) available\"}" > mattermost.json
       - uses: mattermost/action-mattermost-notify@master
         env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}          
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}

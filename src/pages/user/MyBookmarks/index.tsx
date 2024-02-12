@@ -3,9 +3,18 @@ import { useTranslation } from "react-i18next";
 import { BookmarkNotes } from "@escolalms/components";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 const Bookmarks = () => {
   const { t } = useTranslation();
   const { push } = useHistory();
+
+  if (typeof window !== "undefined") {
+    return null;
+  }
+
+  useEffect(() => {}, [push]);
+
   return (
     <ProfileLayout title={t("MyProfilePage.MyBookmarks")}>
       <BookmarkNotes

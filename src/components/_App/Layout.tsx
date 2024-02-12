@@ -13,7 +13,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 declare global {
   interface Window {
     ybug_settings: Ybug;
-    REACT_APP_YBUG_ID: string;
+    VITE_APP_YBUG_ID: string;
   }
 }
 
@@ -22,9 +22,7 @@ interface Ybug {
 }
 window.ybug_settings = window.ybug_settings || {};
 
-const YBUG_ID =
-  window.REACT_APP_YBUG_ID ||
-  (process && process.env && process.env.REACT_APP_YBUG_ID);
+const YBUG_ID = window.VITE_APP_YBUG_ID || import.meta.env.VITE_APP_YBUG_ID;
 
 setConfiguration({ maxScreenClass: "xl" });
 
@@ -45,7 +43,6 @@ const Layout: React.FC<{
   useEffect(() => {
     // ybug
     (function () {
-      ///
       if (window && YBUG_ID) {
         try {
           window.ybug_settings = { id: YBUG_ID };
@@ -56,7 +53,9 @@ const Layout: React.FC<{
             "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
           const s = document.getElementsByTagName("script")[0];
           s && s.parentNode && s.parentNode.insertBefore(ybug, s);
-        } catch (er) {}
+        } catch (er) {
+          // Handle the error or add a comment explaining the reason for the empty block.
+        }
       }
     })();
   }, []);

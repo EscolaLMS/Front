@@ -94,7 +94,7 @@ export const useCourseProgram = ({
     (event: XAPIEvent): void => {
       isThereAnotherTopic &&
         disableNextTopicButton &&
-        disableNextTopicButton(!Boolean(event?.statement?.verb?.id));
+        disableNextTopicButton(!event?.statement?.verb?.id);
 
       setLastH5pEvent(event);
       if (

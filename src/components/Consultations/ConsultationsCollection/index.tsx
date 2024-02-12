@@ -53,6 +53,7 @@ const ConsultationsCollection = () => {
         {categoriesWithoutDuplicates &&
           categoriesWithoutDuplicates.map((category) => (
             <ConsultationsSlider
+              //@ts-ignore
               key={category.id}
               category={category}
               consultations={consultations?.list?.data || []}

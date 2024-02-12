@@ -4,14 +4,11 @@ import styled from "styled-components";
 import { Tutor, Title } from "@escolalms/components";
 import { TutorsSectionStyles } from "./TutorsSectionStyles";
 import { User } from "@escolalms/sdk/lib/types/api";
+import { API_URL } from "@/config/index";
 
 const TutorStyled = styled(Tutor)`
   margin-bottom: 20px;
 `;
-
-const API_URL =
-  window.REACT_APP_API_URL ||
-  (process && process.env && process.env.REACT_APP_PUBLIC_API_URL);
 
 type CustomUser = User & {
   bio?: string;
