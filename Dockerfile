@@ -3,7 +3,7 @@ FROM node:20-buster AS base
 ARG APP_VERSION="xxx"
 WORKDIR /home/node/app
 COPY / /home/node/app
-RUN yarn install --network-timeout 1000000000  && yarn run build && cp build/index.html build/tpl.html
+RUN yarn install --network-timeout 1000000000  && yarn run build && cp dist/index.html dist/tpl.html
 RUN echo $APP_VERSION >> build/version.html
 
 
@@ -15,4 +15,4 @@ ENV BASENAME=""
 ENV ROUTING_TYPE="HashRouter"
 
 COPY entrypoint.sh /usr/local/bin/httpd-foreground
-COPY --from=base /home/node/app/build /usr/local/apache2/htdocs/
+COPY --from=base /home/node/app/dist /usr/local/apache2/htdocs/
