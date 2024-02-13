@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import styled, { css } from "styled-components";
 import { useLessonProgram } from "@/hooks/useLessonProgram";
-import { Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { t } from "i18next";
 import { userIsCourseAuthor } from "@/utils/index";
 
@@ -106,7 +106,7 @@ export const CourseSidebar: React.FC<{
           className="show-agenda-btn"
           onClick={() => setAgendaVisible(true)}
         >
-          {t("CourseProgram.ShowAgenda")}
+          {t("CourseProgram.ShowAgenda").toString()}
         </Button>
       )}
       <div

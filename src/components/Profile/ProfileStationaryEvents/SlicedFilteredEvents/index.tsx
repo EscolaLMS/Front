@@ -1,4 +1,4 @@
-import { Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Row, Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import EventsContainerItem from "@/components/Events/EventsContainer/Items/Item";

@@ -27,7 +27,7 @@ const Consultation = () => {
     useContext(EscolaLMSContext);
 
   const consultationCategories = consultation.value?.categories?.map(
-    (category) => category.name
+    (category: EscolaLms.Categories.Models.Category) => category.name
   );
 
   useEffect(() => {
@@ -86,6 +86,7 @@ const Consultation = () => {
       {consultationCategories && consultationCategories.length > 0 && (
         <StyledRelatedConsultations>
           <Container>
+            {/* @ts-ignore TODO: check this and fix it */}
             {consultationCategories.map((category) => (
               <ConsultationsSlider
                 key={category}

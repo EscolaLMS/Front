@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
-import { Title } from "@escolalms/components";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import MarkdownRenderer from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useTranslation } from "react-i18next";
 

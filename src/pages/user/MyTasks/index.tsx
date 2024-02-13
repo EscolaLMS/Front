@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
-import { IconText, TaskComponent } from "@escolalms/components";
+import { TasksComponent } from "@escolalms/components/lib/components/organisms/TasksComponent/index";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import {
   IconChevronDoubleDown,
   IconChevronDoubleUp,
@@ -115,7 +116,7 @@ const Tasks = () => {
 
   return (
     <ProfileLayout title={t("MyProfilePage.MyTasks")}>
-      <TaskComponent
+      <TasksComponent
         taskShowAction={{ options: taskShowAction, showDone: state.done }}
         sortOptions={{ options: sortType, type: state.sort }}
         createBy={{ options: taskCreateBy, type: state.createdBy }}

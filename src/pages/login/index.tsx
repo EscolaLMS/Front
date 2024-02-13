@@ -5,7 +5,8 @@ import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 
-import { LoginForm, ResetPasswordForm } from "@escolalms/components";
+import { ResetPasswordForm } from "@escolalms/components/lib/components/organisms/ResetPasswordForm/ResetPasswordForm";
+import { LoginForm } from "@escolalms/components/lib/components/organisms/LoginForm/LoginForm";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";

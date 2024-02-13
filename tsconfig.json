@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "useDefineForClassFields": true,
@@ -23,6 +22,9 @@
 
     "types": ["vite/client"]
   },
+  "exclude": ["components"],
   "include": ["src", "node_modules/@escolalms/ts-models"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "extends": "./tsconfig.paths.json"
 }

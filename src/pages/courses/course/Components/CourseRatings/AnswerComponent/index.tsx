@@ -4,7 +4,10 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { API } from "@escolalms/sdk/lib";
 import { FC } from "react";
 import { Container } from "./styles";
-import { Avatar, Row, Stack } from "@escolalms/components";
+
+import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
+import { Row } from "@escolalms/components/lib/components/atoms/Row/index";
+import { Stack } from "@escolalms/components/lib/components/atoms/Stack/index";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
 import { HeaderUser, StarOrange } from "@/icons/index";

@@ -8,10 +8,10 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.112",
+    "@escolalms/components": "^0.0.113",
     "@escolalms/h5p-react": "^0.2.10",
     "@escolalms/sdk": "^0.5.18",
-    "@escolalms/ts-models": "^0",
+    "@escolalms/ts-models": "^0.0.35",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
     "@stripe/react-stripe-js": "^1.6.0",
@@ -51,7 +51,7 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
-    "start": "vite",
+    "start": " vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest --no-cache",

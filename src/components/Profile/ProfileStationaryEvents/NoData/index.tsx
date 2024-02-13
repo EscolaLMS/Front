@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Title, Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { NoDataStyles } from "./NoDataStyles";
 import { useHistory } from "react-router-dom";

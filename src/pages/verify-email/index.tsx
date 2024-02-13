@@ -3,7 +3,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Spin, Text } from "@escolalms/components";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { useTheme } from "styled-components";
 import routeRoutes from "@/components/Routes/routes";
 
@@ -74,7 +75,7 @@ const VerifyEmail: React.FC = () => {
               >
                 {state.loading && <Spin color={theme.primaryColor} />}{" "}
                 {state.isVerified && (
-                  <Text size="32">{t("EmailWasVerified")}</Text>
+                  <Text size="16">{t("EmailWasVerified")}</Text>
                 )}
               </div>
             </div>

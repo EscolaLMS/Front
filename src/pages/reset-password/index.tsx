@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
-import { ResetPasswordForm } from "@escolalms/components";
+import { ResetPasswordForm } from "@escolalms/components/lib/components/organisms/ResetPasswordForm/ResetPasswordForm";
 import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";

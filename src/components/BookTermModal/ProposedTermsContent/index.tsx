@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import DatePicker from "@/components/DatePicker";
 import { API } from "@escolalms/sdk/lib";
-import { Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import {
   sortDates,

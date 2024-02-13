@@ -1,4 +1,4 @@
-import { Stack } from "@escolalms/components";
+import { Stack } from "@escolalms/components/lib/components/atoms/Stack/index";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import styled from "styled-components";
 

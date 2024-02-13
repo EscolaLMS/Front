@@ -3,7 +3,12 @@ import {
   getFormattedDifferenceRelativeToNow,
   relativeTimeFormatter,
 } from "@/utils/index";
-import { Button, Modal, Spin, Text, Title } from "@escolalms/components";
+
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CourseProgressItem } from "@escolalms/sdk/lib/types/api";

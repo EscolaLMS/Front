@@ -1,13 +1,12 @@
 import { FC, useState } from "react";
 import { API } from "@escolalms/sdk/lib";
-import {
-  Button,
-  Rate,
-  Stack,
-  TextArea,
-  Title,
-  Text,
-} from "@escolalms/components";
+
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Rate } from "@escolalms/components/lib/components/molecules/Rate/Rate";
+import { Stack } from "@escolalms/components/lib/components/atoms/Stack/index";
+import { TextArea } from "@escolalms/components/lib/components/atoms/TextArea/TextArea";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 interface QuestionBoxProps {
   withStarsRating?: boolean;

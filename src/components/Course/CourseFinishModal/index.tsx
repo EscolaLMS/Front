@@ -6,7 +6,7 @@ import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import RateCourse from "@/components/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
-import { Spin } from "@escolalms/components";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { getQuestionnaires } from "@/utils/questionnaires";
 import routeRoutes from "@/components/Routes/routes";
 
