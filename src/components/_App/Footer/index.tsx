@@ -66,6 +66,11 @@ const StyledFooter = styled.footer`
   }
 `;
 
+type LinkObject = {
+  link: string | undefined;
+  label: string | Record<string, string>;
+};
+
 const Footer = () => {
   const { settings, fetchPages, pages, user } = useContext(EscolaLMSContext);
   const { t, i18n } = useTranslation();
@@ -101,23 +106,21 @@ const Footer = () => {
         <div className="links-row">
           {footerFromApi && footerFromApi.length > 0 ? (
             <>
-              {footerFromApi.map(
-                (link: Record<string, string | Record<string, string>>) => {
-                  return (
-                    !!link.link && (
-                      <Link
-                        key={link.link.toString()}
-                        className="single-link"
-                        href={link.link}
-                      >
-                        {typeof link.label === "object" && (
-                          <Text size="14">{link.label[i18n.language]}</Text>
-                        )}
-                      </Link>
-                    )
-                  );
-                }
-              )}
+              {footerFromApi.map((link: LinkObject) => {
+                return (
+                  !!link.link && (
+                    <Link
+                      key={link.link.toString()}
+                      className="single-link"
+                      href={link.link}
+                    >
+                      {typeof link.label === "object" && (
+                        <Text size="14">{link.label[i18n.language]}</Text>
+                      )}
+                    </Link>
+                  )
+                );
+              })}
             </>
           ) : (
             <>

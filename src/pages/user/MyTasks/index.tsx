@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
-// import { TaskComponent } from "@escolalms/components/lib/components/organisms/TasksComponent";
+import { TaskComponent } from "@escolalms/components/lib/components/organisms/TasksComponent/index";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import {
   IconChevronDoubleDown,
@@ -116,7 +116,7 @@ const Tasks = () => {
 
   return (
     <ProfileLayout title={t("MyProfilePage.MyTasks")}>
-      {/* <TaskComponent
+      <TaskComponent
         taskShowAction={{ options: taskShowAction, showDone: state.done }}
         sortOptions={{ options: sortType, type: state.sort }}
         createBy={{ options: taskCreateBy, type: state.createdBy }}
@@ -127,8 +127,7 @@ const Tasks = () => {
           lastPage,
           setCurrentPage,
         }}
-      /> */}
-      d
+      />
     </ProfileLayout>
   );
 };

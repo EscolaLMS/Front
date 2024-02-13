@@ -9,14 +9,7 @@ export default defineConfig(({ mode }) => {
     // This changes the out put dir from dist to build change as your need
     // comment this out if that isn't relevant for your project
 
-    plugins: [
-      react(),
-      viteTsconfigPaths(),
-      eslint({
-        // TODO: unccomment this if you startup project with switch_to_local_components.sh
-        exclude: ["**/components/**"],
-      }),
-    ],
+    plugins: [react(), viteTsconfigPaths(), eslint()],
     server: {
       open: true,
       port: 3000,

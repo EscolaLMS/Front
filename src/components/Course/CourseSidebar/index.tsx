@@ -106,7 +106,7 @@ export const CourseSidebar: React.FC<{
           className="show-agenda-btn"
           onClick={() => setAgendaVisible(true)}
         >
-          {t("CourseProgram.ShowAgenda")}
+          {t("CourseProgram.ShowAgenda").toString()}
         </Button>
       )}
       <div

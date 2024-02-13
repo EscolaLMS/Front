@@ -22,9 +22,11 @@ const ConsultationHero: React.FC<ConsultationHeroProps> = (props) => {
         </Title>
         {consultation?.categories && consultation.categories.length > 0 && (
           <StyledTags>
-            {consultation.categories.map((category) => (
-              <Button mode="outline">{category.name}</Button>
-            ))}
+            {consultation.categories.map(
+              (category: EscolaLms.Categories.Models.Category) => (
+                <Button mode="outline">{category.name}</Button>
+              )
+            )}
           </StyledTags>
         )}
       </Col>

@@ -15,8 +15,9 @@ const ConsultationsCollection = () => {
   const { t } = useTranslation();
 
   const consultationsCategories = consultations?.list?.data?.map((item) =>
-    item?.categories?.reduce<string[]>(
-      (acc, cat) => (cat.parent_id === null ? [...acc, cat.name] : acc),
+    item?.categories?.reduce(
+      (acc: string[], cat: EscolaLms.Categories.Models.Category) =>
+        cat.parent_id === null ? [...acc, cat.name] : acc,
       []
     )
   );

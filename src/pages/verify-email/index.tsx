@@ -75,7 +75,7 @@ const VerifyEmail: React.FC = () => {
               >
                 {state.loading && <Spin color={theme.primaryColor} />}{" "}
                 {state.isVerified && (
-                  <Text size="32">{t("EmailWasVerified")}</Text>
+                  <Text size="16">{t("EmailWasVerified")}</Text>
                 )}
               </div>
             </div>

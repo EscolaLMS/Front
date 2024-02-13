@@ -24,8 +24,8 @@ interface ProfileWebinarsProps {
 const ProfileWebinars = ({
   webinars,
   loading,
-  isPast,
-}: ProfileWebinarsProps) => {
+}: // isPast,
+ProfileWebinarsProps) => {
   const [webinarJoinId, setWebinarJoinId] = useState<number | undefined>(
     undefined
   );

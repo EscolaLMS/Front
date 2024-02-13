@@ -13,10 +13,10 @@ interface Props {
 
 export const useBookmarkNotes = ({
   topic,
-  courseId,
-  program,
-  lesson,
-}: Props) => {
+}: // courseId,
+// program,
+// lesson,
+Props) => {
   const {
     bookmarkNotes,
     fetchBookmarkNotes,

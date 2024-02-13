@@ -52,7 +52,9 @@ const ConsultationsSlider: React.FC<ConsultationsSliderProps> = (props) => {
   const [dots] = useState(true);
 
   const filteredConsultations = consultations.filter((item) =>
-    item.categories?.some((cat) => cat.name === category)
+    item.categories?.some(
+      (cat: EscolaLms.Categories.Models.Category) => cat.name === category
+    )
   );
 
   return (
