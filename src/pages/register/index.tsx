@@ -5,7 +5,9 @@ import Layout from "@/components/_App/Layout";
 import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { RegisterForm, Text } from "@escolalms/components";
+
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { RegisterForm } from "@escolalms/components/lib/components/organisms/RegisterForm/RegisterForm";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";

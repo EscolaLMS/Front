@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { Title, Text } from "@escolalms/components";
-
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 const PackageDescription = () => {
   const { product } = useContext(EscolaLMSContext);
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Dropdown } from "@escolalms/components";
+import { Dropdown } from "@escolalms/components/lib/components/atoms/Dropdown/Dropdown";
 import { useCourseRatingContext } from "../../Provider";
 import { API } from "@escolalms/sdk/lib";
 import { QuestionType } from "@/types/questionnaire";

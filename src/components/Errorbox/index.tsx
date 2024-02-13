@@ -1,5 +1,6 @@
 import Layout from "@/components/_App/Layout";
-import { Button, Text } from "@escolalms/components";
+import { Button } from "@escolalms/componentsi/lib/components/atoms/Button";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";

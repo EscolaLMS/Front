@@ -24,7 +24,7 @@ import { LessonsIcon } from "../../../icons";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/CourseCardWrapper";
-import { Search } from "@escolalms/components";
+import { Search } from "@escolalms/components/lib/components/molecules/Search/Search";
 import { Row, Col } from "react-grid-system";
 import { COURSES_ON_PAGE } from "@/config/courses";
 import Tags from "@/components/Tags";

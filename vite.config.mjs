@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
       viteTsconfigPaths(),
       eslint({
         // TODO: unccomment this if you startup project with switch_to_local_components.sh
-        // exclude: ["**/components/**"],
+        exclude: ["**/components/**"],
       }),
     ],
     server: {

@@ -12,7 +12,9 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CoursesSlider from "@/components/CoursesSlider";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import { Button, CourseCard, IconText } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { LessonsIcon, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import CourseCardWrapper from "@/components/CourseCardWrapper";

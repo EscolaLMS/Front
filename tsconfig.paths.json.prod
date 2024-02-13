@@ -8,8 +8,7 @@
       "@/types/*": ["src/types/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/icons/*": ["src/icons/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@escolalms/components/lib/*": ["components/src/*"]
+      "@/pages/*": ["src/pages/*"]
     }
   }
 }

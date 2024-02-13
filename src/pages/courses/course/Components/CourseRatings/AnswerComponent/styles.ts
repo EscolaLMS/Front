@@ -1,4 +1,4 @@
-import { Row } from "@escolalms/components";
+import { Row } from "@escolalms/components/lib/components/atoms/Row/index";
 import styled from "styled-components";
 
 export const Container = styled(Row)`

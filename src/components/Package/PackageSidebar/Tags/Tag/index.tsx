@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Col } from "react-grid-system";
-import { Tag, Text } from "@escolalms/components";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Tag } from "@escolalms/components/lib/components/atoms/Tag/Tag";
 import { API } from "@escolalms/sdk/lib";
 
 const ColStyled = styled(Col)`

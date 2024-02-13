@@ -8,7 +8,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteAction/NoteAction";
 import styled, { useTheme } from "styled-components";
 import { DownloadIcon } from "../../../icons";
-import { Spin } from "@escolalms/components";
+import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 
 type CertType = API.Certificate;
 

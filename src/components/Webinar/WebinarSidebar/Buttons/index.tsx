@@ -1,7 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { isPast } from "date-fns";
-import { Text, Button } from "@escolalms/components";
+
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import WebinarMeetModal from "@/components/Webinar/WebinarMeetModal";

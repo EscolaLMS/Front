@@ -1,4 +1,4 @@
-import { Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { API } from "@escolalms/sdk/lib";
 import { FC, useCallback } from "react";
 import { isMobile } from "react-device-detect";

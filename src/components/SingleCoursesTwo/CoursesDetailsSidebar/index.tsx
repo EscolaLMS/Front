@@ -1,7 +1,10 @@
 import React, { useContext, useMemo } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import { IconText, Text, CourseProgress } from "@escolalms/components";
+
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { CourseProgress } from "@escolalms/components/lib/components/atoms/CourseProgress/CourseProgress";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconSquares, IconWin, IconCamera } from "../../../icons";
 import { useTranslation } from "react-i18next";

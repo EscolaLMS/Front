@@ -1,4 +1,4 @@
-import { Link } from "@escolalms/components";
+import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
 import React from "react";
 import styled from "styled-components";
 

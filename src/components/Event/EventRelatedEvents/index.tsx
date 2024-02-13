@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Container, Row, Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Title } from "@escolalms/components";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { EventRelatedStyles } from "./EventRelatedEvents";
 import Slider from "@/components/Slider";
 import CourseCardWrapper from "@/components/CourseCardWrapper";

@@ -4,7 +4,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { WebinarSidebarStyles } from "./WebinarSidebarStyles";
-import { IconText } from "@escolalms/components";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { IconCamera, IconSquares } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import WebinarSidebarButtons from "./Buttons";

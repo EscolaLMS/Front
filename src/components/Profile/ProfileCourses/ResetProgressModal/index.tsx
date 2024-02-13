@@ -1,4 +1,7 @@
-import { Button, Row, Text, Title } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { Row } from "@escolalms/components/lib/components/atoms/Row/index";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";

@@ -2,7 +2,9 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import React, { useContext, useMemo } from "react";
 import { Consultation } from "@escolalms/sdk/lib/types/api";
-import { Button, IconText, Text } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { IconBadge, IconQuestion, IconTime, IconUsers } from "../../icons";
 import { formatPrice } from "@/utils/index";
 import isPast from "date-fns/isPast";
