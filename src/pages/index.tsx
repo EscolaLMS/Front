@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Banner";
+import { Banner } from "@escolalms/components/src/components/molecules/Banner/Banner";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";

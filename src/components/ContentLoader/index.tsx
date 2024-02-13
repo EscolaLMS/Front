@@ -1,4 +1,4 @@
-import { Spin } from "@escolalms/components";
+import { Spin } from "@escolalms/components/lib";
 import styled, { useTheme } from "styled-components";
 
 interface Props {

@@ -11,7 +11,7 @@ import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import { HeaderCard } from "../../../icons";
 import { useTranslation } from "react-i18next";
-import { Button } from "@escolalms/components";
+import { Button } from "@escolalms/components/lib";
 import Container from "@/components/Container";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";

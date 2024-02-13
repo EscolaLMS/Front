@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Layout from "@/components/_App/Layout";
-import { Spin, Title } from "@escolalms/components";
+import { Spin, Title } from "@escolalms/components/lib";
 import { useTranslation } from "react-i18next";
 
 const StyledDiv = styled.div`

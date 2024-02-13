@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-grid-system";
 import { useTranslation } from "react-i18next";
-import { Title } from "@escolalms/components";
+import { Title } from "@escolalms/components/lib";
 import CoursesSlider from "../CoursesSlider";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";

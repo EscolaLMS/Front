@@ -14,7 +14,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "../CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
-import { Title } from "@escolalms/components";
+import { Title } from "@escolalms/components/lib";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { getSubtitleComponent } from "@/components/Subtitle";

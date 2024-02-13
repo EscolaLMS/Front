@@ -1,4 +1,4 @@
-import { Text } from "@escolalms/components";
+import { Text } from "@escolalms/components/lib";
 import React from "react";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";

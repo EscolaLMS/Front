@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import { Link } from "@escolalms/components";
+import { Link } from "@escolalms/components/lib";
 import Container from "@/components/Container";
 import routeRoutes from "@/components/Routes/routes";
 
