@@ -48,7 +48,7 @@ const StyledMain = styled.main<{ noPadding?: boolean }>`
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.dm__background : theme.background};
   padding-top: ${({ noPadding }) =>
-    noPadding ? "0px" : isMobile ? "92px" : "167px"};
+    noPadding ? "0px" : isMobile ? "92px" : "57px"};
 `;
 const App = () => {
   const { fetchSettings, settings } = useContext(EscolaLMSContext);

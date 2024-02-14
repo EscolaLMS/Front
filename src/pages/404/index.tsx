@@ -5,13 +5,12 @@ import styled from "styled-components";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { isMobile } from "react-device-detect";
 import Container from "@/components/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const Styled404 = styled.div`
-  height: 100vh;
-  margin-top: ${isMobile ? 0 : "-167px"};
+  height: calc(100vh - 520px);
+
   .content {
     display: flex;
     flex-direction: column;

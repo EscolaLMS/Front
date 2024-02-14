@@ -170,14 +170,9 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 6px;
     margin-right: 20px;
-    .divider {
-      height: 15px;
-      width: 2px;
-      background-color: #4a4a4a;
-      opacity: 0.4;
-    }
+
     a {
       text-decoration: none;
       p {
@@ -501,13 +496,19 @@ const Navbar = () => {
 
           {!user?.id && (
             <div className="not-logged-container">
-              <Link to={routeRoutes.login}>
-                <Text>{t<string>("Header.Login")}</Text>
-              </Link>
-              <div className="divider" />
-              <Link to={routeRoutes.register}>
-                <Text>{t<string>("Header.Register")}</Text>
-              </Link>
+              <Button
+                mode="secondary"
+                onClick={() => history.push(routeRoutes.login)}
+              >
+                {t<string>("Header.Login")}
+              </Button>
+
+              <Button
+                mode="secondary outline"
+                onClick={() => history.push(routeRoutes.register)}
+              >
+                {t<string>("Header.Register")}
+              </Button>
             </div>
           )}
 
