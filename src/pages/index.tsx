@@ -21,7 +21,7 @@ import routeRoutes from "@/components/Routes/routes";
 const HomePageStyled = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: -120px;
+
   @media (max-width: 1200px) {
     margin-top: 0;
   }

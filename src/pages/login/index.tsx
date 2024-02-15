@@ -19,6 +19,8 @@ const StyledLoginPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  /* TODO: export colors */
+  background-color: #f8f8f8;
 `;
 
 const Login = () => {
