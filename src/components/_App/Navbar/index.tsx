@@ -4,18 +4,19 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { Dropdown } from "@escolalms/components/lib/components/molecules/Dropdown/Dropdown";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard } from "../../../icons";
+import { HeaderCard, HeaderNotification, ProfileIcon } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Container";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
+import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
+import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -61,8 +62,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
-
+    gap: 20px;
     .search-container {
       min-width: 250px;
       @media (max-width: 1200px) {
@@ -77,8 +77,8 @@ const StyledHeader = styled.header`
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin: 0 24px;
-      column-gap: 20px;
+
+      gap: 10px;
       .Dropdown-root {
         min-width: 105px;
       }
@@ -129,7 +129,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    column-gap: 28px;
+    margin: 0 5px;
     button {
       appearance: none;
       outline: none;
@@ -140,7 +140,7 @@ const StyledHeader = styled.header`
       cursor: pointer;
       &.cart-icon {
         position: relative;
-        top: -1px;
+
         svg {
           path {
             transition: fill 0.25s;
@@ -156,12 +156,17 @@ const StyledHeader = styled.header`
         span {
           position: absolute;
           right: -5px;
-          top: 0;
-          width: 15px;
-          height: 15px;
+          top: -1px;
+          min-width: 20px;
+          min-height: 20px;
           border-radius: 50%;
-          background: ${({ theme }) => theme.primaryColor};
-          color: ${({ theme }) => theme.white};
+          background: ${({ theme }) => theme.secondaryColor};
+          color: ${({ theme }) => theme.textColor};
+          font-size: 13px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
@@ -183,16 +188,13 @@ const StyledHeader = styled.header`
       }
     }
   }
-  .user-avatar {
-    margin-right: 16px;
-  }
 `;
 
 const CustomMobileMenuItem = styled.div``;
 
 const Navbar = () => {
   const { t } = useTranslation();
-  const { languageObject, handleLanguageChange } = useLanguage();
+  const { handleLanguageChange } = useLanguage();
 
   const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
   const user = userObj.value;
@@ -386,113 +388,197 @@ const Navbar = () => {
             className="logo"
           />
         </Link>
+        <div className="search-container">
+          <SearchCourses
+            onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+            onInputSubmitted={(input) =>
+              history.push(`/courses/?title=${input}`)
+            }
+          />
+        </div>
         <div className="menu-container">
-          <div className="search-container">
-            <SearchCourses
-              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) =>
-                history.push(`/courses/?title=${input}`)
-              }
-            />
-          </div>
           <nav className="navigation">
-            <Dropdown
-              // placeholder={t("Menu.Browse")}
-              // HACKED we need use default value with translation insted placeholder
-              // placeholder prop doesn't re-render when we changing language
-              // this bug is in all Dropdowns
-              value={{ label: t("Menu.Browse"), value: "" }}
-              onChange={(e) => {
-                if (e.value !== "") {
-                  history.push(e.value);
+            <DropdownMenu
+              menuItems={[
+                {
+                  id: 1,
+                  content: t("Menu.HomePage"),
+                  redirect: routeRoutes.home,
+                },
+                {
+                  id: 2,
+                  content: t("Menu.Courses"),
+                  redirect: routeRoutes.courses,
+                },
+                {
+                  id: 3,
+                  content: t("Menu.Tutors"),
+                  redirect: routeRoutes.tutors,
+                },
+                {
+                  id: 4,
+                  content: t("Menu.Consultations"),
+                  redirect: routeRoutes.consultations,
+                },
+                {
+                  id: 5,
+                  content: t("Menu.Events"),
+                  redirect: routeRoutes.events,
+                },
+                {
+                  id: 6,
+                  content: t("Menu.Webinars"),
+                  redrect: routeRoutes.webinars,
+                },
+                {
+                  id: 7,
+                  content: t("Menu.Packages"),
+                  redirect: routeRoutes.packages,
+                },
+              ]}
+              onChange={(e: DropdownMenuItem) => {
+                if (e.redirect && e.redirect !== "") {
+                  history.push(e?.redirect);
                 }
               }}
-              options={[
-                { label: t("Menu.HomePage"), value: routeRoutes.home },
-                { label: t("Menu.Courses"), value: routeRoutes.courses },
-                { label: t("Menu.Tutors"), value: routeRoutes.tutors },
-                {
-                  label: t("Menu.Consultations"),
-                  value: routeRoutes.consultations,
-                },
-                { label: t("Menu.Events"), value: routeRoutes.events },
-                { label: t("Menu.Webinars"), value: routeRoutes.webinars },
-                { label: t("Menu.Packages"), value: routeRoutes.packages },
-              ]}
+              child={
+                <Button mode="icon" className="dropdown">
+                  Menu <Icon name="hamburger" />
+                </Button>
+              }
             />
-            <Dropdown
-              placeholder={t("Menu.Language")}
-              onChange={(e) =>
+
+            <DropdownMenu
+              menuItems={[
+                {
+                  id: "pl",
+                  content: "Polski",
+                },
+                {
+                  id: "en",
+                  content: "English",
+                },
+              ]}
+              onChange={(e: DropdownMenuItem) =>
                 handleLanguageChange({
-                  label: String(e.label),
-                  value: e.value,
+                  label: String(e.content),
+                  value: String(e.id),
                 })
               }
-              options={[
-                { label: "Polski", value: "pl" },
-                { label: "English", value: "en" },
-              ]}
-              value={languageObject}
+              child={
+                <Button mode="icon" className="dropdown">
+                  {t("Menu.Language")}
+                </Button>
+              }
             />
+            {user && (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.cart)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderCard mode={theme.mode} />
+
+                  {cart.data && cart.data.items?.length > 0 && (
+                    <span>{cart.data.items.length}</span>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {user && (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.myNotifications)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderNotification mode={theme.mode} />
+                </button>
+              </div>
+            )}
+
             {user?.id && (
-              <Dropdown
-                placeholder={
-                  user?.first_name && user?.last_name
-                    ? `${user?.first_name} ${user?.last_name}`
-                    : t("Menu.Profile")
-                }
-                options={[
+              <DropdownMenu
+                menuItems={[
                   {
-                    label: t("Navbar.MyCourses"),
-                    value: routeRoutes.myProfile,
-                  },
-                  { label: t("Navbar.MyOrders"), value: routeRoutes.myOrders },
-                  {
-                    label: t("Navbar.MyConsultations"),
-                    value: routeRoutes.myConsultations,
+                    id: 1,
+                    content: t("Navbar.MyCourses"),
+                    redirect: routeRoutes.myProfile,
                   },
                   {
-                    label: t("Navbar.MyWebinars"),
-                    value: routeRoutes.myWebinars,
+                    id: 2,
+                    content: t("Navbar.MyOrders"),
+                    redirect: routeRoutes.myOrders,
                   },
                   {
-                    label: t("Navbar.MyStationaryEvents"),
-                    value: routeRoutes.myStationaryEvents,
+                    id: 3,
+                    content: t("Navbar.MyConsultations"),
+                    redirect: routeRoutes.myConsultations,
                   },
                   {
-                    label: t("Navbar.MyTasks"),
-                    value: routeRoutes.myTasks,
+                    id: 4,
+                    content: t("Navbar.MyWebinars"),
+                    redirect: routeRoutes.myWebinars,
                   },
                   {
-                    label: t("Navbar.MyBookmarks"),
-                    value: routeRoutes.myBookmarks,
+                    id: 5,
+                    content: t("Navbar.MyStationaryEvents"),
+                    redirect: routeRoutes.myStationaryEvents,
                   },
                   {
-                    label: t("MyProfilePage.Notifications"),
-                    value: routeRoutes.myNotifications,
+                    id: 6,
+                    content: t("Navbar.MyTasks"),
+                    redrect: routeRoutes.myTasks,
                   },
-                  { label: t("Navbar.EditProfile"), value: routeRoutes.myData },
-                  { label: t("Navbar.Logout"), value: routeRoutes.logout },
+                  {
+                    id: 7,
+                    content: t("Navbar.MyBookmarks"),
+                    redirect: routeRoutes.myBookmarks,
+                  },
+                  {
+                    id: 8,
+                    content: t("Menu.Notifications"),
+                    redirect: routeRoutes.myNotifications,
+                  },
+                  {
+                    id: 9,
+                    content: t("Navbar.EditProfile"),
+                    redirect: routeRoutes.myData,
+                  },
+                  {
+                    id: 10,
+                    content: t("Navbar.Logout"),
+                    redirect: routeRoutes.logout,
+                  },
                 ]}
-                onChange={(e) =>
-                  e.value !== "logout"
-                    ? history.push(e.value)
+                onChange={(e: DropdownMenuItem) =>
+                  e.redirect && e.redirect !== "logout"
+                    ? history.push(e.redirect)
                     : logout().then(() => history.push(routeRoutes.home))
+                }
+                child={
+                  <Button mode="icon" className="dropdown">
+                    {!!user?.avatar ? (
+                      <Avatar
+                        src={user.avatar}
+                        alt={user.first_name}
+                        size={"superSmall"}
+                        className="user-avatar"
+                      />
+                    ) : (
+                      <ProfileIcon mode={theme.mode} />
+                    )}
+                  </Button>
                 }
               />
             )}
           </nav>
-
-          {!!user?.avatar && (
-            <Link to={routeRoutes.myProfile}>
-              <Avatar
-                src={user.avatar}
-                alt={user.first_name}
-                size={"small"}
-                className="user-avatar"
-              />
-            </Link>
-          )}
 
           {!user?.id && (
             <div className="not-logged-container">
@@ -509,23 +595,6 @@ const Navbar = () => {
               >
                 {t<string>("Header.Register")}
               </Button>
-            </div>
-          )}
-
-          {user && (
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.cart)}
-                data-tooltip={String(cart.data?.items.length)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                {cart.data && cart.data.items?.length > 0 && (
-                  <span>{cart.data.items.length}</span>
-                )}{" "}
-                <HeaderCard mode={theme.mode} />
-              </button>
             </div>
           )}
         </div>
