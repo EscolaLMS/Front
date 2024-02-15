@@ -214,7 +214,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
             }, 3000);
           }
         })
-        .catch((error) => {
+        .catch(() => {
           setProcessing(false);
           toast.error(`${t("UnexpectedError")}`);
         });
@@ -364,7 +364,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                               setDiscountStatus("error");
                             }
                           })
-                          .catch((err) => {
+                          .catch(() => {
                             setDiscountStatus("error");
                           }),
                       onDeleteDiscountClick: () => console.log("clicked"),

@@ -1,23 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "../CourseCardWrapper";
 import { Row, Col } from "react-grid-system";
 import Container from "../Container";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Course, PaginatedMetaList, Tag } from "@escolalms/sdk/lib/types/api";
+import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
-import Tags from "@/components/Tags";
-import { getSubtitleComponent } from "../Subtitle";
 import routeRoutes from "@/components/Routes/routes";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
 
 const StyledSection = styled.section`
   margin: 40px 0;
@@ -99,7 +97,7 @@ const PromotedCoursesSection: React.FC = () => {
     <StyledSection>
       <Container className={"container"}>
         <div className="header-wrapper">
-          <Title level={3} as="h1">
+          <Title level={1} as="h2">
             {t<string>("Homepage.AwardedCoursesTitle")}
           </Title>
           <Button
@@ -119,38 +117,32 @@ const PromotedCoursesSection: React.FC = () => {
           >
             {courses.map((course) => (
               <Col md={6} lg={3} key={course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={Number(course.id)}
-                    tags={
-                      <Tags
-                        tags={course.tags as Tag[]}
-                        onTagClick={(tagName) =>
-                          history.push(`/courses/?tag=${tagName}`)
-                        }
-                      />
-                    }
-                    image={
-                      <Link to={`/courses/${course.id}`}>
-                        {course.image_path ? (
-                          <ResponsiveImage
-                            path={course.image_path}
-                            alt={course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={getSubtitleComponent({
-                      subtitle: course.title,
-                      linkTo: `/courses/${course.id}`,
-                      textLength: 29,
-                    })}
-                  />
-                </CourseCardWrapper>
+                <NewCourseCard
+                  mobile={isMobile}
+                  id={course.id}
+                  image={
+                    <Link to={`/courses/${course.id}`}>
+                      {course.image_path ? (
+                        <ResponsiveImage
+                          path={course.image_path}
+                          alt={course.title}
+                          srcSizes={[300, 600, 900]}
+                        />
+                      ) : (
+                        <CourseImgPlaceholder />
+                      )}
+                    </Link>
+                  }
+                  title={course.title}
+                  categories={
+                    <CategoriesBreadCrumbs
+                      categories={course.categories}
+                      onCategoryClick={(id) => {
+                        history.push(`/courses/?categories[]=${id}`);
+                      }}
+                    />
+                  }
+                />
               </Col>
             ))}
           </Row>

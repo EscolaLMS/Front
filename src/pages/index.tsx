@@ -134,7 +134,7 @@ const Index = () => {
 
         <section className="home-best-courses">
           <Container>
-            <Title className="slider-title" level={3} as="h1">
+            <Title className="slider-title" level={1} as="h2">
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
             {loading && <ContentLoader />}

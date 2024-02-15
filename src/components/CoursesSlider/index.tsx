@@ -1,23 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
-import { useTranslation } from "react-i18next";
-import { LessonsIcon, UserIcon } from "../../icons";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "../CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import { getSubtitleComponent } from "@/components/Subtitle";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
 
 type Props = {
   courses: API.Course[];
@@ -26,7 +19,7 @@ type Props = {
 
 const Content = styled.div`
   @media (max-width: 575px) {
-    margin-left: -59px;
+    margin-left: -79px;
   }
   .slick-slider {
     @media (max-width: 575px) {
@@ -99,7 +92,6 @@ const CoursesSlider: React.FC<Props> = ({
 }) => {
   const [dots] = useState(true);
   const history = useHistory();
-  const { t } = useTranslation();
 
   return (
     <Content>
@@ -137,7 +129,33 @@ const CoursesSlider: React.FC<Props> = ({
             {courses &&
               courses.map((item) => (
                 <CourseCardWrapper key={item.id}>
-                  <CourseCard
+                  <NewCourseCard
+                    mobile={isMobile}
+                    id={item.id}
+                    image={
+                      <>
+                        {item.image_path ? (
+                          <ResponsiveImage
+                            path={item.image_path}
+                            alt={item.title}
+                            srcSizes={[300, 600, 900]}
+                          />
+                        ) : (
+                          <CourseImgPlaceholder />
+                        )}
+                      </>
+                    }
+                    title={item.title}
+                    categories={
+                      <CategoriesBreadCrumbs
+                        categories={item.categories}
+                        onCategoryClick={(id) => {
+                          history.push(`/courses/?categories[]=${id}`);
+                        }}
+                      />
+                    }
+                  />
+                  {/* <CourseCard
                     mobile={isMobile}
                     id={item.id}
                     image={
@@ -214,7 +232,7 @@ const CoursesSlider: React.FC<Props> = ({
                         )}
                       </>
                     }
-                  />
+                  /> */}
                 </CourseCardWrapper>
               ))}
           </Slider>
@@ -228,76 +246,33 @@ const CoursesSlider: React.FC<Props> = ({
         >
           {courses.map((item) => (
             <Col md={6} lg={3} key={item.id}>
-              <CourseCardWrapper key={item.id}>
-                <CourseCard
-                  mobile={isMobile}
-                  id={item.id}
-                  image={
-                    <Link to={`/courses/${item.id}`}>
-                      {item.image_path ? (
-                        <ResponsiveImage
-                          path={item.image_path}
-                          alt={item.title}
-                          srcSizes={[300, 600, 900]}
-                        />
-                      ) : (
-                        <CourseImgPlaceholder />
-                      )}
-                    </Link>
-                  }
-                  tags={
-                    <Tags
-                      tags={item.tags}
-                      onTagClick={(tagName) =>
-                        history.push(`/courses/?tag=${tagName}`)
-                      }
-                    />
-                  }
-                  subtitle={getSubtitleComponent({
-                    subtitle: item.subtitle,
-                    linkTo: `/courses/${item.id}`,
-                  })}
-                  title={<Link to={`/courses/${item.id}`}>{item.title}</Link>}
-                  categories={
-                    <CategoriesBreadCrumbs
-                      categories={item.categories}
-                      onCategoryClick={(id) => {
-                        history.push(`/courses/?categories[]=${id}`);
-                      }}
-                    />
-                  }
-                  actions={
-                    <>
-                      <Button
-                        mode="secondary"
-                        onClick={() => history.push(`/courses/${item.id}`)}
-                      >
-                        {t("StartNow")}
-                      </Button>
-                    </>
-                  }
-                  footer={
-                    <>
-                      {item.users_count && item.users_count > 0 ? (
-                        <IconText
-                          icon={<UserIcon />}
-                          text={`${item.users_count} ${t<string>("Students")}`}
-                        />
-                      ) : (
-                        ""
-                      )}{" "}
-                      {item.lessons_count && item.lessons_count > 0 ? (
-                        <IconText
-                          icon={<LessonsIcon />}
-                          text={`${item.lessons_count} ${t<string>("Lessons")}`}
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </>
-                  }
-                />
-              </CourseCardWrapper>
+              <NewCourseCard
+                mobile={isMobile}
+                id={item.id}
+                key={item.id}
+                image={
+                  <>
+                    {item.image_path ? (
+                      <ResponsiveImage
+                        path={item.image_path}
+                        alt={item.title}
+                        srcSizes={[300, 600, 900]}
+                      />
+                    ) : (
+                      <CourseImgPlaceholder />
+                    )}
+                  </>
+                }
+                title={item.title}
+                categories={
+                  <CategoriesBreadCrumbs
+                    categories={item.categories}
+                    onCategoryClick={(id) => {
+                      history.push(`/courses/?categories[]=${id}`);
+                    }}
+                  />
+                }
+              />
             </Col>
           ))}
         </Row>

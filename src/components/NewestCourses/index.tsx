@@ -28,7 +28,7 @@ const NewestCourses = () => {
 
   return (
     <Container>
-      <Title className="slider-title" level={3} as="h1">
+      <Title className="slider-title" level={1} as="h2">
         <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
       </Title>
       {loading && <ContentLoader />}

@@ -9,7 +9,6 @@ import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
-import { Col, Row } from "react-grid-system";
 import { Settings } from "react-slick";
 import Container from "../Container";
 
@@ -23,9 +22,8 @@ const StyledSection = styled.section`
   @media (max-width: 768px) {
     padding: 30px 0;
   }
-  h3 {
-    text-align: center;
-    margin-bottom: 30px;
+  h2 {
+    margin-bottom: 27px;
   }
   .slider-title {
     @media (max-width: 575px) {
@@ -64,22 +62,31 @@ const StyledSection = styled.section`
   }
 `;
 
+const CategoryRow = styled.div`
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-gap: 11px;
+`;
+
 const CategoriesSection: React.FC<Props> = ({ categories }) => {
   const [dots] = useState(true);
   const { t } = useTranslation();
   const history = useHistory();
+
   const categoriesSliderSettings: Settings = {
     arrows: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 1.6,
     slidesToScroll: 1,
     centerMode: false,
     responsive: [
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          dots: false,
+          slidesToShow: 1.9,
         },
       },
     ],
@@ -90,7 +97,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
   return (
     <StyledSection>
       <Container>
-        <Title level={3}>
+        <Title level={1} as="h2">
           <strong>{t<string>("Homepage.CategoriesTitle")}</strong>
         </Title>
         {isMobile ? (
@@ -99,7 +106,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
               settings={{ ...categoriesSliderSettings, dots }}
               dotsPosition="bottom"
             >
-              {filteredCategories.slice(-4).map((item) => (
+              {filteredCategories.slice(-5).map((item) => (
                 <div className="single-category-slide" key={item.id}>
                   <CategoryCard
                     icon={<img src={item.icon} alt={item.name} />}
@@ -123,9 +130,9 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
             </Slider>
           </div>
         ) : (
-          <Row>
-            {filteredCategories.slice(-4).map((item) => (
-              <Col md={3} key={item.id}>
+          <CategoryRow>
+            {filteredCategories.slice(-5).map((item) => (
+              <div className="category-item" key={item.id}>
                 <CategoryCard
                   icon={<img src={item.icon} alt={item.name} />}
                   title={item.name}
@@ -143,9 +150,9 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   }
                   variant="gradient"
                 />
-              </Col>
+              </div>
             ))}
-          </Row>
+          </CategoryRow>
         )}
       </Container>
     </StyledSection>
