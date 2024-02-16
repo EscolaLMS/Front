@@ -16,16 +16,15 @@ import CoursesSlider from "../CoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
+import { CourseCardSkeleton } from "@escolalms/components/lib/index";
 
 const StyledSection = styled.section`
-  margin: 40px 0;
   @media (max-width: 768px) {
     margin: 30px 0;
   }
   .container {
     position: relative;
-    padding-top: 55px;
-    padding-bottom: 35px;
+
     z-index: 1;
     &:after {
       position: absolute;
@@ -55,7 +54,7 @@ const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 55px;
+    margin-bottom: 20px;
 
     button {
       @media (max-width: 1200px) {
@@ -107,12 +106,25 @@ const PromotedCoursesSection: React.FC = () => {
             {t<string>("Homepage.AwardedCoursesBtnText")}
           </Button>
         </div>
-        {loading && <ContentLoader />}
+
+        {loading && (
+          <Row>
+            <CourseCardSkeleton
+              count={8}
+              colProps={{
+                xs: 12,
+                sm: 6,
+                md: 3,
+              }}
+            />
+          </Row>
+        )}
+
         {!loading && isMobile && <CoursesSlider courses={courses} />}
         {!loading && !isMobile && (
           <Row
             style={{
-              rowGap: "60px",
+              rowGap: "20px",
             }}
           >
             {courses.map((course) => (

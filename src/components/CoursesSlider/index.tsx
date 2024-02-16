@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "../CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, A11y } from "swiper/modules";
+
+import "swiper/css/bundle";
+import "swiper/css/navigation";
 
 type Props = {
   courses: API.Course[];
@@ -18,117 +21,41 @@ type Props = {
 };
 
 const Content = styled.div`
-  @media (max-width: 575px) {
-    margin-left: -79px;
-  }
-  .slick-slider {
-    @media (max-width: 575px) {
-      width: calc(100% + 15px);
-    }
-  }
-  .slick-dots {
-    top: -65px;
-    @media (max-width: 575px) {
-      top: -30px !important;
-      right: unset !important;
-      left: 60px !important;
-    }
-  }
-  .slick-track {
-    display: flex;
-    gap: 0 20px;
-    @media (max-width: 991px) {
-      padding-bottom: 20px;
-    }
-  }
-
-  .slick-slide {
-    height: inherit;
-
-    > div {
-      display: flex;
-      height: 100%;
-    }
+  .swiper {
+    padding: 10px;
+    margin: 0px -10px;
   }
 `;
 
-const defaultSliderSettings = {
-  arrows: false,
-  infinite: true,
-  speed: 500,
-  draggable: false,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  responsive: [
-    {
-      breakpoint: 1201,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-      },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        draggable: true,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-      },
-    },
-    {
-      breakpoint: 576,
-      settings: {
-        slidesToShow: 1,
-        centerMode: true,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
-
-const CoursesSlider: React.FC<Props> = ({
-  courses,
-  sliderSettings = defaultSliderSettings,
-}) => {
-  const [dots] = useState(true);
+const CoursesSlider: React.FC<Props> = ({ courses }) => {
   const history = useHistory();
 
   return (
     <Content>
       {courses.length >= 5 || isMobile ? (
         <div>
-          <Slider
-            settings={{
-              ...sliderSettings,
-              dots,
-              onSwipe: () => {
-                const allHiddenSlides = document.querySelectorAll(
-                  '.slick-slide[aria-hidden="true"]'
-                );
-                const allVisibleSlides = document.querySelectorAll(
-                  '.slick-slide[aria-hidden="false"]'
-                );
-                allVisibleSlides.forEach((visibleSlide) =>
-                  visibleSlide.removeAttribute("aria-modal")
-                );
-                allHiddenSlides.forEach((hiddenSlide) =>
-                  hiddenSlide.setAttribute("aria-modal", "true")
-                );
+          <Swiper
+            modules={[Navigation, A11y]}
+            spaceBetween={18}
+            slidesOffsetAfter={18}
+            breakpoints={{
+              0: {
+                slidesPerView: 1.3,
               },
-              onInit: () => {
-                const allHiddenSlides = document.querySelectorAll(
-                  '.slick-slide[aria-hidden="true"]'
-                );
-                allHiddenSlides.forEach((hiddenSlide) =>
-                  hiddenSlide.setAttribute("aria-modal", "true")
-                );
+              576: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1201: {
+                slidesPerView: 4,
               },
             }}
-            dotsPosition="top right"
           >
             {courses &&
               courses.map((item) => (
-                <CourseCardWrapper key={item.id}>
+                <SwiperSlide key={item.id}>
                   <NewCourseCard
                     mobile={isMobile}
                     id={item.id}
@@ -155,87 +82,9 @@ const CoursesSlider: React.FC<Props> = ({
                       />
                     }
                   />
-                  {/* <CourseCard
-                    mobile={isMobile}
-                    id={item.id}
-                    image={
-                      <Link to={`/courses/${item.id}`}>
-                        {item.image_path ? (
-                          <ResponsiveImage
-                            path={item.image_path}
-                            alt={item.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    tags={
-                      <Tags
-                        tags={item.tags}
-                        onTagClick={(tagName) =>
-                          history.push(`/courses/?tag=${tagName}`)
-                        }
-                      />
-                    }
-                    subtitle={getSubtitleComponent({
-                      subtitle: item.subtitle,
-                      linkTo: `/courses/${item.id}`,
-                    })}
-                    title={
-                      <Link to={`/courses/${item.id}`} className="title">
-                        <Title level={4} as="h2">
-                          {item.title}
-                        </Title>
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={item.categories}
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
-                      />
-                    }
-                    actions={
-                      <>
-                        <Button
-                          mode="secondary"
-                          onClick={() => history.push(`/courses/${item.id}`)}
-                        >
-                          {t("StartNow")}
-                        </Button>
-                      </>
-                    }
-                    footer={
-                      <>
-                        {item.users_count && item.users_count > 0 ? (
-                          <IconText
-                            icon={<UserIcon />}
-                            text={`${item.users_count} ${t<string>(
-                              "Students"
-                            )}`}
-                          />
-                        ) : (
-                          ""
-                        )}{" "}
-                        {item.lessons_count && item.lessons_count > 0 ? (
-                          <IconText
-                            icon={<LessonsIcon />}
-                            text={`${item.lessons_count} ${t<string>(
-                              "Lessons"
-                            )}`}
-                          />
-                        ) : (
-                          ""
-                        )}
-                      </>
-                    }
-                  /> */}
-                </CourseCardWrapper>
+                </SwiperSlide>
               ))}
-          </Slider>
+          </Swiper>
         </div>
       ) : (
         <Row

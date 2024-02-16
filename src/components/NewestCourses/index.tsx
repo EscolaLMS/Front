@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Container } from "react-grid-system";
+import { Container, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import CoursesSlider from "../CoursesSlider";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
+import { CourseCardSkeleton } from "@escolalms/components/lib/index";
 
 const NewestCourses = () => {
   const [currentCourses, setCurrentCourses] = useState<Course[]>();
@@ -31,7 +31,20 @@ const NewestCourses = () => {
       <Title className="slider-title" level={1} as="h2">
         <strong>{t<string>("Homepage.CoursesSlider2Title")}</strong>
       </Title>
-      {loading && <ContentLoader />}
+
+      {loading && (
+        <Row>
+          <CourseCardSkeleton
+            count={4}
+            colProps={{
+              xs: 12,
+              sm: 6,
+              md: 3,
+            }}
+          />
+        </Row>
+      )}
+
       {!loading && currentCourses && <CoursesSlider courses={currentCourses} />}
     </Container>
   );

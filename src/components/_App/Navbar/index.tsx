@@ -8,7 +8,12 @@ import { SearchCourses } from "@escolalms/components/lib/components/organisms/Se
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderNotification, ProfileIcon } from "../../../icons";
+import {
+  HeaderCard,
+  HeaderNotification,
+  LanguageIcon,
+  ProfileIcon,
+} from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Container";
@@ -467,7 +472,7 @@ const Navbar = () => {
               }
               child={
                 <Button mode="icon" className="dropdown">
-                  {t("Menu.Language")}
+                  {t("Menu.Language")} <LanguageIcon mode={theme.mode} />
                 </Button>
               }
             />

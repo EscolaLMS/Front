@@ -18,7 +18,7 @@ type Props = {
 
 const StyledSection = styled.section`
   overflow: hidden;
-  padding: 60px 0 0;
+
   @media (max-width: 768px) {
     padding: 30px 0;
   }
@@ -66,7 +66,7 @@ const CategoryRow = styled.div`
   display: grid;
   grid-auto-columns: minmax(0, 1fr);
   grid-auto-flow: column;
-  grid-gap: 11px;
+  grid-gap: 10px;
 `;
 
 const CategoriesSection: React.FC<Props> = ({ categories }) => {

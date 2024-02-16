@@ -15,8 +15,9 @@ import { useHistory } from "react-router-dom";
 import Container from "@/components/Container";
 import NewestCourses from "@/components/NewestCourses";
 import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
 import routeRoutes from "@/components/Routes/routes";
+import { Row } from "react-grid-system";
+import { CourseCardSkeleton } from "@escolalms/components/lib/index";
 
 const HomePageStyled = styled.div`
   display: flex;
@@ -44,24 +45,20 @@ const HomePageStyled = styled.div`
     }
     button {
       @media (max-width: 991px) {
-        width: 100%;
       }
     }
   }
 
   .home-best-courses {
-    margin: 40px 0;
     order: 2;
     @media (max-width: 768px) {
-      margin: 30px 0;
     }
   }
 
   .home-newest-courses {
     order: 1;
-    margin: 40px 0;
+
     @media (max-width: 768px) {
-      margin: 30px 0;
     }
   }
 
@@ -137,7 +134,20 @@ const Index = () => {
             <Title className="slider-title" level={1} as="h2">
               <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
             </Title>
-            {loading && <ContentLoader />}
+
+            {loading && (
+              <Row>
+                <CourseCardSkeleton
+                  count={4}
+                  colProps={{
+                    xs: 12,
+                    sm: 6,
+                    md: 3,
+                  }}
+                />
+              </Row>
+            )}
+
             {!loading && courses && <CoursesSlider courses={courses} />}
           </Container>
         </section>
