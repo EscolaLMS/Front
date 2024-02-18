@@ -21,6 +21,12 @@ const StyledLoginPage = styled.div`
   justify-content: center;
   /* TODO: export colors */
   background-color: #f8f8f8;
+  @media (max-width: 991px) {
+    padding-top: 100px;
+    min-height: 100%;
+    padding-bottom: 50px;
+    /* TODO: make a wrapper for it */
+  }
 `;
 
 const Login = () => {

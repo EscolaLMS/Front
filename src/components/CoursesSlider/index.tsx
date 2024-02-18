@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
@@ -11,6 +11,7 @@ import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
+import { Swiper as SwiperType } from "swiper/types";
 
 import "swiper/css/bundle";
 import "swiper/css/navigation";
@@ -18,21 +19,43 @@ import "swiper/css/navigation";
 type Props = {
   courses: API.Course[];
   sliderSettings?: Settings;
+  isSlider?: boolean;
 };
 
 const Content = styled.div`
   .swiper {
-    padding: 10px;
-    margin: 0px -10px;
+    padding: 7px 10px;
+    margin: 0px -15px;
   }
 `;
 
-const CoursesSlider: React.FC<Props> = ({ courses }) => {
-  const history = useHistory();
+const SwiperButtons = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+  button {
+    all: unset;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    background-color: ${({ theme }) => theme.primaryColor};
+    margin-left: 3px;
+    cursor: pointer;
+    :first-of-type {
+      background-color: ${({ theme }) => theme.gray3};
+    }
+  }
+`;
 
+const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
+  const history = useHistory();
+  const swiperRef = useRef<SwiperType>();
   return (
     <Content>
-      {courses.length >= 5 || isMobile ? (
+      {(courses.length >= 5 || isMobile) && isSlider ? (
         <div>
           <Swiper
             modules={[Navigation, A11y]}
@@ -51,6 +74,9 @@ const CoursesSlider: React.FC<Props> = ({ courses }) => {
               1201: {
                 slidesPerView: 4,
               },
+            }}
+            onBeforeInit={(swiper) => {
+              swiperRef.current = swiper;
             }}
           >
             {courses &&
@@ -85,6 +111,16 @@ const CoursesSlider: React.FC<Props> = ({ courses }) => {
                 </SwiperSlide>
               ))}
           </Swiper>
+          <SwiperButtons>
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              title="pev"
+            ></button>
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              title="next"
+            ></button>
+          </SwiperButtons>
         </div>
       ) : (
         <Row

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { useTranslation } from "react-i18next";
@@ -9,14 +9,12 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Row, Col } from "react-grid-system";
 import Container from "../Container";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
 import { CourseCardSkeleton } from "@escolalms/components/lib/index";
+import useFetchCourses from "@/hooks/useFetchCourses";
 
 const StyledSection = styled.section`
   @media (max-width: 768px) {
@@ -75,22 +73,12 @@ const StyledSection = styled.section`
 `;
 
 const PromotedCoursesSection: React.FC = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { fetchCourses } = useContext(EscolaLMSContext);
+  const { courses, loading } = useFetchCourses({
+    per_page: 8,
+  });
+
   const history = useHistory();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    fetchCourses({
-      per_page: 8,
-    })
-      .then((res) => {
-        setCourses((res as PaginatedMetaList<Course>).data || []);
-      })
-      .catch(() => setLoading(false))
-      .finally(() => setLoading(false));
-  }, [fetchCourses]);
 
   return (
     <StyledSection>
@@ -120,7 +108,7 @@ const PromotedCoursesSection: React.FC = () => {
           </Row>
         )}
 
-        {!loading && isMobile && <CoursesSlider courses={courses} />}
+        {!loading && isMobile && <CoursesSlider courses={courses || []} />}
         {!loading && !isMobile && (
           <Row
             style={{

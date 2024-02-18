@@ -1,16 +1,15 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CategoryCard } from "@escolalms/components/lib/components/molecules/CategoryCard/CategoryCard";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
-import { Settings } from "react-slick";
+
 import Container from "../Container";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 type Props = {
   categories: API.Category[];
@@ -70,27 +69,9 @@ const CategoryRow = styled.div`
 `;
 
 const CategoriesSection: React.FC<Props> = ({ categories }) => {
-  const [dots] = useState(true);
   const { t } = useTranslation();
   const history = useHistory();
 
-  const categoriesSliderSettings: Settings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1.6,
-    slidesToScroll: 1,
-    centerMode: false,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          dots: false,
-          slidesToShow: 1.9,
-        },
-      },
-    ],
-  };
   const filteredCategories = categories.filter(
     (category) => category.count && category.count > 0
   );
@@ -102,12 +83,26 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
         </Title>
         {isMobile ? (
           <div className="categories-slider">
-            <Slider
-              settings={{ ...categoriesSliderSettings, dots }}
-              dotsPosition="bottom"
+            <Swiper
+              spaceBetween={18}
+              slidesOffsetAfter={18}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1.3,
+                },
+                576: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                1201: {
+                  slidesPerView: 4,
+                },
+              }}
             >
               {filteredCategories.slice(-5).map((item) => (
-                <div className="single-category-slide" key={item.id}>
+                <SwiperSlide key={item.id}>
                   <CategoryCard
                     icon={<img src={item.icon} alt={item.name} />}
                     title={item.name}
@@ -125,9 +120,9 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     }
                     variant="gradient"
                   />
-                </div>
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           </div>
         ) : (
           <CategoryRow>
