@@ -86,7 +86,7 @@ const DisplayCourses: React.FC<Props> = ({
       )}
 
       {!loading && courses && (
-        <CoursesSlider courses={courses} isSlider={isSlider} />
+        <CoursesSlider courses={courses.data} isSlider={isSlider} />
       )}
     </Wrapper>
   );

@@ -30,6 +30,12 @@ import { COURSES_ON_PAGE } from "@/config/courses";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { getSubtitleComponent } from "@/components/Subtitle";
+import {
+  CourseCardSkeleton,
+  DropdownMenu,
+  NewCourseCard,
+} from "@escolalms/components/lib/index";
+import { use } from "i18next";
 
 type updateParamType =
   | { key: "tag"; value: string | undefined }
@@ -43,24 +49,15 @@ type InitialFilters = {
 };
 
 const StyledHeader = styled("div")<{ filters: API.CourseParams | undefined }>`
-  background: ${({ theme }) => theme.primaryColor};
-  padding: ${isMobile ? "60px 20px 20px 20px" : "140px 40px 30px"};
+  background: ${({ theme }) => theme.gray4};
+  padding: ${isMobile ? "60px 20px 20px 20px" : "25px 0px 10px"};
   margin-bottom: ${isMobile ? "100px" : "40px"};
   position: relative;
   z-index: 100;
 
   h1 {
-    color: ${({ theme }) => theme.white};
-    margin-bottom: ${({ filters }) =>
-      isMobile
-        ? 0
-        : filters && Object.keys(filters).length > 1
-        ? "35px"
-        : filters && Object.keys(filters).length === 1 && "page" in filters
-        ? "-35px"
-        : filters === undefined
-        ? "-35px"
-        : "35px"};
+    color: ${({ theme }) => theme.textColor};
+    margin-bottom: 0px;
     transition: margin-bottom 0.5s ease-out;
   }
 
@@ -226,81 +223,72 @@ const CoursesList = styled.section`
   margin-bottom: ${isMobile ? "50px" : "75px"};
 `;
 
+const SortWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  p {
+    margin: unset;
+  }
+`;
+
 const CoursesCollection: React.FC = () => {
-  const { params, setParams, courses, loading } = useContext(CoursesContext);
-  const { categoryTree, uniqueTags } = useContext(EscolaLMSContext);
-  const [parsedParams, setParsedParams] = useState<
-    API.CourseParams | undefined
-  >();
-  const initialFilters = {
-    categories: [],
-    tag: "",
-    title: "",
-  };
-  const [filterState, setFilterState] =
-    useState<InitialFilters>(initialFilters);
-  const [paramsLoaded, setParamsLoaded] = useState<API.CourseParams | false>(
-    false
-  );
+  const { courses, loading, params, setParams } = useContext(CoursesContext);
   const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
-  const theme = useTheme();
 
-  const updateState = useCallback(
-    (updateObj: updateParamType) =>
-      setFilterState((prevState) => ({
-        ...prevState,
-        [updateObj.key]: updateObj.value,
-      })),
-    []
+  const handleSortChange = useCallback(
+    (order: "ASC" | "DESC") => {
+      setParams({
+        ...params,
+        order,
+      });
+    },
+    [params, setParams]
+  );
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setParams({
+        ...params,
+        page,
+      });
+    },
+    [params, setParams]
   );
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [filterState.categories]);
-
-  const resetFilters = () => {
-    setFilterState(initialFilters);
-  };
-
-  const tagsFilters = uniqueTags.list
-    ? uniqueTags.list?.map((item) => {
-        return { label: String(item.title), value: String(item.title) };
-      })
-    : [];
-
-  useEffect(() => {
-    params && setParamsLoaded(params);
-  }, [params]);
-
-  useEffect(() => {
-    paramsLoaded &&
-      setParsedParams(
-        qs.parse(location.search, {
-          arrayFormat: "bracket",
-          parseNumbers: true,
-        })
-      );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paramsLoaded]);
-
-  useEffect(() => {
-    parsedParams &&
-      setFilterState({
-        categories: parsedParams.categories,
-        tag: parsedParams.tag,
-        title: parsedParams.title,
-      });
-  }, [parsedParams]);
+    history.push(`${location.pathname}?${qs.stringify(params)}`);
+  }, [params, location.pathname, history]);
 
   return (
     <>
-      <StyledHeader filters={params}>
-        <Title level={1}> {t("CoursesPage.Courses")}</Title>
+      <div>
+        <SortWrapper>
+          <Text>Sortuj</Text>
+
+          <DropdownMenu
+            menuItems={[
+              {
+                id: "DESC",
+                content: "Najnowsze",
+              },
+              {
+                id: "ASC",
+                content: "Najstarsze",
+              },
+            ]}
+            onChange={(e: DropdownMenuItem) => handleSortChange(e.id)}
+            child={
+              <Button mode="icon" className="dropdown">
+                {params.order === "DESC" ? "Najnowsze" : "Najstarsze"}
+              </Button>
+            }
+          />
+        </SortWrapper>
+      </div>
+      {/* <StyledHeader filters={params}>
         <div className="filters-container">
           <div
             className={`categories-container ${
@@ -479,18 +467,30 @@ const CoursesCollection: React.FC = () => {
             </div>
           </div>
         </div>
-      </StyledHeader>
+      </StyledHeader> */}
       {courses && !loading && (!courses.data || !courses.data.length) ? (
         <Title level={4}>{t("NoCourses")}</Title>
       ) : (
         <>
           {loading ? (
-            <div
-              style={{ display: "flex", justifyContent: "center" }}
-              className="loader-wrapper"
-            >
-              <Spin color={theme.primaryColor} />
-            </div>
+            <CoursesList>
+              <Row
+                style={{
+                  gap: "30px 0",
+                }}
+              >
+                {Array.from({ length: 12 }).map((_, index) => (
+                  <CourseCardSkeleton
+                    key={index.id}
+                    colProps={{
+                      xl: 3,
+                      lg: 4,
+                      md: 6,
+                    }}
+                  />
+                ))}
+              </Row>
+            </CoursesList>
           ) : (
             <React.Fragment>
               <CoursesList>
@@ -499,17 +499,14 @@ const CoursesCollection: React.FC = () => {
                     gap: "30px 0",
                   }}
                 >
-                  {courses?.data.map((item) => (
-                    <Col md={6} lg={4} xl={3} key={item.id}>
-                      <CourseCardWrapper>
-                        <CourseCard
+                  {!loading &&
+                    courses?.data.map((item) => (
+                      <Col md={6} lg={4} xl={3} key={item.id}>
+                        <NewCourseCard
                           mobile={isMobile}
                           id={item.id}
                           image={
-                            <Link
-                              to={`/courses/${item.id}`}
-                              aria-label={item.title}
-                            >
+                            <>
                               {item.image_path ? (
                                 <ResponsiveImage
                                   path={item.image_path}
@@ -519,28 +516,9 @@ const CoursesCollection: React.FC = () => {
                               ) : (
                                 <CourseImgPlaceholder />
                               )}
-                            </Link>
+                            </>
                           }
-                          tags={
-                            <Tags
-                              tags={item.tags}
-                              onTagClick={(tagName) =>
-                                history.push(`/courses/?tag=${tagName}`)
-                              }
-                            />
-                          }
-                          subtitle={getSubtitleComponent({
-                            subtitle: item.subtitle,
-                            linkTo: `/courses/${item.id}`,
-                            textLength: 29,
-                          })}
-                          title={
-                            <Link to={`/course/${item.id}`} className="title">
-                              <Title level={4} as="h2">
-                                {item.title}
-                              </Title>
-                            </Link>
-                          }
+                          title={item.title}
                           categories={
                             <CategoriesBreadCrumbs
                               categories={item.categories}
@@ -549,46 +527,9 @@ const CoursesCollection: React.FC = () => {
                               }}
                             />
                           }
-                          actions={
-                            <>
-                              <Button
-                                mode="secondary"
-                                onClick={() =>
-                                  history.push(`/course/${item.id}`)
-                                }
-                              >
-                                {t("StartNow")}
-                              </Button>
-                            </>
-                          }
-                          footer={
-                            <>
-                              {item.users_count && item.users_count > 0 ? (
-                                <IconText
-                                  icon={<UserIcon />}
-                                  text={`${item.users_count} ${t<string>(
-                                    "Students"
-                                  )}`}
-                                />
-                              ) : (
-                                ""
-                              )}{" "}
-                              {item.lessons_count && item.lessons_count > 0 ? (
-                                <IconText
-                                  icon={<LessonsIcon />}
-                                  text={`${item.lessons_count} ${t<string>(
-                                    "Lessons"
-                                  )}`}
-                                />
-                              ) : (
-                                ""
-                              )}
-                            </>
-                          }
                         />
-                      </CourseCardWrapper>
-                    </Col>
-                  ))}
+                      </Col>
+                    ))}
                 </Row>
               </CoursesList>
               {courses.meta.total > courses.meta.per_page && (
@@ -596,28 +537,11 @@ const CoursesCollection: React.FC = () => {
                   total={courses.meta.total}
                   perPage={courses.meta.per_page}
                   currentPage={courses.meta.current_page}
-                  onPage={(i) =>
-                    setParams &&
-                    setParams({
-                      ...params,
-                      page: i,
-                      per_page: COURSES_ON_PAGE,
-                    })
-                  }
+                  onPage={handlePageChange}
                 />
               )}
             </React.Fragment>
           )}
-        </>
-      )}
-      <PromotedCoursesSection />
-      {categoryTree && (
-        <>
-          <CategoriesSection
-            categories={
-              categoryTree.list?.filter((category) => !!category.icon) || []
-            }
-          />
         </>
       )}
     </>

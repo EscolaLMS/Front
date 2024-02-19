@@ -64,7 +64,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
   const swiperRef = useRef<SwiperType>();
   return (
     <Content>
-      {(courses.length >= 5 || isMobile) && isSlider ? (
+      {(courses?.length >= 5 || isMobile) && isSlider ? (
         <div>
           <Swiper
             modules={[Navigation, A11y]}
@@ -137,7 +137,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
           }}
         >
           {courses.map((item) => (
-            <Col md={6} lg={3} key={item.id}>
+            <Col md={4} lg={3} key={item.id}>
               <NewCourseCard
                 mobile={isMobile}
                 id={item.id}
