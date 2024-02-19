@@ -15,6 +15,7 @@ import { Swiper as SwiperType } from "swiper/types";
 
 import "swiper/css/bundle";
 import "swiper/css/navigation";
+import { ArrowRight } from "@/icons/index";
 
 type Props = {
   courses: API.Course[];
@@ -33,6 +34,7 @@ const SwiperButtons = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
+  display: flex;
   @media (max-width: 768px) {
     display: none;
   }
@@ -44,8 +46,15 @@ const SwiperButtons = styled.div`
     background-color: ${({ theme }) => theme.primaryColor};
     margin-left: 3px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     :first-of-type {
       background-color: ${({ theme }) => theme.gray3};
+      svg {
+        transform: rotate(180deg);
+      }
     }
   }
 `;
@@ -112,14 +121,12 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
               ))}
           </Swiper>
           <SwiperButtons>
-            <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              title="pev"
-            ></button>
-            <button
-              onClick={() => swiperRef.current?.slideNext()}
-              title="next"
-            ></button>
+            <button onClick={() => swiperRef.current?.slidePrev()} title="pev">
+              <ArrowRight />
+            </button>
+            <button onClick={() => swiperRef.current?.slideNext()} title="next">
+              <ArrowRight />
+            </button>
           </SwiperButtons>
         </div>
       ) : (

@@ -193,7 +193,6 @@ const StyledHeader = styled.header`
   }
 `;
 
-const CustomMobileMenuItem = styled.div``;
 const LastMobileMenuItem = styled.div`
   span {
     font-size: 13px;
@@ -209,6 +208,9 @@ const LastMobileMenuItem = styled.div`
 const SearchMobileWrapper = styled.div`
   padding: 0px 25px;
   margin-top: 18px;
+  > div {
+    width: auto;
+  }
 `;
 
 const Navbar = () => {
@@ -224,95 +226,27 @@ const Navbar = () => {
   const menuItems = [
     {
       title: (
-        <Text noMargin bold>
-          {t("Menu.Browse")}
-        </Text>
+        <Link to={routeRoutes.home}>
+          <Text noMargin bold>
+            {t("Menu.HomePage")}
+          </Text>
+        </Link>
       ),
-      key: "menuItem1",
-      children: [
-        {
-          title: (
-            <Link to={routeRoutes.home}>
-              <Text noMargin bold>
-                {t("Menu.HomePage")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-1",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.courses}>
-              <Text noMargin bold>
-                {t("Menu.Courses")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-2",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.tutors}>
-              <Text noMargin bold>
-                {t("Menu.Tutors")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-3",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.consultations}>
-              <Text noMargin bold>
-                {t("Menu.Consultations")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-4",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.events}>
-              <Text noMargin bold>
-                {t("Menu.Events")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-5",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.webinars}>
-              <Text noMargin bold>
-                {t("Menu.Webinars")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-6",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.packages}>
-              <Text noMargin bold>
-                {t("Menu.Packages")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-7",
-        },
-      ],
+      key: "menu-1",
+    },
+    {
+      title: (
+        <Link to={routeRoutes.courses}>
+          <Text noMargin bold>
+            {t("Menu.Courses")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-2",
     },
 
     {
-      title: user ? (
-        <CustomMobileMenuItem>
-          <Link to={routeRoutes.myProfile}>
-            <Text noMargin bold>
-              {user?.first_name} {user?.last_name}
-            </Text>
-          </Link>
-        </CustomMobileMenuItem>
-      ) : (
+      title: user ? null : ( // </CustomMobileMenuItem> //   </Link> //     </Text> //       {user?.first_name} {user?.last_name} //     <Text noMargin bold> //   <Link to={routeRoutes.myProfile}> // <CustomMobileMenuItem>
         <LastMobileMenuItem>
           <Button
             mode={"primary"}
@@ -334,50 +268,6 @@ const Navbar = () => {
       key: "menuItem3",
     },
   ];
-  const items = menuItems;
-
-  if (user?.id) {
-    items.splice(1, 0, {
-      title: (
-        <Text noMargin bold>
-          {t("Menu.Me")}
-        </Text>
-      ),
-      key: "menuItem2",
-      children: [
-        {
-          title: (
-            <Link to={routeRoutes.myProfile}>
-              <Text noMargin bold>
-                {t("Menu.Profile")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-1",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.myOrders}>
-              <Text noMargin bold>
-                {t("Menu.Orders")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-3",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.myNotifications}>
-              <Text noMargin bold>
-                {t("Menu.Notifications")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-4",
-        },
-      ],
-    });
-  }
 
   if (isMobile) {
     return (
@@ -442,7 +332,7 @@ const Navbar = () => {
               </button>
             </div>
           }
-          menuItems={items}
+          menuItems={menuItems}
         />
         <SearchMobileWrapper>
           <SearchCourses
