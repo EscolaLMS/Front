@@ -1,17 +1,15 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
-import { Slider } from "@escolalms/components/lib/components/atoms/Slider/Slider";
 import { CategoryCard } from "@escolalms/components/lib/components/molecules/CategoryCard/CategoryCard";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import styled from "styled-components";
 import { IconSquares } from "../../icons";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
-import { Col, Row } from "react-grid-system";
-import { Settings } from "react-slick";
+
 import Container from "../Container";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 type Props = {
   categories: API.Category[];
@@ -19,13 +17,12 @@ type Props = {
 
 const StyledSection = styled.section`
   overflow: hidden;
-  padding: 60px 0 0;
+
   @media (max-width: 768px) {
     padding: 30px 0;
   }
-  h3 {
-    text-align: center;
-    margin-bottom: 30px;
+  h2 {
+    margin-bottom: 27px;
   }
   .slider-title {
     @media (max-width: 575px) {
@@ -64,43 +61,48 @@ const StyledSection = styled.section`
   }
 `;
 
+const CategoryRow = styled.div`
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-gap: 10px;
+`;
+
 const CategoriesSection: React.FC<Props> = ({ categories }) => {
-  const [dots] = useState(true);
   const { t } = useTranslation();
   const history = useHistory();
-  const categoriesSliderSettings: Settings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    centerMode: false,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+
   const filteredCategories = categories.filter(
     (category) => category.count && category.count > 0
   );
   return (
     <StyledSection>
       <Container>
-        <Title level={3}>
+        <Title level={1} as="h2">
           <strong>{t<string>("Homepage.CategoriesTitle")}</strong>
         </Title>
         {isMobile ? (
           <div className="categories-slider">
-            <Slider
-              settings={{ ...categoriesSliderSettings, dots }}
-              dotsPosition="bottom"
+            <Swiper
+              spaceBetween={18}
+              slidesOffsetAfter={18}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1.3,
+                },
+                576: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                1201: {
+                  slidesPerView: 4,
+                },
+              }}
             >
-              {filteredCategories.slice(-4).map((item) => (
-                <div className="single-category-slide" key={item.id}>
+              {filteredCategories.slice(-5).map((item) => (
+                <SwiperSlide key={item.id}>
                   <CategoryCard
                     icon={<img src={item.icon} alt={item.name} />}
                     title={item.name}
@@ -118,14 +120,14 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     }
                     variant="gradient"
                   />
-                </div>
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           </div>
         ) : (
-          <Row>
-            {filteredCategories.slice(-4).map((item) => (
-              <Col md={3} key={item.id}>
+          <CategoryRow>
+            {filteredCategories.slice(-5).map((item) => (
+              <div className="category-item" key={item.id}>
                 <CategoryCard
                   icon={<img src={item.icon} alt={item.name} />}
                   title={item.name}
@@ -143,9 +145,9 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                   }
                   variant="gradient"
                 />
-              </Col>
+              </div>
             ))}
-          </Row>
+          </CategoryRow>
         )}
       </Container>
     </StyledSection>

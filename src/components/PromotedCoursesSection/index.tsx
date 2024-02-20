@@ -1,33 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "../CourseCardWrapper";
 import { Row, Col } from "react-grid-system";
 import Container from "../Container";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Course, PaginatedMetaList, Tag } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
 import CoursesSlider from "../CoursesSlider";
-import Tags from "@/components/Tags";
-import { getSubtitleComponent } from "../Subtitle";
 import routeRoutes from "@/components/Routes/routes";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
+import { CourseCardSkeleton } from "@escolalms/components/lib/index";
+import useFetchCourses from "@/hooks/useFetchCourses";
 
 const StyledSection = styled.section`
-  margin: 40px 0;
   @media (max-width: 768px) {
     margin: 30px 0;
   }
   .container {
     position: relative;
-    padding-top: 55px;
-    padding-bottom: 35px;
+
     z-index: 1;
     &:after {
       position: absolute;
@@ -57,7 +52,7 @@ const StyledSection = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 55px;
+    margin-bottom: 20px;
 
     button {
       @media (max-width: 1200px) {
@@ -78,28 +73,18 @@ const StyledSection = styled.section`
 `;
 
 const PromotedCoursesSection: React.FC = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { fetchCourses } = useContext(EscolaLMSContext);
+  const { courses, loading } = useFetchCourses({
+    per_page: 8,
+  });
+
   const history = useHistory();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    fetchCourses({
-      per_page: 8,
-    })
-      .then((res) => {
-        setCourses((res as PaginatedMetaList<Course>).data || []);
-      })
-      .catch(() => setLoading(false))
-      .finally(() => setLoading(false));
-  }, [fetchCourses]);
 
   return (
     <StyledSection>
       <Container className={"container"}>
         <div className="header-wrapper">
-          <Title level={3} as="h1">
+          <Title level={1} as="h2">
             {t<string>("Homepage.AwardedCoursesTitle")}
           </Title>
           <Button
@@ -109,48 +94,55 @@ const PromotedCoursesSection: React.FC = () => {
             {t<string>("Homepage.AwardedCoursesBtnText")}
           </Button>
         </div>
-        {loading && <ContentLoader />}
-        {!loading && isMobile && <CoursesSlider courses={courses} />}
+
+        {loading && (
+          <Row>
+            <CourseCardSkeleton
+              count={8}
+              colProps={{
+                xs: 12,
+                sm: 6,
+                md: 3,
+              }}
+            />
+          </Row>
+        )}
+
+        {!loading && isMobile && <CoursesSlider courses={courses || []} />}
         {!loading && !isMobile && (
           <Row
             style={{
-              rowGap: "60px",
+              rowGap: "20px",
             }}
           >
             {courses.map((course) => (
               <Col md={6} lg={3} key={course.id}>
-                <CourseCardWrapper>
-                  <CourseCard
-                    mobile={isMobile}
-                    id={Number(course.id)}
-                    tags={
-                      <Tags
-                        tags={course.tags as Tag[]}
-                        onTagClick={(tagName) =>
-                          history.push(`/courses/?tag=${tagName}`)
-                        }
-                      />
-                    }
-                    image={
-                      <Link to={`/courses/${course.id}`}>
-                        {course.image_path ? (
-                          <ResponsiveImage
-                            path={course.image_path}
-                            alt={course.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    subtitle={getSubtitleComponent({
-                      subtitle: course.title,
-                      linkTo: `/courses/${course.id}`,
-                      textLength: 29,
-                    })}
-                  />
-                </CourseCardWrapper>
+                <NewCourseCard
+                  mobile={isMobile}
+                  id={course.id}
+                  image={
+                    <Link to={`/courses/${course.id}`}>
+                      {course.image_path ? (
+                        <ResponsiveImage
+                          path={course.image_path}
+                          alt={course.title}
+                          srcSizes={[300, 600, 900]}
+                        />
+                      ) : (
+                        <CourseImgPlaceholder />
+                      )}
+                    </Link>
+                  }
+                  title={course.title}
+                  categories={
+                    <CategoriesBreadCrumbs
+                      categories={course.categories}
+                      onCategoryClick={(id) => {
+                        history.push(`/courses/?categories[]=${id}`);
+                      }}
+                    />
+                  }
+                />
               </Col>
             ))}
           </Row>

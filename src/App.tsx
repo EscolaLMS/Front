@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   #__ybug-launcher {
-    right: 135px!important;
+    right: 135px !important;
   }
   .table-responsive {
     td,

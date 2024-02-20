@@ -7,10 +7,10 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { getFontFromTheme } from "@escolalms/components/lib/theme/provider";
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
-const CartPage: React.FC<Props> = ({ children }) => {
+const CartPage: React.FC<Props> = () => {
   const { config } = useContext(EscolaLMSContext);
   const stripePromise = (publishable_key: string) =>
     loadStripe(publishable_key);

@@ -8,7 +8,12 @@ import { SearchCourses } from "@escolalms/components/lib/components/organisms/Se
 import { Link, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
-import { HeaderCard, HeaderNotification, ProfileIcon } from "../../../icons";
+import {
+  HeaderCard,
+  HeaderNotification,
+  LanguageIcon,
+  ProfileIcon,
+} from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Container";
@@ -25,9 +30,7 @@ const StyledHeader = styled.header`
   left: 0;
   z-index: 1000;
   background: ${({ theme }) =>
-    theme.mode === "dark"
-      ? " rgba(35, 34, 37, 0.95)"
-      : "rgba(255, 255, 255, 0.95)"};
+    theme.mode === "dark" ? " rgba(35, 34, 37, 0.95)" : theme.white};
   backdrop-filter: blur(10px);
   padding: ${isMobile ? "11px 0" : "22px 0"};
 
@@ -190,7 +193,25 @@ const StyledHeader = styled.header`
   }
 `;
 
-const CustomMobileMenuItem = styled.div``;
+const LastMobileMenuItem = styled.div`
+  span {
+    font-size: 13px;
+    font-family: ${({ theme }) => theme.font};
+    color: ${({ theme }) => theme.textColor};
+    margin-top: 15px;
+    text-align: center;
+    display: block;
+    margin-bottom: 8px;
+  }
+`;
+
+const SearchMobileWrapper = styled.div`
+  padding: 0px 25px;
+  margin-top: 18px;
+  > div {
+    width: auto;
+  }
+`;
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -205,141 +226,44 @@ const Navbar = () => {
   const menuItems = [
     {
       title: (
-        <Text noMargin bold>
-          {t("Menu.Browse")}
-        </Text>
+        <Link to={routeRoutes.home}>
+          <Text noMargin bold>
+            {t("Menu.HomePage")}
+          </Text>
+        </Link>
       ),
-      key: "menuItem1",
-      children: [
-        {
-          title: (
-            <Link to={routeRoutes.home}>
-              <Text noMargin bold>
-                {t("Menu.HomePage")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-1",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.courses}>
-              <Text noMargin bold>
-                {t("Menu.Courses")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-2",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.tutors}>
-              <Text noMargin bold>
-                {t("Menu.Tutors")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-3",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.consultations}>
-              <Text noMargin bold>
-                {t("Menu.Consultations")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-4",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.events}>
-              <Text noMargin bold>
-                {t("Menu.Events")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-5",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.webinars}>
-              <Text noMargin bold>
-                {t("Menu.Webinars")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-6",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.packages}>
-              <Text noMargin bold>
-                {t("Menu.Packages")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-7",
-        },
-      ],
+      key: "menu-1",
     },
     {
       title: (
-        <Text noMargin bold>
-          {t("Menu.Me")}
-        </Text>
+        <Link to={routeRoutes.courses}>
+          <Text noMargin bold>
+            {t("Menu.Courses")}
+          </Text>
+        </Link>
       ),
-      key: "menuItem2",
-      children: [
-        {
-          title: (
-            <Link to={routeRoutes.myProfile}>
-              <Text noMargin bold>
-                {t("Menu.Profile")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-1",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.myOrders}>
-              <Text noMargin bold>
-                {t("Menu.Orders")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-3",
-        },
-        {
-          title: (
-            <Link to={routeRoutes.myNotifications}>
-              <Text noMargin bold>
-                {t("Menu.Notifications")}
-              </Text>
-            </Link>
-          ),
-          key: "submenu-4",
-        },
-      ],
+      key: "menu-2",
     },
+
     {
-      title: user ? (
-        <CustomMobileMenuItem>
-          <Link to={routeRoutes.myProfile}>
-            <Text noMargin bold>
-              {user?.first_name} {user?.last_name}
-            </Text>
-          </Link>
-        </CustomMobileMenuItem>
-      ) : (
-        <Button
-          mode={"secondary"}
-          block
-          onClick={() => history.push(routeRoutes.login)}
-        >
-          {t<string>("Header.Login")}
-        </Button>
+      title: user ? null : ( // </CustomMobileMenuItem> //   </Link> //     </Text> //       {user?.first_name} {user?.last_name} //     <Text noMargin bold> //   <Link to={routeRoutes.myProfile}> // <CustomMobileMenuItem>
+        <LastMobileMenuItem>
+          <Button
+            mode={"primary"}
+            block
+            onClick={() => history.push(routeRoutes.login)}
+          >
+            {t<string>("Header.Login")}
+          </Button>
+          <span>{t("Login.NoAccount")}</span>
+          <Button
+            mode={"outline"}
+            block
+            onClick={() => history.push(routeRoutes.register)}
+          >
+            {t<string>("Login.Signup")}
+          </Button>
+        </LastMobileMenuItem>
       ),
       key: "menuItem3",
     },
@@ -357,16 +281,67 @@ const Navbar = () => {
             onClick: () => history.push(routeRoutes.home),
             alt: "Logo",
           }}
-          menuItems={menuItems}
-          search={
-            <SearchCourses
-              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) =>
-                history.push(`/courses/?title=${input}`)
-              }
-            />
+          cart={
+            <div className="icons-container">
+              <button
+                type="button"
+                className="cart-icon"
+                onClick={() => history.push(routeRoutes.cart)}
+                data-tooltip={String(cart.data?.items.length)}
+                aria-label={t("CoursePage.GoToCheckout")}
+              >
+                <HeaderCard mode={theme.mode} />
+
+                {cart.data && cart.data.items?.length > 0 && (
+                  <span>{cart.data.items.length}</span>
+                )}
+              </button>
+            </div>
           }
+          notification={
+            <div className="icons-container">
+              <button
+                type="button"
+                className="cart-icon"
+                onClick={() => history.push(routeRoutes.myNotifications)}
+                data-tooltip={String(cart.data?.items.length)}
+                aria-label={t("CoursePage.GoToCheckout")}
+              >
+                <HeaderNotification mode={theme.mode} />
+              </button>
+            </div>
+          }
+          profile={
+            <div className="icons-container">
+              <button
+                type="button"
+                className="cart-icon"
+                onClick={() => history.push(routeRoutes.myProfile)}
+                aria-label={t("CoursePage.GoToCheckout")}
+              >
+                {!!user?.avatar ? (
+                  <Avatar
+                    src={user.avatar}
+                    alt={user.first_name}
+                    size={"superSmall"}
+                    className="user-avatar"
+                  />
+                ) : (
+                  <ProfileIcon mode={theme.mode} />
+                )}
+              </button>
+            </div>
+          }
+          menuItems={menuItems}
         />
+        <SearchMobileWrapper>
+          <SearchCourses
+            onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+            onInputSubmitted={(input) =>
+              history.push(`/courses/?title=${input}`)
+            }
+          />
+        </SearchMobileWrapper>
       </StyledHeader>
     );
   }
@@ -467,7 +442,7 @@ const Navbar = () => {
               }
               child={
                 <Button mode="icon" className="dropdown">
-                  {t("Menu.Language")}
+                  {t("Menu.Language")} <LanguageIcon mode={theme.mode} />
                 </Button>
               }
             />

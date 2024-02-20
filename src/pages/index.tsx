@@ -1,27 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Banner";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import CoursesSlider from "@/components/CoursesSlider";
-import PromotedCoursesSection from "@/components/PromotedCoursesSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory } from "react-router-dom";
 import Container from "@/components/Container";
-import NewestCourses from "@/components/NewestCourses";
-import { Course, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
+import DisplayCourses from "@/components/DisplayCourses";
 import routeRoutes from "@/components/Routes/routes";
 
 const HomePageStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-
   @media (max-width: 1200px) {
     margin-top: 0;
   }
@@ -31,69 +23,45 @@ const HomePageStyled = styled.div`
   .home-hero {
     margin-bottom: 45px;
     padding-top: 42px;
-    order: 1;
+
     h1 {
       margin-top: 0 !important;
     }
     @media (max-width: 768px) {
-      margin-bottom: 30px;
-      padding-top: 0;
+      margin-bottom: 40px;
+      padding-top: 100px;
       h1 {
         font-size: 26px;
       }
     }
     button {
       @media (max-width: 991px) {
-        width: 100%;
       }
     }
   }
 
   .home-best-courses {
-    margin: 40px 0;
-    order: 2;
     @media (max-width: 768px) {
-      margin: 30px 0;
     }
   }
 
   .home-newest-courses {
-    order: 1;
-    margin: 40px 0;
     @media (max-width: 768px) {
-      margin: 30px 0;
     }
   }
 
   .promoted-courses-wrapper {
-    order: 3;
   }
 
   .categories-section-wrapper {
-    order: 5;
   }
 `;
 
 const Index = () => {
-  const [courses, setCourses] = useState<Course[]>();
-  const [loading, setLoading] = useState(true);
-  const { categoryTree, fetchCategories, fetchCourses, settings } =
-    useContext(EscolaLMSContext);
+  const { categoryTree, settings } = useContext(EscolaLMSContext);
 
   const history = useHistory();
   const { t, i18n } = useTranslation();
-  useEffect(() => {
-    fetchCourses({
-      per_page: 8,
-    })
-      .then((res) => {
-        setCourses((res as PaginatedMetaList<Course>).data);
-      })
-      .catch(() => setLoading(false))
-      .finally(() => setLoading(false));
-    fetchCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Layout metaTitle={t("Home")}>
@@ -129,21 +97,34 @@ const Index = () => {
         </section>
 
         <section className="home-newest-courses">
-          <NewestCourses />
+          <DisplayCourses
+            titleText={t("Homepage.CoursesSlider2Title")}
+            params={{
+              per_page: 8,
+              order_by: "created_at",
+              order: "DESC",
+            }}
+          />
         </section>
 
         <section className="home-best-courses">
-          <Container>
-            <Title className="slider-title" level={3} as="h1">
-              <strong>{t<string>("Homepage.CoursesSlider1Title")}</strong>
-            </Title>
-            {loading && <ContentLoader />}
-            {!loading && courses && <CoursesSlider courses={courses} />}
-          </Container>
+          <DisplayCourses
+            titleText={t("Homepage.CoursesSlider1Title")}
+            params={{
+              per_page: 8,
+            }}
+          />
         </section>
 
         <div className="promoted-courses-wrapper">
-          <PromotedCoursesSection />
+          <DisplayCourses
+            titleText={t<string>("Homepage.AwardedCoursesTitle")}
+            params={{
+              per_page: 8,
+            }}
+            isSlider={false || isMobile ? true : false}
+            ctaButton
+          />
         </div>
 
         {categoryTree && (

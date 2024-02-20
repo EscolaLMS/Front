@@ -7,7 +7,7 @@ interface Props {
   actions?: ReactNode;
 }
 
-const ConsultationsContainerItem = ({ consultation, actions }: Props) => {
+const ConsultationsContainerItem = ({ consultation }: Props) => {
   return <ConsultationCard consultation={consultation} />;
 };
 

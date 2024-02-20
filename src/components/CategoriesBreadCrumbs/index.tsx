@@ -61,7 +61,7 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
   return (
     <StyledDiv ref={parentRef} isOpen={open}>
       <BreadCrumbs
-        hyphen="/"
+        hyphen=""
         items={firstCategories?.map((category, index) => (
           <>
             <span
@@ -99,7 +99,7 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
               }}
             >
               <BreadCrumbs
-                hyphen="/"
+                hyphen=""
                 items={otherCategories?.map((category) => (
                   <li
                     className="category-name"
