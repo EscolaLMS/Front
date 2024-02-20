@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
 import { Settings } from "react-slick";
@@ -8,7 +8,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Col, Row } from "react-grid-system";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import { Swiper as SwiperType } from "swiper/types";
@@ -16,6 +16,7 @@ import { Swiper as SwiperType } from "swiper/types";
 import "swiper/css/bundle";
 import "swiper/css/navigation";
 import { ArrowRight } from "@/icons/index";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 
 type Props = {
   courses: API.Course[];
@@ -95,7 +96,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                     mobile={isMobile}
                     id={item.id}
                     image={
-                      <>
+                      <Link to={`/courses/${item.id}`}>
                         {item.image_path ? (
                           <ResponsiveImage
                             path={item.image_path}
@@ -105,9 +106,15 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                         ) : (
                           <CourseImgPlaceholder />
                         )}
-                      </>
+                      </Link>
                     }
-                    title={item.title}
+                    title={
+                      <Link to={`/courses/${item.id}`}>
+                        <Title level={3} as="h3" className="title">
+                          {item.title}
+                        </Title>
+                      </Link>
+                    }
                     categories={
                       <CategoriesBreadCrumbs
                         categories={item.categories}
@@ -143,7 +150,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                 id={item.id}
                 key={item.id}
                 image={
-                  <>
+                  <Link to={`/courses/${item.id}`}>
                     {item.image_path ? (
                       <ResponsiveImage
                         path={item.image_path}
@@ -153,9 +160,15 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                     ) : (
                       <CourseImgPlaceholder />
                     )}
-                  </>
+                  </Link>
                 }
-                title={item.title}
+                title={
+                  <Link to={`/courses/${item.id}`}>
+                    <Title level={3} as="h3" className="title">
+                      {item.title}
+                    </Title>
+                  </Link>
+                }
                 categories={
                   <CategoriesBreadCrumbs
                     categories={item.categories}

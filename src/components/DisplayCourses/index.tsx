@@ -1,7 +1,8 @@
 import { Container } from "react-grid-system";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import CoursesSlider from "../CoursesSlider";
-import { Button, CourseCardSkeleton } from "@escolalms/components/lib/index";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
 import useFetchCourses from "@/hooks/useFetchCourses";
 import { CourseParams } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
