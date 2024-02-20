@@ -12,7 +12,7 @@ import Container from "../Container";
 import CoursesSlider from "../CoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
 import { CourseCardSkeleton } from "@escolalms/components/lib/index";
 import useFetchCourses from "@/hooks/useFetchCourses";
 

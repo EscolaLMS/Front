@@ -8,7 +8,7 @@ import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Col, Row } from "react-grid-system";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/index";
+import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import { Swiper as SwiperType } from "swiper/types";
