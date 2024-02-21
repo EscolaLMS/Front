@@ -1,8 +1,8 @@
 import { Container } from "react-grid-system";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import CoursesSlider from "../CoursesSlider";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import useFetchCourses from "@/hooks/useFetchCourses";
 import { CourseParams } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
@@ -24,7 +24,6 @@ const Wrapper = styled(Container)`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 14px;
-
     button {
       @media (max-width: 1200px) {
         display: none;

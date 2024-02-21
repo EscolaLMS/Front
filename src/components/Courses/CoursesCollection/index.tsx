@@ -2,45 +2,14 @@ import React from "react";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
 import Pagination from "@/components/Pagination";
-import { isMobile } from "react-device-detect";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
-import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import { Row, Col } from "react-grid-system";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import {
-  CourseCardSkeleton,
-  DropdownCategories,
-  DropdownMenu,
-  NewCourseCard,
-} from "@escolalms/components/lib/index";
-import { CloseIcon, IconSquares } from "@/icons/index";
-import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
+import { CloseIcon } from "@/icons/index";
+
 import useCoursesFilter from "@/hooks/useCoursesFIlter";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-
-const CoursesList = styled.section`
-  margin-bottom: ${isMobile ? "50px" : "75px"};
-`;
-
-const SortWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  p {
-    margin: unset;
-  }
-`;
-
-const FiltersHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  p {
-    margin: 0px;
-  }
-`;
+import MobileDrawer from "@/components/_App/MobileDrawer";
+import CoursesList from "@/components/Courses/CoursesCollection/list";
+import MobileDrawerContent from "@/components/Courses/CoursesCollection/coursesDrawer";
+import CoursesFilters from "@/components/Courses/CoursesCollection/filters";
 
 const SelectedCategoriesWrapper = styled.div`
   display: flex;
@@ -76,23 +45,22 @@ const SelectedCategory = styled.button`
   }
 `;
 
-const DropdownCategoriesButton = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  svg {
-    width: 11px;
-    height: 11px;
-    path {
-      fill: ${({ theme }) => theme.primaryColor};
-    }
-  }
-`;
+export type SortOrder = "ASC" | "DESC";
 
-type Order = "ASC" | "DESC";
-//  TODO: translate polish words to i18n
+export enum MobileDrawerTypes {
+  categories = "categories",
+  sort = "sort",
+}
 
 const CoursesCollection: React.FC = () => {
+  const [mobileDrawerState, setMobileDrawerState] = React.useState<{
+    showDrawer: boolean;
+    type: keyof typeof MobileDrawerTypes;
+  }>({
+    showDrawer: false,
+    type: MobileDrawerTypes.categories,
+  });
+
   const {
     courses,
     loading,
@@ -105,149 +73,72 @@ const CoursesCollection: React.FC = () => {
     params,
     categoryTree,
   } = useCoursesFilter();
+
   const theme = useTheme();
-  const history = useHistory();
   const { t } = useTranslation();
 
   return (
     <>
-      <FiltersHeader>
-        <DropdownCategories
-          checkedCategories={prevCategories}
-          onClear={onClearCategories}
-          onChange={handleCategoryChange}
-          categories={categoryTree.list || []}
-          child={
-            <DropdownCategoriesButton>
-              <IconSquares />
-              <Text size="16">Pokaż wg kategorii</Text>
-            </DropdownCategoriesButton>
-          }
-        />
-        <SortWrapper>
-          <Text>Sortuj</Text>
+      <CoursesFilters
+        prevCategories={prevCategories}
+        onClearCategories={onClearCategories}
+        handleCategoryChange={handleCategoryChange}
+        categories={categoryTree.list || []}
+        handleSortChange={handleSortChange}
+        params={params}
+        setMobileDrawerState={setMobileDrawerState}
+        parentState={mobileDrawerState}
+      />
 
-          <DropdownMenu
-            top={10}
-            menuItems={[
-              {
-                id: "DESC",
-                content: "Najnowsze",
-              },
-              {
-                id: "ASC",
-                content: "Najstarsze",
-              },
-            ]}
-            onChange={(e: DropdownMenuItem) =>
-              handleSortChange(String(e.id) as Order)
-            }
-            child={
-              <Text>
-                {params && params.order === "DESC" ? "Najnowsze" : "Najstarsze"}
-              </Text>
-            }
-          />
-        </SortWrapper>
-      </FiltersHeader>
       {prevCategories.length > 0 && (
         <SelectedCategoriesWrapper>
           {prevCategories.map((category) => (
             <SelectedCategory onClick={() => handleRemoveCategory(category.id)}>
-              <Text size={"13"}>{category.name}</Text>{" "}
+              <Text size={"13"}>{category.name}</Text>
               <CloseIcon color={theme.gray2} />
             </SelectedCategory>
           ))}
           <button className="clear-categories" onClick={onClearCategories}>
-            <Text size="13">Wyczyść wszystkie</Text>
+            <Text size="13">{t("CoursesPage.clearAll")}</Text>
           </button>
         </SelectedCategoriesWrapper>
       )}
 
-      {courses && !loading && (!courses.data || !courses.data.length) ? (
-        <Row justify="center">
-          <Text size="18">{t("NoCourses")}</Text>
-        </Row>
-      ) : (
-        <>
-          {loading ? (
-            <CoursesList>
-              <Row
-                style={{
-                  gap: "30px 0",
-                }}
-              >
-                {Array.from({ length: 12 }).map((_, index) => (
-                  <CourseCardSkeleton
-                    key={`index-${index}-skeleton`}
-                    colProps={{
-                      xl: 3,
-                      lg: 4,
-                      md: 6,
-                    }}
-                  />
-                ))}
-              </Row>
-            </CoursesList>
-          ) : (
-            <React.Fragment>
-              <CoursesList>
-                <Row
-                  style={{
-                    gap: "30px 0",
-                  }}
-                >
-                  {!loading &&
-                    courses?.data.map((item) => (
-                      <Col md={6} lg={4} xl={3} key={item.id}>
-                        <NewCourseCard
-                          mobile={isMobile}
-                          id={item.id}
-                          image={
-                            <Link to={`/courses/${item.id}`}>
-                              {item.image_path ? (
-                                <ResponsiveImage
-                                  path={item.image_path}
-                                  alt={item.title}
-                                  srcSizes={[300, 600, 900]}
-                                />
-                              ) : (
-                                <CourseImgPlaceholder />
-                              )}
-                            </Link>
-                          }
-                          title={
-                            <Link to={`/courses/${item.id}`}>
-                              <Title level={3} as="h3" className="title">
-                                {item.title}
-                              </Title>
-                            </Link>
-                          }
-                          categories={
-                            <CategoriesBreadCrumbs
-                              categories={item.categories}
-                              onCategoryClick={(id) => {
-                                history.push(`/courses/?categories[]=${id}`);
-                              }}
-                            />
-                          }
-                        />
-                      </Col>
-                    ))}
-                </Row>
-              </CoursesList>
+      <MobileDrawer
+        isOpen={mobileDrawerState.showDrawer}
+        onClose={() =>
+          setMobileDrawerState({
+            showDrawer: false,
+            type: MobileDrawerTypes.categories,
+          })
+        }
+        height={
+          mobileDrawerState.type === MobileDrawerTypes.categories
+            ? "40vh"
+            : "12vh"
+        }
+      >
+        <MobileDrawerContent
+          showDrawer={mobileDrawerState.showDrawer}
+          type={mobileDrawerState.type}
+          prevCategories={prevCategories}
+          onClearCategories={onClearCategories}
+          handleCategoryChange={handleCategoryChange}
+          categories={categoryTree.list || []}
+          handleSortChange={handleSortChange}
+          setMobileDrawerState={setMobileDrawerState}
+        />
+      </MobileDrawer>
 
-              {Number(courses?.meta.total) > Number(courses?.meta.per_page) && (
-                <Pagination
-                  total={Number(courses?.meta.total)}
-                  perPage={Number(courses?.meta.per_page)}
-                  currentPage={Number(courses?.meta.current_page)}
-                  onPage={handlePageChange}
-                />
-              )}
-            </React.Fragment>
-          )}
-        </>
+      <CoursesList courses={courses?.data || []} loading={loading} />
+
+      {Number(courses?.meta.total) > Number(courses?.meta.per_page) && (
+        <Pagination
+          total={Number(courses?.meta.total)}
+          perPage={Number(courses?.meta.per_page)}
+          currentPage={Number(courses?.meta.current_page)}
+          onPage={handlePageChange}
+        />
       )}
     </>
   );
