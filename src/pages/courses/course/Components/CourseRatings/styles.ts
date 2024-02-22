@@ -3,7 +3,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import styled from "styled-components";
 
 export const StyledStack = styled(Stack)`
-  gap: 16px;
+  gap: 22px;
   margin: 16px auto;
 `;
 

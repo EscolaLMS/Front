@@ -15,17 +15,16 @@ import Container from "@/components/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledLoginPage = styled.div`
-  min-height: calc(100vh - 583px);
+  height: calc(100vh - 200px);
   display: flex;
   align-items: center;
   justify-content: center;
-  /* TODO: export colors */
+
   background-color: #f8f8f8;
   @media (max-width: 991px) {
     padding-top: 100px;
-    min-height: 100%;
+    height: 100%;
     padding-bottom: 50px;
-    /* TODO: make a wrapper for it */
   }
 `;
 

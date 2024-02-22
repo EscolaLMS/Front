@@ -2,17 +2,25 @@ import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-
 import { API } from "@escolalms/sdk/lib";
 import { Col, Row } from "react-grid-system";
-
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-
-import { Rating } from "@escolalms/components/lib/index";
+import { Rating, Text } from "@escolalms/components/lib/index";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { StateTypes } from "@/types/index";
 import { QuestionnaireStarsModel } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/ContentLoader";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
+const RatingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  p {
+    margin: 0;
+  }
+`;
 
 type State =
   | { type: StateTypes.INIT }
@@ -27,6 +35,7 @@ interface CourseMainInfoProps {
 export const CourseMainInfo: FC<CourseMainInfoProps> = ({ courseData }) => {
   const { fetchQuestionnaireStarsByModel } = useContext(EscolaLMSContext);
   const [state, setState] = useState<State>({ type: StateTypes.INIT });
+  const history = useHistory();
 
   const fetchRating = useCallback(async () => {
     if (courseData.id) {
@@ -53,17 +62,30 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({ courseData }) => {
     <section className="course-main-info">
       <Row>
         <Col lg={12}>
-          <CategoriesBreadCrumbs categories={courseData.categories} />
+          <CategoriesBreadCrumbs
+            categories={courseData.categories}
+            onCategoryClick={(id) => {
+              history.push(`/courses/?categories[]=${id}`);
+            }}
+          />
 
           <Title mobile={isMobile} level={1}>
             {courseData.title}
           </Title>
 
           {state.type === StateTypes.LOADED ? (
-            <Rating
-              ratingValue={state.rating.avg_rate}
-              label={`${state.rating.avg_rate}`}
-            />
+            <RatingWrapper>
+              <Rating
+                ratingValue={state.rating.avg_rate}
+                label={`${state.rating.avg_rate}`}
+              />
+              <Text size="13">Śr. ocena kursu</Text>
+              <div>
+                <Text size="13">
+                  Dodane opinie <strong>{state.rating.count_answers}</strong>
+                </Text>
+              </div>
+            </RatingWrapper>
           ) : state.type === StateTypes.LOADING ? (
             <ContentLoader width={"20px"} height="20px" />
           ) : state.type === StateTypes.ERROR ? (

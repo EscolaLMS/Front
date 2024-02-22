@@ -1,4 +1,3 @@
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 
 import { API } from "@escolalms/sdk/lib";
@@ -10,46 +9,78 @@ import { Row } from "@escolalms/components/lib/components/atoms/Row/index";
 import { Stack } from "@escolalms/components/lib/components/atoms/Stack/index";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
-import { HeaderUser, StarOrange } from "@/icons/index";
-import { useTheme } from "styled-components";
+
+import styled, { useTheme } from "styled-components";
+
+const AnswerWrapper = styled.div`
+  .date {
+    color: ${({ theme }) => theme.gray2};
+    margin-bottom: 5px;
+  }
+`;
+
+const RandomAvatar = styled.div`
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: white;
+    text-transform: uppercase;
+  }
+`;
 
 interface AnswerComponentProps {
   question: API.QuestionAnswer;
 }
 
+const AvatarWithInitial: FC<{ name: string }> = ({ name }) => {
+  const randomColor = () => {
+    return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  };
+
+  const initials = name.charAt(0).toUpperCase();
+
+  return (
+    <RandomAvatar style={{ backgroundColor: randomColor() }}>
+      <Text size={"18"}>{initials}</Text>
+    </RandomAvatar>
+  );
+};
+
 export const AnswerComponent: FC<AnswerComponentProps> = ({ question }) => {
-  const { user, note, updated_at, rate } = question;
+  const { user, note, updated_at } = question;
   const theme = useTheme();
 
   if (!note) {
-    return <></>;
+    return null;
   }
 
   return (
-    <Container>
-      <Row $gap={16}>
-        {user.avatar ? (
-          <Avatar src={user.avatar} alt="" />
-        ) : (
-          <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
-        )}
+    <AnswerWrapper>
+      <Container>
+        <Row $gap={19}>
+          {user.avatar ? (
+            <Avatar src={user.avatar} alt={`user-avatar-${user.name}`} />
+          ) : (
+            <AvatarWithInitial name={user.name} />
+          )}
 
-        <Stack $justifyContent="space-between">
-          <Title level={5}>{user.name}</Title>
-          <Text>{note}</Text>
-        </Stack>
-      </Row>
-      <Stack $gap={8}>
-        <Text noMargin>
-          {formatDate(updated_at, APP_CONFIG.defaultDateFormat)}
-        </Text>
-        {rate > 0 && (
-          <Row $gap={16}>
-            <StarOrange />
-            <Text>{rate}</Text>
-          </Row>
-        )}
-      </Stack>
-    </Container>
+          <Stack $justifyContent="flex-start" $alignItems="flex-start">
+            <Text noMargin color={theme.gray2} className="date" size="13">
+              {formatDate(updated_at, APP_CONFIG.defaultDateFormat)}
+            </Text>
+
+            <Text className="note" size="13">
+              {note}
+            </Text>
+          </Stack>
+        </Row>
+      </Container>
+    </AnswerWrapper>
   );
 };

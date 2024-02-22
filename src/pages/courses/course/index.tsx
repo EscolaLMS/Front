@@ -95,10 +95,7 @@ const CoursePage = () => {
               />
               <Row>
                 <Col md={12} lg={8}>
-                  <CourseMainInfo
-                    courseData={course.value}
-                    questionnaires={questionnaires}
-                  />
+                  <CourseMainInfo courseData={course.value} />
                   {course.value.description &&
                     fixContentForMarkdown(course.value.description) !== "" && (
                       <section className="course-description-short">
@@ -107,7 +104,7 @@ const CoursePage = () => {
                         </MarkdownRenderer>
                       </section>
                     )}
-                  {/* <CourseCompanies /> */}
+
                   {course.value.summary &&
                     fixContentForMarkdown(course.value.summary) !== "" && (
                       <section className="course-description">
