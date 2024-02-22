@@ -36,6 +36,10 @@ const SortWrapper = styled.div`
   p {
     margin: unset;
   }
+  svg {
+    margin-left: 5px;
+    margin-top: -2px;
+  }
 `;
 
 const DropdownCategoriesButton = styled.div`
@@ -92,7 +96,7 @@ const CoursesFilters: React.FC<Props> = ({
           }
         >
           <IconSquares />
-          <Text size="16">Show By Category</Text>
+          <Text size="16">{t("CoursesPage.showByCategory")}</Text>
           <ArrowDown />
         </DropdownCategoriesButton>
       ) : (
@@ -104,7 +108,7 @@ const CoursesFilters: React.FC<Props> = ({
           child={
             <DropdownCategoriesButton>
               <IconSquares />
-              <Text size="16">Show By Category</Text>
+              <Text size="16">{t("CoursesPage.showByCategory")}</Text>
               <ArrowDown />
             </DropdownCategoriesButton>
           }
@@ -121,7 +125,7 @@ const CoursesFilters: React.FC<Props> = ({
             })
           }
         >
-          Sort {isMobile && <ArrowDown />}
+          {t("CoursesPage.sort")} {isMobile && <ArrowDown />}
         </Text>
         {!isMobile && (
           <DropdownMenu
