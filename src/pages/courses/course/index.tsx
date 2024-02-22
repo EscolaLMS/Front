@@ -28,10 +28,10 @@ import {
 import routeRoutes from "@/components/Routes/routes";
 
 const CoursePage = () => {
-  const { fetchQuestionnaireStarsByModel } = useContext(EscolaLMSContext);
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const [courseAccessModalVisible, setCourseAccessModalVisible] =
     useState(false);
+
   const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
@@ -71,7 +71,6 @@ const CoursePage = () => {
       fetchQuestionnaires(QuestionnaireModelType.COURSE, Number(id)).then(
         (response) => response.success && setQuestionnaires(response.data)
       );
-      fetchQuestionnaireStarsByModel("course", Number(id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -79,7 +78,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-  console.log(course.value);
+
   return (
     <Layout metaTitle={course?.value?.title || "Loading"}>
       {course.loading && <Loader />}

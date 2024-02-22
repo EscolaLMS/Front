@@ -23,10 +23,11 @@ export const CourseRelated = () => {
             </div>
             <div className="content-container">
               <DisplayCourses
-                titleText={t("CoursePage.RelatedCoursesTitle")}
+                titleText={t("CoursePage.InterestTitle")}
                 params={{
                   per_page: 8,
                   order_by: "created_at",
+                  order: "ASC",
                 }}
                 slidesPerView={3}
               />

@@ -1,74 +1,54 @@
-import { FC, useContext, useEffect, useState } from "react";
-
-import { useTranslation } from "react-i18next";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
 
 import { API } from "@escolalms/sdk/lib";
 import { Col, Row } from "react-grid-system";
-import { formatDate } from "@/utils/date";
 
-import { getAverageRate } from "@/utils/questionnaires";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { QuestionType, QuestionnaireModelType } from "@/types/questionnaire";
-import { useParams } from "react-router-dom";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import { Medal, StarOrange, ThumbUp } from "@/icons/index";
+
 import { Rating } from "@escolalms/components/lib/index";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { StateTypes } from "@/types/index";
+import { QuestionnaireStarsModel } from "@escolalms/sdk/lib/types/api";
+import ContentLoader from "@/components/ContentLoader";
+
+type State =
+  | { type: StateTypes.INIT }
+  | { type: StateTypes.LOADING }
+  | { type: StateTypes.LOADED; rating: QuestionnaireStarsModel }
+  | { type: StateTypes.ERROR; error: string };
 
 interface CourseMainInfoProps {
   courseData: API.Course;
-  questionnaires: API.Questionnaire[];
 }
 
-export const CourseMainInfo: FC<CourseMainInfoProps> = ({
-  courseData,
-  questionnaires,
-}) => {
-  const [reviewQuestions, setReviewQuestions] = useState<
-    API.QuestionnaireStars[]
-  >([]);
-  const { fetchQuestionnaireStars } = useContext(EscolaLMSContext);
-  const { id } = useParams<{ id: string }>();
+export const CourseMainInfo: FC<CourseMainInfoProps> = ({ courseData }) => {
+  const { fetchQuestionnaireStarsByModel } = useContext(EscolaLMSContext);
+  const [state, setState] = useState<State>({ type: StateTypes.INIT });
 
-  const getReviewQuestionStar = async (reviewQuestionsId: number[]) => {
-    const fetchedObjects = await Promise.all(
-      reviewQuestionsId.map(async (questionId) => {
-        const response = await fetchQuestionnaireStars(
-          QuestionnaireModelType.COURSE,
-          Number(id),
-          questionId
+  const fetchRating = useCallback(async () => {
+    if (courseData.id) {
+      try {
+        setState({ type: StateTypes.LOADING });
+        const req = await fetchQuestionnaireStarsByModel(
+          "course",
+          Number(courseData.id)
         );
-        if (response.success) {
-          return response.data;
+        if (req.success) {
+          setState({ type: StateTypes.LOADED, rating: req.data });
         }
-        return null;
-      })
-    );
-    setReviewQuestions(fetchedObjects as API.QuestionnaireStars[]);
-  };
+      } catch (error: any) {
+        setState({ type: StateTypes.ERROR, error: error.message });
+      }
+    }
+  }, [courseData.id, fetchQuestionnaireStarsByModel]);
 
-  const getReviewQuestions = () => {
-    const rewievQuestions = (questionnaires || []).reduce(
-      (result: number[], currentQuestion) => {
-        const matchingReviewQuestion = currentQuestion.questions.find(
-          (currentQuestion) =>
-            currentQuestion.type === QuestionType.REVIEW &&
-            currentQuestion.public_answers
-        );
-        matchingReviewQuestion && result.push(matchingReviewQuestion.id);
-        return result;
-      },
-      []
-    );
-    getReviewQuestionStar(rewievQuestions);
-  };
   useEffect(() => {
-    questionnaires.length > 0 && getReviewQuestions();
-  }, [questionnaires]);
-  console.log(courseData);
+    fetchRating();
+  }, [courseData.id, fetchRating]);
+
   return (
     <section className="course-main-info">
       <Row>
@@ -79,37 +59,16 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
             {courseData.title}
           </Title>
 
-          <Rating ratingValue={4.1} label={"dad"} />
-
-          {/* <div className="labels-row">
-            <div className="single-label">
-              <LabelListItem mobile={isMobile} title="90%" icon={<ThumbUp />}>
-                {t("CoursePage.Recommends")}
-              </LabelListItem>
-            </div>
-            <div className="single-label">
-              <LabelListItem
-                mobile={isMobile}
-                title={t<string>("CoursePage.Guarantee")}
-                icon={<Medal />}
-              >
-                {t("CoursePage.Satisfaction")}
-              </LabelListItem>
-            </div>
-            <div className="single-label">
-              <LabelListItem
-                mobile={isMobile}
-                title={
-                  reviewQuestions.length > 0
-                    ? String(getAverageRate(reviewQuestions))
-                    : t("CoursePage.NoRatings")
-                }
-                icon={<StarOrange />}
-              >
-                {t("CoursePage.AvarageRating")}
-              </LabelListItem>
-            </div>
-          </div> */}
+          {state.type === StateTypes.LOADED ? (
+            <Rating
+              ratingValue={state.rating.avg_rate}
+              label={`${state.rating.avg_rate}`}
+            />
+          ) : state.type === StateTypes.LOADING ? (
+            <ContentLoader width={"20px"} height="20px" />
+          ) : state.type === StateTypes.ERROR ? (
+            state.error
+          ) : null}
         </Col>
         <Col lg={12}>
           {courseData.image_path && (
@@ -122,41 +81,6 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
           )}
         </Col>
       </Row>
-      {/* <div className="labels-row labels-row--bottom">
-        {courseData.categories && courseData.categories.length > 0 && (
-          <div className="single-label">
-            <LabelListItem
-              title={t("CoursePage.CourseCategory")}
-              variant={"label"}
-            >
-              {courseData.categories[0].name}
-            </LabelListItem>
-          </div>
-        )}
-        {courseData.level && (
-          <div className="single-label">
-            <LabelListItem title={t("CoursePage.Level")} variant={"label"}>
-              {courseData.level}
-            </LabelListItem>
-          </div>
-        )}
-        {courseData.active_from && (
-          <div className="single-label">
-            <LabelListItem title={t("CoursePage.StartDate")} variant={"label"}>
-              {courseData.active_from
-                ? formatDate(courseData.active_from)
-                : "---"}
-            </LabelListItem>
-          </div>
-        )}
-        {courseData.duration && (
-          <div className="single-label">
-            <LabelListItem title={t("CoursePage.Duration")} variant={"label"}>
-              {courseData.duration}
-            </LabelListItem>
-          </div>
-        )}
-      </div> */}
     </section>
   );
 };
