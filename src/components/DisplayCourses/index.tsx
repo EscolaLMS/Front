@@ -23,7 +23,8 @@ const Wrapper = styled(Container)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 14p button {
+    margin-bottom: 14px;
+    button {
       @media (max-width: 1200px) {
         display: none;
       }
@@ -85,7 +86,7 @@ const DisplayCourses: React.FC<Props> = ({
       )}
 
       {!loading && courses && (
-        <CoursesSlider courses={courses} isSlider={isSlider} />
+        <CoursesSlider courses={courses.data} isSlider={isSlider} />
       )}
     </Wrapper>
   );

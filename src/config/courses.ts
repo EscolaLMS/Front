@@ -1,1 +1,1 @@
-export const COURSES_ON_PAGE = 8;
+export const COURSES_ON_PAGE = 12;

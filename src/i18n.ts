@@ -248,6 +248,11 @@ const resources = {
         Type: "Type",
         Courses: "Courses",
         Search: "Search courses",
+        showByCategory: "Show by category",
+        sort: "Sort",
+        newOnes: "Newest",
+        oldOnes: "Oldest",
+        clearAll: "Clear all",
       },
       EventsPage: {
         Events: "Stationary events",
@@ -808,6 +813,11 @@ const resources = {
         Type: "Typ szkolenia",
         Courses: "Kursy",
         Search: "Szukaj kursów",
+        showByCategory: "Pokaż wg kategorii",
+        sort: "Sortuj",
+        newOnes: "Najnowsze",
+        oldOnes: "Najstarsze",
+        clearAll: "Wyczyść wszystko",
       },
       EventsPage: {
         Events: "Wydarzenia stacjonarne",

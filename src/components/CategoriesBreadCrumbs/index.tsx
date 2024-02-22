@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import styled from "styled-components";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 
@@ -44,10 +44,10 @@ export interface CategoriesProps {
 
 const CategoriesBreadCrumbs = (props: CategoriesProps) => {
   const { categories, onCategoryClick } = props;
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const parentRef = useRef<HTMLDivElement | null>(null);
-  const firstCategories = categories ? [...categories].splice(0, 2) : [];
-  const otherCategories = categories ? [...categories].splice(2) : [];
+  const firstCategories = categories || [];
+  // const otherCategories = categories ? [...categories].splice(2) : [];
 
   const categoryClick = useCallback(
     (id: number) => {
@@ -59,7 +59,7 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
   );
 
   return (
-    <StyledDiv ref={parentRef} isOpen={open}>
+    <StyledDiv ref={parentRef}>
       <BreadCrumbs
         hyphen=""
         items={firstCategories?.map((category, index) => (
@@ -68,11 +68,11 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
               className="category-name"
               key={category.name + index}
               onClick={() => categoryClick(category.id)}
-              aria-hidden={true}
+              aria-hidden="true"
             >
               {category.name}
             </span>
-            {index === firstCategories.length - 1 &&
+            {/* {index === firstCategories.length - 1 &&
               otherCategories.length > 0 && (
                 <span
                   className="more-icon"
@@ -80,12 +80,12 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
                   onFocus={() => setOpen(true)}
                   aria-hidden={true}
                 >{`+${otherCategories.length}`}</span>
-              )}
+              )} */}
           </>
         ))}
       />
 
-      {otherCategories.length > 0 && (
+      {/* {otherCategories.length > 0 && (
         <div
           className="categories-menu-container"
           onMouseLeave={() => setOpen(false)}
@@ -113,7 +113,7 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
             </ul>
           )}
         </div>
-      )}
+      )} */}
     </StyledDiv>
   );
 };

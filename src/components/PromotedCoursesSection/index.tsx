@@ -13,7 +13,7 @@ import CoursesSlider from "../CoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
-import { CourseCardSkeleton } from "@escolalms/components/lib/index";
+import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
 import useFetchCourses from "@/hooks/useFetchCourses";
 
 const StyledSection = styled.section`
@@ -108,14 +108,16 @@ const PromotedCoursesSection: React.FC = () => {
           </Row>
         )}
 
-        {!loading && isMobile && <CoursesSlider courses={courses || []} />}
+        {!loading && isMobile && (
+          <CoursesSlider courses={courses?.data || []} />
+        )}
         {!loading && !isMobile && (
           <Row
             style={{
               rowGap: "20px",
             }}
           >
-            {courses.map((course) => (
+            {courses?.data.map((course) => (
               <Col md={6} lg={3} key={course.id}>
                 <NewCourseCard
                   mobile={isMobile}
@@ -133,7 +135,13 @@ const PromotedCoursesSection: React.FC = () => {
                       )}
                     </Link>
                   }
-                  title={course.title}
+                  title={
+                    <Link to={`/courses/${course.id}`}>
+                      <Title level={3} as="h3" className="title">
+                        {course.title}
+                      </Title>
+                    </Link>
+                  }
                   categories={
                     <CategoriesBreadCrumbs
                       categories={course.categories}

@@ -193,6 +193,7 @@ export const IconDownload = () => {
 export const IconSquares = () => {
   return (
     <svg
+      className="icon-squares"
       width="18"
       height="19"
       viewBox="0 0 18 19"
@@ -206,6 +207,37 @@ export const IconSquares = () => {
     </svg>
   );
 };
+
+export const ArrowDown = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10.918"
+      height="6.159"
+      viewBox="0 0 10.918 6.159"
+    >
+      <g id="arw" transform="translate(0.5 5.659) rotate(-90)">
+        <g id="Group_9" data-name="Group 9" transform="translate(-0.5 -0.5)">
+          <path
+            id="Path_16"
+            data-name="Path 16"
+            d="M117.86,4.89,122.646.117a.4.4,0,1,1,.566.568l-4.5,4.489,4.5,4.488a.4.4,0,0,1-.567.568L117.86,5.458a.4.4,0,0,1,0-.568Z"
+            transform="translate(-117.457 0.285)"
+            fill="#333"
+          />
+          <path
+            id="Path_16_-_Outline"
+            data-name="Path 16 - Outline"
+            d="M122.715-.5a.682.682,0,0,1,.486.2.682.682,0,0,1,.2.486.682.682,0,0,1-.2.485l-4.3,4.286,4.3,4.286a.687.687,0,0,1-.97.972l-4.786-4.773a.69.69,0,0,1-.2-.486.682.682,0,0,1,.2-.486L122.23-.3A.682.682,0,0,1,122.715-.5Zm0,10.347a.116.116,0,0,0,.082-.2l-4.7-4.691L122.8.268A.116.116,0,0,0,122.633.1l-4.786,4.773a.115.115,0,0,0,0,.163l4.786,4.773A.115.115,0,0,0,122.715,9.847Z"
+            transform="translate(-117.242 0.5)"
+            fill="#333"
+          />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
 export const IconTime = ({
   width = "20px",
   height = "21px",
@@ -469,7 +501,7 @@ export const HeaderUser = ({
   );
 };
 
-export const CloseIcon = () => {
+export const CloseIcon = ({ color = "white" }: { color?: string }) => {
   return (
     <svg
       width="15"
@@ -480,11 +512,35 @@ export const CloseIcon = () => {
     >
       <path
         d="M0.699143 0.462083C1.08967 0.0715584 1.72283 0.0715584 2.11336 0.462083L7.40625 5.75498L12.6991 0.462083C13.0897 0.0715584 13.7228 0.0715584 14.1134 0.462083C14.5039 0.852607 14.5039 1.48577 14.1134 1.8763L8.82046 7.16919L14.1134 12.4621C14.5039 12.8526 14.5039 13.4858 14.1134 13.8763C13.7228 14.2668 13.0897 14.2668 12.6991 13.8763L7.40625 8.5834L2.11336 13.8763C1.72283 14.2668 1.08967 14.2668 0.699143 13.8763C0.308619 13.4858 0.308619 12.8526 0.699143 12.4621L5.99204 7.16919L0.699143 1.8763C0.308619 1.48577 0.308619 0.852607 0.699143 0.462083Z"
-        fill="white"
+        fill={color || "white"}
       />
     </svg>
   );
 };
+
+export const CloseMobileIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+    >
+      <g id="close" transform="translate(0 -0.005)">
+        <g id="Group_68" data-name="Group 68" transform="translate(0 0.005)">
+          <path
+            id="Path_31"
+            data-name="Path 31"
+            d="M15.367,2.638a9,9,0,1,0,0,12.734A9.014,9.014,0,0,0,15.367,2.638Zm-2.653,9.02a.75.75,0,1,1-1.061,1.061L9,10.066,6.349,12.718a.75.75,0,0,1-1.061-1.061L7.939,9,5.287,6.352A.75.75,0,0,1,6.348,5.291L9,7.944l2.652-2.653a.75.75,0,0,1,1.061,1.061L10.061,9Z"
+            transform="translate(0 -0.005)"
+            fill="#afafaf"
+          />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
 export const DownloadIcon = () => (
   <svg
     width="16"
