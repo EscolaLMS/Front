@@ -1,1 +1,0 @@
-import{r as t,D as n}from"./index-B8t7bxZo.js";const l=a=>{const[r,e]=t.useState([]),[c,s]=t.useState(!0),{fetchCourses:o}=t.useContext(n.EscolaLMSContext);return t.useEffect(()=>{s(!0),o(a).then(u=>{e(u.data||[])}).catch(()=>e([])).finally(()=>s(!1))},[o]),{courses:r,loading:c}};export{l as u};
