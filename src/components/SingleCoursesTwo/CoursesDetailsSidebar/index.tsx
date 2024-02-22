@@ -6,17 +6,54 @@ import { IconText } from "@escolalms/components/lib/components/atoms/IconText/Ic
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { CourseProgress } from "@escolalms/components/lib/components/atoms/CourseProgress/CourseProgress";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
-import { IconSquares, IconWin, IconCamera } from "../../../icons";
+import { IconWin } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+
 import { useTheme } from "styled-components";
 import { useCourseProgress } from "../../../hooks/useCourseProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
-import { formatPrice } from "@/utils/index";
+
 import ContentLoader from "@/components/ContentLoader";
 import ProductPrices from "@/components/ProductPrices";
+import styled from "styled-components";
+
+const CourseDetailsSidebarWrapper = styled.div`
+  width: 100%;
+  left: 0;
+  position: ${isMobile ? "fixed" : "sticky"};
+  top: ${isMobile ? "unset" : "130px"};
+  bottom: ${isMobile ? "0" : "unset"};
+  z-index: 100;
+  .course-sidebar-header {
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .price-wrapper {
+    margin-bottom: 16px;
+    * {
+      font-weight: 700;
+    }
+  }
+  button {
+    width: 100%;
+  }
+`;
+
+const IconTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  span {
+    font-size: 13px;
+    font-weight: 700;
+    &:first-of-type {
+      font-weight: 400;
+    }
+  }
+`;
 
 interface Props {
   course: API.Course;
@@ -59,138 +96,132 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
     }
   }, [currentCourse, user.value, userCourseAccess, userOwnThisCourse]);
 
-  return !isMobile ? (
-    <PricingCard>
-      <Title level={4} as="h2">
-        {course.title}
-      </Title>
-      <ProductPrices
-        price={course.product?.price}
-        taxRate={course.product?.tax_rate}
-        oldPrice={course.product?.price_old}
-      />
-      {progress.loaded ? (
-        <CourseDetailsSidebarButtons
-          onRequestAccess={onRequestAccess}
-          course={course}
-          userOwnThisCourse={userOwnThisCourse}
-        />
-      ) : (
-        <ContentLoader />
-      )}
-      <Text size={"12"}> {t("CoursePage.30Days")}</Text>
-      <div className="pricing-card-features">
-        {course.duration && (
-          <IconText
-            icon={<IconCamera />}
-            text={`${t("CoursePage.Duration")}: ${course.duration}`}
-          />
-        )}
-        {course.lessons && (
-          <IconText
-            icon={<IconSquares />}
-            text={`${t("CoursePage.Lessons")}: ${course.lessons.length}`}
-          />
-        )}
-        {course.language && (
-          <IconText
-            icon={<IconSquares />}
-            text={`${t("CoursePage.Language")}: ${course.language}`}
-          />
-        )}
-        {course.level && (
-          <IconText
-            icon={<IconSquares />}
-            text={`${t("CoursePage.Level")}: ${course.level}`}
-          />
-        )}
-        {course.users_count ? (
-          <IconText
-            icon={<IconSquares />}
-            text={`${t("CoursePage.Students")}: ${course.users_count}`}
+  return (
+    <CourseDetailsSidebarWrapper>
+      <PricingCard>
+        <div className="course-sidebar-header">
+          <Text size="13">Cena za dostęp</Text>
+          <div className="price-wrapper">
+            <ProductPrices
+              price={course.product?.price}
+              taxRate={course.product?.tax_rate}
+              oldPrice={course.product?.price_old}
+              textSizes={{
+                old: "18",
+                new: "24",
+              }}
+            />
+          </div>
+        </div>
+
+        {progress.loaded ? (
+          <CourseDetailsSidebarButtons
+            onRequestAccess={onRequestAccess}
+            course={course}
+            userOwnThisCourse={userOwnThisCourse}
           />
         ) : (
-          ""
+          <ContentLoader />
         )}
-      </div>
-      {!user.value ? (
-        <Text size="12">
-          <Link
-            to={`/login?referrer=/courses/${course.id}`}
-            style={{
-              marginRight: "4px",
-              color: theme.primaryColor,
-            }}
-          >
-            {t<string>("CoursePage.Login")}
-          </Link>
-          {t("CoursePage.ToSeeProgress")}
-        </Text>
-      ) : (
-        <CourseProgress
-          progress={
-            currentCourse && currentCourse?.length > 0
-              ? progressMap / currentCourse.length
-              : 0
-          }
-          icon={
-            progress.loaded ? (
-              <IconWin />
-            ) : (
-              <ContentLoader width="22px" height="22px" />
-            )
-          }
-          title={t("CoursePage.MyProgress")}
-        >
-          <strong style={{ fontSize: 14 }}>
-            {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
-            {t<string>("CoursePage.Of")}{" "}
-            {currentCourse && currentCourse?.length > 0
-              ? currentCourse.length
-              : 0}{" "}
-            {t<string>("CoursePage.Lessons")}
-          </strong>
-          <p style={{ marginTop: 9, marginBottom: 0 }}>
-            {t<string>("CoursePage.FinishToGetCertificate")}
-          </p>
-        </CourseProgress>
-      )}
-    </PricingCard>
-  ) : (
-    <PricingCard mobile>
-      <Title level={5} as={"h5"}>
-        {course.title}
-      </Title>
-      <div className="pricing-card-footer">
-        <div>
-          {course.product?.price_old && (
-            <div className="pricing-card-discount">
-              <Title level={5} as={"h5"}>
-                {formatPrice(
-                  course.product?.price_old,
-                  course.product?.tax_rate
-                )}{" "}
-                zł
-              </Title>
-            </div>
+        <Text size={"12"}> {t("CoursePage.30Days")}</Text>
+        <div className="pricing-card-features">
+          {course.duration && (
+            <IconText
+              text={
+                <IconTextWrapper>
+                  <span>{t("CoursePage.Duration")}</span>
+                  <span>{course.duration}</span>
+                </IconTextWrapper>
+              }
+            />
           )}
-          <Title level={4} as={"h4"}>
-            {formatPrice(course.product?.price, course.product?.tax_rate)} zł
-          </Title>
-        </div>
-        <div>
-          {progress.loaded ? (
-            <CourseDetailsSidebarButtons
-              onRequestAccess={onRequestAccess}
-              course={course}
-              userOwnThisCourse={userOwnThisCourse}
+          {course.lessons && (
+            <IconText
+              text={
+                <IconTextWrapper>
+                  <span>{t("CoursePage.Lessons")}</span>
+                  <span>{course.lessons.length}</span>
+                </IconTextWrapper>
+              }
+            />
+          )}
+          {course.language && (
+            <IconText
+              text={
+                <IconTextWrapper>
+                  <span>{t("CoursePage.Language")}</span>
+                  <span>{course.language}</span>
+                </IconTextWrapper>
+              }
+            />
+          )}
+          {course.level && (
+            <IconText
+              text={
+                <IconTextWrapper>
+                  <span>{t("CoursePage.Level")}</span>
+                  <span>{course.level}</span>
+                </IconTextWrapper>
+              }
+            />
+          )}
+          {course.users_count ? (
+            <IconText
+              text={
+                <IconTextWrapper>
+                  <span>{t("CoursePage.Students")}</span>
+                  <span>{course.users_count}</span>
+                </IconTextWrapper>
+              }
             />
           ) : (
-            <ContentLoader />
+            ""
           )}
         </div>
-      </div>
-    </PricingCard>
+        {!user.value ? (
+          <Text size="12">
+            <Link
+              to={`/login?referrer=/courses/${course.id}`}
+              style={{
+                marginRight: "4px",
+                color: theme.primaryColor,
+              }}
+            >
+              {t<string>("CoursePage.Login")}
+            </Link>
+            {t("CoursePage.ToSeeProgress")}
+          </Text>
+        ) : (
+          <CourseProgress
+            progress={
+              currentCourse && currentCourse?.length > 0
+                ? progressMap / currentCourse.length
+                : 0
+            }
+            icon={
+              progress.loaded ? (
+                <IconWin />
+              ) : (
+                <ContentLoader width="22px" height="22px" />
+              )
+            }
+            title={t("CoursePage.MyProgress")}
+          >
+            <strong style={{ fontSize: 14 }}>
+              {t<string>("CoursePage.Finished")} {progressMap || 0}{" "}
+              {t<string>("CoursePage.Of")}{" "}
+              {currentCourse && currentCourse?.length > 0
+                ? currentCourse.length
+                : 0}{" "}
+              {t<string>("CoursePage.Lessons")}
+            </strong>
+            <p style={{ marginTop: 9, marginBottom: 0 }}>
+              {t<string>("CoursePage.FinishToGetCertificate")}
+            </p>
+          </CourseProgress>
+        )}
+      </PricingCard>
+    </CourseDetailsSidebarWrapper>
   );
 };
 

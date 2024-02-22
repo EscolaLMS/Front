@@ -5,7 +5,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { LabelListItem } from "@escolalms/components/lib/components/molecules/LabelListItem/LabelListItem";
-import { Medal, StarOrange, ThumbUp } from "../../../../../icons";
+
 import { API } from "@escolalms/sdk/lib";
 import { Col, Row } from "react-grid-system";
 import { formatDate } from "@/utils/date";
@@ -14,6 +14,9 @@ import { getAverageRate } from "@/utils/questionnaires";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { QuestionType, QuestionnaireModelType } from "@/types/questionnaire";
 import { useParams } from "react-router-dom";
+import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import { Medal, StarOrange, ThumbUp } from "@/icons/index";
+import { Rating } from "@escolalms/components/lib/index";
 
 interface CourseMainInfoProps {
   courseData: API.Course;
@@ -29,7 +32,6 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
   >([]);
   const { fetchQuestionnaireStars } = useContext(EscolaLMSContext);
   const { id } = useParams<{ id: string }>();
-  const { t } = useTranslation();
 
   const getReviewQuestionStar = async (reviewQuestionsId: number[]) => {
     const fetchedObjects = await Promise.all(
@@ -66,15 +68,20 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
   useEffect(() => {
     questionnaires.length > 0 && getReviewQuestions();
   }, [questionnaires]);
-
+  console.log(courseData);
   return (
-    <section className="course-main-info with-border">
+    <section className="course-main-info">
       <Row>
-        <Col lg={7}>
-          <Title mobile={isMobile} level={2}>
+        <Col lg={12}>
+          <CategoriesBreadCrumbs categories={courseData.categories} />
+
+          <Title mobile={isMobile} level={1}>
             {courseData.title}
           </Title>
-          <div className="labels-row">
+
+          <Rating ratingValue={4.1} label={"dad"} />
+
+          {/* <div className="labels-row">
             <div className="single-label">
               <LabelListItem mobile={isMobile} title="90%" icon={<ThumbUp />}>
                 {t("CoursePage.Recommends")}
@@ -102,9 +109,9 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
                 {t("CoursePage.AvarageRating")}
               </LabelListItem>
             </div>
-          </div>
+          </div> */}
         </Col>
-        <Col lg={4}>
+        <Col lg={12}>
           {courseData.image_path && (
             <div className="image-wrapper">
               <ResponsiveImage
@@ -115,7 +122,7 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
           )}
         </Col>
       </Row>
-      <div className="labels-row labels-row--bottom">
+      {/* <div className="labels-row labels-row--bottom">
         {courseData.categories && courseData.categories.length > 0 && (
           <div className="single-label">
             <LabelListItem
@@ -149,7 +156,7 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({
             </LabelListItem>
           </div>
         )}
-      </div>
+      </div> */}
     </section>
   );
 };

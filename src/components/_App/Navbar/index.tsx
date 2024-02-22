@@ -385,31 +385,31 @@ const Navbar = () => {
                   content: t("Menu.Courses"),
                   redirect: routeRoutes.courses,
                 },
-                {
-                  id: 3,
-                  content: t("Menu.Tutors"),
-                  redirect: routeRoutes.tutors,
-                },
-                {
-                  id: 4,
-                  content: t("Menu.Consultations"),
-                  redirect: routeRoutes.consultations,
-                },
-                {
-                  id: 5,
-                  content: t("Menu.Events"),
-                  redirect: routeRoutes.events,
-                },
-                {
-                  id: 6,
-                  content: t("Menu.Webinars"),
-                  redrect: routeRoutes.webinars,
-                },
-                {
-                  id: 7,
-                  content: t("Menu.Packages"),
-                  redirect: routeRoutes.packages,
-                },
+                // {
+                //   id: 3,
+                //   content: t("Menu.Tutors"),
+                //   redirect: routeRoutes.tutors,
+                // },
+                // {
+                //   id: 4,
+                //   content: t("Menu.Consultations"),
+                //   redirect: routeRoutes.consultations,
+                // },
+                // {
+                //   id: 5,
+                //   content: t("Menu.Events"),
+                //   redirect: routeRoutes.events,
+                // },
+                // {
+                //   id: 6,
+                //   content: t("Menu.Webinars"),
+                //   redrect: routeRoutes.webinars,
+                // },
+                // {
+                //   id: 7,
+                //   content: t("Menu.Packages"),
+                //   redirect: routeRoutes.packages,
+                // },
               ]}
               onChange={(e: DropdownMenuItem) => {
                 if (e.redirect && e.redirect !== "") {

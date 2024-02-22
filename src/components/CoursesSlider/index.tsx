@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
-import { Settings } from "react-slick";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Col, Row } from "react-grid-system";
@@ -20,8 +19,9 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 
 type Props = {
   courses: API.Course[];
-  sliderSettings?: Settings;
+
   isSlider?: boolean;
+  slidesPerView?: number;
 };
 
 const Content = styled.div`
@@ -60,7 +60,11 @@ const SwiperButtons = styled.div`
   }
 `;
 
-const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
+const CoursesSlider: React.FC<Props> = ({
+  courses,
+  isSlider = true,
+  slidesPerView = 4,
+}) => {
   const history = useHistory();
   const swiperRef = useRef<SwiperType>();
   return (
@@ -82,7 +86,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                 slidesPerView: 3,
               },
               1201: {
-                slidesPerView: 4,
+                slidesPerView: slidesPerView,
               },
             }}
             onBeforeInit={(swiper) => {
@@ -140,7 +144,7 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
         <Row
           style={{
             marginTop: "30px",
-            rowGap: "60px",
+            rowGap: "20px",
           }}
         >
           {courses.map((item) => (

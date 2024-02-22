@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-
 import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import CourseProgramPreview from "@/components/Course/CourseProgramPreview";
@@ -23,13 +22,13 @@ import { ModalOverwriteGlobal, StyledCoursePage } from "./styles";
 import {
   CourseMainInfo,
   CourseAuthor,
-  CourseCompanies,
   CourseRatings,
   CourseRelated,
 } from "./Components";
 import routeRoutes from "@/components/Routes/routes";
 
 const CoursePage = () => {
+  const { fetchQuestionnaireStarsByModel } = useContext(EscolaLMSContext);
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const [courseAccessModalVisible, setCourseAccessModalVisible] =
     useState(false);
@@ -72,6 +71,7 @@ const CoursePage = () => {
       fetchQuestionnaires(QuestionnaireModelType.COURSE, Number(id)).then(
         (response) => response.success && setQuestionnaires(response.data)
       );
+      fetchQuestionnaireStarsByModel("course", Number(id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -79,7 +79,7 @@ const CoursePage = () => {
   if (course.error) {
     return <pre>{course.error.message}</pre>;
   }
-
+  console.log(course.value);
   return (
     <Layout metaTitle={course?.value?.title || "Loading"}>
       {course.loading && <Loader />}
@@ -87,20 +87,28 @@ const CoursePage = () => {
         <>
           <StyledCoursePage>
             <Container>
+              <Breadcrumbs
+                items={[
+                  <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                  <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
+                  <Text size="13">{course.value.title}</Text>,
+                ]}
+              />
               <Row>
-                <Col md={12} lg={9}>
-                  <Breadcrumbs
-                    items={[
-                      <Link to={routeRoutes.home}>{t("Home")}</Link>,
-                      <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
-                      <Text size="12">{course.value.title}</Text>,
-                    ]}
-                  />
+                <Col md={12} lg={8}>
                   <CourseMainInfo
                     courseData={course.value}
                     questionnaires={questionnaires}
                   />
-                  <CourseCompanies />
+                  {course.value.description &&
+                    fixContentForMarkdown(course.value.description) !== "" && (
+                      <section className="course-description-short">
+                        <MarkdownRenderer>
+                          {course.value.description}
+                        </MarkdownRenderer>
+                      </section>
+                    )}
+                  {/* <CourseCompanies /> */}
                   {course.value.summary &&
                     fixContentForMarkdown(course.value.summary) !== "" && (
                       <section className="course-description">
@@ -109,20 +117,18 @@ const CoursePage = () => {
                         </MarkdownRenderer>
                       </section>
                     )}
-                  {course.value.author && (
-                    <CourseAuthor courseData={course.value} />
-                  )}
-                  {course.value.description &&
-                    fixContentForMarkdown(course.value.description) !== "" && (
-                      <section className="course-description-short with-border padding-right">
-                        <Title level={4}>
-                          {t("CoursePage.CourseDescriptionTitle")}
-                        </Title>
-                        <MarkdownRenderer>
-                          {course.value.description}
-                        </MarkdownRenderer>
-                      </section>
-                    )}
+                  <section className="">
+                    <Title as="h3" level={4} className="title">
+                      {t<string>("CoursePage.Teacher")}
+                    </Title>
+                    <Row>
+                      {course.value &&
+                        course.value.authors.map((author) => (
+                          <CourseAuthor author={author} />
+                        ))}
+                    </Row>
+                  </section>
+
                   {course.value.lessons && course.value.lessons.length > 0 && (
                     <CourseProgram
                       lessons={course.value.lessons}
@@ -131,15 +137,13 @@ const CoursePage = () => {
                   )}
                   <CourseRatings questionnaires={questionnaires} />
                 </Col>
-                <Col md={12} lg={3} className="sidebar-col">
-                  <div className="sidebar-wrapper">
-                    {course.value && (
-                      <CoursesDetailsSidebar
-                        course={course.value}
-                        onRequestAccess={openCourseAccessModal}
-                      />
-                    )}
-                  </div>
+                <Col md={12} lg={3} offset={{ lg: 1 }}>
+                  {course.value && (
+                    <CoursesDetailsSidebar
+                      course={course.value}
+                      onRequestAccess={openCourseAccessModal}
+                    />
+                  )}
                 </Col>
               </Row>
             </Container>

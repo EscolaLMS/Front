@@ -1,13 +1,22 @@
 import { formatPrice } from "@/utils/index";
 import React from "react";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import {
+  Text,
+  TextSize,
+} from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
+
+type Sizes = {
+  old: TextSize;
+  new: TextSize;
+};
 
 type Props = {
   price?: number;
   taxRate?: number;
   oldPrice?: number | null;
+  textSizes?: Sizes;
 };
 
 const Prices = styled.div`
@@ -19,33 +28,38 @@ const Prices = styled.div`
   }
 `;
 
-const ProductPrices: React.FC<Props> = ({ price, taxRate, oldPrice }) => {
+const ProductPrices: React.FC<Props> = ({
+  price,
+  taxRate,
+  oldPrice,
+  textSizes,
+}) => {
   if (isMobile) {
     return (
       <Prices>
         {oldPrice && (
           <div className="pricing-card-discount">
-            <Title level={5} as={"h5"}>
+            <Text size={textSizes?.old || "18"}>
               {formatPrice(oldPrice, taxRate)} zł
-            </Title>
+            </Text>
           </div>
         )}
-        <Title level={4} as={"h4"}>
+        <Text size={textSizes?.new || "16"}>
           {formatPrice(price, taxRate)} zł
-        </Title>
+        </Text>
       </Prices>
     );
   }
   return (
     <Prices>
-      <Title level={3} as={"h3"}>
+      <Text size={textSizes?.new || "16"}>
         {formatPrice(price, taxRate)} zł
-      </Title>
+      </Text>
       {oldPrice && (
         <div className="pricing-card-discount">
-          <Title level={5} as={"h5"}>
+          <Text size={textSizes?.old || "18"}>
             {formatPrice(oldPrice, taxRate)} zł
-          </Title>
+          </Text>
         </div>
       )}
     </Prices>

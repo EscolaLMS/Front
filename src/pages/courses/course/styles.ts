@@ -1,9 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { isMobile } from "react-device-detect";
 
 export const StyledCoursePage = styled.div`
+  padding-top: 40px;
   section {
-    margin-bottom: 45px;
+    margin-bottom: 40px;
     &.with-border {
       padding-bottom: 45px;
       border-bottom: 1px solid
@@ -23,7 +23,15 @@ export const StyledCoursePage = styled.div`
     padding-bottom: 45px;
   }
   .course-main-info {
+    h1 {
+      margin-top: 5px;
+    }
     .image-wrapper {
+      margin-top: 13px;
+
+      img {
+        border-radius: ${({ theme }) => theme.cardRadius}px;
+      }
       @media (max-width: 991px) {
         display: flex;
         justify-content: center;
@@ -107,67 +115,20 @@ export const StyledCoursePage = styled.div`
     }
   }
   .course-description {
-    padding: 50px 45px;
-    margin: 45px 0;
-    background-color: ${({ theme }) =>
+    /* padding: 50px 45px;
+    margin: 45px 0; */
+    /* background-color: ${({ theme }) =>
       theme.mode === "dark" ? theme.gray1 : theme.gray5};
-    border-radius: ${({ theme }) => theme.cardRadius}px;
+    border-radius: ${({ theme }) => theme.cardRadius}px; */
     @media (max-width: 768px) {
       padding: 20px;
     }
   }
-  .course-related-courses {
-    background-color: ${({ theme }) =>
-      theme.mode === "dark" ? theme.gray1 : theme.gray5};
-    padding: 60px 0 90px;
-    .slick-dots {
-      top: -65px;
-      right: 80px;
-      @media (max-width: 575px) {
-        right: 0;
-      }
-    }
-    .content-container {
-      position: relative;
-      overflow: hidden;
-      &:first-of-type {
-        margin-bottom: 60px;
-        @media (max-width: 768px) {
-          margin-bottom: 40px;
-        }
-      }
-      h4 {
-        @media (max-width: 575px) {
-          padding-right: 50%;
-        }
-      }
-      .slider-wrapper {
-        a {
-          text-decoration: none !important;
-        }
-        @media (max-width: 575px) {
-          margin-left: -50px;
 
-          .image-section,
-          img {
-            max-height: 180px;
-          }
-        }
-      }
-    }
-  }
   .course-tutor {
     a {
       text-decoration: none !important;
     }
-  }
-  .sidebar-wrapper {
-    width: 100%;
-    left: 0;
-    position: ${isMobile ? "fixed" : "sticky"};
-    top: ${isMobile ? "unset" : "130px"};
-    bottom: ${isMobile ? "0" : "unset"};
-    z-index: 100;
   }
 
   .single-content {
