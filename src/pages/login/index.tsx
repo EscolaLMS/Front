@@ -15,7 +15,7 @@ import Container from "@/components/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledLoginPage = styled.div`
-  height: calc(100vh - 200px);
+  height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;

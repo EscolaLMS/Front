@@ -13,8 +13,8 @@ import CoursesSlider from "../CoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
-import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
 import useFetchCourses from "@/hooks/useFetchCourses";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 
 const StyledSection = styled.section`
   @media (max-width: 768px) {

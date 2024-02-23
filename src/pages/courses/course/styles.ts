@@ -4,6 +4,9 @@ export const StyledCoursePage = styled.div`
   padding-top: 40px;
   section {
     margin-bottom: 40px;
+    @media (max-width: 991px) {
+      margin-bottom: 20px;
+    }
     &.with-border {
       padding-bottom: 45px;
       border-bottom: 1px solid
@@ -25,6 +28,10 @@ export const StyledCoursePage = styled.div`
   .course-main-info {
     h1 {
       margin-top: 5px;
+      margin-bottom: 10px;
+      @media (max-width: 991px) {
+        font-size: 30px;
+      }
     }
     .image-wrapper {
       margin-top: 13px;
@@ -36,7 +43,6 @@ export const StyledCoursePage = styled.div`
         display: flex;
         justify-content: center;
         width: 100%;
-        margin-bottom: 35px;
 
         img {
           display: block;
@@ -84,6 +90,17 @@ export const StyledCoursePage = styled.div`
       display: none !important;
     }
   }
+  .course-ratings {
+    @media (max-width: 991px) {
+      margin-top: 40px;
+    }
+  }
+  .course-description,
+  .course-description-short {
+    p {
+      font-size: 16px;
+    }
+  }
   .course-companies {
     display: flex;
     justify-content: flex-start;
@@ -120,9 +137,6 @@ export const StyledCoursePage = styled.div`
     /* background-color: ${({ theme }) =>
       theme.mode === "dark" ? theme.gray1 : theme.gray5};
     border-radius: ${({ theme }) => theme.cardRadius}px; */
-    @media (max-width: 768px) {
-      padding: 20px;
-    }
   }
 
   .course-tutor {

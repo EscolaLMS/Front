@@ -20,7 +20,8 @@ import routeRoutes from "@/components/Routes/routes";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
-  height: 100vh;
+  padding-bottom: 50px;
+  height: 900px;
   display: flex;
   align-items: center;
   justify-content: center; /* TODO: export colors */

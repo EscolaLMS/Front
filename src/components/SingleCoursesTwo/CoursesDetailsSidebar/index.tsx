@@ -22,7 +22,7 @@ import styled from "styled-components";
 const CourseDetailsSidebarWrapper = styled.div`
   width: 100%;
   left: 0;
-  position: ${isMobile ? "fixed" : "sticky"};
+  position: ${isMobile ? "static" : "sticky"};
   top: ${isMobile ? "unset" : "130px"};
   bottom: ${isMobile ? "0" : "unset"};
   z-index: 100;

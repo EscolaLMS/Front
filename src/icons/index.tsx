@@ -276,7 +276,7 @@ export const UserIcon = () => {
   );
 };
 
-export const ArrowRight = () => {
+export const ArrowRight = ({ color = "#fff" }: { color?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +290,7 @@ export const ArrowRight = () => {
           data-name="Path 27"
           d="M102.846,5.707,98.38,10.173a.727.727,0,0,1-1.029-1.029L101.3,5.193,97.352,1.241A.727.727,0,0,1,98.38.213l4.466,4.466a.727.727,0,0,1,0,1.028Z"
           transform="translate(0 0)"
-          fill="#fff"
+          fill={color}
         />
       </g>
     </svg>

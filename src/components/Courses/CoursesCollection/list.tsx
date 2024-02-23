@@ -11,7 +11,8 @@ import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
 import { Course } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
+import ProductPrices from "@/components/ProductPrices";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 
 const CoursesListWrapper = styled.section`
   margin-bottom: ${isMobile ? "50px" : "75px"};
@@ -81,6 +82,18 @@ const CoursesList: React.FC<Props> = ({ courses, loading }) => {
                     <CourseImgPlaceholder />
                   )}
                 </Link>
+              }
+              price={
+                // @ts-ignore TODO: missed in sdk
+                item.public ? (
+                  <div className="course-price">{t("FREE")}</div>
+                ) : (
+                  <ProductPrices
+                    price={item.product?.price}
+                    oldPrice={item.product?.price_old}
+                    taxRate={item.product?.tax_rate}
+                  />
+                )
               }
               title={
                 <Link to={`/courses/${item.id}`}>
