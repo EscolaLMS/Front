@@ -523,6 +523,10 @@ const resources = {
         CreateBookmark: "Bookmark created",
         DeleteBookmark: "Bookmark deleted",
         Deleted: "Deleted successfully",
+
+        notifications: "Notifications",
+        readAll: "Read all",
+        empty: "You have no notifications",
       },
       Header: {
         Register: "Register",
