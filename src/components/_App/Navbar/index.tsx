@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -22,6 +22,7 @@ import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
+import NotificationsDrawer from "@/components/Notifications/drawer";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -216,12 +217,13 @@ const SearchMobileWrapper = styled.div`
 const Navbar = () => {
   const { t } = useTranslation();
   const { handleLanguageChange } = useLanguage();
-
+  const { notifications } = useContext(EscolaLMSContext);
   const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
   const { cart } = useCart();
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const menuItems = [
     {
@@ -304,10 +306,14 @@ const Navbar = () => {
                 type="button"
                 className="cart-icon"
                 onClick={() => history.push(routeRoutes.myNotifications)}
-                data-tooltip={String(cart.data?.items.length)}
-                aria-label={t("CoursePage.GoToCheckout")}
+                data-tooltip={22}
+                aria-label={t("CoursePage.Notifications")}
               >
                 <HeaderNotification mode={theme.mode} />
+                {notifications.list?.meta.total &&
+                  notifications.list?.meta.total > 0 && (
+                    <span>{notifications.list?.meta.total}</span>
+                  )}
               </button>
             </div>
           }
@@ -469,11 +475,15 @@ const Navbar = () => {
                 <button
                   type="button"
                   className="cart-icon"
-                  onClick={() => history.push(routeRoutes.myNotifications)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  data-tooltip={String(notifications.list?.meta.total)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderNotification mode={theme.mode} />
+                  {notifications.list?.meta.total &&
+                    notifications.list?.meta.total > 0 && (
+                      <span>{notifications.list?.meta.total}</span>
+                    )}
                 </button>
               </div>
             )}
@@ -574,6 +584,12 @@ const Navbar = () => {
           )}
         </div>
       </Container>
+      {user?.id && (
+        <NotificationsDrawer
+          isOpen={showNotifications}
+          onClose={() => setShowNotifications(false)}
+        />
+      )}
     </StyledHeader>
   );
 };

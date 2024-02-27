@@ -1126,6 +1126,9 @@ const resources = {
         CreateBookmark: "Stworzono zakładkę",
         DeleteBookmark: "Usunięto zakładkę",
         Deleted: "Usunięto pomyślnie",
+        notifications: "Powiadomienia",
+        readAll: "Oznacz wszystkie jako przeczytane",
+        empty: "Brak powiadomień",
       },
       Header: {
         Register: "Zarejestruj",

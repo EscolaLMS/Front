@@ -404,6 +404,39 @@ export const HeaderNotification = ({
   );
 };
 
+export const RedArrow = () => (
+  <svg
+    id="back-arw"
+    xmlns="http://www.w3.org/2000/svg"
+    width="19.407"
+    height="17"
+    viewBox="0 0 19.407 17"
+  >
+    <g id="Group_30" data-name="Group 30" transform="translate(9.675 0)">
+      <g id="Group_29" data-name="Group 29" transform="translate(0 0)">
+        <path
+          id="Path_19"
+          data-name="Path 19"
+          d="M0,22.959l1.649-1.778,7.328,6.8a2.317,2.317,0,0,1-.007,3.429L1.659,38.181.01,36.4l7.246-6.713Z"
+          transform="translate(0 -21.181)"
+          fill="#ee312f"
+        />
+      </g>
+    </g>
+    <g id="Group_32" data-name="Group 32" transform="translate(0 7.285)">
+      <g id="Group_31" data-name="Group 31" transform="translate(0 0)">
+        <rect
+          id="Rectangle_4181"
+          data-name="Rectangle 4181"
+          width="16.977"
+          height="2.425"
+          fill="#ee312f"
+        />
+      </g>
+    </g>
+  </svg>
+);
+
 export const ProfileIcon = ({
   mode,
 }: {

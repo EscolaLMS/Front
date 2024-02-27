@@ -132,11 +132,11 @@ const CoursesCollection: React.FC = () => {
 
       <CoursesList courses={courses?.data || []} loading={loading} />
 
-      {Number(courses?.meta.total) > Number(courses?.meta.per_page) && (
+      {Number(courses?.meta?.total) > Number(courses?.meta?.per_page) && (
         <Pagination
-          total={Number(courses?.meta.total)}
-          perPage={Number(courses?.meta.per_page)}
-          currentPage={Number(courses?.meta.current_page)}
+          total={Number(courses?.meta?.total)}
+          perPage={Number(courses?.meta?.per_page)}
+          currentPage={Number(courses?.meta?.current_page)}
           onPage={handlePageChange}
         />
       )}

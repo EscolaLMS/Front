@@ -51,11 +51,13 @@ const StyledMain = styled.main<{ noPadding?: boolean }>`
     noPadding ? "0px" : isMobile ? "92px" : "57px"};
 `;
 const App = () => {
-  const { fetchSettings, settings } = useContext(EscolaLMSContext);
+  const { fetchSettings, settings, fetchNotifications } =
+    useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchSettings();
-  }, [fetchSettings]);
+    fetchNotifications();
+  }, [fetchSettings, fetchNotifications]);
 
   return (
     <React.Fragment>
