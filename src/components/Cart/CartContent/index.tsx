@@ -129,32 +129,6 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   );
 
   const isTestKey = stripeKey.includes("_test_");
-  const sliderSettings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    draggable: false,
-    slidesToScroll: 3,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          draggable: true,
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -334,10 +308,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
                 <section className="slider-section">
                   <Title level={4}>{t<string>("Cart.Interest")}</Title>
                   {courses && courses.list && (
-                    <CoursesSlider
-                      courses={courses.list.data}
-                      sliderSettings={sliderSettings}
-                    />
+                    <CoursesSlider courses={courses.list.data} />
                   )}
                 </section>
               </Col>
@@ -389,10 +360,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
               <section className="slider-section">
                 <Title level={4}>{t<string>("Cart.Interest")}</Title>
                 {courses && courses.list && (
-                  <CoursesSlider
-                    courses={courses.list.data}
-                    sliderSettings={sliderSettings}
-                  />
+                  <CoursesSlider courses={courses.list.data} />
                 )}
               </section>
             </>
