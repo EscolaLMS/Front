@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Banner } from "@escolalms/components/lib/components/molecules/Banner/Banner";
@@ -72,10 +72,15 @@ const Wrapper = styled(Container)`
 `;
 
 const Index = () => {
-  const { categoryTree, settings } = useContext(EscolaLMSContext);
+  const { categoryTree, settings, fetchCategories } =
+    useContext(EscolaLMSContext);
 
   const history = useHistory();
   const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   return (
     <Layout metaTitle={t("Home")}>
