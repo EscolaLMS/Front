@@ -4,7 +4,7 @@ ARG APP_VERSION="xxx"
 WORKDIR /home/node/app
 COPY / /home/node/app
 RUN yarn install --network-timeout 1000000000  && yarn run build && cp dist/index.html dist/tpl.html
-RUN echo $APP_VERSION >> build/version.html
+RUN echo $APP_VERSION >> dist/version.html
 
 
 FROM httpd:latest AS httpd
