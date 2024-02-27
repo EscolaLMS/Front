@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'feature/build-dev'
 jobs:
   build:
     runs-on: ubuntu-latest
