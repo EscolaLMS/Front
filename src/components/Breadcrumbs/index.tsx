@@ -7,7 +7,11 @@ type Props = {
 };
 
 const StyledBreadcrumbs = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 36px;
+  p {
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.gray5 : theme.gray2}!important;
+  }
   a {
     text-decoration: none;
     color: ${({ theme }) =>

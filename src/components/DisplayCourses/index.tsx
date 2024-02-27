@@ -1,42 +1,35 @@
-import { Container } from "react-grid-system";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import CoursesSlider from "../CoursesSlider";
-import { CourseCardSkeleton } from "@escolalms/components/lib/components/skeletons/CourseCard/CourseCard";
+
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import useFetchCourses from "@/hooks/useFetchCourses";
-import { CourseParams } from "@escolalms/sdk/lib/types/api";
-import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { useHistory } from "react-router-dom";
 import routeRoutes from "@/components/Routes/routes";
 import { useTranslation } from "react-i18next";
+import { CourseParams } from "@escolalms/sdk/lib/types/api";
+import styled from "styled-components";
+import SwiperSlider from "@/components/CoursesSlider/swiper";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
+
+const Wrapper = styled.div`
+  position: relative;
+`;
 
 type Props = {
   titleText: string;
   params: CourseParams;
   isSlider?: boolean;
   ctaButton?: boolean;
+  slidesPerView?: number;
 };
-
-const Wrapper = styled(Container)`
-  .header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-    button {
-      @media (max-width: 1200px) {
-        display: none;
-      }
-    }
-  }
-`;
 
 const DisplayCourses: React.FC<Props> = ({
   titleText,
   params,
   isSlider = true,
   ctaButton,
+  slidesPerView = 4,
 }) => {
   const { courses, loading } = useFetchCourses(params);
   const history = useHistory();
@@ -59,34 +52,21 @@ const DisplayCourses: React.FC<Props> = ({
       </div>
 
       {loading && (
-        <Swiper
-          spaceBetween={18}
-          slidesOffsetAfter={18}
-          breakpoints={{
-            0: {
-              slidesPerView: 1.3,
-            },
-            576: {
-              slidesPerView: 2,
-            },
-            768: {
-              slidesPerView: 3,
-            },
-            1201: {
-              slidesPerView: 4,
-            },
-          }}
-        >
+        <SwiperSlider slidesPerView={slidesPerView}>
           {Array.from({ length: 6 }).map((_, index) => (
             <SwiperSlide key={index}>
               <CourseCardSkeleton />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </SwiperSlider>
       )}
 
       {!loading && courses && (
-        <CoursesSlider courses={courses.data} isSlider={isSlider} />
+        <CoursesSlider
+          courses={courses.data}
+          isSlider={isSlider}
+          slidesPerView={slidesPerView}
+        />
       )}
     </Wrapper>
   );

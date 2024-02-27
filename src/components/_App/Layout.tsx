@@ -86,6 +86,7 @@ const Layout: React.FC<{
       <div className="site-wrapper">
         <Navbar />
         {children}
+
         {!isCourse && <Footer />}
         {localStorage.getItem("hideWarning") !== "true" && <Warning />}
       </div>

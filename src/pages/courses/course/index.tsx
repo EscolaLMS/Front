@@ -1,13 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Loader from "@/components/Preloader";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-
 import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import CourseProgramPreview from "@/components/Course/CourseProgramPreview";
@@ -23,19 +21,37 @@ import { ModalOverwriteGlobal, StyledCoursePage } from "./styles";
 import {
   CourseMainInfo,
   CourseAuthor,
-  CourseCompanies,
   CourseRatings,
   CourseRelated,
 } from "./Components";
 import routeRoutes from "@/components/Routes/routes";
+import { isMobile } from "react-device-detect";
+import styled, { useTheme } from "styled-components";
+import { ArrowRight } from "@/icons/index";
+import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
+import CoursePageContentSkeleton from "@/components/Skeletons/CoursePage/content";
+
+const BackButton = styled.button`
+  all: unset;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  svg {
+    transform: rotate(180deg);
+    width: 10px;
+    height: 17px;
+  }
+`;
 
 const CoursePage = () => {
   const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
   const [courseAccessModalVisible, setCourseAccessModalVisible] =
     useState(false);
+
   const [previewTopic, setPreviewTopic] = useState<API.Topic>();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+  const history = useHistory();
+  const theme = useTheme();
   const {
     course,
     fetchCourse,
@@ -82,25 +98,61 @@ const CoursePage = () => {
 
   return (
     <Layout metaTitle={course?.value?.title || "Loading"}>
-      {course.loading && <Loader />}
-      {!course.loading && course.value && (
+      {course.loading && (
         <>
           <StyledCoursePage>
             <Container>
               <Row>
-                <Col md={12} lg={9}>
-                  <Breadcrumbs
-                    items={[
-                      <Link to={routeRoutes.home}>{t("Home")}</Link>,
-                      <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
-                      <Text size="12">{course.value.title}</Text>,
-                    ]}
-                  />
-                  <CourseMainInfo
-                    courseData={course.value}
-                    questionnaires={questionnaires}
-                  />
-                  <CourseCompanies />
+                <Col md={12} lg={8}>
+                  <CoursePageContentSkeleton />
+                </Col>
+                <Col md={12} lg={3} offset={{ lg: 1 }}>
+                  <SidebarSkeleton />
+                </Col>
+              </Row>
+            </Container>
+          </StyledCoursePage>
+        </>
+      )}
+      {/* {course.loading && <Loader />} */}
+      {!course.loading && course.value && (
+        <>
+          <StyledCoursePage>
+            <Container>
+              {!isMobile && (
+                <Breadcrumbs
+                  items={[
+                    <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                    <Link to={routeRoutes.courses}>{t("Courses")}</Link>,
+                    <Text size="13">{course.value.title}</Text>,
+                  ]}
+                />
+              )}
+
+              <Row>
+                <Col md={12} lg={8}>
+                  {isMobile && (
+                    <BackButton
+                      onClick={() => history.push(routeRoutes.courses)}
+                    >
+                      <ArrowRight color={theme.black} />
+                    </BackButton>
+                  )}
+                  <CourseMainInfo courseData={course.value} />
+                  {isMobile && course.value && (
+                    <CoursesDetailsSidebar
+                      course={course.value}
+                      onRequestAccess={openCourseAccessModal}
+                    />
+                  )}
+                  {course.value.description &&
+                    fixContentForMarkdown(course.value.description) !== "" && (
+                      <section className="course-description-short">
+                        <MarkdownRenderer>
+                          {course.value.description}
+                        </MarkdownRenderer>
+                      </section>
+                    )}
                   {course.value.summary &&
                     fixContentForMarkdown(course.value.summary) !== "" && (
                       <section className="course-description">
@@ -109,20 +161,17 @@ const CoursePage = () => {
                         </MarkdownRenderer>
                       </section>
                     )}
-                  {course.value.author && (
-                    <CourseAuthor courseData={course.value} />
-                  )}
-                  {course.value.description &&
-                    fixContentForMarkdown(course.value.description) !== "" && (
-                      <section className="course-description-short with-border padding-right">
-                        <Title level={4}>
-                          {t("CoursePage.CourseDescriptionTitle")}
-                        </Title>
-                        <MarkdownRenderer>
-                          {course.value.description}
-                        </MarkdownRenderer>
-                      </section>
-                    )}
+                  <section className="">
+                    <Title as="h3" level={4} className="title">
+                      {t<string>("CoursePage.Teacher")}
+                    </Title>
+                    <Row>
+                      {course.value &&
+                        course.value.authors.map((author) => (
+                          <CourseAuthor author={author} />
+                        ))}
+                    </Row>
+                  </section>
                   {course.value.lessons && course.value.lessons.length > 0 && (
                     <CourseProgram
                       lessons={course.value.lessons}
@@ -131,19 +180,22 @@ const CoursePage = () => {
                   )}
                   <CourseRatings questionnaires={questionnaires} />
                 </Col>
-                <Col md={12} lg={3} className="sidebar-col">
-                  <div className="sidebar-wrapper">
+
+                {!isMobile && (
+                  <Col md={12} lg={3} offset={{ lg: 1 }}>
                     {course.value && (
                       <CoursesDetailsSidebar
                         course={course.value}
                         onRequestAccess={openCourseAccessModal}
                       />
                     )}
-                  </div>
-                </Col>
+                  </Col>
+                )}
               </Row>
             </Container>
-            <CourseRelated />
+            <CourseRelated
+              relatedProducts={course.value.product?.related_products}
+            />
           </StyledCoursePage>
           <Modal
             onClose={() => setPreviewTopic(undefined)}

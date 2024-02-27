@@ -1,27 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { API } from "@escolalms/sdk/lib";
-import { Settings } from "react-slick";
 import CourseImgPlaceholder from "../CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Col, Row } from "react-grid-system";
 import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
 import { NewCourseCard } from "@escolalms/components/lib/components/molecules/NewCourseCard/NewCourseCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, A11y } from "swiper/modules";
-import { Swiper as SwiperType } from "swiper/types";
-
-import "swiper/css/bundle";
-import "swiper/css/navigation";
-import { ArrowRight } from "@/icons/index";
+import { SwiperSlide } from "swiper/react";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import ProductPrices from "@/components/ProductPrices";
+import { useTranslation } from "react-i18next";
+import SwiperSlider from "@/components/CoursesSlider/swiper";
 
 type Props = {
   courses: API.Course[];
-  sliderSettings?: Settings;
   isSlider?: boolean;
+  slidesPerView?: number;
 };
 
 const Content = styled.div`
@@ -31,116 +27,73 @@ const Content = styled.div`
   }
 `;
 
-const SwiperButtons = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  @media (max-width: 768px) {
-    display: none;
-  }
-  button {
-    all: unset;
-    width: 24px;
-    height: 24px;
-    border-radius: 3px;
-    background-color: ${({ theme }) => theme.primaryColor};
-    margin-left: 3px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    :first-of-type {
-      background-color: ${({ theme }) => theme.gray3};
-      svg {
-        transform: rotate(180deg);
-      }
-    }
-  }
-`;
-
-const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
+const CoursesSlider: React.FC<Props> = ({
+  courses,
+  isSlider = true,
+  slidesPerView = 4,
+}) => {
   const history = useHistory();
-  const swiperRef = useRef<SwiperType>();
+
+  const { t } = useTranslation();
   return (
     <Content>
       {(courses?.length >= 5 || isMobile) && isSlider ? (
-        <div>
-          <Swiper
-            modules={[Navigation, A11y]}
-            spaceBetween={18}
-            slidesOffsetAfter={18}
-            breakpoints={{
-              0: {
-                slidesPerView: 1.3,
-              },
-              576: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              1201: {
-                slidesPerView: 4,
-              },
-            }}
-            onBeforeInit={(swiper) => {
-              swiperRef.current = swiper;
-            }}
-          >
-            {courses &&
-              courses.map((item) => (
-                <SwiperSlide key={item.id}>
-                  <NewCourseCard
-                    mobile={isMobile}
-                    id={item.id}
-                    image={
-                      <Link to={`/courses/${item.id}`}>
-                        {item.image_path ? (
-                          <ResponsiveImage
-                            path={item.image_path}
-                            alt={item.title}
-                            srcSizes={[300, 600, 900]}
-                          />
-                        ) : (
-                          <CourseImgPlaceholder />
-                        )}
-                      </Link>
-                    }
-                    title={
-                      <Link to={`/courses/${item.id}`}>
-                        <Title level={3} as="h3" className="title">
-                          {item.title}
-                        </Title>
-                      </Link>
-                    }
-                    categories={
-                      <CategoriesBreadCrumbs
-                        categories={item.categories}
-                        onCategoryClick={(id) => {
-                          history.push(`/courses/?categories[]=${id}`);
-                        }}
+        <SwiperSlider slidesPerView={slidesPerView}>
+          {courses &&
+            courses.map((item) => (
+              <SwiperSlide key={item.id}>
+                <NewCourseCard
+                  mobile={isMobile}
+                  id={item.id}
+                  image={
+                    <Link to={`/courses/${item.id}`}>
+                      {item.image_path ? (
+                        <ResponsiveImage
+                          path={item.image_path}
+                          alt={item.title}
+                          srcSizes={[300, 600, 900]}
+                        />
+                      ) : (
+                        <CourseImgPlaceholder />
+                      )}
+                    </Link>
+                  }
+                  title={
+                    <Link to={`/courses/${item.id}`}>
+                      <Title level={3} as="h3" className="title">
+                        {item.title}
+                      </Title>
+                    </Link>
+                  }
+                  price={
+                    // @ts-ignore TODO: missed in sdk
+                    item.public ? (
+                      <div className="course-price">{t("FREE")}</div>
+                    ) : (
+                      <ProductPrices
+                        price={item.product?.price}
+                        oldPrice={item.product?.price_old}
+                        taxRate={item.product?.tax_rate}
                       />
-                    }
-                  />
-                </SwiperSlide>
-              ))}
-          </Swiper>
-          <SwiperButtons>
-            <button onClick={() => swiperRef.current?.slidePrev()} title="pev">
-              <ArrowRight />
-            </button>
-            <button onClick={() => swiperRef.current?.slideNext()} title="next">
-              <ArrowRight />
-            </button>
-          </SwiperButtons>
-        </div>
+                    )
+                  }
+                  categories={
+                    <CategoriesBreadCrumbs
+                      categories={item.categories}
+                      onCategoryClick={(id) => {
+                        history.push(`/courses/?categories[]=${id}`);
+                      }}
+                    />
+                  }
+                />
+              </SwiperSlide>
+            ))}
+        </SwiperSlider>
       ) : (
         <Row
           style={{
             marginTop: "30px",
-            rowGap: "60px",
+            rowGap: "20px",
           }}
         >
           {courses.map((item) => (
@@ -168,6 +121,13 @@ const CoursesSlider: React.FC<Props> = ({ courses, isSlider = true }) => {
                       {item.title}
                     </Title>
                   </Link>
+                }
+                price={
+                  <ProductPrices
+                    price={item.product?.price}
+                    oldPrice={item.product?.price_old}
+                    taxRate={item.product?.tax_rate}
+                  />
                 }
                 categories={
                   <CategoriesBreadCrumbs

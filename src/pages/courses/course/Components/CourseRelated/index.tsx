@@ -1,77 +1,112 @@
-import { useContext } from "react";
-
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-
 import { useTranslation } from "react-i18next";
-
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-
-import CoursesSlider from "@/components/CoursesSlider";
-
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Container";
+import DisplayCourses from "@/components/DisplayCourses";
+import { Product } from "@escolalms/sdk/lib/types/api";
+import SwiperSlider from "@/components/CoursesSlider/swiper";
+import { SwiperSlide } from "swiper/react";
+import { NewCourseCard, Title } from "@escolalms/components/lib/index";
+import { isMobile } from "react-device-detect";
+import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import { Link } from "react-router-dom";
+import ProductPrices from "@/components/ProductPrices";
+import styled from "styled-components";
 
-export const CourseRelated = () => {
+const SectionWrapper = styled.section`
+  position: relative;
+  margin-top: 100px;
+  @media (max-width: 991px) {
+    margin-top: 40px;
+  }
+  .content-container {
+    h2 {
+      margin-bottom: 20px;
+    }
+    .swiper {
+      padding: 7px 10px;
+      margin: 0px -15px;
+    }
+  }
+`;
+
+type Props = {
+  relatedProducts?: Product[];
+};
+
+export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
   const { t } = useTranslation();
 
-  const { courses } = useContext(EscolaLMSContext);
-
-  const sliderSettings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    draggable: false,
-    slidesToScroll: 3,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          draggable: true,
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
-    <section className="course-related-courses">
+    <SectionWrapper className="course-related-courses">
       <Container>
         <Row>
           <Col lg={9}>
+            {relatedProducts && relatedProducts?.length > 0 && (
+              <div className="content-container">
+                <Title level={1} as="h2">
+                  {t("CoursePage.RelatedCoursesTitle")}
+                </Title>
+                <SwiperSlider slidesPerView={3}>
+                  {relatedProducts?.map((product) => (
+                    <SwiperSlide key={product.id}>
+                      <NewCourseCard
+                        mobile={isMobile}
+                        id={product.id}
+                        image={
+                          // @ts-ignore TODO: missed in sdk
+                          <Link to={`/courses/${product?.productables[0]?.id}`}>
+                            {product.poster_path ? (
+                              <ResponsiveImage
+                                path={product.poster_path}
+                                alt={product.name}
+                                srcSizes={[300, 600, 900]}
+                              />
+                            ) : (
+                              <CourseImgPlaceholder />
+                            )}
+                          </Link>
+                        }
+                        price={
+                          // @ts-ignore TODO: missed in sdk
+                          product.public ? (
+                            <div className="course-price">{t("FREE")}</div>
+                          ) : (
+                            <ProductPrices
+                              price={product?.price}
+                              oldPrice={product?.price_old}
+                              taxRate={product?.tax_rate}
+                            />
+                          )
+                        }
+                        title={
+                          <Link to={`/courses/${product.id}`}>
+                            <Title level={3} as="h3" className="title">
+                              {product.name}
+                            </Title>
+                          </Link>
+                        }
+                      />
+                    </SwiperSlide>
+                  ))}
+                </SwiperSlider>
+              </div>
+            )}
+
             <div className="content-container">
-              <Title level={4} as="h2">
-                {t("CoursePage.RelatedCoursesTitle")}
-              </Title>
-              {courses && courses.list && (
-                <CoursesSlider
-                  courses={courses.list.data}
-                  sliderSettings={sliderSettings}
-                />
-              )}
-            </div>
-            <div className="content-container">
-              <Title level={4} as="h2">
-                {t("CoursePage.InterestTitle")}
-              </Title>
-              {courses && courses.list && (
-                <CoursesSlider
-                  courses={courses.list.data}
-                  sliderSettings={sliderSettings}
-                />
-              )}
+              <DisplayCourses
+                titleText={t("CoursePage.InterestTitle")}
+                params={{
+                  per_page: 6,
+                  order_by: "created_at",
+                  order: "ASC",
+                }}
+                slidesPerView={3}
+              />
             </div>
           </Col>
         </Row>
       </Container>
-    </section>
+    </SectionWrapper>
   );
 };

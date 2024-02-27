@@ -57,6 +57,20 @@ const HomePageStyled = styled.div`
   }
 `;
 
+const Wrapper = styled(Container)`
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    button {
+      @media (max-width: 1200px) {
+        display: none;
+      }
+    }
+  }
+`;
+
 const Index = () => {
   const { categoryTree, settings } = useContext(EscolaLMSContext);
 
@@ -97,34 +111,40 @@ const Index = () => {
         </section>
 
         <section className="home-newest-courses">
-          <DisplayCourses
-            titleText={t("Homepage.CoursesSlider2Title")}
-            params={{
-              per_page: 8,
-              order_by: "created_at",
-              order: "DESC",
-            }}
-          />
+          <Wrapper>
+            <DisplayCourses
+              titleText={t("Homepage.CoursesSlider2Title")}
+              params={{
+                per_page: 8,
+                order_by: "created_at",
+                order: "DESC",
+              }}
+            />
+          </Wrapper>
         </section>
 
         <section className="home-best-courses">
-          <DisplayCourses
-            titleText={t("Homepage.CoursesSlider1Title")}
-            params={{
-              per_page: 8,
-            }}
-          />
+          <Wrapper>
+            <DisplayCourses
+              titleText={t("Homepage.CoursesSlider1Title")}
+              params={{
+                per_page: 8,
+              }}
+            />
+          </Wrapper>
         </section>
 
         <div className="promoted-courses-wrapper">
-          <DisplayCourses
-            titleText={t<string>("Homepage.AwardedCoursesTitle")}
-            params={{
-              per_page: 8,
-            }}
-            isSlider={false || isMobile ? true : false}
-            ctaButton
-          />
+          <Wrapper>
+            <DisplayCourses
+              titleText={t<string>("Homepage.AwardedCoursesTitle")}
+              params={{
+                per_page: 8,
+              }}
+              isSlider={false || isMobile ? true : false}
+              ctaButton
+            />
+          </Wrapper>
         </div>
 
         {categoryTree && (

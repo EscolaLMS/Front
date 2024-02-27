@@ -13,7 +13,11 @@ const StyledDiv = styled("div")<{ isOpen?: boolean }>`
 
   .category-name {
     cursor: pointer;
-
+    padding: 2px 4px;
+    background-color: ${({ theme }) => theme.secondaryColor};
+    color: ${({ theme }) => theme.black};
+    border-radius: 3px;
+    font-size: 11px;
     &:hover {
       text-decoration: underline;
     }

@@ -19,8 +19,9 @@ import Container from "@/components/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledRegisterPage = styled.div`
-  height: calc(100vh - 200px);
-
+  padding-top: 100px;
+  padding-bottom: 50px;
+  height: 900px;
   display: flex;
   align-items: center;
   justify-content: center; /* TODO: export colors */

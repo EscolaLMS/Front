@@ -2,7 +2,12 @@ import { useCourseAnswers } from "@/hooks/useCourseAnswers";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Pagination from "@/components/Pagination";
 import { AnswerComponent } from "../../AnswerComponent";
-import { StyledStack, PaginationContainerStyled } from "../../styles";
+import {
+  StyledStack,
+  PaginationContainerStyled,
+  StyledTitle,
+} from "../../styles";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   courseId: number;
@@ -18,13 +23,17 @@ export const CourseRatingsReviewsContent = ({
       questionId,
       courseId,
     });
+  const { t } = useTranslation();
 
   return (
     <StyledStack>
       {loading ? (
         <Spin />
-      ) : (
+      ) : (questionnaireAnswers || [])?.length > 0 ? (
         <>
+          <StyledTitle level={4}>
+            {t("CoursePage.CourseRatingsTitle")}
+          </StyledTitle>
           {(questionnaireAnswers || []).map((question) => (
             <AnswerComponent question={question} />
           ))}
@@ -39,7 +48,7 @@ export const CourseRatingsReviewsContent = ({
             </PaginationContainerStyled>
           )}
         </>
-      )}
+      ) : null}
     </StyledStack>
   );
 };

@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import * as Sentry from "@sentry/react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceScreen";
-
+import "react-loading-skeleton/dist/skeleton.css";
 const Customizer = lazy(
   () => import("./components/ThemeCustomizer/ThemeCustomizer")
 );
