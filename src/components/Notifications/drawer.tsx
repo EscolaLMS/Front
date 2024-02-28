@@ -4,6 +4,9 @@ import { isMobile } from "react-device-detect";
 import Notifications from "@/components/Notifications";
 
 const GlobalDrawer = createGlobalStyle`
+    .drawer-handle {
+      display: none;
+    }
   .notifications-drawer { 
   &__content {
     background-color: ${({ theme }) => theme.gray4};
@@ -59,8 +62,8 @@ const NotificationsDrawer: React.FC<Props> = ({ isOpen, onClose }) => {
       onClose={onClose}
       width={isMobile ? "100%" : "500px"}
       placement="right"
+      // @ts-ignore
       classNames={{
-        // @ts-ignore
         wrapper: "notifications-drawer",
         content: "notifications-drawer__content",
       }}
