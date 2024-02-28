@@ -46,7 +46,7 @@ const Notifications: React.FC<Props> = ({ onClose }) => {
         </div>
       }
 
-      <div className="notifications-list">
+      <div className="notifications-drawer__content--list">
         {list?.map((item) => (
           <div ref={sentryRef} key={item.id}>
             <Notification

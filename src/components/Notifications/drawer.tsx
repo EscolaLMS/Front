@@ -9,7 +9,12 @@ const GlobalDrawer = createGlobalStyle`
     .drawer-handle {
       display: none;
     }
-  .notifications-drawer {     background-color: ${({ theme }) => theme.gray4};
+    .drawer-content {
+      background-color: ${({ theme }) => theme.gray4};
+      
+    }
+  .notifications-drawer {     
+ 
   &__content {
     background-color: ${({ theme }) => theme.gray4} !important;
  
@@ -27,7 +32,7 @@ const GlobalDrawer = createGlobalStyle`
         }
         }
     &--clear-all {
-        padding: 0px 20px;
+      padding: 0px 20px;
         margin-bottom: 20px;
         button {
             all:unset;
@@ -38,7 +43,7 @@ const GlobalDrawer = createGlobalStyle`
             font-weight: 700;
         }
     }
-    .notifications-list {
+    &--list {
         padding: 0px 20px;     
         padding-bottom: 20px;
         display: flex;
@@ -71,12 +76,15 @@ const NotificationsDrawer: React.FC<Props> = ({ isOpen, onClose }) => {
       onClose={handleClose}
       width={isMobile ? "100%" : "500px"}
       placement="right"
+      className="notifications-drawer"
+      // @ts-ignore
       classNames={{
         wrapper: "notifications-drawer",
         content: "notifications-drawer__content",
       }}
     >
       <GlobalDrawer />
+
       <Notifications onClose={handleClose} />
     </Drawer>
   );
