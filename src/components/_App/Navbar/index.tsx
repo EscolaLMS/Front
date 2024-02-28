@@ -463,9 +463,9 @@ const Navbar = () => {
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 && (
+                  {cart.data && cart.data.items?.length > 0 ? (
                     <span>{cart.data.items.length}</span>
-                  )}
+                  ) : null}
                 </button>
               </div>
             )}
@@ -481,9 +481,9 @@ const Navbar = () => {
                 >
                   <HeaderNotification mode={theme.mode} />
                   {notifications.list?.meta.total &&
-                    notifications.list?.meta.total > 0 && (
-                      <span>{notifications.list?.meta.total}</span>
-                    )}
+                  notifications.list?.meta.total > 0 ? (
+                    <span>{notifications.list?.meta.total}</span>
+                  ) : null}
                 </button>
               </div>
             )}

@@ -1,14 +1,15 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 import useProfileCourses from "@/hooks/courses/useProfileCourses";
-import { NewCourseCard } from "@escolalms/components";
 import { isMobile } from "react-device-detect";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
+import { NewCourseCard } from "@escolalms/components/lib/index";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 
 const Wrapper = styled.div`
   position: relative;
@@ -24,7 +25,7 @@ const CoursesUserSlider: React.FC<Props> = ({
   slidesPerView = 4,
 }) => {
   const { coursesToMap, loading } = useProfileCourses();
-
+  const history = useHistory();
   console.log(coursesToMap, loading);
 
   return (
@@ -71,6 +72,24 @@ const CoursesUserSlider: React.FC<Props> = ({
                       {item.title}
                     </Title>
                   </Link>
+                }
+                categories={
+                  <CategoriesBreadCrumbs
+                    categories={item.categories}
+                    onCategoryClick={(id) => {
+                      history.push(`/courses/?categories[]=${id}`);
+                    }}
+                  />
+                }
+                progress={
+                  item.progress &&
+                  item.progress !== 100 &&
+                  !isNaN(item.progress)
+                    ? {
+                        currentProgress: item.progress,
+                        maxProgress: 100,
+                      }
+                    : undefined
                 }
               />
             </SwiperSlide>
