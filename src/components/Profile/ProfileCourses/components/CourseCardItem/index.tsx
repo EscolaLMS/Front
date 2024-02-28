@@ -7,10 +7,10 @@ import { IconText } from "@escolalms/components/lib/components/atoms/IconText/Ic
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { LessonsIcon, UserIcon } from "../../../../../icons";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
-import CourseCardWrapper from "@/components/CourseCardWrapper";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import CourseCardWrapper from "@/components/Courses/CourseCardWrapper";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { CourseCardActions } from "../../CourseCardActions";

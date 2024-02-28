@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import { Row, Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import EventsContainerItem from "../../../Events/EventsContainer/Items/Item";
+import EventsContainerItem from "../../../Events/List/EventsContainer/Items/Item";
 import { ProfileStationaryEventsMobileStyles } from "../MobileStyles";
 
 interface FilteredEventsProps {

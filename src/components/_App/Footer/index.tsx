@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledFooter = styled.footer`
@@ -152,7 +152,7 @@ const Footer = () => {
         </div>
 
         <div className={"links-row pages"}>
-          {chunkArray(pages.list, 4).map((chunk: any[]) => (
+          {chunkArray(pages.list, 4).map((chunk: PageListItem[]) => (
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>

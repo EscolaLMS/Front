@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
-import DisplayCourses from "@/components/DisplayCourses";
+import Container from "@/components/Common/Container";
+import DisplayCourses from "@/components/Courses/DisplayCoursesSlider";
 import { Product } from "@escolalms/sdk/lib/types/api";
-import SwiperSlider from "@/components/CoursesSlider/swiper";
+import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
 import { SwiperSlide } from "swiper/react";
 import { NewCourseCard, Title } from "@escolalms/components/lib/index";
 import { isMobile } from "react-device-detect";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
 import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Link } from "react-router-dom";
 import ProductPrices from "@/components/ProductPrices";

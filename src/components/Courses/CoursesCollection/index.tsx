@@ -2,10 +2,10 @@ import React from "react";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Common/Pagination";
 import { CloseIcon } from "@/icons/index";
 
-import useCoursesFilter from "@/hooks/useCoursesFIlter";
+import useCoursesFilter from "@/hooks/courses/useCoursesFIlter";
 import MobileDrawer from "@/components/_App/MobileDrawer";
 import CoursesList from "@/components/Courses/CoursesCollection/list";
 import MobileDrawerContent from "@/components/Courses/CoursesCollection/coursesDrawer";

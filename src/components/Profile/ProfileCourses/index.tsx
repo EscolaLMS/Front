@@ -9,12 +9,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import { Col, Row } from "react-grid-system";
 
 import CourseCardItem from "./components/CourseCardItem";
 import { CourseStatus } from "@/pages/user/MyProfile";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Common/Pagination";
 import { useSearchParams } from "@/hooks/useSearchParams";
 import routeRoutes from "@/components/Routes/routes";
 
@@ -61,8 +61,8 @@ const StyledEmptyInfo = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: ${({ theme }) =>
-    theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  /* background: ${({ theme }) =>
+    theme.mode === "dark" ? theme.gray1 : theme.gray5}; */
   padding: ${isMobile ? "80px 20px" : "192px 20px"};
   width: calc(100% - 30px);
   margin: 0 auto;

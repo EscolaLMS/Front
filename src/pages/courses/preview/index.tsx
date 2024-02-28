@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Preloader from "@/components/Preloader";
+import Preloader from "@/components/_App/Preloader";
 import Layout from "@/components/_App/Layout";
 
-import CourseProgramLessonsPreview from "@/components/Course/CourseProgramLessonsPreview";
-import Container from "@/components/Container";
+import CourseProgramLessonsPreview from "@/components/Courses/Course/CourseProgramLessonsPreview";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 // TODO: 99% same as: src/pages/course/index.tsx

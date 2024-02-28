@@ -1,7 +1,7 @@
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Row, Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
-import EventsContainerItem from "@/components/Events/EventsContainer/Items/Item";
+import EventsContainerItem from "@/components/Events/List/EventsContainer/Items/Item";
 import { Dispatch, FC, SetStateAction } from "react";
 import { API } from "@escolalms/sdk/lib";
 

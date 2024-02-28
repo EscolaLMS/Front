@@ -6,8 +6,8 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { NewCourseCard } from "@escolalms/components/lib/index";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
-import CourseImgPlaceholder from "@/components/CourseImgPlaceholder";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
+import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
 import { Course } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";

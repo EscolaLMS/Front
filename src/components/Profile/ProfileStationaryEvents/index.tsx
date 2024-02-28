@@ -1,7 +1,7 @@
 import { FC, useContext, useState, useEffect, useMemo } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import ProfileStationaryEventsNoData from "./NoData";
 import SlicedFilteredEvents from "./SlicedFilteredEvents";
 import FilteredEvents from "./FilteredEvents";

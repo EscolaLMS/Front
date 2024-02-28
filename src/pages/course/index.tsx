@@ -2,13 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Preloader from "@/components/Preloader";
+import Preloader from "@/components/_App/Preloader";
 import Layout from "@/components/_App/Layout";
 
-import CourseProgramLessons from "@/components/Course/CourseProgramLessons";
-import ErrorBox from "@/components/Errorbox";
+import CourseProgramLessons from "@/components/Courses/Course/CourseProgramLessons";
+import ErrorBox from "@/components/Common/Errorbox";
 import { t } from "i18next";
-import ScormPlayer from "@/components/Course/Players/ScormPlayer";
+import ScormPlayer from "@/components/Courses/Course/Players/ScormPlayer";
 
 const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
   program,

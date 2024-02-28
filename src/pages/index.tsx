@@ -6,11 +6,11 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import CategoriesSection from "@/components/CategoriesSection";
+import CategoriesSection from "@/components/Categories/CategoriesSection";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { useHistory } from "react-router-dom";
-import Container from "@/components/Container";
-import DisplayCourses from "@/components/DisplayCourses";
+import Container from "@/components/Common/Container";
+import DisplayCourses from "@/components/Courses/DisplayCoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 
 const HomePageStyled = styled.div`
@@ -114,6 +114,13 @@ const Index = () => {
               </Container>
             )}
         </section>
+        {/* {user.value?.id && (
+          <section className="home-newest-courses">
+            <Wrapper>
+              <CoursesUserSlider titleText={t("Navbar.MyCourses")} />
+            </Wrapper>
+          </section>
+        )} */}
 
         <section className="home-newest-courses">
           <Wrapper>

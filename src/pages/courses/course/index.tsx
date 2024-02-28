@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import CoursesDetailsSidebar from "@/components/SingleCoursesTwo/CoursesDetailsSidebar/index";
+import CoursesDetailsSidebar from "@/components/Courses/SingleCoursesTwo/CoursesDetailsSidebar/index";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useTranslation } from "react-i18next";
@@ -8,13 +8,13 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { CourseProgram } from "@escolalms/components/lib/components/organisms/CourseProgram/CourseProgram";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import CourseProgramPreview from "@/components/Course/CourseProgramPreview";
+import CourseProgramPreview from "@/components/Courses/Course/CourseProgramPreview";
 import { API } from "@escolalms/sdk/lib";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/Common/Breadcrumbs";
 import { fixContentForMarkdown } from "@escolalms/components/lib/utils/components/markdown";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import { ModalCourseAccess } from "@escolalms/components/lib/components/organisms/ModalCourseAccess";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { ModalOverwriteGlobal, StyledCoursePage } from "./styles";
@@ -114,7 +114,7 @@ const CoursePage = () => {
           </StyledCoursePage>
         </>
       )}
-      {/* {course.loading && <Loader />} */}
+
       {!course.loading && course.value && (
         <>
           <StyledCoursePage>
