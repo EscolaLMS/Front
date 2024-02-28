@@ -248,7 +248,7 @@ const Navbar = () => {
     },
 
     {
-      title: user ? null : ( // </CustomMobileMenuItem> //   </Link> //     </Text> //       {user?.first_name} {user?.last_name} //     <Text noMargin bold> //   <Link to={routeRoutes.myProfile}> // <CustomMobileMenuItem>
+      title: user ? null : (
         <LastMobileMenuItem>
           <Button
             mode={"primary"}
@@ -306,7 +306,7 @@ const Navbar = () => {
                 type="button"
                 className="cart-icon"
                 onClick={() => history.push(routeRoutes.myNotifications)}
-                data-tooltip={22}
+                data-tooltip={String(notifications.list?.meta.total)}
                 aria-label={t("CoursePage.Notifications")}
               >
                 <HeaderNotification mode={theme.mode} />
@@ -496,46 +496,46 @@ const Navbar = () => {
                     content: t("Navbar.MyCourses"),
                     redirect: routeRoutes.myProfile,
                   },
-                  {
-                    id: 2,
-                    content: t("Navbar.MyOrders"),
-                    redirect: routeRoutes.myOrders,
-                  },
-                  {
-                    id: 3,
-                    content: t("Navbar.MyConsultations"),
-                    redirect: routeRoutes.myConsultations,
-                  },
-                  {
-                    id: 4,
-                    content: t("Navbar.MyWebinars"),
-                    redirect: routeRoutes.myWebinars,
-                  },
-                  {
-                    id: 5,
-                    content: t("Navbar.MyStationaryEvents"),
-                    redirect: routeRoutes.myStationaryEvents,
-                  },
-                  {
-                    id: 6,
-                    content: t("Navbar.MyTasks"),
-                    redrect: routeRoutes.myTasks,
-                  },
-                  {
-                    id: 7,
-                    content: t("Navbar.MyBookmarks"),
-                    redirect: routeRoutes.myBookmarks,
-                  },
-                  {
-                    id: 8,
-                    content: t("Menu.Notifications"),
-                    redirect: routeRoutes.myNotifications,
-                  },
-                  {
-                    id: 9,
-                    content: t("Navbar.EditProfile"),
-                    redirect: routeRoutes.myData,
-                  },
+                  // {
+                  //   id: 2,
+                  //   content: t("Navbar.MyOrders"),
+                  //   redirect: routeRoutes.myOrders,
+                  // },
+                  // {
+                  //   id: 3,
+                  //   content: t("Navbar.MyConsultations"),
+                  //   redirect: routeRoutes.myConsultations,
+                  // },
+                  // {
+                  //   id: 4,
+                  //   content: t("Navbar.MyWebinars"),
+                  //   redirect: routeRoutes.myWebinars,
+                  // },
+                  // {
+                  //   id: 5,
+                  //   content: t("Navbar.MyStationaryEvents"),
+                  //   redirect: routeRoutes.myStationaryEvents,
+                  // },
+                  // {
+                  //   id: 6,
+                  //   content: t("Navbar.MyTasks"),
+                  //   redrect: routeRoutes.myTasks,
+                  // },
+                  // {
+                  //   id: 7,
+                  //   content: t("Navbar.MyBookmarks"),
+                  //   redirect: routeRoutes.myBookmarks,
+                  // },
+                  // {
+                  //   id: 8,
+                  //   content: t("Menu.Notifications"),
+                  //   redirect: routeRoutes.myNotifications,
+                  // },
+                  // {
+                  //   id: 9,
+                  //   content: t("Navbar.EditProfile"),
+                  //   redirect: routeRoutes.myData,
+                  // },
                   {
                     id: 10,
                     content: t("Navbar.Logout"),
@@ -584,12 +584,11 @@ const Navbar = () => {
           )}
         </div>
       </Container>
-      {user?.id && (
-        <NotificationsDrawer
-          isOpen={showNotifications}
-          onClose={() => setShowNotifications(false)}
-        />
-      )}
+
+      <NotificationsDrawer
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+      />
     </StyledHeader>
   );
 };

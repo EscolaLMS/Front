@@ -2,14 +2,16 @@ import { createGlobalStyle } from "styled-components";
 import Drawer from "rc-drawer";
 import { isMobile } from "react-device-detect";
 import Notifications from "@/components/Notifications";
+import { useContext } from "react";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 const GlobalDrawer = createGlobalStyle`
     .drawer-handle {
       display: none;
     }
-  .notifications-drawer { 
+  .notifications-drawer {     background-color: ${({ theme }) => theme.gray4};
   &__content {
-    background-color: ${({ theme }) => theme.gray4};
+    background-color: ${({ theme }) => theme.gray4} !important;
  
 
     &__header {
@@ -56,20 +58,26 @@ type Props = {
 };
 
 const NotificationsDrawer: React.FC<Props> = ({ isOpen, onClose }) => {
+  const { fetchNotifications } = useContext(EscolaLMSContext);
+
+  const handleClose = () => {
+    onClose();
+    fetchNotifications();
+  };
+
   return (
     <Drawer
       open={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       width={isMobile ? "100%" : "500px"}
       placement="right"
-      // @ts-ignore
       classNames={{
         wrapper: "notifications-drawer",
         content: "notifications-drawer__content",
       }}
     >
       <GlobalDrawer />
-      <Notifications onClose={onClose} />
+      <Notifications onClose={handleClose} />
     </Drawer>
   );
 };

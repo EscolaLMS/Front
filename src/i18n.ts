@@ -515,7 +515,9 @@ const resources = {
           "You have been added to the group",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "You have been removed from the group",
+        "EscolaLms\\BulkNotifications\\Events\\NotificationSent": "{{name}}",
         AccountConfirmed: "Account confirmed",
+
         ProductableAttached: "Productable attached???",
         ProductBought: "Product bought",
         ProductAttached: "Product attached",
@@ -1120,6 +1122,7 @@ const resources = {
         "EscolaLms\\Auth\\Events\\UserAddedToGroup": "Zostałeś dodany do grupy",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "Zostałeś usunięty z grupy",
+        "EscolaLms\\BulkNotifications\\Events\\NotificationSent": "{{name}}",
         AccountConfirmed: "Konto potwierdzone",
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
