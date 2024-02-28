@@ -48,8 +48,11 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({ courseData }) => {
         if (req.success) {
           setState({ type: StateTypes.LOADED, rating: req.data });
         }
-      } catch (error: any) {
-        setState({ type: StateTypes.ERROR, error: error.message });
+      } catch (error) {
+        setState({
+          type: StateTypes.ERROR,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
       }
     }
   }, [courseData.id, fetchQuestionnaireStarsByModel]);

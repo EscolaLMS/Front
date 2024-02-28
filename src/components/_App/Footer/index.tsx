@@ -152,7 +152,7 @@ const Footer = () => {
         </div>
 
         <div className={"links-row pages"}>
-          {chunkArray(pages.list, 4).map((chunk: any[]) => (
+          {chunkArray(pages.list, 4).map((chunk: PageListItem[]) => (
             <Row key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
                 <Col xs={12} sm={12} md={12} lg={3} key={page.id}>
