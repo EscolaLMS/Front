@@ -1,4 +1,4 @@
-import RateCourse from "@/components/RateCourse";
+import RateCourse from "@/components/Courses/RateCourse";
 import {
   getFormattedDifferenceRelativeToNow,
   relativeTimeFormatter,

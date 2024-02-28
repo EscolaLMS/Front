@@ -10,7 +10,7 @@ import ConfigRouteExtend from "./configExtend";
 import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../Common/ScrollToTop";
 
 import { Loader } from "./../_App/Loader/Loader";
 import routeRoutes from "./routes";

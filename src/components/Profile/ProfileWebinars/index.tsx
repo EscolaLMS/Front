@@ -1,15 +1,15 @@
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import styled from "styled-components";
 import ProfileNoData from "../NoData";
 import routes from "../../Routes/routes";
-import WebinarsContainerItem from "../../Webinars/WebinarsContainer/Items/Item";
+import WebinarsContainerItem from "../../Webinars/List/WebinarsContainer/Items/Item";
 import { API } from "@escolalms/sdk/lib";
 import { ProfileWebinarItemFooter } from "./ItemFooter";
 import { ProfileWebinarItemActions } from "./ItemActions";
-import WebinarMeetModal from "@/components/Webinar/WebinarMeetModal";
+import WebinarMeetModal from "@/components/Webinars/Webinar/WebinarMeetModal";
 
 const RowStyled = styled(Row)`
   gap: 30px 0;

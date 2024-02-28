@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Notification } from "@escolalms/components/lib/components/molecules/Notification/Notification";
 import { getNotificationTranslationObject } from "../../utils";
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import { Text, Title } from "@escolalms/components/lib/index";
 import { useNotifications } from "@/hooks/useNotification";
 import { RedArrow } from "@/icons/index";

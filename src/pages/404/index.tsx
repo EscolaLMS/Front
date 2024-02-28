@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const Styled404 = styled.div`

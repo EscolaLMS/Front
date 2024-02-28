@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledFooter = styled.footer`

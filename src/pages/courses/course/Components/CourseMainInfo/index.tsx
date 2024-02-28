@@ -4,12 +4,12 @@ import { isMobile } from "react-device-detect";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { API } from "@escolalms/sdk/lib";
 import { Col, Row } from "react-grid-system";
-import CategoriesBreadCrumbs from "@/components/CategoriesBreadCrumbs";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { Rating, Text } from "@escolalms/components/lib/index";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { StateTypes } from "@/types/index";
 import { QuestionnaireStarsModel } from "@escolalms/sdk/lib/types/api";
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 

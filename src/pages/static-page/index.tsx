@@ -10,10 +10,10 @@ import { AsideMenu } from "@escolalms/components/lib/components/atoms/AsideMenu/
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/Common/Breadcrumbs";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledStaticPage = styled.section`

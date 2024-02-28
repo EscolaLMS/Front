@@ -6,8 +6,9 @@ import { isMobile } from "react-device-detect";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import AuthWrapper from "@/components/Authentication/AuthWrapper";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -23,7 +24,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Layout>
-      <div className="profile-authentication-area">
+      <AuthWrapper>
         <Container>
           <Row justify={"center"}>
             <Col md={12} lg={12}>
@@ -41,7 +42,7 @@ const ResetPassword: React.FC = () => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </AuthWrapper>
     </Layout>
   );
 };

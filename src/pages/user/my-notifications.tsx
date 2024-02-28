@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Layout from "@/components/_App/Layout";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import Notifications from "@/components/Notifications";
 
 const Wrapper = styled.div`

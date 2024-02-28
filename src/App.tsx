@@ -11,7 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 
 const Customizer = lazy(
-  () => import("./components/ThemeCustomizer/ThemeCustomizer")
+  () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
 );
 
 const GlobalStyle = createGlobalStyle`
@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
   }
   #root {
     height: 100%;

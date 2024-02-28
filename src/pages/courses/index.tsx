@@ -2,7 +2,7 @@ import Layout from "@/components/_App/Layout";
 import CoursesCollection from "@/components/Courses/CoursesCollection";
 import CoursesProvider from "@/components/Courses/CoursesProvider";
 import { useTranslation } from "react-i18next";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import { Title } from "@escolalms/components/lib/index";
 import styled from "styled-components";
 

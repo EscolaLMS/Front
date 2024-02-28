@@ -1,8 +1,8 @@
 import Layout from "@/components/_App/Layout";
 import { useTranslation } from "react-i18next";
-import Container from "@/components/Container";
-import EventsProvider from "@/components/Events/EventsProvider";
-import EventsContainer from "@/components/Events/EventsContainer";
+import Container from "@/components/Common/Container";
+import EventsProvider from "@/components/Events/List/EventsProvider";
+import EventsContainer from "@/components/Events/List/EventsContainer";
 
 const EventsPage = () => {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
-import { useCourseAnswers } from "@/hooks/useCourseAnswers";
+import { useCourseAnswers } from "@/hooks/courses/useCourseAnswers";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
-import Pagination from "../../../../../../../components/Pagination";
+import Pagination from "../../../../../../../components/Common/Pagination";
 import { AnswerComponent } from "../../AnswerComponent";
 import { StyledStack, PaginationContainerStyled } from "../../styles";
 

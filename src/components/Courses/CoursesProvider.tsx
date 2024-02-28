@@ -4,7 +4,7 @@ import { API } from "@escolalms/sdk/lib";
 import qs from "query-string";
 import { CoursesContext } from "./CoursesContext";
 import { COURSES_ON_PAGE } from "@/config/courses";
-import useFetchCourses from "@/hooks/useFetchCourses";
+import useFetchCourses from "@/hooks/courses/useFetchCourses";
 
 const parseParams = (params: API.CourseParams = {}) => {
   return qs.stringify(params);

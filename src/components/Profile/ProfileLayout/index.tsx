@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { ReactNode, useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 type Props = {

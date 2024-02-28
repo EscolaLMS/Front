@@ -1,8 +1,8 @@
 import Layout from "@/components/_App/Layout";
 import { useTranslation } from "react-i18next";
-import Container from "@/components/Container";
-import WebinarsProvider from "@/components/Webinars/WebinarsProvider";
-import WebinarsContainer from "@/components/Webinars/WebinarsContainer";
+import Container from "@/components/Common/Container";
+import WebinarsProvider from "@/components/Webinars/List/WebinarsProvider";
+import WebinarsContainer from "@/components/Webinars/List/WebinarsContainer";
 
 const WebinarsPage = () => {
   const { t } = useTranslation();

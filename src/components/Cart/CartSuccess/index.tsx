@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import routeRoutes from "@/components/Routes/routes";
 

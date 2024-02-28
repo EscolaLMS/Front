@@ -1,7 +1,7 @@
 import { API } from "@escolalms/sdk/lib";
 import { useTranslation } from "react-i18next";
 import { addTimeToDate, extractTimeUnits } from "@/utils/date";
-import DateInfo, { DateInfoTypes } from "@/components/DateInfo";
+import DateInfo, { DateInfoTypes } from "@/components/Common/DateInfo";
 
 interface Props {
   webinar: API.Webinar;
