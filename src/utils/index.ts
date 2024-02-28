@@ -279,16 +279,16 @@ export const getNotificationTranslationObject = (
         },
       };
 
-    // case EventTypes.BulkNotification:
-    //   return {
-    //     translation,
-    //     object: {
-    //       name:
-    //         notification?.data?.notification?.sections?.find(
-    //           (s: BulkNotificationSection) => s.key === "title"
-    //         )?.value || "",
-    //     },
-    //   };
+    case EventTypes.BulkNotification:
+      return {
+        translation,
+        object: {
+          name:
+            notification?.data?.notification?.sections?.find(
+              (s: BulkNotificationSection) => s.key === "title"
+            )?.value || "",
+        },
+      };
     default:
       return { translation };
   }
