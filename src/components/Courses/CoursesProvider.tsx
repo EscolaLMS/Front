@@ -5,7 +5,6 @@ import qs from "query-string";
 import { CoursesContext } from "./CoursesContext";
 import { COURSES_ON_PAGE } from "@/config/courses";
 import useFetchCourses from "@/hooks/useFetchCourses";
-import debounce from "lodash/debounce";
 
 const parseParams = (params: API.CourseParams = {}) => {
   return qs.stringify(params);
@@ -24,8 +23,6 @@ const CoursesProvider: React.FC<{
   const location = useLocation();
   const { push } = useHistory();
 
-  const debouncedFetchCoursesData = debounce(fetchCoursesData, 300);
-
   useEffect(() => {
     const searchParams = qs.parse(location.search);
     const parsedParams = searchParams && {
@@ -34,8 +31,9 @@ const CoursesProvider: React.FC<{
     };
     const newParams = parsedParams ? parsedParams : params;
     setParams(newParams);
-    debouncedFetchCoursesData(newParams);
+
     push(`${location.pathname}?${parseParams(newParams)}`);
+    fetchCoursesData(newParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 

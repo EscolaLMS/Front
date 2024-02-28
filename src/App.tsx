@@ -58,11 +58,13 @@ const mapStringToTheme = (theme: string) => {
 };
 
 const App = () => {
-  const { fetchSettings, settings } = useContext(EscolaLMSContext);
+  const { fetchSettings, settings, fetchNotifications } =
+    useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchSettings();
-  }, [fetchSettings]);
+    fetchNotifications();
+  }, [fetchSettings, fetchNotifications]);
 
   return (
     <React.Fragment>

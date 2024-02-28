@@ -315,21 +315,21 @@ export const HeaderCard = ({
           d="M-31.781,255.006a2.248,2.248,0,0,0-2.186,2.62l1.921,11.087a2.837,2.837,0,0,0,2.8,2.331H-15.1a2.852,2.852,0,0,0,2.794-2.32l0-.012,1.919-11.075v0a2.239,2.239,0,0,0-2.183-2.629Zm0,1.688h19.217a.517.517,0,0,1,.524.631l0,.012-1.921,11.08a1.146,1.146,0,0,1-1.134.938H-29.249a1.138,1.138,0,0,1-1.134-.93L-32.3,257.337a.52.52,0,0,1,.523-.643Z"
           transform="translate(0 -1.403)"
           fill={mode === "light" ? "#333" : "white"}
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           id="path41727"
           d="M-25.419,246.062a.844.844,0,0,0-.47.445l-3.376,7.6a.844.844,0,0,0,.429,1.114.844.844,0,0,0,1.114-.429l3.376-7.6a.844.844,0,0,0-.429-1.114.844.844,0,0,0-.645-.016Z"
           transform="translate(-0.727 0)"
           fill={mode === "light" ? "#333" : "white"}
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           id="path41729"
           d="M-15.491,246.062a.844.844,0,0,0-.645.016.844.844,0,0,0-.429,1.114l3.376,7.6a.844.844,0,0,0,1.113.429.844.844,0,0,0,.429-1.114l-3.376-7.6a.844.844,0,0,0-.468-.445Z"
           transform="translate(-2.707 0)"
           fill={mode === "light" ? "#333" : "white"}
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
       </g>
     </svg>
@@ -403,6 +403,39 @@ export const HeaderNotification = ({
     </svg>
   );
 };
+
+export const RedArrow = () => (
+  <svg
+    id="back-arw"
+    xmlns="http://www.w3.org/2000/svg"
+    width="19.407"
+    height="17"
+    viewBox="0 0 19.407 17"
+  >
+    <g id="Group_30" data-name="Group 30" transform="translate(9.675 0)">
+      <g id="Group_29" data-name="Group 29" transform="translate(0 0)">
+        <path
+          id="Path_19"
+          data-name="Path 19"
+          d="M0,22.959l1.649-1.778,7.328,6.8a2.317,2.317,0,0,1-.007,3.429L1.659,38.181.01,36.4l7.246-6.713Z"
+          transform="translate(0 -21.181)"
+          fill="#ee312f"
+        />
+      </g>
+    </g>
+    <g id="Group_32" data-name="Group 32" transform="translate(0 7.285)">
+      <g id="Group_31" data-name="Group 31" transform="translate(0 0)">
+        <rect
+          id="Rectangle_4181"
+          data-name="Rectangle 4181"
+          width="16.977"
+          height="2.425"
+          fill="#ee312f"
+        />
+      </g>
+    </g>
+  </svg>
+);
 
 export const ProfileIcon = ({
   mode,
