@@ -14,6 +14,7 @@ import { formatDate } from "@/utils/date";
 
 const StyledOrdersList = styled.section`
   margin-top: 35px;
+
   .name-container {
     p {
       display: inline;

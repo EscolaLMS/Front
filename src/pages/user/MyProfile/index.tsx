@@ -23,6 +23,7 @@ const Content = styled.section`
   background-color: ${({ theme }) => theme.gray4};
   .courses-wrapper {
     padding-top: 100px;
+
     min-height: fit-content;
     @media (max-width: 991px) {
       margin-top: 0;

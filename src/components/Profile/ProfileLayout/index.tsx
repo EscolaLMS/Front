@@ -19,6 +19,8 @@ type Props = {
 const StyledProfile = styled.section`
   background-color: ${({ theme }) => theme.gray4};
   padding-top: 100px;
+  padding-bottom: 100px;
+  min-height: 70vh;
   .tabs-menu {
     padding: 0 0 70px 40px;
     background: #f8f8f8;
@@ -55,7 +57,7 @@ const ProfileLayout: React.FC<Props> = ({
             <Col lg={3}>
               <ProfileAside />
             </Col>
-            <Col lg={9}>
+            <Col offset={{ lg: 1 }} lg={8}>
               <ProfileHeader
                 title={title}
                 withTabs={withTabs}

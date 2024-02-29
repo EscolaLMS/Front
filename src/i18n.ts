@@ -286,7 +286,7 @@ const resources = {
         Archived: "Archived",
         Upcoming: "Upcoming",
         InvoiceTitle: "Invoice for order no",
-        Invoice: "Invoice",
+        Invoice: "Download",
         OrdersEmpty: "You have not placed any orders yet",
         MyCourses: "My courses",
         MyTasks: "My tasks",
@@ -912,7 +912,7 @@ const resources = {
       },
       MyProfilePage: {
         InvoiceTitle: "Faktura za zamówienie nr",
-        Invoice: "Rachunek",
+        Invoice: "Pobierz",
         Archived: "Archiwalne",
         Upcoming: "Nadchodzące",
         OrdersEmpty: "Nie złożyłeś jeszcze żadnych zamówień",
