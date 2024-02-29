@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -11,8 +11,13 @@ export function useLessonProgram(
   program: API.CourseProgram,
   courseRouteName: string = "/course/"
 ) {
-  const { sendProgress, getNextPrevTopic, progress, courseProgressDetails } =
-    useContext(EscolaLMSContext);
+  const {
+    sendProgress,
+    getNextPrevTopic,
+    progress,
+    courseProgressDetails,
+    fetchProgress,
+  } = useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, disableNextTopicButton] = useState(false);
   const { lessonID, topicID } = useParams<{
     lessonID: string;
@@ -31,6 +36,11 @@ export function useLessonProgram(
 
   const lessonId = lessonID ? Number(lessonID) : flatLessons?.[0]?.id;
   const topicId = topicID ? Number(topicID) : flatTopics?.[0]?.id;
+
+  useEffect(() => {
+    if (!topicId) return;
+    fetchProgress();
+  }, [fetchProgress, topicId]);
 
   const lesson = useMemo(
     () => flatLessons.find((lesson) => lesson.id === lessonId),

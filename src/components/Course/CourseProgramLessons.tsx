@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
-import { toast } from "react-toastify";
 import { API } from "@escolalms/sdk/lib";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -213,34 +212,32 @@ export const CourseProgramLessons: React.FC<{
         </Row>
       </Container>
       <div className="course-nav">
-        <Container>
-          <CourseTopNav
-            onFinish={onCompleteTopicCb}
-            mobile={isMobile}
-            onNext={onNextTopic}
-            isFinished={
-              typeof finishedTopicIndex === "number"
-                ? finishedTopicIndex > -1
-                : false
-            }
-            onPrev={onPrevTopic}
-            addNotes
-            newNoteData={{
-              id: topic.id,
-              type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}` as BookmarkableType,
-            }}
-            currentNote={topicNote?.[0] as NoteData | undefined}
-            addBookmarks
-            bookmarkBtnText={
-              topicBookmark?.length ? "deleteBookmark" : "addBookmark"
-            }
-            onBookmarkClick={() => handleBookmark()}
-            hasPrev={!!getNextPrevTopic(Number(topic?.id), false)}
-            hasNext={!isNextTopicButtonDisabled}
-            isLast={isLastTopic}
-            onCourseFinished={() => onCompleteTopicCb(true)}
-          />
-        </Container>
+        <CourseTopNav
+          onFinish={onCompleteTopicCb}
+          mobile={isMobile}
+          onNext={onNextTopic}
+          isFinished={
+            typeof finishedTopicIndex === "number"
+              ? finishedTopicIndex > -1
+              : false
+          }
+          onPrev={onPrevTopic}
+          addNotes
+          newNoteData={{
+            id: topic.id,
+            type: `${courseId}/${lesson?.id}/${topic?.id}:${program.title}:${topic?.title}` as BookmarkableType,
+          }}
+          currentNote={topicNote?.[0] as NoteData | undefined}
+          addBookmarks
+          bookmarkBtnText={
+            topicBookmark?.length ? "deleteBookmark" : "addBookmark"
+          }
+          onBookmarkClick={() => handleBookmark()}
+          hasPrev={!!getNextPrevTopic(Number(topic?.id), false)}
+          hasNext={!isNextTopicButtonDisabled}
+          isLast={isLastTopic}
+          onCourseFinished={() => onCompleteTopicCb(true)}
+        />
       </div>
     </StyledCourse>
   );

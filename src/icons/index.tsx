@@ -901,3 +901,26 @@ export const IconMenuVertical = ({
     />
   </svg>
 );
+
+export const IconCircleClose = ({
+  width = "21.976",
+  height = "21.976",
+  color = "currentColor",
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+  >
+    <g id="iX" transform="translate(0 0)">
+      <path
+        id="Path_29"
+        data-name="Path 29"
+        d="M18.761,3.215a10.993,10.993,0,1,0,0,15.547A11.006,11.006,0,0,0,18.761,3.215ZM15.323,15.323a.845.845,0,0,1-1.2,0l-3.139-3.139L7.7,15.472a.845.845,0,0,1-1.2-1.2l3.289-3.289L6.653,7.848a.845.845,0,0,1,1.2-1.2l3.139,3.139,2.99-2.99a.845.845,0,0,1,1.2,1.2l-2.99,2.99,3.139,3.139A.845.845,0,0,1,15.323,15.323Z"
+        transform="translate(0 0)"
+        fill={color}
+      />
+    </g>
+  </svg>
+);
