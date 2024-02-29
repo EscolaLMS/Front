@@ -19,6 +19,12 @@ type NavigationTab = {
   url: string;
 };
 
+const StyledAsideWrapper = styled.div`
+  h2 {
+    margin-bottom: 10px;
+  }
+`;
+
 const StyledAside = styled("aside")<{ opened: boolean }>`
   ${isMobile &&
   `
@@ -39,9 +45,12 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       ? "translate(0, 91%)"
       : "translate(0, 0)"};
   background: ${({ theme }) =>
-    theme.mode === "dark" ? theme.dm__background : theme.background};
+    theme.mode === "dark" ? theme.dm__background : theme.white};
+  border-radius: ${({ theme }) => theme.cardRadius}px;
+
   .user-main-sidebar {
-    margin-bottom: ${isMobile ? "70px" : "22px"};
+    margin-bottom: ${isMobile ? "70px" : "5px"};
+
     .name {
       margin: ${isMobile ? "0 0 0 21px" : "16px 0 0 0"};
     }
@@ -50,45 +59,29 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      row-gap: 15px;
-      margin-bottom: 50px;
-      a {
+      row-gap: 10px;
+      cursor: pointer;
+      position: relative;
+      button {
+        all: unset;
+      }
+      a,
+      button {
         text-decoration: none;
+        display: block;
+        width: 100%;
+        border-radius: ${({ theme }) => theme.cardRadius}px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        p {
+          padding: 10px 20px;
+        }
         &:hover {
-          p {
-            color: ${({ theme }) => theme.primaryColor};
-          }
+          background-color: ${({ theme }) => theme.gray3};
         }
         &.selected {
+          background-color: ${({ theme }) => theme.primaryColor};
           p {
-            color: ${({ theme }) => theme.primaryColor};
-          }
-        }
-      }
-    }
-    .logout-wrapper {
-      position: relative;
-      &:before {
-        position: absolute;
-        content: "";
-        left: 0;
-        top: -16px;
-        height: 1px;
-        width: 24px;
-        background: ${({ theme }) =>
-          theme.mode === "dark" ? theme.gray5 : theme.gray1};
-      }
-      button {
-        appearance: none;
-        outline: none;
-        border: none;
-        background: transparent;
-        padding: 0;
-        margin: 0;
-        cursor: pointer;
-        p {
-          &:hover {
-            color: ${({ theme }) => theme.primaryColor};
+            color: ${({ theme }) => theme.white};
           }
         }
       }
@@ -235,106 +228,66 @@ const ProfileAside: React.FC = () => {
   const mainTabs: NavigationTab[] = useMemo(
     () => [
       {
-        key: "COURSES",
-        title: t("MyProfilePage.MyCourses"),
-        url: routeRoutes.myProfile,
-      },
-      {
-        key: "CONSULTATIONS",
-        title: t("MyProfilePage.MyConsultations"),
-        url: routeRoutes.myConsultations,
-      },
-      {
-        key: "WEBINARS",
-        title: t("MyProfilePage.MyWebinars"),
-        url: routeRoutes.myWebinars,
-      },
-      {
-        key: "EVENTS",
-        title: t("MyProfilePage.MyStationaryEvents"),
-        url: routeRoutes.myStationaryEvents,
-      },
-      {
-        key: "TASKS",
-        title: t("MyProfilePage.MyTasks"),
-        url: routeRoutes.myTasks,
-      },
-      {
-        key: "BOOKMARKS",
-        title: t("MyProfilePage.MyBookmarks"),
-        url: routeRoutes.myBookmarks,
-      },
-      {
         key: "ORDERS",
         title: t("MyProfilePage.OrdersHistory"),
         url: routeRoutes.myOrders,
-      },
-      {
-        key: "NOTIFICATIONS",
-        title: t("MyProfilePage.Notifications"),
-        url: routeRoutes.myNotifications,
       },
       {
         key: "EDIT",
         title: t("MyProfilePage.EditData"),
         url: routeRoutes.myData,
       },
+      {
+        key: "COURSES",
+        title: t("MyProfilePage.MyCourses"),
+        url: routeRoutes.myProfile,
+      },
     ],
     [t]
   );
 
   return (
-    <StyledAside opened={menuOpened}>
-      {isMobile && (
-        <MobileHeader
-          opened={menuOpened}
-          onClick={() => setMenuOpened(!menuOpened)}
-        >
-          <div className="content-wrapper">
-            {user.value?.avatar ? (
-              <AvatarUpload size="extraSmall" />
-            ) : (
-              <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
-            )}
-            <Text>
-              <strong>
-                {user.value?.first_name} {user.value?.last_name}
-              </strong>
-            </Text>
-          </div>
-        </MobileHeader>
-      )}
-      <div className="user-main-sidebar">
-        <UserSidebar title={t("MyProfilePage.YourAccount")} icon={<UserIcon />}>
-          <div className="avatar-wrapper">
-            {user.value?.avatar ? (
-              <AvatarUpload size="small" />
-            ) : (
-              <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
-            )}
-            <Title className="name" level={4} as="h3">
-              {user.value?.first_name} {user.value?.last_name}
-            </Title>
-          </div>
-          <nav className="navigation">
-            {mainTabs.map((item) => (
-              <NavLink activeClassName="selected" to={item.url} key={item.key}>
-                <Text size="14">{item.title}</Text>
-              </NavLink>
-            ))}
-          </nav>
-          <div className="logout-wrapper">
-            <button
-              onClick={() =>
-                logout().then(() => history.push(routeRoutes.home))
-              }
-            >
-              <Text>{t<string>("MyProfilePage.Logout")}</Text>
-            </button>
-          </div>
-        </UserSidebar>
-      </div>
-      <div className="user-progress sidebar">
+    <StyledAsideWrapper>
+      <Title level={2} as="h2">
+        {t("MyProfilePage.YourAccount")}
+      </Title>{" "}
+      <StyledAside opened={menuOpened}>
+        {isMobile && (
+          <MobileHeader
+            opened={menuOpened}
+            onClick={() => setMenuOpened(!menuOpened)}
+          >
+            <div className="content-wrapper">
+              {user.value?.avatar ? (
+                <AvatarUpload size="extraSmall" />
+              ) : (
+                <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
+              )}
+              <Text>
+                <strong>
+                  {user.value?.first_name} {user.value?.last_name}
+                </strong>
+              </Text>
+            </div>
+          </MobileHeader>
+        )}
+
+        <div className="user-main-sidebar">
+          <UserSidebar icon={<UserIcon />}>
+            <nav className="navigation">
+              {mainTabs.map((item) => (
+                <NavLink
+                  activeClassName="selected"
+                  to={item.url}
+                  key={item.key}
+                >
+                  <Text size="16">{item.title}</Text>
+                </NavLink>
+              ))}
+            </nav>
+          </UserSidebar>
+        </div>
+        {/* <div className="user-progress sidebar">
         <UserSidebar
           title={t("MyProfilePage.MyProgress")}
           icon={<ProgressTropy />}
@@ -409,8 +362,24 @@ const ProfileAside: React.FC = () => {
             </SingleProgress>
           </div>
         </UserSidebar>
-      </div>
-    </StyledAside>
+      </div> */}
+      </StyledAside>
+      <StyledAside opened={menuOpened}>
+        <div className="user-main-sidebar">
+          <UserSidebar>
+            <div className="navigation">
+              <button
+                onClick={() =>
+                  logout().then(() => history.push(routeRoutes.home))
+                }
+              >
+                <Text>{t<string>("MyProfilePage.Logout")}</Text>
+              </button>
+            </div>
+          </UserSidebar>
+        </div>
+      </StyledAside>
+    </StyledAsideWrapper>
   );
 };
 

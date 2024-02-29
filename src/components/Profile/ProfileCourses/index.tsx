@@ -116,8 +116,7 @@ const ProfileCourses = ({
       case 2:
         tabName = TabName.STARTED;
         break;
-      case 3:
-        tabName = TabName.PLANNED;
+
         break;
       case 4:
         tabName = TabName.FINISHED;

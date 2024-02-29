@@ -8,6 +8,8 @@ import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "@/hooks/useRoles";
 import { useSearchParams } from "@/hooks/useSearchParams";
+import Layout from "@/components/_App/Layout";
+import Container from "@/components/Common/Container";
 
 export enum CourseStatus {
   IN_PROGRESS = "inProgress",
@@ -18,7 +20,9 @@ export enum CourseStatus {
 }
 
 const Content = styled.section`
+  background-color: ${({ theme }) => theme.gray4};
   .courses-wrapper {
+    padding-top: 100px;
     min-height: fit-content;
     @media (max-width: 991px) {
       margin-top: 0;
@@ -42,12 +46,7 @@ const MyProfile = () => {
         key: 2,
         component: <ProfileCourses filter={CourseStatus.IN_PROGRESS} />,
       },
-      {
-        label: t("MyProfilePage.Planned"),
 
-        key: 3,
-        component: <ProfileCourses filter={CourseStatus.PLANNED} />,
-      },
       {
         label: t("MyProfilePage.Finished"),
         key: 4,
@@ -64,24 +63,26 @@ const MyProfile = () => {
   };
 
   return (
-    <ProfileLayout title={t("MyProfilePage.MyCourses")} withTabs>
-      <Content>
-        <div className="courses-wrapper">
-          <Tabs
-            onClick={(key) => {
-              setQueryParam("status", String(key));
-              setQueryParam("page", "1");
-            }}
-            tabs={coursesTabs.tabs}
-            defaultActiveKey={coursesTabs.defaultActiveKey}
-          />
-        </div>
-        <div className="certificates-container">
-          <Title level={2}>{t<string>("MyProfilePage.MyCertificates")}</Title>
-          <ProfileCertificates />
-        </div>
-      </Content>
-    </ProfileLayout>
+    <Layout>
+      <Container>
+        <Content>
+          <div className="courses-wrapper">
+            <Tabs
+              onClick={(key) => {
+                setQueryParam("status", String(key));
+                setQueryParam("page", "1");
+              }}
+              tabs={coursesTabs.tabs}
+              defaultActiveKey={coursesTabs.defaultActiveKey}
+            />
+          </div>
+          <div className="certificates-container">
+            <Title level={2}>{t<string>("MyProfilePage.MyCertificates")}</Title>
+            <ProfileCertificates />
+          </div>
+        </Content>
+      </Container>
+    </Layout>
   );
 };
 

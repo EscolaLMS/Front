@@ -126,6 +126,7 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          availableTopicsIds={flatTopics.map((t) => t.id)}
           areAllTopicsUnlocked={userIsCourseAuthor(
             Number(user.value?.id),
             course

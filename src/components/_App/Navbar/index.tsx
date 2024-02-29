@@ -386,6 +386,7 @@ const Navbar = () => {
                   content: t("Menu.HomePage"),
                   redirect: routeRoutes.home,
                 },
+
                 {
                   id: 2,
                   content: t("Menu.Courses"),
@@ -493,9 +494,15 @@ const Navbar = () => {
                 menuItems={[
                   {
                     id: 1,
+                    content: t("Navbar.MyProfile"),
+                    redirect: routeRoutes.myOrders,
+                  },
+                  {
+                    id: 2,
                     content: t("Navbar.MyCourses"),
                     redirect: routeRoutes.myProfile,
                   },
+
                   // {
                   //   id: 2,
                   //   content: t("Navbar.MyOrders"),

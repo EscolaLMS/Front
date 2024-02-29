@@ -11,12 +11,9 @@ type Props = {
 const StyledHeader = styled.div<{ withTabs?: boolean }>`
   position: relative;
   z-index: 0;
-  padding: ${(props) =>
-    props.withTabs ? "105px 40px 90px 40px" : "165px 40px 30px 40px"};
-  background: ${({ theme }) =>
-    theme.mode === "dark"
-      ? theme.dm__cardBackgroundColor
-      : theme.cardBackgroundColor};
+  /* padding: ${(props) =>
+    props.withTabs ? "105px 40px 90px 40px" : "165px 40px 30px 40px"}; */
+
   border-radius: ${({ theme }) => theme.cardRadius};
   @media (max-width: 991px) {
     padding: 60px 20px 20px 20px;
