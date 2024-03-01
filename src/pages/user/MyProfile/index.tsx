@@ -1,10 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileCourses from "@/components/Profile/ProfileCourses";
-import ProfileCertificates from "@/components/Profile/ProfileCertificates";
-import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "@/hooks/useRoles";
 import { useSearchParams } from "@/hooks/useSearchParams";
@@ -65,8 +61,8 @@ const MyProfile = () => {
 
   return (
     <Layout>
-      <Container>
-        <Content>
+      <Content>
+        <Container>
           <div className="courses-wrapper">
             <Tabs
               onClick={(key) => {
@@ -77,12 +73,8 @@ const MyProfile = () => {
               defaultActiveKey={coursesTabs.defaultActiveKey}
             />
           </div>
-          <div className="certificates-container">
-            <Title level={2}>{t<string>("MyProfilePage.MyCertificates")}</Title>
-            <ProfileCertificates />
-          </div>
-        </Content>
-      </Container>
+        </Container>
+      </Content>
     </Layout>
   );
 };

@@ -8,8 +8,6 @@ import styled from "styled-components";
 import { useHistory, useLocation } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-
-import ContentLoader from "@/components/_App/ContentLoader";
 import { Col, Row } from "react-grid-system";
 
 import CourseCardItem from "./components/CourseCardItem";
@@ -17,6 +15,9 @@ import { CourseStatus } from "@/pages/user/MyProfile";
 import Pagination from "@/components/Common/Pagination";
 import { useSearchParams } from "@/hooks/useSearchParams";
 import routeRoutes from "@/components/Routes/routes";
+import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
+import { SwiperSlide } from "swiper/react";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 
 type CoursesState = Array<
   API.Course & { progress?: number; courseData?: API.CourseProgressItem }
@@ -34,24 +35,6 @@ const StyledList = styled.div`
     margin-bottom: 24px;
     a {
       text-decoration: none;
-    }
-  }
-
-  .slider-wrapper {
-    width: 100%;
-    display: flex;
-    overflow: scroll;
-    column-gap: 15px;
-
-    @media (max-width: 575px) {
-      width: calc(100% + 15px);
-      margin-right: -15px;
-    }
-
-    .single-slide {
-      width: 272px;
-      max-width: 272px;
-      flex-shrink: 0;
     }
   }
 `;
@@ -128,7 +111,7 @@ const ProfileCourses = ({
   useEffect(() => {
     fetchPaginatedProgress({
       page: page ? parseInt(page) : 1,
-      per_page: 6,
+      per_page: 8,
       status: getStatusName(Number(status)),
     });
 
@@ -193,11 +176,7 @@ const ProfileCourses = ({
     <StyledList>
       {!isMobile ? (
         <>
-          <Row
-            style={{
-              gap: "28px 0",
-            }}
-          >
+          <Row>
             {coursesToMap.length === 0 &&
               !paginatedProgress.loading &&
               !myAuthoredCourses.loading && (
@@ -216,15 +195,17 @@ const ProfileCourses = ({
                   </Button>
                 </StyledEmptyInfo>
               )}
-            {paginatedProgress.loading || myAuthoredCourses.loading ? (
-              <ContentLoader />
-            ) : (
-              coursesToMap.map((item) => (
-                <Col md={4} key={item.id}>
-                  <CourseCardItem course={item} />
-                </Col>
-              ))
-            )}
+            {paginatedProgress.loading || myAuthoredCourses.loading
+              ? Array.from({ length: 8 }).map((_, index) => (
+                  <Col md={3} key={`skeleton-card-${index}`}>
+                    <CourseCardSkeleton />
+                  </Col>
+                ))
+              : coursesToMap.map((item) => (
+                  <Col md={3} key={item.id}>
+                    <CourseCardItem course={item} />
+                  </Col>
+                ))}
           </Row>
           <PaginationWrapper>
             <Pagination
@@ -239,14 +220,14 @@ const ProfileCourses = ({
           </PaginationWrapper>
         </>
       ) : (
-        <div className="slider-wrapper">
+        <SwiperSlider>
           {coursesToMap &&
             coursesToMap.map((item) => (
-              <div key={item.id} className="single-slide">
+              <SwiperSlide key={item.id} className="single-slide">
                 <CourseCardItem course={item} />
-              </div>
+              </SwiperSlide>
             ))}
-        </div>
+        </SwiperSlider>
       )}
     </StyledList>
   );

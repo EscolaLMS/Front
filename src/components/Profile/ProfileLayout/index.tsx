@@ -8,6 +8,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import { isMobile } from "react-device-detect";
 
 type Props = {
   children: ReactNode;
@@ -54,10 +55,13 @@ const ProfileLayout: React.FC<Props> = ({
       <StyledProfile>
         <Container>
           <Row>
-            <Col lg={3}>
-              <ProfileAside />
-            </Col>
-            <Col offset={{ lg: 1 }} lg={8}>
+            {!isMobile && (
+              <Col lg={3}>
+                <ProfileAside />
+              </Col>
+            )}
+
+            <Col offset={{ lg: 1 }} lg={isMobile ? 12 : 8}>
               <ProfileHeader
                 title={title}
                 withTabs={withTabs}

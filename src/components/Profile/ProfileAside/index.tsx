@@ -4,12 +4,10 @@ import styled, { useTheme } from "styled-components";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { NavLink, useHistory } from "react-router-dom";
-import { API } from "@escolalms/sdk/lib";
 import UserSidebar from "@/components/Profile/UserSidebar";
-import { HeaderUser, ProgressTropy, UserIcon } from "../../../icons";
+import { HeaderUser, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import ProfileAsideCollapse from "../ProfileAsideCollapse";
 import AvatarUpload from "../AvatarUpload";
 import routeRoutes from "@/components/Routes/routes";
 
@@ -96,71 +94,6 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
   }
 `;
 
-const SingleProgress = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-
-  &:not(:last-child) {
-    margin-bottom: ${isMobile ? 0 : "14px"};
-    margin-right: ${isMobile ? "10px" : 0};
-  }
-  .number {
-    color: ${({ theme }) => theme.primaryColor};
-  }
-  .label {
-    margin-left: ${isMobile ? 0 : "11px"};
-    margin-top: 10px;
-    position: relative;
-    font-size: 14px;
-    line-height: 1.2;
-    font-weight: 700;
-    max-width: ${isMobile ? "80px" : "unset"};
-  }
-
-  .list-box {
-    padding: 0;
-    list-style: none;
-    width: 100%;
-    grid-column: 1/3;
-    font-family: "Mulish", sans-serif;
-  }
-
-  .list-box-item {
-    font-size: 14px;
-
-    :not(:last-child) {
-      margin-bottom: 16px;
-    }
-
-    &__time {
-      color: ${({ theme }) =>
-        theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
-      opacity: 0.6;
-      margin: 0;
-      display: flex;
-      align-items: center;
-
-      &:first-of-type {
-        margin-top: 8px;
-      }
-
-      svg {
-        width: 12px;
-        height: auto;
-        fill: ${({ theme }) =>
-          theme.mode === "dark" ? theme.dm__textColor : theme.textColor};
-        opacity: 0.6;
-      }
-    }
-
-    &__value {
-      font-size: 12px;
-      line-height: 1.5;
-      margin-left: 4px;
-    }
-  }
-`;
-
 const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
   padding: 17px 15px;
   box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
@@ -190,40 +123,15 @@ const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
 
 const ProfileAside: React.FC = () => {
   const [menuOpened, setMenuOpened] = useState(false);
-  const { user, logout, certificates, progress, fetchProgress } =
-    useContext(EscolaLMSContext);
+  const { user, logout, fetchProgress } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
-
-  const computedTime = (seconds?: number) => {
-    if (!seconds) return "-";
-
-    let secs = seconds;
-
-    const hours = Math.trunc(seconds / 3600);
-    if (hours >= 1) secs -= hours * 3600;
-
-    const minutes = Math.trunc(seconds / 60);
-    if (minutes >= 1) secs -= minutes * 60;
-
-    return `
-        ${hours >= 1 ? hours + "h " : ""}${
-      minutes >= 1 ? minutes + "min " : ""
-    }${secs >= 1 ? secs + "s" : ""}
-    `;
-  };
 
   useEffect(() => {
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const finishedCourses = useMemo(() => {
-    return (progress.value || []).filter(
-      (course: API.CourseProgressItem) => course.finish_date
-    );
-  }, [progress]);
 
   const mainTabs: NavigationTab[] = useMemo(
     () => [
@@ -236,6 +144,11 @@ const ProfileAside: React.FC = () => {
         key: "EDIT",
         title: t("MyProfilePage.EditData"),
         url: routeRoutes.myData,
+      },
+      {
+        key: "CERS",
+        title: t("MyProfilePage.MyCertificates"),
+        url: routeRoutes.myCertificates,
       },
       {
         key: "COURSES",
@@ -287,82 +200,6 @@ const ProfileAside: React.FC = () => {
             </nav>
           </UserSidebar>
         </div>
-        {/* <div className="user-progress sidebar">
-        <UserSidebar
-          title={t("MyProfilePage.MyProgress")}
-          icon={<ProgressTropy />}
-        >
-          <div className="progress-container">
-            <SingleProgress>
-              <Title className="number" level={1}>
-                {finishedCourses.length}
-              </Title>
-              <Text className="label">
-                {t<string>("MyProfilePage.FinishedCourses")}
-              </Text>
-
-              <ul className="list-box">
-                {finishedCourses.map((finishedCourse, index) => (
-                  <li className="list-box-item">
-                    <ProfileAsideCollapse
-                      initialValue={index === 0}
-                      headerTitle={finishedCourse.course.title}
-                      headerClassName="list-box-item__title"
-                    >
-                      {finishedCourse.start_date && finishedCourse.finish_date && (
-                        <p className="list-box-item__time">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z" />
-                          </svg>
-
-                          <span className="list-box-item__value">
-                            {new Date(
-                              finishedCourse.start_date
-                            ).toLocaleDateString()}
-                            {" - "}
-                            {new Date(
-                              finishedCourse.finish_date
-                            ).toLocaleDateString()}
-                          </span>
-                        </p>
-                      )}
-
-                      <p className="list-box-item__time">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M6 14h6v-6c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6zm16 0c0 5.523-4.478 10-10 10s-10-4.477-10-10 4.478-10 10-10 10 4.477 10 10zm-2 0c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8 8-3.589 8-8zm-6-11.819v-2.181h-4v2.181c1.408-.238 2.562-.243 4 0zm6.679 3.554l1.321-1.321-1.414-1.414-1.407 1.407c.536.402 1.038.844 1.5 1.328z" />
-                        </svg>
-
-                        <span className="list-box-item__value">
-                          {computedTime(finishedCourse.total_spent_time)}
-                        </span>
-                      </p>
-                    </ProfileAsideCollapse>
-                  </li>
-                ))}
-              </ul>
-            </SingleProgress>
-
-            <SingleProgress>
-              <Title className="number" level={1}>
-                {certificates.list?.data.length}
-              </Title>
-              <Text className="label">
-                {t<string>("MyProfilePage.TotalCertificates")}
-              </Text>
-            </SingleProgress>
-          </div>
-        </UserSidebar>
-      </div> */}
       </StyledAside>
       <StyledAside opened={menuOpened}>
         <div className="user-main-sidebar">
