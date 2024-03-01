@@ -30,7 +30,7 @@ const GetCertificate: React.FC<Props> = ({ courseId }) => {
 
   return (
     <StyledActionButton onClick={handleGenerateCertificate}>
-      <IconCertificate /> Pobierz certyfikat{" "}
+      <IconCertificate /> {t("MyProfilePage.DownloadCertificate")}{" "}
       {loadingId > -1 && <ContentLoader width="10px" height="10px" />}
     </StyledActionButton>
   );

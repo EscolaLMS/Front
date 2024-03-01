@@ -16,7 +16,6 @@ const StyledHeader = styled.div<{ withTabs?: boolean }>`
 
   border-radius: ${({ theme }) => theme.cardRadius};
   @media (max-width: 991px) {
-    padding: 60px 20px 20px 20px;
     margin-bottom: 20px;
   }
 
@@ -30,7 +29,7 @@ const StyledHeader = styled.div<{ withTabs?: boolean }>`
 const ProfileHeader: React.FC<Props> = ({ title, withTabs, actions }) => {
   return (
     <StyledHeader withTabs={withTabs}>
-      <Title level={1}>{title}</Title>
+      <Title level={2}>{title}</Title>
       {actions && <div className="actions">{actions}</div>}
     </StyledHeader>
   );

@@ -282,6 +282,7 @@ const resources = {
         ForgotSuccess: "We send a email for password reset",
       },
       MyProfilePage: {
+        DownloadCertificate: "Download certificate",
         Avatar: "Select file to replace Avatar",
         Archived: "Archived",
         Upcoming: "Upcoming",
@@ -911,6 +912,7 @@ const resources = {
         UserProfile: "Twój profil",
       },
       MyProfilePage: {
+        DownloadCertificate: "Pobierz certyfikat",
         InvoiceTitle: "Faktura za zamówienie nr",
         Invoice: "Pobierz",
         Archived: "Archiwalne",

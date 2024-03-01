@@ -32,6 +32,9 @@ const StyledProfile = styled.section`
       margin-left: 40px;
     }
   }
+  @media (max-width: 767px) {
+    padding-top: 80px;
+  }
 `;
 
 const ProfileLayout: React.FC<Props> = ({

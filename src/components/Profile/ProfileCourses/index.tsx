@@ -221,7 +221,18 @@ const ProfileCourses = ({
         </>
       ) : (
         <SwiperSlider>
-          {coursesToMap &&
+          {paginatedProgress.loading &&
+            myAuthoredCourses.loading &&
+            Array.from({ length: 8 }).map((_, index) => (
+              <SwiperSlide
+                className="single-slide"
+                key={`skeleton-card-${index}`}
+              >
+                <CourseCardSkeleton />
+              </SwiperSlide>
+            ))}
+          {(!paginatedProgress.loading || !myAuthoredCourses.loading) &&
+            coursesToMap &&
             coursesToMap.map((item) => (
               <SwiperSlide key={item.id} className="single-slide">
                 <CourseCardItem course={item} />

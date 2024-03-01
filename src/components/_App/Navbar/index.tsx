@@ -215,6 +215,28 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
+const StyledMobileDrawerNavigation = styled.div`
+  padding-top: 35px;
+  ul {
+    li {
+      list-style: none;
+      &:not(:last-of-type) {
+        margin-bottom: 30px;
+      }
+      button {
+        all: unset;
+      }
+      a,
+      button {
+        color: ${({ theme }) => theme.textColor};
+        font-family: ${({ theme }) => theme.font};
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+`;
+
 const Navbar = () => {
   const { t } = useTranslation();
   const { handleLanguageChange } = useLanguage();
@@ -361,37 +383,39 @@ const Navbar = () => {
           onClose={() => setShowMobileDrawer(false)}
           height={"40vh"}
         >
-          <ul>
-            <li>
-              <NavLink to={routeRoutes.myProfile}>
-                {t("Navbar.MyCourses")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={routeRoutes.myCertificates}>
-                {t("Navbar.MyCertificates")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={routeRoutes.myOrders}>
-                {t("Navbar.MyOrders")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={routeRoutes.myData}>
-                {t("Navbar.EditProfile")}
-              </NavLink>
-            </li>
-            <li>
-              <button
-                onClick={() =>
-                  logout().then(() => history.push(routeRoutes.home))
-                }
-              >
-                {t("Navbar.Logout")}
-              </button>
-            </li>
-          </ul>
+          <StyledMobileDrawerNavigation>
+            <ul>
+              <li>
+                <NavLink to={routeRoutes.myProfile}>
+                  {t("Navbar.MyCourses")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myCertificates}>
+                  {t("Navbar.MyCertificates")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myOrders}>
+                  {t("Navbar.MyOrders")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myData}>
+                  {t("Navbar.EditProfile")}
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    logout().then(() => history.push(routeRoutes.home))
+                  }
+                >
+                  {t("Navbar.Logout")}
+                </button>
+              </li>
+            </ul>
+          </StyledMobileDrawerNavigation>
         </MobileDrawer>
       </StyledHeader>
     );
