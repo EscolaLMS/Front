@@ -11,6 +11,7 @@ export const SubheaderWrapper = styled.div`
   box-shadow: 0px 3px 6px #0000000b;
   background-color: #ffffff;
   padding: 0px 26px;
+  gap: 8px;
 `;
 
 export const SubheaderTitle = styled(Title)`
@@ -31,4 +32,8 @@ export const SubheaderTitle = styled(Title)`
 
 export const ProgressBarContainer = styled.div`
   width: 100%;
+
+  .percentage-value {
+    color: ${({ theme: { positive } }) => positive};
+  }
 `;

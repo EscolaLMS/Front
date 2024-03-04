@@ -21,16 +21,20 @@ export const Subheader = () => {
   );
   const progress =
     ((finishedTopicsIds ?? []).length / (flatTopics ?? []).length) * 100;
-  console.log("progress: ", progress);
+
   return (
     <SubheaderWrapper>
-      <SubheaderTitle level={2}>
-        <span>{parentLesson?.title || currentLesson?.title || ""}</span>{" "}
-        {currentTopic?.title}
-      </SubheaderTitle>
-      {/* TODO: Progress bar */}
       <ProgressBarContainer>
-        <ProgressBar currentProgress={progress} maxProgress={100} hideLabel />
+        <ProgressBar
+          currentProgress={progress}
+          maxProgress={100}
+          label={
+            <SubheaderTitle level={2}>
+              <span>{parentLesson?.title || currentLesson?.title || ""}</span>{" "}
+              {currentTopic?.title}
+            </SubheaderTitle>
+          }
+        />
       </ProgressBarContainer>
     </SubheaderWrapper>
   );

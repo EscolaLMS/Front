@@ -52,13 +52,19 @@ const DISABLE_NEXT_BUTTON_TYPES = [
   API.TopicType.Video,
   API.TopicType.Project,
   API.TopicType.GiftQuiz,
+  API.TopicType.Pdf,
 ];
 
 const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const { sendProgress, program, fetchProgram, progress, fetchProgress } =
-    useContext(EscolaLMSContext);
+  const {
+    sendProgress,
+    program,
+    fetchProgram,
+    courseProgressDetails,
+    fetchCourseProgress,
+  } = useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, setIsNextTopicButtonDisabled] =
     useState(false);
 
@@ -68,6 +74,8 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     lessonID: paramLessonId,
     topicID: paramTopicId,
   } = useParams<CourseParams>();
+  const currentCourseProgress = courseProgressDetails.byId?.[courseId];
+  // console.log('courseProgressDetails: ', courseProgressDetails.byId?.[courseId]);
 
   const currentCourseProgram = useMemo(() => program.value, [program.value]);
 
@@ -125,14 +133,6 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     [findLessonById, currentTopic]
   );
 
-  const currentCourseProgress = useMemo(
-    () =>
-      (progress.value ?? []).find(
-        ({ course }) => course.id === Number(courseId)
-      ),
-    [progress, courseId]
-  );
-
   const completeCurrentTopic = useCallback(() => {
     if (currentCourseProgram?.id === undefined) return;
     if (currentTopic?.id === undefined) return;
@@ -148,7 +148,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
 
   const finishedTopicsIds = useMemo(
     () =>
-      (currentCourseProgress?.progress ?? []).reduce<number[]>(
+      (currentCourseProgress?.value ?? []).reduce<number[]>(
         (acc, { status, topic_id }) =>
           status === API.CourseProgressItemElementStatus.COMPLETE
             ? [...acc, topic_id]
@@ -174,7 +174,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         incomplete: number[];
       }>(
         (acc, t) => {
-          const el = (currentCourseProgress?.progress ?? []).find(
+          const el = (currentCourseProgress?.value ?? []).find(
             ({ topic_id }) => topic_id === t.id
           );
           if (!el) return acc;
@@ -201,7 +201,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
 
     const firstInCompletedLessonId = incomplete?.[0] ? [incomplete[0]] : [];
     return [...complete, ...firstInCompletedLessonId];
-  }, [currentCourseProgram?.lessons, currentCourseProgress?.progress]);
+  }, [currentCourseProgram?.lessons, currentCourseProgress?.value]);
 
   const currentLessonParentsIds: number[] = useMemo(() => {
     if (!currentLesson) return [];
@@ -216,15 +216,18 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   }, [courseId, fetchProgram]);
 
   useEffect(() => {
-    if (!paramTopicId) return;
+    if (!courseId) return;
 
-    fetchProgress();
-  }, [fetchProgress, paramTopicId]);
+    fetchCourseProgress(Number(courseId));
+  }, [fetchCourseProgress, courseId]);
 
   // disable next button
   useEffect(() => {
     if (!currentTopic?.topicable_type) return;
-
+    console.log(
+      "TEsT: ",
+      DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type)
+    );
     setIsNextTopicButtonDisabled(
       DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type)
     );
@@ -233,18 +236,18 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   const isCourseFinished = useMemo(
     () =>
       Boolean(
-        currentCourseProgress?.progress &&
-          currentCourseProgress?.progress.every(
+        currentCourseProgress?.value &&
+          currentCourseProgress?.value.every(
             ({ status }) =>
               status === API.CourseProgressItemElementStatus.COMPLETE
           )
       ),
-    [currentCourseProgress?.progress]
+    [currentCourseProgress?.value]
   );
 
   const isAnyDataLoading = useMemo(
-    () => program.loading || progress.loading,
-    [program.loading, progress.loading]
+    () => program.loading || currentCourseProgress?.loading,
+    [program.loading, currentCourseProgress?.loading]
   );
 
   return (

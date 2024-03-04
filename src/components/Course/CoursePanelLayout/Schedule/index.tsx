@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { isMobile } from "react-device-detect";
+import { useHistory } from "react-router-dom";
+import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import {
@@ -9,15 +10,12 @@ import {
   CourseScheduleWrapper,
 } from "@/components/Course/CoursePanelLayout/Schedule/styles";
 import { SubheaderTitle } from "@/components/Course/CoursePanelLayout/Subheader/styles";
-import { userIsCourseAuthor } from "@/utils/index";
 import { useCoursePanel } from "@/components/Course/Context";
-import { useHistory } from "react-router-dom";
 
 export const CourseSchedule = () => {
   const { t } = useTranslation();
   const { user } = useContext(EscolaLMSContext);
   const {
-    // flatTopics,
     currentTopic,
     finishedTopicsIds,
     availableTopicsIds,
@@ -40,15 +38,11 @@ export const CourseSchedule = () => {
               ({ id }) => id === user.value?.id
             )
           }
-          onNextTopicClick={() => {
-            console.log("Next topic clicked");
-          }}
-          mobile={isMobile}
           lessons={currentCourseProgram?.lessons || []}
           currentTopicId={Number(currentTopic?.id)}
           finishedTopicIds={finishedTopicsIds ?? []}
           onMarkFinished={() => console.log("onMarkFinished")}
-          onTopicClick={(topic) => {
+          onTopicClick={(topic: API.Topic) => {
             history.push(`/course/${courseId}/${topic.lesson_id}/${topic.id}`);
           }}
           onCourseFinished={() => console.log("onCourseFinished")}

@@ -186,19 +186,7 @@ export const CourseProgramLessons: React.FC<{
           <Col lg={9}>
             {showFinishModal && <CourseFinishModal courseId={courseId} />}
             {!showFinishModal && (
-              <CourseProgramPlayer
-                lesson={lesson}
-                topic={topic}
-                onXAPI={onXAPI}
-                disableNextTopicButton={disableNextTopicButton}
-                getNextPrevTopic={getNextPrevTopic}
-                onAudioEnd={onAutoCompleteTopic}
-                onVideoEnd={onAutoCompleteTopic}
-                onPdfEnd={onAutoCompleteTopic}
-                onQuizEnd={onAutoCompleteTopic}
-                onProjectEnd={onAutoCompleteTopic}
-                onProjectsChange={onProjectsChange}
-              />
+              <CourseProgramPlayer lesson={lesson} topic={topic} />
             )}
           </Col>
           <Col lg={3}>

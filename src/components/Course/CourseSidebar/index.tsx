@@ -193,25 +193,25 @@ export const CourseSidebar: React.FC<{
             Number(user.value?.id),
             course
           )}
-          onNextTopicClick={() => {
-            const currentTopicIndex = flatTopics.findIndex(
-              (t) => t.id === topicId
-            );
-            const nextTopic = flatTopics?.[currentTopicIndex + 1];
+          // onNextTopicClick={() => {
+          //   const currentTopicIndex = flatTopics.findIndex(
+          //     (t) => t.id === topicId
+          //   );
+          //   const nextTopic = flatTopics?.[currentTopicIndex + 1];
 
-            if (nextTopic && currentTopicIndex !== -1) {
-              history.push(
-                `/course/${course.id}/${nextTopic.lesson_id}/${nextTopic.id}`
-              );
-              setAgendaVisible(false);
-            }
-          }}
-          mobile={isMobile}
+          //   if (nextTopic && currentTopicIndex !== -1) {
+          //     history.push(
+          //       `/course/${course.id}/${nextTopic.lesson_id}/${nextTopic.id}`
+          //     );
+          //     setAgendaVisible(false);
+          //   }
+          // }}
+          // mobile={isMobile}
           lessons={course.lessons}
           currentTopicId={topicId}
           finishedTopicIds={finishedTopics}
           onMarkFinished={() => onCompleteTopic?.()}
-          onTopicClick={(topic) => {
+          onTopicClick={(topic: API.Topic) => {
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
           }}

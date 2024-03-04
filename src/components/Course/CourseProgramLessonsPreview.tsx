@@ -40,11 +40,7 @@ export const CourseProgramLessonsPreview: React.FC<{
                     ...((topic?.json?.wrapperStyle as object) || {}),
                   }}
                 >
-                  <CourseProgramContent
-                    preview={true}
-                    topic={topic}
-                    isThereAnotherTopic={!!getNextPrevTopic(Number(topic?.id))}
-                  />
+                  <CourseProgramContent preview={true} topic={topic} />
                 </div>
               </div>
 

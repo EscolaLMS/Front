@@ -19,6 +19,6 @@ export const CourseScheduleTitle = styled.div`
 
 export const CourseScheduleContent = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 100px);
   overflow-y: auto;
 `;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { XAPIEvent } from "@escolalms/h5p-react";
 import TextPlayer from "./Players/TextPlayer";
@@ -8,14 +8,12 @@ import { AudioVideoPlayer } from "@escolalms/components/lib/components/players/A
 import { OEmbedPlayer } from "@escolalms/components/lib/components/players/OEmbedPlayer/OEmbedPlayer";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlayer/PdfPlayer";
-import {
-  ProjectPlayer,
-  ProjectsData,
-} from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
+import { ProjectPlayer } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
 import styled from "styled-components";
 import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
+import { useCoursePanel } from "@/components/Course/Context";
 
 const StyledPdfPlayer = styled(PdfPlayer)`
   .course-pdf-player {
@@ -29,51 +27,86 @@ const StyledPdfPlayer = styled(PdfPlayer)`
 
 export const CourseProgramContent: React.FC<{
   topic: API.Topic | undefined;
-  isThereAnotherTopic?: boolean;
   preview?: boolean;
-  disableNextTopicButton?: (b: boolean) => void;
-  onXAPI?: (event: XAPIEvent) => void;
-  onVideoEnd?: () => void;
-  onAudioEnd?: () => void;
-  onPdfEnd?: () => void;
-  onQuizEnd?: () => void;
-  onProjectEnd?: () => void;
-  onProjectsChange?: (projects: ProjectsData) => void;
-}> = ({
-  topic,
-  preview = false,
-  disableNextTopicButton,
-  isThereAnotherTopic = true,
-  onXAPI,
-  onVideoEnd,
-  onAudioEnd,
-  onPdfEnd,
-  onQuizEnd,
-  onProjectEnd,
-  onProjectsChange,
-}) => {
-  const { program, topicPing, topicIsFinished } = useContext(EscolaLMSContext);
+}> = ({ topic, preview = false }) => {
+  const { courseId, nextTopic, setIsNextTopicButtonDisabled } =
+    useCoursePanel();
+
+  const { topicPing, topicIsFinished, h5pProgress } =
+    useContext(EscolaLMSContext);
+
+  const isThereNextTopic = !!nextTopic;
+  const topicId = topic?.id;
+
+  const onXAPI = useCallback(
+    (event: XAPIEvent): void => {
+      if (isThereNextTopic) {
+        console.log(
+          1,
+          "onXapi isThereNextTopic: ",
+          !Boolean(event?.statement?.verb?.id),
+          event
+        );
+        setIsNextTopicButtonDisabled?.(!Boolean(event?.statement?.verb?.id));
+      }
+
+      if (event?.statement) {
+        h5pProgress(
+          String(courseId),
+          Number(topicId),
+          event?.statement as API.IStatement
+        );
+      }
+    },
+    [
+      isThereNextTopic,
+      setIsNextTopicButtonDisabled,
+      h5pProgress,
+      courseId,
+      topicId,
+    ]
+  );
 
   useEffect(() => {
-    const isTopicFinished = topic?.id && topicIsFinished(topic.id);
-
-    isThereAnotherTopic &&
-      disableNextTopicButton &&
+    const isTopicFinished = Boolean(topicId && topicIsFinished(topicId));
+    console.log(
+      2,
+      "useEffect: ",
+      isThereNextTopic,
+      isTopicFinished,
+      !isTopicFinished && !Boolean(topic?.can_skip)
+    );
+    isThereNextTopic &&
       isTopicFinished &&
-      disableNextTopicButton(!isTopicFinished && !topic?.can_skip);
-  }, [disableNextTopicButton, topic, isThereAnotherTopic, topicIsFinished]);
+      setIsNextTopicButtonDisabled?.(
+        !isTopicFinished && !Boolean(topic?.can_skip)
+      );
+  }, [
+    setIsNextTopicButtonDisabled,
+    topicId,
+    topic?.can_skip,
+    isThereNextTopic,
+    topicIsFinished,
+  ]);
 
   useEffect(() => {
     if (!preview) {
       const ping = () =>
-        topic?.id && !topicIsFinished(topic?.id) && topicPing(topic?.id);
+        topicId && !topicIsFinished(topicId) && topicPing(topicId);
+
       const interval = setInterval(() => {
         ping();
       }, 5000);
+
       ping();
       return () => clearInterval(interval);
     }
-  }, [topicPing, preview, topic?.id, topicIsFinished]);
+  }, [topicPing, topicId, topicIsFinished, preview]);
+
+  const enableNextButton = useCallback(
+    () => setIsNextTopicButtonDisabled?.(false),
+    [setIsNextTopicButtonDisabled]
+  );
 
   if (!topic) {
     return <React.Fragment />;
@@ -114,7 +147,7 @@ export const CourseProgramContent: React.FC<{
             mobile={isMobile}
             url={topic.topicable.url}
             light
-            onTopicEnd={onVideoEnd}
+            onTopicEnd={enableNextButton}
           />
         );
       case API.TopicType.Image:
@@ -126,7 +159,7 @@ export const CourseProgramContent: React.FC<{
             audio
             url={topic.topicable.url}
             light
-            onTopicEnd={onAudioEnd}
+            onTopicEnd={enableNextButton}
           />
         );
 
@@ -138,7 +171,7 @@ export const CourseProgramContent: React.FC<{
               renderMode: "svg",
               className: "course-pdf-player",
             }}
-            onTopicEnd={onPdfEnd}
+            onTopicEnd={enableNextButton}
           />
         );
 
@@ -153,14 +186,14 @@ export const CourseProgramContent: React.FC<{
         );
 
       case API.TopicType.GiftQuiz:
-        return <GiftQuizPlayer topic={topic} onTopicEnd={onQuizEnd} />;
+        return <GiftQuizPlayer topic={topic} onTopicEnd={enableNextButton} />;
       case API.TopicType.Project:
         return (
           <ProjectPlayer
-            course_id={program.value?.id ?? 0}
+            course_id={Number(courseId)}
             topic={topic}
-            onSuccess={onProjectEnd}
-            onProjectsChange={onProjectsChange}
+            onSuccess={enableNextButton}
+            onProjectsChange={enableNextButton}
           />
         );
       default:
