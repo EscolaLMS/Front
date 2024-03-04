@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { API } from "@escolalms/sdk/lib";
@@ -9,6 +9,7 @@ import { NoteAction } from "@escolalms/components/lib/components/atoms/NoteActio
 import styled, { useTheme } from "styled-components";
 import { DownloadIcon } from "../../../icons";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
+import { useCertificateDownload } from "@/hooks/useDownloadCertificate";
 
 type CertType = API.Certificate;
 
@@ -41,42 +42,14 @@ const CertificatesList = styled.section`
 `;
 
 const ProfileCertificates: React.FC = () => {
-  const { generateCertificate, certificates, fetchCertificates } =
-    useContext(EscolaLMSContext);
+  const { certificates, fetchCertificates } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const theme = useTheme();
-  const [loadingId, setLoadingId] = useState<number>(-1);
+  const { downloadCertificate, loadingId } = useCertificateDownload();
 
   useEffect(() => {
     fetchCertificates();
   }, [fetchCertificates]);
-
-  const downloadCertificate = useCallback(
-    async (id: number, title?: string) => {
-      setLoadingId(id);
-      try {
-        const response = await generateCertificate(id);
-        if (response) {
-          // create hidden link
-          const element = document.createElement("a");
-          document.body.appendChild(element);
-          element.setAttribute(
-            "href",
-            URL.createObjectURL(new Blob([response]))
-          );
-          element.setAttribute("download", `${title || "Certificate"}.pdf`);
-          element.style.display = "";
-          element.click();
-          document.body.removeChild(element);
-          setLoadingId(-1);
-        }
-      } catch (error) {
-        setLoadingId(-1);
-        console.log(error);
-      }
-    },
-    [generateCertificate]
-  );
 
   return (
     <>

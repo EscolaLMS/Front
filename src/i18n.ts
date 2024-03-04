@@ -282,11 +282,12 @@ const resources = {
         ForgotSuccess: "We send a email for password reset",
       },
       MyProfilePage: {
+        DownloadCertificate: "Download certificate",
         Avatar: "Select file to replace Avatar",
         Archived: "Archived",
         Upcoming: "Upcoming",
         InvoiceTitle: "Invoice for order no",
-        Invoice: "Invoice",
+        Invoice: "Download",
         OrdersEmpty: "You have not placed any orders yet",
         MyCourses: "My courses",
         MyTasks: "My tasks",
@@ -515,7 +516,9 @@ const resources = {
           "You have been added to the group",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "You have been removed from the group",
+        "EscolaLms\\BulkNotifications\\Events\\NotificationSent": "{{name}}",
         AccountConfirmed: "Account confirmed",
+
         ProductableAttached: "Productable attached???",
         ProductBought: "Product bought",
         ProductAttached: "Product attached",
@@ -523,6 +526,10 @@ const resources = {
         CreateBookmark: "Bookmark created",
         DeleteBookmark: "Bookmark deleted",
         Deleted: "Deleted successfully",
+
+        notifications: "Notifications",
+        readAll: "Read all",
+        empty: "You have no notifications",
       },
       Header: {
         Register: "Register",
@@ -910,8 +917,9 @@ const resources = {
         UserProfile: "Twój profil",
       },
       MyProfilePage: {
+        DownloadCertificate: "Pobierz certyfikat",
         InvoiceTitle: "Faktura za zamówienie nr",
-        Invoice: "Rachunek",
+        Invoice: "Pobierz",
         Archived: "Archiwalne",
         Upcoming: "Nadchodzące",
         OrdersEmpty: "Nie złożyłeś jeszcze żadnych zamówień",
@@ -1121,6 +1129,7 @@ const resources = {
         "EscolaLms\\Auth\\Events\\UserAddedToGroup": "Zostałeś dodany do grupy",
         "EscolaLms\\Auth\\Events\\UserRemovedFromGroup":
           "Zostałeś usunięty z grupy",
+        "EscolaLms\\BulkNotifications\\Events\\NotificationSent": "{{name}}",
         AccountConfirmed: "Konto potwierdzone",
         ProductAddedToCart: "Produkt dodany do koszyka",
         ProductRemovedFromCart: "Produkt usunięty z koszyka",
@@ -1131,6 +1140,9 @@ const resources = {
         CreateBookmark: "Stworzono zakładkę",
         DeleteBookmark: "Usunięto zakładkę",
         Deleted: "Usunięto pomyślnie",
+        notifications: "Powiadomienia",
+        readAll: "Oznacz wszystkie jako przeczytane",
+        empty: "Brak powiadomień",
       },
       Header: {
         Register: "Zarejestruj",

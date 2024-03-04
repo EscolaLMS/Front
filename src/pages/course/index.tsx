@@ -1,35 +1,35 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 // import { useParams } from "react-router-dom";
-import { API } from "@escolalms/sdk/lib";
+// import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Preloader from "@/components/Preloader";
+// import Preloader from "@/components/_App/Preloader";
 import Layout from "@/components/_App/Layout";
 
-// import CourseProgramLessons from "@/components/Course/CourseProgramLessons";
-import ErrorBox from "@/components/Errorbox";
-import { t } from "i18next";
-import ScormPlayer from "@/components/Course/Players/ScormPlayer";
-import { CoursePanel } from "@/components/Course";
+// import CourseProgramLessons from "@/components/Courses/Course/CourseProgramLessons";
+// import ErrorBox from "@/components/Common/Errorbox";
+// import { t } from "i18next";
+// import ScormPlayer from "@/components/Courses/Course/Players/ScormPlayer";
+import { CoursePanel } from "@/components/Courses/Course";
 
-const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
-  program,
-}) => {
-  const sco = program?.scorm_sco;
-  const uuid = sco?.uuid;
+// const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
+//   program,
+// }) => {
+//   const sco = program?.scorm_sco;
+//   const uuid = sco?.uuid;
 
-  if (!sco && !uuid) {
-    return <React.Fragment />;
-  }
+//   if (!sco && !uuid) {
+//     return <React.Fragment />;
+//   }
 
-  return (
-    <ScormPlayer
-      value={{
-        title: sco.title,
-        uuid: sco.uuid,
-      }}
-    />
-  );
-};
+//   return (
+//     <ScormPlayer
+//       value={{
+//         title: sco.title,
+//         uuid: sco.uuid,
+//       }}
+//     />
+//   );
+// };
 
 const CourseProgram = () => {
   // const { id } = useParams<{ id: string }>();

@@ -8,9 +8,9 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.120",
+    "@escolalms/components": "^0.0.122",
     "@escolalms/h5p-react": "^0.2.10",
-    "@escolalms/sdk": "^0.5.21",
+    "@escolalms/sdk": "^0.5.20",
     "@escolalms/ts-models": "^0.0.35",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
@@ -50,7 +50,8 @@
     "styled-components": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.1",
     "webfontloader": "^1.6.28",
-    "react-loading-skeleton": "^3.4.0"
+    "react-loading-skeleton": "^3.4.0",
+    "react-infinite-scroll-hook": "^4.1.1"
   },
   "scripts": {
     "start": " vite",

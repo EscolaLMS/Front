@@ -15,7 +15,7 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const StyledRegisterPage = styled.div`

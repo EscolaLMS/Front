@@ -8,8 +8,10 @@ import * as Sentry from "@sentry/react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceScreen";
 import "react-loading-skeleton/dist/skeleton.css";
+import themes from "@escolalms/components/lib/theme";
+
 const Customizer = lazy(
-  () => import("./components/ThemeCustomizer/ThemeCustomizer")
+  () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
 );
 
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
   }
   #root {
     height: 100%;
@@ -50,18 +53,25 @@ const StyledMain = styled.main<{ noPadding?: boolean }>`
   padding-top: ${({ noPadding }) =>
     noPadding ? "0px" : isMobile ? "92px" : "57px"};
 `;
+
+const mapStringToTheme = (theme: string) => {
+  return themes[theme];
+};
+
 const App = () => {
-  const { fetchSettings, settings } = useContext(EscolaLMSContext);
+  const { fetchSettings, settings, fetchNotifications } =
+    useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchSettings();
-  }, [fetchSettings]);
+    fetchNotifications();
+  }, [fetchSettings, fetchNotifications]);
 
   return (
     <React.Fragment>
       <GlobalStyle />
       <StyledMain noPadding={settings?.value?.global?.technicalMaintenance}>
-        <Customizer />
+        <Customizer theme={mapStringToTheme(settings.value?.theme?.theme)} />
         {settings?.value?.global?.technicalMaintenance ? (
           <TechnicalMaintenanceScreen
             text={settings?.value?.global?.technicalMaintenanceText}

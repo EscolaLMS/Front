@@ -11,6 +11,9 @@ const StyledMobileDrawer = styled.div`
 `;
 
 const GlobalDrawer = createGlobalStyle<{ $height?: string }>`
+.drawer-handle {
+  display: none;
+}
   .mobile-drawer-drawer-wrapper { 
      height: ${({ $height }) => $height || "40vh"};
      min-height: 105px;
@@ -39,7 +42,6 @@ const MobileDrawer: React.FC<Props> = ({
       <Drawer
         open={isOpen} // @ts-ignore
         classNames={{
-          // @ts-ignore
           wrapper: "mobile-drawer-drawer-wrapper",
           content: "drawer-content",
         }}

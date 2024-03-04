@@ -5,8 +5,8 @@ import { Col, Row } from "react-grid-system";
 import { ConsultationStatus } from "../../../pages/user/my-consultations";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import ConsultationCard from "@/components/ConsultationCard";
-import ContentLoader from "@/components/ContentLoader";
+import ConsultationCard from "@/components/Consultations/ConsultationCard";
+import ContentLoader from "@/components/_App/ContentLoader";
 import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 
 interface ProfileConsultationsProps {

@@ -1,4 +1,9 @@
-import { EventTypes, Notification, Order } from "@escolalms/sdk/lib/types/api";
+import {
+  BulkNotificationSection,
+  EventTypes,
+  Notification,
+  Order,
+} from "@escolalms/sdk/lib/types/api";
 import { APP_CONFIG } from "@/config/app";
 import { formatDate } from "@/utils/date";
 import { API } from "@escolalms/sdk/lib";
@@ -29,6 +34,7 @@ export const getNotificationTranslationObject = (
 } => {
   const translationPrefix = "Notifications.";
   const translation = `${translationPrefix}${notification.event}`;
+
   switch (notification.event) {
     // STATIONARY EVENT
     case EventTypes.StationaryEventAuthorAssigned:
@@ -270,6 +276,17 @@ export const getNotificationTranslationObject = (
         object: {
           date:
             formatDate(notification.data.consultationTerm?.executed_at) || "",
+        },
+      };
+
+    case EventTypes.BulkNotification:
+      return {
+        translation,
+        object: {
+          name:
+            notification?.data?.notification?.sections?.find(
+              (s: BulkNotificationSection) => s.key === "title"
+            )?.value || "",
         },
       };
     default:

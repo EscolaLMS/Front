@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Layout from "@/components/_App/Layout";
 import { Loader } from "@/components/_App/Loader/Loader";
-import WebinarContent from "@/components/Webinar";
+import WebinarContent from "@/components/Webinars/Webinar";
 
 const WebinarPage = () => {
   const { fetchWebinar, webinar } = useContext(EscolaLMSContext);

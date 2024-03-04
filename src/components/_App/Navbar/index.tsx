@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
@@ -16,12 +16,14 @@ import {
 } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
+import NotificationsDrawer from "@/components/Notifications/drawer";
+import MobileDrawer from "@/components/_App/MobileDrawer";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -213,15 +215,39 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
+const StyledMobileDrawerNavigation = styled.div`
+  padding-top: 35px;
+  ul {
+    li {
+      list-style: none;
+      &:not(:last-of-type) {
+        margin-bottom: 30px;
+      }
+      button {
+        all: unset;
+      }
+      a,
+      button {
+        color: ${({ theme }) => theme.textColor};
+        font-family: ${({ theme }) => theme.font};
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+`;
+
 const Navbar = () => {
   const { t } = useTranslation();
   const { handleLanguageChange } = useLanguage();
-
+  const { notifications } = useContext(EscolaLMSContext);
   const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
   const user = userObj.value;
   const history = useHistory();
   const theme = useTheme();
   const { cart } = useCart();
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
   const menuItems = [
     {
@@ -246,7 +272,7 @@ const Navbar = () => {
     },
 
     {
-      title: user ? null : ( // </CustomMobileMenuItem> //   </Link> //     </Text> //       {user?.first_name} {user?.last_name} //     <Text noMargin bold> //   <Link to={routeRoutes.myProfile}> // <CustomMobileMenuItem>
+      title: user ? null : (
         <LastMobileMenuItem>
           <Button
             mode={"primary"}
@@ -282,55 +308,65 @@ const Navbar = () => {
             alt: "Logo",
           }}
           cart={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.cart)}
-                data-tooltip={String(cart.data?.items.length)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                <HeaderCard mode={theme.mode} />
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.cart)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderCard mode={theme.mode} />
 
-                {cart.data && cart.data.items?.length > 0 && (
-                  <span>{cart.data.items.length}</span>
-                )}
-              </button>
-            </div>
+                  {cart.data && cart.data.items?.length > 0 ? (
+                    <span>{cart.data.items.length}</span>
+                  ) : null}
+                </button>
+              </div>
+            ) : null
           }
           notification={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.myNotifications)}
-                data-tooltip={String(cart.data?.items.length)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                <HeaderNotification mode={theme.mode} />
-              </button>
-            </div>
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.myNotifications)}
+                  data-tooltip={String(notifications.list?.meta.total)}
+                  aria-label={t("CoursePage.Notifications")}
+                >
+                  <HeaderNotification mode={theme.mode} />
+                  {notifications.list?.meta.total &&
+                  notifications.list?.meta.total > 0 ? (
+                    <span>{notifications.list?.meta.total}</span>
+                  ) : null}
+                </button>
+              </div>
+            ) : null
           }
           profile={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.myProfile)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                {!!user?.avatar ? (
-                  <Avatar
-                    src={user.avatar}
-                    alt={user.first_name}
-                    size={"superSmall"}
-                    className="user-avatar"
-                  />
-                ) : (
-                  <ProfileIcon mode={theme.mode} />
-                )}
-              </button>
-            </div>
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => setShowMobileDrawer(true)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  {!!user?.avatar ? (
+                    <Avatar
+                      src={user.avatar}
+                      alt={user.first_name}
+                      size={"superSmall"}
+                      className="user-avatar"
+                    />
+                  ) : (
+                    <ProfileIcon mode={theme.mode} />
+                  )}
+                </button>
+              </div>
+            ) : null
           }
           menuItems={menuItems}
         />
@@ -342,6 +378,45 @@ const Navbar = () => {
             }
           />
         </SearchMobileWrapper>
+        <MobileDrawer
+          isOpen={showMobileDrawer}
+          onClose={() => setShowMobileDrawer(false)}
+          height={"40vh"}
+        >
+          <StyledMobileDrawerNavigation>
+            <ul>
+              <li>
+                <NavLink to={routeRoutes.myProfile}>
+                  {t("Navbar.MyCourses")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myCertificates}>
+                  {t("Navbar.MyCertificates")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myOrders}>
+                  {t("Navbar.MyOrders")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myData}>
+                  {t("Navbar.EditProfile")}
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    logout().then(() => history.push(routeRoutes.home))
+                  }
+                >
+                  {t("Navbar.Logout")}
+                </button>
+              </li>
+            </ul>
+          </StyledMobileDrawerNavigation>
+        </MobileDrawer>
       </StyledHeader>
     );
   }
@@ -380,6 +455,7 @@ const Navbar = () => {
                   content: t("Menu.HomePage"),
                   redirect: routeRoutes.home,
                 },
+
                 {
                   id: 2,
                   content: t("Menu.Courses"),
@@ -457,9 +533,9 @@ const Navbar = () => {
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 && (
+                  {cart.data && cart.data.items?.length > 0 ? (
                     <span>{cart.data.items.length}</span>
-                  )}
+                  ) : null}
                 </button>
               </div>
             )}
@@ -469,11 +545,15 @@ const Navbar = () => {
                 <button
                   type="button"
                   className="cart-icon"
-                  onClick={() => history.push(routeRoutes.myNotifications)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  data-tooltip={String(notifications.list?.meta.total)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderNotification mode={theme.mode} />
+                  {notifications.list?.meta.total &&
+                  notifications.list?.meta.total > 0 ? (
+                    <span>{notifications.list?.meta.total}</span>
+                  ) : null}
                 </button>
               </div>
             )}
@@ -483,49 +563,55 @@ const Navbar = () => {
                 menuItems={[
                   {
                     id: 1,
-                    content: t("Navbar.MyCourses"),
-                    redirect: routeRoutes.myProfile,
-                  },
-                  {
-                    id: 2,
-                    content: t("Navbar.MyOrders"),
+                    content: t("Navbar.MyProfile"),
                     redirect: routeRoutes.myOrders,
                   },
                   {
-                    id: 3,
-                    content: t("Navbar.MyConsultations"),
-                    redirect: routeRoutes.myConsultations,
+                    id: 2,
+                    content: t("Navbar.MyCourses"),
+                    redirect: routeRoutes.myProfile,
                   },
-                  {
-                    id: 4,
-                    content: t("Navbar.MyWebinars"),
-                    redirect: routeRoutes.myWebinars,
-                  },
-                  {
-                    id: 5,
-                    content: t("Navbar.MyStationaryEvents"),
-                    redirect: routeRoutes.myStationaryEvents,
-                  },
-                  {
-                    id: 6,
-                    content: t("Navbar.MyTasks"),
-                    redrect: routeRoutes.myTasks,
-                  },
-                  {
-                    id: 7,
-                    content: t("Navbar.MyBookmarks"),
-                    redirect: routeRoutes.myBookmarks,
-                  },
-                  {
-                    id: 8,
-                    content: t("Menu.Notifications"),
-                    redirect: routeRoutes.myNotifications,
-                  },
-                  {
-                    id: 9,
-                    content: t("Navbar.EditProfile"),
-                    redirect: routeRoutes.myData,
-                  },
+
+                  // {
+                  //   id: 2,
+                  //   content: t("Navbar.MyOrders"),
+                  //   redirect: routeRoutes.myOrders,
+                  // },
+                  // {
+                  //   id: 3,
+                  //   content: t("Navbar.MyConsultations"),
+                  //   redirect: routeRoutes.myConsultations,
+                  // },
+                  // {
+                  //   id: 4,
+                  //   content: t("Navbar.MyWebinars"),
+                  //   redirect: routeRoutes.myWebinars,
+                  // },
+                  // {
+                  //   id: 5,
+                  //   content: t("Navbar.MyStationaryEvents"),
+                  //   redirect: routeRoutes.myStationaryEvents,
+                  // },
+                  // {
+                  //   id: 6,
+                  //   content: t("Navbar.MyTasks"),
+                  //   redrect: routeRoutes.myTasks,
+                  // },
+                  // {
+                  //   id: 7,
+                  //   content: t("Navbar.MyBookmarks"),
+                  //   redirect: routeRoutes.myBookmarks,
+                  // },
+                  // {
+                  //   id: 8,
+                  //   content: t("Menu.Notifications"),
+                  //   redirect: routeRoutes.myNotifications,
+                  // },
+                  // {
+                  //   id: 9,
+                  //   content: t("Navbar.EditProfile"),
+                  //   redirect: routeRoutes.myData,
+                  // },
                   {
                     id: 10,
                     content: t("Navbar.Logout"),
@@ -572,8 +658,12 @@ const Navbar = () => {
               </Button>
             </div>
           )}
-        </div>
+        </div>{" "}
       </Container>
+      <NotificationsDrawer
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+      />
     </StyledHeader>
   );
 };

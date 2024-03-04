@@ -13,8 +13,8 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { Link as ComponentLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
-import Preloader from "@/components/Preloader";
-import Collapse from "@/components/Collapse";
+import Preloader from "@/components/_App/Preloader";
+import Collapse from "@/components/Common/Collapse";
 import PaymentForm from "@/components/PaymentForm";
 import { toast } from "react-toastify";
 import {
@@ -22,11 +22,11 @@ import {
   useElements,
   CardNumberElement,
 } from "@stripe/react-stripe-js";
-import CoursesSlider from "@/components/CoursesSlider";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import CoursesSlider from "@/components/Courses/CoursesSlider";
+import Breadcrumbs from "@/components/Common/Breadcrumbs";
 import Placeholder from "../../../images/image.svg";
 import { Col, Row } from "react-grid-system";
-import Container from "@/components/Container";
+import Container from "@/components/Common/Container";
 import { formatPrice } from "@/utils/index";
 import CartSuccess from "@/components/Cart/CartSuccess";
 import routeRoutes from "@/components/Routes/routes";

@@ -10,7 +10,7 @@ import ConfigRouteExtend from "./configExtend";
 import { HashRouter, BrowserRouter } from "react-router-dom";
 
 import { routerType } from "@/utils/router";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../Common/ScrollToTop";
 
 import { Loader } from "./../_App/Loader/Loader";
 import routeRoutes from "./routes";
@@ -60,7 +60,9 @@ const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
 const CartPage = lazy(() => import("../../pages/cart/index"));
 const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
-
+const MyCertificatesPage = lazy(
+  () => import("../../pages/user/my-certificates")
+);
 const ConditionalRouter: React.FC<{
   basename: string;
   children: React.ReactNode;
@@ -115,6 +117,7 @@ const Routes: React.FC = (): ReactElement => {
     myWebinars,
     packages,
     packageProduct,
+    myCertificates,
   } = routes;
 
   return (
@@ -152,6 +155,11 @@ const Routes: React.FC = (): ReactElement => {
           <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} />
           <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} />
+          <PrivateRoute
+            exact
+            path={myCertificates}
+            component={MyCertificatesPage}
+          />
           <PrivateRoute
             exact
             path={myStationaryEvents}

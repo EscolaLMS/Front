@@ -9,11 +9,14 @@ import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import ContentLoader from "@/components/ContentLoader";
+import ContentLoader from "@/components/_App/ContentLoader";
 import { formatDate } from "@/utils/date";
 
 const StyledOrdersList = styled.section`
-  margin-top: 35px;
+  margin-top: 20px;
+  @media (max-width: 991px) {
+    margin-top: 0;
+  }
   .name-container {
     p {
       display: inline;

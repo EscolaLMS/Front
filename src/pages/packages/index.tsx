@@ -1,8 +1,8 @@
 import Layout from "@/components/_App/Layout";
 import { useTranslation } from "react-i18next";
-import Container from "@/components/Container";
-import PackagesProvider from "@/components/Packages/PackagesProvider";
-import PackagesContainer from "@/components/Packages/PackagesContainer";
+import Container from "@/components/Common/Container";
+import PackagesProvider from "@/components/Packages/List/PackagesProvider";
+import PackagesContainer from "@/components/Packages/List/PackagesContainer";
 
 const PackagesPage = () => {
   const { t } = useTranslation();

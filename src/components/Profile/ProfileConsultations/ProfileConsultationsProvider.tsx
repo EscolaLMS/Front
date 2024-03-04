@@ -1,5 +1,5 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import BookTermSuccessModal from "@/components/BookTermSuccessModal";
+import BookTermSuccessModal from "@/components/Book/BookTermSuccessModal";
 
 export const ProfileConsultationsContext = createContext({
   showBookTermSuccess: false,

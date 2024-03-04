@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const StyledWrapper = styled.div`
   margin-top: 20px;
+  max-width: 450px;
 `;
 
 const MyData = () => {
