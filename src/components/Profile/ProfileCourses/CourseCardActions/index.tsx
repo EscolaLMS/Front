@@ -26,6 +26,25 @@ import { ResetProgressModal } from "../ResetProgressModal";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { Wrapper } from "./styles";
 import { getQuestionnaires } from "@/utils/questionnaires";
+import GetCertificate from "@/components/Profile/ProfileCourses/CourseCardActions/certificate";
+import styled from "styled-components";
+import { IconRate } from "@/icons/index";
+import ContentLoader from "@/components/_App/ContentLoader";
+
+export const StyledActionButton = styled.button`
+  all: unset;
+  text-decoration: underline;
+  font-size: 13px;
+  font-family: ${({ theme }) => theme.font};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+const ResetCourseWrapper = styled.div`
+  margin-top: 5px;
+`;
 
 interface Props {
   courseData: CourseProgressItem;
@@ -114,10 +133,10 @@ export const CourseCardActions: FC<Props> = ({
 
   return (
     <Wrapper>
+      {status.isDone && <GetCertificate courseId={courseData.course.id} />}
       {courseProgress === 100 && (
         <>
-          <Button
-            mode="secondary"
+          <StyledActionButton
             onClick={() => {
               setCourseId(courseData.course.id);
               setState((prevState) => ({
@@ -127,22 +146,23 @@ export const CourseCardActions: FC<Props> = ({
               }));
             }}
           >
-            {state.loading ? <Spin /> : t<string>("MyProfilePage.RateCourse")}
-          </Button>
-
-          {!isDeadlineMissed && status.isDone && (
-            <Button
-              mode="secondary"
-              onClick={() => setShowResetProgressModal(true)}
-            >
-              {t<string>("MyProfilePage.ResetCourseProgress")}
-            </Button>
-          )}
+            <IconRate /> {t<string>("MyProfilePage.RateCourse")}{" "}
+            {state.loading && <ContentLoader width="10px" height="10px" />}
+          </StyledActionButton>
+          <ResetCourseWrapper>
+            {!isDeadlineMissed && status.isDone && (
+              <Button
+                mode="secondary"
+                onClick={() => setShowResetProgressModal(true)}
+              >
+                {t<string>("MyProfilePage.ResetCourseProgress")}
+              </Button>
+            )}
+          </ResetCourseWrapper>
         </>
       )}
-
       {!!isDeadlineMissed && timeDifference !== null && timeDifference[0] < 0 && (
-        <Text>
+        <Text size="12">
           {t<string>("MyProfilePage.AccessCourseExpired")}{" "}
           {relativeTimeFormatter.format(timeDifference[0], timeDifference[1])}
         </Text>

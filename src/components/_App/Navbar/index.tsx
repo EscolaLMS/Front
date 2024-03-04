@@ -5,7 +5,7 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
@@ -23,6 +23,7 @@ import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
 import NotificationsDrawer from "@/components/Notifications/drawer";
+import MobileDrawer from "@/components/_App/MobileDrawer";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -214,6 +215,28 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
+const StyledMobileDrawerNavigation = styled.div`
+  padding-top: 35px;
+  ul {
+    li {
+      list-style: none;
+      &:not(:last-of-type) {
+        margin-bottom: 30px;
+      }
+      button {
+        all: unset;
+      }
+      a,
+      button {
+        color: ${({ theme }) => theme.textColor};
+        font-family: ${({ theme }) => theme.font};
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+`;
+
 const Navbar = () => {
   const { t } = useTranslation();
   const { handleLanguageChange } = useLanguage();
@@ -224,6 +247,7 @@ const Navbar = () => {
   const theme = useTheme();
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
   const menuItems = [
     {
@@ -284,59 +308,65 @@ const Navbar = () => {
             alt: "Logo",
           }}
           cart={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.cart)}
-                data-tooltip={String(cart.data?.items.length)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                <HeaderCard mode={theme.mode} />
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.cart)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderCard mode={theme.mode} />
 
-                {cart.data && cart.data.items?.length > 0 && (
-                  <span>{cart.data.items.length}</span>
-                )}
-              </button>
-            </div>
+                  {cart.data && cart.data.items?.length > 0 ? (
+                    <span>{cart.data.items.length}</span>
+                  ) : null}
+                </button>
+              </div>
+            ) : null
           }
           notification={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.myNotifications)}
-                data-tooltip={String(notifications.list?.meta.total)}
-                aria-label={t("CoursePage.Notifications")}
-              >
-                <HeaderNotification mode={theme.mode} />
-                {notifications.list?.meta.total &&
-                  notifications.list?.meta.total > 0 && (
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.myNotifications)}
+                  data-tooltip={String(notifications.list?.meta.total)}
+                  aria-label={t("CoursePage.Notifications")}
+                >
+                  <HeaderNotification mode={theme.mode} />
+                  {notifications.list?.meta.total &&
+                  notifications.list?.meta.total > 0 ? (
                     <span>{notifications.list?.meta.total}</span>
-                  )}
-              </button>
-            </div>
+                  ) : null}
+                </button>
+              </div>
+            ) : null
           }
           profile={
-            <div className="icons-container">
-              <button
-                type="button"
-                className="cart-icon"
-                onClick={() => history.push(routeRoutes.myProfile)}
-                aria-label={t("CoursePage.GoToCheckout")}
-              >
-                {!!user?.avatar ? (
-                  <Avatar
-                    src={user.avatar}
-                    alt={user.first_name}
-                    size={"superSmall"}
-                    className="user-avatar"
-                  />
-                ) : (
-                  <ProfileIcon mode={theme.mode} />
-                )}
-              </button>
-            </div>
+            user?.id ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => setShowMobileDrawer(true)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  {!!user?.avatar ? (
+                    <Avatar
+                      src={user.avatar}
+                      alt={user.first_name}
+                      size={"superSmall"}
+                      className="user-avatar"
+                    />
+                  ) : (
+                    <ProfileIcon mode={theme.mode} />
+                  )}
+                </button>
+              </div>
+            ) : null
           }
           menuItems={menuItems}
         />
@@ -348,6 +378,45 @@ const Navbar = () => {
             }
           />
         </SearchMobileWrapper>
+        <MobileDrawer
+          isOpen={showMobileDrawer}
+          onClose={() => setShowMobileDrawer(false)}
+          height={"40vh"}
+        >
+          <StyledMobileDrawerNavigation>
+            <ul>
+              <li>
+                <NavLink to={routeRoutes.myProfile}>
+                  {t("Navbar.MyCourses")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myCertificates}>
+                  {t("Navbar.MyCertificates")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myOrders}>
+                  {t("Navbar.MyOrders")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myData}>
+                  {t("Navbar.EditProfile")}
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    logout().then(() => history.push(routeRoutes.home))
+                  }
+                >
+                  {t("Navbar.Logout")}
+                </button>
+              </li>
+            </ul>
+          </StyledMobileDrawerNavigation>
+        </MobileDrawer>
       </StyledHeader>
     );
   }
@@ -386,6 +455,7 @@ const Navbar = () => {
                   content: t("Menu.HomePage"),
                   redirect: routeRoutes.home,
                 },
+
                 {
                   id: 2,
                   content: t("Menu.Courses"),
@@ -493,9 +563,15 @@ const Navbar = () => {
                 menuItems={[
                   {
                     id: 1,
+                    content: t("Navbar.MyProfile"),
+                    redirect: routeRoutes.myOrders,
+                  },
+                  {
+                    id: 2,
                     content: t("Navbar.MyCourses"),
                     redirect: routeRoutes.myProfile,
                   },
+
                   // {
                   //   id: 2,
                   //   content: t("Navbar.MyOrders"),
@@ -582,9 +658,8 @@ const Navbar = () => {
               </Button>
             </div>
           )}
-        </div>
+        </div>{" "}
       </Container>
-
       <NotificationsDrawer
         isOpen={showNotifications}
         onClose={() => setShowNotifications(false)}

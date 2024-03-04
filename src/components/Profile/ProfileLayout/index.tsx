@@ -8,6 +8,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import { isMobile } from "react-device-detect";
 
 type Props = {
   children: ReactNode;
@@ -17,6 +18,10 @@ type Props = {
 };
 
 const StyledProfile = styled.section`
+  background-color: ${({ theme }) => theme.gray4};
+  padding-top: 100px;
+  padding-bottom: 100px;
+  min-height: 70vh;
   .tabs-menu {
     padding: 0 0 70px 40px;
     background: #f8f8f8;
@@ -26,6 +31,9 @@ const StyledProfile = styled.section`
     h2 {
       margin-left: 40px;
     }
+  }
+  @media (max-width: 767px) {
+    padding-top: 80px;
   }
 `;
 
@@ -50,16 +58,19 @@ const ProfileLayout: React.FC<Props> = ({
       <StyledProfile>
         <Container>
           <Row>
-            <Col lg={9}>
+            {!isMobile && (
+              <Col lg={3}>
+                <ProfileAside />
+              </Col>
+            )}
+
+            <Col offset={{ lg: 1 }} lg={isMobile ? 12 : 8}>
               <ProfileHeader
                 title={title}
                 withTabs={withTabs}
                 actions={actions}
               />
               {children}
-            </Col>
-            <Col lg={3}>
-              <ProfileAside />
             </Col>
           </Row>
         </Container>

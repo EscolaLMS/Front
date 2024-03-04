@@ -11,6 +11,7 @@ const routeRoutes = {
   myConsultations: "/user/my-consultations",
   myOrders: "/user/my-orders",
   myNotifications: "/user/my-notifications",
+  myCertificates: "/user/my-certificates",
   myData: "/user/my-data",
   myTasks: "/user/my-tasks",
   myBookmarks: "/user/my-bookmarks",

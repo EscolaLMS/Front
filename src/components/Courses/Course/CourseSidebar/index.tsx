@@ -10,6 +10,7 @@ import { useLessonProgram } from "@/hooks/useLessonProgram";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { t } from "i18next";
 import { userIsCourseAuthor } from "@/utils/index";
+import { Topic } from "@escolalms/sdk/lib/types/api";
 
 const StyledSidebar = styled.aside`
   padding-bottom: 100px;
@@ -126,6 +127,7 @@ export const CourseSidebar: React.FC<{
           </Button>
         )}
         <CourseAgenda
+          availableTopicsIds={flatTopics.map((t) => t.id)}
           areAllTopicsUnlocked={userIsCourseAuthor(
             Number(user.value?.id),
             course
@@ -148,7 +150,7 @@ export const CourseSidebar: React.FC<{
           currentTopicId={topicId}
           finishedTopicIds={finishedTopics}
           onMarkFinished={() => onCompleteTopic?.()}
-          onTopicClick={(topic) => {
+          onTopicClick={(topic: Topic) => {
             history.push(`/course/${course.id}/${topic.lesson_id}/${topic.id}`);
             setAgendaVisible(false);
           }}

@@ -1,19 +1,14 @@
 import { API } from "@escolalms/sdk/lib";
 import React from "react";
-import { CourseCard } from "@escolalms/components/lib/components/molecules/CourseCard/CourseCard";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { Link, useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
-import { LessonsIcon, UserIcon } from "../../../../../icons";
 import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import CourseCardWrapper from "@/components/Courses/CourseCardWrapper";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
-import { useTheme } from "styled-components";
-import { useTranslation } from "react-i18next";
 import { CourseCardActions } from "../../CourseCardActions";
+import { NewCourseCard } from "@escolalms/components/lib/index";
 
 type Props = {
   course: API.Course & {
@@ -23,12 +18,11 @@ type Props = {
 };
 
 const CourseCardItem: React.FC<Props> = ({ course }) => {
-  const theme = useTheme();
   const history = useHistory();
-  const { t } = useTranslation();
+
   return (
     <CourseCardWrapper>
-      <CourseCard
+      <NewCourseCard
         mobile={isMobile}
         id={course.id}
         image={
@@ -43,18 +37,6 @@ const CourseCardItem: React.FC<Props> = ({ course }) => {
               <CourseImgPlaceholder />
             )}
           </Link>
-        }
-        subtitle={
-          course.subtitle ? (
-            <Text>
-              <Link
-                style={{ color: theme.primaryColor }}
-                to={`/course/${course.id}`}
-              >
-                {course.subtitle}
-              </Link>
-            </Text>
-          ) : undefined
         }
         title={
           <Link to={`/courses/${course.id}`} className="title">
@@ -80,22 +62,6 @@ const CourseCardItem: React.FC<Props> = ({ course }) => {
               courseProgress={course.progress || 0}
             />
           )
-        }
-        footer={
-          <>
-            {course.users_count && course.users_count > 0 && (
-              <IconText
-                icon={<UserIcon />}
-                text={`${course.users_count} ${t<string>("Students")}`}
-              />
-            )}{" "}
-            {course.lessons_count && course.lessons_count > 0 && (
-              <IconText
-                icon={<LessonsIcon />}
-                text={`${course.lessons_count} ${t<string>("Lessons")}`}
-              />
-            )}
-          </>
         }
         progress={
           course.progress && course.progress !== 100 && !isNaN(course.progress)

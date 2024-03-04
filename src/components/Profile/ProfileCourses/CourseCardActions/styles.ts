@@ -5,4 +5,7 @@ export const Wrapper = styled(Stack)`
   gap: 6px;
   margin: 0;
   width: 100%;
+  p {
+    margin: 0;
+  }
 `;

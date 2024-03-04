@@ -9,6 +9,7 @@ const Wrapper = styled.div`
 
 const NotificationsContainer = styled.div`
   padding-top: 70px;
+  min-height: 50vh;
   .notifications-drawer__content__header {
     display: flex;
     align-items: center;

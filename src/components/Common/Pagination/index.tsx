@@ -29,8 +29,8 @@ const StyledPagination = styled.div`
     p {
       opacity: 0.5;
       &.current {
-        color: ${({ theme }) => theme.primaryColor}!important;
-        font-weight: 700;
+        color: ${({ theme }) => theme.black}!important;
+
         opacity: 1;
       }
     }
