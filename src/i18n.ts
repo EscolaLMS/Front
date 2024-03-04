@@ -121,7 +121,8 @@ const resources = {
       Hour: "Hour",
       Hours: "Hours",
       SectionDescriptionTitle: "Description",
-      Join: "Dołącz",
+      Join: "Join",
+      Terms: "Terms of use",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -721,6 +722,7 @@ const resources = {
       Hours: "Godziny",
       SectionDescriptionTitle: "Opis",
       Join: "Dołącz",
+      Terms: "Warunki korzystania",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",

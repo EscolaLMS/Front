@@ -27,6 +27,10 @@ const CoursesUserSlider: React.FC<Props> = ({
   const { coursesToMap, loading } = useProfileCourses();
   const history = useHistory();
 
+  if (coursesToMap.length === 0) {
+    return null;
+  }
+
   return (
     <Wrapper>
       <div className="header-wrapper">

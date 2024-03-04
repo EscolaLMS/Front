@@ -1,9 +1,9 @@
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import UserSidebar from "@/components/Profile/UserSidebar";
 import { HeaderUser, UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import AvatarUpload from "../AvatarUpload";
 import routeRoutes from "@/components/Routes/routes";
 
-type NavigationTab = {
+export type NavigationTab = {
   title: string;
   key: string;
   url: string;
@@ -121,7 +121,13 @@ const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
   }
 `;
 
-const ProfileAside: React.FC = () => {
+type Props = {
+  tabs: NavigationTab[];
+  isProfile?: boolean;
+};
+
+const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
+  const { settings } = useContext(EscolaLMSContext);
   const [menuOpened, setMenuOpened] = useState(false);
   const { user, logout, fetchProgress } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -133,37 +139,16 @@ const ProfileAside: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const mainTabs: NavigationTab[] = useMemo(
-    () => [
-      {
-        key: "ORDERS",
-        title: t("MyProfilePage.OrdersHistory"),
-        url: routeRoutes.myOrders,
-      },
-      {
-        key: "EDIT",
-        title: t("MyProfilePage.EditData"),
-        url: routeRoutes.myData,
-      },
-      {
-        key: "CERS",
-        title: t("MyProfilePage.MyCertificates"),
-        url: routeRoutes.myCertificates,
-      },
-      {
-        key: "COURSES",
-        title: t("MyProfilePage.MyCourses"),
-        url: routeRoutes.myProfile,
-      },
-    ],
-    [t]
-  );
+  console.log({ settings });
 
   return (
     <StyledAsideWrapper>
-      <Title level={2} as="h2">
-        {t("MyProfilePage.YourAccount")}
-      </Title>{" "}
+      {isProfile && (
+        <Title level={2} as="h2">
+          {t("MyProfilePage.YourAccount")}
+        </Title>
+      )}
+
       <StyledAside opened={menuOpened}>
         {isMobile && (
           <MobileHeader
@@ -188,7 +173,7 @@ const ProfileAside: React.FC = () => {
         <div className="user-main-sidebar">
           <UserSidebar icon={<UserIcon />}>
             <nav className="navigation">
-              {mainTabs.map((item) => (
+              {tabs.map((item) => (
                 <NavLink
                   activeClassName="selected"
                   to={item.url}
@@ -197,25 +182,33 @@ const ProfileAside: React.FC = () => {
                   <Text size="16">{item.title}</Text>
                 </NavLink>
               ))}
+
+              {isProfile && settings.value.config.termsPage && (
+                <NavLink to={`/${settings.value.config.termsPage}`}>
+                  <Text size="16">{t("Terms")}</Text>
+                </NavLink>
+              )}
             </nav>
           </UserSidebar>
         </div>
       </StyledAside>
-      <StyledAside opened={menuOpened}>
-        <div className="user-main-sidebar">
-          <UserSidebar>
-            <div className="navigation">
-              <button
-                onClick={() =>
-                  logout().then(() => history.push(routeRoutes.home))
-                }
-              >
-                <Text>{t<string>("MyProfilePage.Logout")}</Text>
-              </button>
-            </div>
-          </UserSidebar>
-        </div>
-      </StyledAside>
+      {isProfile && (
+        <StyledAside opened={menuOpened}>
+          <div className="user-main-sidebar">
+            <UserSidebar>
+              <div className="navigation">
+                <button
+                  onClick={() =>
+                    logout().then(() => history.push(routeRoutes.home))
+                  }
+                >
+                  <Text>{t<string>("MyProfilePage.Logout")}</Text>
+                </button>
+              </div>
+            </UserSidebar>
+          </div>
+        </StyledAside>
+      )}
     </StyledAsideWrapper>
   );
 };

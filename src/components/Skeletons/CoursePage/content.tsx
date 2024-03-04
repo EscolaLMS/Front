@@ -18,10 +18,10 @@ const CoursePageContentSkeleton = () => {
       <Skeleton width={"40%"} style={{ marginBottom: "10px" }} />{" "}
       <Skeleton width={"100%"} height={490} style={{ marginBottom: "40px" }} />
       <div style={{ marginBottom: "40px" }}>
-        <Skeleton width={"100%"} count={4} />
+        <Skeleton width={"100%"} count={4} style={{ marginBottom: "5px" }} />
       </div>
       <div style={{ marginBottom: "40px" }}>
-        <Skeleton width={"100%"} count={5} />
+        <Skeleton width={"100%"} count={5} style={{ marginBottom: "5px" }} />
       </div>
       <Skeleton width={"80px"} style={{ marginBottom: "20px" }} />
       <div className="tutors">

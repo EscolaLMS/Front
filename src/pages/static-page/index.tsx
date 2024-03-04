@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, Redirect, Link } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import routes from "@/components/Routes/routes";
@@ -6,17 +6,19 @@ import usePrevious from "../../hooks/usePrevious";
 import Layout from "@/components/_App/Layout";
 import styled, { useTheme } from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
-import { AsideMenu } from "@escolalms/components/lib/components/atoms/AsideMenu/AsideMenu";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
-import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import Breadcrumbs from "@/components/Common/Breadcrumbs";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import ProfileAside from "@/components/Profile/ProfileAside";
+import StaticPageSkeleton from "@/components/Skeletons/StaticPage";
 
 const StyledStaticPage = styled.section`
+  background-color: ${({ theme }) => theme.gray4};
+  min-height: calc(100vh - 400px);
   .content {
     margin-top: ${isMobile ? "30px" : 0};
   }
@@ -31,9 +33,10 @@ const StyledStaticPage = styled.section`
 const StaticPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { fetchPage, page, fetchPages, pages } = useContext(EscolaLMSContext);
+
   const prevSlug = usePrevious(slug);
   const { t } = useTranslation();
-  const theme = useTheme();
+
   useEffect(() => {
     if (
       slug &&
@@ -52,9 +55,21 @@ const StaticPage = () => {
   // page.value && page.value?.slug !== slug - when prev static page was different
   // page.error && !prevSlug - when we return to static-page after error on static page (ex. when prev static page not exist)
 
+  const mainTabs = useMemo(() => {
+    return (
+      pages &&
+      pages.list?.data.map((item) => ({
+        key: "dada",
+        title: item.title.substring(0, 50),
+        url: item.slug,
+      }))
+    );
+  }, [pages]);
+
   if (!page.loading && page.error && !page.error.success) {
     return <Redirect to={routes.notFound} />;
   }
+
   return (
     <Layout metaTitle={page.value?.title}>
       <StyledStaticPage>
@@ -66,30 +81,16 @@ const StaticPage = () => {
             ]}
           />
           <Row>
-            <Col lg={4}>
-              {pages &&
-                pages.list?.data.map((item, index) => (
-                  <AsideMenu key={index} active={slug === item.slug}>
-                    <Link to={item.slug}>
-                      <Text>
-                        <strong>
-                          {item.title.substring(0, 50)}
-                          {item.title.length > 50 && "..."}
-                        </strong>
-                      </Text>
-                    </Link>
-                  </AsideMenu>
-                ))}
+            <Col lg={3}>
+              <ProfileAside tabs={mainTabs || []} isProfile={false} />
             </Col>
-            <Col lg={8}>
+            <Col offset={{ lg: 1 }} lg={isMobile ? 12 : 8}>
               <div className="content">
                 {page.loading ||
                 (!page.value && !page.error) ||
                 (page.value && page.value?.slug !== slug) ||
                 (page.error && !prevSlug) ? (
-                  <div className="spin-container">
-                    <Spin color={theme.primaryColor} />
-                  </div>
+                  <StaticPageSkeleton />
                 ) : (
                   <MarkdownRenderer>
                     {page?.value?.content || ""}
