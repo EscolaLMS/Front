@@ -10,8 +10,10 @@ import { Col, Row } from "react-grid-system";
 export const CourseProgramLessonsPreview: React.FC<{
   program: API.CourseProgram;
 }> = ({ program }) => {
-  const { topic, lesson, onNextTopicPreview, getNextPrevTopic } =
-    useLessonProgram(program, `/courses/preview/`);
+  const { topic, lesson, onNextTopicPreview } = useLessonProgram(
+    program,
+    `/courses/preview/`
+  );
 
   const { t } = useTranslation();
 

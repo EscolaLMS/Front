@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { isAfter } from "date-fns";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -74,8 +74,10 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     lessonID: paramLessonId,
     topicID: paramTopicId,
   } = useParams<CourseParams>();
+  const history = useHistory();
+
   const currentCourseProgress = courseProgressDetails.byId?.[courseId];
-  // console.log('courseProgressDetails: ', courseProgressDetails.byId?.[courseId]);
+  // console.log('currentCourseProgress: ', currentCourseProgress);
 
   const currentCourseProgram = useMemo(() => program.value, [program.value]);
 
@@ -224,14 +226,26 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   // disable next button
   useEffect(() => {
     if (!currentTopic?.topicable_type) return;
-    console.log(
-      "TEsT: ",
-      DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type)
-    );
+
     setIsNextTopicButtonDisabled(
       DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type)
     );
   }, [currentTopic?.topicable_type]);
+
+  useEffect(() => {
+    if (!paramTopicId) {
+      const firstAvailableTopicId =
+        availableTopicsIds.at(-1) ?? flatTopics?.[0]?.id;
+      const firstAvailableTopic = flatTopics.find(
+        ({ id }) => id === firstAvailableTopicId
+      );
+      if (firstAvailableTopic) {
+        history.push(
+          `/course/${courseId}/${firstAvailableTopic.lesson_id}/${firstAvailableTopicId}`
+        );
+      }
+    }
+  }, [paramTopicId, availableTopicsIds, flatTopics, history, courseId]);
 
   const isCourseFinished = useMemo(
     () =>

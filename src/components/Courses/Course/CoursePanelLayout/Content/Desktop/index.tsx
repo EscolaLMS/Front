@@ -7,16 +7,19 @@ import { CourseSchedule } from "@/components/Courses/Course/CoursePanelLayout/Sc
 import { Subheader } from "@/components/Courses/Course/CoursePanelLayout/Subheader";
 import { TopicView } from "@/components/Courses/Course/CoursePanelLayout/TopicView";
 import { ButtonsNav } from "@/components/Courses/Course/CoursePanelLayout/ButtonsNav";
+import { useState } from "react";
 
 export const CoursePanelLayoutContentDesktop = () => {
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+
   return (
     <Wrapper>
       <LeftColumn>
-        <Subheader />
+        <Subheader menuOnClick={() => setIsScheduleOpen((prev) => !prev)} />
         <TopicView />
         <ButtonsNav />
       </LeftColumn>
-      <RightColumn>
+      <RightColumn $isOpen={isScheduleOpen}>
         <CourseSchedule />
       </RightColumn>
     </Wrapper>

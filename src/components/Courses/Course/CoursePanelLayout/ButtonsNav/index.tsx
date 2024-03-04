@@ -16,6 +16,7 @@ export const ButtonsNav = () => {
     prevTopic,
     availableTopicsIds,
     isNextTopicButtonDisabled,
+    isAnyDataLoading,
   } = useCoursePanel();
   const history = useHistory();
 
@@ -56,7 +57,7 @@ export const ButtonsNav = () => {
   // console.log("availableTopicsIds: ", availableTopicsIds);
   // console.log("isNextTopicAvailable: ", isNextTopicAvailable);
   // console.log("nextTopic: ", nextTopic);
-  console.log("isNextTopicButtonDisabled: ", isNextTopicButtonDisabled);
+  // console.log("isNextTopicButtonDisabled: ", isNextTopicButtonDisabled);
   return (
     <CourseTopNav
       mobile={isMobile}
@@ -71,6 +72,7 @@ export const ButtonsNav = () => {
       isMarkBtnDisabled={isNextTopicButtonDisabled}
       // Last topic and finish course button
       onCourseFinished={() => completeCurrentTopic?.()}
+      allButtonsDisabled={isAnyDataLoading}
     />
   );
 };

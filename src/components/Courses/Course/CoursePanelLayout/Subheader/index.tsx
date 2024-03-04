@@ -1,12 +1,19 @@
 import { useCoursePanel } from "@/components/Courses/Course/Context";
 import {
   ProgressBarContainer,
+  SubHeaderIconWrapper,
   SubheaderTitle,
   SubheaderWrapper,
 } from "@/components/Courses/Course/CoursePanelLayout/Subheader/styles";
+import { IconMenuSchedule } from "@/icons/index";
 import { ProgressBar } from "@escolalms/components/lib/index";
+import { useTranslation } from "react-i18next";
 
-export const Subheader = () => {
+interface Props {
+  menuOnClick?: () => void;
+}
+
+export const Subheader = ({ menuOnClick }: Props) => {
   const {
     finishedTopicsIds,
     flatTopics,
@@ -15,6 +22,7 @@ export const Subheader = () => {
     currentTopic,
     currentLesson,
   } = useCoursePanel();
+  const { t } = useTranslation();
 
   const parentLesson = flatLessons?.find(
     ({ id }) => id === currentLessonParentsIds?.at(0)
@@ -34,8 +42,17 @@ export const Subheader = () => {
               {currentTopic?.title}
             </SubheaderTitle>
           }
+          variant="square"
         />
       </ProgressBarContainer>
+      {/* Mobile */}
+      <SubHeaderIconWrapper
+        role="button"
+        aria-label={t("CoursePanel.MenuButtonAria")}
+        onClick={menuOnClick}
+      >
+        <IconMenuSchedule />
+      </SubHeaderIconWrapper>
     </SubheaderWrapper>
   );
 };

@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { mediaQueriesMixin } from "src/style/mixins";
+import styled, { css } from "styled-components";
 
 export const CourseScheduleWrapper = styled.div`
   display: flex;
@@ -13,8 +14,17 @@ export const CourseScheduleTitle = styled.div`
   box-shadow: -3px 0px 6px #0000000b;
 
   h2 {
-    padding: 0 12px;
+    padding: 0 25px;
   }
+
+  ${mediaQueriesMixin(
+    "lg",
+    css`
+      h2 {
+        padding: 0 12px;
+      }
+    `
+  )}
 `;
 
 export const CourseScheduleContent = styled.div`

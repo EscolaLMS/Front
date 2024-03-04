@@ -11,19 +11,8 @@ import { PdfPlayer } from "@escolalms/components/lib/components/players/PdfPlaye
 import { ProjectPlayer } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 import { isMobile } from "react-device-detect";
 import ScormPlayer from "./Players/ScormPlayer";
-import styled from "styled-components";
 import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
 import { useCoursePanel } from "@/components/Courses/Course/Context";
-
-const StyledPdfPlayer = styled(PdfPlayer)`
-  .course-pdf-player {
-    .react-pdf__Page__svg,
-    svg {
-      width: 100% !important;
-      height: auto !important;
-    }
-  }
-`;
 
 export const CourseProgramContent: React.FC<{
   topic: API.Topic | undefined;
@@ -32,7 +21,7 @@ export const CourseProgramContent: React.FC<{
   const { courseId, nextTopic, setIsNextTopicButtonDisabled } =
     useCoursePanel();
 
-  const { topicPing, topicIsFinished, h5pProgress } =
+  const { topicPing, topicIsFinished, h5pProgress, fetchCourseProgress } =
     useContext(EscolaLMSContext);
 
   const isThereNextTopic = !!nextTopic;
@@ -40,42 +29,21 @@ export const CourseProgramContent: React.FC<{
 
   const onXAPI = useCallback(
     (event: XAPIEvent): void => {
-      if (isThereNextTopic) {
-        console.log(
-          1,
-          "onXapi isThereNextTopic: ",
-          !Boolean(event?.statement?.verb?.id),
-          event
-        );
-        setIsNextTopicButtonDisabled?.(!Boolean(event?.statement?.verb?.id));
-      }
-
       if (event?.statement) {
         h5pProgress(
           String(courseId),
           Number(topicId),
           event?.statement as API.IStatement
-        );
+        )?.then(() => {
+          fetchCourseProgress(Number(courseId));
+        });
       }
     },
-    [
-      isThereNextTopic,
-      setIsNextTopicButtonDisabled,
-      h5pProgress,
-      courseId,
-      topicId,
-    ]
+    [h5pProgress, courseId, topicId, fetchCourseProgress]
   );
 
   useEffect(() => {
     const isTopicFinished = Boolean(topicId && topicIsFinished(topicId));
-    console.log(
-      2,
-      "useEffect: ",
-      isThereNextTopic,
-      isTopicFinished,
-      !isTopicFinished && !Boolean(topic?.can_skip)
-    );
     isThereNextTopic &&
       isTopicFinished &&
       setIsNextTopicButtonDisabled?.(
@@ -165,10 +133,9 @@ export const CourseProgramContent: React.FC<{
 
       case API.TopicType.Pdf:
         return (
-          <StyledPdfPlayer
+          <PdfPlayer
             url={topic.topicable.url}
             pageConfig={{
-              renderMode: "svg",
               className: "course-pdf-player",
             }}
             onTopicEnd={enableNextButton}
