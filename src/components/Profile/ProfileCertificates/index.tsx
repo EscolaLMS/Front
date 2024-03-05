@@ -15,7 +15,6 @@ type CertType = API.Certificate;
 
 const CertificatesList = styled.section`
   .empty-certificates-message {
-    padding: 34px 40px;
     background: ${({ theme }) =>
       theme.mode === "dark" ? theme.gray1 : theme.gray5};
   }

@@ -1,14 +1,15 @@
 import Layout from "../../../components/_App/Layout";
-import ProfileAside from "@/components/Profile/ProfileAside";
+import ProfileAside, { NavigationTab } from "@/components/Profile/ProfileAside";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, useContext, useEffect, useMemo } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   children: ReactNode;
@@ -45,6 +46,7 @@ const ProfileLayout: React.FC<Props> = ({
 }) => {
   const { user } = useContext(EscolaLMSContext);
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user.loading && !user.value) {
@@ -52,6 +54,31 @@ const ProfileLayout: React.FC<Props> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const mainTabs: NavigationTab[] = useMemo(
+    () => [
+      {
+        key: "ORDERS",
+        title: t("MyProfilePage.OrdersHistory"),
+        url: routeRoutes.myOrders,
+      },
+      {
+        key: "EDIT",
+        title: t("MyProfilePage.EditData"),
+        url: routeRoutes.myData,
+      },
+      {
+        key: "CERS",
+        title: t("MyProfilePage.MyCertificates"),
+        url: routeRoutes.myCertificates,
+      },
+      {
+        key: "COURSES",
+        title: t("MyProfilePage.MyCourses"),
+        url: routeRoutes.myProfile,
+      },
+    ],
+    [t]
+  );
 
   return (
     <Layout metaTitle={title}>
@@ -60,7 +87,7 @@ const ProfileLayout: React.FC<Props> = ({
           <Row>
             {!isMobile && (
               <Col lg={3}>
-                <ProfileAside />
+                <ProfileAside tabs={mainTabs} />
               </Col>
             )}
 
