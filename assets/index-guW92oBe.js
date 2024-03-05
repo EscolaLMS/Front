@@ -1,0 +1,10 @@
+import{r as o,j as e,q as y,n as u,E as P,h as S,f as b,F as B,l as p,o as E,C as k,L as R,s as C,w as l,M}from"./index-BwDDCa5l.js";import{B as T}from"./index-fnJvflA6.js";import{P as w}from"./index-C-knIOix.js";import{S as c}from"./index-DgkCRAhC.js";function L(t){const n=o.useRef();return o.useEffect(()=>{n.current=t},[t]),n.current}const F=()=>e.jsxs(e.Fragment,{children:[e.jsx("div",{style:{marginBottom:"27px"},children:e.jsx(c,{count:5,style:{marginBottom:"11px",height:"20px"}})}),e.jsx("div",{style:{marginBottom:"27px"},children:e.jsx(c,{count:12,style:{marginBottom:"11px",height:"20px"}})}),e.jsx("div",{style:{marginBottom:"27px"},children:e.jsx(c,{count:6,style:{marginBottom:"11px",height:"20px"}})})]}),$=y.section`
+  background-color: ${({theme:t})=>t.gray4};
+  min-height: calc(100vh - 400px);
+  .user-main-sidebar {
+    margin-top: ${u?"60px":0};
+  }
+  .content {
+    margin-top: ${u?"30px":0};
+  }
+`,N=()=>{var m,d,g,h;const{slug:t}=P(),{fetchPage:n,page:s,fetchPages:j,pages:a}=o.useContext(S.EscolaLMSContext),x=L(t),{t:f}=b();o.useEffect(()=>{var r;t&&!s.loading&&(!s.value&&!s.error||s.value&&((r=s.value)==null?void 0:r.slug)!==t||s.error&&!x)&&(j(),n(String(t)))},[t,s]);const v=o.useMemo(()=>{var r;return a&&((r=a.list)==null?void 0:r.data.map(i=>({key:i.slug,title:i.title.substring(0,50),url:i.slug})))},[a]);return!s.loading&&s.error&&!s.error.success?e.jsx(B,{to:p.notFound}):e.jsx(E,{metaTitle:(m=s.value)==null?void 0:m.title,children:e.jsx($,{children:e.jsxs(k,{children:[!u&&e.jsx(T,{items:[e.jsx(R,{to:p.home,children:f("Home")}),e.jsx(C.Text,{size:"12",children:(d=s.value)==null?void 0:d.title})]}),e.jsxs(l.Row,{children:[e.jsx(l.Col,{lg:3,sm:12,xs:12,children:e.jsx(w,{tabs:v||[],isProfile:!1})}),e.jsx(l.Col,{offset:{xs:0,sm:0,lg:1},sm:12,lg:8,children:e.jsx("div",{className:"content",children:s.loading||!s.value&&!s.error||s.value&&((g=s.value)==null?void 0:g.slug)!==t||s.error&&!x?e.jsx(F,{}):e.jsx(M.MarkdownRenderer,{children:((h=s==null?void 0:s.value)==null?void 0:h.content)||""})})})]})]})})})};export{N as default};
