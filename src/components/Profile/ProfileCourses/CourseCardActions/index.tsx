@@ -183,6 +183,7 @@ export const CourseCardActions: FC<Props> = ({
               visible={state.show}
               onClose={handleClose}
               questionnaire={questionnaires[state.step]}
+              onFinish={() => {}}
             />
           </>
         ) : (
