@@ -165,6 +165,9 @@ const resources = {
         SelectQuestionnaire: "Select a questionnaire...",
         SelectQuestion: "Select a question...",
         Resources: "Resources",
+        CourseTitle: "Course title",
+        CertificateDate: "Obtained at",
+        CertificateDownload: "Download certificate",
       },
       Cart: {
         UseTestCard: "Use test cards for Stripe",
@@ -787,6 +790,9 @@ const resources = {
         SelectQuestion: "Wybierz pytanie...",
         Resources: "Zasoby",
         Questionnaires: "Ankiety",
+        CourseTitle: "Tytuł kursu",
+        CertificateDate: "Uzyskany w dniu",
+        DownloadCertificate: "Pobierz certyfikat",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",

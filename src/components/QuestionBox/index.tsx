@@ -36,6 +36,7 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
         <Rate
           onSubmit={(rate) => setAnswer((prev) => ({ ...prev, rate }))}
           header={data.title}
+          onCancel={() => {}}
         >
           <TextArea
             placeholder={textareaPlaceholder}

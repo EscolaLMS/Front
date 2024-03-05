@@ -96,7 +96,7 @@ const CoursesSlider: React.FC<Props> = ({
             rowGap: "20px",
           }}
         >
-          {courses.map((item) => (
+          {(courses || []).map((item) => (
             <Col md={4} lg={3} key={item.id}>
               <NewCourseCard
                 mobile={isMobile}

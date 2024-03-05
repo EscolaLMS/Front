@@ -38,7 +38,7 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      row-gap: 10px;
+
       cursor: pointer;
       position: relative;
       button {
@@ -52,7 +52,7 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
         border-radius: ${({ theme }) => theme.cardRadius}px;
         transition: background-color 0.3s ease, color 0.3s ease;
         p {
-          padding: 10px 20px;
+          padding: 8px 10px;
         }
         &:hover {
           background-color: ${({ theme }) => theme.gray3};
