@@ -54,15 +54,12 @@ export const ButtonsNav = () => {
       ),
     [availableTopicsIds, nextTopic?.id]
   );
-  // console.log("availableTopicsIds: ", availableTopicsIds);
-  // console.log("isNextTopicAvailable: ", isNextTopicAvailable);
-  // console.log("nextTopic: ", nextTopic);
-  // console.log("isNextTopicButtonDisabled: ", isNextTopicButtonDisabled);
+
   return (
     <CourseTopNav
       mobile={isMobile}
       // Finish current topic. Not last
-      onFinish={() => completeCurrentTopic?.()}
+      onFinish={() => completeCurrentTopic?.(true)}
       onNext={() => onNextTopic()}
       isFinished={isTopicFinished}
       onPrev={() => onPrevTopic()}

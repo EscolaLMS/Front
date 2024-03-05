@@ -114,8 +114,6 @@ export const CourseSidebar: React.FC<{
   const availableTopicsIds = useMemo(() => {
     const activeLessons = (currentCourseProgram?.lessons ?? []).filter(
       (l) =>
-        // TODO: Add active_from to sdk Lesson type.
-        // @ts-ignore
         l.active_from === null ||
         (l.active_from && isAfter(new Date(), new Date(l.active_from)))
     );

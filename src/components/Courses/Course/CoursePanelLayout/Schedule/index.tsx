@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { API } from "@escolalms/sdk/lib";
+import { isMobile } from "react-device-detect";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { CourseAgenda } from "@escolalms/components/lib/components/organisms/CourseAgenda/CourseAgenda";
 import {
@@ -47,6 +48,7 @@ export const CourseSchedule = () => {
           }}
           onCourseFinished={() => console.log("onCourseFinished")}
           availableTopicsIds={availableTopicsIds ?? []}
+          isMobile={isMobile}
         />
       </CourseScheduleContent>
     </CourseScheduleWrapper>

@@ -34,12 +34,13 @@ interface CourseContext {
   currentCourseProgram?: API.CourseProgram;
   isNextTopicButtonDisabled?: boolean;
   setIsNextTopicButtonDisabled?: (b: boolean) => void;
-  completeCurrentTopic?: () => void;
+  completeCurrentTopic?: (finished?: boolean) => void;
   finishedTopicsIds?: number[];
   availableTopicsIds?: number[];
   currentLessonParentsIds?: number[];
   isCourseFinished?: boolean;
   isAnyDataLoading?: boolean;
+  showFinishModal?: boolean;
 }
 
 const Context = React.createContext<CourseContext>({});
@@ -67,6 +68,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   } = useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, setIsNextTopicButtonDisabled] =
     useState(false);
+  const [showFinishModal, setShowFinishModal] = useState(false);
 
   // :id/:lessonID?/:topicID
   const {
@@ -135,18 +137,24 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     [findLessonById, currentTopic]
   );
 
-  const completeCurrentTopic = useCallback(() => {
-    if (currentCourseProgram?.id === undefined) return;
-    if (currentTopic?.id === undefined) return;
+  const completeCurrentTopic = useCallback(
+    (finished?: boolean) => {
+      if (currentCourseProgram?.id === undefined) return;
+      if (currentTopic?.id === undefined) return;
 
-    setIsNextTopicButtonDisabled(false);
-    sendProgress(currentCourseProgram.id, [
-      {
-        topic_id: currentTopic.id,
-        status: API.CourseProgressItemElementStatus.COMPLETE,
-      },
-    ]);
-  }, [sendProgress, currentCourseProgram?.id, currentTopic?.id]);
+      setIsNextTopicButtonDisabled(false);
+      sendProgress(currentCourseProgram.id, [
+        {
+          topic_id: currentTopic.id,
+          status: API.CourseProgressItemElementStatus.COMPLETE,
+        },
+      ]);
+      if (finished) {
+        setShowFinishModal(true);
+      }
+    },
+    [sendProgress, currentCourseProgram?.id, currentTopic?.id]
+  );
 
   const finishedTopicsIds = useMemo(
     () =>
@@ -233,19 +241,27 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   }, [currentTopic?.topicable_type]);
 
   useEffect(() => {
-    if (!paramTopicId) {
+    if (!paramTopicId || Number(paramTopicId) !== currentTopic?.id) {
       const firstAvailableTopicId =
         availableTopicsIds.at(-1) ?? flatTopics?.[0]?.id;
       const firstAvailableTopic = flatTopics.find(
         ({ id }) => id === firstAvailableTopicId
       );
+
       if (firstAvailableTopic) {
         history.push(
           `/course/${courseId}/${firstAvailableTopic.lesson_id}/${firstAvailableTopicId}`
         );
       }
     }
-  }, [paramTopicId, availableTopicsIds, flatTopics, history, courseId]);
+  }, [
+    paramTopicId,
+    availableTopicsIds,
+    flatTopics,
+    history,
+    courseId,
+    currentTopic?.id,
+  ]);
 
   const isCourseFinished = useMemo(
     () =>
@@ -283,6 +299,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         currentLessonParentsIds,
         isCourseFinished,
         isAnyDataLoading,
+        showFinishModal,
       }}
     >
       {children}

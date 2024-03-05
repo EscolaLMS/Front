@@ -1,3 +1,6 @@
+import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useCoursePanel } from "@/components/Courses/Course/Context";
 import {
   CoursePanelHeaderContainer,
@@ -7,9 +10,6 @@ import {
 } from "@/components/Courses/Course/CoursePanelLayout/Header/styles";
 import routeRoutes from "@/components/Routes/routes";
 import { IconCircleClose } from "@/icons/index";
-import { isMobile } from "react-device-detect";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 export const CoursePanelHeader = () => {
   const { currentCourseProgram } = useCoursePanel();
@@ -21,9 +21,7 @@ export const CoursePanelHeader = () => {
         <span>{t("CoursePanel.Course", { defaultValue: "Kurs" })}</span>{" "}
         {currentCourseProgram?.title}
       </CoursePanelHeaderTitle>
-      <Link
-        to={routeRoutes.course.replace(":id", `${currentCourseProgram?.id}`)}
-      >
+      <Link to={routeRoutes.myProfile}>
         <CoursePanelHeaderContainer>
           {!isMobile && (
             <CoursePanelHeaderIconText>

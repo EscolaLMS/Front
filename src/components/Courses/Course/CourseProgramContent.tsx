@@ -18,7 +18,7 @@ export const CourseProgramContent: React.FC<{
   topic: API.Topic | undefined;
   preview?: boolean;
 }> = ({ topic, preview = false }) => {
-  const { courseId, nextTopic, setIsNextTopicButtonDisabled } =
+  const { courseId, nextTopic, setIsNextTopicButtonDisabled, showFinishModal } =
     useCoursePanel();
 
   const { topicPing, topicIsFinished, h5pProgress, fetchCourseProgress } =
@@ -58,7 +58,7 @@ export const CourseProgramContent: React.FC<{
   ]);
 
   useEffect(() => {
-    if (!preview) {
+    if (!preview && !showFinishModal) {
       const ping = () =>
         topicId && !topicIsFinished(topicId) && topicPing(topicId);
 
@@ -69,7 +69,7 @@ export const CourseProgramContent: React.FC<{
       ping();
       return () => clearInterval(interval);
     }
-  }, [topicPing, topicId, topicIsFinished, preview]);
+  }, [topicPing, topicId, topicIsFinished, preview, showFinishModal]);
 
   const enableNextButton = useCallback(
     () => setIsNextTopicButtonDisabled?.(false),

@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { mediaQueriesMixin } from "src/style/mixins";
 
 export const CoursePanelHeaderWrapper = styled.header`
   display: flex;
@@ -8,13 +9,20 @@ export const CoursePanelHeaderWrapper = styled.header`
   justify-content: space-between;
   background-color: ${({ theme: { gray1 } }) => gray1};
   color: ${({ theme: { white } }) => white};
-  padding: 0 26px;
+  padding: 0 0 0 26px;
   height: 50px;
 
   picture {
     margin: 0 10px;
     color: ${({ theme: { gray4 } }) => gray4};
   }
+
+  ${mediaQueriesMixin(
+    "lg",
+    css`
+      padding: 0 26px;
+    `
+  )}
 `;
 
 export const CoursePanelHeaderTitle = styled(Title)`
@@ -42,6 +50,7 @@ export const CoursePanelHeaderContainer = styled.div`
   gap: 12px;
   cursor: pointer;
   transition: color 150ms ease-in-out;
+  padding: 0 12px;
 
   svg {
     color: #afafaf;
@@ -53,6 +62,13 @@ export const CoursePanelHeaderContainer = styled.div`
       color: ${({ theme: { gray4 } }) => gray4};
     }
   }
+
+  ${mediaQueriesMixin(
+    "lg",
+    css`
+      padding: 0 26px;
+    `
+  )}
 `;
 
 export const CoursePanelHeaderIconText = styled(Text)`
