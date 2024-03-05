@@ -33,6 +33,7 @@ const StyledList = styled.div`
   overflow: hidden;
   .course-wrapper {
     margin-bottom: 24px;
+
     a {
       text-decoration: none;
     }
@@ -49,7 +50,7 @@ const StyledEmptyInfo = styled.div`
   padding: ${isMobile ? "80px 20px" : "192px 20px"};
   width: calc(100% - 30px);
   margin: 0 auto;
-
+  text-align: center;
   .small-text {
     font-size: 14px;
     margin-top: 20px;
@@ -174,27 +175,27 @@ const ProfileCourses = ({
 
   return (
     <StyledList>
+      {coursesToMap.length === 0 &&
+        !paginatedProgress.loading &&
+        !myAuthoredCourses.loading && (
+          <StyledEmptyInfo>
+            <Title level={3}>
+              {t<string>("MyProfilePage.EmptyCoursesTitle")}
+            </Title>
+            <Text className="small-text">
+              {t<string>("MyProfilePage.EmptyCoursesText")}
+            </Text>
+            <Button
+              onClick={() => history.push(routeRoutes.courses)}
+              mode="secondary"
+            >
+              {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+            </Button>
+          </StyledEmptyInfo>
+        )}
       {!isMobile ? (
         <>
           <Row>
-            {coursesToMap.length === 0 &&
-              !paginatedProgress.loading &&
-              !myAuthoredCourses.loading && (
-                <StyledEmptyInfo>
-                  <Title level={3}>
-                    {t<string>("MyProfilePage.EmptyCoursesTitle")}
-                  </Title>
-                  <Text className="small-text">
-                    {t<string>("MyProfilePage.EmptyCoursesText")}
-                  </Text>
-                  <Button
-                    onClick={() => history.push(routeRoutes.courses)}
-                    mode="secondary"
-                  >
-                    {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-                  </Button>
-                </StyledEmptyInfo>
-              )}
             {paginatedProgress.loading || myAuthoredCourses.loading
               ? Array.from({ length: 8 }).map((_, index) => (
                   <Col md={3} key={`skeleton-card-${index}`}>

@@ -123,6 +123,7 @@ const resources = {
       SectionDescriptionTitle: "Description",
       Join: "Join",
       Terms: "Terms of use",
+      AddNewPhoto: "Add new photo",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -723,6 +724,7 @@ const resources = {
       SectionDescriptionTitle: "Opis",
       Join: "Dołącz",
       Terms: "Warunki korzystania",
+      AddNewPhoto: "Dodaj nowe zdjęcie",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",

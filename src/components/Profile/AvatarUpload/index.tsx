@@ -4,6 +4,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   size?: "small" | "extraSmall";
@@ -25,6 +26,7 @@ const Container = styled.div`
 
 const AvatarUpload: React.FC<Props> = ({ size }) => {
   const { updateAvatar, user } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
 
   const handleAvatarChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,7 @@ const AvatarUpload: React.FC<Props> = ({ size }) => {
       <Avatar size={size} src={user.value?.avatar} alt="" />
       <label htmlFor="fileInput">
         <Text className="avatar-upload-text" size="12">
-          Dodaj nowe zdjęcie
+          {t("AddNewPhoto")}
         </Text>
         <input
           type="file"

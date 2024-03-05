@@ -405,6 +405,13 @@ const Navbar = () => {
                   {t("Navbar.EditProfile")}
                 </NavLink>
               </li>
+              {settings.value.config.termsPage && (
+                <li>
+                  <NavLink to={`/${settings.value.config.termsPage}`}>
+                    {t("Terms")}
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <button
                   onClick={() =>

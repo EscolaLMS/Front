@@ -1,14 +1,13 @@
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import React, { useContext, useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import UserSidebar from "@/components/Profile/UserSidebar";
-import { HeaderUser, UserIcon } from "../../../icons";
+import { UserIcon } from "../../../icons";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import AvatarUpload from "../AvatarUpload";
 import routeRoutes from "@/components/Routes/routes";
 
 export type NavigationTab = {
@@ -24,30 +23,12 @@ const StyledAsideWrapper = styled.div`
 `;
 
 const StyledAside = styled("aside")<{ opened: boolean }>`
-  ${isMobile &&
-  `
-    box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    transition: all 0.25s;
-    z-index: 1000;
-    overflow: scroll;
-    `}
-  transform: ${(props) =>
-    props.opened && isMobile
-      ? "translate(0, 0%)"
-      : !props.opened && isMobile
-      ? "translate(0, 91%)"
-      : "translate(0, 0)"};
   background: ${({ theme }) =>
     theme.mode === "dark" ? theme.dm__background : theme.white};
   border-radius: ${({ theme }) => theme.cardRadius}px;
 
   .user-main-sidebar {
-    margin-bottom: ${isMobile ? "70px" : "5px"};
+    margin-bottom: ${isMobile ? "20px" : "5px"};
 
     .name {
       margin: ${isMobile ? "0 0 0 21px" : "16px 0 0 0"};
@@ -94,33 +75,6 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
   }
 `;
 
-const MobileHeader = styled("div")<{ onClick: () => void; opened: boolean }>`
-  padding: 17px 15px;
-  box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  &:after {
-    content: "";
-    display: ${({ opened }) => (opened ? "block" : "none")};
-    position: absolute;
-    right: 22px;
-    top: 50%;
-    transform: translate(0, -50%) rotate(-45deg);
-    width: 12px;
-    height: 12px;
-    border-left: 2px solid
-      ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray1)};
-    border-bottom: 2px solid
-      ${({ theme }) => (theme.mode === "dark" ? theme.gray5 : theme.gray1)};
-  }
-  .content-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 10px;
-    flex-direction: ${isMobile ? "column" : "row"};
-  }
-`;
-
 type Props = {
   tabs: NavigationTab[];
   isProfile?: boolean;
@@ -128,18 +82,16 @@ type Props = {
 
 const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
   const { settings } = useContext(EscolaLMSContext);
-  const [menuOpened, setMenuOpened] = useState(false);
-  const { user, logout, fetchProgress } = useContext(EscolaLMSContext);
+  const [menuOpened] = useState(false);
+  const { logout, fetchProgress } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const theme = useTheme();
+
   const history = useHistory();
 
   useEffect(() => {
     fetchProgress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log({ settings });
 
   return (
     <StyledAsideWrapper>
@@ -150,26 +102,6 @@ const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
       )}
 
       <StyledAside opened={menuOpened}>
-        {isMobile && (
-          <MobileHeader
-            opened={menuOpened}
-            onClick={() => setMenuOpened(!menuOpened)}
-          >
-            <div className="content-wrapper">
-              {user.value?.avatar ? (
-                <AvatarUpload size="extraSmall" />
-              ) : (
-                <HeaderUser mode={theme.mode === "dark" ? "light" : "dark"} />
-              )}
-              <Text>
-                <strong>
-                  {user.value?.first_name} {user.value?.last_name}
-                </strong>
-              </Text>
-            </div>
-          </MobileHeader>
-        )}
-
         <div className="user-main-sidebar">
           <UserSidebar icon={<UserIcon />}>
             <nav className="navigation">

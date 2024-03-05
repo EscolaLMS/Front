@@ -4,7 +4,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import routes from "@/components/Routes/routes";
 import usePrevious from "../../hooks/usePrevious";
 import Layout from "@/components/_App/Layout";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { isMobile } from "react-device-detect";
@@ -19,14 +19,11 @@ import StaticPageSkeleton from "@/components/Skeletons/StaticPage";
 const StyledStaticPage = styled.section`
   background-color: ${({ theme }) => theme.gray4};
   min-height: calc(100vh - 400px);
+  .user-main-sidebar {
+    margin-top: ${isMobile ? "60px" : 0};
+  }
   .content {
     margin-top: ${isMobile ? "30px" : 0};
-  }
-  .spin-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 100px;
   }
 `;
 
@@ -59,7 +56,7 @@ const StaticPage = () => {
     return (
       pages &&
       pages.list?.data.map((item) => ({
-        key: "dada",
+        key: item.slug,
         title: item.title.substring(0, 50),
         url: item.slug,
       }))
@@ -74,17 +71,20 @@ const StaticPage = () => {
     <Layout metaTitle={page.value?.title}>
       <StyledStaticPage>
         <Container>
-          <Breadcrumbs
-            items={[
-              <Link to={routeRoutes.home}>{t<string>("Home")}</Link>,
-              <Text size="12">{page.value?.title}</Text>,
-            ]}
-          />
+          {!isMobile && (
+            <Breadcrumbs
+              items={[
+                <Link to={routeRoutes.home}>{t<string>("Home")}</Link>,
+                <Text size="12">{page.value?.title}</Text>,
+              ]}
+            />
+          )}
+
           <Row>
-            <Col lg={3}>
+            <Col lg={3} sm={12} xs={12}>
               <ProfileAside tabs={mainTabs || []} isProfile={false} />
             </Col>
-            <Col offset={{ lg: 1 }} lg={isMobile ? 12 : 8}>
+            <Col offset={{ xs: 0, sm: 0, lg: 1 }} sm={12} lg={8}>
               <div className="content">
                 {page.loading ||
                 (!page.value && !page.error) ||
