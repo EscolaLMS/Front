@@ -1,43 +1,17 @@
 import React from "react";
 import { Col, Row } from "react-grid-system";
 import { API } from "@escolalms/sdk/lib";
-import { XAPIEvent } from "@escolalms/h5p-react";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 import CourseProgramContent from "@/components/Courses/Course/CourseProgramContent";
 import CourseDownloads from "../CourseDownloads";
-import { ProjectsData } from "@escolalms/components/lib/components/players/ProjectPlayer/ProjectPlayer";
 
 interface Props {
   lesson: API.Lesson | undefined;
   topic: API.Topic | undefined;
-  disableNextTopicButton: React.Dispatch<React.SetStateAction<boolean>>;
-  getNextPrevTopic: (
-    topicId: number,
-    next?: boolean | undefined
-  ) => API.Topic | null;
-  onXAPI?: (event: XAPIEvent) => void;
-  onVideoEnd?: () => void;
-  onAudioEnd?: () => void;
-  onPdfEnd?: () => void;
-  onQuizEnd?: () => void;
-  onProjectEnd?: () => void;
-  onProjectsChange?: (projects: ProjectsData) => void;
 }
 
-const CourseProgramPlayer = ({
-  lesson,
-  topic,
-  disableNextTopicButton,
-  getNextPrevTopic,
-  onXAPI,
-  onVideoEnd,
-  onAudioEnd,
-  onPdfEnd,
-  onQuizEnd,
-  onProjectEnd,
-  onProjectsChange,
-}: Props) => {
+const CourseProgramPlayer = ({ lesson, topic }: Props) => {
   const columnWidth =
     lesson && lesson.summary && topic && topic.summary ? 6 : 12;
 
@@ -53,19 +27,7 @@ const CourseProgramPlayer = ({
             ...((topic?.json?.wrapperStyle as object) || {}),
           }}
         >
-          <CourseProgramContent
-            key={topic?.id}
-            topic={topic}
-            disableNextTopicButton={disableNextTopicButton}
-            isThereAnotherTopic={Boolean(getNextPrevTopic(Number(topic?.id)))}
-            onXAPI={(event) => onXAPI?.(event)}
-            onVideoEnd={onVideoEnd}
-            onAudioEnd={onAudioEnd}
-            onPdfEnd={onPdfEnd}
-            onQuizEnd={onQuizEnd}
-            onProjectEnd={onProjectEnd}
-            onProjectsChange={onProjectsChange}
-          />
+          <CourseProgramContent key={topic?.id} topic={topic} />
         </div>
       </div>
       <div className="course-program-content__container">

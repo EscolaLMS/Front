@@ -1,22 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCourse = styled.section`
-  padding-bottom: 110px;
-  .main-title {
-    margin-bottom: 20px;
-  }
-  .course-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
+export const CourseFinishModalWrapper = styled.div`
   .course-program-finish-modal {
     font-family: "Mulish", sans-serif;
     background: #f8f8f8;

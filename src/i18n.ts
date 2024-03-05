@@ -595,6 +595,12 @@ const resources = {
           "Go to your profile to see what's included in your purchased package.",
         DescriptionTitle: "Package description",
       },
+      CoursePanel: {
+        Course: "Course",
+        Leave: "Leave",
+        ScheduleTitle: "Schedule",
+        MenuButtonAria: "Toogle menu",
+      },
     },
   },
   pl: {
@@ -1202,6 +1208,12 @@ const resources = {
         ProductOwned:
           "Przejdź do swojego profilu, aby zobaczyć elementy zakupionego pakietu.",
         DescriptionTitle: "Opis pakietu",
+      },
+      CoursePanel: {
+        Course: "Kurs",
+        Leave: "Wyjdź",
+        ScheduleTitle: "Harmonogram kursu",
+        MenuButtonAria: "Przełącz menu",
       },
     },
   },
