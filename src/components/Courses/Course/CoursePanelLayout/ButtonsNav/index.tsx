@@ -59,7 +59,7 @@ export const ButtonsNav = () => {
     <CourseTopNav
       mobile={isMobile}
       // Finish current topic. Not last
-      onFinish={() => completeCurrentTopic?.(true)}
+      onFinish={() => completeCurrentTopic?.()}
       onNext={() => onNextTopic()}
       isFinished={isTopicFinished}
       onPrev={() => onPrevTopic()}
@@ -68,7 +68,7 @@ export const ButtonsNav = () => {
       isLast={isLastTopic}
       isMarkBtnDisabled={isNextTopicButtonDisabled}
       // Last topic and finish course button
-      onCourseFinished={() => completeCurrentTopic?.()}
+      onCourseFinished={() => completeCurrentTopic?.(true)}
       allButtonsDisabled={isAnyDataLoading}
     />
   );

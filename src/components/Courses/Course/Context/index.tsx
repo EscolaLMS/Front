@@ -40,7 +40,7 @@ interface CourseContext {
   currentLessonParentsIds?: number[];
   isCourseFinished?: boolean;
   isAnyDataLoading?: boolean;
-  showFinishModal?: boolean;
+  showFinish?: boolean;
 }
 
 const Context = React.createContext<CourseContext>({});
@@ -68,7 +68,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   } = useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, setIsNextTopicButtonDisabled] =
     useState(false);
-  const [showFinishModal, setShowFinishModal] = useState(false);
+  const [showFinish, setFinishModal] = useState(false);
 
   // :id/:lessonID?/:topicID
   const {
@@ -150,7 +150,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         },
       ]);
       if (finished) {
-        setShowFinishModal(true);
+        setFinishModal(true);
       }
     },
     [sendProgress, currentCourseProgram?.id, currentTopic?.id]
@@ -299,7 +299,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         currentLessonParentsIds,
         isCourseFinished,
         isAnyDataLoading,
-        showFinishModal,
+        showFinish,
       }}
     >
       {children}

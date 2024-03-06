@@ -1,13 +1,11 @@
 import React, { useCallback, useContext, useState } from "react";
-import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { toast } from "react-toastify";
-import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { QuestionBox } from "../../QuestionBox";
 import { QuestionType } from "@/types/questionnaire";
+import { StyledModal } from "@/components/Courses/RateCourse/styles";
 
 type Props = {
   course: string;
@@ -15,6 +13,7 @@ type Props = {
   visible: boolean;
   questionnaire: API.Questionnaire;
   onClose: () => void;
+  onFinish: () => void;
 };
 
 const RateCourse: React.FC<Props> = ({
@@ -23,6 +22,7 @@ const RateCourse: React.FC<Props> = ({
   visible,
   questionnaire,
   onClose,
+  onFinish,
 }) => {
   const { sendQuestionnaireAnswer } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -30,7 +30,6 @@ const RateCourse: React.FC<Props> = ({
   const [state, setState] = useState({
     loading: false,
     step: 0,
-    showLastScreen: false,
   });
 
   const handleSendAnswer = useCallback(
@@ -81,57 +80,33 @@ const RateCourse: React.FC<Props> = ({
         questionnaire.questions &&
         state.step === questionnaire.questions.length - 1
       ) {
-        setState((prevState) => ({
-          ...prevState,
-          showLastScreen: true,
-        }));
+        onFinish();
       }
     },
-    [questionnaire, state.step, handleSendAnswer]
+    [handleSendAnswer, questionnaire.questions, state.step, onFinish]
   );
 
   return (
-    <Modal
+    <StyledModal
       onClose={onClose}
       visible={visible}
       animation="zoom"
       maskAnimation="fade"
       destroyOnClose={true}
       width={468}
+      closable={false}
     >
-      {!state.showLastScreen ? (
-        questionnaire.questions && (
-          <QuestionBox
-            textareaPlaceholder={t("RateCourse.OptionalComment")}
-            data={questionnaire.questions[state.step]}
-            handleSubmit={(rate, note) => handleSave(rate, note)}
-            withStarsRating={
-              questionnaire.questions[state.step]?.type === QuestionType.REVIEW
-            }
-          />
-        )
-      ) : (
-        <React.Fragment>
-          <Title
-            level={4}
-            className="modal-title"
-            style={{
-              paddingTop: "50px",
-            }}
-          >
-            {t("RateCourse.ThankYou")}
-          </Title>
-          <Text
-            style={{
-              paddingBottom: "50px",
-              textAlign: "center",
-            }}
-          >
-            {t("RateCourse.ThankYouMessage")}
-          </Text>
-        </React.Fragment>
+      {questionnaire.questions && (
+        <QuestionBox
+          data={questionnaire.questions[state.step]}
+          handleSubmit={(rate, note) => handleSave(rate, note)}
+          withStarsRating={
+            questionnaire.questions[state.step]?.type === QuestionType.REVIEW
+          }
+          onClose={onClose}
+        />
       )}
-    </Modal>
+    </StyledModal>
   );
 };
 

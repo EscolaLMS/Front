@@ -122,6 +122,9 @@ const resources = {
       Hours: "Hours",
       SectionDescriptionTitle: "Description",
       Join: "Join",
+      Next: "Next",
+      DownloadCertificate: "Download certificate",
+      BackToHomePage: "Back to home page",
       Terms: "Terms of use",
       AddNewPhoto: "Add new photo",
       CoursePage: {
@@ -545,12 +548,15 @@ const resources = {
       TermsOfService: "Terms of Service",
       EmailWasVerified: "Email has been verified.",
       RateCourse: {
+        Title: "Share your opinion about the course",
+        WriteComment: "Write comment",
+        RateScale: "Rate on a scale of 1 - 5",
         ThankYou: "Thank you for rating this course",
         ThankYouMessage: "Your rating has been saved",
         OptionalComment:
           "Here you can write a comment or leave a review (optional)",
-        SendAnswer: "Send answer",
-        NoAnswer: "I don't want to answer",
+        SendAnswer: "Send",
+        NoAnswer: "Cancel",
       },
       Filters: {
         Category: "Category",
@@ -605,6 +611,13 @@ const resources = {
         Leave: "Leave",
         ScheduleTitle: "Schedule",
         MenuButtonAria: "Toogle menu",
+        FinishPage: {
+          Congrats: "Congratulations!",
+          Subtitle: "You have just completed the course",
+          Text: "You have obtained a certificate that allows you to work in the best companies from around the world",
+          YourCertificate: "Your certificate",
+          CertificateText: "You will also find it in your profile",
+        },
       },
     },
   },
@@ -732,6 +745,9 @@ const resources = {
       Hours: "Godziny",
       SectionDescriptionTitle: "Opis",
       Join: "Dołącz",
+      Next: "Dalej",
+      DownloadCertificate: "Pobierz certyfikat",
+      BackToHomePage: "Wróć do strony głównej",
       Terms: "Warunki korzystania",
       AddNewPhoto: "Dodaj nowe zdjęcie",
       CoursePreviewNavbar:
@@ -1164,12 +1180,15 @@ const resources = {
       TermsOfService: "Warunki usługi",
       EmailWasVerified: "Email został potwierdzony.",
       RateCourse: {
+        Title: "Podziel się opinią o kursie",
+        WriteComment: "Napisz komentarz",
+        RateScale: "Oceń w skali 1 - 5",
         ThankYou: "Dziękujemy za wystawienie oceny",
         ThankYouMessage: "Twoja ocena została zapisana",
         OptionalComment:
           "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
-        SendAnswer: "Prześlij odpowiedź",
-        NoAnswer: "Nie chcę odpowiadać",
+        SendAnswer: "Wyślij",
+        NoAnswer: "Anuluj",
       },
       Filters: {
         Category: "Kategoria",
@@ -1224,6 +1243,13 @@ const resources = {
         Leave: "Wyjdź",
         ScheduleTitle: "Harmonogram kursu",
         MenuButtonAria: "Przełącz menu",
+        FinishPage: {
+          Congrats: "Gratulacje!",
+          Subtitle: "Ukończyłeś właśnie kurs",
+          Text: "Zdobyłeś certyfikat, który umożliwia Ci pracę w najlepszych firmach z całego świata",
+          YourCertificate: "Twój certyfikat",
+          CertificateText: "Znajdziesz go także w swoim profilu",
+        },
       },
     },
   },
