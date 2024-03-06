@@ -17,6 +17,7 @@ import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import Onboarding from "@/components/Onboarding";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
