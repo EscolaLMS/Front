@@ -236,9 +236,10 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     if (!currentTopic?.topicable_type) return;
 
     setIsNextTopicButtonDisabled(
-      DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type)
+      DISABLE_NEXT_BUTTON_TYPES.includes(currentTopic?.topicable_type) &&
+        !currentTopic.can_skip
     );
-  }, [currentTopic?.topicable_type]);
+  }, [currentTopic?.can_skip, currentTopic?.topicable_type]);
 
   useEffect(() => {
     if (!paramTopicId || Number(paramTopicId) !== currentTopic?.id) {
