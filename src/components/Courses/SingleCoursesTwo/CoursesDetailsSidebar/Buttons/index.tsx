@@ -103,7 +103,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
 
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) => Number(item.product_id) === Number(course.product?.id)
+      (item) => Number(item.product_id) === Number(course.product?.id)
     );
   }, [course.product?.id, cart]);
 

@@ -125,6 +125,8 @@ const resources = {
       Next: "Next",
       DownloadCertificate: "Download certificate",
       BackToHomePage: "Back to home page",
+      Terms: "Terms of use",
+      AddNewPhoto: "Add new photo",
       CoursePage: {
         ErrorOccurred: "Error occurred",
         HeroBtnText: "See more",
@@ -166,6 +168,9 @@ const resources = {
         SelectQuestionnaire: "Select a questionnaire...",
         SelectQuestion: "Select a question...",
         Resources: "Resources",
+        CourseTitle: "Course title",
+        CertificateDate: "Obtained at",
+        CertificateDownload: "Download certificate",
       },
       Cart: {
         UseTestCard: "Use test cards for Stripe",
@@ -743,6 +748,8 @@ const resources = {
       Next: "Dalej",
       DownloadCertificate: "Pobierz certyfikat",
       BackToHomePage: "Wróć do strony głównej",
+      Terms: "Warunki korzystania",
+      AddNewPhoto: "Dodaj nowe zdjęcie",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
@@ -799,6 +806,9 @@ const resources = {
         SelectQuestion: "Wybierz pytanie...",
         Resources: "Zasoby",
         Questionnaires: "Ankiety",
+        CourseTitle: "Tytuł kursu",
+        CertificateDate: "Uzyskany w dniu",
+        DownloadCertificate: "Pobierz certyfikat",
       },
       Cart: {
         UseTestCard: "Użyj testowej karty Stripe",

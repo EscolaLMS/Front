@@ -114,9 +114,7 @@ const Orders = () => {
     <ProfileLayout title={t("MyProfilePage.OrdersHistory")}>
       <StyledOrdersList>
         {orders.list?.data.length === 0 ? (
-          <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
-            {t<string>("MyProfilePage.OrdersEmpty")}
-          </Text>
+          <Text>{t<string>("MyProfilePage.OrdersEmpty")}</Text>
         ) : (
           <OrdersList mobile={isMobile} data={mappedOrders} />
         )}
