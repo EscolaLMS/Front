@@ -249,7 +249,6 @@ const Navbar = () => {
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
-  console.log("userObj", userObj);
 
   useEffect(() => {
     // @ts-ignore
