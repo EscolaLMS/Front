@@ -63,6 +63,7 @@ const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
 const MyCertificatesPage = lazy(
   () => import("../../pages/user/my-certificates")
 );
+const OnboardingPage = lazy(() => import("../../pages/onboarding/index"));
 const ConditionalRouter: React.FC<{
   basename: string;
   children: React.ReactNode;
@@ -118,6 +119,7 @@ const Routes: React.FC = (): ReactElement => {
     packages,
     packageProduct,
     myCertificates,
+    onboarding,
   } = routes;
 
   return (
@@ -151,6 +153,7 @@ const Routes: React.FC = (): ReactElement => {
           <ConfigRoute exact path={packages} component={PackagesPage} />
           <ConfigRoute exact path={packageProduct} component={PackagePage} />
           {/* privates pages*/}
+          <PrivateRoute exact path={onboarding} component={OnboardingPage} />
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} />

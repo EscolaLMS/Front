@@ -115,7 +115,7 @@ const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
                 </NavLink>
               ))}
 
-              {isProfile && settings.value.config.termsPage && (
+              {isProfile && settings?.value?.config?.termsPage && (
                 <NavLink to={`/${settings.value.config.termsPage}`}>
                   <Text size="16">{t("Terms")}</Text>
                 </NavLink>

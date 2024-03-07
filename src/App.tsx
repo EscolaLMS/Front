@@ -9,6 +9,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceScreen";
 import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
+import routeRoutes from "@/components/Routes/routes";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
@@ -70,7 +71,12 @@ const App = () => {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <StyledMain noPadding={settings?.value?.global?.technicalMaintenance}>
+      <StyledMain
+        noPadding={
+          settings?.value?.global?.technicalMaintenance ||
+          location.href.includes(routeRoutes.onboarding)
+        }
+      >
         <Customizer theme={mapStringToTheme(settings.value?.theme?.theme)} />
         {settings?.value?.global?.technicalMaintenance ? (
           <TechnicalMaintenanceScreen

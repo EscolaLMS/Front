@@ -13,7 +13,6 @@ import Container from "@/components/Common/Container";
 import DisplayCourses from "@/components/Courses/DisplayCoursesSlider";
 import routeRoutes from "@/components/Routes/routes";
 import CoursesUserSlider from "@/components/Courses/CoursesUserSlider";
-import Onboarding from "@/components/Onboarding";
 
 const HomePageStyled = styled.div`
   @media (max-width: 1200px) {
@@ -86,7 +85,6 @@ const Index = () => {
 
   return (
     <Layout metaTitle={t("Home")}>
-      <Onboarding />
       <HomePageStyled>
         <section className="home-hero">
           {settings.value?.homepage &&

@@ -3,6 +3,7 @@ import {
   OnboardingStep,
   OnboardingStepType,
 } from "@/components/Onboarding";
+import SlideOption from "@/components/Onboarding/Step/slide";
 import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { Radio, Text, Title } from "@escolalms/components/lib/index";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
@@ -15,12 +16,18 @@ const StyledStep = styled.div`
   .step-image {
     z-index: 0;
   }
+  > h4 {
+    margin-top: 20px;
+  }
   .options {
     margin-top: 30px;
     margin-bottom: 160px;
     .option {
       &:not(:last-child) {
         margin-bottom: 26px;
+        @media (max-width: 768px) {
+          margin-bottom: 7px;
+        }
       }
     }
 
@@ -115,6 +122,7 @@ const Step: React.FC<Props> = ({ step, onAnswer, answers }) => {
               {option.label[i18n.language]}
             </ButtonOption>
           );
+
         default:
           return (
             <Radio
@@ -148,11 +156,15 @@ const Step: React.FC<Props> = ({ step, onAnswer, answers }) => {
           step.type === OnboardingStepType.options ? "buttons" : ""
         }`}
       >
-        {step.options.map((option, index) => (
-          <div key={option.value + index} className="option">
-            {renderProperOptions(option)}
-          </div>
-        ))}
+        {step.type === OnboardingStepType.slide && (
+          <SlideOption options={step.options} onAnswer={onAnswer} />
+        )}
+        {step.type !== OnboardingStepType.slide &&
+          step.options.map((option, index) => (
+            <div key={option.value + index} className="option">
+              {renderProperOptions(option)}
+            </div>
+          ))}
       </div>
     </StyledStep>
   );

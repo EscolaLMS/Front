@@ -13,19 +13,35 @@ import { Swiper as SwiperType } from "swiper/types";
 import Container from "@/components/Common/Container";
 import Step from "@/components/Onboarding/Step";
 import { Button } from "@escolalms/components/lib/index";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { useHistory } from "react-router-dom";
+import routeRoutes from "@/components/Routes/routes";
 import "swiper/css";
 import "swiper/css/pagination";
+import { toast } from "react-toastify";
 
-const StyledOnboarding = styled.div`
-  padding-top: 100px;
-  position: relative;
+const StyledOnboarding = styled.div<{ $lastStep: boolean }>`
+  background-color: ${({ theme }) => theme.white};
+  padding: 60px 0;
 
+  @media (max-width: 991px) {
+    padding: 20px;
+  }
   .onboarding__content {
     width: 100%;
     position: relative;
+    ${({ $lastStep }) =>
+      $lastStep &&
+      css`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      `}
+
     .swiper-pagination {
       display: flex;
       justify-content: center;
@@ -41,11 +57,13 @@ const StyledOnboarding = styled.div`
     }
     .next-step {
       margin: 0 auto;
-      position: absolute;
-      bottom: 60px;
+      margin-top: ${({ $lastStep }) => ($lastStep ? "70px" : "0px")};
+      position: ${({ $lastStep }) => ($lastStep ? "relative" : "absolute")};
+      bottom: ${({ $lastStep }) => ($lastStep ? "0" : "60px")};
       left: 0;
       right: 0;
       max-width: 265px;
+      min-width: ${({ $lastStep }) => ($lastStep ? "265px" : "auto")};
       z-index: 10;
     }
   }
@@ -63,6 +81,7 @@ export type OnboardingOption = {
 export enum OnboardingStepType {
   radio = "radio",
   options = "options",
+  slide = "slide",
 }
 
 export type OnboardingStep = {
@@ -81,32 +100,46 @@ export type OnboardingStep = {
 type State = {
   steps: OnboardingStep[];
   currentStep: number;
+  isLastStep: boolean;
   answers?: {
     [key: string]: string;
   };
 };
 
 const Onboarding = () => {
-  const { settings, fetchSettings } = useContext(EscolaLMSContext);
-  const { t } = useTranslation();
+  const { settings, fetchSettings, updateProfile, fetchProfile, user } =
+    useContext(EscolaLMSContext);
+  const { t, i18n } = useTranslation();
+  const history = useHistory();
   const [state, setState] = useState<State>({
     steps: [],
     currentStep: 0,
     answers: {},
+    isLastStep: false,
   });
   const swiperRef = useRef<SwiperType>();
+
+  // @ts-ignore
+  if (user.value?.isOnboardingCompleted) {
+    history.push(routeRoutes.home);
+  }
 
   const getOnboardingSteps = useCallback(() => {
     const steps = Object.keys(settings.value.onboarding)
       .filter((key) => key.startsWith("step_"))
       .map((key) => settings.value.onboarding[key])
-      .sort((step) => step.order);
+      .sort((a, b) => a.order - b.order);
 
     setState({
       steps: steps,
       currentStep: 0,
+      isLastStep: false,
     });
   }, [settings]);
+
+  const lastStep = useMemo(() => {
+    return settings.value.onboarding[`last_step_${i18n.language}`];
+  }, [settings, i18n.language]);
 
   useEffect(() => {
     fetchSettings();
@@ -116,10 +149,28 @@ const Onboarding = () => {
   }, [fetchSettings]);
 
   useEffect(() => {
-    if (swiperRef.current) {
+    if (swiperRef.current && !state.isLastStep) {
       swiperRef.current.slideTo(state.currentStep);
     }
-  }, [state.currentStep]);
+  }, [state]);
+
+  const handleSaveOnboarding = useCallback(async () => {
+    try {
+      const req = await updateProfile({
+        ...state.answers,
+        isOnboardingCompleted: true,
+      });
+
+      if (req.success) {
+        fetchProfile();
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+
+    history.push(routeRoutes.home);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.answers, history]);
 
   const nextStepValidation = useMemo(() => {
     const currentStep = state.steps[state.currentStep];
@@ -130,56 +181,71 @@ const Onboarding = () => {
     if (answer) {
       return false;
     }
-    if (state.currentStep === state.steps.length - 1) {
-      console.log("Onboarding has ended");
+    if (state.currentStep === state.steps.length) {
+      setState((prev) => ({
+        ...prev,
+        isLastStep: true,
+      }));
+
+      return false;
     }
     return true;
   }, [state.steps, state.answers, state.currentStep]);
 
+  const handleNextStep = useCallback(() => {
+    if (state.currentStep === state.steps.length) {
+      handleSaveOnboarding();
+    } else {
+      setState((prev) => ({
+        ...prev,
+        currentStep: prev.currentStep + 1,
+      }));
+    }
+  }, [state.currentStep, state.steps.length, handleSaveOnboarding]);
+
   return (
-    <StyledOnboarding className="onboarding">
+    <StyledOnboarding className="onboarding" $lastStep={state.isLastStep}>
       <Container>
         <Col offset={{ lg: 3 }} lg={6}>
           <div className="onboarding__content">
-            <Swiper
-              className="onboarding__swiper"
-              modules={[Navigation, A11y, Pagination]}
-              slidesPerView={1}
-              allowTouchMove={false}
-              initialSlide={0}
-              pagination={true}
-              autoHeight
-              onBeforeInit={(swiper) => {
-                swiperRef.current = swiper;
-              }}
-            >
-              {state.steps.map((step, index) => (
-                <SwiperSlide key={index}>
-                  <Step
-                    answers={state.answers}
-                    step={step}
-                    onAnswer={(value) =>
-                      setState((prev) => ({
-                        ...prev,
-                        answers: {
-                          ...prev.answers,
-                          [step.data]: value,
-                        },
-                      }))
-                    }
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            {!state.isLastStep ? (
+              <Swiper
+                className="onboarding__swiper"
+                modules={[Navigation, A11y, Pagination]}
+                slidesPerView={1}
+                allowTouchMove={false}
+                initialSlide={0}
+                pagination={true}
+                autoHeight
+                onBeforeInit={(swiper) => {
+                  swiperRef.current = swiper;
+                }}
+              >
+                {state.steps.map((step, index) => (
+                  <SwiperSlide key={index}>
+                    <Step
+                      answers={state.answers}
+                      step={step}
+                      onAnswer={(value) =>
+                        setState((prev) => ({
+                          ...prev,
+                          answers: {
+                            ...prev.answers,
+                            [step.data]: value,
+                          },
+                        }))
+                      }
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              lastStep && <MarkdownRenderer>{lastStep}</MarkdownRenderer>
+            )}
             <Button
               className="next-step"
               disabled={nextStepValidation}
-              onClick={() =>
-                setState((prev) => ({
-                  ...prev,
-                  currentStep: prev.currentStep + 1,
-                }))
-              }
+              onClick={handleNextStep}
             >
               {t("Next")}
             </Button>
