@@ -8,22 +8,21 @@ import Title from "@escolalms/components/lib/components/atoms/Typography/Title";
 import Text from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { IconCertificateBig } from "@/icons/index";
 import { useCertificateDownload } from "@/hooks/useDownloadCertificate";
+import { Certificate } from "@escolalms/sdk/lib/types/api";
 
 interface Props {
-  certificateTitle: string;
-  courseId: number;
+  certificates: Certificate[];
 }
 
-export const CoursePanelFinishPageCertificate = ({
-  certificateTitle,
-  courseId,
-}: Props) => {
+export const CoursePanelFinishPageCertificate = ({ certificates }: Props) => {
   const { t } = useTranslation();
   const { downloadCertificate, loadingId } = useCertificateDownload();
 
   const onDownload = useCallback(() => {
-    downloadCertificate(courseId, certificateTitle);
-  }, [certificateTitle, courseId, downloadCertificate]);
+    certificates.forEach(({ id, title }) => {
+      downloadCertificate(id, title);
+    });
+  }, [certificates, downloadCertificate]);
 
   return (
     <CenteredWrapper className="certificate-container">
@@ -36,8 +35,8 @@ export const CoursePanelFinishPageCertificate = ({
       <Button
         className="button"
         onClick={onDownload}
-        loading={loadingId === courseId}
-        disabled={loadingId === courseId}
+        loading={loadingId !== -1}
+        disabled={loadingId !== -1}
       >
         {t("DownloadCertificate")}
       </Button>
