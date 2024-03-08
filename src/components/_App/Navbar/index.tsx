@@ -24,7 +24,6 @@ import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
 import NotificationsDrawer from "@/components/Notifications/drawer";
 import MobileDrawer from "@/components/_App/MobileDrawer";
-import { UserAsProfile } from "@escolalms/sdk/lib/types/api";
 
 const StyledHeader = styled.header`
   width: 100%;

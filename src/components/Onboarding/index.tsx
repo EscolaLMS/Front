@@ -12,7 +12,7 @@ import { Navigation, A11y, Pagination } from "swiper/modules";
 import { Swiper as SwiperType } from "swiper/types";
 import Container from "@/components/Common/Container";
 import Step from "@/components/Onboarding/Step";
-import { Button } from "@escolalms/components/lib/index";
+import { Button, Text, Title } from "@escolalms/components/lib/index";
 import styled, { css } from "styled-components";
 import { Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,7 @@ import routeRoutes from "@/components/Routes/routes";
 import "swiper/css";
 import "swiper/css/pagination";
 import { toast } from "react-toastify";
+import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 const StyledOnboarding = styled.div<{ $lastStep: boolean }>`
   background-color: ${({ theme }) => theme.white};
@@ -66,6 +67,17 @@ const StyledOnboarding = styled.div<{ $lastStep: boolean }>`
       min-width: ${({ $lastStep }) => ($lastStep ? "265px" : "auto")};
       z-index: 10;
     }
+  }
+`;
+
+const StyledLastStep = styled.div`
+  text-align: center;
+  img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+  h2 {
+    margin: 22px 0px;
   }
 `;
 
@@ -138,8 +150,13 @@ const Onboarding = () => {
   }, [settings]);
 
   const lastStep = useMemo(() => {
-    return settings.value.onboarding[`last_step_${i18n.language}`];
-  }, [settings, i18n.language]);
+    if (settings.value.onboarding.last_step) {
+      return {
+        ...settings.value.onboarding[`last_step`],
+        image: settings.value.onboarding[`image_last_step`],
+      };
+    }
+  }, [settings]);
 
   useEffect(() => {
     fetchSettings();
@@ -240,7 +257,15 @@ const Onboarding = () => {
                 ))}
               </Swiper>
             ) : (
-              lastStep && <MarkdownRenderer>{lastStep}</MarkdownRenderer>
+              <StyledLastStep>
+                <ResponsiveImage
+                  path={lastStep.image}
+                  srcSizes={[500, 750, 1000]}
+                />
+
+                <Title level={2}>{lastStep.title[i18n.language]}</Title>
+                <Text>{lastStep.text[i18n.language]}</Text>
+              </StyledLastStep>
             )}
             <Button
               className="next-step"
