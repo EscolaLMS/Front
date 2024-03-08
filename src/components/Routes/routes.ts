@@ -35,6 +35,7 @@ const routeRoutes = {
   privacyPolicy: "/privacy-policy",
   packages: "/packages",
   packageProduct: "/package/:id",
+  onboarding: "/onboarding",
 };
 
 export default routeRoutes;

@@ -20,7 +20,7 @@ const GetCertificate: React.FC<Props> = ({ courseId }) => {
     try {
       const getCert = await fetchCertificate(courseId);
       if (getCert.success) {
-        downloadCertificate(courseId, getCert.data?.title);
+        downloadCertificate(getCert.data.id, getCert.data?.title);
       }
     } catch (error) {
       toast.error(`${t("UnexpectedError")}`);

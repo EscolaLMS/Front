@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../../../images/logo-orange.svg";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -242,12 +242,21 @@ const Navbar = () => {
   const { handleLanguageChange } = useLanguage();
   const { notifications } = useContext(EscolaLMSContext);
   const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
-  const user = userObj.value;
+  const user = userObj?.value;
   const history = useHistory();
   const theme = useTheme();
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+
+  useEffect(() => {
+    // @ts-ignore
+    if (user && user.id && !user.isOnboardingCompleted) {
+      setTimeout(() => {
+        history.push(routeRoutes.onboarding);
+      }, 1000);
+    }
+  }, [user, history]);
 
   const menuItems = [
     {
@@ -405,9 +414,9 @@ const Navbar = () => {
                   {t("Navbar.EditProfile")}
                 </NavLink>
               </li>
-              {settings.value.config.termsPage && (
+              {settings?.value?.config?.termsPage && (
                 <li>
-                  <NavLink to={`/${settings.value.config.termsPage}`}>
+                  <NavLink to={`/${settings?.value?.config?.termsPage}`}>
                     {t("Terms")}
                   </NavLink>
                 </li>
