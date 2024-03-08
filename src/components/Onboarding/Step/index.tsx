@@ -75,6 +75,12 @@ const StyledHint = styled.div`
     transform: translate(-140%, -3vmin) rotate(165deg);
     left: 20vmin;
     z-index: -1;
+    @media (max-width: 768px) {
+      left: 25vmin;
+      width: 12vmin;
+      height: 9vmin;
+      box-shadow: rgb(51, 51, 51) 5vmin 0.5vmin;
+    }
   }
 `;
 
