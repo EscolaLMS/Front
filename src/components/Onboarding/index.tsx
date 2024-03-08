@@ -16,13 +16,11 @@ import { Button, Text, Title } from "@escolalms/components/lib/index";
 import styled, { css } from "styled-components";
 import { Col } from "react-grid-system";
 import { useTranslation } from "react-i18next";
-import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import { useHistory } from "react-router-dom";
 import routeRoutes from "@/components/Routes/routes";
 import "swiper/css";
 import "swiper/css/pagination";
-import { toast } from "react-toastify";
-import ResponsiveImage from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 const StyledOnboarding = styled.div<{ $lastStep: boolean }>`
   background-color: ${({ theme }) => theme.white};
