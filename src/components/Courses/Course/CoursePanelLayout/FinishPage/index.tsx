@@ -7,12 +7,16 @@ import { CoursePanelFinishPageCertificate } from "@/components/Courses/Course/Co
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useCoursePanel } from "@/components/Courses/Course/Context";
 import routeRoutes from "@/components/Routes/routes";
+import {
+  Certificate,
+  CertificateAssignableTypes,
+} from "@escolalms/sdk/lib/types/api";
 
 type State = {
   showModal: boolean;
   showCertificate: boolean;
   isAnyQuestionnaire: boolean | null;
-  certificateTitle: string | null;
+  certificates: Certificate[] | null;
 };
 
 export const CoursePanelFinishPage = () => {
@@ -20,25 +24,28 @@ export const CoursePanelFinishPage = () => {
     showModal: false,
     isAnyQuestionnaire: null,
     showCertificate: false,
-    certificateTitle: null,
+    certificates: null,
   });
   const { courseId } = useCoursePanel();
-  const { fetchCertificate } = useContext(EscolaLMSContext);
+  const { fetchCertificates } = useContext(EscolaLMSContext);
   const history = useHistory();
 
   const getCertificate = useCallback(async () => {
     try {
-      const res = await fetchCertificate(Number(courseId));
-      if (res.success) {
+      const res = await fetchCertificates({
+        assignable_type: CertificateAssignableTypes.Course,
+        assignable_id: Number(courseId),
+      });
+      if (res && res.success) {
         setState((prev) => ({
           ...prev,
-          certificateTitle: res.data.title || "Certificate",
+          certificates: res.data as Certificate[],
         }));
       }
     } catch (error) {
       console.log("Error: ", error);
     }
-  }, [courseId, fetchCertificate]);
+  }, [courseId, fetchCertificates]);
 
   useEffect(() => {
     getCertificate();
@@ -62,7 +69,7 @@ export const CoursePanelFinishPage = () => {
       handleModalChange(true);
       return;
     }
-    if (typeof state.certificateTitle === "string") {
+    if (state.certificates && state.certificates.length > 0) {
       onFinish();
       return;
     }
@@ -71,7 +78,7 @@ export const CoursePanelFinishPage = () => {
     handleModalChange,
     history,
     onFinish,
-    state.certificateTitle,
+    state.certificates,
     state.isAnyQuestionnaire,
   ]);
 
@@ -90,11 +97,8 @@ export const CoursePanelFinishPage = () => {
       {!state.showCertificate && (
         <CoursePanelFinishPageCongrats onNextClick={onNextClick} />
       )}
-      {state.showCertificate && (
-        <CoursePanelFinishPageCertificate
-          certificateTitle={String(state.certificateTitle)}
-          courseId={Number(courseId)}
-        />
+      {state.showCertificate && state.certificates && (
+        <CoursePanelFinishPageCertificate certificates={state.certificates} />
       )}
       <CoursePanelFinishPageRate
         showModal={state.showModal}
