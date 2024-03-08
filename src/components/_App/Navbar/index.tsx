@@ -256,7 +256,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (
-      settings.value.onboarding.isShown &&
+      settings?.value?.onboarding?.isShown &&
       user &&
       user.id &&
       // @ts-ignore
@@ -264,7 +264,7 @@ const Navbar = () => {
     ) {
       history.push(routeRoutes.onboarding);
     }
-  }, [user, history, settings.value.onboarding.isShown]);
+  }, [user, history, settings?.value?.onboarding?.isShown]);
 
   const menuItems = [
     {
