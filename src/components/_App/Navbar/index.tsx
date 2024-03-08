@@ -240,8 +240,13 @@ const StyledMobileDrawerNavigation = styled.div`
 const Navbar = () => {
   const { t } = useTranslation();
   const { handleLanguageChange } = useLanguage();
-  const { notifications } = useContext(EscolaLMSContext);
-  const { user: userObj, settings, logout } = useContext(EscolaLMSContext);
+
+  const {
+    user: userObj,
+    settings,
+    logout,
+    notifications,
+  } = useContext(EscolaLMSContext);
   const user = userObj?.value;
   const history = useHistory();
   const theme = useTheme();
@@ -250,13 +255,16 @@ const Navbar = () => {
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
   useEffect(() => {
-    // @ts-ignore
-    if (user && user.id && !user.isOnboardingCompleted) {
-      setTimeout(() => {
-        history.push(routeRoutes.onboarding);
-      }, 1000);
+    if (
+      settings.value.onboarding.isShown &&
+      user &&
+      user.id &&
+      // @ts-ignore
+      !user.isOnboardingCompleted
+    ) {
+      history.push(routeRoutes.onboarding);
     }
-  }, [user, history]);
+  }, [user, history, settings.value.onboarding.isShown]);
 
   const menuItems = [
     {
