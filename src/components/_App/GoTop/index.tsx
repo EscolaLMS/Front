@@ -1,46 +1,69 @@
-import React from "react";
+import { ArrowUp } from "@/icons/index";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const GoTop: React.FC<{ scrollStepInPx: number | string; delayInMs: number }> =
-  ({ scrollStepInPx, delayInMs }) => {
-    const [thePosition, setThePosition] = React.useState(false);
-    const timeoutRef: { current: NodeJS.Timeout | null } = React.useRef(null);
+const StyledGoTop = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.gray3};
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  svg {
+    transition: transform 0.3s ease;
+  }
+  &:hover {
+    transform: translateY(-5px);
+    svg {
+      transform: translateY(-5px);
+    }
+  }
+`;
 
-    React.useEffect(() => {
-      document.addEventListener("scroll", () => {
-        if (window.scrollY > 170) {
-          setThePosition(true);
-        } else {
-          setThePosition(false);
-        }
-      });
-    }, []);
+const GoTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-    const onScrollStep = () => {
-      if (window.pageYOffset === 0) {
-        timeoutRef.current && clearInterval(timeoutRef.current);
+  useEffect(() => {
+    document.addEventListener("scroll", () => {
+      if (window && window.scrollY > 70) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
       }
-      window.scroll(0, window.pageYOffset - Number(scrollStepInPx));
-    };
+    });
 
-    const scrollToTop = () => {
-      timeoutRef.current = setInterval(onScrollStep, delayInMs);
+    return () => {
+      window.removeEventListener("scroll", () => {});
     };
+  }, []);
 
-    const renderGoTopIcon = () => {
-      return (
-        <div
-          className={`go-top ${thePosition ? "active" : ""}`}
-          onClick={scrollToTop}
-          onKeyDown={scrollToTop}
-          role="button"
-          tabIndex={-1}
-        >
-          <i className="bx bx-chevron-up"></i>
-        </div>
-      );
-    };
-
-    return <React.Fragment>{renderGoTopIcon()}</React.Fragment>;
+  const scrollToTop = () => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
+
+  const renderGoTopIcon = () => {
+    return (
+      <StyledGoTop
+        className={`go-top ${isVisible ? "active" : ""}`}
+        onClick={scrollToTop}
+        onKeyDown={scrollToTop}
+        role="button"
+        tabIndex={-1}
+      >
+        <ArrowUp />
+      </StyledGoTop>
+    );
+  };
+
+  return <React.Fragment>{renderGoTopIcon()}</React.Fragment>;
+};
 
 export default GoTop;

@@ -8,8 +8,8 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
-    "@escolalms/components": "^0.0.126",
-    "@escolalms/h5p-react": "^0.2.10",
+    "@escolalms/components": "^0.0.129",
+    "@escolalms/h5p-react": "^0.2.19",
     "@escolalms/sdk": "^0.5.23",
     "@escolalms/ts-models": "^0.0.35",
     "@sentry/react": "^6.15.0",
@@ -52,7 +52,8 @@
     "webfontloader": "^1.6.28",
     "react-loading-skeleton": "^3.4.0",
     "react-infinite-scroll-hook": "^4.1.1",
-    "react-range": "^1.8.14"
+    "react-range": "^1.8.14",
+    "rc-drawer": "^7.1.0"
   },
   "scripts": {
     "start": " vite",
