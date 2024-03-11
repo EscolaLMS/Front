@@ -41,6 +41,7 @@ interface CourseContext {
   isCourseFinished?: boolean;
   isAnyDataLoading?: boolean;
   showFinish?: boolean;
+  isLastTopic?: boolean;
 }
 
 const Context = React.createContext<CourseContext>({});
@@ -276,6 +277,13 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     [currentCourseProgress?.value]
   );
 
+  const isLastTopic = useMemo(
+    () =>
+      currentTopic?.id !== undefined &&
+      (flatTopics ?? []).at(-1)?.id === currentTopic?.id,
+    [currentTopic?.id, flatTopics]
+  );
+
   const isAnyDataLoading = useMemo(
     () => program.loading || currentCourseProgress?.loading,
     [program.loading, currentCourseProgress?.loading]
@@ -301,6 +309,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         isCourseFinished,
         isAnyDataLoading,
         showFinish,
+        isLastTopic,
       }}
     >
       {children}
