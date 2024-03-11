@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
+import GoTop from "@/components/_App/GoTop";
 
 declare global {
   interface Window {
@@ -81,7 +82,6 @@ const Layout: React.FC<{
         {!isCourse && <Footer />}
         {localStorage.getItem("hideWarning") !== "true" && <Warning />}
       </div>
-      {/* <GoTop scrollStepInPx="100" delayInMs={10} /> */}
     </React.Fragment>
   );
 };

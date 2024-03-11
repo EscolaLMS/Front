@@ -17,7 +17,6 @@ import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
-import Onboarding from "@/components/Onboarding";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -40,6 +39,8 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledContent = styled.div`
+  padding: 200px 0px;
+  background-color: #f8f8f8;
   .content-container {
     display: flex;
     justify-content: flex-start;
@@ -152,7 +153,7 @@ const RegisterPage = () => {
                 </MarkdownRenderer>
 
                 <div className="back-text">
-                  <LinkComponent onClick={() => setView("register")} underline>
+                  <LinkComponent onClick={() => setView("register")}>
                     {t("EmailActivation.RegisterAgain")}
                   </LinkComponent>
                 </div>
