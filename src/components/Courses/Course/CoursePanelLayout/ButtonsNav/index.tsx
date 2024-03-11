@@ -9,7 +9,6 @@ export const ButtonsNav = () => {
     completeCurrentTopic,
     currentTopic,
     finishedTopicsIds,
-    flatTopics,
     courseId,
     currentLesson,
     nextTopic,
@@ -17,6 +16,7 @@ export const ButtonsNav = () => {
     availableTopicsIds,
     isNextTopicButtonDisabled,
     isAnyDataLoading,
+    isLastTopic,
   } = useCoursePanel();
   const history = useHistory();
 
@@ -25,13 +25,6 @@ export const ButtonsNav = () => {
       currentTopic?.id !== undefined &&
       (finishedTopicsIds ?? []).includes(currentTopic?.id),
     [finishedTopicsIds, currentTopic?.id]
-  );
-
-  const isLastTopic = useMemo(
-    () =>
-      currentTopic?.id !== undefined &&
-      (flatTopics ?? []).at(-1)?.id === currentTopic?.id,
-    [currentTopic?.id, flatTopics]
   );
 
   const onNextTopic = useCallback(() => {
