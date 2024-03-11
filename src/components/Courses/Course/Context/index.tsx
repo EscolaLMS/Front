@@ -68,7 +68,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   } = useContext(EscolaLMSContext);
   const [isNextTopicButtonDisabled, setIsNextTopicButtonDisabled] =
     useState(false);
-  const [showFinish, setFinishModal] = useState(false);
+  const [showFinish, setShowFinish] = useState(false);
 
   // :id/:lessonID?/:topicID
   const {
@@ -150,7 +150,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         },
       ]);
       if (finished) {
-        setFinishModal(true);
+        setShowFinish(true);
       }
     },
     [sendProgress, currentCourseProgram?.id, currentTopic?.id]
