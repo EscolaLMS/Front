@@ -17,6 +17,7 @@ import { Col, Row } from "react-grid-system";
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
+import { EmailActivationImg } from "@/icons/index";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -41,6 +42,14 @@ const StyledLink = styled(Link)`
 const StyledContent = styled.div`
   padding: 200px 0px;
   background-color: #f8f8f8;
+
+  .image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
   .content-container {
     display: flex;
     justify-content: flex-start;
@@ -135,6 +144,10 @@ const RegisterPage = () => {
     return (
       <StyledContent>
         <Container>
+          <div className="image-wrapper">
+            <EmailActivationImg />
+          </div>
+
           <Row justify={"center"}>
             <Col md={12}>
               <div className="content-container">
