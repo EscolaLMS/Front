@@ -4,6 +4,7 @@ import { BackArrow } from "@/icons/index";
 import { Text } from "@escolalms/components/lib/index";
 import { useCallback, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   lessonID: number;
@@ -16,6 +17,7 @@ const ChatWindow: React.FC<Props> = ({ lessonID, onClose }) => {
     messages: [],
     inputValue: "",
   });
+  const { t } = useTranslation();
 
   const handleSendMessage = useCallback(() => {
     setState({
@@ -59,7 +61,7 @@ const ChatWindow: React.FC<Props> = ({ lessonID, onClose }) => {
     >
       <header className="chatwindow__header">
         <Text size="18" bold>
-          Porozmawiajmy
+          {t("LetsTalk")}
         </Text>
         <button
           title="close-chat"
@@ -73,7 +75,7 @@ const ChatWindow: React.FC<Props> = ({ lessonID, onClose }) => {
         <div className="chatwindow__content--messages">
           {state.messages.length === 0 && (
             <div className="chatwindow__content--messages__empty">
-              <Text size="16">Rozpocznij chat</Text>
+              <Text size="16">{t("StartChat")}</Text>
             </div>
           )}
           <ChatMessage isAI />

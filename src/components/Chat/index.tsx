@@ -4,7 +4,15 @@ import { useState } from "react";
 import { isMobile } from "react-device-detect";
 import styled, { CSSProperties, css } from "styled-components";
 
-const StyledAIChatWrapper = styled.div<{ $placement?: CSSProperties }>`
+const StyledAIChatWrapper = styled.div`
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+`;
+
+const StyledAIChatContainer = styled.div<{ $placement?: CSSProperties }>`
   ${({ $placement }) =>
     $placement &&
     css`
@@ -15,13 +23,14 @@ const StyledAIChatWrapper = styled.div<{ $placement?: CSSProperties }>`
         )
         .join("\n")}
     `}
+  padding-bottom: env(safe-area-inset-bottom);
 `;
 
 const StyledAIChatButton = styled.div<{ $isMobile: boolean }>`
   width: ${({ $isMobile }) => ($isMobile ? "45px" : "68px")};
   height: ${({ $isMobile }) => ($isMobile ? "45px" : "68px")};
   background-color: ${({ theme }) => theme.primaryColor};
-  border-radius: ${({ $isMobile }) => ($isMobile ? "29px" : "50%")};
+  border-radius: ${({ $isMobile }) => ($isMobile ? "0" : "50%")};
   box-shadow: 0px 5px 15px #00000058;
   display: flex;
   flex-direction: column;
@@ -31,6 +40,7 @@ const StyledAIChatButton = styled.div<{ $isMobile: boolean }>`
   position: relative;
   transition: transform 0.25s ease-in-out;
   margin-bottom: 15px;
+
   &:hover {
     transform: scale(1.05) translateY(-3px);
   }
@@ -47,6 +57,12 @@ const StyledAIChatButton = styled.div<{ $isMobile: boolean }>`
     $isMobile &&
     css`
       margin-left: auto;
+      border-top-left-radius: 29px;
+      border-bottom-left-radius: 29px;
+      svg {
+        width: 23px;
+        height: 23px;
+      }
     `}
 `;
 
@@ -75,16 +91,26 @@ const AIChat: React.FC<Props> = ({
   const [state, setState] = useState(false);
 
   return (
-    <StyledAIChatWrapper $placement={placement}>
-      {!state && (
-        <StyledAIChatButton onClick={() => setState(true)} $isMobile={isMobile}>
-          <ChatIcon />
-          <div className="badge"></div>
-        </StyledAIChatButton>
-      )}
-      {state && (
-        <ChatWindow lessonID={lessonID} onClose={() => setState(false)} />
-      )}
+    <StyledAIChatWrapper>
+      <StyledAIChatContainer
+        $placement={
+          isMobile
+            ? { ...placement, top: state ? "initial" : "120px" }
+            : placement
+        }
+      >
+        {!state && (
+          <StyledAIChatButton
+            onClick={() => setState(true)}
+            $isMobile={isMobile}
+          >
+            <ChatIcon />
+          </StyledAIChatButton>
+        )}
+        {state && (
+          <ChatWindow lessonID={lessonID} onClose={() => setState(false)} />
+        )}
+      </StyledAIChatContainer>
     </StyledAIChatWrapper>
   );
 };

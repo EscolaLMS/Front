@@ -148,7 +148,7 @@ const Onboarding = () => {
   }, [settings]);
 
   const lastStep = useMemo(() => {
-    if (settings.value.onboarding.last_step) {
+    if (settings.value.onboarding?.last_step) {
       return {
         ...settings.value.onboarding[`last_step`],
         image: settings.value.onboarding[`image_last_step`],
@@ -254,17 +254,17 @@ const Onboarding = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            ) : (
+            ) : lastStep ? (
               <StyledLastStep>
                 <ResponsiveImage
-                  path={lastStep.image}
+                  path={lastStep?.image}
                   srcSizes={[500, 750, 1000]}
                 />
 
-                <Title level={2}>{lastStep.title[i18n.language]}</Title>
-                <Text>{lastStep.text[i18n.language]}</Text>
+                <Title level={2}>{lastStep?.title[i18n.language]}</Title>
+                <Text>{lastStep?.text[i18n.language]}</Text>
               </StyledLastStep>
-            )}
+            ) : null}
             <Button
               className="next-step"
               disabled={nextStepValidation}

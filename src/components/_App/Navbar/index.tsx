@@ -253,7 +253,7 @@ const Navbar = () => {
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
-
+  console.log(settings, "settings");
   useEffect(() => {
     if (
       settings?.value?.onboarding?.isShown &&
