@@ -148,11 +148,15 @@ const Onboarding = () => {
   }, [settings]);
 
   const lastStep = useMemo(() => {
-    if (settings.value.onboarding.last_step) {
+    if (settings.value.onboarding && settings.value.onboarding?.last_step) {
       return {
         ...settings.value.onboarding[`last_step`],
-        image: settings.value.onboarding[`image_last_step`],
+        image: settings.value.onboarding[`image_last_step`]
+          ? settings.value.onboarding[`image_last_step`]
+          : null,
       };
+    } else {
+      return;
     }
   }, [settings]);
 
@@ -208,6 +212,10 @@ const Onboarding = () => {
   }, [state.steps, state.answers, state.currentStep]);
 
   const handleNextStep = useCallback(() => {
+    if (!lastStep && state.currentStep === state.steps.length - 1) {
+      handleSaveOnboarding();
+      return;
+    }
     if (state.currentStep === state.steps.length) {
       handleSaveOnboarding();
     } else {
@@ -216,7 +224,7 @@ const Onboarding = () => {
         currentStep: prev.currentStep + 1,
       }));
     }
-  }, [state.currentStep, state.steps.length, handleSaveOnboarding]);
+  }, [state.currentStep, state.steps.length, handleSaveOnboarding, lastStep]);
 
   return (
     <StyledOnboarding className="onboarding" $lastStep={state.isLastStep}>
@@ -254,15 +262,18 @@ const Onboarding = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            ) : (
+            ) : null}
+            {state.isLastStep && lastStep && (
               <StyledLastStep>
-                <ResponsiveImage
-                  path={lastStep.image}
-                  srcSizes={[500, 750, 1000]}
-                />
+                {lastStep?.image && (
+                  <ResponsiveImage
+                    path={lastStep?.image}
+                    srcSizes={[500, 750, 1000]}
+                  />
+                )}
 
-                <Title level={2}>{lastStep.title[i18n.language]}</Title>
-                <Text>{lastStep.text[i18n.language]}</Text>
+                <Title level={2}>{lastStep?.title[i18n.language]}</Title>
+                <Text>{lastStep?.text[i18n.language]}</Text>
               </StyledLastStep>
             )}
             <Button
