@@ -110,5 +110,8 @@ export const StyledChatWindow = styled.div<{
         align-items: center;
       }
     }
+    &--error {
+      text-align: center;
+    }
   }
 `;

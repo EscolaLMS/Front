@@ -9,29 +9,41 @@ type Message = {
 
 type ApiResponse<T> = {
   data: T | null;
-  status: number;
   message: string;
+};
+
+type Answer = {
+  answer: string;
+  conversation_id: string;
 };
 
 async function fetchResource<T>(
   url: string,
-  headers?: Record<string, string>
+  options?: RequestInit
 ): Promise<ApiResponse<T>> {
   try {
-    const response = await fetch(url, headers);
-    const data: T = await response.json();
-    return { data, status: response.status, message: "success" };
+    const response = await fetch(url, options);
+    const data: ApiResponse<T> = await response.json();
+    return {
+      data: data.data,
+      message: data.message,
+    };
   } catch (error) {
-    return { data: null, status: 500, message: (error as Error).message };
+    return { data: null, message: (error as Error).message };
   }
 }
 
-export const postMessage = async (
+export const sendChatMessage = async (
   lessonID: number,
-  message: Message
-): Promise<ApiResponse<Message>> => {
-  return fetchResource<Message>(`${BASE_URL}/api/yepp-chat/${lessonID}`, {
+  message: Message,
+  token: string
+): Promise<ApiResponse<Answer>> => {
+  return fetchResource<Answer>(`${BASE_URL}/api/yepp-chat/${lessonID}`, {
     method: "POST",
     body: JSON.stringify(message),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 };

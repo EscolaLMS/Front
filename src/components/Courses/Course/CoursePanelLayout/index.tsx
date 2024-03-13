@@ -7,7 +7,7 @@ import { LayoutWrapper } from "@/components/Courses/Course/CoursePanelLayout/sty
 
 export const CoursePanelLayout = () => {
   const { showFinish, currentLesson } = useCoursePanel();
-
+  console.log(currentLesson);
   return (
     <LayoutWrapper>
       <CoursePanelHeader />

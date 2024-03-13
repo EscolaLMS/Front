@@ -14,17 +14,14 @@ const StyledMessage = styled.div<{ $isAI: boolean }>`
 `;
 
 type Props = {
-  message?: string;
+  message: string;
   isAI?: boolean;
 };
 
-const ChatMessage: React.FC<Props> = ({ isAI = false }) => {
+const ChatMessage: React.FC<Props> = ({ message, isAI = false }) => {
   return (
     <StyledMessage $isAI={isAI}>
-      <Text size="16">
-        Dzień dobry, fajnie Cię widzieć korzystającego z kursu. Jestem Twoim
-        asystentem AI i chętnie Ci pomogę.
-      </Text>
+      <Text size="16">{message}</Text>
     </StyledMessage>
   );
 };
