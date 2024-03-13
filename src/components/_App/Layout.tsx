@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
-// import GoTop from "@/components/_App/GoTop";
+
 import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
-import GoTop from "@/components/_App/GoTop";
 
 declare global {
   interface Window {
