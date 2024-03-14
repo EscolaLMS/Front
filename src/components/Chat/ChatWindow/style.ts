@@ -2,7 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 const scaleAndTranslateIn = keyframes`
   from {
-    transform:  translateY(200%);
+    transform:  translateY(100%);
   }
   to {
     transform:  translateY(0%);
@@ -14,7 +14,7 @@ const scaleAndTranslateOut = keyframes`
     transform:  translateY(0);
   }
   to {
-    transform:  translateY(200%);
+    transform:  translateY(100%);
   }
 `;
 

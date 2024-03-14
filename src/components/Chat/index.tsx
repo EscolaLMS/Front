@@ -4,12 +4,16 @@ import { useState } from "react";
 import { isMobile } from "react-device-detect";
 import styled, { CSSProperties, css } from "styled-components";
 
-const StyledAIChatWrapper = styled.div`
-  height: 100dvh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+const StyledAIChatWrapper = styled.div<{ $isMobile: boolean }>`
+  ${({ $isMobile }) =>
+    $isMobile &&
+    css`
+      height: 100dvh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    `};
 `;
 
 const StyledAIChatContainer = styled.div<{ $placement?: CSSProperties }>`
@@ -37,9 +41,11 @@ const StyledAIChatButton = styled.div<{ $isMobile: boolean }>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  position: relative;
   transition: transform 0.25s ease-in-out;
   margin-bottom: 15px;
+  position: fixed;
+  bottom: 5px;
+  right: 15px;
 
   &:hover {
     transform: scale(1.05) translateY(-3px);
@@ -59,6 +65,8 @@ const StyledAIChatButton = styled.div<{ $isMobile: boolean }>`
       margin-left: auto;
       border-top-left-radius: 29px;
       border-bottom-left-radius: 29px;
+      top: 110px;
+      right: 0%;
       svg {
         width: 23px;
         height: 23px;
@@ -79,7 +87,6 @@ const AIChat: React.FC<Props> = ({
         top: "120px",
         position: "absolute",
         width: "100%",
-
         bottom: "0px",
       }
     : {
@@ -91,7 +98,7 @@ const AIChat: React.FC<Props> = ({
   const [state, setState] = useState(false);
 
   return (
-    <StyledAIChatWrapper>
+    <StyledAIChatWrapper $isMobile={isMobile}>
       <StyledAIChatContainer
         $placement={
           isMobile
@@ -107,9 +114,12 @@ const AIChat: React.FC<Props> = ({
             <ChatIcon />
           </StyledAIChatButton>
         )}
-        {state && (
-          <ChatWindow lessonID={lessonID} onClose={() => setState(false)} />
-        )}
+
+        <ChatWindow
+          isOpen={state}
+          lessonID={lessonID}
+          onClose={() => setState(false)}
+        />
       </StyledAIChatContainer>
     </StyledAIChatWrapper>
   );

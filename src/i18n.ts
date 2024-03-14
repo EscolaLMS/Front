@@ -47,6 +47,7 @@ const resources = {
       FoundCourses_other:
         "We found <strong>{{count}}</strong> courses available for you",
       FREE: "FREE",
+      SpecifyMore: "Specify more than {{count}} characters",
       group_access: "Group access",
       H5P: "Interactive element",
       Home: "Home",
@@ -754,6 +755,7 @@ const resources = {
       BackToHomePage: "Wróć do strony głównej",
       Terms: "Warunki korzystania",
       AddNewPhoto: "Dodaj nowe zdjęcie",
+      SpecifyMore: "Podaj więcej jak {{count}} znaków",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",

@@ -10,9 +10,10 @@ type Message = {
 type ApiResponse<T> = {
   data: T | null;
   message: string;
+  status: number;
 };
 
-type Answer = {
+export type Answer = {
   answer: string;
   conversation_id: string;
 };
@@ -27,9 +28,10 @@ async function fetchResource<T>(
     return {
       data: data.data,
       message: data.message,
+      status: response.status,
     };
   } catch (error) {
-    return { data: null, message: (error as Error).message };
+    return { data: null, status: 500, message: (error as Error).message };
   }
 }
 

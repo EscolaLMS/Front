@@ -11,6 +11,8 @@ export const CoursePanelHeaderWrapper = styled.header`
   color: ${({ theme: { white } }) => white};
   padding: 0 0 0 26px;
   height: 50px;
+  z-index: 10;
+  position: relative;
 
   picture {
     margin: 0 10px;
