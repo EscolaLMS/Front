@@ -24,9 +24,11 @@ const ChatWindow: React.FC<Props> = ({ isOpen, lessonID, onClose }) => {
   const id = useId();
 
   const handleClose = useCallback(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       onClose();
     }, 200);
+
+    return () => clearTimeout(timeoutId);
   }, [onClose]);
 
   return (
