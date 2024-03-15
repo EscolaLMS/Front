@@ -14,6 +14,22 @@ export const ArrowUp = () => (
   </svg>
 );
 
+export const StarIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="11"
+    height="11"
+    viewBox="0 0 11 11"
+  >
+    <path
+      id="Polygon_9"
+      data-name="Polygon 9"
+      d="M5.5,0,6.71,4.29,11,5.5,6.71,6.71,5.5,11,4.29,6.71,0,5.5,4.29,4.29Z"
+      fill="#333"
+    />
+  </svg>
+);
+
 export const IconBadge = () => {
   return (
     <svg

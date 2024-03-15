@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import isPast from "date-fns/isPast";
@@ -9,6 +9,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { API } from "@escolalms/sdk/lib";
 import { userIsCourseAuthor } from "@/utils/index";
 import routeRoutes from "@/components/Routes/routes";
+import { add } from "date-fns";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -36,21 +37,21 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     [courseAccess.list?.data, course.id]
   );
 
+  const handleBuyCourse = useCallback(() => {
+    addToCart(Number(course.product?.id)).then(() => push(routeRoutes.cart));
+  }, [course.product?.id, addToCart, push]);
+
   const BuyButton = useMemo(
     () => (
       <Button
         loading={cart.loading}
         mode="secondary"
-        onClick={() =>
-          addToCart(Number(course.product?.id)).then(() =>
-            push(routeRoutes.cart)
-          )
-        }
+        onClick={() => handleBuyCourse()}
       >
         {t("Buy Course")}
       </Button>
     ),
-    [addToCart, cart.loading, course.product?.id, push, t]
+    [cart.loading, t, handleBuyCourse]
   );
 
   if (!currentCourseAccess) {

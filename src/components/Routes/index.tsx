@@ -39,6 +39,8 @@ const WebinarsPage = lazy(() => import("../../pages/webinars"));
 const WebinarPage = lazy(() => import("../../pages/webinar"));
 const PackagesPage = lazy(() => import("../../pages/packages"));
 const PackagePage = lazy(() => import("../../pages/package"));
+const SubscriptionsPage = lazy(() => import("../../pages/subscriptions"));
+
 // const RegisterPage = lazy(() => import("../../pages/register"));
 // const LoginPage = lazy(() => import("../../pages/login"));
 
@@ -120,6 +122,7 @@ const Routes: React.FC = (): ReactElement => {
     packageProduct,
     myCertificates,
     onboarding,
+    subscriptions,
   } = routes;
 
   return (
@@ -133,6 +136,7 @@ const Routes: React.FC = (): ReactElement => {
           <Route exact path={login} component={LoginPage} />
           <Route exact path={reset} component={ResetPage} />
           <Route exact path={emailVerify} component={VerifyEmail} />
+          <Route exact path={subscriptions} component={SubscriptionsPage} />
           {/* <Route exact path={authentication} component={AuthPage} /> */}
           {/* platform visibility pages*/}
           <ConfigRoute exact path={tutors} component={TutorsPage} />

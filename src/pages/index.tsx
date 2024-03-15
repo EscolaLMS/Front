@@ -35,26 +35,6 @@ const HomePageStyled = styled.div`
         font-size: 26px;
       }
     }
-    button {
-      @media (max-width: 991px) {
-      }
-    }
-  }
-
-  .home-best-courses {
-    @media (max-width: 768px) {
-    }
-  }
-
-  .home-newest-courses {
-    @media (max-width: 768px) {
-    }
-  }
-
-  .promoted-courses-wrapper {
-  }
-
-  .categories-section-wrapper {
   }
 `;
 

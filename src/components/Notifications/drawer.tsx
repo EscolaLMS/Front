@@ -14,7 +14,7 @@ const GlobalDrawer = createGlobalStyle`
       
     }
   .notifications-drawer {     
- 
+
   &__content {
     background-color: ${({ theme }) => theme.gray4} !important;
  

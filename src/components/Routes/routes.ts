@@ -36,6 +36,7 @@ const routeRoutes = {
   packages: "/packages",
   packageProduct: "/package/:id",
   onboarding: "/onboarding",
+  subscriptions: "/subscriptions",
 };
 
 export default routeRoutes;
