@@ -12,7 +12,6 @@ const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.gray4};
   padding-top: 57px;
   min-height: calc(100vh - 452px);
-  padding-bottom: 50px;
 
   h1 {
     margin-bottom: 20px;
@@ -37,7 +36,7 @@ const CartPage: React.FC<Props> = () => {
   const theme = useTheme();
   const font = getFontFromTheme(theme);
 
-  const defaultGateway = config?.value?.escolalms_payments.default_gateway;
+  const defaultGateway = config?.value?.escolalms_payments?.default_gateway;
 
   if (defaultGateway === PaymentGateway.Przelewy24) {
     return (

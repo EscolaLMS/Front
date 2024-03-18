@@ -1,7 +1,5 @@
-import { useContext, useEffect, useCallback, useState } from "react";
-
-import { Link, useHistory } from "react-router-dom";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
@@ -14,7 +12,7 @@ import { CartItem } from "@escolalms/sdk/lib/types/api";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";
-import PaymentForm from "@/components/PaymentForm";
+import PaymentForm from "@/components/Cart/PaymentForm";
 import { toast } from "react-toastify";
 import {
   useStripe,
@@ -30,62 +28,34 @@ import { formatPrice } from "@/utils/index";
 import CartSuccess from "@/components/Cart/CartSuccess";
 import routeRoutes from "@/components/Routes/routes";
 import { CartPageStyled } from "@/components/Cart/CartContent/styles";
+import usePayment from "@/hooks/usePayment";
 
 const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
-    user,
-    cart,
+    processing,
+    setProcessing,
+    discountStatus,
     fetchCart,
+    payByStripe,
     removeFromCart,
-    payWithStripe,
-    fetchCourses,
     courses,
+    cart,
+    location,
     realizeVoucher,
-  } = useContext(EscolaLMSContext);
+    push,
+    setDiscountStatus,
+  } = usePayment();
+
   const { t } = useTranslation();
-  const { push, location } = useHistory();
+
   const stripe = useStripe();
   const elements = useElements();
-  const [processing, setProcessing] = useState(false);
+
   const [billingDetails, setBillingDetails] = useState<{ name: string }>({
     name: "",
   });
-  const [discountStatus, setDiscountStatus] = useState<
-    "granted" | "error" | undefined
-  >(
-    //@ts-ignore TODO: add additional_discount type to SDK types
-    cart.value.additional_discount > 0 ? "granted" : undefined
-  );
 
   const isTestKey = stripeKey.includes("_test_");
-
-  useEffect(() => {
-    if (!user.loading && !user.value) {
-      push(routeRoutes.login);
-    } else {
-      fetchCourses({ per_page: 6 });
-      fetchCart();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onPay = useCallback((paymentMethodId: string) => {
-    setProcessing(true);
-    payWithStripe(
-      paymentMethodId,
-      "https://demo-stage.escolalms.com/#/user/my-profile"
-    )
-      .then(() => {
-        setProcessing(false);
-        push("/cart?status=success");
-      })
-      .catch(() => {
-        toast.error(`${t("UnexpectedError")}`);
-        setProcessing(false);
-      })
-      .finally(() => setProcessing(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSubmit = (): void => {
     if (!billingDetails.name) {
@@ -112,7 +82,7 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
             toast.error(res.error.message);
             console.log(res.error);
           } else {
-            onPay(res?.paymentMethod?.id);
+            payByStripe(res?.paymentMethod?.id);
             setTimeout(() => {
               setProcessing(false);
             }, 3000);

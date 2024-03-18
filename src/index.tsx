@@ -11,6 +11,7 @@ import { API_URL } from "./config";
 declare global {
   interface Window {
     VITE_APP_API_URL: string;
+    VITE_APP_URL: string;
   }
 }
 

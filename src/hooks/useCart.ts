@@ -14,7 +14,7 @@ export const useCart = () => {
     loaded: false,
     loading: false,
   });
-  const { user, fetchCart } = useContext(EscolaLMSContext);
+  const { user, fetchCart, removeFromCart } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     if (user?.value && !user.loading && !cart.loading && !cart.loaded) {
@@ -45,5 +45,7 @@ export const useCart = () => {
 
   return {
     cart,
+    fetchCart,
+    removeFromCart,
   };
 };

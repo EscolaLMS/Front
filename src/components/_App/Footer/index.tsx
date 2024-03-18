@@ -10,12 +10,14 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { WellmsLogo } from "@/icons/index";
 import GoTop from "@/components/_App/GoTop";
+import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 18px" : "50px 0 15px"};
   z-index: 50;
   position: relative;
-
+  background: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.black, theme.white, theme.white)};
   .divider {
     width: 100%;
     height: 1px;

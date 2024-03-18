@@ -173,6 +173,7 @@ const resources = {
         CertificateDownload: "Download certificate",
       },
       Cart: {
+        IWantInvoice: "I want to receive a VAT invoice with a VAT number",
         UseTestCard: "Use test cards for Stripe",
         LearnMore: "Learn more",
         Cart: "Cart",
@@ -194,6 +195,7 @@ const resources = {
         ThankYouTitle: "Thank you for your purchase",
         ThankYouText:
           "Go to profile to see purchased products or go to browse courses",
+        Status: "You can check the status of your order in the tab",
       },
       CourseProgram: {
         TopicAttachment: "Topic attachments",
@@ -558,6 +560,14 @@ const resources = {
         SendAnswer: "Send",
         NoAnswer: "Cancel",
       },
+      OrderStatus: {
+        NEW: "New",
+        PAID: "Paid",
+        CANCELLED: "Canceled",
+        FAILED: "Failed",
+        PROCESSING: "Processing",
+      },
+
       Filters: {
         Category: "Category",
         Search: "Search",
@@ -618,6 +628,19 @@ const resources = {
           YourCertificate: "Your certificate",
           CertificateText: "You will also find it in your profile",
         },
+      },
+      InvoiceData: {
+        BillingDetails: "Billing details",
+        InvoiceData: "Invoice Data",
+        ClientTaxId: "Tax Identification Number",
+        ClientCompanyName: "Company Name",
+        ClientAddress: "Address",
+        ClientStreetNumber: "Street Number",
+        ClientCity: "City",
+        ClientPostalCode: "Postal Code",
+        ClientCountry: "Country",
+        ClientFirstName: "First Name",
+        ClientEmail: "Email",
       },
     },
   },
@@ -811,6 +834,7 @@ const resources = {
         DownloadCertificate: "Pobierz certyfikat",
       },
       Cart: {
+        IWantInvoice: "Chcę otrzymać fakturę VAT z numerem NIP",
         UseTestCard: "Użyj testowej karty Stripe",
         LearnMore: "Sprawdź karty",
         Cart: "Koszyk",
@@ -832,6 +856,7 @@ const resources = {
         ThankYouTitle: "Dziękujemy za zakup",
         ThankYouText:
           "Przejdź do profilu, aby zobaczyć zakupione produkty lub przejdź do przeglądania kursów",
+        Status: "Status zamówienia sprawdzisz w zakładce",
       },
       CourseProgram: {
         TopicAttachment: "Załączniki lekcji",
@@ -919,7 +944,13 @@ const resources = {
           "Wysłaliśmy wiadomość e-mail z prośbą o zresetowanie hasła",
         ForgotSuccessStep2: "Twoje hasło zostało zmienione",
       },
-
+      OrderStatus: {
+        NEW: "Nowe",
+        PAID: "Opłacone",
+        CANCELLED: "Anulowane",
+        FAILED: "Nieudane",
+        PROCESSING: "Przetwarzane",
+      },
       Menu: {
         Browse: "Przeglądaj",
         HomePage: "Strona Główna",
@@ -1250,6 +1281,19 @@ const resources = {
           YourCertificate: "Twój certyfikat",
           CertificateText: "Znajdziesz go także w swoim profilu",
         },
+      },
+      InvoiceData: {
+        BillingDetails: "Dane do rachunku",
+        InvoiceData: "Dane do faktury",
+        ClientTaxId: "NIP",
+        ClientCompanyName: "Nazwa firmy",
+        ClientAddress: "Adres",
+        ClientStreetNumber: "Numer ulicy",
+        ClientCity: "Miasto",
+        ClientPostalCode: "Kod pocztowy",
+        ClientCountry: "Kraj",
+        ClientFirstName: "Imię",
+        ClientEmail: "Email",
       },
     },
   },
