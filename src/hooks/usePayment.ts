@@ -89,6 +89,18 @@ const usePayment = () => {
     [payWithP24, t, user.value?.email]
   );
 
+  const buySubscriptionByP24 = useCallback(
+    async (subId: string) => {
+      setProcessing(true);
+      try {
+        console.log("buySubscriptionByP24", subId);
+      } catch (error) {
+        toast.error(`${t("UnexpectedError")}`);
+      }
+    },
+    [t]
+  );
+
   return {
     user,
     processing,
@@ -104,6 +116,7 @@ const usePayment = () => {
     realizeVoucher,
     setDiscountStatus,
     fetchCart,
+    buySubscriptionByP24,
   };
 };
 

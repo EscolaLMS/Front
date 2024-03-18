@@ -159,7 +159,7 @@ const Przelewy24Content = () => {
                       mobile={isMobile}
                       onBuyClick={() => handleSubmit()}
                       id={1}
-                      // TODO: translate this
+                      // TODO: translate this it will be in new version in components
                       disclaimer="Składając zamówienie na MaxRoy.edu, akceptujesz Postanowienia Polityki
                     Prywatności, Regulamin oraz zasady odstąpienia od umowy. Potwierdzasz
                     także, że ten zakup jest przeznaczony wyłącznie do użytku osobistego."

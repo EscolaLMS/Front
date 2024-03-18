@@ -1,13 +1,13 @@
 import Container from "@/components/Common/Container";
+import ContentLoader from "@/components/_App/ContentLoader";
 import Layout from "@/components/_App/Layout";
+import useSubscriptions from "@/hooks/useSubscriptions";
 import { StarIcon } from "@/icons/index";
 import { formatPrice } from "@/utils/index";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { useContext, useEffect } from "react";
+import { useMemo } from "react";
 import { isMobile } from "react-device-detect";
 import { Col, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
@@ -95,29 +95,43 @@ const StyledSubscription = styled.div<{ $isMobile: boolean }>`
   }
 `;
 
-const SubscriptionBox = () => {
+type Props = {
+  subscription: any;
+};
+
+const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
+  const { t } = useTranslation();
+  const showTag = useMemo(() => {
+    return subscription.tags && subscription.tags.includes("best-deal");
+  }, [subscription.tags]);
+
   return (
     <StyledSubscription $isMobile={isMobile}>
       <div className="content">
-        <div className="tag">
-          <Text size="13">Najtańsza oferta</Text>
-        </div>
-        <Text>Dostęp przez</Text>
+        {showTag && (
+          <div className="tag">
+            <Text size="13">{t("Subscriptions.CheapestOffer")}</Text>
+          </div>
+        )}
+
+        <Text>{t("Subscriptions.AccessVia")}</Text>
         <Title level={1} as={"h4"}>
-          1 rok
+          {subscription.subscription_duration}{" "}
+          {t(`Subscriptions.Periods.${subscription.subscription_period}`)}
         </Title>
         <Text className="information" size="13">
-          <StarIcon /> 3-dniowy darmowy okres próbny
+          <StarIcon /> {subscription.trial_duration}-
+          {t(`Subscriptions.Periods.${subscription.trial_period}`)}{" "}
+          {t("Subscriptions.TrialText")}
         </Text>
         <div className="divider"></div>
         <Text size="13" className="description">
-          Otrzymujesz nielimitowany dostęp do wszystkich kursów na platformie w
-          cenie
+          {subscription.name}
         </Text>
         <Text size="24" className="price" bold>
-          {formatPrice(29999)} zł
+          {formatPrice(subscription.price)} zł
         </Text>
-        <Button mode="secondary">Wybieram</Button>
+        <Button mode="secondary">{t("Subscriptions.IPick")}</Button>
       </div>
     </StyledSubscription>
   );
@@ -125,32 +139,25 @@ const SubscriptionBox = () => {
 
 const SubscriptionsPage = () => {
   const { t } = useTranslation();
-  const { fetchProducts } = useContext(EscolaLMSContext);
-
-  useEffect(() => {
-    fetchProducts({
-      type: "subscription-all-in",
-    });
-  }, [fetchProducts]);
+  const { subscriptions, isLoading } = useSubscriptions();
 
   return (
     <Layout metaTitle={t("Subscriptions")}>
       <StyledWrapper>
         <Container>
-          <Title level={1}>Subskrypcje</Title>
-          <Text size="16">
-            Dostęp do kursów na platformie możesz uzyskać w modelu
-            subskrypcyjnym, który jest najtańszą formą korzystania.
-          </Text>
+          <Title level={1}>{t("Subscriptions.Subs")}</Title>
+          <Text size="16">{t("Subscriptions.Text")}</Text>
           <SubscriptionsContainer $isMobile={isMobile}>
-            <Row>
-              <Col lg={6} md={12}>
-                <SubscriptionBox />
-              </Col>
-              <Col lg={6} md={12}>
-                <SubscriptionBox />
-              </Col>
-            </Row>
+            {isLoading && <ContentLoader />}
+            {!isLoading && (
+              <Row>
+                {subscriptions.map((subscription) => (
+                  <Col lg={6} md={12}>
+                    <SubscriptionBox subscription={subscription} />
+                  </Col>
+                ))}
+              </Row>
+            )}
           </SubscriptionsContainer>
         </Container>
       </StyledWrapper>
