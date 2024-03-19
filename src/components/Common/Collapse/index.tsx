@@ -6,26 +6,25 @@ type Props = {
   title: string;
   children: ReactNode;
   active?: boolean;
+  onClick?: () => void;
 };
 
 const CollapseStyled = styled.div`
-  padding: 15px;
   background-color: ${({ theme }) =>
-    theme.mode === "dark" ? theme.gray1 : theme.gray5};
+    theme.mode === "dark" ? theme.gray1 : theme.white};
   .collapse-title {
   }
   .collapse-content {
-    padding: 0 30px;
     padding-top: 22px;
     margin-top: 16px;
-    border-top: 1px solid ${({ theme }) => theme.gray1};
+
     @media (max-width: 991px) {
       padding: 30px 0 0 0;
     }
   }
 `;
 
-const Collapse: React.FC<Props> = ({ title, children, active }) => {
+const Collapse: React.FC<Props> = ({ title, children, active, onClick }) => {
   const [isOpened, setIsOpened] = useState(active || false);
   return (
     <CollapseStyled>
@@ -34,10 +33,12 @@ const Collapse: React.FC<Props> = ({ title, children, active }) => {
           name={title}
           label={<strong>{title}</strong>}
           checked={active || isOpened}
-          onChange={() => setIsOpened(!isOpened)}
+          onChange={() => [setIsOpened(!isOpened), onClick && onClick()]}
         />
       </div>
-      {isOpened && <div className="collapse-content">{children}</div>}
+      {(active || isOpened) && (
+        <div className="collapse-content">{children}</div>
+      )}
     </CollapseStyled>
   );
 };

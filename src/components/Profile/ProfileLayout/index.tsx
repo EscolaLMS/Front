@@ -73,6 +73,11 @@ const ProfileLayout: React.FC<Props> = ({
       },
       {
         key: "COURSES",
+        title: t("MyProfilePage.Subscriptions"),
+        url: routeRoutes.mySubscriptions,
+      },
+      {
+        key: "COURSES",
         title: t("MyProfilePage.MyCourses"),
         url: routeRoutes.myProfile,
       },
@@ -91,7 +96,7 @@ const ProfileLayout: React.FC<Props> = ({
               </Col>
             )}
 
-            <Col offset={{ lg: 1 }} lg={isMobile ? 12 : 8}>
+            <Col offset={{ lg: 0.5 }} lg={isMobile ? 12 : 8.5}>
               <ProfileHeader
                 title={title}
                 withTabs={withTabs}

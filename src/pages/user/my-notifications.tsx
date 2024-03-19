@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 const NotificationsContainer = styled.div`
   padding-top: 70px;
   min-height: 50vh;
+  padding-bottom: 50px;
   .notifications-drawer__content__header {
     display: flex;
     align-items: center;
@@ -29,7 +30,8 @@ const NotificationsContainer = styled.div`
       font-weight: 700;
     }
   }
-  .notifications-list {
+
+  .notifications-drawer__content--list {
     padding-bottom: 20px;
     display: flex;
     flex-direction: column;

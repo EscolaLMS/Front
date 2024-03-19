@@ -9,3 +9,6 @@ export const getAPIURL = () => {
 // Usage
 export const API_URL =
   window.VITE_APP_API_URL || import.meta.env.VITE_APP_PUBLIC_API_URL || null;
+
+export const APP_URL =
+  window.VITE_APP_URL || import.meta.env.VITE_APP_PUBLIC_URL || null;

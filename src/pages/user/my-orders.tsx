@@ -8,12 +8,16 @@ import { API } from "@escolalms/sdk/lib";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import ContentLoader from "@/components/_App/ContentLoader";
+
 import { formatDate } from "@/utils/date";
+import Pagination from "@/components/Common/Pagination";
+import OrdersSkeleton from "@/components/Skeletons/Orders";
+import { formatPrice } from "@/utils/index";
 import { toast } from "@/utils/toast";
 
 const StyledOrdersList = styled.section`
   margin-top: 20px;
+
   @media (max-width: 991px) {
     margin-top: 0;
   }
@@ -32,13 +36,29 @@ const StyledOrdersList = styled.section`
 const Orders = () => {
   const { orders, fetchOrders, fetchOrderInvoice } =
     useContext(EscolaLMSContext);
-  const [mappedOrders, setMappedOrders] = useState<any>([]);
+
   const { t } = useTranslation();
   const [loadingId, setLoadingId] = useState(-1);
+
   useEffect(() => {
-    fetchOrders();
+    fetchOrders({
+      page: 1,
+      order_by: "created_at",
+      order: "DESC",
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      fetchOrders({
+        page,
+        order_by: "created_at",
+        order: "DESC",
+      });
+    },
+    [fetchOrders]
+  );
 
   const handleDownloadInvoice = useCallback(
     async (id: number) => {
@@ -71,54 +91,61 @@ const Orders = () => {
     [fetchOrderInvoice, t]
   );
 
-  useEffect(() => {
-    orders.list &&
-      !orders.loading &&
-      setMappedOrders(
-        orders?.list?.data.map((item) => {
-          return {
-            title: (
-              <div className="name-container">
-                {item?.items?.map((product: API.CartItem, index) => (
-                  <Text key={index}>
-                    <strong>
-                      {product?.product?.name}
-                      {index + 1 !== item?.items?.length && ", "}
-                    </strong>
-                  </Text>
-                ))}
-              </div>
-            ),
-            price: <Text>{item.subtotal} zł</Text>,
-            date: item.created_at ? (
-              <Text>{formatDate(item.created_at)}</Text>
-            ) : (
-              ""
-            ),
-            actions: (
-              <Button
-                mode="outline"
-                onClick={() => handleDownloadInvoice(item.id)}
-                loading={loadingId === item.id}
-              >
-                {t<string>("MyProfilePage.Invoice")}
-              </Button>
-            ),
-          };
-        })
-      );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orders]);
-
   return (
     <ProfileLayout title={t("MyProfilePage.OrdersHistory")}>
       <StyledOrdersList>
-        {orders.list?.data.length === 0 ? (
+        {!orders.loading && orders.list?.data.length === 0 && (
           <Text>{t<string>("MyProfilePage.OrdersEmpty")}</Text>
-        ) : (
-          <OrdersList mobile={isMobile} data={mappedOrders} />
         )}
-        {orders.loading && <ContentLoader />}
+        {!orders.loading &&
+          !orders.error &&
+          orders &&
+          orders.list?.data &&
+          orders.list?.data.length > 0 && (
+            <OrdersList
+              mobile={isMobile}
+              data={(orders?.list?.data || []).map((item) => {
+                return {
+                  title: (
+                    <div className="name-container">
+                      {item?.items?.map((product: API.CartItem, index) => (
+                        <Text key={index}>
+                          <strong>{product?.product?.name}</strong>
+                        </Text>
+                      ))}
+                    </div>
+                  ),
+                  status: <Text>{t(`OrderStatus.${item.status}`)}</Text>,
+                  price: <Text>{formatPrice(item.total)} zł</Text>,
+                  date: item.created_at ? (
+                    <Text>{formatDate(item.created_at)}</Text>
+                  ) : (
+                    ""
+                  ),
+                  actions: (
+                    <Button
+                      mode="outline"
+                      onClick={() => handleDownloadInvoice(item.id)}
+                      loading={loadingId === item.id}
+                    >
+                      {t<string>("MyProfilePage.Invoice")}
+                    </Button>
+                  ),
+                };
+              })}
+            />
+          )}
+
+        {orders.loading && <OrdersSkeleton />}
+        {Number(orders?.list?.meta?.total) >
+          Number(orders?.list?.meta?.per_page) && (
+          <Pagination
+            total={Number(orders?.list?.meta?.total)}
+            perPage={Number(orders?.list?.meta?.per_page)}
+            currentPage={Number(orders?.list?.meta?.current_page)}
+            onPage={handlePageChange}
+          />
+        )}
       </StyledOrdersList>
     </ProfileLayout>
   );

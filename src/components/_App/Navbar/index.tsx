@@ -413,6 +413,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to={routeRoutes.mySubscriptions}>
+                  {t("MyProfilePage.Subscriptions")}
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to={routeRoutes.myOrders}>
                   {t("Navbar.MyOrders")}
                 </NavLink>

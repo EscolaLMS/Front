@@ -39,6 +39,9 @@ const WebinarsPage = lazy(() => import("../../pages/webinars"));
 const WebinarPage = lazy(() => import("../../pages/webinar"));
 const PackagesPage = lazy(() => import("../../pages/packages"));
 const PackagePage = lazy(() => import("../../pages/package"));
+const SubscriptionsPage = lazy(() => import("../../pages/subscriptions"));
+const MySubscriptions = lazy(() => import("../../pages/user/my-subscriptions"));
+
 // const RegisterPage = lazy(() => import("../../pages/register"));
 // const LoginPage = lazy(() => import("../../pages/login"));
 
@@ -120,6 +123,8 @@ const Routes: React.FC = (): ReactElement => {
     packageProduct,
     myCertificates,
     onboarding,
+    subscriptions,
+    mySubscriptions,
   } = routes;
 
   return (
@@ -128,11 +133,11 @@ const Routes: React.FC = (): ReactElement => {
       <Suspense fallback={<Loader />}>
         <Switch>
           <Route exact path={home} component={HomePage} />
-
           <Route exact path={register} component={RegisterPage} />
           <Route exact path={login} component={LoginPage} />
           <Route exact path={reset} component={ResetPage} />
           <Route exact path={emailVerify} component={VerifyEmail} />
+          <Route exact path={subscriptions} component={SubscriptionsPage} />
           {/* <Route exact path={authentication} component={AuthPage} /> */}
           {/* platform visibility pages*/}
           <ConfigRoute exact path={tutors} component={TutorsPage} />
@@ -157,7 +162,16 @@ const Routes: React.FC = (): ReactElement => {
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} />
-          <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} />
+          <PrivateRoute
+            exact
+            path={myWebinars}
+            component={MyWebinarsPage}
+          />{" "}
+          <PrivateRoute
+            exact
+            path={mySubscriptions}
+            component={MySubscriptions}
+          />
           <PrivateRoute
             exact
             path={myCertificates}

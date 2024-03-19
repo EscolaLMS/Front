@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import isPast from "date-fns/isPast";
@@ -9,10 +9,14 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { API } from "@escolalms/sdk/lib";
 import { userIsCourseAuthor } from "@/utils/index";
 import routeRoutes from "@/components/Routes/routes";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
+import ProductModal from "@/components/Courses/SingleCoursesTwo/CoursesDetailsSidebar/ProductModal";
+import useSubscriptions from "@/hooks/useSubscriptions";
 
 interface CourseAccessButtonProps {
   course: API.Course;
   onRequestAccess: () => void;
+  setModalVisible: (visible: boolean) => void;
 }
 
 const StyledButton = styled(Button)`
@@ -23,10 +27,12 @@ const StyledButton = styled(Button)`
 const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
   course,
   onRequestAccess,
+  setModalVisible,
 }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  const { courseAccess, cart, addToCart } = useContext(EscolaLMSContext);
+  const { courseAccess, fetchCourseAccess } = useContext(EscolaLMSContext);
+  const { attachProduct, getActiveSubscription } = useSubscriptions();
 
   const currentCourseAccess = useMemo(
     () =>
@@ -36,23 +42,37 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     [courseAccess.list?.data, course.id]
   );
 
+  const handleBuyButtonClick = useCallback(() => {
+    setModalVisible(true);
+  }, [setModalVisible]);
+
+  const handleAttachProduct = useCallback(() => {
+    attachProduct(course.id, "EscolaLms\\Courses\\Models\\Course").then(() => [
+      push(`/course/${course.id}`),
+      fetchCourseAccess({
+        course_id: Number(course.id),
+        current_page: 1,
+        per_page: 1,
+      }),
+    ]);
+  }, [attachProduct, course.id, push, fetchCourseAccess]);
+
   const BuyButton = useMemo(
     () => (
-      <Button
-        loading={cart.loading}
-        mode="secondary"
-        onClick={() =>
-          addToCart(Number(course.product?.id)).then(() =>
-            push(routeRoutes.cart)
-          )
-        }
-      >
+      <Button mode="secondary" onClick={() => handleBuyButtonClick()}>
         {t("Buy Course")}
       </Button>
     ),
-    [addToCart, cart.loading, course.product?.id, push, t]
+    [t, handleBuyButtonClick]
   );
 
+  if (getActiveSubscription?.id) {
+    return (
+      <Button onClick={() => handleAttachProduct()} mode="secondary">
+        {t("Go to the course")}
+      </Button>
+    );
+  }
   if (!currentCourseAccess) {
     return (
       <>
@@ -100,7 +120,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   const { cart, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { push } = useHistory();
-
+  const [modalVisible, setModalVisible] = useState(false);
   const courseInCart = useMemo(() => {
     return cart?.value?.items.some(
       (item) => Number(item.product_id) === Number(course.product?.id)
@@ -137,19 +157,38 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   if (user.value && course.product) {
     return (
-      <CourseAccessButton course={course} onRequestAccess={onRequestAccess} />
+      <>
+        <CourseAccessButton
+          course={course}
+          onRequestAccess={onRequestAccess}
+          setModalVisible={setModalVisible}
+        />
+
+        <Modal
+          onClose={() => setModalVisible(false)}
+          visible={modalVisible}
+          animation="zoom"
+          maskAnimation="fade"
+          destroyOnClose
+          width={800}
+        >
+          <ProductModal course={course} />
+        </Modal>
+      </>
     );
   }
   if (!course.product) {
     return <Text>{t("CoursePage.UnavailableCourse")}</Text>;
   }
   return (
-    <Button
-      onClick={() => push(`/login?referrer=/courses/${course.id}`)}
-      mode="secondary"
-    >
-      {t("Buy Course")}
-    </Button>
+    <>
+      <Button
+        onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+        mode="secondary"
+      >
+        {t("Buy Course")}
+      </Button>
+    </>
   );
 };
 

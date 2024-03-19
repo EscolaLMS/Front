@@ -1,34 +1,33 @@
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import Layout from "@/components/_App/Layout";
 import Container from "@/components/Common/Container";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import routeRoutes from "@/components/Routes/routes";
 
-const CartSuccessPageStyled = styled.section`
+import routeRoutes from "@/components/Routes/routes";
+import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { ThankYouIcon } from "@/icons/index";
+import { isMobile } from "react-device-detect";
+
+const CartSuccessPageStyled = styled.div<{ $isMobile: boolean }>`
   .cart-success-container {
     font-family: ${({ theme }) => theme.font};
-    background: #f8f8f8;
-    border: 1px solid ${({ theme }) => theme.primaryColor};
-    padding: 16px;
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.black, theme.white, theme.white)};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    padding: 98px 20px 180px;
     display: grid;
     place-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     gap: 16px;
-
-    .cart-success-title {
-      font-size: 24px;
-      font-weight: 500;
-      text-align: center;
-      margin: 0.8em;
-    }
-
-    .cart-success-text {
-      font-size: 18px;
-      text-align: center;
-    }
+    text-align: center;
 
     .cart-success-buttons {
       display: grid;
@@ -37,12 +36,28 @@ const CartSuccessPageStyled = styled.section`
       justify-content: center;
       margin: 0.8em;
     }
+    div {
+      display: flex;
+      flex-direction: ${({ $isMobile }) => ($isMobile ? "column" : "row")};
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      a,
+      p {
+        margin: 0;
+      }
+      a {
+        p {
+          color: ${({ theme }) => theme.primaryColor};
+        }
+      }
+    }
   }
 `;
 
 const CartSuccess = () => {
   const { t } = useTranslation();
-  const { push } = useHistory();
+
   const { fetchProgress } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -51,27 +66,29 @@ const CartSuccess = () => {
   }, []);
 
   return (
-    <Layout metaTitle={t("Cart.Cart")}>
-      <CartSuccessPageStyled>
-        <Container>
-          <div className="cart-success-container">
-            <h2 className="cart-success-title">{t("Cart.ThankYouTitle")}</h2>
-            <p className="cart-success-text">{t("Cart.ThankYouText")}</p>
-            <div className="cart-success-buttons">
-              <Button
-                mode="primary"
-                onClick={() => push(routeRoutes.myProfile)}
-              >
-                {t("Menu.Profile")}
-              </Button>
-              <Button mode="primary" onClick={() => push(routeRoutes.courses)}>
-                {t("Menu.Courses")}
-              </Button>
-            </div>
+    <CartSuccessPageStyled $isMobile={isMobile}>
+      <Container>
+        <div className="cart-success-container">
+          <ThankYouIcon />
+          <Title level={2}>{t("Cart.ThankYouTitle")}</Title>
+          <div>
+            <Text size="16" className="cart-success-text">
+              {t("Cart.ThankYouText")}
+            </Text>
+            <Link to={routeRoutes.myProfile}>
+              <Text size="16">{t("Navbar.MyCourses")}</Text>
+            </Link>
           </div>
-        </Container>
-      </CartSuccessPageStyled>
-    </Layout>
+
+          <div>
+            <Text size="16">{t("Cart.Status")}</Text>{" "}
+            <Link to={routeRoutes.myOrders}>
+              <Text size="16">{t("Navbar.MyOrders")}</Text>
+            </Link>
+          </div>
+        </div>
+      </Container>
+    </CartSuccessPageStyled>
   );
 };
 
