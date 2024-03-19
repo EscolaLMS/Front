@@ -13,7 +13,7 @@ import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";
 import PaymentForm from "@/components/Cart/PaymentForm";
-import { toast } from "react-toastify";
+
 import {
   useStripe,
   useElements,
@@ -29,6 +29,7 @@ import CartSuccess from "@/components/Cart/CartSuccess";
 import routeRoutes from "@/components/Routes/routes";
 import { CartPageStyled } from "@/components/Cart/CartContent/styles";
 import usePayment from "@/hooks/usePayment";
+import { toast } from "@/utils/toast";
 
 const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
@@ -59,12 +60,12 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
 
   const handleSubmit = (): void => {
     if (!billingDetails.name) {
-      toast.error(`${t("Cart.EmptyNameWarning")}`);
+      toast(`${t("Cart.EmptyNameWarning")}`, "error");
       return;
     }
 
     if (!stripe || !elements) {
-      toast.error(`${t("UnexpectedError")}`);
+      toast(`${t("UnexpectedError")}`, "error");
       return;
     }
     const cardNumber = elements.getElement(CardNumberElement);
@@ -79,7 +80,7 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
         .then((res) => {
           if (res.error) {
             setProcessing(false);
-            toast.error(res.error.message);
+            toast(res.error.message, "error");
             console.log(res.error);
           } else {
             payByStripe(res?.paymentMethod?.id);
@@ -90,7 +91,7 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
         })
         .catch(() => {
           setProcessing(false);
-          toast.error(`${t("UnexpectedError")}`);
+          toast(`${t("UnexpectedError")}`, "error");
         });
   };
   if (location.search.includes("?status=success")) {

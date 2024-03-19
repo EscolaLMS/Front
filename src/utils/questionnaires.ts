@@ -1,7 +1,7 @@
 import { QuestionType, QuestionnaireModelType } from "@/types/questionnaire";
+import { toast } from "@/utils/toast";
 import { API } from "@escolalms/sdk/lib";
 import { t } from "i18next";
-import { toast } from "react-toastify";
 
 type getQuestionnaireProps = {
   questionnaireId: number;
@@ -45,7 +45,7 @@ const getQuestionnaire = async ({
       return response.data.questions;
     }
   } catch (error) {
-    toast.error(t<string>("UnexpectedError"));
+    toast(t<string>("UnexpectedError"), "error");
     console.log(error);
   }
 };
@@ -101,7 +101,7 @@ export const getQuestionnaires = async ({
       );
     }
   } catch (error) {
-    toast.error(t<string>("UnexpectedError"));
+    toast(t<string>("UnexpectedError"), "error");
     console.log(error);
   } finally {
     onFinish();

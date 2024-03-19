@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import "react-toastify/dist/ReactToastify.css";
 import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
+import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
 
 declare global {
   interface Window {
@@ -72,7 +71,7 @@ const Layout: React.FC<{
         ></meta>
         <meta name="twitter:card" content="Worlds first Headless LMS"></meta>
       </Helmet>
-      <ToastContainer hideProgressBar position="top-center" theme="colored" />
+      <StyledToastContainer />
       <div className="site-wrapper">
         <Navbar />
         {children}

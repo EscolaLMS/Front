@@ -194,7 +194,9 @@ export const CourseCardActions: FC<Props> = ({
             destroyOnClose={true}
             width={468}
           >
-            <Title>{t<string>("CourseProgram.CourseRated")}</Title>
+            <Title style={{ textAlign: "center" }}>
+              {t<string>("CourseProgram.CourseRated")}
+            </Title>
           </Modal>
         ))}
     </Wrapper>

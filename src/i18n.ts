@@ -47,6 +47,7 @@ const resources = {
       FoundCourses_other:
         "We found <strong>{{count}}</strong> courses available for you",
       FREE: "FREE",
+      SpecifyMore: "Specify more than {{count}} characters",
       group_access: "Group access",
       H5P: "Interactive element",
       Home: "Home",
@@ -59,6 +60,8 @@ const resources = {
       LessonSummary: "Lesson summary",
       Level: "Level",
       Lifetime: "Lifetime",
+      LetsTalk: "Let's talk",
+      StartChat: "Start chat",
       "Login to buy": "Login to buy",
       "Meet your instructor": "Meet your instructor",
       "next topic": "next topic",
@@ -207,7 +210,7 @@ const resources = {
           "Rate a course, go to your profile or browse other courses.",
         FinishSubtitleNoRating:
           "You have already rated this course. Go to your profile or browse other courses.",
-        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
+        CourseRated: "Brak ankiet do wypełnienia dla tego kursu",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -717,6 +720,7 @@ const resources = {
       Image: "Obraz",
       Language: "Język",
       "Last Updated": "Ostatnia aktualizacja",
+      LetsTalk: "Porozmawiajmy",
       Lesson_few: "Lekcje",
       Lesson_many: "Lekcji",
       Lesson_one: "Lekcja",
@@ -745,6 +749,7 @@ const resources = {
       Register: "Rejestracja",
       RichText: "Tekst",
       "Search for": "Szukaj",
+      StartChat: "Rozpocznij czat",
       Send: "Wyślij",
       SortBy: "Sortuj według",
       Student_few: "Studentów",
@@ -791,6 +796,7 @@ const resources = {
       BackToHomePage: "Wróć do strony głównej",
       Terms: "Warunki korzystania",
       AddNewPhoto: "Dodaj nowe zdjęcie",
+      SpecifyMore: "Podaj więcej jak {{count}} znaków",
       CoursePreviewNavbar:
         "To jest podgląd kursu. Wróć do aplikacji lub kup ten kurs.",
       "I'm aware": "Tak, wiem",
@@ -886,7 +892,7 @@ const resources = {
           "Oceń kurs, przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
         FinishSubtitleNoRating:
           "Już oceniłeś ten kurs. Przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
-        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
+        CourseRated: "Brak ankiet do wypełnienia dla tego kursu",
       },
       CoursesPage: {
         Category: "Kategoria",

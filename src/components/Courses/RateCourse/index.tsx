@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { QuestionBox } from "../../QuestionBox";
 import { QuestionType } from "@/types/questionnaire";
 import { StyledModal } from "@/components/Courses/RateCourse/styles";
+import { toast } from "@/utils/toast";
 
 type Props = {
   course: string;
@@ -53,10 +53,10 @@ const RateCourse: React.FC<Props> = ({
             }
           );
           if (request.success) {
-            toast.success(`${t("RateCourse.ThankYouMessage")}`);
+            toast(`${t("RateCourse.ThankYouMessage")}`, "success");
           }
         } catch (error) {
-          toast.error("Error");
+          toast("Error", "error");
           console.error(error);
         } finally {
           setState((prevState) => ({

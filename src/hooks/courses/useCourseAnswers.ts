@@ -1,9 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { toast } from "react-toastify";
 import { QuestionnaireModelType } from "../../types/questionnaire";
 import { useTranslation } from "react-i18next";
+import { toast } from "@/utils/toast";
 
 const initialState = {
   total: 0,
@@ -53,7 +53,7 @@ export const useCourseAnswers = ({ questionId, courseId }: Props) => {
             }
           })
           .catch((error) => {
-            toast.error(t<string>("UnexpectedError"));
+            toast(t<string>("UnexpectedError"), error);
             console.log(error);
           })
           .finally(() => setLoading(false));

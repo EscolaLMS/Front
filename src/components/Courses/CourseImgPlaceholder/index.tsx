@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Placeholder from "../../../images/image.svg";
+import Placeholder from "../../../images/no-picture.png";
 
 const StyledPlaceholder = styled.div`
   width: 100%;
