@@ -38,6 +38,7 @@ const Przelewy24Content = () => {
     setDiscountStatus,
     push,
   } = usePayment();
+
   const [showBilling, setShowBilling] = useState(false);
   const { t } = useTranslation();
 
@@ -160,9 +161,9 @@ const Przelewy24Content = () => {
                       onBuyClick={() => handleSubmit()}
                       id={1}
                       // TODO: translate this it will be in new version in components
-                      disclaimer="Składając zamówienie na MaxRoy.edu, akceptujesz Postanowienia Polityki
+                      disclaimer={`Składając zamówienie na EduMamy.pl, akceptujesz Postanowienia Polityki
                     Prywatności, Regulamin oraz zasady odstąpienia od umowy. Potwierdzasz
-                    także, że ten zakup jest przeznaczony wyłącznie do użytku osobistego."
+                    także, że ten zakup jest przeznaczony wyłącznie do użytku osobistego.`}
                       title={`${formatPrice(
                         Number(cart.value?.total_with_tax || 0)
                       )} zł`}

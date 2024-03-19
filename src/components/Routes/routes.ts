@@ -14,6 +14,7 @@ const routeRoutes = {
   myCertificates: "/user/my-certificates",
   myData: "/user/my-data",
   myTasks: "/user/my-tasks",
+  mySubscriptions: "/user/my-subscriptions",
   myBookmarks: "/user/my-bookmarks",
   tutors: "/tutors",
   consultations: "/consultations",

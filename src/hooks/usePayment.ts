@@ -15,6 +15,7 @@ const usePayment = () => {
     removeFromCart,
     payWithStripe,
     payWithP24,
+    subscriptionPayWithP24,
     courses,
     realizeVoucher,
   } = useContext(EscolaLMSContext);
@@ -72,13 +73,14 @@ const usePayment = () => {
           user.value?.email,
           `${APP_URL}/#/cart?status=success`,
           values ? values : undefined
-        );
+        ); // @ts-ignore
         if (request.data.redirect_url === undefined) {
           toast.error(`${t("UnexpectedError")}`);
           setProcessing(false);
           return;
         }
         setProcessing(false);
+        // @ts-ignore
         window.open(request.data.redirect_url);
       } catch (error) {
         toast.error(`${t("UnexpectedError")}`);
@@ -90,15 +92,33 @@ const usePayment = () => {
   );
 
   const buySubscriptionByP24 = useCallback(
-    async (subId: string) => {
+    async (subId: number) => {
       setProcessing(true);
+
+      if (!user.value?.email) {
+        toast.error(`${t("MissingEmailError")}`);
+        setProcessing(false);
+        return;
+      }
       try {
-        console.log("buySubscriptionByP24", subId);
+        const request = await subscriptionPayWithP24(
+          subId,
+          user.value?.email,
+          `${APP_URL}/#/cart?status=success`
+        );
+        console.log("buySubscriptionByP24", user.value?.email); // @ts-ignore
+        if (request.data.redirect_url === undefined) {
+          toast.error(`${t("UnexpectedError")}`);
+          setProcessing(false);
+          return;
+        }
+        setProcessing(false); // @ts-ignore
+        window.open(request.data.redirect_url);
       } catch (error) {
         toast.error(`${t("UnexpectedError")}`);
       }
     },
-    [t]
+    [t, subscriptionPayWithP24, user.value?.email]
   );
 
   return {

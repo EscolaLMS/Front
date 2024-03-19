@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { formatDate } from "@/utils/date";
 import Pagination from "@/components/Common/Pagination";
 import OrdersSkeleton from "@/components/Skeletons/Orders";
+import { formatPrice } from "@/utils/index";
 
 const StyledOrdersList = styled.section`
   margin-top: 20px;
@@ -108,16 +109,13 @@ const Orders = () => {
                     <div className="name-container">
                       {item?.items?.map((product: API.CartItem, index) => (
                         <Text key={index}>
-                          <strong>
-                            {product?.product?.name}
-                            {index + 1 !== item?.items?.length && ", "}
-                          </strong>
+                          <strong>{product?.product?.name}</strong>
                         </Text>
                       ))}
                     </div>
                   ),
                   status: <Text>{t(`OrderStatus.${item.status}`)}</Text>,
-                  price: <Text>{item.subtotal} zł</Text>,
+                  price: <Text>{formatPrice(item.total)} zł</Text>,
                   date: item.created_at ? (
                     <Text>{formatDate(item.created_at)}</Text>
                   ) : (

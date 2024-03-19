@@ -18,7 +18,6 @@ import CourseDetailsSidebarButtons from "./Buttons";
 import ContentLoader from "@/components/_App/ContentLoader";
 import ProductPrices from "@/components/ProductPrices";
 import styled from "styled-components";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 
 const CourseDetailsSidebarWrapper = styled.div`
   width: 100%;
