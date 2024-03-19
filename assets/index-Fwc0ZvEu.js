@@ -1,8 +1,0 @@
-import{q as a,n as j,j as n,s as d,ar as l}from"./index-BCUQyqgJ.js";const o=a.div`
-  display: flex;
-  flex-direction: column;
-
-  .pricing-card-discount {
-    margin: 0;
-  }
-`,m=({price:i,taxRate:c,oldPrice:s,textSizes:r})=>j?n.jsxs(o,{children:[s&&n.jsx("div",{className:"pricing-card-discount",children:n.jsxs(d.Text,{size:(r==null?void 0:r.old)||"18",children:[l(s,c)," zł"]})}),n.jsxs(d.Text,{size:(r==null?void 0:r.new)||"16",children:[l(i,c)," zł"]})]}):n.jsxs(o,{children:[n.jsxs(d.Text,{size:(r==null?void 0:r.new)||"16",children:[l(i,c)," zł"]}),s&&n.jsx("div",{className:"pricing-card-discount",children:n.jsxs(d.Text,{size:(r==null?void 0:r.old)||"18",children:[l(s,c)," zł"]})})]});export{m as P};
