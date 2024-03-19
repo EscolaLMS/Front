@@ -208,7 +208,7 @@ const resources = {
           "Rate a course, go to your profile or browse other courses.",
         FinishSubtitleNoRating:
           "You have already rated this course. Go to your profile or browse other courses.",
-        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
+        CourseRated: "Brak ankiet do wypełnienia dla tego kursu",
       },
       ConsultationsPageMeta: "Consultations",
       ConsultationPage: {
@@ -849,7 +849,7 @@ const resources = {
           "Oceń kurs, przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
         FinishSubtitleNoRating:
           "Już oceniłeś ten kurs. Przejdź do swojego profilu albo przeglądaj pozostałe kursy.",
-        CourseRated: "Dziękujemy! Oceniłeś już ten kurs.",
+        CourseRated: "Brak ankiet do wypełnienia dla tego kursu",
       },
       CoursesPage: {
         Category: "Kategoria",

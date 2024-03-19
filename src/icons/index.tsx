@@ -1,3 +1,5 @@
+import { SVGProps } from "react";
+
 export const ChatIcon = () => {
   return (
     <svg
@@ -1846,3 +1848,60 @@ export const WellmsLogo = ({ width = "100px", height = "30px" }) => {
     </svg>
   );
 };
+
+export const SuccessToastIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="28"
+    height="27.999"
+    viewBox="0 0 28 27.999"
+    {...props}
+  >
+    <path
+      id="Subtraction_23"
+      data-name="Subtraction 23"
+      d="M20197,9890a14,14,0,1,1,9.9-4.1A13.907,13.907,0,0,1,20197,9890Zm-6.014-14.966a.75.75,0,0,0-.529,1.281l4.3,4.307a.749.749,0,0,0,.527.218h.012a.768.768,0,0,0,.537-.233l7.725-8.177a.754.754,0,0,0-.031-1.06.744.744,0,0,0-.518-.206.731.731,0,0,0-.541.236l-7.2,7.613-3.754-3.759A.755.755,0,0,0,20190.986,9875.032Z"
+      transform="translate(-20183 -9861.999)"
+      fill="#fff"
+    />
+  </svg>
+);
+
+export const ErrorToastIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="28"
+    height="27.999"
+    viewBox="0 0 28 27.999"
+    {...props}
+  >
+    <path
+      id="Subtraction_23"
+      data-name="Subtraction 23"
+      d="M20197,9890a14,14,0,1,1,9.9-4.1A13.907,13.907,0,0,1,20197,9890Zm0-9.875a1.5,1.5,0,1,0,1.5,1.5A1.5,1.5,0,0,0,20197,9880.123Zm0-11.246a.749.749,0,0,0-.75.746v8a.75.75,0,0,0,1.5,0v-8A.749.749,0,0,0,20197,9868.877Z"
+      transform="translate(-20183 -9861.999)"
+      fill="#fff"
+    />
+  </svg>
+);
+
+export const InfoToastIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="29"
+    height="28.999"
+    viewBox="0 0 29 28.999"
+    {...props}
+  >
+    <path
+      id="Subtraction_24"
+      data-name="Subtraction 24"
+      d="M20197,9890a14,14,0,0,1-.039-28h.037a14,14,0,0,1,0,28Zm-2-7.5a1,1,0,1,0,0,2h4a1,1,0,0,0,0-2h-1.127v-7.462a.82.82,0,0,0-.812-.764l-.064,0v-.03h-1.953a.949.949,0,0,0,.035,1.9h1.045v6.356Zm2-14.082a1.75,1.75,0,1,0,1.75,1.75A1.752,1.752,0,0,0,20197,9868.418Z"
+      transform="translate(-20182.498 -9861.501)"
+      fill="#fff"
+      stroke="rgba(0,0,0,0)"
+      strokeMiterlimit="10"
+      strokeWidth="1"
+    />
+  </svg>
+);

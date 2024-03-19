@@ -4,8 +4,8 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { JitsyData } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/_App/ContentLoader";
 import { WebinarMeetModalStyles } from "./WebinarMeetModalStyles";
-import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { toast } from "@/utils/toast";
 
 interface Props {
   onClose: () => void;
@@ -30,7 +30,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
           setWebinarMeetData((res as { data: JitsyData }).data);
         }
         if (!res.success) {
-          toast.error(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`);
+          toast(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`, "error");
           onClose();
         }
       }

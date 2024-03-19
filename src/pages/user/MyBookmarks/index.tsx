@@ -2,7 +2,7 @@ import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { useTranslation } from "react-i18next";
 import { BookmarkNotes } from "@escolalms/components/lib/components/organisms/BookmarkNotes/index";
 import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "@/utils/toast";
 
 const Bookmarks = () => {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ const Bookmarks = () => {
           lessonId: number,
           topicId: number
         ) => push(`/course/${courseId}/${lessonId}/${topicId}`, null)}
-        onDelete={() => toast.success(t<string>("Notifications.Deleted"))}
+        onDelete={() => toast(t<string>("Notifications.Deleted"), "success")}
       />
     </ProfileLayout>
   );

@@ -16,7 +16,7 @@ import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";
 import PaymentForm from "@/components/PaymentForm";
-import { toast } from "react-toastify";
+
 import {
   useStripe,
   useElements,
@@ -30,6 +30,7 @@ import Container from "@/components/Common/Container";
 import { formatPrice } from "@/utils/index";
 import CartSuccess from "@/components/Cart/CartSuccess";
 import routeRoutes from "@/components/Routes/routes";
+import { toast } from "@/utils/toast";
 
 const CartPageStyled = styled.section`
   .module-wrapper {
@@ -151,7 +152,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
         push("/cart?status=success");
       })
       .catch(() => {
-        toast.error(`${t("UnexpectedError")}`);
+        toast(`${t("UnexpectedError")}`, "error");
         setProcessing(false);
       })
       .finally(() => setProcessing(false));
@@ -159,12 +160,12 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
   }, []);
   const handleSubmit = (): void => {
     if (!billingDetails.name) {
-      toast.error(`${t("Cart.EmptyNameWarning")}`);
+      toast(`${t("Cart.EmptyNameWarning")}`, "error");
       return;
     }
 
     if (!stripe || !elements) {
-      toast.error(`${t("UnexpectedError")}`);
+      toast(`${t("UnexpectedError")}`, "error");
       return;
     }
     const cardNumber = elements.getElement(CardNumberElement);
@@ -179,7 +180,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
         .then((res) => {
           if (res.error) {
             setProcessing(false);
-            toast.error(res.error.message);
+            toast(res.error.message, "error");
             console.log(res.error);
           } else {
             onPay(res?.paymentMethod?.id);
@@ -190,7 +191,7 @@ const CartContent = ({ stripeKey }: { stripeKey: string }) => {
         })
         .catch(() => {
           setProcessing(false);
-          toast.error(`${t("UnexpectedError")}`);
+          toast(`${t("UnexpectedError")}`, "error");
         });
   };
   if (location.search.includes("?status=success")) {

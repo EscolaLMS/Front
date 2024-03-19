@@ -3,12 +3,12 @@ import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { ResetPasswordForm } from "@escolalms/components/lib/components/organisms/ResetPasswordForm/ResetPasswordForm";
 import { isMobile } from "react-device-detect";
-import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
+import { toast } from "@/utils/toast";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -31,7 +31,7 @@ const ResetPassword: React.FC = () => {
               <ResetPasswordForm
                 onSecondStepSuccess={() => {
                   push(routeRoutes.login);
-                  toast.success(t<string>("LoginPage.ForgotSuccessStep2"));
+                  toast(t<string>("LoginPage.ForgotSuccessStep2"), "success");
                 }}
                 secondStep
                 mobile={isMobile}

@@ -8,9 +8,9 @@ import { API } from "@escolalms/sdk/lib";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import ContentLoader from "@/components/_App/ContentLoader";
 import { formatDate } from "@/utils/date";
+import { toast } from "@/utils/toast";
 
 const StyledOrdersList = styled.section`
   margin-top: 20px;
@@ -64,7 +64,7 @@ const Orders = () => {
         }
       } catch (error) {
         setLoadingId(-1);
-        toast.error(t<string>("UnexpectedError"));
+        toast(t<string>("UnexpectedError"), "error");
         console.log(error);
       }
     },

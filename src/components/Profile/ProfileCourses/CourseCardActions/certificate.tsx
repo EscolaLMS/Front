@@ -2,10 +2,10 @@ import { StyledActionButton } from "@/components/Profile/ProfileCourses/CourseCa
 import ContentLoader from "@/components/_App/ContentLoader";
 import { useCertificateDownload } from "@/hooks/useDownloadCertificate";
 import { IconCertificate } from "@/icons/index";
+import { toast } from "@/utils/toast";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 type Props = {
   courseId: number;
@@ -23,7 +23,7 @@ const GetCertificate: React.FC<Props> = ({ courseId }) => {
         downloadCertificate(getCert.data.id, getCert.data?.title);
       }
     } catch (error) {
-      toast.error(`${t("UnexpectedError")}`);
+      toast(`${t("UnexpectedError")}`, "error");
       console.log(error);
     }
   }, [courseId, downloadCertificate, fetchCertificate, t]);
