@@ -6,12 +6,12 @@ import { isMobile } from "react-device-detect";
 import { useLocation } from "react-router-dom";
 import { ResetPasswordForm } from "@escolalms/components/lib/components/organisms/ResetPasswordForm/ResetPasswordForm";
 import { LoginForm } from "@escolalms/components/lib/components/organisms/LoginForm/LoginForm";
-import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
+import { toast } from "@/utils/toast";
 
 const Login = () => {
   const { search, state } = useLocation<{ referrer?: string }>();
@@ -55,10 +55,10 @@ const Login = () => {
                   onRegisterLink={() => history.push(routeRoutes.register)}
                   return_url="#/reset-password"
                   onFirstStepSuccess={() =>
-                    toast.success(t<string>("LoginPage.ForgotSuccess"))
+                    toast(t<string>("LoginPage.ForgotSuccess"), "success")
                   }
                   onFirstStepError={() =>
-                    toast.error(t<string>("UnexpectedError"))
+                    toast(t<string>("UnexpectedError"), "error")
                   }
                 />
               )}

@@ -1,8 +1,8 @@
 import { useContext, useMemo } from "react";
-import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API } from "@escolalms/sdk/lib";
+import { toast } from "@/utils/toast";
 
 interface Props {
   topic?: API.Topic;
@@ -42,11 +42,11 @@ Props) => {
           value: null,
         }).then(() => {
           fetchBookmarkNotes();
-          toast.success(t<string>("Notifications.CreateBookmark"));
+          toast(t<string>("Notifications.CreateBookmark"), "success");
         })
       : deleteBookmarkNote(topicBookmark[0].id).then(() => {
           fetchBookmarkNotes();
-          toast.success(t<string>("Notifications.DeleteBookmark"));
+          toast(t<string>("Notifications.DeleteBookmark"), "success");
         });
   };
 
