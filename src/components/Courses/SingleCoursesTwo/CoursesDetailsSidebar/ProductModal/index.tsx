@@ -26,6 +26,10 @@ const StyledProductBox = styled.div<{ $isMobile: boolean }>`
   padding: 20px 40px;
   margin-bottom: ${({ $isMobile }) => ($isMobile ? "20px" : "0")};
   min-height: 240px;
+
+  .title {
+    min-height: 45px;
+  }
   .divider {
     width: 21px;
     height: 3px;
@@ -68,10 +72,12 @@ const ProductModal: React.FC<Props> = ({ course }) => {
       <Row>
         <Col lg={6} md={12} sm={12}>
           <StyledProductBox className="product-box" $isMobile={isMobile}>
-            <Title level={3}>{course.title}</Title>
+            <Title className="title" level={3}>
+              {t("Buy Course")}
+            </Title>
             <div className="divider"></div>
             <Text className="description" size={"13"}>
-              {course.description}
+              {course.title}
             </Text>
             <Text className="price" size="24" bold>
               {formatPrice(course.product?.gross_price)} zł
@@ -84,13 +90,16 @@ const ProductModal: React.FC<Props> = ({ course }) => {
         {getCheapestSubscription?.id && (
           <Col lg={6} md={12} sm={12}>
             <StyledProductBox className="product-box" $isMobile={isMobile}>
-              <Title level={3}>{getCheapestSubscription?.name}</Title>
+              <Title className="title" level={3}>
+                {getCheapestSubscription?.name}
+              </Title>
               <div className="divider"></div>
               <Text className="description" size={"13"}>
                 {getCheapestSubscription?.description}
               </Text>
               <Text className="price" size="24" bold>
-                {formatPrice(getCheapestSubscription?.gross_price)} zł
+                {t("From")} {formatPrice(getCheapestSubscription?.gross_price)}{" "}
+                zł
               </Text>
               <Button onClick={() => push(routeRoutes?.subscriptions)}>
                 {t("Subscriptions.IPick")}

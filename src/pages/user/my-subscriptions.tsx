@@ -8,6 +8,7 @@ import { Col, Row } from "react-grid-system";
 import SubscriptionBox from "@/components/Subscriptions/Box";
 import { formatDate } from "@/utils/date";
 import { StarIcon } from "@/icons/index";
+import ContentLoader from "@/components/_App/ContentLoader";
 
 const StyledInfoBox = styled.div`
   border-radius: ${({ theme }) => theme.buttonRadius}px;
@@ -25,35 +26,42 @@ const StyledInfoBox = styled.div`
 
 const MySubscriptions = () => {
   const { t } = useTranslation();
-  const { subscriptions, getActiveSubscription } = useSubscriptions();
+  const { subscriptions, getActiveSubscription, isLoading } =
+    useSubscriptions();
 
   return (
     <ProfileLayout title={t("MyProfilePage.Subscriptions")}>
-      <StyledInfoBox className="info-box">
-        {getActiveSubscription && <StarIcon />}
-        <Text>
-          {getActiveSubscription
-            ? t("Subscriptions.ActiveSubscription", {
-                date: formatDate(
-                  // TODO: when ts models are ready, remove  this comment
-                  // @ts-ignore
-                  getActiveSubscription.end_date,
-                  "dd.MM.yyyy"
-                ),
-              })
-            : t("Subscriptions.NoSubscription")}
-        </Text>
-      </StyledInfoBox>
-      {!getActiveSubscription && (
-        <div className="subscriptions">
-          <Row>
-            {subscriptions.map((subscription) => (
-              <Col lg={6} md={12} key={subscription.id}>
-                <SubscriptionBox subscription={subscription} />
-              </Col>
-            ))}
-          </Row>
-        </div>
+      {isLoading ? (
+        <ContentLoader />
+      ) : (
+        <>
+          <StyledInfoBox className="info-box">
+            {getActiveSubscription && <StarIcon />}
+            <Text>
+              {getActiveSubscription
+                ? t("Subscriptions.ActiveSubscription", {
+                    date: formatDate(
+                      // TODO: when ts models are ready, remove  this comment
+                      // @ts-ignore
+                      getActiveSubscription.end_date,
+                      "dd.MM.yyyy"
+                    ),
+                  })
+                : t("Subscriptions.NoSubscription")}
+            </Text>
+          </StyledInfoBox>
+          {!getActiveSubscription && (
+            <div className="subscriptions">
+              <Row>
+                {subscriptions.map((subscription) => (
+                  <Col lg={6} md={12} key={subscription.id}>
+                    <SubscriptionBox subscription={subscription} />
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          )}
+        </>
       )}
     </ProfileLayout>
   );

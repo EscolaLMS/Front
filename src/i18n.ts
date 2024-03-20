@@ -41,6 +41,7 @@ const resources = {
       DateAdded: "Date added",
       Description: "Description",
       Duration: "Duration",
+      From: "From",
       Found: "We found",
       FoundCourses_one:
         "We found <strong>{{count}}</strong> course available for you",
@@ -245,6 +246,7 @@ const resources = {
       "I'm aware": "I'm aware",
       EmailActivation: {
         Title: "Please check your email to complete the registration process",
+        Title2: "Your account is awaiting activation",
         Text: `We sent a message to the address **{{email}}** z
         link to activate your account.
         Go to e-mail and confirm your e-mail address.`,
@@ -252,6 +254,8 @@ const resources = {
 - Check the SPAM folder
 - Check that you have entered your e-mail address correctly
 - We cannot deliver the message to your address (usually via firewall or mail filters)`,
+        HelpText2:
+          "We will send information to your email after the administrator verifies the account",
         RegisterAgain: "Try registering again",
       },
       CoursesPage: {
@@ -705,6 +709,7 @@ const resources = {
       DateAdded: "Data dodania",
       Description: "Opis",
       Duration: "Czas trwania",
+      From: "Od",
       Found: "Znaleźliśmy",
       FoundCourses_few:
         "Znaleźliśmy <strong>{{count}}</strong> kursy dostępne dla Ciebie",
@@ -802,6 +807,8 @@ const resources = {
       "I'm aware": "Tak, wiem",
       EmailActivation: {
         Title: "Aby dokończyć proces rejestracji sprawdź swoją pocztę",
+        Title2:
+          "Proces rejestracji zakonczy się kiedy administator zweryfikuje Twoje konto",
         Text: `Wysłaliśmy wiadomość na adres **{{email}}** z
           linkiem do aktywacji Twojego konta.
           Przejdź do poczty i potwierdź swój adres e-mail.`,
@@ -810,6 +817,8 @@ const resources = {
   - Sprawdź czy poprawnie wpisałeś adres e-mail
   - Nie możemy dostarczyć wiadomości na Twój adres (zazwyczaj  przez firewalla lub filtry na poczcie)`,
         RegisterAgain: "Wpisz adres ponownie",
+        HelpText2:
+          "Na twojego maila wyślemy informacje po weryfikacji konta przez administratora",
       },
       CoursePage: {
         ErrorOccurred: "Wystąpił błąd",

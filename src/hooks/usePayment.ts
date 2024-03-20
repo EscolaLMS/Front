@@ -106,7 +106,7 @@ const usePayment = () => {
           user.value?.email,
           `${APP_URL}/#/cart?status=success`
         );
-        console.log("buySubscriptionByP24", user.value?.email); // @ts-ignore
+        // @ts-ignore
         if (request.data.redirect_url === undefined) {
           toast.error(`${t("UnexpectedError")}`);
           setProcessing(false);
