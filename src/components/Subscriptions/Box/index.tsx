@@ -15,7 +15,7 @@ const StyledSubscription = styled.div<{ $isMobile: boolean }>`
   border: 1px solid ${({ theme }) => theme.gray3};
   padding: ${({ $isMobile }) => ($isMobile ? "20px" : "23px 75px")};
   transition: border 0.3s ease-in-out;
-  margin-bottom: ${({ $isMobile }) => ($isMobile ? "30px" : "0")};
+  margin-bottom: ${({ $isMobile }) => ($isMobile ? "30px" : "30px")};
   background-color: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.black, theme.white, "black")};
   .content {

@@ -25,13 +25,13 @@ const StyledRegisterPage = styled.div`
   height: 900px;
   display: flex;
   align-items: center;
-  justify-content: center; /* TODO: export colors */
-  background-color: #f8f8f8;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.gray4};
+
   @media (max-width: 991px) {
     padding-top: 100px;
     height: 100%;
     padding-bottom: 50px;
-    /* TODO: make a wrapper for it */
   }
 `;
 
@@ -40,9 +40,14 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledContent = styled.div`
-  padding: 200px 0px;
-  background-color: #f8f8f8;
-
+  background-color: ${({ theme }) => theme.gray4};
+  padding-top: 100px;
+  height: calc(100vh - 452px);
+  @media (max-width: 991px) {
+    height: 100%;
+    padding: 100px 0px;
+    text-align: center;
+  }
   .image-wrapper {
     width: 100%;
     display: flex;
@@ -141,6 +146,12 @@ const RegisterPage = () => {
   }, [view]);
 
   const EmailActivation = () => {
+    const { config } = useContext(EscolaLMSContext);
+
+    const accountActivationByAdmin =
+      config?.value?.escola_auth?.account_must_be_enabled_by_admin ===
+      "enabled";
+
     return (
       <StyledContent>
         <Container>
@@ -152,24 +163,36 @@ const RegisterPage = () => {
             <Col md={12}>
               <div className="content-container">
                 <Title className="email-title" level={3}>
-                  {t("EmailActivation.Title")}
+                  {t(
+                    `EmailActivation.${
+                      accountActivationByAdmin ? "Title2" : "Title"
+                    }`
+                  )}
                 </Title>
-                <MarkdownRenderer
-                  components={{
-                    a: (props) => <span>{props.children}</span>,
-                  }}
-                >
-                  {t("EmailActivation.Text", { email })}
-                </MarkdownRenderer>
-                <MarkdownRenderer>
-                  {t("EmailActivation.HelpText")}
-                </MarkdownRenderer>
+                {!accountActivationByAdmin && (
+                  <MarkdownRenderer
+                    components={{
+                      a: (props) => <span>{props.children}</span>,
+                    }}
+                  >
+                    {t("EmailActivation.Text", { email })}
+                  </MarkdownRenderer>
+                )}
 
-                <div className="back-text">
-                  <LinkComponent onClick={() => setView("register")}>
-                    {t("EmailActivation.RegisterAgain")}
-                  </LinkComponent>
-                </div>
+                <MarkdownRenderer>
+                  {t(
+                    `EmailActivation.${
+                      accountActivationByAdmin ? "HelpText2" : "HelpText"
+                    }`
+                  )}
+                </MarkdownRenderer>
+                {!accountActivationByAdmin && (
+                  <div className="back-text">
+                    <LinkComponent onClick={() => setView("register")}>
+                      {t("EmailActivation.RegisterAgain")}
+                    </LinkComponent>
+                  </div>
+                )}
               </div>
             </Col>
           </Row>

@@ -9,14 +9,14 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 
 const Styled404 = styled.div`
-  height: calc(100vh - 520px);
-
+  height: calc(100vh - 452px);
+  padding-top: 122px;
+  background-color: ${({ theme }) => theme.gray4};
   .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     text-align: center;
     row-gap: 30px;
   }
