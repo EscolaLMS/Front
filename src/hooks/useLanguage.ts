@@ -19,7 +19,7 @@ const getLangFromLocalStorage = (): LanguageObject => {
   if (storedLanguage) {
     return JSON.parse(storedLanguage);
   } else {
-    return { label: "English", value: "en" };
+    return { label: "Polski", value: "pl" };
   }
 };
 

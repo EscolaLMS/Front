@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1045794598307",
+    "project_id": "escolasoft-wellms-sm",
+    "storage_bucket": "escolasoft-wellms-sm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045794598307:android:08a7366afe3167c4ce7e16",
+        "android_client_info": {
+          "package_name": "com.escolasoft.EduMamy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9EwosXUnmXQib_Vq-Dz_i65J65Hdsh_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045794598307:android:66d03253b99bc540ce7e16",
+        "android_client_info": {
+          "package_name": "com.sprawnymarketing.wellms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9EwosXUnmXQib_Vq-Dz_i65J65Hdsh_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
