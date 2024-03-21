@@ -11,6 +11,7 @@ import routeRoutes from "@/components/Routes/routes";
 import { WellmsLogo } from "@/icons/index";
 import GoTop from "@/components/_App/GoTop";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
+import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 18px" : "50px 0 15px"};
@@ -57,6 +58,29 @@ const StyledFooter = styled.footer`
         gap: ${isMobile ? "22px" : "30px"};
       }
     }
+  }
+
+  .footer-logotypes-text {
+    margin-bottom: 20px;
+    text-align: center;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 16px !important;
+    }
+    * {
+      font-size: 13px !important;
+      opacity: 0.85;
+    }
+  }
+  .footer-logotypes {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
   }
 
   .single-link {
@@ -122,6 +146,34 @@ const Footer = () => {
     }
     return tempArray;
   };
+
+  const getLogoTypesText = useMemo(() => {
+    if (settings?.value?.footer_logotypes) {
+      return settings?.value?.footer_logotypes?.text;
+    } else {
+      return null;
+    }
+  }, [settings?.value?.footer_logotypes]);
+
+  const getLogotypes = useMemo(() => {
+    if (settings?.value?.footer_logotypes) {
+      const data = settings?.value?.footer_logotypes;
+
+      const logotypes = Object.keys(data)
+        .filter((key) => {
+          if (!isNaN(Number(key))) {
+            return data[key];
+          }
+        })
+        .map((key) => data[key]);
+
+      return logotypes.map((logo: string, index: number) => (
+        <img key={index} src={logo} alt="logotype" />
+      ));
+    } else {
+      return null;
+    }
+  }, [settings?.value?.footer_logotypes]);
 
   return (
     <StyledFooter>
@@ -191,6 +243,12 @@ const Footer = () => {
             </div>
           ))}
         </div>
+        {getLogoTypesText && (
+          <div className="footer-logotypes-text">
+            <MarkdownRenderer>{getLogoTypesText}</MarkdownRenderer>
+          </div>
+        )}
+        {getLogotypes && <div className="footer-logotypes">{getLogotypes}</div>}
 
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
