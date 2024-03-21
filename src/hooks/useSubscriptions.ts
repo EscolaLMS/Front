@@ -1,7 +1,7 @@
+import { toast } from "@/utils/toast";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useContext, useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 // available subscriptions  ['subscription-all-in', 'subscription']
 
@@ -25,7 +25,7 @@ const useSubscriptions = () => {
       });
     } catch (error) {
       console.error("Error fetching subscriptions:", error);
-      toast.error(String(t("UnexpectedError")));
+      toast(String(t("UnexpectedError")), "error");
     }
   }, [fetchProducts, t]);
 
@@ -37,7 +37,7 @@ const useSubscriptions = () => {
       });
     } catch (error) {
       console.error("Error fetching subscriptions:", error);
-      toast.error(String(t("UnexpectedError")));
+      toast(String(t("UnexpectedError")), "error");
     }
   }, [fetchMyProducts, t]);
 

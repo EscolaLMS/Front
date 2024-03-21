@@ -2,10 +2,10 @@ import { useContext, useEffect, useCallback, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import routeRoutes from "@/components/Routes/routes";
 import { InvoiceData } from "@escolalms/sdk/lib/types/api";
 import { APP_URL } from "@/config/index";
+import { toast } from "@/utils/toast";
 
 const usePayment = () => {
   const {
@@ -41,7 +41,7 @@ const usePayment = () => {
       setProcessing(true);
       try {
         if (!user.value?.email) {
-          toast.error(`${t("MissingEmailError")}`);
+          toast(`${t("MissingEmailError")}`, "error");
           setProcessing(false);
           return;
         }
@@ -52,7 +52,7 @@ const usePayment = () => {
         setProcessing(false);
         push("/cart?status=success");
       } catch (error) {
-        toast.error(`${t("UnexpectedError")}`);
+        toast(`${t("UnexpectedError")}`, "error");
         setProcessing(false);
         console.error(error);
       }
@@ -65,7 +65,7 @@ const usePayment = () => {
       setProcessing(true);
       try {
         if (!user.value?.email) {
-          toast.error(`${t("MissingEmailError")}`);
+          toast(`${t("MissingEmailError")}`, "error");
           setProcessing(false);
           return;
         }
@@ -75,7 +75,7 @@ const usePayment = () => {
           values ? values : undefined
         ); // @ts-ignore
         if (request.data.redirect_url === undefined) {
-          toast.error(`${t("UnexpectedError")}`);
+          toast(`${t("UnexpectedError")}`, "error");
           setProcessing(false);
           return;
         }
@@ -83,7 +83,7 @@ const usePayment = () => {
         // @ts-ignore
         window.open(request.data.redirect_url);
       } catch (error) {
-        toast.error(`${t("UnexpectedError")}`);
+        toast(`${t("UnexpectedError")}`, "error");
         setProcessing(false);
         console.error(error);
       }
@@ -96,7 +96,7 @@ const usePayment = () => {
       setProcessing(true);
 
       if (!user.value?.email) {
-        toast.error(`${t("MissingEmailError")}`);
+        toast(`${t("MissingEmailError")}`, "error");
         setProcessing(false);
         return;
       }
@@ -108,14 +108,14 @@ const usePayment = () => {
         );
         // @ts-ignore
         if (request.data.redirect_url === undefined) {
-          toast.error(`${t("UnexpectedError")}`);
+          toast(`${t("UnexpectedError")}`, "error");
           setProcessing(false);
           return;
         }
         setProcessing(false); // @ts-ignore
         window.open(request.data.redirect_url);
       } catch (error) {
-        toast.error(`${t("UnexpectedError")}`);
+        toast(`${t("UnexpectedError")}`, "error");
       }
     },
     [t, subscriptionPayWithP24, user.value?.email]
