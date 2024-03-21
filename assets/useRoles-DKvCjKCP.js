@@ -1,1 +1,0 @@
-import{r as o,h as n}from"./index-t6qcE6xV.js";const l=()=>{const{user:e}=o.useContext(n.EscolaLMSContext),u=o.useMemo(()=>{var s,t;return!!((t=(s=e.value)==null?void 0:s.roles)!=null&&t.includes("tutor"))},[e]),r=o.useMemo(()=>{var s,t;return!!((t=(s=e.value)==null?void 0:s.roles)!=null&&t.includes("student"))},[e]);return{isTutor:u,isStudent:r}};export{l as u};
