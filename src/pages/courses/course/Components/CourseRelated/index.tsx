@@ -41,13 +41,13 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
     <SectionWrapper className="course-related-courses">
       <Container>
         <Row>
-          <Col lg={9}>
+          <Col lg={12}>
             {relatedProducts && relatedProducts?.length > 0 && (
               <div className="content-container">
                 <Title level={1} as="h2">
                   {t("CoursePage.RelatedCoursesTitle")}
                 </Title>
-                <SwiperSlider slidesPerView={3}>
+                <SwiperSlider slidesPerView={4}>
                   {relatedProducts?.map((product) => (
                     <SwiperSlide key={product.id}>
                       <NewCourseCard
@@ -97,11 +97,11 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
               <DisplayCourses
                 titleText={t("CoursePage.InterestTitle")}
                 params={{
-                  per_page: 6,
+                  per_page: 8,
                   order_by: "created_at",
                   order: "ASC",
                 }}
-                slidesPerView={3}
+                slidesPerView={4}
               />
             </div>
           </Col>

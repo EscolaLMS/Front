@@ -82,7 +82,7 @@ export const CourseMainInfo: FC<CourseMainInfoProps> = ({ courseData }) => {
                 ratingValue={state.rating.avg_rate}
                 label={`${state.rating.avg_rate}`}
               />
-              <Text size="13">Śr. ocena kursu</Text>
+              <Text size="13">Śr. ocena kursu</Text>・
               <div>
                 <Text size="13">
                   Dodane opinie <strong>{state.rating.count_answers}</strong>

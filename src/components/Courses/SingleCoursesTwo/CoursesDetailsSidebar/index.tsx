@@ -8,10 +8,9 @@ import { CourseProgress } from "@escolalms/components/lib/components/atoms/Cours
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import { IconWin } from "../../../../icons";
 import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
-import { useTheme } from "styled-components";
 import { useCourseProgress } from "../../../../hooks/courses/useCourseProgress";
 import CourseDetailsSidebarButtons from "./Buttons";
 
@@ -64,7 +63,6 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   course,
   onRequestAccess,
 }) => {
-  const theme = useTheme();
   const { user, courseAccess } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
@@ -100,7 +98,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
     <CourseDetailsSidebarWrapper>
       <PricingCard>
         <div className="course-sidebar-header">
-          <Text size="13">Cena za dostęp</Text>
+          <Text size="13">{t("PricePerAccess")}</Text>
           <div className="price-wrapper">
             <ProductPrices
               price={course.product?.price}
@@ -123,7 +121,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
         ) : (
           <ContentLoader />
         )}
-        <Text size={"12"}> {t("CoursePage.30Days")}</Text>
+
         <div className="pricing-card-features">
           {course.duration && (
             <IconText
@@ -179,19 +177,20 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
           )}
         </div>
         {!user.value ? (
-          <Text size="12">
-            <Link
-              to={`/login?referrer=/courses/${course.id}`}
-              style={{
-                marginRight: "4px",
-                color: theme.primaryColor,
-              }}
-            >
-              {t<string>("CoursePage.Login")}
-            </Link>
-            {t("CoursePage.ToSeeProgress")}
-          </Text>
+          <></>
         ) : (
+          // <Text size="12">
+          //   <Link
+          //     to={`/login?referrer=/courses/${course.id}`}
+          //     style={{
+          //       marginRight: "4px",
+          //       color: theme.primaryColor,
+          //     }}
+          //   >
+          //     {t<string>("CoursePage.Login")}
+          //   </Link>
+          //   {t("CoursePage.ToSeeProgress")}
+          // </Text>
           <CourseProgress
             progress={
               currentCourse && currentCourse?.length > 0
