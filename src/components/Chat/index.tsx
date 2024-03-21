@@ -2,11 +2,15 @@ import ChatWindow from "@/components/Chat/ChatWindow";
 import { ChatIcon } from "@/icons/index";
 import { useState } from "react";
 import { isMobile } from "react-device-detect";
-import styled, { CSSProperties, css } from "styled-components";
+import styled, { CSSProperties, css, keyframes } from "styled-components";
 
-const StyledAIChatWrapper = styled.div<{ $isMobile: boolean }>`
-  ${({ $isMobile }) =>
+const StyledAIChatWrapper = styled.div<{
+  $isMobile: boolean;
+  $isOpen?: boolean;
+}>`
+  ${({ $isMobile, $isOpen }) =>
     $isMobile &&
+    $isOpen &&
     css`
       height: 100dvh;
       position: fixed;
@@ -16,7 +20,28 @@ const StyledAIChatWrapper = styled.div<{ $isMobile: boolean }>`
     `};
 `;
 
-const StyledAIChatContainer = styled.div<{ $placement?: CSSProperties }>`
+const bottomOutAnim = keyframes`
+  from {
+    bottom:  0;
+  }
+  to {
+    bottom:  -100%;
+  }
+`;
+
+const bottomInAnim = keyframes`
+  from {
+    bottom:  -100%;
+  }
+  to {
+    bottom:  0;
+  }
+`;
+
+const StyledAIChatContainer = styled.div<{
+  $placement?: CSSProperties;
+  $isOpen?: boolean;
+}>`
   ${({ $placement }) =>
     $placement &&
     css`
@@ -27,6 +52,16 @@ const StyledAIChatContainer = styled.div<{ $placement?: CSSProperties }>`
         )
         .join("\n")}
     `}
+  ${({ $isOpen }) =>
+    $isOpen
+      ? css`
+          animation: ${bottomInAnim} 0.5s ease forwards;
+          bottom: 0;
+        `
+      : css`
+          animation: ${bottomOutAnim} 0.5s ease forwards;
+          bottom: -100%;
+        `}
   padding-bottom: env(safe-area-inset-bottom);
 `;
 
@@ -84,13 +119,12 @@ const AIChat: React.FC<Props> = ({
   placement = isMobile
     ? {
         right: "0px",
-        top: "120px",
         position: "absolute",
         width: "100%",
-        bottom: "0px",
+        bottom: "-100%",
       }
     : {
-        bottom: "0px",
+        bottom: "-100%",
         right: "15px",
         position: "absolute",
       },
@@ -98,29 +132,19 @@ const AIChat: React.FC<Props> = ({
   const [state, setState] = useState(false);
 
   return (
-    <StyledAIChatWrapper $isMobile={isMobile}>
-      <StyledAIChatContainer
-        $placement={
-          isMobile
-            ? { ...placement, top: state ? "initial" : "120px" }
-            : placement
-        }
-      >
-        {!state && (
-          <StyledAIChatButton
-            onClick={() => setState(true)}
-            $isMobile={isMobile}
-          >
-            <ChatIcon />
-          </StyledAIChatButton>
-        )}
-
+    <StyledAIChatWrapper $isMobile={isMobile} $isOpen={state}>
+      <StyledAIChatContainer $placement={placement} $isOpen={state}>
         <ChatWindow
           isOpen={state}
           lessonID={lessonID}
           onClose={() => setState(false)}
         />
       </StyledAIChatContainer>
+      {!state && (
+        <StyledAIChatButton onClick={() => setState(true)} $isMobile={isMobile}>
+          <ChatIcon />
+        </StyledAIChatButton>
+      )}
     </StyledAIChatWrapper>
   );
 };

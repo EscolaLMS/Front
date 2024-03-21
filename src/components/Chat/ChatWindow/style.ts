@@ -1,22 +1,4 @@
-import styled, { keyframes, css } from "styled-components";
-
-const scaleAndTranslateIn = keyframes`
-  from {
-    transform:  translateY(100%);
-  }
-  to {
-    transform:  translateY(0%);
-  }
-`;
-
-const scaleAndTranslateOut = keyframes`
-  from {
-    transform:  translateY(0);
-  }
-  to {
-    transform:  translateY(100%);
-  }
-`;
+import styled from "styled-components";
 
 export const StyledChatWindow = styled.div<{
   $closeAnimation: boolean;
@@ -26,14 +8,6 @@ export const StyledChatWindow = styled.div<{
   min-width: ${({ $isMobile }) => ($isMobile ? "100%" : "380px")};
   box-shadow: 0px 0px 15px #00000029;
   height: 100%;
-  ${({ $closeAnimation }) =>
-    $closeAnimation
-      ? css`
-          animation: ${scaleAndTranslateOut} 0.5s ease forwards;
-        `
-      : css`
-          animation: ${scaleAndTranslateIn} 0.5s ease forwards;
-        `}
 
   .chatwindow__header {
     background-color: ${({ theme }) => theme.primaryColor};
