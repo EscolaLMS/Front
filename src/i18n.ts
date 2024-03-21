@@ -1357,7 +1357,7 @@ i18n
     resources,
     fallbackLng: "pl",
     // debug: true,
-    //lng: "pl",
+    lng: "pl",
     //supportedLngs: ["pl", "en"],
     // fallbackLng: "pl",
     // lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources

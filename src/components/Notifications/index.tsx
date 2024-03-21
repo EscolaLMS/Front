@@ -38,7 +38,7 @@ const Notifications: React.FC<Props> = ({ onClose }) => {
             </button>
           )}
 
-          {list.length === 0 && !loading && (
+          {!loading && list.length === 0 && (
             <div>
               <Text> {t("Notifications.empty")}</Text>
             </div>
@@ -47,26 +47,27 @@ const Notifications: React.FC<Props> = ({ onClose }) => {
       }
 
       <div className="notifications-drawer__content--list">
-        {list?.map((item) => (
-          <div ref={sentryRef} key={item.id}>
-            <Notification
-              notification={{
-                id: item.id,
-                unread: true,
-                title: t(
-                  getNotificationTranslationObject(item).translation,
-                  getNotificationTranslationObject(item).object
-                ),
-                description: "",
-                dateTime: new Date(item.created_at),
-              }}
-              onClick={() => {
-                handleReadNotify(item.id);
-              }}
-              maxLengthDesc={60}
-            />
-          </div>
-        ))}
+        {!loading &&
+          list?.map((item) => (
+            <div ref={sentryRef} key={item.id}>
+              <Notification
+                notification={{
+                  id: item.id,
+                  unread: true,
+                  title: t(
+                    getNotificationTranslationObject(item).translation,
+                    getNotificationTranslationObject(item).object
+                  ),
+                  description: "",
+                  dateTime: new Date(item.created_at),
+                }}
+                onClick={() => {
+                  handleReadNotify(item.id);
+                }}
+                maxLengthDesc={60}
+              />
+            </div>
+          ))}
         {(loading || hasNextPage) && <ContentLoader />}
       </div>
     </>

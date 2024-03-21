@@ -9,15 +9,16 @@ import { Link, NavLink, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
+  HamburguerIcon,
   HeaderCard,
   HeaderNotification,
-  LanguageIcon,
+  // LanguageIcon,
   ProfileIcon,
 } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Common/Container";
-import { useLanguage } from "@/hooks/useLanguage";
+// import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
@@ -135,6 +136,7 @@ const StyledHeader = styled.header`
     justify-content: flex-end;
     align-items: center;
     margin: 0 5px;
+
     button {
       appearance: none;
       outline: none;
@@ -143,9 +145,14 @@ const StyledHeader = styled.header`
       padding: 0;
       margin: 0;
       cursor: pointer;
+
       &.cart-icon {
         position: relative;
-
+        &.cart {
+          svg {
+            width: 25px;
+          }
+        }
         svg {
           path {
             transition: fill 0.25s;
@@ -182,7 +189,9 @@ const StyledHeader = styled.header`
     align-items: center;
     column-gap: 6px;
     margin-right: 20px;
-
+    button {
+      font-weight: 400;
+    }
     a {
       text-decoration: none;
       p {
@@ -239,7 +248,7 @@ const StyledMobileDrawerNavigation = styled.div`
 
 const Navbar = () => {
   const { t } = useTranslation();
-  const { handleLanguageChange } = useLanguage();
+  // const { handleLanguageChange } = useLanguage();
 
   const {
     user: userObj,
@@ -329,7 +338,7 @@ const Navbar = () => {
               <div className="icons-container">
                 <button
                   type="button"
-                  className="cart-icon"
+                  className="cart-icon cart"
                   onClick={() => history.push(routeRoutes.cart)}
                   data-tooltip={String(cart.data?.items.length)}
                   aria-label={t("CoursePage.GoToCheckout")}
@@ -398,7 +407,7 @@ const Navbar = () => {
         <MobileDrawer
           isOpen={showMobileDrawer}
           onClose={() => setShowMobileDrawer(false)}
-          height={"40vh"}
+          height={"55vh"}
         >
           <StyledMobileDrawerNavigation>
             <ul>
@@ -523,12 +532,12 @@ const Navbar = () => {
               }}
               child={
                 <Button mode="icon" className="dropdown">
-                  Menu <Icon name="hamburger" />
+                  Menu <HamburguerIcon />
                 </Button>
               }
             />
-
-            <DropdownMenu
+            {/* TODO: set this to admin panel and show it conditionally */}
+            {/* <DropdownMenu
               menuItems={[
                 {
                   id: "pl",
@@ -550,7 +559,7 @@ const Navbar = () => {
                   {t("Menu.Language")} <LanguageIcon mode={theme.mode} />
                 </Button>
               }
-            />
+            /> */}
             {user && (
               <div className="icons-container">
                 <button

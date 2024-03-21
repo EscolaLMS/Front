@@ -92,7 +92,7 @@ const CoursesSlider: React.FC<Props> = ({
       ) : (
         <Row
           style={{
-            marginTop: "30px",
+            marginTop: "15px",
             rowGap: "20px",
           }}
         >

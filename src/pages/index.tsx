@@ -36,6 +36,10 @@ const HomePageStyled = styled.div`
       }
     }
   }
+
+  .home-newest-courses {
+    margin-bottom: 30px;
+  }
 `;
 
 const Wrapper = styled(Container)`
