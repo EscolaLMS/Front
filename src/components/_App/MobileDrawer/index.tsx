@@ -15,7 +15,7 @@ const GlobalDrawer = createGlobalStyle<{ $height?: string }>`
   display: none;
 }
   .mobile-drawer-drawer-wrapper { 
-     height: ${({ $height }) => $height || "40vh"};
+     height: ${({ $height }) => $height || "55dvh"};
      min-height: 105px;
       width: 100%;
       bottom: 0;
