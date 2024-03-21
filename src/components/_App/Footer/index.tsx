@@ -149,7 +149,7 @@ const Footer = () => {
 
   const getLogoTypesText = useMemo(() => {
     if (settings?.value?.footer_logotypes) {
-      return settings?.value?.footer_logotypes.text;
+      return settings?.value?.footer_logotypes?.text;
     } else {
       return null;
     }
