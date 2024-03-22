@@ -35,6 +35,7 @@ const StyledProfile = styled.section`
   }
   @media (max-width: 767px) {
     padding-top: 80px;
+    min-height: auto;
   }
 `;
 

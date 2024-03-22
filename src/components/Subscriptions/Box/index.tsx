@@ -1,3 +1,4 @@
+import routeRoutes from "@/components/Routes/routes";
 import usePayment from "@/hooks/usePayment";
 import { StarIcon } from "@/icons/index";
 import { formatPrice } from "@/utils/index";
@@ -5,9 +6,10 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSubscription = styled.div<{ $isMobile: boolean }>`
@@ -84,9 +86,18 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
   const { t } = useTranslation();
   const { buySubscriptionByP24, user } = usePayment();
 
+  const history = useHistory();
   const showTag = useMemo(() => {
     return subscription.tags && subscription.tags.includes("best-deal");
   }, [subscription.tags]);
+
+  const handleBuySubscription = useCallback(() => {
+    if (user.value?.id) {
+      buySubscriptionByP24(subscription.id);
+    } else {
+      history.push(routeRoutes.login);
+    }
+  }, [subscription.id, user.value?.id, buySubscriptionByP24, history]);
 
   return (
     <StyledSubscription $isMobile={isMobile}>
@@ -114,14 +125,11 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
         <Text size="24" className="price" bold>
           {formatPrice(subscription.gross_price)} zł
         </Text>
-        {user.value?.id && (
-          <Button
-            mode="secondary"
-            onClick={() => buySubscriptionByP24(subscription.id)}
-          >
+        {
+          <Button mode="secondary" onClick={() => handleBuySubscription()}>
             {t("Subscriptions.IPick")}
           </Button>
-        )}
+        }
       </div>
     </StyledSubscription>
   );

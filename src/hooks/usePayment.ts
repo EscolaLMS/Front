@@ -1,8 +1,8 @@
-import { useContext, useEffect, useCallback, useState } from "react";
+import { useContext, useCallback, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import routeRoutes from "@/components/Routes/routes";
+
 import { InvoiceData } from "@escolalms/sdk/lib/types/api";
 import { APP_URL } from "@/config/index";
 import { toast } from "@/utils/toast";
@@ -28,13 +28,6 @@ const usePayment = () => {
     "granted" | "error" | undefined
     //@ts-ignore TODO: add additional_discount type to SDK types
   >(cart.value.additional_discount > 0 ? "granted" : undefined);
-
-  useEffect(() => {
-    if (!user.loading && !user.value) {
-      push(routeRoutes.login);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const payByStripe = useCallback(
     async (paymentMethodId: string) => {
