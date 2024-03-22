@@ -21,7 +21,7 @@ import Container from "@/components/Common/Container";
 // import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
-import { DropdownMenu, Icon } from "@escolalms/components/lib/index";
+import { DropdownMenu } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
 import NotificationsDrawer from "@/components/Notifications/drawer";
 import MobileDrawer from "@/components/_App/MobileDrawer";
@@ -296,6 +296,16 @@ const Navbar = () => {
       ),
       key: "menu-2",
     },
+    {
+      title: settings?.value?.config?.termsPage && (
+        <Link to={`/${settings?.value?.config?.termsPage}`}>
+          <Text noMargin bold>
+            {t("Terms")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-2",
+    },
 
     {
       title: user ? null : (
@@ -503,6 +513,11 @@ const Navbar = () => {
                   id: 3,
                   content: t("MyProfilePage.Subscriptions"),
                   redirect: routeRoutes.subscriptions,
+                },
+                {
+                  id: 4,
+                  content: t("Terms"),
+                  redirect: `/${settings?.value?.config?.termsPage}`,
                 },
                 // {
                 //   id: 3,
