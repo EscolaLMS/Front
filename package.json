@@ -10,7 +10,7 @@
   "dependencies": {
     "@escolalms/components": "^0.0.133",
     "@escolalms/h5p-react": "^0.2.19",
-    "@escolalms/sdk": "0.5.28",
+    "@escolalms/sdk": "0.5.29",
     "@escolalms/ts-models": "^0.0.35",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
