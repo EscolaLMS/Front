@@ -13,6 +13,7 @@ const useSubscriptions = () => {
     userProducts,
     user,
     attachProduct,
+    cancelSubscription,
   } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
@@ -40,6 +41,18 @@ const useSubscriptions = () => {
       toast(String(t("UnexpectedError")), "error");
     }
   }, [fetchMyProducts, t]);
+
+  const subscriptionCancel = useCallback(
+    async (productId: number) => {
+      try {
+        await cancelSubscription(productId);
+      } catch (error) {
+        console.error("Error fetching subscriptions:", error);
+        toast(String(t("UnexpectedError")), "error");
+      }
+    },
+    [t, cancelSubscription]
+  );
 
   const getCheapestSubscription = useMemo(() => {
     return products?.list?.data?.reduce((acc, curr) => {
@@ -72,6 +85,7 @@ const useSubscriptions = () => {
     getCheapestSubscription,
     getActiveSubscription,
     attachProduct,
+    subscriptionCancel,
   };
 };
 

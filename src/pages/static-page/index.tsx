@@ -33,7 +33,7 @@ const StaticPage = () => {
 
   const prevSlug = usePrevious(slug);
   const { t } = useTranslation();
-
+  console.log("static");
   useEffect(() => {
     if (
       slug &&

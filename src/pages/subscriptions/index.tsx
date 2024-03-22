@@ -1,10 +1,13 @@
 import Container from "@/components/Common/Container";
+import ActiveSubscription from "@/components/Subscriptions/ActiveSubscription";
 import SubscriptionBox from "@/components/Subscriptions/Box";
 import ContentLoader from "@/components/_App/ContentLoader";
 import Layout from "@/components/_App/Layout";
 import useSubscriptions from "@/hooks/useSubscriptions";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { Col, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
@@ -31,26 +34,40 @@ const SubscriptionsContainer = styled.div<{ $isMobile: boolean }>`
 
 const SubscriptionsPage = () => {
   const { t } = useTranslation();
-  const { subscriptions, isLoading } = useSubscriptions();
+  const {
+    subscriptions,
+    isLoading,
+    getActiveSubscription,
+    subscriptionCancel,
+  } = useSubscriptions();
+  const { user } = useContext(EscolaLMSContext);
 
   return (
-    <Layout metaTitle={t("Subscriptions")}>
+    <Layout metaTitle={t("Subscriptions.Subs")}>
       <StyledWrapper>
         <Container>
           <Title level={1}>{t("Subscriptions.Subs")}</Title>
           <Text size="16">{t("Subscriptions.Text")}</Text>
-          <SubscriptionsContainer $isMobile={isMobile}>
-            {isLoading && <ContentLoader />}
-            {!isLoading && (
-              <Row>
-                {subscriptions.map((subscription) => (
-                  <Col lg={6} md={12} key={subscription.id}>
-                    <SubscriptionBox subscription={subscription} />
-                  </Col>
-                ))}
-              </Row>
-            )}
-          </SubscriptionsContainer>
+          {getActiveSubscription && user.value?.id && (
+            <ActiveSubscription
+              activeSubscription={getActiveSubscription}
+              subscriptionCancel={subscriptionCancel}
+            />
+          )}
+          {!getActiveSubscription?.id && (
+            <SubscriptionsContainer $isMobile={isMobile}>
+              {isLoading && <ContentLoader />}
+              {!isLoading && (
+                <Row>
+                  {subscriptions.map((subscription) => (
+                    <Col lg={6} md={12} key={subscription.id}>
+                      <SubscriptionBox subscription={subscription} />
+                    </Col>
+                  ))}
+                </Row>
+              )}
+            </SubscriptionsContainer>
+          )}
         </Container>
       </StyledWrapper>
     </Layout>

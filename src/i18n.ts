@@ -575,6 +575,9 @@ const resources = {
         CANCELLED: "Canceled",
         FAILED: "Failed",
         PROCESSING: "Processing",
+        TRIAL_CANCELLED: "Trial canceled",
+        TRIAL_PAID: "Trial paid",
+        TRIAL_PROCESSING: "Trial processing",
       },
 
       Filters: {
@@ -660,8 +663,9 @@ const resources = {
         AccessVia: "Access via",
         TrialText: "free trial period",
         IPick: "I pick",
-        ActiveSubscription: `You have an active subscription until {{date}}. Thank you for using the platform!`,
+        ActiveSubscription: `You have an active subscription until {{date}}.`,
         NoSubscription: `You do not have an active subscription. Get started now - it's the cheapest way to use the platform!`,
+        Cancelled: "Subscription renewal has been cancelled",
         Periods: {
           yearly: "year",
           monthly: "month",
@@ -985,6 +989,9 @@ const resources = {
         CANCELLED: "Anulowane",
         FAILED: "Nieudane",
         PROCESSING: "Przetwarzane",
+        TRIAL_CANCELLED: "Okres próbny anulowany",
+        TRIAL_PAID: "Okres próbny opłacony",
+        TRIAL_PROCESSING: "Okres próbny przetwarzany",
       },
       Menu: {
         Browse: "Przeglądaj",
@@ -1340,9 +1347,10 @@ const resources = {
         AccessVia: "Dostęp przez",
         TrialText: "darmowy okres próbny",
         IPick: "Wybieram",
-        ActiveSubscription: `Posiadasz aktywną subskrypcję do dnia {{date}}.  Dziękujemy za korzystanie z platformy!.`,
+        ActiveSubscription: `Posiadasz aktywną subskrypcję do dnia {{date}}.`,
         NoSubscription:
           "Nie posiadasz aktywnej subskrypcji. Zacznij już teraz - to najtańsza forma korzystania z platformy!",
+        Cancelled: "Przedlużenie subskrypcji zostało anulowane",
         Periods: {
           yearly: "rok",
           monthly: "miesiąc",

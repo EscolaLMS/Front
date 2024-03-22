@@ -499,6 +499,11 @@ const Navbar = () => {
                   content: t("Menu.Courses"),
                   redirect: routeRoutes.courses,
                 },
+                {
+                  id: 3,
+                  content: t("MyProfilePage.Subscriptions"),
+                  redirect: routeRoutes.subscriptions,
+                },
                 // {
                 //   id: 3,
                 //   content: t("Menu.Tutors"),

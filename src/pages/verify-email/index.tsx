@@ -3,10 +3,54 @@ import { useLocation, useHistory } from "react-router-dom";
 import Layout from "@/components/_App/Layout";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
 import { useTheme } from "styled-components";
 import routeRoutes from "@/components/Routes/routes";
+import { ThankYouIcon } from "@/icons/index";
+import styled from "styled-components";
+import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
+
+const StyledEmailConfirmation = styled.div`
+  background-color: ${({ theme }) => theme.gray4};
+
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 991px) {
+    height: 100%;
+    padding: 100px 0px;
+    text-align: center;
+  }
+
+  .content-wrapper {
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.black, theme.white, theme.white)};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    padding: 98px 20px;
+    width: 100%;
+    min-width: 600px;
+    display: grid;
+    place-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 991px) {
+      min-width: auto;
+      padding: 20px;
+      width: auto;
+    }
+    svg {
+      margin: 20px 0px;
+    }
+    h2 {
+      margin-top: 20px;
+    }
+  }
+`;
 
 const VerifyEmail: React.FC = () => {
   const { push } = useHistory();
@@ -61,27 +105,21 @@ const VerifyEmail: React.FC = () => {
 
   return (
     <Layout>
-      <div className="profile-authentication-area">
+      <StyledEmailConfirmation className="profile-authentication-area">
         <div className="container">
           <div className="row ">
             <div className="col-lg-12 col-md-12">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+              <div className="content-wrapper">
+                <ThankYouIcon />
                 {state.loading && <Spin color={theme.primaryColor} />}{" "}
                 {state.isVerified && (
-                  <Text size="16">{t("EmailWasVerified")}</Text>
+                  <Title level={2}>{t("EmailWasVerified")}</Title>
                 )}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </StyledEmailConfirmation>
     </Layout>
   );
 };
