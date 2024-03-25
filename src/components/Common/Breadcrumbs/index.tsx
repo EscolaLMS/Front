@@ -1,6 +1,7 @@
 import React from "react";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
 import styled from "styled-components";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 type Props = {
   items: React.ReactNode[];
@@ -22,7 +23,9 @@ const StyledBreadcrumbs = styled.div`
 const Breadcrumbs: React.FC<Props> = ({ items }) => {
   return (
     <StyledBreadcrumbs>
-      <BreadCrumbs items={items} />
+      <MobileGuard>
+        <BreadCrumbs items={items} />
+      </MobileGuard>
     </StyledBreadcrumbs>
   );
 };

@@ -12,6 +12,7 @@ declare global {
   interface Window {
     VITE_APP_API_URL: string;
     VITE_APP_URL: string;
+    VITE_APP_MOBILE_DEVICE: boolean;
   }
 }
 

@@ -233,7 +233,7 @@ const RegisterPage = () => {
                   mobile={isMobile}
                   onLoginLink={() => history.push(routeRoutes.login)}
                   onSuccess={(
-                    _: any,
+                    _: unknown,
                     values: { email: SetStateAction<string> }
                   ) => {
                     setView("success");

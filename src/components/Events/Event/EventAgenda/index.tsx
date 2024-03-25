@@ -19,7 +19,8 @@ type Agenda = {
 const EventAgenda = () => {
   const { stationaryEvent } = useContext(EscolaLMSContext);
   // TODO: fix this
-  // @ts-ignore
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const agenda: Agenda[] = stationaryEvent.value?.agenda as any;
   const theme = useTheme();
   const { t } = useTranslation();

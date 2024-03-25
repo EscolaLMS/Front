@@ -31,6 +31,7 @@ const CartPage: React.FC<Props> = () => {
   const { config } = useContext(EscolaLMSContext);
   const stripePromise = (publishable_key: string) =>
     loadStripe(publishable_key);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stripeConfigs: any = config?.value?.escolalms_payments?.drivers;
   const stripeKey = stripeConfigs?.stripe?.publishable_key;
   const theme = useTheme();

@@ -20,6 +20,7 @@ const EventTutor = () => {
   return (
     <EventTutorStyles>
       {/* TODO: change any type */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {authors.map((author: any) => (
         <section className="event-tutor with-border padding-right">
           <Link to={`/tutors/${author.id}`}>
