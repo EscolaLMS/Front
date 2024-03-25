@@ -25,6 +25,7 @@ import { DropdownMenu } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
 import NotificationsDrawer from "@/components/Notifications/drawer";
 import MobileDrawer from "@/components/_App/MobileDrawer";
+import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -480,10 +481,9 @@ const Navbar = () => {
         }}
       >
         <Link to="/" aria-label={t("Go to the main page")}>
-          <img
-            src={settings?.value?.global?.logo || Logo}
-            alt="Logo"
-            className="logo"
+          <ResponsiveImage
+            path={settings?.value?.global?.logo || ""}
+            srcSizes={[100, 200, 300]}
           />
         </Link>
         <div className="search-container">

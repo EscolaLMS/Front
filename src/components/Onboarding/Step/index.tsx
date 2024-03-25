@@ -36,6 +36,9 @@ const StyledStep = styled.div`
       flex-direction: row;
       flex-wrap: wrap;
       gap: 7px;
+      .option {
+        margin-bottom: 0px;
+      }
     }
   }
 `;
