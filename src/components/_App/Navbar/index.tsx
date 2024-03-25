@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Logo from "../../../images/logo-orange.svg";
+
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
@@ -337,13 +337,14 @@ const Navbar = () => {
       <StyledHeader>
         <Navigation
           mobile
-          logo={{
-            src: settings?.value?.global?.logo || Logo,
-            width: 150,
-            height: 50,
-            onClick: () => history.push(routeRoutes.home),
-            alt: "Logo",
-          }}
+          logo={
+            <Link to="/" aria-label={t("Go to the main page")}>
+              <ResponsiveImage
+                path={settings?.value?.global?.logo || ""}
+                srcSizes={[100, 200, 300]}
+              />
+            </Link>
+          }
           cart={
             user?.id ? (
               <div className="icons-container">
