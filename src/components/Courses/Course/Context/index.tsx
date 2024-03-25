@@ -74,6 +74,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   // :id/:lessonID?/:topicID
   const {
     id: courseId,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     lessonID: paramLessonId,
     topicID: paramTopicId,
   } = useParams<CourseParams>();

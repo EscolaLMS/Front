@@ -11,6 +11,7 @@ sed -ie "s~YBUG_ID = null~YBUG_ID=\"$YBUG_ID\"~" /usr/local/apache2/htdocs/index
 sed -ie "s~BASENAME = null~BASENAME=\"$BASENAME\"~" /usr/local/apache2/htdocs/index.html
 sed -ie "s~ROUTING_TYPE = null~ROUTING_TYPE=\"$ROUTING_TYPE\"~" /usr/local/apache2/htdocs/index.html
 sed -ie "s~APP_URL = null~APP_URL=\"$APP_URL\"~" /usr/local/apache2/htdocs/index.html
+sed -ie "s~APP_MOBILE_DEVICE = null~APP_MOBILE_DEVICE=\"$APP_MOBILE_DEVICE\"~" /usr/local/apache2/htdocs/index.html
 
 echo "API URL= " $API_URL
 echo "SENTRYDSN= " $SENTRYDSN
@@ -18,5 +19,6 @@ echo "YBUG_ID= " $YBUG_ID
 echo "BASENAME= " $BASENAME
 echo "ROUTING_TYPE= " $ROUTING_TYPE
 echo "APP_URL= " $APP_URL
+echo "APP_MOBILE_DEVICE= " $APP_MOBILE_DEVICE
 
 exec httpd -DFOREGROUND "$@"

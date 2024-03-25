@@ -41,6 +41,7 @@ const StyledInfoBox = styled.div`
 `;
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeSubscription: any;
   subscriptionCancel: (id: number) => void;
 };

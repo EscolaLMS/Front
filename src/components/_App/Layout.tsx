@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
 import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
+import { MOBILE_DEVICE } from "@/config/index";
 
 declare global {
   interface Window {
@@ -29,6 +30,7 @@ const Layout: React.FC<{
 }> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
 
+  console.log(MOBILE_DEVICE);
   useEffect(() => {
     // ybug
     (function () {
@@ -50,6 +52,12 @@ const Layout: React.FC<{
   }, []);
 
   const isCourse = pathname.includes("/course/");
+
+  const handleRenderFooter = useCallback(() => {
+    if (!isCourse && MOBILE_DEVICE === "false") {
+      return <Footer />;
+    }
+  }, [isCourse]);
 
   return (
     <React.Fragment>
@@ -76,7 +84,7 @@ const Layout: React.FC<{
         <Navbar />
         {children}
 
-        {!isCourse && <Footer />}
+        {handleRenderFooter()}
         {localStorage.getItem("hideWarning") !== "true" && <Warning />}
       </div>
     </React.Fragment>

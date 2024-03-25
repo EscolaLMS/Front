@@ -12,3 +12,8 @@ export const API_URL =
 
 export const APP_URL =
   window.VITE_APP_URL || import.meta.env.VITE_APP_PUBLIC_URL || null;
+
+export const MOBILE_DEVICE =
+  window.VITE_APP_MOBILE_DEVICE ||
+  import.meta.env.VITE_APP_PUBLIC_MOBILE_DEVICE ||
+  null;

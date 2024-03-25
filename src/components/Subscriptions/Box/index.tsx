@@ -79,6 +79,7 @@ const StyledSubscription = styled.div<{ $isMobile: boolean }>`
 
 type Props = {
   // TODO: when model types will be updated change this
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subscription: any;
 };
 

@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 import styled from "styled-components";
 import { BreadCrumbs } from "@escolalms/components/lib/components/atoms/BreadCrumbs/BreadCrumbs";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 const StyledDiv = styled("div")<{ isOpen?: boolean }>`
   .more-icon {
@@ -66,19 +67,20 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
 
   return (
     <StyledDiv ref={parentRef}>
-      <BreadCrumbs
-        hyphen=""
-        items={firstCategories?.map((category, index) => (
-          <>
-            <span
-              className="category-name"
-              key={category.name + index}
-              onClick={() => categoryClick(category.id)}
-              aria-hidden="true"
-            >
-              {category.name}
-            </span>
-            {/* {index === firstCategories.length - 1 &&
+      <MobileGuard>
+        <BreadCrumbs
+          hyphen=""
+          items={firstCategories?.map((category, index) => (
+            <>
+              <span
+                className="category-name"
+                key={category.name + index}
+                onClick={() => categoryClick(category.id)}
+                aria-hidden="true"
+              >
+                {category.name}
+              </span>
+              {/* {index === firstCategories.length - 1 &&
               otherCategories.length > 0 && (
                 <span
                   className="more-icon"
@@ -87,9 +89,10 @@ const CategoriesBreadCrumbs = (props: CategoriesProps) => {
                   aria-hidden={true}
                 >{`+${otherCategories.length}`}</span>
               )} */}
-          </>
-        ))}
-      />
+            </>
+          ))}
+        />
+      </MobileGuard>
 
       {/* {otherCategories.length > 0 && (
         <div
