@@ -3,6 +3,7 @@ import BookTermSuccessModal from "@/components/Book/BookTermSuccessModal";
 
 export const ProfileConsultationsContext = createContext({
   showBookTermSuccess: false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setShowBookTermSuccess: (value: boolean) => {},
 });
 

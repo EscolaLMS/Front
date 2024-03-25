@@ -29,7 +29,7 @@ const TutorsPage = () => {
 
   useEffect(() => {
     fetchTutors();
-  }, []);
+  }, [fetchTutors]);
 
   return (
     <Layout>

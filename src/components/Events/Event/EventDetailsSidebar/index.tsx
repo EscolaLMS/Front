@@ -41,6 +41,7 @@ const EventDetailsSidebar: React.FC<{ event: API.StationaryEvent }> = ({
       setButtonStatus(ButtonStatus.IN_CART);
       // If user bought product and event finished
     } else if (
+      // eslint-disable-next-line no-dupe-else-if
       user.value?.id &&
       event.product?.owned &&
       isPast(new Date(event.finished_at || ""))

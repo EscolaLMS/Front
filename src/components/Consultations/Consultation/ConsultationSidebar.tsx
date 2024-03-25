@@ -1,7 +1,7 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import React, { useContext, useMemo } from "react";
-import { Consultation } from "@escolalms/sdk/lib/types/api";
+import { CartItem, Consultation } from "@escolalms/sdk/lib/types/api";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
@@ -30,7 +30,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
 
   const consultationInCart = useMemo(() => {
     return cart?.value?.items.some(
-      (item: any) =>
+      (item: CartItem) =>
         Number(item.product_id) === Number(consultation?.product?.id)
     );
   }, [consultation?.product?.id, cart]);

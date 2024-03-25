@@ -45,6 +45,7 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
       <BookTermModal
         visible={showBookTerm}
         onClose={() => setShowBookTerm(false)}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         consultation={consultation as any}
       />
     </ConsultationCardStyles>
