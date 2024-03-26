@@ -46,10 +46,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  input[type="text"]:focus,
-textarea:focus {
-    -webkit-text-size-adjust: 100%;
-}
+
 `;
 
 const StyledMain = styled.main<{ noPadding?: boolean }>`
