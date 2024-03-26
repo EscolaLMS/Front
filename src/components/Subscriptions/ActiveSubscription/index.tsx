@@ -54,7 +54,6 @@ const ActiveSubscription: React.FC<Props> = ({
     activeSubscription?.status || SubscriptionStatus.ACTIVE
   );
   const { t } = useTranslation();
-  console.log("activeSubscription", activeSubscription);
 
   const handleSubscriptionCancel = useCallback(() => {
     setSubSatuts(SubscriptionStatus.CANCELED);

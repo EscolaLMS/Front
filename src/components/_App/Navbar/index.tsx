@@ -49,13 +49,6 @@ const StyledHeader = styled.header`
       max-height: 37px;
     }
 
-    @media (max-width: 1200px) {
-      &,
-      & img {
-        max-width: 100px;
-      }
-    }
-
     img {
       width: 100%;
       height: auto;
@@ -338,12 +331,14 @@ const Navbar = () => {
         <Navigation
           mobile
           logo={
-            <Link to="/" aria-label={t("Go to the main page")}>
-              <ResponsiveImage
-                path={settings?.value?.global?.logo || ""}
-                srcSizes={[100, 200, 300]}
-              />
-            </Link>
+            <div className="logo-container">
+              <Link to="/" aria-label={t("Go to the main page")}>
+                <ResponsiveImage
+                  path={settings?.value?.global?.logo || ""}
+                  srcSizes={[100, 200, 300]}
+                />
+              </Link>
+            </div>
           }
           cart={
             user?.id ? (
@@ -481,12 +476,14 @@ const Navbar = () => {
           width: "100%",
         }}
       >
-        <Link to="/" aria-label={t("Go to the main page")}>
-          <ResponsiveImage
-            path={settings?.value?.global?.logo || ""}
-            srcSizes={[100, 200, 300]}
-          />
-        </Link>
+        <div className="logo-container">
+          <Link to="/" aria-label={t("Go to the main page")}>
+            <ResponsiveImage
+              path={settings?.value?.global?.logo || ""}
+              srcSizes={[50, 100, 150]}
+            />
+          </Link>
+        </div>
         <div className="search-container">
           <SearchCourses
             onItemSelected={(item) => history.push(`/courses/${item.id}`)}

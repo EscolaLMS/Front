@@ -14,7 +14,7 @@ import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 const StyledFooter = styled.footer`
-  padding: ${isMobile ? "50px 0 18px" : "50px 0 15px"};
+  padding: ${isMobile ? "50px 0 18px" : "200px 0 50px 15px"};
   z-index: 50;
   position: relative;
   background: ${({ theme }) =>
