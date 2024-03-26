@@ -45,6 +45,8 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+
 `;
 
 const StyledMain = styled.main<{ noPadding?: boolean }>`

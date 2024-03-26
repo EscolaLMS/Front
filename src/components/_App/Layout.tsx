@@ -7,6 +7,7 @@ import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
 import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
 import { MOBILE_DEVICE } from "@/config/index";
+import { isMobile } from "react-device-detect";
 
 declare global {
   interface Window {
@@ -30,7 +31,6 @@ const Layout: React.FC<{
 }> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
 
-  console.log(MOBILE_DEVICE);
   useEffect(() => {
     // ybug
     (function () {
@@ -67,10 +67,18 @@ const Layout: React.FC<{
             ? `${metaTitle} | Worlds first Headless LMS`
             : "Worlds first Headless LMS"}
         </title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        {isMobile || MOBILE_DEVICE === "true" ? (
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          />
+        ) : (
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+        )}
+
         <meta name="description" content="Worlds first Headless LMS" />
         <meta
           name="og:title"
