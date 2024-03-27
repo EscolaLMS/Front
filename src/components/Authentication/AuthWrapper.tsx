@@ -7,10 +7,16 @@ const StyledLoginPage = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.gray4};
+  position: relative;
   @media (max-width: 991px) {
     padding-top: 100px;
     height: 100%;
     padding-bottom: 50px;
+  }
+  * {
+    @media (max-width: 991px) {
+      width: 100%;
+    }
   }
 `;
 

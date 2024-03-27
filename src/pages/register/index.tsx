@@ -13,7 +13,7 @@ import styled from "styled-components";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { Col, Row } from "react-grid-system";
+
 import { Link as LinkComponent } from "@escolalms/components/lib/components/atoms/Link/Link";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
@@ -32,6 +32,13 @@ const StyledRegisterPage = styled.div`
     padding-top: 100px;
     height: 100%;
     padding-bottom: 50px;
+    * {
+      width: 100%;
+      p,
+      a {
+        text-align: center;
+      }
+    }
   }
 `;
 
@@ -159,43 +166,39 @@ const RegisterPage = () => {
             <EmailActivationImg />
           </div>
 
-          <Row justify={"center"}>
-            <Col md={12}>
-              <div className="content-container">
-                <Title className="email-title" level={3}>
-                  {t(
-                    `EmailActivation.${
-                      accountActivationByAdmin ? "Title2" : "Title"
-                    }`
-                  )}
-                </Title>
-                {!accountActivationByAdmin && (
-                  <MarkdownRenderer
-                    components={{
-                      a: (props) => <span>{props.children}</span>,
-                    }}
-                  >
-                    {t("EmailActivation.Text", { email })}
-                  </MarkdownRenderer>
-                )}
+          <div className="content-container">
+            <Title className="email-title" level={3}>
+              {t(
+                `EmailActivation.${
+                  accountActivationByAdmin ? "Title2" : "Title"
+                }`
+              )}
+            </Title>
+            {!accountActivationByAdmin && (
+              <MarkdownRenderer
+                components={{
+                  a: (props) => <span>{props.children}</span>,
+                }}
+              >
+                {t("EmailActivation.Text", { email })}
+              </MarkdownRenderer>
+            )}
 
-                <MarkdownRenderer>
-                  {t(
-                    `EmailActivation.${
-                      accountActivationByAdmin ? "HelpText2" : "HelpText"
-                    }`
-                  )}
-                </MarkdownRenderer>
-                {!accountActivationByAdmin && (
-                  <div className="back-text">
-                    <LinkComponent onClick={() => setView("register")}>
-                      {t("EmailActivation.RegisterAgain")}
-                    </LinkComponent>
-                  </div>
-                )}
+            <MarkdownRenderer>
+              {t(
+                `EmailActivation.${
+                  accountActivationByAdmin ? "HelpText2" : "HelpText"
+                }`
+              )}
+            </MarkdownRenderer>
+            {!accountActivationByAdmin && (
+              <div className="back-text">
+                <LinkComponent onClick={() => setView("register")}>
+                  {t("EmailActivation.RegisterAgain")}
+                </LinkComponent>
               </div>
-            </Col>
-          </Row>
+            )}
+          </div>
         </Container>
       </StyledContent>
     );
@@ -225,23 +228,19 @@ const RegisterPage = () => {
       {view !== "success" ? (
         <StyledRegisterPage>
           <Container>
-            <Row justify="center">
-              <Col md={12}>
-                <RegisterForm
-                  return_url={"#/email-verify"}
-                  fieldLabels={fieldLabels}
-                  mobile={isMobile}
-                  onLoginLink={() => history.push(routeRoutes.login)}
-                  onSuccess={(
-                    _: unknown,
-                    values: { email: SetStateAction<string> }
-                  ) => {
-                    setView("success");
-                    setEmail(values.email);
-                  }}
-                />
-              </Col>
-            </Row>
+            <RegisterForm
+              return_url={"#/email-verify"}
+              fieldLabels={fieldLabels}
+              mobile={isMobile}
+              onLoginLink={() => history.push(routeRoutes.login)}
+              onSuccess={(
+                _: unknown,
+                values: { email: SetStateAction<string> }
+              ) => {
+                setView("success");
+                setEmail(values.email);
+              }}
+            />
           </Container>
         </StyledRegisterPage>
       ) : (
