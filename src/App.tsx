@@ -11,6 +11,16 @@ import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
 
+import { notyficationTokens } from "@escolalms/sdk/lib/services/notify";
+import { API_URL } from "@/config/index";
+
+import { initializeApp } from "firebase/app";
+import { FirebaseMessaging } from "@capacitor-firebase/messaging";
+import { firebaseConfig } from "./utils/firebase";
+import { LocalNotifications } from "@capacitor/local-notifications";
+
+import { Capacitor } from "@capacitor/core";
+
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
 );
@@ -18,7 +28,6 @@ const Customizer = lazy(
 const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0;
-    padding: 0;
     height: 100%;
     -webkit-font-smoothing: antialiased;
   }
@@ -45,8 +54,6 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
-
-
 `;
 
 const StyledMain = styled.main<{ noPadding?: boolean }>`
@@ -62,6 +69,12 @@ const mapStringToTheme = (theme: string) => {
 };
 
 const App = () => {
+  if (Capacitor.getPlatform() === "ios") {
+    console.log("ios platform");
+  }
+
+  const { token } = useContext(EscolaLMSContext);
+
   const { fetchSettings, settings, fetchNotifications, fetchConfig } =
     useContext(EscolaLMSContext);
 
@@ -70,6 +83,62 @@ const App = () => {
     fetchNotifications();
     fetchConfig();
   }, [fetchSettings, fetchNotifications, fetchConfig]);
+
+  useEffect(() => {
+    const requestPermissions = async () => {
+      const result = await FirebaseMessaging.requestPermissions();
+      console.log("xxx " + JSON.stringify(result));
+      return result.receive;
+    };
+
+    const getToken = async () => {
+      const result = await FirebaseMessaging.getToken({
+        vapidKey:
+          "BEl5YpvQIVmiLKccskEgnNFFOGdayRuWh6UsqBqlaSbIRsxWTnqJ1bwQ_uI79xf53LI2pEYvmL1pQRp1qRQZ7ps",
+      });
+      return result.token;
+    };
+
+    const addNotificationReceivedListener = async () => {
+      await FirebaseMessaging.addListener("notificationReceived", (event) => {
+        console.log("xxx notificationReceived", { event });
+
+        const notification: any = event.notification;
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              title: notification.title,
+              body: notification.body,
+              id: notification.data.id,
+            },
+          ],
+        });
+      });
+    };
+
+    const initializeFirebase = async () => {
+      const firebaseApp = initializeApp(firebaseConfig);
+
+      const PermissionState = await requestPermissions();
+
+      console.log("xxx " + PermissionState);
+
+      if (PermissionState === "granted") {
+        const firebasetoken = await getToken();
+        console.log("xxx receive token " + firebasetoken);
+        if (token) {
+          console.log("xxx send token " + firebasetoken);
+          notyficationTokens(API_URL, token, {
+            token: firebasetoken,
+          });
+        }
+      }
+
+      await addNotificationReceivedListener();
+    };
+
+    initializeFirebase();
+  }, [token]);
 
   return (
     <React.Fragment>
