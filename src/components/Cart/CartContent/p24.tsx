@@ -201,7 +201,7 @@ const Przelewy24Content = () => {
                   </Button>
                 </div>
                 <section className="slider-section">
-                  <Title level={4}>{t<string>("Cart.Interest")}</Title>
+                  <Title level={2}>{t<string>("Cart.Interest")}</Title>
                   {courses && courses.list && (
                     <CoursesSlider courses={courses.list.data} />
                   )}
