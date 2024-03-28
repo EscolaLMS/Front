@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import { ResetPasswordForm } from "@escolalms/components/lib/components/organisms/ResetPasswordForm/ResetPasswordForm";
 import { LoginForm } from "@escolalms/components/lib/components/organisms/LoginForm/LoginForm";
 import { useTranslation } from "react-i18next";
-import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
@@ -40,30 +39,26 @@ const Login = () => {
     <Layout metaTitle={t("LoginAndRegister")}>
       <AuthWrapper>
         <Container>
-          <Row justify={"center"}>
-            <Col md={12}>
-              {view === "login" ? (
-                <LoginForm
-                  onResetPasswordLink={() => setView("forgotPassword")}
-                  onRegisterLink={() => history.push(routeRoutes.register)}
-                  mobile={isMobile}
-                />
-              ) : (
-                <ResetPasswordForm
-                  mobile={isMobile}
-                  backToLogin={() => setView("login")}
-                  onRegisterLink={() => history.push(routeRoutes.register)}
-                  return_url="#/reset-password"
-                  onFirstStepSuccess={() =>
-                    toast(t<string>("LoginPage.ForgotSuccess"), "success")
-                  }
-                  onFirstStepError={() =>
-                    toast(t<string>("UnexpectedError"), "error")
-                  }
-                />
-              )}
-            </Col>
-          </Row>
+          {view === "login" ? (
+            <LoginForm
+              onResetPasswordLink={() => setView("forgotPassword")}
+              onRegisterLink={() => history.push(routeRoutes.register)}
+              mobile={isMobile}
+            />
+          ) : (
+            <ResetPasswordForm
+              mobile={isMobile}
+              backToLogin={() => setView("login")}
+              onRegisterLink={() => history.push(routeRoutes.register)}
+              return_url="#/reset-password"
+              onFirstStepSuccess={() =>
+                toast(t<string>("LoginPage.ForgotSuccess"), "success")
+              }
+              onFirstStepError={() =>
+                toast(t<string>("UnexpectedError"), "error")
+              }
+            />
+          )}
         </Container>
       </AuthWrapper>
     </Layout>

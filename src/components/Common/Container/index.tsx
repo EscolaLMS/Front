@@ -8,7 +8,6 @@ const StyledContainer = styled.div<Props>`
   position: relative;
   margin-inline: auto;
   padding-inline: 15px;
-
   max-width: 540px;
 
   @media (min-width: 768px) {
