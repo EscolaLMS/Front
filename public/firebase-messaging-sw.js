@@ -11,13 +11,13 @@ const firebaseConfig = {
   messagingSenderId: "1045794598307",
   appId: "1:1045794598307:web:6df5be8879e2f58ece7e16",
 };
+
 // eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 // eslint-disable-next-line no-undef
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  console.log("xxx init Received background message ", payload);
   const notificationTitle = payload.notification.title + ".";
   const notificationOptions = {
     body: payload.notification.body,

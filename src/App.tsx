@@ -12,7 +12,7 @@ import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
 
 import { notyficationTokens } from "@escolalms/sdk/lib/services/notify";
-import { API_URL } from "@/config/index";
+import { API_URL, VITE_APP_FIREBASE_VAPID_KEY } from "@/config/index";
 
 import { initializeApp } from "firebase/app";
 import { FirebaseMessaging } from "@capacitor-firebase/messaging";
@@ -87,22 +87,18 @@ const App = () => {
   useEffect(() => {
     const requestPermissions = async () => {
       const result = await FirebaseMessaging.requestPermissions();
-      console.log("xxx " + JSON.stringify(result));
       return result.receive;
     };
 
     const getToken = async () => {
       const result = await FirebaseMessaging.getToken({
-        vapidKey:
-          "BEl5YpvQIVmiLKccskEgnNFFOGdayRuWh6UsqBqlaSbIRsxWTnqJ1bwQ_uI79xf53LI2pEYvmL1pQRp1qRQZ7ps",
+        vapidKey: VITE_APP_FIREBASE_VAPID_KEY,
       });
       return result.token;
     };
 
     const addNotificationReceivedListener = async () => {
       await FirebaseMessaging.addListener("notificationReceived", (event) => {
-        console.log("xxx notificationReceived", { event });
-
         const notification: any = event.notification;
         LocalNotifications.schedule({
           notifications: [
@@ -121,13 +117,9 @@ const App = () => {
 
       const PermissionState = await requestPermissions();
 
-      console.log("xxx " + PermissionState);
-
       if (PermissionState === "granted") {
         const firebasetoken = await getToken();
-        console.log("xxx receive token " + firebasetoken);
         if (token) {
-          console.log("xxx send token " + firebasetoken);
           notyficationTokens(API_URL, token, {
             token: firebasetoken,
           });

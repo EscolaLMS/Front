@@ -1,12 +1,20 @@
 import { initializeApp } from "firebase/app";
+import {
+  VITE_APP_FIREBASE_APIKEY,
+  VITE_APP_FIREBASE_APPID,
+  VITE_APP_FIREBASE_AUTHDOMAIN,
+  VITE_APP_FIREBASE_MESSAGINGSENDERID,
+  VITE_APP_FIREBASE_PROJECTID,
+  VITE_APP_FIREBASE_STORAGEBUCKET,
+} from "../config";
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDoAVMFXyk6oCB51mDnLBeS0FNdz_cmaWY",
-  authDomain: "escolasoft-wellms-sm.firebaseapp.com",
-  projectId: "escolasoft-wellms-sm",
-  storageBucket: "escolasoft-wellms-sm.appspot.com",
-  messagingSenderId: "1045794598307",
-  appId: "1:1045794598307:web:6df5be8879e2f58ece7e16",
+  apiKey: VITE_APP_FIREBASE_APIKEY,
+  authDomain: VITE_APP_FIREBASE_AUTHDOMAIN,
+  projectId: VITE_APP_FIREBASE_PROJECTID,
+  storageBucket: VITE_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: VITE_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: VITE_APP_FIREBASE_APPID,
 };
 
 // Initialize Firebase
