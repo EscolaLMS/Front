@@ -8,6 +8,13 @@
     "url": "httsp://wellms.io"
   },
   "dependencies": {
+    "@capacitor-firebase/messaging": "^5.4.1",
+    "@capacitor/android": "^5.7.3",
+    "@capacitor/core": "^5.7.3",
+    "@capacitor/filesystem": "^5.2.1",
+    "@capacitor/ios": "^5.7.3",
+    "@capacitor/local-notifications": "^5.0.7",
+    "@capacitor/status-bar": "^5.0.7",
     "@escolalms/components": "^0.0.136",
     "@escolalms/h5p-react": "^0.2.19",
     "@escolalms/sdk": "0.5.30",
@@ -33,6 +40,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-styled-components": "^2.0.7",
     "date-fns": "^2.30.0",
+    "firebase": "^10.9.0",
     "i18next": "^21.4.0",
     "leva": "^0.9.34",
     "react": "^18.2.0",
@@ -74,6 +82,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@capacitor/assets": "^3.0.4",
+    "@capacitor/cli": "^5.7.3",
     "@types/react": "^18.2.55",
     "@types/react-datepicker": "^4.19.6",
     "@types/react-dom": "^18.2.19",
