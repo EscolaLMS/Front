@@ -82,7 +82,7 @@ export const CartPageStyled = styled.section<{ $isMobile: boolean }>`
         z-index: 10;
         width: 100%;
         left: 0;
-        z-index: 99999;
+        z-index: 100;
       `};
   }
   .empty-cart {
