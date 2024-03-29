@@ -67,6 +67,7 @@ export const CartPageStyled = styled.section<{ $isMobile: boolean }>`
     }
   }
   .slider-section {
+    position: relative;
     margin-top: 70px;
   }
   .summary-box-wrapper {
