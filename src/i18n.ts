@@ -477,6 +477,11 @@ const resources = {
           "You are assigned to course {{name}}",
         "EscolaLms\\Courses\\Events\\TopicFinished":
           "Topic of course {{name}} finished",
+        "EscolaLms\\Courses\\Events\\LessonFinished": "Course lesson finished",
+        "EscolaLms\\TemplatesPdf\\Events\\PdfCreated":
+          'Certificate for course "{{name}}" created',
+        "EscolaLms\\CourseAccess\\Events\\CourseAccessEnquiryStudentCreatedEvent":
+          "Course access enquiry created",
         // TOPIC
         "EscolaLms\\TopicTypes\\Events\\TopicTypeChanged":
           "Topic {{name}} changed",
@@ -1111,6 +1116,8 @@ const resources = {
         SettingPackageConfigUpdated: "Zaktualizowano konfigurację pakietu",
         CourseTutorAssigned: "Instruktor przypisany",
         CourseStarted: "Kurs rozpoczęty",
+        "Notifications.EscolaLms\\TemplatesPdf\\Events\\PdfCreated":
+          "PDF stworzony",
         // STATIONARY EVENT
         "EscolaLms\\StationaryEvents\\Events\\StationaryEventAssigned":
           "Zostałeś przypisany do wydarzenia stacjonarnego {{name}}",
@@ -1172,6 +1179,11 @@ const resources = {
           "Zostałeś przypisany {{name}}",
         "EscolaLms\\Courses\\Events\\TopicFinished":
           "Temat kursu {{name}} zakończony",
+        "EscolaLms\\Courses\\Events\\LessonFinished": "Lekcja zakończona",
+        "EscolaLms\\TemplatesPdf\\Events\\PdfCreated":
+          "Certyfikat dla kursu {{name}} stworzony",
+        "EscolaLms\\CourseAccess\\Events\\CourseAccessEnquiryStudentCreatedEvent":
+          "Zgłoszenie o dostęp do kursu stworzone",
         // TOPIC
         "EscolaLms\\TopicTypes\\Events\\TopicTypeChanged":
           "Temat {{name}} zmianiony",

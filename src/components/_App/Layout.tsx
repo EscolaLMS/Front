@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -8,6 +8,7 @@ import Warning from "./Warning";
 import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
 import { MOBILE_DEVICE } from "@/config/index";
 import { isMobile } from "react-device-detect";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 declare global {
   interface Window {
@@ -30,6 +31,7 @@ const Layout: React.FC<{
   metaTitle?: string | undefined;
 }> = ({ children, metaTitle }) => {
   const { pathname } = useLocation();
+  const { settings } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     // ybug
@@ -64,8 +66,8 @@ const Layout: React.FC<{
       <Helmet>
         <title>
           {metaTitle
-            ? `${metaTitle} | Worlds first Headless LMS`
-            : "Worlds first Headless LMS"}
+            ? `${metaTitle} |  ${settings?.value?.global?.companyName}`
+            : settings?.value?.global?.companyName}
         </title>
         {isMobile || MOBILE_DEVICE === "true" ? (
           <meta
