@@ -7,9 +7,10 @@ const config: CapacitorConfig = {
   backgroundColor: "#FFFFFF",
   server: {
     androidScheme: "https",
+    allowNavigation: ["*"],
   },
   ios: {
-    contentInset: "always",
+    // contentInset: "always",
   },
 };
 

@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        print("dupa")
 
 //        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
 //        // Reference - https://stackoverflow.com/a/57899013/7316675

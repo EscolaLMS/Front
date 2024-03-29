@@ -22,6 +22,7 @@ import DisplayCourses from "@/components/Courses/DisplayCoursesSlider";
 import { FormikProps } from "formik";
 import BillingForm from "@/components/Cart/BillingForm";
 import usePayment from "@/hooks/usePayment";
+import { Capacitor } from "@capacitor/core";
 
 const Przelewy24Content = () => {
   const {
@@ -151,42 +152,57 @@ const Przelewy24Content = () => {
                     />
                   </section>
                 </Col>
-                <Col lg={3}>
-                  <Title style={{ marginBottom: 20 }} level={2} as="h3">
-                    {t<string>("Cart.Summary")}
-                  </Title>
-                  <div className="summary-box-wrapper">
-                    <CartCard
-                      mobile={isMobile}
-                      onBuyClick={() => handleSubmit()}
-                      id={1}
-                      // TODO: translate this it will be in new version in components
-                      disclaimer={`Składając zamówienie na EduMamy.pl, akceptujesz Postanowienia Polityki
+                {Capacitor.getPlatform() === "ios" ||
+                Capacitor.getPlatform() === "android" ? (
+                  <Col style={{ paddingBottom: 120 }} lg={3}>
+                    <Title style={{ marginBottom: 20 }} level={2} as="h3">
+                      {"Wybrane kursy"}
+                    </Title>
+                    <Button
+                      mode="secondary"
+                      onClick={() => window.open("https://app.edumamy.pl/#/")}
+                    >
+                      {"Uzyskaj dostęp"}
+                    </Button>
+                  </Col>
+                ) : (
+                  <Col lg={3}>
+                    <Title style={{ marginBottom: 20 }} level={2} as="h3">
+                      {t<string>("Cart.Summary")}
+                    </Title>
+                    <div className="summary-box-wrapper">
+                      <CartCard
+                        mobile={isMobile}
+                        onBuyClick={() => handleSubmit()}
+                        id={1}
+                        // TODO: translate this it will be in new version in components
+                        disclaimer={`Składając zamówienie na EduMamy.pl, akceptujesz Postanowienia Polityki
                     Prywatności, Regulamin oraz zasady odstąpienia od umowy. Potwierdzasz
                     także, że ten zakup jest przeznaczony wyłącznie do użytku osobistego.`}
-                      title={`${formatPrice(
-                        Number(cart.value?.total_with_tax || 0)
-                      )} zł`}
-                      discount={{
-                        onDiscountClick: (discountValue) =>
-                          realizeVoucher(discountValue)
-                            .then((response) => {
-                              if (response.success) {
-                                setDiscountStatus("granted");
-                                fetchCart();
-                              } else {
+                        title={`${formatPrice(
+                          Number(cart.value?.total_with_tax || 0)
+                        )} zł`}
+                        discount={{
+                          onDiscountClick: (discountValue) =>
+                            realizeVoucher(discountValue)
+                              .then((response) => {
+                                if (response.success) {
+                                  setDiscountStatus("granted");
+                                  fetchCart();
+                                } else {
+                                  setDiscountStatus("error");
+                                }
+                              })
+                              .catch(() => {
                                 setDiscountStatus("error");
-                              }
-                            })
-                            .catch(() => {
-                              setDiscountStatus("error");
-                            }),
-                        onDeleteDiscountClick: () => console.log("clicked"),
-                        status: discountStatus,
-                      }}
-                    />
-                  </div>
-                </Col>
+                              }),
+                          onDeleteDiscountClick: () => console.log("clicked"),
+                          status: discountStatus,
+                        }}
+                      />
+                    </div>
+                  </Col>
+                )}
               </Row>
             ) : (
               <>

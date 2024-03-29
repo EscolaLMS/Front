@@ -26,8 +26,12 @@ import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules
 import NotificationsDrawer from "@/components/Notifications/drawer";
 import MobileDrawer from "@/components/_App/MobileDrawer";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import { Capacitor } from "@capacitor/core";
+import { MOBILE_DEVICE } from "@/config/index";
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{
+  $isMobileDevice: boolean;
+}>`
   width: 100%;
   position: fixed;
   top: 0;
@@ -37,6 +41,7 @@ const StyledHeader = styled.header`
     theme.mode === "dark" ? " rgba(35, 34, 37, 0.95)" : theme.white};
   backdrop-filter: blur(10px);
   padding: ${isMobile ? "11px 0" : "22px 0"};
+  padding-top: ${({ $isMobileDevice }) => $isMobileDevice && "80px"};
 
   .logo-container {
     margin-right: 30px;
@@ -244,6 +249,8 @@ const Navbar = () => {
   const { t } = useTranslation();
   // const { handleLanguageChange } = useLanguage();
 
+  const isIos = Capacitor.getPlatform() === "ios";
+
   const {
     user: userObj,
     settings,
@@ -327,8 +334,9 @@ const Navbar = () => {
 
   if (isMobile) {
     return (
-      <StyledHeader>
+      <StyledHeader $isMobileDevice={MOBILE_DEVICE === "true" && isIos}>
         <Navigation
+          isMobileDevice={MOBILE_DEVICE === "true" && isIos}
           mobile
           logo={
             <div className="logo-container">
@@ -467,7 +475,7 @@ const Navbar = () => {
   }
 
   return (
-    <StyledHeader>
+    <StyledHeader $isMobileDevice={false}>
       <Container
         style={{
           display: "flex",

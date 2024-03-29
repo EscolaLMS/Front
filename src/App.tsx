@@ -1,4 +1,4 @@
-import React, { lazy, useContext, useEffect } from "react";
+import React, { lazy, useContext, useEffect, useState } from "react";
 
 import Routes from "./components/Routes";
 
@@ -12,7 +12,11 @@ import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
 
 import { notyficationTokens } from "@escolalms/sdk/lib/services/notify";
-import { API_URL, VITE_APP_FIREBASE_VAPID_KEY } from "@/config/index";
+import {
+  API_URL,
+  MOBILE_DEVICE,
+  VITE_APP_FIREBASE_VAPID_KEY,
+} from "@/config/index";
 
 import { initializeApp } from "firebase/app";
 import { FirebaseMessaging } from "@capacitor-firebase/messaging";
@@ -56,12 +60,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const StyledMain = styled.main<{ noPadding?: boolean }>`
+const StyledMain = styled.main<{
+  noPadding?: boolean;
+  $isMobileDevice: boolean;
+}>`
   height: fit-content;
   background-color: ${({ theme }) =>
     theme.mode === "dark" ? theme.dm__background : theme.background};
-  padding-top: ${({ noPadding }) =>
-    noPadding ? "0px" : isMobile ? "92px" : "57px"};
+  padding-top: ${({ noPadding, $isMobileDevice }) =>
+    $isMobileDevice ? "80px" : noPadding ? "0px" : isMobile ? "92px" : "57px"};
 `;
 
 const mapStringToTheme = (theme: string) => {
@@ -69,9 +76,7 @@ const mapStringToTheme = (theme: string) => {
 };
 
 const App = () => {
-  if (Capacitor.getPlatform() === "ios") {
-    console.log("ios platform");
-  }
+  const isIos = Capacitor.getPlatform() === "ios";
 
   const { token } = useContext(EscolaLMSContext);
 
@@ -136,6 +141,7 @@ const App = () => {
     <React.Fragment>
       <GlobalStyle />
       <StyledMain
+        $isMobileDevice={MOBILE_DEVICE === "true" && isIos}
         noPadding={
           settings?.value?.global?.technicalMaintenance ||
           location.href.includes(routeRoutes.onboarding)
