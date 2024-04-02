@@ -82,7 +82,7 @@ const ActiveSubscription: React.FC<Props> = ({
           {t("Subscriptions.Cancelled")}
         </Text>
       )}
-      {subStatus === SubscriptionStatus.ACTIVE && (
+      {activeSubscription && subStatus === SubscriptionStatus.ACTIVE && (
         <Button onClick={handleSubscriptionCancel}>Anuluj subskrypcję</Button>
       )}
     </StyledInfoBox>

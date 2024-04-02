@@ -108,9 +108,10 @@ const Orders = () => {
                 return {
                   title: (
                     <div className="name-container">
+                      {/* @ts-ignore TODO: fix this */}
                       {item?.items?.map((product: API.CartItem, index) => (
                         <Text key={index}>
-                          <strong>{product?.product?.name}</strong>
+                          <strong>{product.product?.name}</strong>
                         </Text>
                       ))}
                     </div>

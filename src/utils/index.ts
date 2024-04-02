@@ -137,6 +137,11 @@ export const getNotificationTranslationObject = (
         },
       };
     // COURSE
+
+    case EventTypes.LessonFinished:
+      return {
+        translation,
+      };
     case EventTypes.CourseAccessFinished:
       return {
         translation,
@@ -289,6 +294,22 @@ export const getNotificationTranslationObject = (
             )?.value || "",
         },
       };
+
+    case EventTypes.CourseAccessEnquiryStudentCreatedEvent:
+      return {
+        translation,
+        object: {
+          name: notification.data.course?.title || "",
+        },
+      };
+    case EventTypes.PdfCreated:
+      return {
+        translation,
+        object: {
+          name: notification.data.pdf?.title || "",
+        },
+      };
+
     default:
       return { translation };
   }
