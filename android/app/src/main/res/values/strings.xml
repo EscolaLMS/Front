@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">EduMamy</string>
+    <string name="title_activity_main">EduMamy</string>
+    <string name="package_name">com.escolasoft.EduMamy</string>
+    <string name="custom_url_scheme">com.escolasoft.EduMamy</string>
+</resources>

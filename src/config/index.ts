@@ -17,3 +17,18 @@ export const MOBILE_DEVICE =
   window.VITE_APP_MOBILE_DEVICE ||
   import.meta.env.VITE_APP_PUBLIC_MOBILE_DEVICE ||
   null;
+
+export const VITE_APP_FIREBASE_VAPID_KEY =
+  import.meta.env.VITE_APP_FIREBASE_VAPID_KEY || null;
+export const VITE_APP_FIREBASE_APIKEY =
+  import.meta.env.VITE_APP_FIREBASE_APIKEY || null;
+export const VITE_APP_FIREBASE_AUTHDOMAIN =
+  import.meta.env.VITE_APP_FIREBASE_AUTHDOMAIN || null;
+export const VITE_APP_FIREBASE_PROJECTID =
+  import.meta.env.VITE_APP_FIREBASE_PROJECTID || null;
+export const VITE_APP_FIREBASE_STORAGEBUCKET =
+  import.meta.env.VITE_APP_FIREBASE_STORAGEBUCKET || null;
+export const VITE_APP_FIREBASE_MESSAGINGSENDERID =
+  import.meta.env.VITE_APP_FIREBASE_MESSAGINGSENDERID || null;
+export const VITE_APP_FIREBASE_APPID =
+  import.meta.env.VITE_APP_FIREBASE_APPID || null;
