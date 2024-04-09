@@ -4,7 +4,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-const StyldDeleteModalConfirmation = styled.div`
+const StyledDeleteModalConfirmation = styled.div`
   h3 {
     margin-bottom: 50px;
   }
@@ -38,7 +38,7 @@ const DeleteAccountModal: React.FC<Props> = ({
       destroyOnClose={true}
       width={468}
     >
-      <StyldDeleteModalConfirmation>
+      <StyledDeleteModalConfirmation>
         <Title level={3} style={{ textAlign: "center" }}>
           {t("MyProfilePage.DeleteAccountConfirmation")}
         </Title>
@@ -50,7 +50,7 @@ const DeleteAccountModal: React.FC<Props> = ({
             {t("MyProfilePage.Delete")}
           </Button>
         </div>
-      </StyldDeleteModalConfirmation>
+      </StyledDeleteModalConfirmation>
     </Modal>
   );
 };
