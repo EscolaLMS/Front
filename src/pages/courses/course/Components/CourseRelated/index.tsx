@@ -12,6 +12,7 @@ import ResponsiveImage from "@escolalms/components/lib/components/organisms/Resp
 import { Link } from "react-router-dom";
 import ProductPrices from "@/components/ProductPrices";
 import styled from "styled-components";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 const SectionWrapper = styled.section`
   position: relative;
@@ -69,14 +70,18 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
                         }
                         price={
                           // @ts-ignore TODO: missed in sdk
-                          product.public ? (
-                            <div className="course-price">{t("FREE")}</div>
+                          item.public ? (
+                            <MobileGuard>
+                              <div className="course-price">{t("FREE")}</div>
+                            </MobileGuard>
                           ) : (
-                            <ProductPrices
-                              price={product?.price}
-                              oldPrice={product?.price_old}
-                              taxRate={product?.tax_rate}
-                            />
+                            <MobileGuard>
+                              <ProductPrices
+                                price={product?.price}
+                                oldPrice={product?.price_old}
+                                taxRate={product?.tax_rate}
+                              />
+                            </MobileGuard>
                           )
                         }
                         title={

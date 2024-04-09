@@ -26,6 +26,9 @@ import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules
 import NotificationsDrawer from "@/components/Notifications/drawer";
 import MobileDrawer from "@/components/_App/MobileDrawer";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
+import useDeleteAccountModal from "@/hooks/useDeleteAccount";
+import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -236,6 +239,11 @@ const StyledMobileDrawerNavigation = styled.div`
         font-size: 16px;
         font-weight: 700;
       }
+      .delete-account {
+        color: ${({ theme }) => theme.errorColor};
+        font-size: 16px;
+        font-weight: 700;
+      }
     }
   }
 `;
@@ -243,6 +251,13 @@ const StyledMobileDrawerNavigation = styled.div`
 const Navbar = () => {
   const { t } = useTranslation();
   // const { handleLanguageChange } = useLanguage();
+  const {
+    showModal,
+    closeModal,
+    loading,
+    handleDeleteAccount,
+    triggerDeleteAccount,
+  } = useDeleteAccountModal();
 
   const {
     user: userObj,
@@ -414,7 +429,7 @@ const Navbar = () => {
         <MobileDrawer
           isOpen={showMobileDrawer}
           onClose={() => setShowMobileDrawer(false)}
-          height={"55vh"}
+          height={"62vh"}
         >
           <StyledMobileDrawerNavigation>
             <ul>
@@ -459,9 +474,28 @@ const Navbar = () => {
                   {t("Navbar.Logout")}
                 </button>
               </li>
+              <li>
+                <button
+                  className="delete-account"
+                  onClick={() => triggerDeleteAccount()}
+                >
+                  {t("MyProfilePage.DeleteAccount")}
+                </button>
+              </li>
             </ul>
           </StyledMobileDrawerNavigation>
         </MobileDrawer>
+        <DeleteAccountModal
+          closeModal={() => closeModal()}
+          showModal={showModal}
+          handleDeleteAccount={() => {
+            history.push(routeRoutes.home);
+            closeModal();
+            setShowMobileDrawer(false);
+            handleDeleteAccount();
+          }}
+          isLoading={loading}
+        />
       </StyledHeader>
     );
   }
@@ -578,23 +612,25 @@ const Navbar = () => {
                 </Button>
               }
             /> */}
-            {user && (
-              <div className="icons-container">
-                <button
-                  type="button"
-                  className="cart-icon"
-                  onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
-                  aria-label={t("CoursePage.GoToCheckout")}
-                >
-                  <HeaderCard mode={theme.mode} />
+            <MobileGuard>
+              {user && (
+                <div className="icons-container">
+                  <button
+                    type="button"
+                    className="cart-icon"
+                    onClick={() => history.push(routeRoutes.cart)}
+                    data-tooltip={String(cart.data?.items.length)}
+                    aria-label={t("CoursePage.GoToCheckout")}
+                  >
+                    <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
-                  ) : null}
-                </button>
-              </div>
-            )}
+                    {cart.data && cart.data.items?.length > 0 ? (
+                      <span>{cart.data.items.length}</span>
+                    ) : null}
+                  </button>
+                </div>
+              )}
+            </MobileGuard>
 
             {user && (
               <div className="icons-container">

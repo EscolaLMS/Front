@@ -66,8 +66,8 @@ const Layout: React.FC<{
       <Helmet>
         <title>
           {metaTitle
-            ? `${metaTitle} |  ${settings?.value?.global?.companyName}`
-            : settings?.value?.global?.companyName}
+            ? `${metaTitle} |  ${settings?.value?.global?.companyName || ""}`
+            : settings?.value?.global?.companyName || ""}
         </title>
         {isMobile || MOBILE_DEVICE === "true" ? (
           <meta
