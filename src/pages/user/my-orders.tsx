@@ -8,7 +8,6 @@ import { API } from "@escolalms/sdk/lib";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-
 import { formatDate } from "@/utils/date";
 import Pagination from "@/components/Common/Pagination";
 import OrdersSkeleton from "@/components/Skeletons/Orders";

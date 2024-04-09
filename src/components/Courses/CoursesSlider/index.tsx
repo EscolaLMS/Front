@@ -13,6 +13,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import ProductPrices from "@/components/ProductPrices";
 import { useTranslation } from "react-i18next";
 import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 type Props = {
   courses: API.Course[];
@@ -68,13 +69,17 @@ const CoursesSlider: React.FC<Props> = ({
                   price={
                     // @ts-ignore TODO: missed in sdk
                     item.public ? (
-                      <div className="course-price">{t("FREE")}</div>
+                      <MobileGuard>
+                        <div className="course-price">{t("FREE")}</div>
+                      </MobileGuard>
                     ) : (
-                      <ProductPrices
-                        price={item.product?.price}
-                        oldPrice={item.product?.price_old}
-                        taxRate={item.product?.tax_rate}
-                      />
+                      <MobileGuard>
+                        <ProductPrices
+                          price={item.product?.price}
+                          oldPrice={item.product?.price_old}
+                          taxRate={item.product?.tax_rate}
+                        />
+                      </MobileGuard>
                     )
                   }
                   categories={
@@ -123,11 +128,20 @@ const CoursesSlider: React.FC<Props> = ({
                   </Link>
                 }
                 price={
-                  <ProductPrices
-                    price={item.product?.price}
-                    oldPrice={item.product?.price_old}
-                    taxRate={item.product?.tax_rate}
-                  />
+                  // @ts-ignore TODO: missed in sdk
+                  item.public ? (
+                    <MobileGuard>
+                      <div className="course-price">{t("FREE")}</div>
+                    </MobileGuard>
+                  ) : (
+                    <MobileGuard>
+                      <ProductPrices
+                        price={item.product?.price}
+                        oldPrice={item.product?.price_old}
+                        taxRate={item.product?.tax_rate}
+                      />
+                    </MobileGuard>
+                  )
                 }
                 categories={
                   <CategoriesBreadCrumbs

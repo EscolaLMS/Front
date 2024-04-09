@@ -10,6 +10,9 @@ import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import routeRoutes from "@/components/Routes/routes";
 
+import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
+import useDeleteAccountModal from "@/hooks/useDeleteAccount";
+
 export type NavigationTab = {
   title: string;
   key: string;
@@ -66,6 +69,11 @@ const StyledAside = styled("aside")<{ opened: boolean }>`
       }
     }
   }
+  .delete-account {
+    p {
+      color: ${({ theme }) => theme.errorColor};
+    }
+  }
   .progress-container {
     display: flex;
     flex-direction: ${isMobile ? "row" : "column"};
@@ -81,9 +89,15 @@ type Props = {
 };
 
 const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
-  const { settings } = useContext(EscolaLMSContext);
   const [menuOpened] = useState(false);
-  const { logout, fetchProgress } = useContext(EscolaLMSContext);
+  const { logout, fetchProgress, settings } = useContext(EscolaLMSContext);
+  const {
+    triggerDeleteAccount,
+    handleDeleteAccount,
+    showModal,
+    closeModal,
+    loading,
+  } = useDeleteAccountModal();
   const { t } = useTranslation();
 
   const history = useHistory();
@@ -136,11 +150,23 @@ const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
                 >
                   <Text>{t<string>("MyProfilePage.Logout")}</Text>
                 </button>
+                <button
+                  className="delete-account"
+                  onClick={() => triggerDeleteAccount()}
+                >
+                  <Text>{t<string>("MyProfilePage.DeleteAccount")}</Text>
+                </button>
               </div>
             </UserSidebar>
           </div>
         </StyledAside>
       )}
+      <DeleteAccountModal
+        closeModal={closeModal}
+        showModal={showModal}
+        handleDeleteAccount={handleDeleteAccount}
+        isLoading={loading}
+      />
     </StyledAsideWrapper>
   );
 };

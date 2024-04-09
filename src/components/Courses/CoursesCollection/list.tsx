@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import ProductPrices from "@/components/ProductPrices";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 const CoursesListWrapper = styled.section`
   margin-bottom: ${isMobile ? "50px" : "75px"};
@@ -86,13 +87,17 @@ const CoursesList: React.FC<Props> = ({ courses, loading }) => {
               price={
                 // @ts-ignore TODO: missed in sdk
                 item.public ? (
-                  <div className="course-price">{t("FREE")}</div>
+                  <MobileGuard>
+                    <div className="course-price">{t("FREE")}</div>
+                  </MobileGuard>
                 ) : (
-                  <ProductPrices
-                    price={item.product?.price}
-                    oldPrice={item.product?.price_old}
-                    taxRate={item.product?.tax_rate}
-                  />
+                  <MobileGuard>
+                    <ProductPrices
+                      price={item.product?.price}
+                      oldPrice={item.product?.price_old}
+                      taxRate={item.product?.tax_rate}
+                    />
+                  </MobileGuard>
                 )
               }
               title={

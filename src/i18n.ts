@@ -319,6 +319,7 @@ const resources = {
         OrdersHistory: "Orders history",
         Notifications: "Notifications",
         Logout: "Logout",
+        DeleteAccount: "Delete account",
         FinishedCourses: "finished courses",
         TotalCertificates: "total certificates",
         MyProgress: "My progress",
@@ -355,6 +356,10 @@ const resources = {
           "You don't have any webinars yet, but thanks to our offer you can start learning today!",
         EmptyWebinarsBtnText: "Choose a webinar for yourself",
         WebinarIsStarted: "The webinar has already started",
+        DeleteAccountConfirmation:
+          "Are you sure you want to delete your account?",
+        Delete: "Delete",
+        AccountDeleted: "Account deleted",
       },
       ResetProgressModal: {
         Continue: "Do you want to continue?",
@@ -1040,6 +1045,7 @@ const resources = {
         OrdersHistory: "Historia zakupów",
         Notifications: "Powiadomienia",
         Logout: "Wyloguj",
+        DeleteAccount: "Usuń konto",
         FinishedCourses: "ukończonych kursów",
         TotalCertificates: "zdobytych certyfikatów",
         MyProgress: "Moje postępy",
@@ -1076,6 +1082,9 @@ const resources = {
           "Nie masz jeszcze żadnych webinarów, ale dzięki naszej ofercie już dziś możesz zacząć naukę!",
         EmptyWebinarsBtnText: " Wybierz webinary dla siebie",
         WebinarIsStarted: "Webinar już się rozpoczął",
+        DeleteAccountConfirmation: "Czy na pewno chcesz usunąć swoje konto?",
+        Delete: "Usuń",
+        AccountDeleted: "Twoje konto zostało usunięte",
       },
       ResetProgressModal: {
         Continue: "Czy chcesz kontynuować?",

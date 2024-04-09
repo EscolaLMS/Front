@@ -73,7 +73,7 @@ const ProfileLayout: React.FC<Props> = ({
         url: routeRoutes.myCertificates,
       },
       {
-        key: "COURSES",
+        key: "SUBSCRIPTIONS",
         title: t("MyProfilePage.Subscriptions"),
         url: routeRoutes.mySubscriptions,
       },
