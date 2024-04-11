@@ -12,6 +12,7 @@ import routeRoutes from "@/components/Routes/routes";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import ProductModal from "@/components/Courses/SingleCoursesTwo/CoursesDetailsSidebar/ProductModal";
 import useSubscriptions from "@/hooks/useSubscriptions";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -59,9 +60,13 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 
   const BuyButton = useMemo(
     () => (
-      <Button mode="secondary" onClick={() => handleBuyButtonClick()}>
-        {t("Buy Course")}
-      </Button>
+      <>
+        <MobileGuard>
+          <Button mode="secondary" onClick={() => handleBuyButtonClick()}>
+            {t("Buy Course")}
+          </Button>
+        </MobileGuard>
+      </>
     ),
     [t, handleBuyButtonClick]
   );
@@ -140,9 +145,13 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   if (courseInCart) {
     return (
-      <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
-        {t("CoursePage.GoToCheckout")}
-      </Button>
+      <>
+        <MobileGuard>
+          <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
+            {t("CoursePage.GoToCheckout")}
+          </Button>
+        </MobileGuard>
+      </>
     );
   }
   if (userOwnThisCourse && isPast(new Date(course.active_from || ""))) {
@@ -182,12 +191,14 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   }
   return (
     <>
-      <Button
-        onClick={() => push(`/login?referrer=/courses/${course.id}`)}
-        mode="secondary"
-      >
-        {t("Buy Course")}
-      </Button>
+      <MobileGuard>
+        <Button
+          onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+          mode="secondary"
+        >
+          {t("Buy Course")}
+        </Button>
+      </MobileGuard>
     </>
   );
 };
