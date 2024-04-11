@@ -461,16 +461,25 @@ const Navbar = () => {
                   {t("Navbar.MyCertificates")}
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={routeRoutes.mySubscriptions}>
-                  {t("MyProfilePage.Subscriptions")}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={routeRoutes.myOrders}>
-                  {t("Navbar.MyOrders")}
-                </NavLink>
-              </li>
+              <>
+                <MobileGuard>
+                  <li>
+                    <NavLink to={routeRoutes.mySubscriptions}>
+                      {t("MyProfilePage.Subscriptions")}
+                    </NavLink>
+                  </li>
+                </MobileGuard>
+              </>
+              <>
+                <MobileGuard>
+                  <li>
+                    <NavLink to={routeRoutes.myOrders}>
+                      {t("Navbar.MyOrders")}
+                    </NavLink>
+                  </li>
+                </MobileGuard>
+              </>
+
               <li>
                 <NavLink to={routeRoutes.myData}>
                   {t("Navbar.EditProfile")}

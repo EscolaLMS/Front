@@ -17,6 +17,7 @@ import CourseDetailsSidebarButtons from "./Buttons";
 import ContentLoader from "@/components/_App/ContentLoader";
 import ProductPrices from "@/components/ProductPrices";
 import styled from "styled-components";
+import MobileGuard from "@/components/_App/MobileGuard";
 
 const CourseDetailsSidebarWrapper = styled.div`
   width: 100%;
@@ -97,20 +98,22 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   return (
     <CourseDetailsSidebarWrapper>
       <PricingCard>
-        <div className="course-sidebar-header">
-          <Text size="13">{t("PricePerAccess")}</Text>
-          <div className="price-wrapper">
-            <ProductPrices
-              price={course.product?.price}
-              taxRate={course.product?.tax_rate}
-              oldPrice={course.product?.price_old}
-              textSizes={{
-                old: "18",
-                new: "24",
-              }}
-            />
+        <MobileGuard>
+          <div className="course-sidebar-header">
+            <Text size="13">{t("PricePerAccess")}</Text>
+            <div className="price-wrapper">
+              <ProductPrices
+                price={course.product?.price}
+                taxRate={course.product?.tax_rate}
+                oldPrice={course.product?.price_old}
+                textSizes={{
+                  old: "18",
+                  new: "24",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        </MobileGuard>
 
         {progress.loaded ? (
           <CourseDetailsSidebarButtons
