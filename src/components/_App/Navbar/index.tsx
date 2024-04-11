@@ -313,7 +313,21 @@ const Navbar = () => {
           </Text>
         </Link>
       ),
-      key: "menu-2",
+      key: "menu-3",
+    },
+    {
+      title: (
+        <>
+          <MobileGuard>
+            <Link to={routeRoutes.subscriptions}>
+              <Text noMargin bold>
+                {t("MyProfilePage.Subscriptions")}
+              </Text>
+            </Link>
+          </MobileGuard>
+        </>
+      ),
+      key: "menu-4",
     },
 
     {
@@ -357,21 +371,25 @@ const Navbar = () => {
           }
           cart={
             user?.id ? (
-              <div className="icons-container">
-                <button
-                  type="button"
-                  className="cart-icon cart"
-                  onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
-                  aria-label={t("CoursePage.GoToCheckout")}
-                >
-                  <HeaderCard mode={theme.mode} />
+              <>
+                <MobileGuard>
+                  <div className="icons-container">
+                    <button
+                      type="button"
+                      className="cart-icon cart"
+                      onClick={() => history.push(routeRoutes.cart)}
+                      data-tooltip={String(cart.data?.items.length)}
+                      aria-label={t("CoursePage.GoToCheckout")}
+                    >
+                      <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
-                  ) : null}
-                </button>
-              </div>
+                      {cart.data && cart.data.items?.length > 0 ? (
+                        <span>{cart.data.items.length}</span>
+                      ) : null}
+                    </button>
+                  </div>
+                </MobileGuard>
+              </>
             ) : null
           }
           notification={
@@ -612,25 +630,24 @@ const Navbar = () => {
                 </Button>
               }
             /> */}
-            <MobileGuard>
-              {user && (
-                <div className="icons-container">
-                  <button
-                    type="button"
-                    className="cart-icon"
-                    onClick={() => history.push(routeRoutes.cart)}
-                    data-tooltip={String(cart.data?.items.length)}
-                    aria-label={t("CoursePage.GoToCheckout")}
-                  >
-                    <HeaderCard mode={theme.mode} />
 
-                    {cart.data && cart.data.items?.length > 0 ? (
-                      <span>{cart.data.items.length}</span>
-                    ) : null}
-                  </button>
-                </div>
-              )}
-            </MobileGuard>
+            {user && (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon"
+                  onClick={() => history.push(routeRoutes.cart)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderCard mode={theme.mode} />
+
+                  {cart.data && cart.data.items?.length > 0 ? (
+                    <span>{cart.data.items.length}</span>
+                  ) : null}
+                </button>
+              </div>
+            )}
 
             {user && (
               <div className="icons-container">
