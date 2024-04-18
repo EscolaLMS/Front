@@ -5,7 +5,7 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
@@ -29,6 +29,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import MobileGuard from "@/components/_App/MobileGuard";
+import { MOBILE_DEVICE } from "@/config/index";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -221,6 +222,17 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
+const StyledNoHeader = styled.div`
+  background-color: rgb(248, 248, 248);
+  padding: 20px 0px;
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 350px;
+    max-height: 60px;
+  }
+`;
+
 const StyledMobileDrawerNavigation = styled.div`
   padding-top: 35px;
   ul {
@@ -271,6 +283,7 @@ const Navbar = () => {
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (
@@ -355,6 +368,21 @@ const Navbar = () => {
   ];
 
   if (isMobile) {
+    if (
+      MOBILE_DEVICE === "true" &&
+      (pathname.includes("/register") || pathname.includes("/login"))
+    ) {
+      return (
+        <StyledNoHeader>
+          <Link to="/" aria-label={t("Go to the main page")}>
+            <ResponsiveImage
+              path={settings?.value?.global?.logo || ""}
+              srcSizes={[100, 200, 300]}
+            />
+          </Link>
+        </StyledNoHeader>
+      );
+    }
     return (
       <StyledHeader>
         <Navigation

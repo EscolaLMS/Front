@@ -11,6 +11,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
 import { toast } from "@/utils/toast";
+import { MOBILE_DEVICE } from "@/config/index";
 
 const Login = () => {
   const { search, state } = useLocation<{ referrer?: string }>();
@@ -44,6 +45,9 @@ const Login = () => {
               onResetPasswordLink={() => setView("forgotPassword")}
               onRegisterLink={() => history.push(routeRoutes.register)}
               mobile={isMobile}
+              {...(MOBILE_DEVICE === "true"
+                ? { submitText: "Załóż darmowe konto" }
+                : {})}
             />
           ) : (
             <ResetPasswordForm

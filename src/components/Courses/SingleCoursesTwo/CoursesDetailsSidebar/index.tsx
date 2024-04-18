@@ -64,7 +64,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   course,
   onRequestAccess,
 }) => {
-  const { user, courseAccess } = useContext(EscolaLMSContext);
+  const { user, courseAccess, settings } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { progress } = useCourseProgress(Number(id));
@@ -114,7 +114,6 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
             </div>
           </div>
         </MobileGuard>
-
         {progress.loaded ? (
           <CourseDetailsSidebarButtons
             onRequestAccess={onRequestAccess}
@@ -124,7 +123,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
         ) : (
           <ContentLoader />
         )}
-
+        <Text>{settings?.value?.mobile?.infotext}</Text>
         <div className="pricing-card-features">
           {course.duration && (
             <IconText

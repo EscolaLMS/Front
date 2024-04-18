@@ -18,6 +18,7 @@ import { Link as LinkComponent } from "@escolalms/components/lib/components/atom
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { EmailActivationImg } from "@/icons/index";
+import { MOBILE_DEVICE } from "@/config/index";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -229,7 +230,7 @@ const RegisterPage = () => {
         <StyledRegisterPage>
           <Container>
             <RegisterForm
-              return_url={"#/email-verify"}
+              return_url={routeRoutes.emailVerify}
               fieldLabels={fieldLabels}
               mobile={isMobile}
               onLoginLink={() => history.push(routeRoutes.login)}
@@ -240,6 +241,9 @@ const RegisterPage = () => {
                 setView("success");
                 setEmail(values.email);
               }}
+              {...(MOBILE_DEVICE === "true"
+                ? { submitText: "Załóż darmowe konto" }
+                : {})}
             />
           </Container>
         </StyledRegisterPage>

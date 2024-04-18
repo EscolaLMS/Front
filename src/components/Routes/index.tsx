@@ -133,7 +133,10 @@ const Routes: React.FC = (): ReactElement => {
       <ScrollToTop />
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route exact path={home} component={HomePage} />
+          {MOBILE_DEVICE === "false" && (
+            <Route exact path={home} component={HomePage} />
+          )}
+
           <Route exact path={register} component={RegisterPage} />
           <Route exact path={login} component={LoginPage} />
           <Route exact path={reset} component={ResetPage} />
@@ -196,7 +199,9 @@ const Routes: React.FC = (): ReactElement => {
             path={courseProgram}
             component={CourseProgramPage}
           />
-
+          {MOBILE_DEVICE === "true" && (
+            <PrivateRoute exact path={home} component={HomePage} />
+          )}
           {MOBILE_DEVICE === "false" && (
             <PrivateRoute exact path={cart} component={CartPage} />
           )}

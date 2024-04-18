@@ -1,4 +1,4 @@
-import { Modal } from "@escolalms/components";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { useTranslation } from "react-i18next";
