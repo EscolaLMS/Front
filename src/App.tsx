@@ -11,7 +11,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
 import { MOBILE_DEVICE } from "@/config/index";
-import { useLocation } from "react-router-dom";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
