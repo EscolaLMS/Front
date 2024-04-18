@@ -10,6 +10,8 @@ import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceSc
 import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
+import { MOBILE_DEVICE } from "@/config/index";
+import { useLocation } from "react-router-dom";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
@@ -71,13 +73,19 @@ const App = () => {
     fetchConfig();
   }, [fetchSettings, fetchNotifications, fetchConfig]);
 
+  const pathname = window.location.pathname;
+  const isMobileAndAuth =
+    MOBILE_DEVICE === "true" &&
+    (pathname.includes("/register") || pathname.includes("/login"));
+
   return (
     <React.Fragment>
       <GlobalStyle />
       <StyledMain
         noPadding={
           settings?.value?.global?.technicalMaintenance ||
-          location.href.includes(routeRoutes.onboarding)
+          location.href.includes(routeRoutes.onboarding) ||
+          isMobileAndAuth
         }
       >
         <Customizer theme={mapStringToTheme(settings.value?.theme?.theme)} />

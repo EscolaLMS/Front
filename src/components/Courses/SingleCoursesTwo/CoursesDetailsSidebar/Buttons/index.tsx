@@ -81,10 +81,12 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
   if (!currentCourseAccess) {
     return (
       <>
-        <StyledButton mode="secondary" onClick={onRequestAccess}>
-          {t("CourseAccess.RequestAccess")}
-        </StyledButton>
-        {BuyButton}
+        <MobileGuard>
+          <StyledButton mode="secondary" onClick={onRequestAccess}>
+            {t("CourseAccess.RequestAccess")}
+          </StyledButton>
+          {BuyButton}
+        </MobileGuard>
       </>
     );
   }
