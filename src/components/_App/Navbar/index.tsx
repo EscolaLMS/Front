@@ -465,12 +465,14 @@ const Navbar = () => {
           menuItems={menuItems}
         />
         <SearchMobileWrapper>
-          <SearchCourses
-            onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-            onInputSubmitted={(input) =>
-              history.push(`/courses/?title=${input}`)
-            }
-          />
+          <MobileGuard>
+            <SearchCourses
+              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+              onInputSubmitted={(input) =>
+                history.push(`/courses/?title=${input}`)
+              }
+            />
+          </MobileGuard>
         </SearchMobileWrapper>
         <MobileDrawer
           isOpen={showMobileDrawer}

@@ -23,6 +23,7 @@ const Content = styled.section`
     min-height: fit-content;
     @media (max-width: 991px) {
       margin-top: 0;
+      min-height: fit-content;
     }
   }
 `;
