@@ -154,7 +154,11 @@ const Routes: React.FC = (): ReactElement => {
           {/* <ConfigRoute exact path={tutor} component={TutorPage} /> */}
           <ConfigRoute exact path={course} component={CoursePage} />
           <ConfigRoute exact path={preview} component={CoursePreviewPage} />
-          <ConfigRouteExtend exact path={courses} component={CoursesPage} />
+          <ConfigRouteExtend
+            exact
+            path={courses}
+            component={MOBILE_DEVICE === "false" ? CoursesPage : MyProfilePage}
+          />
           {/* <ConfigRoute exact path={events} component={EventsPage} />
           <ConfigRoute exact path={event} component={EventPage} />
           <ConfigRoute exact path={webinars} component={WebinarsPage} />
@@ -200,7 +204,7 @@ const Routes: React.FC = (): ReactElement => {
             component={CourseProgramPage}
           />
           {MOBILE_DEVICE === "true" && (
-            <PrivateRoute exact path={home} component={HomePage} />
+            <PrivateRoute exact path={home} component={MyProfilePage} />
           )}
           {MOBILE_DEVICE === "false" && (
             <PrivateRoute exact path={cart} component={CartPage} />

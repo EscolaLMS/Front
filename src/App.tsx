@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
   }
   #root {
     height: 100%;
+
   }
   #__ybug-launcher {
     right: 135px !important;

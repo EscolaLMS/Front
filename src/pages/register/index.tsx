@@ -230,7 +230,7 @@ const RegisterPage = () => {
         <StyledRegisterPage>
           <Container>
             <RegisterForm
-              return_url={routeRoutes.emailVerify}
+              return_url={`#/${routeRoutes.emailVerify}`}
               fieldLabels={fieldLabels}
               mobile={isMobile}
               onLoginLink={() => history.push(routeRoutes.login)}
