@@ -9,6 +9,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
 import { toast } from "@/utils/toast";
+import { redirectPrefix } from "@/utils/router";
 
 const ResetPassword: React.FC = () => {
   const { push } = useHistory();
@@ -35,7 +36,7 @@ const ResetPassword: React.FC = () => {
                 }}
                 secondStep
                 mobile={isMobile}
-                return_url="#/reset-password"
+                return_url={`${redirectPrefix()}${routeRoutes.reset}`}
                 token={token}
                 email={email}
               />
