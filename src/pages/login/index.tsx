@@ -11,7 +11,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
 import { toast } from "@/utils/toast";
-import { MOBILE_DEVICE } from "@/config/index";
+import { APP_URL, MOBILE_DEVICE } from "@/config/index";
 import { redirectPrefix } from "@/utils/router";
 
 const Login = () => {
@@ -55,7 +55,7 @@ const Login = () => {
               mobile={isMobile}
               backToLogin={() => setView("login")}
               onRegisterLink={() => history.push(routeRoutes.register)}
-              return_url={`${redirectPrefix()}${routeRoutes.reset}`}
+              return_url={`${APP_URL}${redirectPrefix()}${routeRoutes.reset}`}
               onFirstStepSuccess={() =>
                 toast(t<string>("LoginPage.ForgotSuccess"), "success")
               }
