@@ -19,6 +19,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { EmailActivationImg } from "@/icons/index";
 import { MOBILE_DEVICE } from "@/config/index";
+import { redirectPrefix } from "@/utils/router";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -230,7 +231,7 @@ const RegisterPage = () => {
         <StyledRegisterPage>
           <Container>
             <RegisterForm
-              return_url={`#/${routeRoutes.emailVerify}`}
+              return_url={`${redirectPrefix()}${routeRoutes.emailVerify}`}
               fieldLabels={fieldLabels}
               mobile={isMobile}
               onLoginLink={() => history.push(routeRoutes.login)}

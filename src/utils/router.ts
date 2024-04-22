@@ -13,3 +13,7 @@ export const routerType: IRouter = () => {
 
   return isHashRouter ? "HashRouter" : "BrowserRouter";
 };
+
+export const redirectPrefix = () => {
+  return routerType() === "HashRouter" ? "#" : "";
+};
