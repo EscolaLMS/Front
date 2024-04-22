@@ -99,6 +99,9 @@ const StyledContent = styled.div`
       margin-top: 20px;
     }
   }
+  .back-to-login {
+    margin: 20px 0px;
+  }
 `;
 
 const StyledModal = styled(Modal)`
@@ -200,6 +203,11 @@ const RegisterPage = () => {
                 </LinkComponent>
               </div>
             )}
+            <div className="back-to-login">
+              <Button onClick={() => history.push(routeRoutes.login)}>
+                {t("ResetForm.BackToLogin")}
+              </Button>
+            </div>
           </div>
         </Container>
       </StyledContent>
