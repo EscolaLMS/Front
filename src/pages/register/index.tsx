@@ -18,7 +18,7 @@ import { Link as LinkComponent } from "@escolalms/components/lib/components/atom
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { EmailActivationImg } from "@/icons/index";
-import { MOBILE_DEVICE } from "@/config/index";
+import { APP_URL, MOBILE_DEVICE } from "@/config/index";
 import { redirectPrefix } from "@/utils/router";
 
 const StyledRegisterPage = styled.div`
@@ -231,7 +231,9 @@ const RegisterPage = () => {
         <StyledRegisterPage>
           <Container>
             <RegisterForm
-              return_url={`${redirectPrefix()}${routeRoutes.emailVerify}`}
+              return_url={`${APP_URL}${redirectPrefix()}${
+                routeRoutes.emailVerify
+              }`}
               fieldLabels={fieldLabels}
               mobile={isMobile}
               onLoginLink={() => history.push(routeRoutes.login)}
