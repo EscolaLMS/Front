@@ -24,7 +24,8 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
   #root {
-    height: 100%;
+    height: 100%;  
+    background-color: ${({ theme }) => theme.gray4};
 
   }
   #__ybug-launcher {
