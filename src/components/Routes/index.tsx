@@ -136,9 +136,12 @@ const Routes: React.FC = (): ReactElement => {
           {MOBILE_DEVICE === "false" && (
             <Route exact path={home} component={HomePage} />
           )}
+          {MOBILE_DEVICE === "false" && (
+            <Route exact path={register} component={RegisterPage} />
+          )}
 
-          <Route exact path={register} component={RegisterPage} />
           <Route exact path={login} component={LoginPage} />
+
           <Route exact path={reset} component={ResetPage} />
           <Route exact path={emailVerify} component={VerifyEmail} />
           <Route exact path={subscriptions} component={SubscriptionsPage} />
