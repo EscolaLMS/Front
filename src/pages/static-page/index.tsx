@@ -56,8 +56,10 @@ const StaticPage = () => {
   const removeWord = (text: string) => {
     return text.replace("Mobile", "");
   };
+
   const mainTabs = useMemo(() => {
     let items = pages?.list?.data;
+
     if (MOBILE_DEVICE === "true") {
       items = pages?.list?.data.filter(
         (item) =>
@@ -68,11 +70,13 @@ const StaticPage = () => {
     }
     return (
       items &&
-      items.map((item) => ({
-        key: item.slug,
-        title: removeWord(item.title.substring(0, 50)),
-        url: item.slug,
-      }))
+      items // @ts-ignore
+        .filter((item) => item.active)
+        .map((item) => ({
+          key: item.slug,
+          title: removeWord(item.title.substring(0, 50)),
+          url: item.slug,
+        }))
     );
   }, [pages]);
 
