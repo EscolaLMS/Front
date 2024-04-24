@@ -15,6 +15,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import ProfileAside from "@/components/Profile/ProfileAside";
 import StaticPageSkeleton from "@/components/Skeletons/StaticPage";
+import { MOBILE_DEVICE } from "@/config/index";
 
 const StyledStaticPage = styled.section`
   background-color: ${({ theme }) => theme.gray4};
@@ -52,13 +53,24 @@ const StaticPage = () => {
   // !page.value && !page.error - when very first load (empty state)
   // page.value && page.value?.slug !== slug - when prev static page was different
   // page.error && !prevSlug - when we return to static-page after error on static page (ex. when prev static page not exist)
-
+  const removeWord = (text: string) => {
+    return text.replace("Mobile", "");
+  };
   const mainTabs = useMemo(() => {
+    let items = pages?.list?.data;
+    if (MOBILE_DEVICE === "true") {
+      items = pages?.list?.data.filter(
+        (item) =>
+          item.slug !== "polityka-prywatnosci" && item.slug !== "kontakt"
+      );
+    } else {
+      items = pages?.list?.data.filter((item) => !item.slug.includes("mobile"));
+    }
     return (
-      pages &&
-      pages.list?.data.map((item) => ({
+      items &&
+      items.map((item) => ({
         key: item.slug,
-        title: item.title.substring(0, 50),
+        title: removeWord(item.title.substring(0, 50)),
         url: item.slug,
       }))
     );
