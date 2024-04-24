@@ -29,9 +29,13 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
 
-      - name: Create the Mattermost Message
-        run: |
-          echo "{\"text\":\"There is a updated [demo-stage.escolalms.com](https://demo-stage.escolalms.com/) available\"}" > mattermost.json
+      # - name: Create the Mattermost Message
+      #   run: |
+      #     echo "{\"text\":\"There is a updated [demo-stage.escolalms.com](https://demo-stage.escolalms.com/) available\"}" > mattermost.json
       - uses: mattermost/action-mattermost-notify@master
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          PAYLOAD: |-
+            {
+              "text": "There is a updated [demo-stage.escolalms.com](https://demo-stage.escolalms.com/) available"
+            }
