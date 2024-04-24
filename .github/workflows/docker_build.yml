@@ -28,12 +28,16 @@ jobs:
           tags: escolalms/demo:${{github.ref_name}}, escolalms/demo:latest
           build-args: APP_VERSION=${{github.ref_name}}
 
-      - name: Create the Mattermost Message
-        run: |
-          echo "{\"text\":\"There is a new [escolalms/demo:latest](https://hub.docker.com/r/escolalms/demo/tags?page=1&name=latest) and version `${{github.ref_name}}` image built. k8s rollout will happen soon\"}" > mattermost.json
+      # - name: Create the Mattermost Message
+      #   run: |
+      #     echo "{\"text\":\"There is a new [escolalms/demo:latest](https://hub.docker.com/r/escolalms/demo/tags?page=1&name=latest) and version `${{github.ref_name}}` image built. k8s rollout will happen soon\"}" > mattermost.json
       - uses: mattermost/action-mattermost-notify@master
-        env:
+        with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          PAYLOAD: |-
+            {
+              "text": "There is a new [escolalms/demo:latest](https://hub.docker.com/r/escolalms/demo/tags?page=1&name=latest) and version `${{github.ref_name}}` image built. k8s rollout will happen soon"        
+            }
 
       - name: Send webook to hooks to rollout all devs on k8s
         uses: distributhor/workflow-webhook@v3
