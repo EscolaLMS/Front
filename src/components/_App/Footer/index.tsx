@@ -5,7 +5,8 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
-import { Link } from "@escolalms/components/lib/components/atoms/Link/Link";
+import { Link as LmsLink } from "@escolalms/components/lib/components/atoms/Link/Link";
+import { Link } from "react-router-dom";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { WellmsLogo } from "@/icons/index";
@@ -184,7 +185,7 @@ const Footer = () => {
               {footerFromApi.map((link: LinkObject) => {
                 return (
                   !!link.link && (
-                    <Link
+                    <LmsLink
                       key={link.link.toString()}
                       className="single-link"
                       href={link.link}
@@ -192,34 +193,34 @@ const Footer = () => {
                       {typeof link.label === "object" && (
                         <Text size="14">{link.label[i18n.language]}</Text>
                       )}
-                    </Link>
+                    </LmsLink>
                   )
                 );
               })}
             </>
           ) : (
             <>
-              <Link className="single-link" href={routeRoutes.home}>
+              <Link className="single-link" to={routeRoutes.home}>
                 <Text size="16">{t<string>("Footer.HomePage")}</Text>
               </Link>
-              <Link className="single-link" href={routeRoutes.courses}>
+              <Link className="single-link" to={routeRoutes.courses}>
                 <Text size="16">{t<string>("Footer.Courses")}</Text>
               </Link>
               {user.value ? (
-                <Link className="single-link" href={routeRoutes.myProfile}>
+                <Link className="single-link" to={routeRoutes.myProfile}>
                   <Text size="16">{t<string>("Footer.UserProfile")}</Text>
                 </Link>
               ) : (
                 <>
-                  <Link className="single-link" href={routeRoutes.login}>
+                  <Link className="single-link" to={routeRoutes.login}>
                     <Text size="16">{t<string>("Header.Login")}</Text>
                   </Link>
-                  <Link className="single-link" href={routeRoutes.register}>
+                  <Link className="single-link" to={routeRoutes.register}>
                     <Text size="16">{t<string>("Header.Register")}</Text>
                   </Link>
                 </>
               )}
-              <Link className="single-link" href={routeRoutes.cart}>
+              <Link className="single-link" to={routeRoutes.cart}>
                 <Text size="16">{t<string>("Footer.Cart")}</Text>
               </Link>
             </>
@@ -232,13 +233,13 @@ const Footer = () => {
           {chunkArray(pages.list, 4).map((chunk: PageListItem[]) => (
             <div className="chunk-pages" key={chunk.toString()}>
               {chunk.map((page: PageListItem) => (
-                <Link
+                <LmsLink
                   key={page.id}
                   className="single-link"
                   href={`/#/${page.slug}`}
                 >
                   <Text size="14">{page.title}</Text>
-                </Link>
+                </LmsLink>
               ))}
             </div>
           ))}
@@ -252,9 +253,9 @@ const Footer = () => {
 
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
-          <Link href="https://www.wellms.io">
+          <LmsLink href="https://www.wellms.io">
             <WellmsLogo />
-          </Link>
+          </LmsLink>
         </div>
       </Container>
       <GoTop />

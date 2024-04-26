@@ -64,7 +64,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   course,
   onRequestAccess,
 }) => {
-  const { user, courseAccess, settings } = useContext(EscolaLMSContext);
+  const { user, courseAccess } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { progress } = useCourseProgress(Number(id));
@@ -123,7 +123,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
         ) : (
           <ContentLoader />
         )}
-        <Text>{settings?.value?.mobile?.infotext}</Text>
+        {/* <Text>{settings?.value?.mobile?.infotext}</Text> */}
         <div className="pricing-card-features">
           {course.duration && (
             <IconText
@@ -165,7 +165,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
               }
             />
           )}
-          {course.users_count ? (
+          {/* {course.users_count ? (
             <IconText
               text={
                 <IconTextWrapper>
@@ -176,7 +176,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
             />
           ) : (
             ""
-          )}
+          )} */}
         </div>
         {!user.value ? (
           <></>
