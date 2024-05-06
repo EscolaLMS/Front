@@ -9,6 +9,7 @@ import CourseCardWrapper from "@/components/Courses/CourseCardWrapper";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { CourseCardActions } from "../../CourseCardActions";
 import { NewCourseCard } from "@escolalms/components/lib/index";
+import { isPast } from "date-fns/esm";
 
 type Props = {
   course: API.Course & {
@@ -25,6 +26,11 @@ const CourseCardItem: React.FC<Props> = ({ course }) => {
       <NewCourseCard
         mobile={isMobile}
         id={course.id}
+        disabled={
+          // @ts-ignore
+          course?.courseData?.end_date && // @ts-ignore
+          isPast(new Date(course?.courseData?.end_date))
+        }
         image={
           <Link to={`/course/${course.id}`}>
             {course.image_path ? (
