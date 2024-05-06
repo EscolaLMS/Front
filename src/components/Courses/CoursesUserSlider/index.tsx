@@ -10,6 +10,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
 import { NewCourseCard } from "@escolalms/components/lib/index";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
+import { isPast } from "date-fns/esm";
 
 const Wrapper = styled.div`
   position: relative;
@@ -56,6 +57,11 @@ const CoursesUserSlider: React.FC<Props> = ({
               <NewCourseCard
                 mobile={isMobile}
                 id={item.id}
+                disabled={
+                  // @ts-ignore
+                  item?.courseData?.end_date && // @ts-ignore
+                  isPast(new Date(item?.courseData?.end_date))
+                }
                 image={
                   <Link to={`/courses/${item.id}`}>
                     {item.image_path ? (
