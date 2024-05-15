@@ -15,7 +15,7 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import ProfileAside from "@/components/Profile/ProfileAside";
 import StaticPageSkeleton from "@/components/Skeletons/StaticPage";
-import { MOBILE_DEVICE } from "@/config/index";
+// import { MOBILE_DEVICE } from "@/config/index";
 
 const StyledStaticPage = styled.section`
   background-color: ${({ theme }) => theme.gray4};
@@ -60,14 +60,14 @@ const StaticPage = () => {
   const mainTabs = useMemo(() => {
     let items = pages?.list?.data;
 
-    if (MOBILE_DEVICE === "true") {
-      items = pages?.list?.data.filter(
-        (item) =>
-          item.slug !== "polityka-prywatnosci" && item.slug !== "kontakt"
-      );
-    } else {
-      items = pages?.list?.data.filter((item) => !item.slug.includes("mobile"));
-    }
+    // if (MOBILE_DEVICE === "true") {
+    //   items = pages?.list?.data.filter(
+    //     (item) =>
+    //       item.slug !== "polityka-prywatnosci" && item.slug !== "kontakt"
+    //   );
+    // } else {
+    items = pages?.list?.data.filter((item) => !item.slug.includes("mobile"));
+    // }
     return (
       items &&
       items // @ts-ignore

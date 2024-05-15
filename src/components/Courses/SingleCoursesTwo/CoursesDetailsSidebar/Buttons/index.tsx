@@ -1,9 +1,25 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import isPast from "date-fns/isPast";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import { Capacitor } from "@capacitor/core";
+import {
+  // LOG_LEVEL,
+  // PURCHASES_ERROR_CODE,
+  Purchases,
+  // PurchasesOfferings,
+  PurchasesPackage,
+  PurchasesStoreProduct,
+} from "@revenuecat/purchases-capacitor";
+import { MOBILE_DEVICE } from "@/config/index";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { API } from "@escolalms/sdk/lib";
@@ -13,6 +29,19 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import ProductModal from "@/components/Courses/SingleCoursesTwo/CoursesDetailsSidebar/ProductModal";
 import useSubscriptions from "@/hooks/useSubscriptions";
 import MobileGuard from "@/components/_App/MobileGuard";
+
+// funkcja pomocnicza do pobrania szczegółów produktu z revenuecat
+function findProductByIdentifier(
+  packages: PurchasesPackage[],
+  targetIdentifier: string
+): PurchasesStoreProduct | null {
+  for (const pkg of packages) {
+    if (pkg.product.identifier === targetIdentifier) {
+      return pkg.product;
+    }
+  }
+  return null;
+}
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -32,8 +61,54 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  const { courseAccess, fetchCourseAccess } = useContext(EscolaLMSContext);
+  const { courseAccess, fetchCourseAccess, user } =
+    useContext(EscolaLMSContext);
   const { attachProduct, getActiveSubscription } = useSubscriptions();
+
+  useEffect(() => {
+    (async function () {
+      const id = user?.value?.id;
+
+      if (id && MOBILE_DEVICE === "true") {
+        if (Capacitor.getPlatform() === "ios") {
+          await Purchases.configure({
+            apiKey: "appl_lCZPQrCkszmUdfvXhMqFvhcYSVX",
+            appUserID: `${id}`,
+          });
+        } else if (Capacitor.getPlatform() === "android") {
+          await Purchases.configure({
+            apiKey: "goog_ToUXqEpqboNbgFCCVBYksHdQIYh",
+            appUserID: `${id}`,
+          });
+        }
+      }
+    })();
+  }, [user?.value?.id]);
+
+  const buyOnMobile = useCallback(async () => {
+    // to jest identyfikator inapppayment, pobierz go z sdk, właściwy dla android lub ios
+    // napisz funkcję pobierającą id z sdk
+    const id = "com.escolasoft.EduMamy.subscription.Annual";
+
+    // możesz sprawdzić czy aktualnie jesteś aktualnie na ios Capacitor.getPlatform() === 'ios' lub android Capacitor.getPlatform() === 'android'
+
+    const offerings = await Purchases.getOfferings();
+    const packages = offerings?.current?.availablePackages || [];
+
+    const product = findProductByIdentifier(packages, id);
+
+    if (product) {
+      try {
+        const purchaseResult = await Purchases.purchaseStoreProduct({
+          product: product,
+        });
+
+        //jeśli zakup zakończył się sukcesem, wpuść usera do kursu
+      } catch (error) {
+        //jeśli zakup zakończył się błędem, wyświetl komunikat błędu
+      }
+    }
+  }, []);
 
   const currentCourseAccess = useMemo(
     () =>
@@ -62,13 +137,22 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     () => (
       <>
         <MobileGuard>
-          <Button mode="secondary" onClick={() => handleBuyButtonClick()}>
+          <Button
+            mode="secondary"
+            onClick={() => {
+              if (MOBILE_DEVICE === "true") {
+                buyOnMobile();
+                return;
+              }
+              handleBuyButtonClick();
+            }}
+          >
             {t("Buy Course")}
           </Button>
         </MobileGuard>
       </>
     ),
-    [t, handleBuyButtonClick]
+    [t, handleBuyButtonClick, buyOnMobile]
   );
 
   if (getActiveSubscription?.id) {

@@ -74,10 +74,10 @@ const App = () => {
     fetchConfig();
   }, [fetchSettings, fetchNotifications, fetchConfig]);
 
-  const pathname = window.location.pathname;
-  const isMobileAndAuth =
-    MOBILE_DEVICE === "true" &&
-    (pathname.includes("/register") || pathname.includes("/login"));
+  // const pathname = window.location.pathname;
+  // const isMobileAndAuth =
+  //   MOBILE_DEVICE === "true" &&
+  //   (pathname.includes("/register") || pathname.includes("/login"));
 
   return (
     <React.Fragment>
@@ -85,8 +85,8 @@ const App = () => {
       <StyledMain
         noPadding={
           settings?.value?.global?.technicalMaintenance ||
-          location.href.includes(routeRoutes.onboarding) ||
-          isMobileAndAuth
+          location.href.includes(routeRoutes.onboarding)
+          // || isMobileAndAuth
         }
       >
         <Customizer theme={mapStringToTheme(settings.value?.theme?.theme)} />

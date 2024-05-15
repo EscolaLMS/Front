@@ -56,7 +56,7 @@ const Layout: React.FC<{
   const isCourse = pathname.includes("/course/");
 
   const handleRenderFooter = useCallback(() => {
-    if (!isCourse && MOBILE_DEVICE === "false") {
+    if (!isCourse) {
       return <Footer />;
     }
   }, [isCourse]);

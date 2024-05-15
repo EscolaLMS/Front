@@ -368,21 +368,21 @@ const Navbar = () => {
   ];
 
   if (isMobile) {
-    if (
-      MOBILE_DEVICE === "true" &&
-      (pathname.includes("/register") || pathname.includes("/login"))
-    ) {
-      return (
-        <StyledNoHeader>
-          <Link to="/" aria-label={t("Go to the main page")}>
-            <ResponsiveImage
-              path={settings?.value?.global?.logo || ""}
-              srcSizes={[100, 200, 300]}
-            />
-          </Link>
-        </StyledNoHeader>
-      );
-    }
+    // if (
+    //   MOBILE_DEVICE === "true" &&
+    //   (pathname.includes("/register") || pathname.includes("/login"))
+    // ) {
+    //   return (
+    //     <StyledNoHeader>
+    //       <Link to="/" aria-label={t("Go to the main page")}>
+    //         <ResponsiveImage
+    //           path={settings?.value?.global?.logo || ""}
+    //           srcSizes={[100, 200, 300]}
+    //         />
+    //       </Link>
+    //     </StyledNoHeader>
+    //   );
+    // }
     return (
       <StyledHeader>
         <Navigation
