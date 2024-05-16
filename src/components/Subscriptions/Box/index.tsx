@@ -1,12 +1,20 @@
 import routeRoutes from "@/components/Routes/routes";
+import { MOBILE_DEVICE } from "@/config/index";
 import usePayment from "@/hooks/usePayment";
 import { StarIcon } from "@/icons/index";
 import { formatPrice } from "@/utils/index";
+import {
+  findProductByIdentifier,
+  getRevenuecatIdForSubscription,
+} from "@/utils/payment";
+import { toast } from "@/utils/toast";
+import { Capacitor } from "@capacitor/core";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
-import { useCallback, useMemo } from "react";
+import { Purchases } from "@revenuecat/purchases-capacitor";
+import { useCallback, useEffect, useMemo } from "react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -100,6 +108,50 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
     }
   }, [subscription.id, user.value?.id, buySubscriptionByP24, history]);
 
+  useEffect(() => {
+    (async function () {
+      const id = user?.value?.id;
+
+      if (id && MOBILE_DEVICE === "true") {
+        if (Capacitor.getPlatform() === "ios") {
+          await Purchases.configure({
+            apiKey: "appl_lCZPQrCkszmUdfvXhMqFvhcYSVX",
+            appUserID: `${id}`,
+          });
+        } else if (Capacitor.getPlatform() === "android") {
+          await Purchases.configure({
+            apiKey: "goog_ToUXqEpqboNbgFCCVBYksHdQIYh",
+            appUserID: `${id}`,
+          });
+        }
+      }
+    })();
+  }, [user?.value?.id]);
+
+  const buyOnMobile = useCallback(async () => {
+    if (!user.value?.id) {
+      history.push(routeRoutes.login);
+      return;
+    }
+    const id = getRevenuecatIdForSubscription(subscription);
+    const offerings = await Purchases.getOfferings();
+    const packages = offerings?.current?.availablePackages || [];
+
+    const product = findProductByIdentifier(packages, id);
+
+    if (product) {
+      try {
+        const purchaseResult = await Purchases.purchaseStoreProduct({
+          product: product,
+        });
+        // Redirect to course page
+        window.location.reload();
+      } catch (error) {
+        toast(`${t("UnexpectedError")}`, "error");
+      }
+    }
+  }, [history, subscription, t, user.value?.id]);
+
   return (
     <StyledSubscription $isMobile={isMobile}>
       <div className="content">
@@ -127,7 +179,16 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
           {formatPrice(subscription.gross_price)} zł
         </Text>
         {
-          <Button mode="secondary" onClick={() => handleBuySubscription()}>
+          <Button
+            mode="secondary"
+            onClick={() => {
+              if (MOBILE_DEVICE === "true") {
+                buyOnMobile();
+                return;
+              }
+              handleBuySubscription();
+            }}
+          >
             {t("Subscriptions.IPick")}
           </Button>
         }

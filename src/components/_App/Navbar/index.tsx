@@ -5,7 +5,7 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
@@ -222,16 +222,16 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
-const StyledNoHeader = styled.div`
-  background-color: rgb(248, 248, 248);
-  padding: 20px 0px;
-  img {
-    width: 100%;
-    height: auto;
-    max-width: 350px;
-    max-height: 60px;
-  }
-`;
+// const StyledNoHeader = styled.div`
+//   background-color: rgb(248, 248, 248);
+//   padding: 20px 0px;
+//   img {
+//     width: 100%;
+//     height: auto;
+//     max-width: 350px;
+//     max-height: 60px;
+//   }
+// `;
 
 const StyledMobileDrawerNavigation = styled.div`
   padding-top: 35px;
@@ -283,7 +283,7 @@ const Navbar = () => {
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   useEffect(() => {
     if (
@@ -398,25 +398,25 @@ const Navbar = () => {
             </div>
           }
           cart={
-            user?.id ? (
+            user?.id && MOBILE_DEVICE === "false" ? (
               <>
-                <MobileGuard>
-                  <div className="icons-container">
-                    <button
-                      type="button"
-                      className="cart-icon cart"
-                      onClick={() => history.push(routeRoutes.cart)}
-                      data-tooltip={String(cart.data?.items.length)}
-                      aria-label={t("CoursePage.GoToCheckout")}
-                    >
-                      <HeaderCard mode={theme.mode} />
+                {/* <MobileGuard> */}
+                <div className="icons-container">
+                  <button
+                    type="button"
+                    className="cart-icon cart"
+                    onClick={() => history.push(routeRoutes.cart)}
+                    data-tooltip={String(cart.data?.items.length)}
+                    aria-label={t("CoursePage.GoToCheckout")}
+                  >
+                    <HeaderCard mode={theme.mode} />
 
-                      {cart.data && cart.data.items?.length > 0 ? (
-                        <span>{cart.data.items.length}</span>
-                      ) : null}
-                    </button>
-                  </div>
-                </MobileGuard>
+                    {cart.data && cart.data.items?.length > 0 ? (
+                      <span>{cart.data.items.length}</span>
+                    ) : null}
+                  </button>
+                </div>
+                {/* </MobileGuard> */}
               </>
             ) : null
           }

@@ -10,7 +10,7 @@ import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceSc
 import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
-import { MOBILE_DEVICE } from "@/config/index";
+// import { MOBILE_DEVICE } from "@/config/index";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")

@@ -14,7 +14,7 @@ import ScrollToTop from "../Common/ScrollToTop";
 
 import { Loader } from "./../_App/Loader/Loader";
 import routeRoutes from "./routes";
-import { MOBILE_DEVICE } from "@/config/index";
+// import { MOBILE_DEVICE } from "@/config/index";
 
 const HomePage = lazy(() => import("../../pages/index"));
 
