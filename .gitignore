@@ -11,3 +11,7 @@ yarn-error*
 .env
 package-lock.json
 build.sh
+capacitor.config.ts
+android
+ios
+public/firebase-messaging-sw.js

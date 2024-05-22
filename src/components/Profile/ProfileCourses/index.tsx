@@ -18,7 +18,6 @@ import routeRoutes from "@/components/Routes/routes";
 import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
 import { SwiperSlide } from "swiper/react";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
-import MobileGuard from "@/components/_App/MobileGuard";
 
 type CoursesState = Array<
   API.Course & { progress?: number; courseData?: API.CourseProgressItem }
@@ -186,14 +185,12 @@ const ProfileCourses = ({
             <Text className="small-text">
               {t<string>("MyProfilePage.EmptyCoursesText")}
             </Text>
-            <MobileGuard>
-              <Button
-                onClick={() => history.push(routeRoutes.courses)}
-                mode="secondary"
-              >
-                {t<string>("MyProfilePage.EmptyCoursesBtnText")}
-              </Button>
-            </MobileGuard>
+            <Button
+              onClick={() => history.push(routeRoutes.courses)}
+              mode="secondary"
+            >
+              {t<string>("MyProfilePage.EmptyCoursesBtnText")}
+            </Button>
           </StyledEmptyInfo>
         )}
       {!isMobile ? (

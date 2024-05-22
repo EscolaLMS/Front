@@ -13,7 +13,37 @@ export const API_URL =
 export const APP_URL =
   window.VITE_APP_URL || import.meta.env.VITE_APP_PUBLIC_URL || null;
 
-export const MOBILE_DEVICE =
-  window.VITE_APP_MOBILE_DEVICE ||
-  import.meta.env.VITE_APP_PUBLIC_MOBILE_DEVICE ||
+export const VITE_APP_FIREBASE_VAPID_KEY =
+  window.VITE_APP_FIREBASE_VAPID_KEY ||
+  import.meta.env.VITE_APP_FIREBASE_VAPID_KEY ||
+  null;
+export const VITE_APP_FIREBASE_APIKEY =
+  window.VITE_APP_FIREBASE_APIKEY ||
+  import.meta.env.VITE_APP_FIREBASE_APIKEY ||
+  null;
+export const VITE_APP_FIREBASE_AUTHDOMAIN =
+  window.VITE_APP_FIREBASE_AUTHDOMAIN ||
+  import.meta.env.VITE_APP_FIREBASE_AUTHDOMAIN ||
+  null;
+export const VITE_APP_FIREBASE_PROJECTID =
+  window.VITE_APP_FIREBASE_PROJECTID ||
+  import.meta.env.VITE_APP_FIREBASE_PROJECTID ||
+  null;
+export const VITE_APP_FIREBASE_STORAGEBUCKET =
+  window.VITE_APP_FIREBASE_STORAGEBUCKET ||
+  import.meta.env.VITE_APP_FIREBASE_STORAGEBUCKET ||
+  null;
+export const VITE_APP_FIREBASE_MESSAGINGSENDERID =
+  window.VITE_APP_FIREBASE_MESSAGINGSENDERID ||
+  import.meta.env.VITE_APP_FIREBASE_MESSAGINGSENDERID ||
+  null;
+export const VITE_APP_FIREBASE_APPID =
+  window.VITE_APP_FIREBASE_APPID ||
+  import.meta.env.VITE_APP_FIREBASE_APPID ||
+  null;
+export const VITE_APP_IOS_APIKEY =
+  window.VITE_APP_IOS_APIKEY || import.meta.env.VITE_APP_IOS_APIKEY || null;
+export const VITE_APP_ANDROID_APIKEY =
+  window.VITE_APP_ANDROID_APIKEY ||
+  import.meta.env.VITE_APP_ANDROID_APIKEY ||
   null;

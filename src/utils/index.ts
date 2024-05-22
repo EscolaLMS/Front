@@ -12,6 +12,10 @@ import {
   differenceInHours,
   differenceInMinutes,
 } from "date-fns";
+import { Capacitor } from "@capacitor/core";
+
+export const isMobilePlatform =
+  Capacitor.getPlatform() === "ios" || Capacitor.getPlatform() === "android";
 
 export const getTopicType = (type: string) => type.split("\\")?.pop();
 

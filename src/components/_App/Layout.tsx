@@ -6,7 +6,6 @@ import Footer from "./Footer";
 import { setConfiguration } from "react-grid-system";
 import Warning from "./Warning";
 import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
-import { MOBILE_DEVICE } from "@/config/index";
 import { isMobile } from "react-device-detect";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
@@ -56,7 +55,7 @@ const Layout: React.FC<{
   const isCourse = pathname.includes("/course/");
 
   const handleRenderFooter = useCallback(() => {
-    if (!isCourse && MOBILE_DEVICE === "false") {
+    if (!isCourse) {
       return <Footer />;
     }
   }, [isCourse]);
@@ -69,7 +68,7 @@ const Layout: React.FC<{
             ? `${metaTitle} |  ${settings?.value?.global?.companyName || ""}`
             : settings?.value?.global?.companyName || ""}
         </title>
-        {isMobile || MOBILE_DEVICE === "true" ? (
+        {isMobile ? (
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"

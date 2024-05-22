@@ -11,8 +11,9 @@ import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import AuthWrapper from "@/components/Authentication/AuthWrapper";
 import { toast } from "@/utils/toast";
-import { APP_URL, MOBILE_DEVICE } from "@/config/index";
+import { APP_URL } from "@/config/index";
 import { redirectPrefix } from "@/utils/router";
+import { isMobilePlatform } from "@/utils/index";
 
 const Login = () => {
   const { search, state } = useLocation<{ referrer?: string }>();
@@ -46,7 +47,7 @@ const Login = () => {
               onResetPasswordLink={() => setView("forgotPassword")}
               onRegisterLink={() => history.push(routeRoutes.register)}
               mobile={isMobile}
-              {...(MOBILE_DEVICE === "true"
+              {...(isMobilePlatform
                 ? { submitText: "Załóż darmowe konto" }
                 : {})}
             />

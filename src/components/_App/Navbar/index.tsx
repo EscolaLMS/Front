@@ -5,20 +5,18 @@ import { Navigation } from "@escolalms/components/lib/components/molecules/Navig
 import { Avatar } from "@escolalms/components/lib/components/atoms/Avatar/Avatar";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { SearchCourses } from "@escolalms/components/lib/components/organisms/SearchCourses/SearchCourses";
-import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { isMobile } from "react-device-detect";
 import {
   HamburguerIcon,
   HeaderCard,
   HeaderNotification,
-  // LanguageIcon,
   ProfileIcon,
 } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Common/Container";
-// import { useLanguage } from "@/hooks/useLanguage";
 import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu } from "@escolalms/components/lib/index";
@@ -28,8 +26,7 @@ import MobileDrawer from "@/components/_App/MobileDrawer";
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
-import MobileGuard from "@/components/_App/MobileGuard";
-import { MOBILE_DEVICE } from "@/config/index";
+import { isMobilePlatform } from "@/utils/index";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -222,17 +219,6 @@ const SearchMobileWrapper = styled.div`
   }
 `;
 
-const StyledNoHeader = styled.div`
-  background-color: rgb(248, 248, 248);
-  padding: 20px 0px;
-  img {
-    width: 100%;
-    height: auto;
-    max-width: 350px;
-    max-height: 60px;
-  }
-`;
-
 const StyledMobileDrawerNavigation = styled.div`
   padding-top: 35px;
   ul {
@@ -262,7 +248,6 @@ const StyledMobileDrawerNavigation = styled.div`
 
 const Navbar = () => {
   const { t } = useTranslation();
-  // const { handleLanguageChange } = useLanguage();
   const {
     showModal,
     closeModal,
@@ -283,7 +268,6 @@ const Navbar = () => {
   const { cart } = useCart();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
-  const { pathname } = useLocation();
 
   useEffect(() => {
     if (
@@ -330,15 +314,11 @@ const Navbar = () => {
     },
     {
       title: (
-        <>
-          <MobileGuard>
-            <Link to={routeRoutes.subscriptions}>
-              <Text noMargin bold>
-                {t("MyProfilePage.Subscriptions")}
-              </Text>
-            </Link>
-          </MobileGuard>
-        </>
+        <Link to={routeRoutes.subscriptions}>
+          <Text noMargin bold>
+            {t("MyProfilePage.Subscriptions")}
+          </Text>
+        </Link>
       ),
       key: "menu-4",
     },
@@ -368,21 +348,6 @@ const Navbar = () => {
   ];
 
   if (isMobile) {
-    if (
-      MOBILE_DEVICE === "true" &&
-      (pathname.includes("/register") || pathname.includes("/login"))
-    ) {
-      return (
-        <StyledNoHeader>
-          <Link to="/" aria-label={t("Go to the main page")}>
-            <ResponsiveImage
-              path={settings?.value?.global?.logo || ""}
-              srcSizes={[100, 200, 300]}
-            />
-          </Link>
-        </StyledNoHeader>
-      );
-    }
     return (
       <StyledHeader>
         <Navigation
@@ -398,26 +363,22 @@ const Navbar = () => {
             </div>
           }
           cart={
-            user?.id ? (
-              <>
-                <MobileGuard>
-                  <div className="icons-container">
-                    <button
-                      type="button"
-                      className="cart-icon cart"
-                      onClick={() => history.push(routeRoutes.cart)}
-                      data-tooltip={String(cart.data?.items.length)}
-                      aria-label={t("CoursePage.GoToCheckout")}
-                    >
-                      <HeaderCard mode={theme.mode} />
+            user?.id && !isMobilePlatform ? (
+              <div className="icons-container">
+                <button
+                  type="button"
+                  className="cart-icon cart"
+                  onClick={() => history.push(routeRoutes.cart)}
+                  data-tooltip={String(cart.data?.items.length)}
+                  aria-label={t("CoursePage.GoToCheckout")}
+                >
+                  <HeaderCard mode={theme.mode} />
 
-                      {cart.data && cart.data.items?.length > 0 ? (
-                        <span>{cart.data.items.length}</span>
-                      ) : null}
-                    </button>
-                  </div>
-                </MobileGuard>
-              </>
+                  {cart.data && cart.data.items?.length > 0 ? (
+                    <span>{cart.data.items.length}</span>
+                  ) : null}
+                </button>
+              </div>
             ) : null
           }
           notification={
@@ -465,14 +426,12 @@ const Navbar = () => {
           menuItems={menuItems}
         />
         <SearchMobileWrapper>
-          <MobileGuard>
-            <SearchCourses
-              onItemSelected={(item) => history.push(`/courses/${item.id}`)}
-              onInputSubmitted={(input) =>
-                history.push(`/courses/?title=${input}`)
-              }
-            />
-          </MobileGuard>
+          <SearchCourses
+            onItemSelected={(item) => history.push(`/courses/${item.id}`)}
+            onInputSubmitted={(input) =>
+              history.push(`/courses/?title=${input}`)
+            }
+          />
         </SearchMobileWrapper>
         <MobileDrawer
           isOpen={showMobileDrawer}
@@ -492,22 +451,18 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <>
-                <MobileGuard>
-                  <li>
-                    <NavLink to={routeRoutes.mySubscriptions}>
-                      {t("MyProfilePage.Subscriptions")}
-                    </NavLink>
-                  </li>
-                </MobileGuard>
+                <li>
+                  <NavLink to={routeRoutes.mySubscriptions}>
+                    {t("MyProfilePage.Subscriptions")}
+                  </NavLink>
+                </li>
               </>
               <>
-                <MobileGuard>
-                  <li>
-                    <NavLink to={routeRoutes.myOrders}>
-                      {t("Navbar.MyOrders")}
-                    </NavLink>
-                  </li>
-                </MobileGuard>
+                <li>
+                  <NavLink to={routeRoutes.myOrders}>
+                    {t("Navbar.MyOrders")}
+                  </NavLink>
+                </li>
               </>
 
               <li>
