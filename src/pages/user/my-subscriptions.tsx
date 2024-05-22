@@ -5,7 +5,6 @@ import { Col, Row } from "react-grid-system";
 import SubscriptionBox from "@/components/Subscriptions/Box";
 import ContentLoader from "@/components/_App/ContentLoader";
 import ActiveSubscription from "@/components/Subscriptions/ActiveSubscription";
-import MobileGuard from "@/components/_App/MobileGuard";
 
 const MySubscriptions = () => {
   const { t } = useTranslation();
@@ -26,21 +25,17 @@ const MySubscriptions = () => {
             activeSubscription={getActiveSubscription}
             subscriptionCancel={subscriptionCancel}
           />
-          <>
-            <MobileGuard>
-              {!getActiveSubscription && (
-                <div className="subscriptions">
-                  <Row>
-                    {subscriptions.map((subscription) => (
-                      <Col lg={6} md={12} key={subscription.id}>
-                        <SubscriptionBox subscription={subscription} />
-                      </Col>
-                    ))}
-                  </Row>
-                </div>
-              )}
-            </MobileGuard>
-          </>
+          {!getActiveSubscription && (
+            <div className="subscriptions">
+              <Row>
+                {subscriptions.map((subscription) => (
+                  <Col lg={6} md={12} key={subscription.id}>
+                    <SubscriptionBox subscription={subscription} />
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          )}
         </>
       )}
     </ProfileLayout>

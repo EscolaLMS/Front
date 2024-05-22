@@ -20,7 +20,7 @@ jobs:
           VITE_APP_PUBLIC_API_URL: https://api-stage.escolalms.com
           VITE_APP_SENTRYDSN: https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
           VITE_APP_ROUTING_TYPE: HashRouter
-          VITE_APP_PUBLIC_MOBILE_DEVICE: false
+          # VITE_APP_PUBLIC_MOBILE_DEVICE: false
           VITE_APP_PUBLIC_URL: https://demo-stage.escolalms.com
         run: |
           npm i --legacy-peer-deps

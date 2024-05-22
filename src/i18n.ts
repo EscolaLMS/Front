@@ -682,6 +682,48 @@ const resources = {
           daily: "day",
         },
       },
+      RevenuecatErrors: {
+        STORE_PROBLEM_ERROR: "Store problem error",
+        PURCHASE_NOT_ALLOWED_ERROR: "Purchase not allowed error",
+        PURCHASE_INVALID_ERROR: "Purchase invalid error",
+        PRODUCT_NOT_AVAILABLE_FOR_PURCHASE_ERROR:
+          "Product not available for purchase error",
+        PRODUCT_ALREADY_PURCHASED_ERROR: "Product already purchased error",
+        RECEIPT_ALREADY_IN_USE_ERROR: "Receipt already in use error",
+        INVALID_RECEIPT_ERROR: "Invalid receipt error",
+        MISSING_RECEIPT_FILE_ERROR: "Missing receipt file error",
+        NETWORK_ERROR: "Network error",
+        INVALID_CREDENTIALS_ERROR: "Invalid credentials error",
+        UNEXPECTED_BACKEND_RESPONSE_ERROR: "Unexpected backend response error",
+        RECEIPT_IN_USE_BY_OTHER_SUBSCRIBER_ERROR:
+          "Receipt in use by other subscriber error",
+        INVALID_APP_USER_ID_ERROR: "Invalid app user id error",
+        OPERATION_ALREADY_IN_PROGRESS_ERROR:
+          "Operation already in progress error",
+        UNKNOWN_BACKEND_ERROR: "Unknown backend error",
+        INVALID_APPLE_SUBSCRIPTION_KEY_ERROR:
+          "Invalid apple subscription key error",
+        INELIGIBLE_ERROR: "Ineligible error",
+        INSUFFICIENT_PERMISSIONS_ERROR: "Insufficient permissions error",
+        PAYMENT_PENDING_ERROR: "Payment pending error",
+        INVALID_SUBSCRIBER_ATTRIBUTES_ERROR:
+          "Invalid subscriber attributes error",
+        LOG_OUT_ANONYMOUS_USER_ERROR: "Log out anonymous user error",
+        CONFIGURATION_ERROR: "Configuration error",
+        UNSUPPORTED_ERROR: "Unsupported error",
+        EMPTY_SUBSCRIBER_ATTRIBUTES_ERROR: "Empty subscriber attributes error",
+        PRODUCT_DISCOUNT_MISSING_IDENTIFIER_ERROR:
+          "Product discount missing identifier error",
+        PRODUCT_DISCOUNT_MISSING_SUBSCRIPTION_GROUP_IDENTIFIER_ERROR:
+          "Product discount missing subscription group identifier error",
+        CUSTOMER_INFO_ERROR: "Customer info error",
+        SYSTEM_INFO_ERROR: "System info error",
+        BEGIN_REFUND_REQUEST_ERROR: "Begin refund request error",
+        PRODUCT_REQUEST_TIMED_OUT_ERROR: "Product request timed out error",
+        API_ENDPOINT_BLOCKED: "API endpoint blocked",
+        INVALID_PROMOTIONAL_OFFER_ERROR: "Invalid promotional offer error",
+        OFFLINE_CONNECTION_ERROR: "Offline connection error",
+      },
     },
   },
   pl: {
@@ -1377,6 +1419,53 @@ const resources = {
           monthly: "miesiąc",
           daily: "dniowy",
         },
+      },
+      RevenuecatErrors: {
+        PURCHASE_CANCELLED_ERROR: "Błąd: zakup anulowany",
+        STORE_PROBLEM_ERROR: "Błąd: problem ze sklepem",
+        PURCHASE_NOT_ALLOWED_ERROR: "Błąd: zakup niedozwolony",
+        PURCHASE_INVALID_ERROR: "Błąd: nieprawidłowy zakup",
+        PRODUCT_NOT_AVAILABLE_FOR_PURCHASE_ERROR:
+          "Błąd: produkt niedostępny do zakupu",
+        PRODUCT_ALREADY_PURCHASED_ERROR: "Błąd: produkt jest już zakupiony",
+        RECEIPT_ALREADY_IN_USE_ERROR: "Błąd: paragon już w użyciu",
+        INVALID_RECEIPT_ERROR: "Błąd: nieprawidłowy paragon",
+        MISSING_RECEIPT_FILE_ERROR: "Błąd: brak pliku paragonu",
+        NETWORK_ERROR: "Błąd sieci",
+        INVALID_CREDENTIALS_ERROR: "Błąd: nieprawidłowe dane uwierzytelniające",
+        UNEXPECTED_BACKEND_RESPONSE_ERROR:
+          "Błąd: nieoczekiwana odpowiedź z serwera",
+        RECEIPT_IN_USE_BY_OTHER_SUBSCRIBER_ERROR:
+          "Błąd: paragon używany przez innego subskrybenta",
+        INVALID_APP_USER_ID_ERROR:
+          "Błąd: nieprawidłowy identyfikator użytkownika aplikacji",
+        OPERATION_ALREADY_IN_PROGRESS_ERROR: "Błąd: operacja już w toku",
+        UNKNOWN_BACKEND_ERROR: "Nieznany błąd zaplecza",
+        INVALID_APPLE_SUBSCRIPTION_KEY_ERROR:
+          "Błąd: nieprawidłowy klucz subskrypcji Apple",
+        INELIGIBLE_ERROR: "Błąd: nieuprawniony",
+        INSUFFICIENT_PERMISSIONS_ERROR: "Błąd: niewystarczające uprawnienia",
+        PAYMENT_PENDING_ERROR: "Błąd: płatność jest w trakcie realizacji",
+        INVALID_SUBSCRIBER_ATTRIBUTES_ERROR:
+          "Błąd: nieprawidłowe atrybuty subskrybenta",
+        LOG_OUT_ANONYMOUS_USER_ERROR:
+          "Błąd: wylogowanie anonimowego użytkownika",
+        CONFIGURATION_ERROR: "Błąd konfiguracji",
+        UNSUPPORTED_ERROR: "Błąd nieobsługiwany",
+        EMPTY_SUBSCRIBER_ATTRIBUTES_ERROR: "Błąd: puste atrybuty subskrybenta",
+        PRODUCT_DISCOUNT_MISSING_IDENTIFIER_ERROR:
+          "Błąd: brak identyfikatora zniżki produktu",
+        PRODUCT_DISCOUNT_MISSING_SUBSCRIPTION_GROUP_IDENTIFIER_ERROR:
+          "Błąd: brak identyfikatora grupy subskrypcji zniżki produktu",
+        CUSTOMER_INFO_ERROR: "Błąd informacji o kliencie",
+        SYSTEM_INFO_ERROR: "Błąd informacji systemowych",
+        BEGIN_REFUND_REQUEST_ERROR: "Błąd rozpoczęcia żądania zwrotu",
+        PRODUCT_REQUEST_TIMED_OUT_ERROR:
+          "Błąd: przekroczono czas żądania produktu",
+        API_ENDPOINT_BLOCKED: "Błąd: zapytania zablokowane",
+        INVALID_PROMOTIONAL_OFFER_ERROR:
+          "Błąd: nieprawidłowa oferta promocyjna",
+        OFFLINE_CONNECTION_ERROR: "Błąd: połączenie offline",
       },
     },
   },

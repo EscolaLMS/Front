@@ -18,8 +18,10 @@ import { Link as LinkComponent } from "@escolalms/components/lib/components/atom
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
 import { EmailActivationImg } from "@/icons/index";
-import { APP_URL, MOBILE_DEVICE } from "@/config/index";
+import { APP_URL } from "@/config/index";
 import { redirectPrefix } from "@/utils/router";
+import { Capacitor } from "@capacitor/core";
+import { isMobilePlatform } from "@/utils/index";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -252,7 +254,7 @@ const RegisterPage = () => {
                 setView("success");
                 setEmail(values.email);
               }}
-              {...(MOBILE_DEVICE === "true"
+              {...(isMobilePlatform
                 ? { submitText: "Załóż darmowe konto" }
                 : {})}
             />

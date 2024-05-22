@@ -1,24 +1,24 @@
+import { Purchases } from "@revenuecat/purchases-capacitor";
+import { useCallback, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import { Capacitor } from "@capacitor/core";
+import styled from "styled-components";
 import routeRoutes from "@/components/Routes/routes";
-import { MOBILE_DEVICE } from "@/config/index";
+import { VITE_APP_ANDROID_APIKEY, VITE_APP_IOS_APIKEY } from "@/config/index";
 import usePayment from "@/hooks/usePayment";
 import { StarIcon } from "@/icons/index";
-import { formatPrice } from "@/utils/index";
+import { formatPrice, isMobilePlatform } from "@/utils/index";
 import {
   findProductByIdentifier,
   getRevenuecatIdForSubscription,
+  revenuecatErrorHandler,
 } from "@/utils/payment";
-import { toast } from "@/utils/toast";
-import { Capacitor } from "@capacitor/core";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
-import { Purchases } from "@revenuecat/purchases-capacitor";
-import { useCallback, useEffect, useMemo } from "react";
-import { isMobile } from "react-device-detect";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { CapacitorPaymentError } from "@/types/index";
 
 const StyledSubscription = styled.div<{ $isMobile: boolean }>`
   border-radius: ${({ theme }) => theme.cardRadius}px;
@@ -112,18 +112,16 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
     (async function () {
       const id = user?.value?.id;
 
-      if (id && MOBILE_DEVICE === "true") {
-        if (Capacitor.getPlatform() === "ios") {
-          await Purchases.configure({
-            apiKey: "appl_lCZPQrCkszmUdfvXhMqFvhcYSVX",
-            appUserID: `${id}`,
-          });
-        } else if (Capacitor.getPlatform() === "android") {
-          await Purchases.configure({
-            apiKey: "goog_ToUXqEpqboNbgFCCVBYksHdQIYh",
-            appUserID: `${id}`,
-          });
-        }
+      if (Capacitor.getPlatform() === "ios") {
+        await Purchases.configure({
+          apiKey: VITE_APP_IOS_APIKEY,
+          appUserID: `${id}`,
+        });
+      } else if (Capacitor.getPlatform() === "android") {
+        await Purchases.configure({
+          apiKey: VITE_APP_ANDROID_APIKEY,
+          appUserID: `${id}`,
+        });
       }
     })();
   }, [user?.value?.id]);
@@ -141,19 +139,19 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
 
     if (product) {
       try {
-        const purchaseResult = await Purchases.purchaseStoreProduct({
+        await Purchases.purchaseStoreProduct({
           product: product,
         });
         // Redirect to course page
         window.location.reload();
       } catch (error) {
-        toast(`${t("UnexpectedError")}`, "error");
+        revenuecatErrorHandler(error as CapacitorPaymentError);
       }
     }
-  }, [history, subscription, t, user.value?.id]);
+  }, [history, subscription, user.value?.id]);
 
   return (
-    <StyledSubscription $isMobile={isMobile}>
+    <StyledSubscription $isMobile={isMobilePlatform}>
       <div className="content">
         {showTag && (
           <div className="tag">
@@ -182,7 +180,7 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
           <Button
             mode="secondary"
             onClick={() => {
-              if (MOBILE_DEVICE === "true") {
+              if (isMobilePlatform) {
                 buyOnMobile();
                 return;
               }

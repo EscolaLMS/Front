@@ -7,10 +7,10 @@ import { isMobile } from "react-device-detect";
 import * as Sentry from "@sentry/react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceScreen";
-import "react-loading-skeleton/dist/skeleton.css";
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
-// import { MOBILE_DEVICE } from "@/config/index";
+import { useFirebase } from "@/hooks/useFirebase";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
@@ -68,16 +68,13 @@ const App = () => {
   const { fetchSettings, settings, fetchNotifications, fetchConfig } =
     useContext(EscolaLMSContext);
 
+  useFirebase();
+
   useEffect(() => {
     fetchSettings();
     fetchNotifications();
     fetchConfig();
   }, [fetchSettings, fetchNotifications, fetchConfig]);
-
-  // const pathname = window.location.pathname;
-  // const isMobileAndAuth =
-  //   MOBILE_DEVICE === "true" &&
-  //   (pathname.includes("/register") || pathname.includes("/login"));
 
   return (
     <React.Fragment>
@@ -86,7 +83,6 @@ const App = () => {
         noPadding={
           settings?.value?.global?.technicalMaintenance ||
           location.href.includes(routeRoutes.onboarding)
-          // || isMobileAndAuth
         }
       >
         <Customizer theme={mapStringToTheme(settings.value?.theme?.theme)} />

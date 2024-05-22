@@ -12,7 +12,15 @@ declare global {
   interface Window {
     VITE_APP_API_URL: string;
     VITE_APP_URL: string;
-    VITE_APP_MOBILE_DEVICE: boolean;
+    VITE_APP_FIREBASE_VAPID_KEY: string;
+    VITE_APP_FIREBASE_APIKEY: string;
+    VITE_APP_FIREBASE_AUTHDOMAIN: string;
+    VITE_APP_FIREBASE_PROJECTID: string;
+    VITE_APP_FIREBASE_STORAGEBUCKET: string;
+    VITE_APP_FIREBASE_MESSAGINGSENDERID: string;
+    VITE_APP_FIREBASE_APPID: string;
+    VITE_APP_IOS_APIKEY: string;
+    VITE_APP_ANDROID_APIKEY: string;
   }
 }
 

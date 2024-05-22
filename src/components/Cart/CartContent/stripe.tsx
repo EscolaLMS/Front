@@ -30,7 +30,6 @@ import routeRoutes from "@/components/Routes/routes";
 import { CartPageStyled } from "@/components/Cart/CartContent/styles";
 import usePayment from "@/hooks/usePayment";
 import { toast } from "@/utils/toast";
-import MobileGuard from "@/components/_App/MobileGuard";
 
 const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
   const {
@@ -105,14 +104,12 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
           {!(cart.value?.items.length === 0) ? (
             <Row>
               <Col lg={9}>
-                <MobileGuard>
-                  <Breadcrumbs
-                    items={[
-                      <Link to={routeRoutes.home}>{t("Home")}</Link>,
-                      <Text size="12">{t("Cart.YourCart")}</Text>,
-                    ]}
-                  />
-                </MobileGuard>
+                <Breadcrumbs
+                  items={[
+                    <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                    <Text size="12">{t("Cart.YourCart")}</Text>,
+                  ]}
+                />
 
                 <div className="module-wrapper">
                   <Title level={4}>{t<string>("Cart.YourCart")}</Title>

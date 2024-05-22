@@ -12,18 +12,21 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { Capacitor } from "@capacitor/core";
 import { Purchases } from "@revenuecat/purchases-capacitor";
-import { MOBILE_DEVICE } from "@/config/index";
+import { VITE_APP_ANDROID_APIKEY, VITE_APP_IOS_APIKEY } from "@/config/index";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { API } from "@escolalms/sdk/lib";
-import { userIsCourseAuthor } from "@/utils/index";
+import { isMobilePlatform, userIsCourseAuthor } from "@/utils/index";
 import routeRoutes from "@/components/Routes/routes";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import ProductModal from "@/components/Courses/SingleCoursesTwo/CoursesDetailsSidebar/ProductModal";
 import useSubscriptions from "@/hooks/useSubscriptions";
-import MobileGuard from "@/components/_App/MobileGuard";
-import { toast } from "@/utils/toast";
-import { findProductByIdentifier, getRevenuecatId } from "@/utils/payment";
+import {
+  findProductByIdentifier,
+  getRevenuecatId,
+  revenuecatErrorHandler,
+} from "@/utils/payment";
+import { CapacitorPaymentError } from "@/types/index";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -51,15 +54,15 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
     (async function () {
       const id = user?.value?.id;
 
-      if (id && MOBILE_DEVICE === "true") {
+      if (id && isMobilePlatform) {
         if (Capacitor.getPlatform() === "ios") {
           await Purchases.configure({
-            apiKey: "appl_lCZPQrCkszmUdfvXhMqFvhcYSVX",
+            apiKey: VITE_APP_IOS_APIKEY,
             appUserID: `${id}`,
           });
         } else if (Capacitor.getPlatform() === "android") {
           await Purchases.configure({
-            apiKey: "goog_ToUXqEpqboNbgFCCVBYksHdQIYh",
+            apiKey: VITE_APP_ANDROID_APIKEY,
             appUserID: `${id}`,
           });
         }
@@ -76,7 +79,7 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 
     if (product) {
       try {
-        const purchaseResult = await Purchases.purchaseStoreProduct({
+        await Purchases.purchaseStoreProduct({
           product: product,
         });
         // Refresh course access after successful purchase
@@ -86,10 +89,10 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
           per_page: 1,
         });
       } catch (error) {
-        toast(`${t("UnexpectedError")}`, "error");
+        revenuecatErrorHandler(error as CapacitorPaymentError);
       }
     }
-  }, [course, fetchCourseAccess, t]);
+  }, [course, fetchCourseAccess]);
 
   const currentCourseAccess = useMemo(
     () =>
@@ -116,22 +119,18 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 
   const BuyButton = useMemo(
     () => (
-      <>
-        {/* <MobileGuard> */}
-        <Button
-          mode="secondary"
-          onClick={() => {
-            if (MOBILE_DEVICE === "true") {
-              buyOnMobile();
-              return;
-            }
-            handleBuyButtonClick();
-          }}
-        >
-          {t("Buy Course")}
-        </Button>
-        {/* </MobileGuard> */}
-      </>
+      <Button
+        mode="secondary"
+        onClick={() => {
+          if (isMobilePlatform) {
+            buyOnMobile();
+            return;
+          }
+          handleBuyButtonClick();
+        }}
+      >
+        {t("Buy Course")}
+      </Button>
     ),
     [t, handleBuyButtonClick, buyOnMobile]
   );
@@ -146,12 +145,10 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
   if (!currentCourseAccess) {
     return (
       <>
-        {/* <MobileGuard> */}
         <StyledButton mode="secondary" onClick={onRequestAccess}>
           {t("CourseAccess.RequestAccess")}
         </StyledButton>
         {BuyButton}
-        {/* </MobileGuard> */}
       </>
     );
   }
@@ -189,7 +186,7 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   userOwnThisCourse,
   onRequestAccess,
 }) => {
-  const { cart, user } = useContext(EscolaLMSContext);
+  const { cart, user, fetchCourseAccess } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { push } = useHistory();
   const [modalVisible, setModalVisible] = useState(false);
@@ -198,6 +195,14 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
       (item) => Number(item.product_id) === Number(course.product?.id)
     );
   }, [course.product?.id, cart]);
+
+  useEffect(() => {
+    fetchCourseAccess({
+      course_id: Number(course.id),
+      current_page: 1,
+      per_page: 1,
+    });
+  }, [course.id, fetchCourseAccess]);
 
   if (userIsCourseAuthor(Number(user.value?.id), course)) {
     return (
@@ -213,11 +218,9 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
   if (courseInCart) {
     return (
       <>
-        <MobileGuard>
-          <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
-            {t("CoursePage.GoToCheckout")}
-          </Button>
-        </MobileGuard>
+        <Button mode="secondary" onClick={() => push(routeRoutes.cart)}>
+          {t("CoursePage.GoToCheckout")}
+        </Button>
       </>
     );
   }
@@ -257,16 +260,12 @@ const CourseDetailsSidebarButtons: React.FC<Props> = ({
     return <Text>{t("CoursePage.UnavailableCourse")}</Text>;
   }
   return (
-    <>
-      <MobileGuard>
-        <Button
-          onClick={() => push(`/login?referrer=/courses/${course.id}`)}
-          mode="secondary"
-        >
-          {t("Buy Course")}
-        </Button>
-      </MobileGuard>
-    </>
+    <Button
+      onClick={() => push(`/login?referrer=/courses/${course.id}`)}
+      mode="secondary"
+    >
+      {t("Buy Course")}
+    </Button>
   );
 };
 

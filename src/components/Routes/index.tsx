@@ -14,7 +14,6 @@ import ScrollToTop from "../Common/ScrollToTop";
 
 import { Loader } from "./../_App/Loader/Loader";
 import routeRoutes from "./routes";
-// import { MOBILE_DEVICE } from "@/config/index";
 
 const HomePage = lazy(() => import("../../pages/index"));
 
@@ -133,12 +132,8 @@ const Routes: React.FC = (): ReactElement => {
       <ScrollToTop />
       <Suspense fallback={<Loader />}>
         <Switch>
-          {/* {MOBILE_DEVICE === "false" && ( */}
           <Route exact path={home} component={HomePage} />
-          {/* )} */}
-          {/* {MOBILE_DEVICE === "false" && ( */}
           <Route exact path={register} component={RegisterPage} />
-          {/* )} */}
 
           <Route exact path={login} component={LoginPage} />
 
@@ -202,14 +197,9 @@ const Routes: React.FC = (): ReactElement => {
             path={courseProgram}
             component={CourseProgramPage}
           />
-          {/* {MOBILE_DEVICE === "true" && ( */}
           <PrivateRoute exact path={home} component={MyProfilePage} />
-          {/* )} */}
-          {/* {MOBILE_DEVICE === "false" && ( */}
           <PrivateRoute exact path={cart} component={CartPage} />
-          {/* )} */}
           <Route exact path={notFound} component={NotFoundPage} />
-          {/* must be last */}
           <Route exact path={page} component={StaticPage} />
           <Route exact component={NotFoundPage} />
         </Switch>
