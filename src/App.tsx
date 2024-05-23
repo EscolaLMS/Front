@@ -72,6 +72,8 @@ const App = () => {
 
   useEffect(() => {
     if (isMobilePlatform) {
+      // fix for status bar color
+      // https://stackoverflow.com/questions/76578218/how-to-change-the-colour-of-carrier-and-clock-in-ios-and-android-with-ionic/77426871#77426871
       StatusBar.setBackgroundColor({ color: "#FFFFFF" });
     }
   }, []);
