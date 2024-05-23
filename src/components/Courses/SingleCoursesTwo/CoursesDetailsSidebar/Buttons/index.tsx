@@ -46,7 +46,7 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  const { courseAccess, fetchCourseAccess, user } =
+  const { courseAccess, fetchCourseAccess, user, fetchCourse } =
     useContext(EscolaLMSContext);
   const { attachProduct, getActiveSubscription } = useSubscriptions();
 
@@ -83,16 +83,20 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
           product: product,
         });
         // Refresh course access after successful purchase
-        fetchCourseAccess({
-          course_id: Number(course.id),
-          current_page: 1,
-          per_page: 1,
-        });
+        // We need timeout for android phones (3s is enough)
+        setTimeout(() => {
+          fetchCourse(Number(course.id));
+          fetchCourseAccess({
+            course_id: Number(course.id),
+            current_page: 1,
+            per_page: 1,
+          });
+        }, 3000);
       } catch (error) {
         revenuecatErrorHandler(error as CapacitorPaymentError);
       }
     }
-  }, [course, fetchCourseAccess]);
+  }, [course, fetchCourse, fetchCourseAccess]);
 
   const currentCourseAccess = useMemo(
     () =>

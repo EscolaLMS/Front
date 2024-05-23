@@ -176,6 +176,7 @@ const resources = {
         CourseTitle: "Course title",
         CertificateDate: "Obtained at",
         CertificateDownload: "Download certificate",
+        SuccessfullyPurchased: "You have successfully purchased the course",
       },
       Cart: {
         IWantInvoice: "I want to receive a VAT invoice with a VAT number",
@@ -923,6 +924,7 @@ const resources = {
         CourseTitle: "Tytuł kursu",
         CertificateDate: "Uzyskany w dniu",
         DownloadCertificate: "Pobierz certyfikat",
+        SuccessfullyPurchased: "Kurs został zakupiony",
       },
       Cart: {
         IWantInvoice: "Chcę otrzymać fakturę VAT z numerem NIP",
