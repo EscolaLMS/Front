@@ -143,7 +143,7 @@ const SubscriptionBox: React.FC<Props> = ({ subscription }) => {
           product: product,
         });
         // Redirect to course page
-        window.location.reload();
+        history.push(routeRoutes.home);
       } catch (error) {
         revenuecatErrorHandler(error as CapacitorPaymentError);
       }

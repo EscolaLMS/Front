@@ -10,6 +10,8 @@ import TechnicalMaintenanceScreen from "./components/_App/TechnicalMaintenanceSc
 import themes from "@escolalms/components/lib/theme";
 import routeRoutes from "@/components/Routes/routes";
 import { useFirebase } from "@/hooks/useFirebase";
+import { StatusBar } from "@capacitor/status-bar";
+import { isMobilePlatform } from "@/utils/index";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const Customizer = lazy(
@@ -67,6 +69,12 @@ const mapStringToTheme = (theme: string) => {
 const App = () => {
   const { fetchSettings, settings, fetchNotifications, fetchConfig } =
     useContext(EscolaLMSContext);
+
+  useEffect(() => {
+    if (isMobilePlatform) {
+      StatusBar.setBackgroundColor({ color: "#FFFFFF" });
+    }
+  }, []);
 
   useFirebase();
 
