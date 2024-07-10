@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledLoginPage = styled.div`
   min-height: calc(100vh - 452px);
-  height: 700px;
+
   display: flex;
   align-items: center;
   justify-content: center;
