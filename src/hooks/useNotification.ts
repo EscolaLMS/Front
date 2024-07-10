@@ -2,7 +2,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Notification } from "@escolalms/sdk/lib/types/api";
 import { useContext, useEffect, useState, useCallback } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
-import debounce from "lodash/debounce";
+import debounce from "lodash.debounce";
 
 export const useNotifications = () => {
   const [list, setList] = useState<Notification[]>([]);

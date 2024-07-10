@@ -26,7 +26,7 @@ import { isMobilePlatform } from "@/utils/index";
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
   padding-bottom: 50px;
-  height: 900px;
+  min-height: 900px;
   display: flex;
   align-items: center;
   justify-content: center;
