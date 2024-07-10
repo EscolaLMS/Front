@@ -37,7 +37,6 @@ const StyledRegisterPage = styled.div`
     height: 100%;
     padding-bottom: 50px;
     * {
-      width: 100%;
       p,
       a {
         text-align: center;
