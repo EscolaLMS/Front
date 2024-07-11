@@ -232,15 +232,17 @@ const Footer = () => {
         <div className={"links-row pages"}>
           {chunkArray(pages.list, 4).map((chunk: PageListItem[]) => (
             <div className="chunk-pages" key={chunk.toString()}>
-              {chunk.map((page: PageListItem) => (
-                <LmsLink
-                  key={page.id}
-                  className="single-link"
-                  href={`/#/${page.slug}`}
-                >
-                  <Text size="14">{page.title}</Text>
-                </LmsLink>
-              ))}
+              {chunk
+                .filter((page: PageListItem) => !page.slug.includes("mobile"))
+                .map((page: PageListItem) => (
+                  <LmsLink
+                    key={page.id}
+                    className="single-link"
+                    href={`/#/${page.slug}`}
+                  >
+                    <Text size="14">{page.title}</Text>
+                  </LmsLink>
+                ))}
             </div>
           ))}
         </div>
