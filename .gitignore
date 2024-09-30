@@ -2,7 +2,7 @@ node_modules
 build
 dist
 .idea
-yarn.lock
+!yarn.lock
 .env.production
 .DS_Store
 */**/.DS_Store
