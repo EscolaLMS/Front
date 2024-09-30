@@ -23,18 +23,28 @@ if (is_file(dirname(__FILE__) . "/env_config.php")) {
     include_once "env_config.php";
 }
 
-if (key_exists($_SERVER['HTTP_HOST'], $domains)) {
-    $setup = $domains[$_SERVER['HTTP_HOST']];
+if (key_exists($_SERVER['HTTP_HOST'], $domains) || key_exists($_SERVER['SERVER_NAME'], $domains)) {
+
+    $setup = key_exists($_SERVER['HTTP_HOST'], $domains) ? $domains[$_SERVER['HTTP_HOST']] : $domains[$_SERVER['SERVER_NAME']];
 
     if (isset($setup)) {
-        if (isset($setup['REACT_APP_API_URL'])) {
-            $content = preg_replace('/(?<=window.REACT_APP_API_URL=")(.*)(?=")/', $setup['REACT_APP_API_URL'], $content);
+        if (isset($setup['VITE_APP_API_URL'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_API_URL=")(.*)(?=")/', $setup['VITE_APP_API_URL'], $content);
         }
-        if (isset($setup['REACT_APP_SENTRYDSN'])) {
-            $content = preg_replace('/(?<=window.REACT_APP_SENTRYDSN=")(.*)(?=")/', $setup['REACT_APP_SENTRYDSN'], $content);
+        if (isset($setup['VITE_APP_SENTRYDSN'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_SENTRYDSN=")(.*)(?=")/', $setup['VITE_APP_SENTRYDSN'], $content);
         }
-        if (isset($setup['REACT_APP_YBUG'])) {
-            $content = preg_replace('/(?<=window.REACT_APP_YBUG=")(.*)(?=")/', $setup['REACT_APP_YBUG'], $content);
+        if (isset($setup['VITE_APP_YBUG_ID'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_YBUG_ID=")(.*)(?=")/', $setup['VITE_APP_YBUG_ID'], $content);
+        }
+        if (isset($setup['VITE_APP_BASENAME'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_BASENAME=")(.*)(?=")/', $setup['VITE_APP_BASENAME'], $content);
+        }
+        if (isset($setup['VITE_APP_ROUTING_TYPE'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_ROUTING_TYPE=")(.*)(?=")/', $setup['VITE_APP_ROUTING_TYPE'], $content);
+        }
+        if (isset($setup['VITE_APP_URL'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_URL=")(.*)(?=")/', $setup['VITE_APP_URL'], $content);
         }
     }
 }
