@@ -47,3 +47,8 @@ export const VITE_APP_ANDROID_APIKEY =
   window.VITE_APP_ANDROID_APIKEY ||
   import.meta.env.VITE_APP_ANDROID_APIKEY ||
   null;
+
+export const VITE_APP_PUBLIC_IMG_URL =
+  window.VITE_APP_PUBLIC_IMG_URL ||
+  import.meta.env.VITE_APP_PUBLIC_IMG_URL ||
+  null;

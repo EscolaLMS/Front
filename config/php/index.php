@@ -46,6 +46,9 @@ if (key_exists($_SERVER['HTTP_HOST'], $domains) || key_exists($_SERVER['SERVER_N
         if (isset($setup['VITE_APP_URL'])) {
             $content = preg_replace('/(?<=window.VITE_APP_URL=")(.*)(?=")/', $setup['VITE_APP_URL'], $content);
         }
+        if (isset($setup['VITE_APP_PUBLIC_IMG_URL'])) {
+            $content = preg_replace('/(?<=window.VITE_APP_PUBLIC_IMG_URL=")(.*)(?=")/', $setup['VITE_APP_PUBLIC_IMG_URL'], $content);
+        }
     }
 }
 
