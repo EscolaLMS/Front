@@ -6,7 +6,7 @@ import WebFont from "webfontloader";
 import "./i18n";
 import "./sentry";
 import { GlobalThemeProvider } from "@escolalms/components/lib/theme/provider";
-import { API_URL } from "./config";
+import { API_URL, VITE_APP_PUBLIC_IMG_URL } from "./config";
 
 declare global {
   interface Window {
@@ -21,6 +21,7 @@ declare global {
     VITE_APP_FIREBASE_APPID: string;
     VITE_APP_IOS_APIKEY: string;
     VITE_APP_ANDROID_APIKEY: string;
+    VITE_APP_PUBLIC_IMG_URL: string;
   }
 }
 
@@ -35,7 +36,11 @@ WebFont.load({
 ReactDOM.createRoot(document.getElementById("root") as Element).render(
   <React.StrictMode>
     {API_URL ? (
-      <EscolaLMSContextProvider apiUrl={API_URL} initialFetch={false}>
+      <EscolaLMSContextProvider
+        apiUrl={API_URL}
+        initialFetch={false}
+        imagePrefix={`${VITE_APP_PUBLIC_IMG_URL}/imgcache`}
+      >
         <GlobalThemeProvider>
           <App />
         </GlobalThemeProvider>
