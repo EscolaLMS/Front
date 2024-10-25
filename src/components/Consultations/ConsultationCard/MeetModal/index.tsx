@@ -4,16 +4,19 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { JitsyData } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/_App/ContentLoader";
 import { ConsultationMeetModalStyles } from "./MeetModalStyles";
+import JitsyMeeting from "@/components/Consultations/ConsultationCard/JitsyMeeting";
 
 interface Props {
   onClose: () => void;
   visible: boolean;
   consultationTermId: number;
+  consultationId?: number;
 }
 
 const ConsultationMeetModal = ({
   onClose,
   visible,
+  consultationId,
   consultationTermId,
 }: Props) => {
   const [meetData, setMeetData] = useState<JitsyData | null>(null);
@@ -24,6 +27,7 @@ const ConsultationMeetModal = ({
     const getMeetUrl = async () => {
       setLoading(true);
       const res = await generateConsultationJitsy(consultationTermId);
+
       if (res.success) {
         setMeetData((res as { data: JitsyData }).data);
       }
@@ -50,7 +54,13 @@ const ConsultationMeetModal = ({
       <ConsultationMeetModalStyles>
         {loading && <ContentLoader />}
         {!loading && meetData && (
-          <iframe title={meetData.data.roomName} src={meetData.url} />
+          <JitsyMeeting
+            jitsyData={meetData}
+            close={onClose}
+            consultationId={consultationId}
+            consultationTermId={consultationTermId}
+          />
+          // <iframe title={meetData.data.roomName} src={meetData.url} />
         )}
       </ConsultationMeetModalStyles>
     </Modal>

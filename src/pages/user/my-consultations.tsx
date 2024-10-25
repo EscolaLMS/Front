@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import ProfileLayout from "@/components/Profile/ProfileLayout";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileConsultations from "@/components/Profile/ProfileConsultations";
 import ProfileTutorConsultations from "@/components/Profile/ProfileTutorConsultations";
 import { useRoles } from "@/hooks/useRoles";
+import Layout from "@/components/_App/Layout";
+import { Content } from "@/pages/user/MyProfile";
+import Container from "@/components/Common/Container";
 
 export enum ConsultationStatus {
   UPCOMING = "in_coming",
@@ -71,12 +73,18 @@ const MyConsultationsPage = () => {
   );
 
   return (
-    <ProfileLayout title={t("MyProfilePage.MyConsultations")} withTabs>
-      <Tabs
-        tabs={myConsultationsTabs.tabs}
-        defaultActiveKey={myConsultationsTabs.defaultActiveKey}
-      />
-    </ProfileLayout>
+    <Layout>
+      <Content>
+        <Container>
+          <div className="courses-wrapper">
+            <Tabs
+              tabs={myConsultationsTabs.tabs}
+              defaultActiveKey={myConsultationsTabs.defaultActiveKey}
+            />
+          </div>
+        </Container>
+      </Content>
+    </Layout>
   );
 };
 
