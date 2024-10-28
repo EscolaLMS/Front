@@ -60,7 +60,6 @@ const ConsultationMeetModal = ({
             consultationId={consultationId}
             consultationTermId={consultationTermId}
           />
-          // <iframe title={meetData.data.roomName} src={meetData.url} />
         )}
       </ConsultationMeetModalStyles>
     </Modal>

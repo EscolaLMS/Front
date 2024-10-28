@@ -31,7 +31,7 @@ export const saveImage = (
       const data = new FormData();
 
       data.append("name", name);
-      data.append("file", new File([blob], "aaa.png", { type: "image/png" }));
+      data.append("file", new File([blob], name, { type: "image/png" }));
       data.append("consultation_id", consultationId.toString());
       data.append("user_termin_id", consultationTermId.toString());
       data.append("user_email", userEmail);

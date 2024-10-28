@@ -243,6 +243,10 @@ const resources = {
         Understand: "Understand",
         successTermInfo:
           "The given consultation date has been sent to the trainer. You will receive a separate notification after the trainer accepts the date or the trainer will contact you to arrange a different date if the date you proposed does not suit him.",
+        Yes: "Yes",
+        No: "No",
+        AdditionalRecording:
+          "Do you agree to provide an image for emotion and attentional analysis?",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -1007,6 +1011,10 @@ const resources = {
         Understand: "Rozumiem",
         successTermInfo:
           "Podana data konsultacji została przesłana do trenera. Dostaniesz osobne powiadomienie po zaakceptowaniu terminu przez trenera lub trener skontaktuje się z Tobą w celu ustalenia innego terminu, jeśli zaproponowany przez Ciebie termin nie będzie mu odpowiadał.",
+        Yes: "Yes",
+        No: "No",
+        AdditionalRecording:
+          "Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",

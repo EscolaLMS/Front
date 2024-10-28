@@ -1,4 +1,5 @@
 import { Button, Text } from "@escolalms/components";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 type Props = {
@@ -18,6 +19,7 @@ const JitsyMeetingMessage: React.FC<Props> = ({
   closeToast,
   userConsentedRef,
 }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <Text size="16">{message}</Text>
@@ -25,13 +27,13 @@ const JitsyMeetingMessage: React.FC<Props> = ({
         <Button
           onClick={() => [(userConsentedRef.current = true), closeToast()]}
         >
-          Tak
+          {t("ConsultationPage.Yes")}
         </Button>
         <Button
           mode="secondary"
           onClick={() => [(userConsentedRef.current = false), closeToast()]}
         >
-          Nie
+          {t("ConsultationPage.No")}
         </Button>
       </ButtonWrapper>
     </div>

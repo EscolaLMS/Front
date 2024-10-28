@@ -6,8 +6,9 @@ import * as API from "@escolalms/sdk/lib/types/api";
 import useCamera from "@/hooks/meeting/useCamera";
 import { getCurrentUser, saveImage } from "@/utils/meeting";
 import { toast } from "react-toastify";
-import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Meessage";
+import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
+import { useTranslation } from "react-i18next";
 
 const FRAME_RATE = 0.3;
 
@@ -36,6 +37,7 @@ const JitsyMeeting: React.FC<Props> = ({
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const { isStudent } = useRoles();
+  const { t } = useTranslation();
 
   const handleConferenceJoined = useCallback(() => {
     console.log("Video conference joined");
@@ -159,8 +161,7 @@ const JitsyMeeting: React.FC<Props> = ({
       if (hasCameraAccess && isMeetingActive && isStudent) {
         toast(
           <JitsyMeetingMessage
-            //  TODO: i18n
-            message="Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?"
+            message={t("ConsultationPage.AdditionalRecording")}
             closeToast={toast.dismiss}
             userConsentedRef={userConsentedRef}
           />,
@@ -173,7 +174,7 @@ const JitsyMeeting: React.FC<Props> = ({
     }, 5000);
 
     return () => {};
-  }, [hasCameraAccess, isMeetingActive, isStudent]);
+  }, [hasCameraAccess, isMeetingActive, isStudent, t]);
 
   return (
     <>
@@ -188,11 +189,11 @@ const JitsyMeeting: React.FC<Props> = ({
           }}
           onApiReady={onApiReady}
           onReadyToClose={handleReadyToClose}
-          // configOverwrite={{ ...jitsyData.data.configOverwrite }}
           interfaceConfigOverwrite={{
             ...jitsyData.data.interfaceConfigOverwrite,
           }}
           configOverwrite={{
+            ...jitsyData.data.configOverwrite,
             prejoinConfig: {
               enabled: false,
             },
