@@ -6,6 +6,8 @@ import BookTermModal from "@/components/Book/BookTermModal";
 import ConsultationCardButtons from "./Buttons";
 import ConsultationCardContent from "./Content";
 import ConsultationCardImage from "./Image";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
+import { useHistory } from "react-router-dom";
 
 const ConsultationCardStyles = styled.div`
   .course-card-buttons-group {
@@ -26,11 +28,20 @@ interface ConsultationCardProps {
 const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
   const { consultation } = props;
   const [showBookTerm, setShowBookTerm] = useState(false);
+  const history = useHistory();
 
   return (
     <ConsultationCardStyles>
       <CourseCard
         id={consultation.id}
+        categories={
+          <CategoriesBreadCrumbs
+            categories={consultation.categories ?? []}
+            onCategoryClick={(id) => {
+              history.push(`/consultations?categories[]=${id}`);
+            }}
+          />
+        }
         image={<ConsultationCardImage consultation={consultation} />}
         title={`${consultation.name}`}
         footer={<ConsultationCardContent consultation={consultation} />}

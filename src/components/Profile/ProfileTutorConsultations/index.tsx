@@ -48,7 +48,7 @@ const ProfileTutorConsultations = ({
           }}
         >
           {consultationsData.map((consultation) => (
-            <Col key={consultation.consultation_term_id} xs={12} md={6} lg={4}>
+            <Col key={consultation.consultation_term_id} xs={12} md={6} lg={3}>
               <ConsultationTutorCard consultation={consultation} />
             </Col>
           ))}
