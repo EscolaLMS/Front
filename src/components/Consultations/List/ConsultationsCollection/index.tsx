@@ -11,10 +11,10 @@ import Preloader from "@/components/_App/Preloader";
 import { useTranslation } from "react-i18next";
 
 const ConsultationsCollection = () => {
-  const { consultations } = useContext(ConsultationsContext);
+  const { consultations, loading } = useContext(ConsultationsContext);
   const { t } = useTranslation();
 
-  const consultationsCategories = consultations?.list?.data?.map((item) =>
+  const consultationsCategories = consultations?.data?.map((item) =>
     item?.categories?.reduce(
       (acc: string[], cat: EscolaLms.Categories.Models.Category) =>
         cat.parent_id === null ? [...acc, cat.name] : acc,
@@ -35,7 +35,7 @@ const ConsultationsCollection = () => {
           gap: "30px 0",
         }}
       >
-        {consultations?.list?.data
+        {consultations?.data
           .sort((a: API.Consultation, b: API.Consultation) =>
             a.name.localeCompare(b.name)
           )
@@ -57,7 +57,7 @@ const ConsultationsCollection = () => {
               //@ts-ignore
               key={category.id}
               category={category}
-              consultations={consultations?.list?.data || []}
+              consultations={consultations?.data || []}
             />
           ))}
       </>
@@ -80,7 +80,7 @@ const ConsultationsCollection = () => {
     defaultActiveKey: 1,
   };
 
-  if (consultations?.loading) {
+  if (loading) {
     return <Preloader />;
   }
 
