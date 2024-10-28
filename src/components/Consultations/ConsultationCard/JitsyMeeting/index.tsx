@@ -43,8 +43,9 @@ const JitsyMeeting: React.FC<Props> = ({
   }, []);
 
   const handleConferenceLeft = useCallback(() => {
-    console.log("Video conference joined");
+    console.log("Video conference left");
     isMeetingActive.current = false;
+    window.location.reload();
   }, []);
 
   const handleRecordingStatusChanged = useCallback(
@@ -129,9 +130,10 @@ const JitsyMeeting: React.FC<Props> = ({
 
   const handleReadyToClose = () => {
     if (close) {
-      window.api?.dispose();
       close();
     }
+
+    window.api?.dispose();
   };
 
   const getProperRoomName = useCallback(() => {
