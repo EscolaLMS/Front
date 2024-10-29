@@ -17,17 +17,18 @@ import {
 import ConsultationsSlider from "@/components/Consultations/ConsultationsSlider";
 import Layout from "@/components/_App/Layout";
 import Container from "../../Common/Container";
-import ContentLoader from "@/components/_App/ContentLoader";
 import routeRoutes from "@/components/Routes/routes";
-import CoursePageContentSkeleton from "@/components/Skeletons/CoursePage/content";
 import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
 import { StyledCoursePage } from "@/pages/courses/course/styles";
+import ConsultationPageContentSkeleton from "@/components/Skeletons/Consultation";
 
 const Consultation = () => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { consultation, fetchConsultation, consultations } =
     useContext(EscolaLMSContext);
+
+  console.log(consultations);
 
   const consultationCategories = consultation.value?.categories?.map(
     (category: EscolaLms.Categories.Models.Category) => category.name
@@ -56,7 +57,7 @@ const Consultation = () => {
             <Container>
               <Row>
                 <Col md={12} lg={8}>
-                  <CoursePageContentSkeleton />
+                  <ConsultationPageContentSkeleton />
                 </Col>
                 <Col md={12} lg={3} offset={{ lg: 1 }}>
                   <SidebarSkeleton />
@@ -103,7 +104,7 @@ const Consultation = () => {
           </Container>
         </StyledCoursePage>
       )}
-      {/* {consultationCategories && consultationCategories.length > 0 && (
+      {consultationCategories && consultationCategories.length > 0 && (
         <StyledRelatedConsultations>
           <Container>
             {consultationCategories.map((category) => (
@@ -120,7 +121,7 @@ const Consultation = () => {
             ))}
           </Container>
         </StyledRelatedConsultations>
-      )} */}
+      )}
     </Layout>
   );
 };
