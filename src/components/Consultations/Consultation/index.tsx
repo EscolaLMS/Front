@@ -17,8 +17,10 @@ import {
 import ConsultationsSlider from "@/components/Consultations/ConsultationsSlider";
 import Layout from "@/components/_App/Layout";
 import Container from "../../Common/Container";
-import ContentLoader from "@/components/_App/ContentLoader";
 import routeRoutes from "@/components/Routes/routes";
+import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
+import { StyledCoursePage } from "@/pages/courses/course/styles";
+import ConsultationPageContentSkeleton from "@/components/Skeletons/Consultation";
 
 const Consultation = () => {
   const { t } = useTranslation();
@@ -47,46 +49,62 @@ const Consultation = () => {
 
   return (
     <Layout metaTitle={`${t("Consultation")} ${consultation.value?.name}`}>
-      {consultation.loading && <ContentLoader />}
+      {consultation.loading && (
+        <>
+          <StyledCoursePage>
+            <Container>
+              <Row>
+                <Col md={12} lg={8}>
+                  <ConsultationPageContentSkeleton />
+                </Col>
+                <Col md={12} lg={3} offset={{ lg: 1 }}>
+                  <SidebarSkeleton />
+                </Col>
+              </Row>
+            </Container>
+          </StyledCoursePage>
+        </>
+      )}
       {!consultation.loading && (
-        <Container>
-          <Row>
-            <Col xs={12}>
-              <Breadcrumbs
-                items={[
-                  <Link to={routeRoutes.home}>{t("Home")}</Link>,
-                  <Link to={routeRoutes.consultations}>
-                    {t("Consultations")}
-                  </Link>,
-                  <Text size="12">{consultation?.value?.name}</Text>,
-                ]}
-              />
-            </Col>
-            <Col xs={12} md={9}>
-              <ConsultationHero consultation={consultation.value} />
-
-              {consultation?.value?.description &&
-                fixContentForMarkdown(consultation.value.description) !==
-                  "" && (
-                  <StyledDescription>
-                    <MarkdownRenderer>
-                      {consultation.value.description}
-                    </MarkdownRenderer>
-                  </StyledDescription>
-                )}
-            </Col>
-            {consultation?.value?.product && (
-              <Col xs={12} md={3}>
-                <ConsultationSidebar consultation={consultation.value} />
+        <StyledCoursePage>
+          <Container>
+            <Row>
+              <Col xs={12}>
+                <Breadcrumbs
+                  items={[
+                    <Link to={routeRoutes.home}>{t("Home")}</Link>,
+                    <Link to={routeRoutes.consultations}>
+                      {t("Consultations")}
+                    </Link>,
+                    <Text size="12">{consultation?.value?.name}</Text>,
+                  ]}
+                />
               </Col>
-            )}
-          </Row>
-        </Container>
+              <Col xs={12} md={9}>
+                <ConsultationHero consultation={consultation.value} />
+
+                {consultation?.value?.description &&
+                  fixContentForMarkdown(consultation.value.description) !==
+                    "" && (
+                    <StyledDescription>
+                      <MarkdownRenderer>
+                        {consultation.value.description}
+                      </MarkdownRenderer>
+                    </StyledDescription>
+                  )}
+              </Col>
+              {consultation?.value?.product && (
+                <Col xs={12} md={3}>
+                  <ConsultationSidebar consultation={consultation.value} />
+                </Col>
+              )}
+            </Row>
+          </Container>
+        </StyledCoursePage>
       )}
       {consultationCategories && consultationCategories.length > 0 && (
         <StyledRelatedConsultations>
           <Container>
-            {/* @ts-ignore TODO: check this and fix it */}
             {consultationCategories.map((category) => (
               <ConsultationsSlider
                 key={category}

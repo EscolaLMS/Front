@@ -6,7 +6,7 @@ import {
   PaginatedMetaList,
 } from "@escolalms/sdk/lib/types/api";
 
-const useFetchCourses = (params?: CourseParams) => {
+const useFetchCourses = (params?: CourseParams, noAutoFech?: boolean) => {
   const [courses, setCourses] = useState<PaginatedMetaList<Course>>();
   const [loading, setLoading] = useState(true);
   const { fetchCourses } = useContext(EscolaLMSContext);
@@ -27,7 +27,7 @@ const useFetchCourses = (params?: CourseParams) => {
   };
 
   useEffect(() => {
-    params && fetchCoursesData(params);
+    params && !noAutoFech && fetchCoursesData(params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchCourses]);
 

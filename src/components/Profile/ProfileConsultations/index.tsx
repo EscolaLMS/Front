@@ -47,7 +47,7 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
           }}
         >
           {consultationsData.map((consultation) => (
-            <Col key={consultation.id} xs={12} md={6} lg={4}>
+            <Col key={consultation.id} xs={12} md={6} lg={3}>
               <ConsultationCard consultation={consultation} />
             </Col>
           ))}
