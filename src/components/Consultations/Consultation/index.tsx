@@ -28,8 +28,6 @@ const Consultation = () => {
   const { consultation, fetchConsultation, consultations } =
     useContext(EscolaLMSContext);
 
-  console.log(consultations);
-
   const consultationCategories = consultation.value?.categories?.map(
     (category: EscolaLms.Categories.Models.Category) => category.name
   );
