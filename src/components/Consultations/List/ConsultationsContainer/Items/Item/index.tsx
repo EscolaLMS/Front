@@ -8,7 +8,6 @@ interface Props {
 }
 
 const ConsultationsContainerItem = ({ consultation }: Props) => {
-  console.log(consultation);
   return <ConsultationCard consultation={consultation} />;
 };
 

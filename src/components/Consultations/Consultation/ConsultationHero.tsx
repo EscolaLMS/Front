@@ -6,6 +6,8 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import React from "react";
 import { Consultation } from "@escolalms/sdk/lib/types/api";
+import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
+import { useHistory } from "react-router-dom";
 
 interface ConsultationHeroProps {
   consultation: Consultation | undefined;
@@ -13,22 +15,23 @@ interface ConsultationHeroProps {
 
 const ConsultationHero: React.FC<ConsultationHeroProps> = (props) => {
   const { consultation } = props;
+  const history = useHistory();
 
   return (
     <Row align={"center"}>
       <Col lg={7}>
-        <Title mobile={isMobile} level={2}>
+        {consultation?.categories && consultation.categories.length > 0 && (
+          <CategoriesBreadCrumbs
+            categories={consultation.categories}
+            onCategoryClick={(id) => {
+              history.push(`/consultations/?categories[]=${id}`);
+            }}
+          />
+        )}
+        <br />
+        <Title mobile={isMobile} level={1}>
           {consultation?.name}
         </Title>
-        {consultation?.categories && consultation.categories.length > 0 && (
-          <StyledTags>
-            {consultation.categories.map(
-              (category: EscolaLms.Categories.Models.Category) => (
-                <Button mode="outline">{category.name}</Button>
-              )
-            )}
-          </StyledTags>
-        )}
       </Col>
       <Col lg={4}>
         {consultation?.image_path && (
