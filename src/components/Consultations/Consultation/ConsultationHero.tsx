@@ -1,8 +1,7 @@
 import { Col, Row } from "react-grid-system";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { isMobile } from "react-device-detect";
-import { StyledTags } from "@/components/Consultations/Consultation/style";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import React from "react";
 import { Consultation } from "@escolalms/sdk/lib/types/api";
