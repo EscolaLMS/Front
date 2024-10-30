@@ -12,7 +12,8 @@ import { Course } from "@escolalms/sdk/lib/types/api";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import ProductPrices from "@/components/ProductPrices";
-import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
+
+import EntitySkeletonList from "@/components/Skeletons/EntityList";
 
 const CoursesListWrapper = styled.section`
   margin-bottom: ${isMobile ? "50px" : "75px"};
@@ -36,26 +37,7 @@ const CoursesList: React.FC<Props> = ({ courses, loading }) => {
   }
 
   if (loading) {
-    return (
-      <CoursesListWrapper>
-        <Row
-          style={{
-            gap: "30px 0",
-          }}
-        >
-          {Array.from({ length: 12 }).map((_, index) => (
-            <CourseCardSkeleton
-              key={`index-${index}-skeleton`}
-              colProps={{
-                xl: 3,
-                lg: 4,
-                md: 6,
-              }}
-            />
-          ))}
-        </Row>
-      </CoursesListWrapper>
-    );
+    return <EntitySkeletonList />;
   }
 
   return (
@@ -106,7 +88,7 @@ const CoursesList: React.FC<Props> = ({ courses, loading }) => {
                 <CategoriesBreadCrumbs
                   categories={item.categories}
                   onCategoryClick={(id) => {
-                    history.push(`/courses/?categories[]=${id}`);
+                    history.push(`/courses?categories[]=${id}`);
                   }}
                 />
               }

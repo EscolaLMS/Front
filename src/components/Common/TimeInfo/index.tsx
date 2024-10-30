@@ -8,12 +8,14 @@ const TimeInfoStyles = styled.div`
   border: 1px solid ${({ theme }) => theme.primaryColor};
   border-radius: 2px;
   align-items: center;
-
+  border-radius: ${({ theme }) => theme.cardRadius}px;
   .icon-container {
     display: flex;
     align-items: center;
     padding: 0.6rem;
     background-color: ${({ theme }) => theme.primaryColor};
+    border-top-left-radius: ${({ theme }) => (theme.cardRadius ?? 2) - 2}px;
+    border-bottom-left-radius: ${({ theme }) => (theme.cardRadius ?? 2) - 2}px;
   }
 
   .time {

@@ -1,25 +1,24 @@
-import { useContext } from "react";
-import { Spin } from "@escolalms/components/lib/components/atoms/Spin/Spin";
-import { useTheme } from "styled-components";
 import { Col, Row } from "react-grid-system";
-import { ConsultationsContext } from "@/components/Consultations/List/ConsultationsContext";
+import { Consultation, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
 import ConsultationsContainerItem from "./Item";
 import Pagination from "@/components/Common/Pagination";
-import { useSearchParams } from "../../../../../hooks/useSearchParams";
+import EntitySkeletonList from "@/components/Skeletons/EntityList";
 
-const ConsultationsContainerItems = () => {
-  const { consultations } = useContext(ConsultationsContext);
-  const { setQueryParam } = useSearchParams();
-  const ConsultationsLoading = consultations?.loading;
-  const consultationsMeta = consultations?.list?.meta;
-  const theme = useTheme();
+type Props = {
+  consultations: PaginatedMetaList<Consultation>;
+  handlePageChange: (page: number) => void;
+  loading?: boolean;
+};
 
-  if (ConsultationsLoading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Spin color={theme.primaryColor} />
-      </div>
-    );
+const ConsultationsContainerItems: React.FC<Props> = ({
+  consultations,
+  loading,
+  handlePageChange,
+}) => {
+  const consultationsMeta = consultations?.meta;
+
+  if (loading) {
+    return <EntitySkeletonList />;
   }
 
   return (
@@ -30,20 +29,21 @@ const ConsultationsContainerItems = () => {
           marginBottom: "30px",
         }}
       >
-        {consultations?.list?.data.map((consultation) => (
-          <Col md={6} lg={4} xl={3} key={consultation.id}>
-            <ConsultationsContainerItem consultation={consultation} />
-          </Col>
-        ))}
+        {!loading &&
+          consultations?.data.map((consultation) => (
+            <Col md={6} lg={4} xl={3} key={consultation.id}>
+              <ConsultationsContainerItem consultation={consultation} />
+            </Col>
+          ))}
       </Row>
       {consultationsMeta &&
-        (Number(consultations?.list?.meta?.total) || 0) >
-          (Number(consultations?.list?.meta?.per_page) || 0) && (
+        (Number(consultationsMeta?.total) || 0) >
+          (Number(consultationsMeta?.per_page) || 0) && (
           <Pagination
             total={consultationsMeta.total}
             perPage={Number(consultationsMeta.per_page)}
             currentPage={consultationsMeta.current_page}
-            onPage={(i) => setQueryParam("page", `${i}`)}
+            onPage={(i) => handlePageChange(i)}
           />
         )}
     </>

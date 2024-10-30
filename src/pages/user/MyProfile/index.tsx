@@ -15,7 +15,7 @@ export enum CourseStatus {
   ALL = "all",
 }
 
-const Content = styled.section`
+export const Content = styled.section`
   background-color: ${({ theme }) => theme.gray4};
   .courses-wrapper {
     padding-top: 100px;
@@ -27,6 +27,7 @@ const Content = styled.section`
     }
   }
 `;
+
 const MyProfile = () => {
   const { t } = useTranslation();
   const { isTutor } = useRoles();

@@ -19,7 +19,7 @@ const StyledWrapper = styled.div`
 `;
 
 enum PaymentGateway {
-  Stripe = "stripe",
+  Stripe = "Stripe",
   Przelewy24 = "Przelewy24",
 }
 

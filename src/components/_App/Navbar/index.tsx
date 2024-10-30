@@ -555,11 +555,16 @@ const Navbar = () => {
                 },
                 {
                   id: 3,
+                  content: t("Menu.Consultations"),
+                  redirect: routeRoutes.consultations,
+                },
+                {
+                  id: 4,
                   content: t("MyProfilePage.Subscriptions"),
                   redirect: routeRoutes.subscriptions,
                 },
                 {
-                  id: 4,
+                  id: 5,
                   content: t("Terms"),
                   redirect: `/${settings?.value?.config?.termsPage}`,
                 },
@@ -680,11 +685,11 @@ const Navbar = () => {
                   //   content: t("Navbar.MyOrders"),
                   //   redirect: routeRoutes.myOrders,
                   // },
-                  // {
-                  //   id: 3,
-                  //   content: t("Navbar.MyConsultations"),
-                  //   redirect: routeRoutes.myConsultations,
-                  // },
+                  {
+                    id: 3,
+                    content: t("Navbar.MyConsultations"),
+                    redirect: routeRoutes.myConsultations,
+                  },
                   // {
                   //   id: 4,
                   //   content: t("Navbar.MyWebinars"),
