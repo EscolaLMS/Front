@@ -49,6 +49,12 @@ if (key_exists($_SERVER['HTTP_HOST'], $domains) || key_exists($_SERVER['SERVER_N
         if (isset($setup['VITE_APP_PUBLIC_IMG_URL'])) {
             $content = preg_replace('/(?<=window.VITE_APP_PUBLIC_IMG_URL=")(.*)(?=")/', $setup['VITE_APP_PUBLIC_IMG_URL'], $content);
         }
+
+        foreach ($setup as $key => $value) {
+            if (!in_array($key, ['VITE_APP_API_URL', 'VITE_APP_SENTRYDSN', 'VITE_APP_YBUG_ID', 'VITE_APP_BASENAME', 'VITE_APP_ROUTING_TYPE', 'VITE_APP_URL', 'VITE_APP_PUBLIC_IMG_URL'])) {
+                $content = str_replace('</head>', "\n" . '<script>window.' . $key . '="' . $value . '"</script></head>', $content);
+            }
+        }
     }
 }
 
