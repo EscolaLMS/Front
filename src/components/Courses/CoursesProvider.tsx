@@ -19,7 +19,7 @@ const CoursesProvider: React.FC<{
     per_page: COURSES_ON_PAGE,
     order_by: "created_at",
   });
-  const { courses, loading, fetchCoursesData } = useFetchCourses(params);
+  const { courses, loading, fetchCoursesData } = useFetchCourses(params, true);
   const location = useLocation();
   const { push } = useHistory();
 

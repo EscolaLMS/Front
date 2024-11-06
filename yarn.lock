@@ -437,10 +437,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz#acad351d582d157bb145535db2a6ff53dd514b5c"
   integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
-"@escolalms/components@^0.0.144":
-  version "0.0.144"
-  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.144.tgz#f025a9acb650dce6900113c83b013eec931284b1"
-  integrity sha512-5TB/n/Nj96Zcq60tIUoqAVwiCU7M+0eonp1kI2bG7VziouhVmHv4z73n/yy0LacNh0AyI0a//2IYrv5QwX6m2A==
+"@escolalms/components@^0.0.147":
+  version "0.0.147"
+  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.147.tgz#f4d83ddbce67e1416a224ccd87e2f2729b51745b"
+  integrity sha512-SXGqZTSjuPq/bTMvqgRBqCQxNsJVt192Qc620mx8eS8KkMgA84lRNZ5MUBSycRFcbiPFKZphOVpk1J3JwUH5iQ==
   dependencies:
     "@escolalms/h5p-react" "^0.2.19"
     "@escolalms/sdk" "^0.5.21"
@@ -1129,6 +1129,11 @@
     "@types/node" "*"
     "@types/yargs" "^17.0.8"
     chalk "^4.0.0"
+
+"@jitsi/react-sdk@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@jitsi/react-sdk/-/react-sdk-1.4.0.tgz#4c300bf3d97632d7421eee71e2d335600878b5e7"
+  integrity sha512-1dn3WIZNyRuESh5qvBR52PQz/avM0Wl575WtuW2sRaNemx38+I1eHJvA58SNhC3zas1PkxBfjeBqmTUHeJlaCw==
 
 "@jridgewell/gen-mapping@^0.3.5":
   version "0.3.5"

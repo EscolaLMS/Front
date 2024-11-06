@@ -15,11 +15,14 @@ const DateInfoStyles = styled.div`
     border: 1px solid;
     border-radius: 2px;
     align-items: center;
-
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     .icon-container {
       display: flex;
       align-items: center;
       padding: 0.5rem;
+      border-top-left-radius: ${({ theme }) => (theme.cardRadius ?? 2) - 2}px;
+      border-bottom-left-radius: ${({ theme }) =>
+        (theme.cardRadius ?? 2) - 2}px;
     }
 
     .date {
@@ -35,6 +38,7 @@ const DateInfoStyles = styled.div`
     border-bottom: 1px solid;
     font-family: ${({ theme }) => theme.font};
     font-size: 12px;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
   }
 `;
 

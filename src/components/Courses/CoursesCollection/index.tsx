@@ -1,49 +1,12 @@
 import React from "react";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { useTranslation } from "react-i18next";
-import styled, { useTheme } from "styled-components";
 import Pagination from "@/components/Common/Pagination";
-import { CloseIcon } from "@/icons/index";
-
-import useCoursesFilter from "@/hooks/courses/useCoursesFIlter";
 import MobileDrawer from "@/components/_App/MobileDrawer";
 import CoursesList from "@/components/Courses/CoursesCollection/list";
 import MobileDrawerContent from "@/components/Courses/CoursesCollection/coursesDrawer";
 import CoursesFilters from "@/components/Courses/CoursesCollection/filters";
-
-const SelectedCategoriesWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-  margin-top: 17px;
-  gap: 5px;
-  .clear-categories {
-    all: unset;
-    cursor: pointer;
-    margin-left: 14px;
-    p {
-      margin: 0;
-      color: ${({ theme }) => theme.gray2};
-    }
-  }
-`;
-
-const SelectedCategory = styled.button`
-  all: unset;
-  border-radius: 19px;
-  border: 1px solid #eaeaea;
-  padding: 8px 13px;
-  margin-right: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  p {
-    margin: 0;
-    margin-right: 17px;
-  }
-`;
+import useFilter from "@/hooks/courses/useFilter";
+import SelectedCategories from "@/components/Filters/SelectedCategories";
+import { API } from "@escolalms/sdk/lib";
 
 export type SortOrder = "ASC" | "DESC";
 
@@ -62,7 +25,7 @@ const CoursesCollection: React.FC = () => {
   });
 
   const {
-    courses,
+    entities,
     loading,
     prevCategories,
     handleSortChange,
@@ -72,10 +35,7 @@ const CoursesCollection: React.FC = () => {
     onClearCategories,
     params,
     categoryTree,
-  } = useCoursesFilter();
-
-  const theme = useTheme();
-  const { t } = useTranslation();
+  } = useFilter("courses");
 
   return (
     <>
@@ -91,17 +51,11 @@ const CoursesCollection: React.FC = () => {
       />
 
       {prevCategories.length > 0 && (
-        <SelectedCategoriesWrapper>
-          {prevCategories.map((category) => (
-            <SelectedCategory onClick={() => handleRemoveCategory(category.id)}>
-              <Text size={"13"}>{category.name}</Text>
-              <CloseIcon color={theme.gray2} />
-            </SelectedCategory>
-          ))}
-          <button className="clear-categories" onClick={onClearCategories}>
-            <Text size="13">{t("CoursesPage.clearAll")}</Text>
-          </button>
-        </SelectedCategoriesWrapper>
+        <SelectedCategories
+          onClearCategories={onClearCategories}
+          prevCategories={prevCategories}
+          handleRemoveCategory={handleRemoveCategory}
+        />
       )}
 
       <MobileDrawer
@@ -130,13 +84,16 @@ const CoursesCollection: React.FC = () => {
         />
       </MobileDrawer>
 
-      <CoursesList courses={courses?.data || []} loading={loading} />
+      <CoursesList
+        courses={(entities?.data as API.Course[]) || []}
+        loading={loading}
+      />
 
-      {Number(courses?.meta?.total) > Number(courses?.meta?.per_page) && (
+      {Number(entities?.meta?.total) > Number(entities?.meta?.per_page) && (
         <Pagination
-          total={Number(courses?.meta?.total)}
-          perPage={Number(courses?.meta?.per_page)}
-          currentPage={Number(courses?.meta?.current_page)}
+          total={Number(entities?.meta?.total)}
+          perPage={Number(entities?.meta?.per_page)}
+          currentPage={Number(entities?.meta?.current_page)}
           onPage={handlePageChange}
         />
       )}

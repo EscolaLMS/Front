@@ -33,6 +33,7 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
     return (
       <ConsultationCardJoinButton
         consultationTermId={consultation.consultation_term_id}
+        consultationId={consultation.id}
       />
     );
   }
