@@ -1,40 +1,39 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useCoursePanel } from "@/components/Courses/Course/Context";
+import React, { useCallback, useEffect, useState } from "react";
 import RateCourse from "@/components/Courses/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
-import { getQuestionnaires } from "@/utils/questionnaires";
-import { API } from "@escolalms/sdk/lib";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+
+import { useQuestionnaires } from "@/hooks/questionnaires";
 
 interface Props {
-  showModal: boolean;
-  onClose: () => void;
-  onFinish: () => void;
-  onSuccesGetQuestionnaires: (isAnyQuestionnaires: boolean) => void;
+  entityModel: QuestionnaireModelType;
+  entityId: number;
+  showModal?: boolean;
+  onClose?: () => void;
+  onFinish?: () => void;
+  onSuccesGetQuestionnaires?: (isAnyQuestionnaires: boolean) => void;
 }
 
-export const CoursePanelFinishPageRate = ({
-  showModal,
-  onClose,
+export const QuestionnairesModal = ({
+  entityId,
+  entityModel,
   onFinish,
   onSuccesGetQuestionnaires,
 }: Props) => {
-  const { fetchQuestionnaires, fetchQuestionnaire } =
-    useContext(EscolaLMSContext);
+  const {
+    questionnaires,
+    loading,
+    // error,
+    getQuestionnaires,
+  } = useQuestionnaires({
+    entityId: entityId || 0,
+    entityModel: entityModel,
+  });
+
   const [state, setState] = useState({
     show: false,
     step: 0,
     loading: true,
   });
-  const [questionnaires, setQuestionnaires] = useState<API.Questionnaire[]>([]);
-  const { courseId } = useCoursePanel();
-
-  useEffect(() => {
-    setState((prev) => ({
-      ...prev,
-      show: showModal,
-    }));
-  }, [showModal]);
 
   const handleClose = useCallback(() => {
     setState((prevState) => ({
@@ -56,34 +55,47 @@ export const CoursePanelFinishPageRate = ({
       }, 500);
       return () => clearTimeout(timer);
     }
-    onClose();
-  }, [onClose, questionnaires.length, state.step]);
+  }, [questionnaires.length, state.step]);
 
   useEffect(() => {
-    courseId &&
-      getQuestionnaires({
-        courseId: Number(courseId),
-        fetchQuestionnaire,
-        fetchQuestionnaires,
-        onSucces: (items) => {
-          onSuccesGetQuestionnaires(!!items.length);
-          setQuestionnaires(items);
-        },
-        onFinish: () =>
-          setState((prevState) => ({
-            ...prevState,
-            loading: false,
-          })),
-      });
+    getQuestionnaires();
+    // courseId &&
+    //   getQuestionnaires({
+    //     courseId: Number(courseId),
+    //     fetchQuestionnaire,
+    //     fetchQuestionnaires,
+    //     onSucces: (items) => {
+    //       onSuccesGetQuestionnaires(!!items.length);
+    //       setQuestionnaires(items);
+    //     },
+    //     onFinish: () =>
+    //       setState((prevState) => ({
+    //         ...prevState,
+    //         loading: false,
+    //       })),
+    //   });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseId]);
+  }, [entityId]);
+
+  useEffect(() => {
+    if (questionnaires.length) {
+      setState((prevState) => ({
+        ...prevState,
+        show: true,
+      }));
+    }
+    if (!!questionnaires.length) {
+      onSuccesGetQuestionnaires && onSuccesGetQuestionnaires(true);
+    }
+    return () => {};
+  }, [questionnaires, onSuccesGetQuestionnaires]);
 
   return (
     <>
-      {showModal && courseId && !!questionnaires.length && !state.loading && (
+      {state.show && entityId && !!questionnaires.length && !loading && (
         <RateCourse
-          course={QuestionnaireModelType.COURSE}
-          courseId={Number(courseId)}
+          entityModel={entityModel}
+          entityId={Number(entityId)}
           visible={state.show}
           onClose={handleClose}
           questionnaire={questionnaires[state.step]}

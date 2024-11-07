@@ -583,6 +583,7 @@ const resources = {
           "Here you can write a comment or leave a review (optional)",
         SendAnswer: "Send",
         NoAnswer: "Cancel",
+        WriteAnswer: "Write an answer",
       },
       OrderStatus: {
         NEW: "New",
@@ -1336,6 +1337,7 @@ const resources = {
           "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
         SendAnswer: "Wyślij",
         NoAnswer: "Anuluj",
+        WriteAnswer: "Napisz odpowiedź",
       },
       Filters: {
         Category: "Kategoria",

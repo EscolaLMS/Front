@@ -5,6 +5,8 @@ import { JitsyData } from "@escolalms/sdk/lib/types/api";
 import ContentLoader from "@/components/_App/ContentLoader";
 import { ConsultationMeetModalStyles } from "./MeetModalStyles";
 import JitsyMeeting from "@/components/Consultations/ConsultationCard/JitsyMeeting";
+import { QuestionnaireModelType } from "@/types/questionnaire";
+import { QuestionnairesModal } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Rate";
 
 interface Props {
   onClose: () => void;
@@ -62,6 +64,10 @@ const ConsultationMeetModal = ({
           />
         )}
       </ConsultationMeetModalStyles>
+      <QuestionnairesModal
+        entityId={Number(consultationId)}
+        entityModel={QuestionnaireModelType.CONSULTATION}
+      />
     </Modal>
   );
 };

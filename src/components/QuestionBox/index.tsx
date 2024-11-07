@@ -10,7 +10,11 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { QuestionBoxWrapper } from "@/components/QuestionBox/styles";
 import { Row } from "@escolalms/components/lib/components/atoms/Row";
+import { QuestionnaireModelType } from "@/types/questionnaire";
+
 interface QuestionBoxProps {
+  entityModel: QuestionnaireModelType;
+  questionnaireTitle?: string;
   withStarsRating?: boolean;
   data: API.QuestionnaireQuestion;
   textareaPlaceholder?: string;
@@ -19,14 +23,16 @@ interface QuestionBoxProps {
 }
 
 export const QuestionBox: FC<QuestionBoxProps> = ({
+  entityModel,
   data,
   textareaPlaceholder,
+  questionnaireTitle,
   withStarsRating,
   handleSubmit,
   onClose,
 }) => {
   const { t } = useTranslation();
-  const { title, description } = data;
+
   const [answer, setAnswer] = useState({ rate: 0, note: "" });
 
   const submit = () => {
@@ -34,9 +40,17 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
     setAnswer({ rate: 0, note: "" });
   };
 
+  console.log({ data });
+
   return (
-    <QuestionBoxWrapper onSubmit={submit}>
-      <Title className="question-box__title">{t("RateCourse.Title")}</Title>
+    <QuestionBoxWrapper>
+      <Title className="question-box__title">
+        {t(
+          entityModel === QuestionnaireModelType.COURSE
+            ? "RateCourse.Title"
+            : questionnaireTitle || "Ankieta"
+        )}
+      </Title>
       <div className="question-box__content">
         {!!withStarsRating ? (
           <Rate
@@ -59,12 +73,18 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
           </Rate>
         ) : (
           <Stack>
-            <Title className="question-box__content--title">{title}</Title>
+            <Title className="question-box__content--title">
+              {data?.title}
+            </Title>
             <Text className="question-box__content--description">
-              {description}
+              {data?.description}
             </Text>
             <Text className="question-box__content--textarea-title">
-              {t("RateCourse.WriteComment")}
+              {t(
+                entityModel === QuestionnaireModelType.COURSE
+                  ? "RateCourse.WriteComment"
+                  : "RateCourse.WriteAnswer"
+              )}
             </Text>
             <TextArea
               className="question-box__content--textarea"
@@ -85,7 +105,8 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
                 {t("RateCourse.NoAnswer")}
               </Button>
               <Button
-                type="submit"
+                onClick={submit}
+                type="button"
                 mode="primary"
                 disabled={!answer.note.length}
               >

@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CoursePanelFinishPageCongrats } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Congrats";
 import { CongratsWrapper } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/styles";
-import { CoursePanelFinishPageRate } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Rate";
+import { QuestionnairesModal } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Rate";
 import { CoursePanelFinishPageCertificate } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Certificate";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useCoursePanel } from "@/components/Courses/Course/Context";
@@ -11,6 +11,7 @@ import {
   Certificate,
   CertificateAssignableTypes,
 } from "@escolalms/sdk/lib/types/api";
+import { QuestionnaireModelType } from "@/types/questionnaire";
 
 type State = {
   showModal: boolean;
@@ -26,6 +27,7 @@ export const CoursePanelFinishPage = () => {
     showCertificate: false,
     certificates: null,
   });
+
   const { courseId } = useCoursePanel();
   const { fetchCertificates } = useContext(EscolaLMSContext);
   const history = useHistory();
@@ -100,7 +102,9 @@ export const CoursePanelFinishPage = () => {
       {state.showCertificate && state.certificates && (
         <CoursePanelFinishPageCertificate certificates={state.certificates} />
       )}
-      <CoursePanelFinishPageRate
+      <QuestionnairesModal
+        entityId={Number(courseId)}
+        entityModel={QuestionnaireModelType.COURSE}
         showModal={state.showModal}
         onClose={() => handleModalChange(false)}
         onFinish={onFinish}

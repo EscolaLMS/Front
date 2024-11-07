@@ -37,7 +37,7 @@ const CoursesSlider: React.FC<Props> = ({
   const { t } = useTranslation();
   return (
     <Content>
-      {(courses?.length >= 5 || isMobile) && isSlider ? (
+      {((courses && courses?.length >= 5) || isMobile) && isSlider ? (
         <SwiperSlider slidesPerView={slidesPerView}>
           {courses &&
             courses.map((item) => (
@@ -96,7 +96,7 @@ const CoursesSlider: React.FC<Props> = ({
             rowGap: "20px",
           }}
         >
-          {(courses || []).map((item) => (
+          {(courses.length ? courses : []).map((item) => (
             <Col md={4} lg={3} key={item.id}>
               <NewCourseCard
                 mobile={isMobile}

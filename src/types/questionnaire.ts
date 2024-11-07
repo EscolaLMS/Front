@@ -1,6 +1,7 @@
 export enum QuestionnaireModelType {
   COURSE = "course",
   WEBINAR = "webinar",
+  CONSULTATION = "consultations",
 }
 
 export enum QuestionType {
