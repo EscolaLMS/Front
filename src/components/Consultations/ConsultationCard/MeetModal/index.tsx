@@ -37,6 +37,13 @@ const ConsultationMeetModal = ({
     };
 
     getMeetUrl();
+    return () => {
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("questionnaire_")) {
+          localStorage.removeItem(key);
+        }
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

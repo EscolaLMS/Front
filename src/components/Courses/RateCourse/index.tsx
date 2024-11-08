@@ -97,8 +97,18 @@ const RateCourse: React.FC<Props> = ({
   }, [questionnaire, entityModel]);
 
   const isShowable = useMemo(() => {
-    // @ts-ignore add to sdk
-    if (!questionareEntityModel?.target_group) return false;
+    if (
+      // @ts-ignore add to sdk
+      !questionareEntityModel?.target_group && // @ts-ignore add to sdk
+      !questionareEntityModel.display_frequency_minutes
+    )
+      return true;
+    if (
+      // @ts-ignore add to sdk
+      !questionareEntityModel?.target_group || // @ts-ignore add to sdk
+      !questionareEntityModel.display_frequency_minutes
+    )
+      return false;
 
     return (
       // @ts-ignore add to sdk
@@ -107,8 +117,6 @@ const RateCourse: React.FC<Props> = ({
       (isTutor && questionareEntityModel.target_group === "author")
     );
   }, [isStudent, isTutor, questionareEntityModel]);
-
-  console.log(state);
 
   return (
     <StyledModal
@@ -120,7 +128,6 @@ const RateCourse: React.FC<Props> = ({
       width={468}
       closable={false}
     >
-      {JSON.stringify(questionnaire.questions[state.step])}
       {questionnaire.questions && (
         <QuestionBox
           questionnaireTitle={questionnaire.title}

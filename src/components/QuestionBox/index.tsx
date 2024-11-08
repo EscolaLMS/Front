@@ -40,8 +40,6 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
     setAnswer({ rate: 0, note: "" });
   };
 
-  console.log({ data });
-
   return (
     <QuestionBoxWrapper>
       <Title className="question-box__title">
