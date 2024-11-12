@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import RateCourse from "@/components/Courses/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 
 import { useQuestionnaires } from "@/hooks/questionnaires";
 import { API } from "@escolalms/sdk/lib";
+import { useRoles } from "@/hooks/useRoles";
 
 interface Props {
   entityModel: QuestionnaireModelType;
@@ -21,7 +22,7 @@ export const QuestionnairesModal = ({
   onSuccesGetQuestionnaires,
 }: Props) => {
   const {
-    questionnaires,
+    questionnaires: questionnairesList,
     loading,
     // error,
     getQuestionnaires,
@@ -47,6 +48,21 @@ export const QuestionnairesModal = ({
     firstTimeQuestionnaires: [],
     reShowableQuestionnaires: [],
   });
+
+  const { isStudent, isTutor } = useRoles();
+
+  const questionnaires = useMemo(
+    () =>
+      questionnairesList.filter((questionaire) =>
+        questionaire.models.some(
+          (model) =>
+            model.model_type_title === entityModel && // @ts-ignore add to sdk
+            ((isStudent && model.target_group === "user") || // @ts-ignore add to sdk
+              (isTutor && model.target_group === "author"))
+        )
+      ),
+    [questionnairesList, isStudent, isTutor, entityModel]
+  );
 
   const categorizedQuestionnaires = useCallback(() => {
     if (!questionnaires) return;

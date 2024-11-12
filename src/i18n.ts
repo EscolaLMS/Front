@@ -1012,8 +1012,8 @@ const resources = {
         Understand: "Rozumiem",
         successTermInfo:
           "Podana data konsultacji została przesłana do trenera. Dostaniesz osobne powiadomienie po zaakceptowaniu terminu przez trenera lub trener skontaktuje się z Tobą w celu ustalenia innego terminu, jeśli zaproponowany przez Ciebie termin nie będzie mu odpowiadał.",
-        Yes: "Yes",
-        No: "No",
+        Yes: "Tak",
+        No: "Nie",
         AdditionalRecording:
           "Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?",
       },

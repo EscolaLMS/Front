@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
@@ -6,7 +6,6 @@ import { QuestionBox } from "../../QuestionBox";
 import { QuestionnaireModelType, QuestionType } from "@/types/questionnaire";
 import { StyledModal } from "@/components/Courses/RateCourse/styles";
 import { toast } from "@/utils/toast";
-import { useRoles } from "@/hooks/useRoles";
 
 type Props = {
   entityModel: QuestionnaireModelType;
@@ -30,7 +29,6 @@ const RateCourse: React.FC<Props> = ({
   onClose,
   onFinish,
 }) => {
-  const { isStudent, isTutor } = useRoles();
   const { sendQuestionnaireAnswer } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 
@@ -90,38 +88,10 @@ const RateCourse: React.FC<Props> = ({
     [handleSendAnswer, questionnaire, state.step, onClose]
   );
 
-  const questionareEntityModel = useMemo(() => {
-    return questionnaire.models.find(
-      (model) => model.model_type_title === entityModel
-    );
-  }, [questionnaire, entityModel]);
-
-  const isShowable = useMemo(() => {
-    if (
-      // @ts-ignore add to sdk
-      !questionareEntityModel?.target_group && // @ts-ignore add to sdk
-      !questionareEntityModel.display_frequency_minutes
-    )
-      return true;
-    if (
-      // @ts-ignore add to sdk
-      !questionareEntityModel?.target_group || // @ts-ignore add to sdk
-      !questionareEntityModel.display_frequency_minutes
-    )
-      return false;
-
-    return (
-      // @ts-ignore add to sdk
-      (isStudent && questionareEntityModel.target_group === "user") ||
-      // @ts-ignore add to sdk
-      (isTutor && questionareEntityModel.target_group === "author")
-    );
-  }, [isStudent, isTutor, questionareEntityModel]);
-
   return (
     <StyledModal
       onClose={onClose}
-      visible={visible && isShowable}
+      visible={visible}
       animation="zoom"
       maskAnimation="fade"
       destroyOnClose={true}
