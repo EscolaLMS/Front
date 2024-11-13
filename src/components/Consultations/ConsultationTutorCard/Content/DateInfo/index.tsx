@@ -25,7 +25,7 @@ const ConsultationTutorCardContentDateInfo = ({ consultation }: Props) => {
   const isApproved = consultation.status === "approved";
   const isNotReported = consultation.status === "not_reported";
   const isRejected = consultation.status === "reject";
-  console.log("ConsultationTutorCardContentDateInfo", consultation);
+
   return (
     <>
       {isEnded && consultation.date && (

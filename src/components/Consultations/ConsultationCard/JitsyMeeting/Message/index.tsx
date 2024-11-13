@@ -1,4 +1,4 @@
-import { Title } from "@escolalms/components";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
@@ -42,7 +42,7 @@ const JitsyMeetingMessage: React.FC<Props> = ({
   const { t } = useTranslation();
   return (
     <Container className="jitsy-message">
-      <Title size="24" className="jitsy-message__title">
+      <Title className="jitsy-message__title">
         Zgoda na analizę emocji i uwagi
       </Title>
       <Text size="16">{message}</Text>

@@ -164,7 +164,7 @@ export const QuestionnairesModal = ({
   const getDisplayFrequencyInMs = useCallback(
     (questionnaire: API.Questionnaire) => {
       const frequencyMinutes = getQuestionnaireFrequency(questionnaire);
-      return frequencyMinutes * 60 * 1000;
+      return (frequencyMinutes ?? 0) * 60 * 1000;
     },
     [getQuestionnaireFrequency]
   );
