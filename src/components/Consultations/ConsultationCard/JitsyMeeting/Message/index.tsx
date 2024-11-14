@@ -43,7 +43,7 @@ const JitsyMeetingMessage: React.FC<Props> = ({
   return (
     <Container className="jitsy-message">
       <Title className="jitsy-message__title">
-        Zgoda na analizę emocji i uwagi
+        {t("ConsultationPage.EmotionConsent")}
       </Title>
       <Text size="16">{message}</Text>
       <ButtonWrapper>
