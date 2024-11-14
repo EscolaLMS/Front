@@ -1,3 +1,4 @@
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { useTranslation } from "react-i18next";
@@ -9,10 +10,28 @@ type Props = {
   userConsentedRef: React.MutableRefObject<boolean | null>;
 };
 
+const Container = styled.div`
+  padding: 30px 23px 0 23px;
+  text-align: center;
+  h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  p {
+    max-width: 80%;
+    margin: 20px auto;
+  }
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  width: 100%;
+  justify-content: space-between;
+  button {
+    min-width: 130px;
+  }
 `;
 
 const JitsyMeetingMessage: React.FC<Props> = ({
@@ -22,7 +41,10 @@ const JitsyMeetingMessage: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <Container className="jitsy-message">
+      <Title className="jitsy-message__title">
+        {t("ConsultationPage.EmotionConsent")}
+      </Title>
       <Text size="16">{message}</Text>
       <ButtonWrapper>
         <Button
@@ -37,7 +59,7 @@ const JitsyMeetingMessage: React.FC<Props> = ({
           {t("ConsultationPage.No")}
         </Button>
       </ButtonWrapper>
-    </div>
+    </Container>
   );
 };
 

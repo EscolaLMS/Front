@@ -177,8 +177,8 @@ export const CourseCardActions: FC<Props> = ({
         (!!questionnaires.length ? (
           <>
             <RateCourse
-              course={QuestionnaireModelType.COURSE}
-              courseId={courseId}
+              entityModel={QuestionnaireModelType.COURSE}
+              entityId={courseId}
               visible={state.show}
               onClose={handleClose}
               questionnaire={questionnaires[state.step]}

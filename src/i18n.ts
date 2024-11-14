@@ -247,6 +247,7 @@ const resources = {
         No: "No",
         AdditionalRecording:
           "Do you agree to provide an image for emotion and attentional analysis?",
+        EmotionConsent: "Consent to the use of emotion analysis",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -583,6 +584,7 @@ const resources = {
           "Here you can write a comment or leave a review (optional)",
         SendAnswer: "Send",
         NoAnswer: "Cancel",
+        WriteAnswer: "Write an answer",
       },
       OrderStatus: {
         NEW: "New",
@@ -1011,10 +1013,11 @@ const resources = {
         Understand: "Rozumiem",
         successTermInfo:
           "Podana data konsultacji została przesłana do trenera. Dostaniesz osobne powiadomienie po zaakceptowaniu terminu przez trenera lub trener skontaktuje się z Tobą w celu ustalenia innego terminu, jeśli zaproponowany przez Ciebie termin nie będzie mu odpowiadał.",
-        Yes: "Yes",
-        No: "No",
+        Yes: "Tak",
+        No: "Nie",
         AdditionalRecording:
           "Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?",
+        EmotionConsent: "Zgoda na analizę emocji i uwagi",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",
@@ -1336,6 +1339,7 @@ const resources = {
           "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
         SendAnswer: "Wyślij",
         NoAnswer: "Anuluj",
+        WriteAnswer: "Napisz odpowiedź",
       },
       Filters: {
         Category: "Kategoria",

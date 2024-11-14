@@ -6,8 +6,8 @@ import { ConsultationStatus } from "../../../pages/user/my-consultations";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import ConsultationCard from "@/components/Consultations/ConsultationCard";
-import ContentLoader from "@/components/_App/ContentLoader";
 import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 
 interface ProfileConsultationsProps {
   type: ConsultationStatus;
@@ -34,25 +34,31 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
 
   return (
     <ProfileConsultationsProvider>
-      {userConsultations.loading ? (
-        <ContentLoader />
-      ) : consultationsData.length === 0 ? (
-        <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
-          {t<string>("MyProfilePage.OrdersEmpty")}
-        </Text>
-      ) : (
-        <Row
-          style={{
-            gap: "30px 0",
-          }}
-        >
-          {consultationsData.map((consultation) => (
-            <Col key={consultation.id} xs={12} md={6} lg={3}>
-              <ConsultationCard consultation={consultation} />
+      <Row
+        style={{
+          gap: "30px 0",
+        }}
+      >
+        {userConsultations.loading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+            <Col md={3} key={`skeleton-card-${index}`}>
+              <CourseCardSkeleton />
             </Col>
-          ))}
-        </Row>
-      )}
+          ))
+        ) : consultationsData.length === 0 ? (
+          <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
+            {t<string>("MyProfilePage.OrdersEmpty")}
+          </Text>
+        ) : (
+          <>
+            {consultationsData.map((consultation) => (
+              <Col key={consultation.id} xs={12} md={6} lg={3}>
+                <ConsultationCard consultation={consultation} />
+              </Col>
+            ))}
+          </>
+        )}
+      </Row>
     </ProfileConsultationsProvider>
   );
 };

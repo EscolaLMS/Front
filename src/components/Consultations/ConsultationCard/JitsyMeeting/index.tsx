@@ -1,14 +1,24 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { JaaSMeeting } from "@jitsi/react-sdk";
 import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import useCamera from "@/hooks/meeting/useCamera";
 import { getCurrentUser, saveImage } from "@/utils/meeting";
-import { toast } from "react-toastify";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
+import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
+import styled from "styled-components";
+
+export const StyledModal = styled(Modal)`
+  .rc-dialog-content {
+    border-radius: 15px;
+  }
+  .rc-dialog-body {
+    padding: 14px 0;
+  }
+`;
 
 const FRAME_RATE = 0.3;
 
@@ -32,6 +42,7 @@ const JitsyMeeting: React.FC<Props> = ({
   consultationId,
   close,
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const { camera, getDataUrl, hasCameraAccess } = useCamera();
   const userConsentedRef = useRef(false);
   const isMeetingActive = useRef(false);
@@ -159,17 +170,8 @@ const JitsyMeeting: React.FC<Props> = ({
 
     setTimeout(() => {
       if (hasCameraAccess && isMeetingActive && isStudent) {
-        toast(
-          <JitsyMeetingMessage
-            message={t("ConsultationPage.AdditionalRecording")}
-            closeToast={toast.dismiss}
-            userConsentedRef={userConsentedRef}
-          />,
-          {
-            position: "top-center",
-            autoClose: false,
-          }
-        );
+        console.log("Show modal");
+        setShowModal(true);
       }
     }, 5000);
 
@@ -200,6 +202,21 @@ const JitsyMeeting: React.FC<Props> = ({
           }}
         />
       )}
+      <StyledModal
+        onClose={() => setShowModal(false)}
+        visible={showModal}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+        width={468}
+        closable={false}
+      >
+        <JitsyMeetingMessage
+          message={t("ConsultationPage.AdditionalRecording")}
+          closeToast={() => setShowModal(false)}
+          userConsentedRef={userConsentedRef}
+        />
+      </StyledModal>
     </>
   );
 };

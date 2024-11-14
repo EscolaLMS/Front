@@ -25,7 +25,9 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
           <IconText
             icon={<IconSuccess />}
             text={t("Confirm")}
-            onClick={() => approveConsultationTerm(consultation_term_id)}
+            onClick={() =>
+              approveConsultationTerm(consultation_term_id, consultation.date)
+            }
           />
         ),
       },
@@ -35,12 +37,20 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
           <IconText
             icon={<IconCircleError />}
             text={t("Cancel")}
-            onClick={() => rejectConsultationTerm(consultation_term_id)}
+            onClick={() =>
+              rejectConsultationTerm(consultation_term_id, consultation.date)
+            }
           />
         ),
       },
     ],
-    [approveConsultationTerm, consultation_term_id, rejectConsultationTerm, t]
+    [
+      approveConsultationTerm,
+      consultation_term_id,
+      rejectConsultationTerm,
+      t,
+      consultation.date,
+    ]
   );
 
   return (

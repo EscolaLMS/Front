@@ -11,7 +11,7 @@ export const API_URL =
   window.VITE_APP_API_URL || import.meta.env.VITE_APP_PUBLIC_API_URL || null;
 
 export const APP_URL =
-  window.VITE_APP_URL || import.meta.env.VITE_APP_PUBLIC_URL || null;
+  window.VITE_APP_URL || import.meta.env.VITE_APP_URL || null;
 
 export const VITE_APP_FIREBASE_VAPID_KEY =
   window.VITE_APP_FIREBASE_VAPID_KEY ||

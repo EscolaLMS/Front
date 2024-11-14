@@ -7,7 +7,7 @@ const ConsultationTutorCardContentUserInfoStyles = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 65px;
-
+  margin-bottom: 5px;
   .text {
     margin: 0;
     font-size: 14px;
@@ -19,15 +19,19 @@ interface Props {
 }
 
 const ConsultationTutorCardContentUserInfo = ({ consultation }: Props) => {
-  const { first_name, last_name, email, phone } = consultation.user;
-
   return (
     <ConsultationTutorCardContentUserInfoStyles>
-      <Text className="text">
-        {first_name} {last_name}
-      </Text>
-      <Text className="text">{email}</Text>
-      <Text className="text">{phone}</Text>
+      {/* @ts-ignore add to sdk TODO: */}
+      {consultation.users.map((user) => (
+        <div key={user.id}>
+          <Text className="text">
+            {user.first_name} {user.last_name}
+          </Text>
+          <Text className="text">{user.email}</Text>
+          <Text className="text">{user.phone}</Text>
+          <hr />
+        </div>
+      ))}
     </ConsultationTutorCardContentUserInfoStyles>
   );
 };
