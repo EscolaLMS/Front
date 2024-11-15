@@ -5,11 +5,13 @@ import ConsultationMeetModal from "@/components/Consultations/ConsultationCard/M
 
 interface Props {
   consultationTermId: number;
+  term: string;
   consultationId?: number;
 }
 
 const ConsultationCardJoinButton = ({
   consultationTermId,
+  term,
   consultationId,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +27,7 @@ const ConsultationCardJoinButton = ({
         onClose={() => setShowModal(false)}
         consultationTermId={consultationTermId}
         consultationId={consultationId}
+        term={term}
       />
     </>
   );

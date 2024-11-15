@@ -30,7 +30,7 @@ declare global {
 
 type Props = {
   jitsyData: Omit<API.JitsyData, "yt_url" | "yt_stream_url" | "yt_stream_key">; // or API.JitsyData but yt_stream in this type should be optional
-
+  term: string;
   consultationTermId: number;
   consultationId?: number;
   close?: () => void;
@@ -38,6 +38,7 @@ type Props = {
 
 const JitsyMeeting: React.FC<Props> = ({
   jitsyData,
+  term,
   consultationTermId,
   consultationId,
   close,
@@ -88,6 +89,7 @@ const JitsyMeeting: React.FC<Props> = ({
                   consultationTermId,
                   jitsyData.data.userInfo.email,
                   dataUrl,
+                  term,
                   `${currentUser.displayName}.png`
                 );
               } else {

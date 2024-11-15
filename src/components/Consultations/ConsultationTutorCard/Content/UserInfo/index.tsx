@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { API } from "@escolalms/sdk/lib";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { IconCircleError, IconSuccess } from "@/icons/index";
+import IconText from "@escolalms/components/lib/components/atoms/IconText/IconText";
+import { useContext } from "react";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { useTranslation } from "react-i18next";
 
 const ConsultationTutorCardContentUserInfoStyles = styled.div`
   display: flex;
@@ -14,14 +19,27 @@ const ConsultationTutorCardContentUserInfoStyles = styled.div`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  > * {
+    cursor: pointer;
+  }
+`;
+
 interface Props {
   consultation: API.AppointmentTerm;
 }
 
 const ConsultationTutorCardContentUserInfo = ({ consultation }: Props) => {
+  const { approveConsultationTerm, rejectConsultationTerm } =
+    useContext(EscolaLMSContext);
+  const { t } = useTranslation();
+  console.log(consultation);
+
   return (
     <ConsultationTutorCardContentUserInfoStyles>
-      {/* @ts-ignore add to sdk TODO: */}
       {consultation.users.map((user) => (
         <div key={user.id}>
           <Text className="text">
@@ -29,6 +47,31 @@ const ConsultationTutorCardContentUserInfo = ({ consultation }: Props) => {
           </Text>
           <Text className="text">{user.email}</Text>
           <Text className="text">{user.phone}</Text>
+
+          <ButtonWrapper>
+            <IconText
+              icon={<IconSuccess />}
+              text={t("Confirm")}
+              onClick={() =>
+                approveConsultationTerm(
+                  consultation.consultation_term_id,
+                  consultation.date,
+                  user.id
+                )
+              }
+            />
+            <IconText
+              icon={<IconCircleError />}
+              text={t("Cancel")}
+              onClick={() =>
+                rejectConsultationTerm(
+                  consultation.consultation_term_id,
+                  consultation.date,
+                  user.id
+                )
+              }
+            />
+          </ButtonWrapper>
           <hr />
         </div>
       ))}

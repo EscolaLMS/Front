@@ -12,6 +12,7 @@ interface Props {
   onClose: () => void;
   visible: boolean;
   consultationTermId: number;
+  term: string;
   consultationId?: number;
 }
 
@@ -19,16 +20,19 @@ const ConsultationMeetModal = ({
   onClose,
   visible,
   consultationId,
+  term,
   consultationTermId,
 }: Props) => {
   const [meetData, setMeetData] = useState<JitsyData | null>(null);
   const [loading, setLoading] = useState(false);
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
 
+  console.log(term);
+
   useEffect(() => {
     const getMeetUrl = async () => {
       setLoading(true);
-      const res = await generateConsultationJitsy(consultationTermId);
+      const res = await generateConsultationJitsy(consultationTermId, term);
 
       if (res.success) {
         setMeetData((res as { data: JitsyData }).data);
@@ -68,6 +72,7 @@ const ConsultationMeetModal = ({
             close={onClose}
             consultationId={consultationId}
             consultationTermId={consultationTermId}
+            term={term}
           />
         )}
       </ConsultationMeetModalStyles>

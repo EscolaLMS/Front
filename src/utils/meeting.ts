@@ -23,6 +23,7 @@ export const saveImage = (
   consultationTermId: number,
   userEmail: string,
   dataURL: string,
+  term: string,
   name: string = "aaa.png"
 ) => {
   fetch(dataURL)
@@ -37,7 +38,7 @@ export const saveImage = (
       data.append("user_email", userEmail);
       data.append("timestamp", formatDate(new Date()));
 
-      fetch(`${API_URL}/api/consultations/save-screen`, {
+      fetch(`${API_URL}/api/consultations/save-screen?executed_at=${term}`, {
         method: "POST",
         body: data,
       })
