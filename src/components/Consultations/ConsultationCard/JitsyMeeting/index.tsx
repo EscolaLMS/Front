@@ -110,7 +110,7 @@ const JitsyMeeting: React.FC<Props> = ({
         }
       }
     },
-    [consultationId, consultationTermId, jitsyData.data.userInfo.email]
+    [consultationId, consultationTermId, jitsyData.data.userInfo.email, term]
   );
 
   const onApiReady = useCallback(
