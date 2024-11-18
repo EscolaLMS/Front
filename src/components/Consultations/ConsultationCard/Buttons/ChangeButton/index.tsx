@@ -4,9 +4,15 @@ import { Button } from "@escolalms/components/lib/components/atoms/Button/Button
 
 interface Props {
   showBookTerm: (value: boolean) => void;
+  inComing: boolean;
+  isApproved: boolean;
 }
 
-const ConsultationCardChangeButton = ({ showBookTerm }: Props) => {
+const ConsultationCardChangeButton = ({
+  showBookTerm,
+  inComing,
+  isApproved,
+}: Props) => {
   const { t } = useTranslation();
 
   const onClick = useCallback(() => {
@@ -15,7 +21,9 @@ const ConsultationCardChangeButton = ({ showBookTerm }: Props) => {
 
   return (
     <Button mode="secondary" onClick={onClick}>
-      {t("ConsultationPage.ChangeTerm")}
+      {inComing && isApproved
+        ? t("ConsultationPage.ChangeTerm")
+        : t("ConsultationPage.Book")}
     </Button>
   );
 };

@@ -62,6 +62,9 @@ const ConsultationTutorCardContentDateInfo = ({ consultation }: Props) => {
               <ConsultationTutorCardContentDateInfoButtonsStyles>
                 <ConsultationCardJoinButton
                   consultationTermId={consultation.consultation_term_id}
+                  // @ts-ignore
+                  consultationId={consultation.consultation_id}
+                  term={consultation.date}
                 />
               </ConsultationTutorCardContentDateInfoButtonsStyles>
             ) : (

@@ -18,6 +18,7 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
   const inComing = consultation.in_coming;
   const isReported = consultation.executed_status === "reported";
   const isNotReported = consultation.executed_status === "not_reported";
+  const isApproved = consultation.executed_status === "approved";
 
   if (isReported) {
     return null;
@@ -34,12 +35,15 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
       <ConsultationCardJoinButton
         consultationTermId={consultation.consultation_term_id}
         consultationId={consultation.id}
+        term={String(consultation.executed_at)}
       />
     );
   }
   if (inComing) {
     return (
       <ConsultationCardChangeButton
+        inComing={inComing}
+        isApproved={isApproved}
         showBookTerm={(value) => showBookTerm(value)}
       />
     );

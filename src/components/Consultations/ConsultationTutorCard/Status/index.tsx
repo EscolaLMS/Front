@@ -47,6 +47,7 @@ const ConsultationTutorCardStatus = ({ consultation }: Props) => {
           status={StatusTypes.WAITING}
           name={t("ConsultationStatus.Unconfirmed")}
         />
+
         <ConsultationTutorCardButtons consultation={consultation} />
       </ConsultationTutorCardStatusStyles>
     );
