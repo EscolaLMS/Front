@@ -437,14 +437,14 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz#acad351d582d157bb145535db2a6ff53dd514b5c"
   integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
-"@escolalms/components@^0.0.147":
-  version "0.0.147"
-  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.147.tgz#f4d83ddbce67e1416a224ccd87e2f2729b51745b"
-  integrity sha512-SXGqZTSjuPq/bTMvqgRBqCQxNsJVt192Qc620mx8eS8KkMgA84lRNZ5MUBSycRFcbiPFKZphOVpk1J3JwUH5iQ==
+"@escolalms/components@^0.0.156":
+  version "0.0.156"
+  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.156.tgz#26d4866bf92c6a8ea7d43f713b9da8a32322e0ac"
+  integrity sha512-hiD6ggsWHYKiWsoYBLvzDIVYfRA+tdDvqo3rDccpoLmqJgu5aO1gPhWKRjyRIkPTE6UB/vBdGhF/5pwOoeFPrQ==
   dependencies:
     "@escolalms/h5p-react" "^0.2.19"
-    "@escolalms/sdk" "^0.5.21"
-    chroma-js "^2.4.2"
+    "@escolalms/sdk" "^0.6.2"
+    chroma-js "^3.1.2"
     date-fns "^2.28.0"
     formik "^2.2.9"
     i18next "^21.6.16"
@@ -493,10 +493,10 @@
     react-dom "^17||^18"
     typescript "^4.1.2"
 
-"@escolalms/sdk@0.5.35", "@escolalms/sdk@^0.5.21":
-  version "0.5.35"
-  resolved "https://registry.yarnpkg.com/@escolalms/sdk/-/sdk-0.5.35.tgz#36e67acf7488b5d2423f1b0bbabbe67895d44cfd"
-  integrity sha512-5W6xjsV41onuNSuhJpM/LFAR9DIozvD91RXRkdDYWVXl7iPWDNpbvHegWd8szNcDMGFFYYY6EdFqkJkOIbodOg==
+"@escolalms/sdk@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@escolalms/sdk/-/sdk-0.6.2.tgz#a0fc109056fb2e7fc8d9206431908ffa69edd842"
+  integrity sha512-C6zHEGup+pAnHBwuPidAIpsdIuq2Y/iwobBiX/6v4qP1qYbtTO7oz12oCnf1Z4OfBJvkEJ7O3kL7F+UxntPHQA==
   dependencies:
     "@escolalms/ts-models" "^0.0.35"
     jssha "^3.2.0"
@@ -2782,10 +2782,10 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
-chroma-js@^2.4.2:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.6.0.tgz#578743dd359698a75067a19fa5571dec54d0b70b"
-  integrity sha512-BLHvCB9s8Z1EV4ethr6xnkl/P2YRFOGqfgvuMG/MyCbZPrTA+NeiByY6XvgF0zP4/2deU2CXnWyMa3zu1LqQ3A==
+chroma-js@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-3.1.2.tgz#cfb807045182228574eae5380587cdb830e985d6"
+  integrity sha512-IJnETTalXbsLx1eKEgx19d5L6SRM7cH4vINw/99p/M11HCuXGRWL+6YmCm7FWFGIo6dtWuQoQi1dc5yQ7ESIHg==
 
 ci-info@^3.2.0:
   version "3.9.0"
@@ -3130,9 +3130,9 @@ cross-fetch@^3.1.5:
     node-fetch "^2.6.12"
 
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
-  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.5.tgz#910aac880ff5243da96b728bc6521a5f6c2f2f82"
+  integrity sha512-ZVJrKKYunU38/76t0RMOulHOnUcbU9GbpWKAOZ0mhjr7CX6FVrH+4FrAapSOekrgFQ3f/8gwMEuIft0aKq6Hug==
   dependencies:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
