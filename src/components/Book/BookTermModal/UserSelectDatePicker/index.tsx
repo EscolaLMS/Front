@@ -28,7 +28,6 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const inComing = consultation.in_coming;
   const isApproved = consultation.executed_status === "approved";
   const isRejected = consultation.executed_status === "reject";
-  console.log("user", user.value?.id);
 
   const onChange = (date: Date) => {
     setSelectedDay(date);

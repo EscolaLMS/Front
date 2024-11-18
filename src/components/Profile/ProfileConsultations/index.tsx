@@ -63,7 +63,6 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
           </Text>
         ) : (
           <>
-            {console.log("dawd")}
             {consultationsData.map((consultation) => (
               <Col key={consultation.id} xs={12} md={6} lg={3}>
                 <ConsultationCard consultation={consultation} />

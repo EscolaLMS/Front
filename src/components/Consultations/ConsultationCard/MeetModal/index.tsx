@@ -27,8 +27,6 @@ const ConsultationMeetModal = ({
   const [loading, setLoading] = useState(false);
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
 
-  console.log(term);
-
   useEffect(() => {
     const getMeetUrl = async () => {
       setLoading(true);
