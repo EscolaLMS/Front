@@ -17,13 +17,18 @@ interface Props {
 
 const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const [selectedDate, setSelectedDay] = useState<Date | null>(null);
-  const { bookConsultationTerm } = useContext(EscolaLMSContext);
+  const { bookConsultationTerm, changeConsultationTerm } =
+    useContext(EscolaLMSContext);
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
+  const { fetchUserConsultations, user } = useContext(EscolaLMSContext);
   const { setShowBookTermSuccess } = useContext(ProfileConsultationsContext);
   const { t } = useTranslation();
+
   const inComing = consultation.in_coming;
   const isApproved = consultation.executed_status === "approved";
+  const isRejected = consultation.executed_status === "reject";
+  console.log("user", user.value?.id);
 
   const onChange = (date: Date) => {
     setSelectedDay(date);
@@ -38,20 +43,40 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const onClick = useCallback(async () => {
     if (consultation.consultation_term_id && selectedDate) {
       setLoading(true);
-      const response = await bookConsultationTerm(
-        consultation.consultation_term_id,
-        selectedDate.toISOString()
-      );
-      if (response.success) {
+
+      try {
+        if ((inComing && isApproved) || isRejected) {
+          await changeConsultationTerm(
+            consultation.consultation_term_id,
+            selectedDate.toISOString(),
+            consultation.executed_at || "",
+            user.value?.id
+          );
+        } else {
+          await bookConsultationTerm(
+            consultation.consultation_term_id,
+            selectedDate.toISOString()
+          );
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        fetchUserConsultations();
         close();
+        setLoading(false);
       }
-      setLoading(false);
     }
   }, [
-    consultation.consultation_term_id,
     selectedDate,
     bookConsultationTerm,
+    changeConsultationTerm,
+    inComing,
+    isApproved,
+    isRejected,
     close,
+    consultation,
+    fetchUserConsultations,
+    user.value?.id,
   ]);
 
   if (step === 2) {

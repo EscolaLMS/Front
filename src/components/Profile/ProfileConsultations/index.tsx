@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useMemo } from "react";
+import { memo, useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { isMobile } from "react-device-detect";
 import { Col, Row } from "react-grid-system";
@@ -8,6 +8,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import ConsultationCard from "@/components/Consultations/ConsultationCard";
 import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
+import { API } from "@escolalms/sdk/lib";
 
 interface ProfileConsultationsProps {
   type: ConsultationStatus;
@@ -17,7 +18,11 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   const { userConsultations, fetchUserConsultations } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const consultationsData = useMemo(
+  const [consultationsData, setConsultationsData] = useState<
+    API.Consultation[]
+  >([]);
+
+  const filterConstulations = useMemo(
     () =>
       userConsultations.list?.data.filter((consultation) =>
         type === ConsultationStatus.STARTED ||
@@ -31,6 +36,13 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   useEffect(() => {
     fetchUserConsultations();
   }, [type, fetchUserConsultations]);
+
+  useEffect(() => {
+    setConsultationsData(filterConstulations);
+    return () => {
+      setConsultationsData([]);
+    };
+  }, [filterConstulations]);
 
   return (
     <ProfileConsultationsProvider>
@@ -51,6 +63,7 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
           </Text>
         ) : (
           <>
+            {console.log("dawd")}
             {consultationsData.map((consultation) => (
               <Col key={consultation.id} xs={12} md={6} lg={3}>
                 <ConsultationCard consultation={consultation} />
