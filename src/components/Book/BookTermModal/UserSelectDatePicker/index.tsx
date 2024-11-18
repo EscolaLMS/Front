@@ -7,6 +7,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import ModalTitle from "@/components/Common/StyledTitle/ModalTitle";
 import SelectedTermContent from "../SelectedTermContent";
 import { ProfileConsultationsContext } from "@/components/Profile/ProfileConsultations/ProfileConsultationsProvider";
+import { toast } from "@/utils/toast";
 
 interface Props {
   consultation: API.Consultation & {
@@ -59,6 +60,8 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
         }
       } catch (e) {
         console.log(e);
+        toast(`${t("UnexpectedError")}`, "error");
+        close();
       } finally {
         fetchUserConsultations();
         close();
@@ -76,6 +79,7 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
     consultation,
     fetchUserConsultations,
     user.value?.id,
+    t,
   ]);
 
   if (step === 2) {
