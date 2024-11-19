@@ -18,6 +18,7 @@ const usePayment = () => {
     subscriptionPayWithP24,
     courses,
     realizeVoucher,
+    resetCart,
   } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
@@ -43,14 +44,16 @@ const usePayment = () => {
           `${APP_URL}/#/cart?status=success`
         );
         setProcessing(false);
+
         push("/cart?status=success");
+        resetCart();
       } catch (error) {
         toast(`${t("UnexpectedError")}`, "error");
         setProcessing(false);
         console.error(error);
       }
     },
-    [payWithStripe, push, t, user.value?.email]
+    [payWithStripe, push, t, user.value?.email, resetCart]
   );
 
   const payByP24 = useCallback(
@@ -72,7 +75,9 @@ const usePayment = () => {
           setProcessing(false);
           return;
         }
+
         setProcessing(false);
+        resetCart();
         // @ts-ignore
         window.open(request.data.redirect_url);
       } catch (error) {
@@ -81,7 +86,7 @@ const usePayment = () => {
         console.error(error);
       }
     },
-    [payWithP24, t, user.value?.email]
+    [payWithP24, t, user.value?.email, resetCart]
   );
 
   const buySubscriptionByP24 = useCallback(
@@ -105,13 +110,15 @@ const usePayment = () => {
           setProcessing(false);
           return;
         }
+
         setProcessing(false); // @ts-ignore
         window.open(request.data.redirect_url);
+        resetCart();
       } catch (error) {
         toast(`${t("UnexpectedError")}`, "error");
       }
     },
-    [t, subscriptionPayWithP24, user.value?.email]
+    [t, subscriptionPayWithP24, user.value?.email, resetCart]
   );
 
   return {
