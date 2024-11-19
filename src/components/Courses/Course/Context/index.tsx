@@ -17,7 +17,6 @@ import {
   getLessonParentsIds,
   getPrevNextTopic,
 } from "@/utils/course";
-import { deprecate } from "util";
 
 export type CourseParams = Record<
   "id" | "lessonID" | "topicID" | string,
