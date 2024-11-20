@@ -172,7 +172,6 @@ const JitsyMeeting: React.FC<Props> = ({
 
     setTimeout(() => {
       if (hasCameraAccess && isMeetingActive && isStudent) {
-        console.log("Show modal");
         setShowModal(true);
       }
     }, 5000);

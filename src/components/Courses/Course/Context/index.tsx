@@ -80,7 +80,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     topicID: paramTopicId,
   } = useParams<CourseParams>();
   const history = useHistory();
-  console.log("courseId: ", courseId);
+
   const currentCourseProgress = courseProgressDetails.byId?.[courseId];
   // console.log('currentCourseProgress: ', currentCourseProgress);
 
@@ -271,30 +271,7 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
         !currentTopic.can_skip
     );
   }, [currentTopic?.can_skip, currentTopic?.topicable_type]);
-  console.log("paramTopicId: ", paramTopicId);
-  // useEffect(() => {
-  //   // First time open course panel
-  //   if (program.value && Number(courseId) === program.value.id) {
-  //     if (paramTopicId === UnknownTopicId) {
-  //       if (availableTopicsIds.length > 0) {
-  //         history.push(`/course/${courseId}/${availableTopicsIds[0]}`);
-  //       } else if (availableTopicsIds.length === 0) {
-  //         history.push(
-  //           `/course//${courseId}/${activeLessonsFlatTopics[0]?.id}`
-  //         );
-  //       }
-  //     }
-  //   }
-  // }, [
-  //   availableTopicsIds,
-  //   courseId,
-  //   history,
-  //   paramTopicId,
-  //   activeLessonsFlatTopics,
-  //   program.value,
-  // ]);
 
-  // NOTE: deprecated will be deleted in next iteration
   useEffect(() => {
     if (!paramTopicId || Number(paramTopicId) !== currentTopic?.id) {
       const firstAvailableTopicId =

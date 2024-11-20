@@ -285,8 +285,6 @@ const Navbar = () => {
     return cart?.value?.items?.length ?? 0;
   }, [cart]);
 
-  console.log({ displayCartItems }, cart);
-
   const menuItems = [
     {
       title: (

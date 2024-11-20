@@ -28,7 +28,7 @@ const usePayment = () => {
   const [discountStatus, setDiscountStatus] = useState<
     "granted" | "error" | undefined
     //@ts-ignore TODO: add additional_discount type to SDK types
-  >(cart.value.additional_discount > 0 ? "granted" : undefined);
+  >(cart?.value?.additional_discount > 0 ? "granted" : undefined);
 
   const payByStripe = useCallback(
     async (paymentMethodId: string) => {

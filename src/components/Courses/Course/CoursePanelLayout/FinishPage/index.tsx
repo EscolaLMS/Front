@@ -62,13 +62,9 @@ export const CoursePanelFinishPage = () => {
     }));
   }, []);
 
-  const handleModalChange = useCallback((value: boolean) => {
-    setState((prev) => ({ ...prev, showModal: value }));
-  }, []);
-
   const onNextClick = useCallback(() => {
     if (state.isAnyQuestionnaire) {
-      handleModalChange(true);
+      onFinish();
       return;
     }
     if (state.certificates && state.certificates.length > 0) {
@@ -76,13 +72,7 @@ export const CoursePanelFinishPage = () => {
       return;
     }
     history.push(routeRoutes.myProfile);
-  }, [
-    handleModalChange,
-    history,
-    onFinish,
-    state.certificates,
-    state.isAnyQuestionnaire,
-  ]);
+  }, [history, onFinish, state.certificates, state.isAnyQuestionnaire]);
 
   const onSuccesGetQuestionnaires = useCallback(
     (isAnyQuestionnaire: boolean) => {
@@ -106,8 +96,6 @@ export const CoursePanelFinishPage = () => {
         entityId={Number(courseId)}
         entityModel={QuestionnaireModelType.COURSE}
         showModal={state.showModal}
-        onClose={() => handleModalChange(false)}
-        onFinish={onFinish}
         onSuccesGetQuestionnaires={onSuccesGetQuestionnaires}
       />
     </CongratsWrapper>
