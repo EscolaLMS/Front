@@ -19,3 +19,5 @@ COPY entrypoint.sh /usr/local/bin/httpd-foreground
 ENTRYPOINT /usr/local/bin/httpd-foreground
 COPY --from=base /home/node/app/dist /var/www/html
 COPY config/php/index.php /var/www/html/index.php
+
+RUN a2enmod rewrite
