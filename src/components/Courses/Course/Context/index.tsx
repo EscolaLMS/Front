@@ -45,6 +45,7 @@ interface CourseContext {
 }
 
 const Context = React.createContext<CourseContext>({});
+export const UnknownTopicId = "-1";
 
 export const useCoursePanel = () => useContext(Context);
 
@@ -170,50 +171,78 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
     [currentCourseProgress]
   );
 
-  const availableTopicsIds = useMemo(() => {
+  const activeLessonsFlatTopics = useMemo(() => {
     const activeLessons = (currentCourseProgram?.lessons ?? []).filter(
       (l) =>
         l.active_from === null ||
         (l.active_from && isAfter(new Date(), new Date(l.active_from)))
     );
 
-    const activeLessonsFlatTopics = getFlatTopics(activeLessons);
+    return getFlatTopics(activeLessons);
+  }, [currentCourseProgram]);
 
-    const { incomplete, in_progress, complete } =
-      activeLessonsFlatTopics.reduce<{
-        in_progress: number[];
-        complete: number[];
-        incomplete: number[];
-      }>(
-        (acc, t) => {
-          const el = (currentCourseProgress?.value ?? []).find(
-            ({ topic_id }) => topic_id === t.id
-          );
-          if (!el) return acc;
+  const findClosestIncompleteTopicId = useCallback(
+    (topicId: number | undefined) => {
+      const topic = activeLessonsFlatTopics.find((t) => t.id === topicId);
+      if (!topic) return null;
 
-          const statusMap = {
-            [API.CourseProgressItemElementStatus.INCOMPLETE]: "incomplete",
-            [API.CourseProgressItemElementStatus.COMPLETE]: "complete",
-            [API.CourseProgressItemElementStatus.IN_PROGRESS]: "in_progress",
-          } as const;
+      const index = activeLessonsFlatTopics.indexOf(topic);
+      const nextTopic = activeLessonsFlatTopics[index + 1];
+      if (!nextTopic) return null;
 
-          return {
-            ...acc,
-            [statusMap[el.status]]: [...acc[statusMap[el.status]], t.id],
-          };
-        },
-        {
-          in_progress: [],
-          incomplete: [],
-          complete: [],
-        }
+      return nextTopic.id;
+    },
+    [activeLessonsFlatTopics]
+  );
+
+  const availableTopicsIds = useMemo(() => {
+    const { in_progress, complete } = activeLessonsFlatTopics.reduce<{
+      in_progress: number[];
+      complete: number[];
+      incomplete: number[];
+    }>(
+      (acc, t) => {
+        const el = (currentCourseProgress?.value ?? []).find(
+          ({ topic_id }) => topic_id === t.id
+        );
+        if (!el) return acc;
+
+        const statusMap = {
+          [API.CourseProgressItemElementStatus.INCOMPLETE]: "incomplete",
+          [API.CourseProgressItemElementStatus.COMPLETE]: "complete",
+          [API.CourseProgressItemElementStatus.IN_PROGRESS]: "in_progress",
+        } as const;
+
+        return {
+          ...acc,
+          [statusMap[el.status]]: [...acc[statusMap[el.status]], t.id],
+        };
+      },
+      {
+        in_progress: [],
+        incomplete: [],
+        complete: [],
+      }
+    );
+
+    const firstInCompletedLessonId = findClosestIncompleteTopicId(
+      currentTopic?.id
+    );
+
+    if (in_progress.length)
+      return [...in_progress, ...complete, firstInCompletedLessonId].filter(
+        (id): id is number => id !== null
       );
 
-    if (in_progress.length) return [...in_progress, ...complete];
-
-    const firstInCompletedLessonId = incomplete?.[0] ? [incomplete[0]] : [];
-    return [...complete, ...firstInCompletedLessonId];
-  }, [currentCourseProgram?.lessons, currentCourseProgress?.value]);
+    return [...complete, firstInCompletedLessonId].filter(
+      (id): id is number => id !== null
+    );
+  }, [
+    currentCourseProgress?.value,
+    currentTopic?.id,
+    findClosestIncompleteTopicId,
+    activeLessonsFlatTopics,
+  ]);
 
   const currentLessonParentsIds: number[] = useMemo(() => {
     if (!currentLesson) return [];

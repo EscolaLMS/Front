@@ -51,18 +51,25 @@ export const QuestionnairesModal = ({
 
   const { isStudent, isTutor } = useRoles();
 
-  const questionnaires = useMemo(
-    () =>
-      questionnairesList.filter((questionaire) =>
-        questionaire.models.some(
-          (model) =>
-            model.model_type_title === entityModel && // @ts-ignore add to sdk
-            ((isStudent && model.target_group === "user") || // @ts-ignore add to sdk
-              (isTutor && model.target_group === "author"))
-        )
-      ),
-    [questionnairesList, isStudent, isTutor, entityModel]
-  );
+  const questionnaires = useMemo(() => {
+    return questionnairesList.filter((questionnaire) =>
+      questionnaire.models.some((model) => {
+        if (model.model_type_title === entityModel) {
+          if (model.model_type_title === QuestionnaireModelType.CONSULTATION) {
+            // Additional filters for "consultation"
+            return (
+              // @ts-ignore add to sdk
+              (isStudent && model.target_group === "user") || // @ts-ignore add to sdk
+              (isTutor && model.target_group === "author")
+            );
+          }
+
+          return true;
+        }
+        return false;
+      })
+    );
+  }, [questionnairesList, isStudent, isTutor, entityModel]);
 
   const categorizedQuestionnaires = useCallback(() => {
     if (!questionnaires) return;

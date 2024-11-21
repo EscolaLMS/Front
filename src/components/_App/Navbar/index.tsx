@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -17,7 +17,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Common/Container";
-import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
@@ -261,11 +260,12 @@ const Navbar = () => {
     settings,
     logout,
     notifications,
+    cart,
   } = useContext(EscolaLMSContext);
   const user = userObj?.value;
   const history = useHistory();
   const theme = useTheme();
-  const { cart } = useCart();
+
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
@@ -280,6 +280,10 @@ const Navbar = () => {
       history.push(routeRoutes.onboarding);
     }
   }, [user, history, settings?.value?.onboarding?.isShown]);
+
+  const displayCartItems = useMemo(() => {
+    return cart?.value?.items?.length ?? 0;
+  }, [cart]);
 
   const menuItems = [
     {
@@ -369,13 +373,13 @@ const Navbar = () => {
                   type="button"
                   className="cart-icon cart"
                   onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  data-tooltip={String(cart?.value?.items.length)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
+                  {cart && (cart?.value?.items?.length ?? 0) > 0 ? (
+                    <span>{displayCartItems}</span>
                   ) : null}
                 </button>
               </div>
@@ -636,13 +640,13 @@ const Navbar = () => {
                   type="button"
                   className="cart-icon"
                   onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  data-tooltip={String(cart?.value?.items.length ?? 0)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
+                  {(cart?.value?.items?.length ?? 0) > 0 ? (
+                    <span>{displayCartItems}</span>
                   ) : null}
                 </button>
               </div>

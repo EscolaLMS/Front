@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ConsultationsContainerItem = ({ consultation }: Props) => {
-  return <ConsultationCard consultation={consultation} />;
+  return <ConsultationCard consultation={consultation} showPrice />;
 };
 
 export default ConsultationsContainerItem;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Layout from "@/components/_App/Layout";
@@ -13,7 +13,7 @@ import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";
 import PaymentForm from "@/components/Cart/PaymentForm";
-
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import {
   useStripe,
   useElements,
@@ -38,7 +38,6 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
     discountStatus,
     fetchCart,
     payByStripe,
-    removeFromCart,
     courses,
     cart,
     location,
@@ -46,6 +45,8 @@ const StripeContent = ({ stripeKey }: { stripeKey: string }) => {
     push,
     setDiscountStatus,
   } = usePayment();
+
+  const { removeFromCart } = useContext(EscolaLMSContext);
 
   const { t } = useTranslation();
 
