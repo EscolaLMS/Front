@@ -307,10 +307,10 @@ const Navbar = () => {
       key: "menu-2",
     },
     {
-      title: settings?.value?.config?.termsPage && (
-        <Link to={`/${settings?.value?.config?.termsPage}`}>
+      title: (
+        <Link to={routeRoutes.courses}>
           <Text noMargin bold>
-            {t("Terms")}
+            {t("Menu.Consultations")}
           </Text>
         </Link>
       ),
@@ -325,6 +325,16 @@ const Navbar = () => {
         </Link>
       ),
       key: "menu-4",
+    },
+    {
+      title: settings?.value?.config?.termsPage && (
+        <Link to={`/${settings?.value?.config?.termsPage}`}>
+          <Text noMargin bold>
+            {t("Terms")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-5",
     },
 
     {
@@ -450,6 +460,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to={routeRoutes.myConsultations}>
+                  {t("MyProfilePage.MyConsultations")}
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to={routeRoutes.myCertificates}>
                   {t("Navbar.MyCertificates")}
                 </NavLink>
@@ -468,7 +483,6 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </>
-
               <li>
                 <NavLink to={routeRoutes.myData}>
                   {t("Navbar.EditProfile")}
