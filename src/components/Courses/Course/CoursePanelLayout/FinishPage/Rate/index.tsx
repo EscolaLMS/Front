@@ -241,8 +241,6 @@ export const QuestionnairesModal = ({
     return () => clearInterval(intervalId);
   }, [state.reShowableQuestionnaires, entityModel, runDisplayInterval]);
 
-  console.log("questionnarremodal", state);
-
   return (
     <>
       {state.show && entityId && !!questionnaires.length && !loading && (
