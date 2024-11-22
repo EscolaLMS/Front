@@ -210,7 +210,6 @@ const JitsyMeeting: React.FC<Props> = ({
         maskAnimation="fade"
         destroyOnClose={true}
         width={468}
-        closable={false}
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}

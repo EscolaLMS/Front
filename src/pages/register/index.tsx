@@ -20,8 +20,8 @@ import routeRoutes from "@/components/Routes/routes";
 import { EmailActivationImg } from "@/icons/index";
 import { APP_URL } from "@/config/index";
 import { redirectPrefix } from "@/utils/router";
-import { Capacitor } from "@capacitor/core";
 import { isMobilePlatform } from "@/utils/index";
+import { metaDataKeys } from "@/utils/meta";
 
 const StyledRegisterPage = styled.div`
   padding-top: 100px;
@@ -123,7 +123,8 @@ const RegisterPage = () => {
   const token = search.split("?token=")[1];
   const { t } = useTranslation();
 
-  const footerFromApi: string = settings?.value?.config?.registerWarning;
+  const footerFromApi: string =
+    settings?.value?.config?.[metaDataKeys.registerWarningMetaKey];
 
   const fieldLabels = {
     "AdditionalFields.Privacy Policy": (

@@ -22,27 +22,32 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     API.Consultation[]
   >([]);
 
-  const filterConstulations = useMemo(
-    () =>
+  const filterConstulations = useMemo(() => {
+    const filtered =
       userConsultations.list?.data.filter((consultation) =>
         type === ConsultationStatus.STARTED ||
         type === ConsultationStatus.UPCOMING
           ? consultation.in_coming || consultation.is_started
           : consultation.is_ended
-      ) || [],
-    [type, userConsultations.list?.data]
-  );
+      ) || [];
+    const uniqueConsultations = Array.from(
+      new Map(filtered.map((item) => [item.id, item])).values()
+    );
+
+    return uniqueConsultations;
+  }, [type, userConsultations.list?.data]);
 
   useEffect(() => {
     fetchUserConsultations();
   }, [type, fetchUserConsultations]);
 
   useEffect(() => {
+    setConsultationsData([]);
     setConsultationsData(filterConstulations);
     return () => {
       setConsultationsData([]);
     };
-  }, [filterConstulations]);
+  }, [type, filterConstulations]);
 
   return (
     <ProfileConsultationsProvider>

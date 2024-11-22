@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import RateCourse from "@/components/Courses/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
-
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useQuestionnaires } from "@/hooks/questionnaires";
 import { API } from "@escolalms/sdk/lib";
 import { useRoles } from "@/hooks/useRoles";
+import { metaDataKeys } from "@/utils/meta";
 
 interface Props {
   entityModel: QuestionnaireModelType;
@@ -18,7 +19,6 @@ interface Props {
 export const QuestionnairesModal = ({
   entityId,
   entityModel,
-  onFinish,
   onSuccesGetQuestionnaires,
 }: Props) => {
   const {
@@ -30,6 +30,9 @@ export const QuestionnairesModal = ({
     entityId: entityId || 0,
     entityModel: entityModel,
   });
+  const { settings } = useContext(EscolaLMSContext);
+  const questionnaireFirstime =
+    settings?.value?.config[metaDataKeys.questionnaireFirstTimeMetaKey];
 
   interface StateType {
     show: boolean;
@@ -38,6 +41,7 @@ export const QuestionnairesModal = ({
     firstVisit: boolean;
     firstTimeQuestionnaires: API.Questionnaire[];
     reShowableQuestionnaires: API.Questionnaire[];
+    endTimeQuestionnaires: API.Questionnaire[];
   }
 
   const [state, setState] = useState<StateType>({
@@ -47,6 +51,7 @@ export const QuestionnairesModal = ({
     firstVisit: true,
     firstTimeQuestionnaires: [],
     reShowableQuestionnaires: [],
+    endTimeQuestionnaires: [],
   });
 
   const { isStudent, isTutor } = useRoles();
@@ -87,7 +92,7 @@ export const QuestionnairesModal = ({
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (questionnaireFrequency === 0 || !questionnaireFrequency) {
+        if (questionnaireFrequency === 0) {
           acc.firstTimeQuestionnaires.push(questionnaire);
         } else {
           acc.reShowableQuestionnaires.push(questionnaire);
@@ -217,18 +222,31 @@ export const QuestionnairesModal = ({
   }, [entityId]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (questionnaires.length && state.firstVisit) {
-      setState((prevState) => ({
-        ...prevState,
-        show: true,
-      }));
+      if (questionnaireFirstime) {
+        timer = setTimeout(() => {
+          setState((prevState) => ({
+            ...prevState,
+            show: true,
+          }));
+        }, questionnaireFirstime * 60 * 1000);
+      } else {
+        setState((prevState) => ({
+          ...prevState,
+          show: true,
+        }));
+      }
     }
     if (!!questionnaires.length) {
       onSuccesGetQuestionnaires && onSuccesGetQuestionnaires(true);
     }
     categorizedQuestionnaires();
-    return () => {};
+    return () => {
+      clearTimeout(timer);
+    };
   }, [
+    questionnaireFirstime,
     questionnaires,
     onSuccesGetQuestionnaires,
     state.firstVisit,
@@ -250,7 +268,6 @@ export const QuestionnairesModal = ({
           visible={state.show}
           onClose={handleClose}
           questionnaire={questionnaires[state.step]}
-          onFinish={onFinish}
         />
       )}
     </>

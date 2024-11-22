@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import DatePicker from "@/components/Common/DatePicker";
@@ -8,6 +8,7 @@ import ModalTitle from "@/components/Common/StyledTitle/ModalTitle";
 import SelectedTermContent from "../SelectedTermContent";
 import { ProfileConsultationsContext } from "@/components/Profile/ProfileConsultations/ProfileConsultationsProvider";
 import { toast } from "@/utils/toast";
+import { setHours, setMinutes, isSameDay } from "date-fns";
 
 interface Props {
   consultation: API.Consultation & {
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
-  const [selectedDate, setSelectedDay] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDay] = useState<Date | null>(new Date());
   const { bookConsultationTerm, changeConsultationTerm } =
     useContext(EscolaLMSContext);
   const [loading, setLoading] = useState(false);
@@ -30,9 +31,19 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const isApproved = consultation.executed_status === "approved";
   const isRejected = consultation.executed_status === "reject";
 
-  const onChange = (date: Date) => {
-    setSelectedDay(date);
+  const onChange = (date: Date | null) => {
+    date && setSelectedDay(date);
   };
+
+  const minHours = useMemo(() => {
+    const now = new Date();
+
+    if (selectedDate && isSameDay(selectedDate, now)) {
+      return now;
+    } else {
+      return setHours(setMinutes(new Date(), 0), 0);
+    }
+  }, [selectedDate]);
 
   const close = useCallback(() => {
     setShowBookTermSuccess(true);
@@ -100,6 +111,8 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
         onChange={onChange}
         selectedDate={selectedDate}
         minDate={new Date()}
+        minTime={minHours}
+        maxTime={setHours(setMinutes(new Date(), 59), 23)}
         showTimeInput
         timeInputLabel={`${t("Time")}: `}
       />

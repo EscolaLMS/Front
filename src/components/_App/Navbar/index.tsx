@@ -26,6 +26,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import { isMobilePlatform } from "@/utils/index";
+import { metaDataKeys } from "@/utils/meta";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -307,10 +308,10 @@ const Navbar = () => {
       key: "menu-2",
     },
     {
-      title: settings?.value?.config?.termsPage && (
-        <Link to={`/${settings?.value?.config?.termsPage}`}>
+      title: (
+        <Link to={routeRoutes.courses}>
           <Text noMargin bold>
-            {t("Terms")}
+            {t("Menu.Consultations")}
           </Text>
         </Link>
       ),
@@ -325,6 +326,18 @@ const Navbar = () => {
         </Link>
       ),
       key: "menu-4",
+    },
+    {
+      title: settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
+        <Link
+          to={`/${settings?.value?.config?.[metaDataKeys.termsPageMetaKey]}`}
+        >
+          <Text noMargin bold>
+            {t("Terms")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-5",
     },
 
     {
@@ -450,6 +463,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to={routeRoutes.myConsultations}>
+                  {t("MyProfilePage.MyConsultations")}
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to={routeRoutes.myCertificates}>
                   {t("Navbar.MyCertificates")}
                 </NavLink>
@@ -468,15 +486,18 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </>
-
               <li>
                 <NavLink to={routeRoutes.myData}>
                   {t("Navbar.EditProfile")}
                 </NavLink>
               </li>
-              {settings?.value?.config?.termsPage && (
+              {settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
                 <li>
-                  <NavLink to={`/${settings?.value?.config?.termsPage}`}>
+                  <NavLink
+                    to={`/${
+                      settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                    }`}
+                  >
                     {t("Terms")}
                   </NavLink>
                 </li>
@@ -570,7 +591,9 @@ const Navbar = () => {
                 {
                   id: 5,
                   content: t("Terms"),
-                  redirect: `/${settings?.value?.config?.termsPage}`,
+                  redirect: `/${
+                    settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                  }`,
                 },
                 // {
                 //   id: 3,

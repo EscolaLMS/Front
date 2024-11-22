@@ -75,11 +75,15 @@ const CartSuccess = () => {
             <Text size="16" className="cart-success-text">
               {t("Cart.ThankYouText")}
             </Text>
+          </div>
+          <div>
             <Link to={routeRoutes.myProfile}>
               <Text size="16">{t("Navbar.MyCourses")}</Text>
             </Link>
+            <Link to={routeRoutes.myConsultations}>
+              <Text size="16">{t("Navbar.MyConsultations")}</Text>
+            </Link>
           </div>
-
           <div>
             <Text size="16">{t("Cart.Status")}</Text>{" "}
             <Link to={routeRoutes.myOrders}>
