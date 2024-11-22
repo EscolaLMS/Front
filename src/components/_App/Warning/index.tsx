@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
 import { Note } from "@escolalms/components/lib/components/atoms/Note/Note";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { metaDataKeys } from "@/utils/meta";
 
 const StyledAside = styled.aside`
   position: fixed;
@@ -34,7 +35,8 @@ const Warning = () => {
 
   const { t } = useTranslation();
 
-  const footerFromApi: string = settings?.value?.config?.footerWarning;
+  const footerFromApi: string =
+    settings?.value?.config?.[metaDataKeys.footerWarningMetaKey];
 
   const handleClick = () => {
     localStorage.setItem("hideWarning", "true");

@@ -26,6 +26,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import { isMobilePlatform } from "@/utils/index";
+import { metaDataKeys } from "@/utils/meta";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -327,8 +328,10 @@ const Navbar = () => {
       key: "menu-4",
     },
     {
-      title: settings?.value?.config?.termsPage && (
-        <Link to={`/${settings?.value?.config?.termsPage}`}>
+      title: settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
+        <Link
+          to={`/${settings?.value?.config?.[metaDataKeys.termsPageMetaKey]}`}
+        >
           <Text noMargin bold>
             {t("Terms")}
           </Text>
@@ -488,9 +491,13 @@ const Navbar = () => {
                   {t("Navbar.EditProfile")}
                 </NavLink>
               </li>
-              {settings?.value?.config?.termsPage && (
+              {settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
                 <li>
-                  <NavLink to={`/${settings?.value?.config?.termsPage}`}>
+                  <NavLink
+                    to={`/${
+                      settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                    }`}
+                  >
                     {t("Terms")}
                   </NavLink>
                 </li>
@@ -584,7 +591,9 @@ const Navbar = () => {
                 {
                   id: 5,
                   content: t("Terms"),
-                  redirect: `/${settings?.value?.config?.termsPage}`,
+                  redirect: `/${
+                    settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                  }`,
                 },
                 // {
                 //   id: 3,
