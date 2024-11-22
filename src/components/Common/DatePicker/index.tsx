@@ -9,12 +9,14 @@ registerLocale("en", en);
 
 interface Props {
   selectedDate: Date | null;
-  onChange: (date: Date) => void;
+  onChange: (date: Date | null) => void;
   includeDates?: Date[];
   includeTimes?: Date[];
-  minDate?: Date | null;
+  minDate?: Date;
   showTimeInput?: boolean;
   timeInputLabel?: string;
+  minTime?: Date;
+  maxTime?: Date;
 }
 
 const DatePicker = ({
@@ -25,6 +27,8 @@ const DatePicker = ({
   minDate,
   showTimeInput,
   timeInputLabel,
+  minTime,
+  maxTime,
 }: Props) => {
   const { i18n } = useTranslation();
 
@@ -38,7 +42,10 @@ const DatePicker = ({
         inline
         locale={i18n.language}
         minDate={minDate}
-        showTimeInput={showTimeInput}
+        timeIntervals={5}
+        minTime={minTime}
+        maxTime={maxTime}
+        showTimeSelect={showTimeInput}
         timeInputLabel={timeInputLabel}
       />
     </StyledDatePicker>

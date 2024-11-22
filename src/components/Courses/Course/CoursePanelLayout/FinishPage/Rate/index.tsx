@@ -19,7 +19,6 @@ interface Props {
 export const QuestionnairesModal = ({
   entityId,
   entityModel,
-  onFinish,
   onSuccesGetQuestionnaires,
 }: Props) => {
   const {
@@ -42,6 +41,7 @@ export const QuestionnairesModal = ({
     firstVisit: boolean;
     firstTimeQuestionnaires: API.Questionnaire[];
     reShowableQuestionnaires: API.Questionnaire[];
+    endTimeQuestionnaires: API.Questionnaire[];
   }
 
   const [state, setState] = useState<StateType>({
@@ -51,6 +51,7 @@ export const QuestionnairesModal = ({
     firstVisit: true,
     firstTimeQuestionnaires: [],
     reShowableQuestionnaires: [],
+    endTimeQuestionnaires: [],
   });
 
   const { isStudent, isTutor } = useRoles();
@@ -91,7 +92,7 @@ export const QuestionnairesModal = ({
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (questionnaireFrequency === 0 || !questionnaireFrequency) {
+        if (questionnaireFrequency === 0) {
           acc.firstTimeQuestionnaires.push(questionnaire);
         } else {
           acc.reShowableQuestionnaires.push(questionnaire);
@@ -267,7 +268,6 @@ export const QuestionnairesModal = ({
           visible={state.show}
           onClose={handleClose}
           questionnaire={questionnaires[state.step]}
-          onFinish={onFinish}
         />
       )}
     </>

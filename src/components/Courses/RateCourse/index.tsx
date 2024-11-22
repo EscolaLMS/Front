@@ -13,7 +13,6 @@ type Props = {
   visible: boolean;
   questionnaire: API.Questionnaire;
   onClose: () => void;
-  onFinish?: () => void;
 };
 
 const initialState = {
@@ -27,7 +26,6 @@ const RateCourse: React.FC<Props> = ({
   visible,
   questionnaire,
   onClose,
-  onFinish,
 }) => {
   const { sendQuestionnaireAnswer } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
