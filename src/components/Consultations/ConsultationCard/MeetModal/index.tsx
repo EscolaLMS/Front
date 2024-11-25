@@ -54,10 +54,6 @@ const ConsultationMeetModal = ({
   const handleOnClose = useCallback(() => {
     setIsEnded && setIsEnded();
     onClose();
-    // setEndConsultationQuestionnaire({
-    //   show: true,
-    //   isLast: false,
-    // });
   }, [setIsEnded, onClose]);
 
   return (
