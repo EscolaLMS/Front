@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import ConsultationMeetModal from "@/components/Consultations/ConsultationCard/MeetModal";
+import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
+import { QuestionnaireModelType } from "@/types/questionnaire";
 
 interface Props {
   consultationTermId: number;
@@ -15,6 +17,7 @@ const ConsultationCardJoinButton = ({
   consultationId,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const { t } = useTranslation();
 
   return (
@@ -28,7 +31,14 @@ const ConsultationCardJoinButton = ({
         consultationTermId={consultationTermId}
         consultationId={consultationId}
         term={term}
+        setIsEnded={() => setIsEnded(true)}
       />
+      {isEnded && (
+        <EndMeetingQuestionnairesModal
+          entityId={Number(consultationId)}
+          entityModel={QuestionnaireModelType.CONSULTATION}
+        />
+      )}
     </>
   );
 };

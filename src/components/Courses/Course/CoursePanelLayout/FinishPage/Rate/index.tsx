@@ -41,7 +41,6 @@ export const QuestionnairesModal = ({
     firstVisit: boolean;
     firstTimeQuestionnaires: API.Questionnaire[];
     reShowableQuestionnaires: API.Questionnaire[];
-    endTimeQuestionnaires: API.Questionnaire[];
   }
 
   const [state, setState] = useState<StateType>({
@@ -51,7 +50,6 @@ export const QuestionnairesModal = ({
     firstVisit: true,
     firstTimeQuestionnaires: [],
     reShowableQuestionnaires: [],
-    endTimeQuestionnaires: [],
   });
 
   const { isStudent, isTutor } = useRoles();
@@ -88,13 +86,25 @@ export const QuestionnairesModal = ({
         questionnaire
       ) => {
         const questionnaireFrequency = questionnaire.models.find(
-          (model) => model.model_type_title === entityModel
+          (model) =>
+            model.model_type_title === entityModel &&
+            model.model_id === entityId
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (questionnaireFrequency === 0) {
+        if (
+          !questionnaireFrequency &&
+          questionnaireFrequency !== undefined &&
+          questionnaireFrequency !== 0
+        ) {
           acc.firstTimeQuestionnaires.push(questionnaire);
-        } else {
+        }
+
+        if (
+          questionnaireFrequency !== null &&
+          questionnaireFrequency !== undefined &&
+          questionnaireFrequency !== 0
+        ) {
           acc.reShowableQuestionnaires.push(questionnaire);
         }
         return acc;
@@ -106,16 +116,17 @@ export const QuestionnairesModal = ({
       ...prevState,
       ...categorized,
     }));
-  }, [questionnaires, entityModel]);
+  }, [questionnaires, entityModel, entityId]);
 
   const getQuestionnaireFrequency = useCallback(
     (questionnaire: API.Questionnaire) => {
       return questionnaire.models.find(
-        (model) => model.model_type_title === entityModel
+        (model) =>
+          model.model_type_title === entityModel && model.model_id === entityId
         // @ts-ignore add to sdk
       )?.display_frequency_minutes;
     },
-    [entityModel]
+    [entityModel, entityId]
   );
 
   const updateDisplayTime = useCallback(
@@ -147,14 +158,23 @@ export const QuestionnairesModal = ({
   }, []);
 
   const handleClose = useCallback(() => {
-    updateDisplayTime(questionnaires[state.step]);
+    updateDisplayTime(
+      [...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires][
+        state.step
+      ]
+    );
 
     setState((prevState) => ({
       ...prevState,
       show: false,
     }));
 
-    if (state.step < questionnaires.length - 1) {
+    if (
+      state.step <
+      [...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires]
+        .length -
+        1
+    ) {
       if (state.firstVisit) {
         moveToNextQuestionnaire();
       }
@@ -165,13 +185,7 @@ export const QuestionnairesModal = ({
         firstVisit: false,
       }));
     }
-  }, [
-    questionnaires,
-    state.step,
-    state.firstVisit,
-    updateDisplayTime,
-    moveToNextQuestionnaire,
-  ]);
+  }, [state, updateDisplayTime, moveToNextQuestionnaire]);
 
   const getDisplayFrequencyInMs = useCallback(
     (questionnaire: API.Questionnaire) => {
@@ -200,10 +214,13 @@ export const QuestionnairesModal = ({
       setState((prevState) => ({
         ...prevState,
         show: true,
-        step: questionnaires.findIndex((q) => q.id === questionnaire.id),
+        step: [
+          ...state.firstTimeQuestionnaires,
+          ...state.reShowableQuestionnaires,
+        ].findIndex((q) => q.id === questionnaire.id),
       }));
     },
-    [questionnaires]
+    [state]
   );
 
   const runDisplayInterval = useCallback(() => {
@@ -261,15 +278,24 @@ export const QuestionnairesModal = ({
 
   return (
     <>
-      {state.show && entityId && !!questionnaires.length && !loading && (
-        <RateCourse
-          entityModel={entityModel}
-          entityId={Number(entityId)}
-          visible={state.show}
-          onClose={handleClose}
-          questionnaire={questionnaires[state.step]}
-        />
-      )}
+      {state.show &&
+        entityId &&
+        !![...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires]
+          .length &&
+        !loading && (
+          <RateCourse
+            entityModel={entityModel}
+            entityId={Number(entityId)}
+            visible={state.show}
+            onClose={handleClose}
+            questionnaire={
+              [
+                ...state.firstTimeQuestionnaires,
+                ...state.reShowableQuestionnaires,
+              ][state.step]
+            }
+          />
+        )}
     </>
   );
 };
