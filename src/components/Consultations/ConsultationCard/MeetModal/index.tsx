@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { JitsyData } from "@escolalms/sdk/lib/types/api";
@@ -14,6 +14,7 @@ interface Props {
   consultationTermId: number;
   term: string;
   consultationId?: number;
+  setIsEnded?: () => void;
 }
 
 const ConsultationMeetModal = ({
@@ -22,6 +23,7 @@ const ConsultationMeetModal = ({
   consultationId,
   term,
   consultationTermId,
+  setIsEnded,
 }: Props) => {
   const [meetData, setMeetData] = useState<JitsyData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -49,9 +51,14 @@ const ConsultationMeetModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleOnClose = useCallback(() => {
+    setIsEnded && setIsEnded();
+    onClose();
+  }, [setIsEnded, onClose]);
+
   return (
     <Modal
-      onClose={onClose}
+      onClose={handleOnClose}
       visible={visible}
       animation="zoom"
       maskAnimation="fade"
@@ -67,7 +74,7 @@ const ConsultationMeetModal = ({
         {!loading && meetData && (
           <JitsyMeeting
             jitsyData={meetData}
-            close={onClose}
+            close={handleOnClose}
             consultationId={consultationId}
             consultationTermId={consultationTermId}
             term={term}

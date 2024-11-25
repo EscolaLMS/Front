@@ -43,7 +43,7 @@ const RateCourse: React.FC<Props> = ({
           const request = await sendQuestionnaireAnswer(
             entityModel,
             entityId,
-            questionnaire.id,
+            questionnaire?.id,
             {
               question_id: questionnaire.questions[state.step].id,
               rate,
@@ -70,7 +70,7 @@ const RateCourse: React.FC<Props> = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [entityModel, entityId, questionnaire.id, state]
+    [entityModel, entityId, questionnaire, state]
   );
 
   const handleSave = useCallback(
