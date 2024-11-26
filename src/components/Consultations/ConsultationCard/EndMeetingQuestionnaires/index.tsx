@@ -13,12 +13,14 @@ interface Props {
   onClose?: () => void;
   onFinish?: () => void;
   onSuccesGetQuestionnaires?: (isAnyQuestionnaires: boolean) => void;
+  setIsEnded?: (isEnded: boolean) => void;
 }
 
 export const EndMeetingQuestionnairesModal = ({
   entityId,
   entityModel,
   onSuccesGetQuestionnaires,
+  setIsEnded,
 }: Props) => {
   const {
     questionnaires: questionnairesList,
@@ -34,7 +36,7 @@ export const EndMeetingQuestionnairesModal = ({
     show: boolean;
     step: number;
     loading: boolean;
-    firstVisit: boolean;
+
     endMeetingQuestionnaires: API.Questionnaire[];
   }
 
@@ -42,7 +44,6 @@ export const EndMeetingQuestionnairesModal = ({
     show: false,
     step: 0,
     loading: true,
-    firstVisit: true,
     endMeetingQuestionnaires: [],
   });
 
@@ -127,10 +128,10 @@ export const EndMeetingQuestionnairesModal = ({
       setState((prevState) => ({
         ...prevState,
         show: false,
-        firstVisit: false,
       }));
+      setIsEnded && setIsEnded(false);
     }
-  }, [state, moveToNextQuestionnaire]);
+  }, [state, moveToNextQuestionnaire, setIsEnded]);
 
   useEffect(() => {
     getQuestionnaires();

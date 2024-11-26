@@ -11,6 +11,7 @@ import ConsultationCardImage from "./Image";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { useTranslation } from "react-i18next";
 import ProductPrices from "@/components/ProductPrices";
+
 const ConsultationCardStyles = styled.div`
   .course-card-buttons-group {
     margin: 0;

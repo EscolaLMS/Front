@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tabs } from "@escolalms/components/lib/components/atoms/Tabs/Tabs";
 import ProfileConsultations from "@/components/Profile/ProfileConsultations";
@@ -7,6 +7,8 @@ import { useRoles } from "@/hooks/useRoles";
 import Layout from "@/components/_App/Layout";
 import { Content } from "@/pages/user/MyProfile";
 import Container from "@/components/Common/Container";
+import { ConsultationModalContext } from "@/components/Consultations/ConsultationCard/Buttons/context";
+import ConsultationMeetModal from "@/components/Consultations/ConsultationCard/MeetModal";
 
 export enum ConsultationStatus {
   UPCOMING = "in_coming",
@@ -17,6 +19,8 @@ export enum ConsultationStatus {
 const MyConsultationsPage = () => {
   const { t } = useTranslation();
   const { isTutor } = useRoles();
+
+  const consultationModalContext = useContext(ConsultationModalContext);
 
   const myConsultationsTabs = useMemo(
     () => ({
@@ -82,6 +86,10 @@ const MyConsultationsPage = () => {
               defaultActiveKey={myConsultationsTabs.defaultActiveKey}
             />
           </div>
+
+          <ConsultationMeetModal
+            onClose={() => [consultationModalContext?.setModalOpen(false)]}
+          />
         </Container>
       </Content>
     </Layout>
