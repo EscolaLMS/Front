@@ -7,37 +7,33 @@ import { ConsultationMeetModalStyles } from "./MeetModalStyles";
 import JitsyMeeting from "@/components/Consultations/ConsultationCard/JitsyMeeting";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { QuestionnairesModal } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Rate";
+import { ConsultationModalContext } from "@/components/Consultations/ConsultationCard/Buttons/context";
+import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
 
 interface Props {
   onClose: () => void;
-  visible: boolean;
-  consultationTermId: number;
-  term: string;
-  consultationId?: number;
-  setIsEnded?: () => void;
 }
 
-const ConsultationMeetModal = ({
-  onClose,
-  visible,
-  consultationId,
-  term,
-  consultationTermId,
-  setIsEnded,
-}: Props) => {
+const ConsultationMeetModal = ({ onClose }: Props) => {
   const [meetData, setMeetData] = useState<JitsyData | null>(null);
+  const [isEnded, setIsEnded] = useState(false);
   const [loading, setLoading] = useState(false);
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
+  const consultationModalContext = useContext(ConsultationModalContext);
 
   useEffect(() => {
     const getMeetUrl = async () => {
       setLoading(true);
-      const res = await generateConsultationJitsy(consultationTermId, term);
-
-      if (res.success) {
-        setMeetData((res as { data: JitsyData }).data);
+      if (consultationModalContext?.consultationData) {
+        const res = await generateConsultationJitsy(
+          consultationModalContext?.consultationData?.consultationTermId,
+          consultationModalContext?.consultationData?.term
+        );
+        if (res.success) {
+          setMeetData((res as { data: JitsyData }).data);
+        }
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     getMeetUrl();
@@ -49,43 +45,63 @@ const ConsultationMeetModal = ({
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [consultationModalContext?.consultationData]);
 
   const handleOnClose = useCallback(() => {
-    setIsEnded && setIsEnded();
+    setIsEnded(true);
+    consultationModalContext?.setModalOpen?.(false);
     onClose();
-  }, [setIsEnded, onClose]);
+  }, [setIsEnded, onClose, consultationModalContext]);
 
   return (
-    <Modal
-      onClose={handleOnClose}
-      visible={visible}
-      animation="zoom"
-      maskAnimation="fade"
-      destroyOnClose={true}
-      width="100vw"
-      height="100vh"
-      bodyStyle={{
-        minHeight: "93vh",
-      }}
-    >
-      <ConsultationMeetModalStyles>
-        {loading && <ContentLoader />}
-        {!loading && meetData && (
-          <JitsyMeeting
-            jitsyData={meetData}
-            close={handleOnClose}
-            consultationId={consultationId}
-            consultationTermId={consultationTermId}
-            term={term}
-          />
-        )}
-      </ConsultationMeetModalStyles>
-      <QuestionnairesModal
-        entityId={Number(consultationId)}
-        entityModel={QuestionnaireModelType.CONSULTATION}
-      />
-    </Modal>
+    <>
+      <Modal
+        onClose={handleOnClose}
+        visible={consultationModalContext?.isModalOpen}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+        width="100vw"
+        height="100vh"
+        bodyStyle={{
+          minHeight: "93vh",
+        }}
+      >
+        <ConsultationMeetModalStyles>
+          {loading && <ContentLoader />}
+
+          {!loading && meetData && (
+            <JitsyMeeting
+              jitsyData={meetData}
+              close={handleOnClose}
+              consultationId={
+                consultationModalContext?.consultationData?.consultationId
+              }
+              consultationTermId={
+                consultationModalContext?.consultationData
+                  ?.consultationTermId ?? 0
+              }
+              term={consultationModalContext?.consultationData?.term ?? ""}
+            />
+          )}
+        </ConsultationMeetModalStyles>
+        <QuestionnairesModal
+          entityId={Number(
+            consultationModalContext?.consultationData?.consultationId
+          )}
+          entityModel={QuestionnaireModelType.CONSULTATION}
+        />
+      </Modal>
+      {isEnded && (
+        <EndMeetingQuestionnairesModal
+          entityId={Number(
+            consultationModalContext?.consultationData?.consultationId
+          )}
+          entityModel={QuestionnaireModelType.CONSULTATION}
+          setIsEnded={setIsEnded}
+        />
+      )}
+    </>
   );
 };
 
