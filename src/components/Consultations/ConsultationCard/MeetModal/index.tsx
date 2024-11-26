@@ -47,6 +47,10 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [consultationModalContext?.consultationData]);
 
+  useEffect(() => {
+    setIsEnded(false);
+  }, [consultationModalContext?.consultationData]);
+
   const handleOnClose = useCallback(() => {
     setIsEnded(true);
     consultationModalContext?.setModalOpen?.(false);
