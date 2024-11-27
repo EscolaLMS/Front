@@ -12,6 +12,7 @@ import routeRoutes from "@/components/Routes/routes";
 
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
+import { metaDataKeys } from "@/utils/meta";
 
 export type NavigationTab = {
   title: string;
@@ -129,11 +130,16 @@ const ProfileAside: React.FC<Props> = ({ tabs, isProfile = true }) => {
                 </NavLink>
               ))}
 
-              {isProfile && settings?.value?.config?.termsPage && (
-                <NavLink to={`/${settings.value.config.termsPage}`}>
-                  <Text size="16">{t("Terms")}</Text>
-                </NavLink>
-              )}
+              {isProfile &&
+                settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
+                  <NavLink
+                    to={`/${
+                      settings.value.config?.[metaDataKeys.termsPageMetaKey]
+                    }`}
+                  >
+                    <Text size="16">{t("Terms")}</Text>
+                  </NavLink>
+                )}
             </nav>
           </UserSidebar>
         </div>

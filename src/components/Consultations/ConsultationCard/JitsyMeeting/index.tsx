@@ -48,6 +48,7 @@ const JitsyMeeting: React.FC<Props> = ({
   const userConsentedRef = useRef(false);
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
+
   const { isStudent } = useRoles();
   const { t } = useTranslation();
 
@@ -59,7 +60,6 @@ const JitsyMeeting: React.FC<Props> = ({
   const handleConferenceLeft = useCallback(() => {
     console.log("Video conference left");
     isMeetingActive.current = false;
-    window.location.reload();
   }, []);
 
   const handleRecordingStatusChanged = useCallback(
@@ -147,7 +147,6 @@ const JitsyMeeting: React.FC<Props> = ({
     if (close) {
       close();
     }
-
     window.api?.dispose();
   };
 
@@ -172,7 +171,6 @@ const JitsyMeeting: React.FC<Props> = ({
 
     setTimeout(() => {
       if (hasCameraAccess && isMeetingActive && isStudent) {
-        console.log("Show modal");
         setShowModal(true);
       }
     }, 5000);
@@ -211,7 +209,6 @@ const JitsyMeeting: React.FC<Props> = ({
         maskAnimation="fade"
         destroyOnClose={true}
         width={468}
-        closable={false}
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}

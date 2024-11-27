@@ -8,6 +8,7 @@ import Warning from "./Warning";
 import { StyledToastContainer } from "@/components/_App/StyledToastContainer";
 import { isMobile } from "react-device-detect";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { ConsultationModalProvider } from "@/components/Consultations/ConsultationCard/Buttons/context";
 
 declare global {
   interface Window {
@@ -91,7 +92,7 @@ const Layout: React.FC<{
       <StyledToastContainer />
       <div className="site-wrapper">
         <Navbar />
-        {children}
+        <ConsultationModalProvider>{children}</ConsultationModalProvider>
 
         {handleRenderFooter()}
         {localStorage.getItem("hideWarning") !== "true" && <Warning />}

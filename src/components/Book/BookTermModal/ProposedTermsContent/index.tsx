@@ -54,8 +54,8 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onChange = (date: Date) => {
-    setSelectedDay(date);
+  const onChange = (date: Date | null) => {
+    date && setSelectedDay(date);
     setSelectedTime(null);
   };
 

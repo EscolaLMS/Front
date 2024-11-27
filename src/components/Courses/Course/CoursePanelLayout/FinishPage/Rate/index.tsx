@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import RateCourse from "@/components/Courses/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
-
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useQuestionnaires } from "@/hooks/questionnaires";
 import { API } from "@escolalms/sdk/lib";
 import { useRoles } from "@/hooks/useRoles";
+import { metaDataKeys } from "@/utils/meta";
 
 interface Props {
   entityModel: QuestionnaireModelType;
@@ -18,7 +19,6 @@ interface Props {
 export const QuestionnairesModal = ({
   entityId,
   entityModel,
-  onFinish,
   onSuccesGetQuestionnaires,
 }: Props) => {
   const {
@@ -30,6 +30,9 @@ export const QuestionnairesModal = ({
     entityId: entityId || 0,
     entityModel: entityModel,
   });
+  const { settings } = useContext(EscolaLMSContext);
+  const questionnaireFirstime =
+    settings?.value?.config[metaDataKeys.questionnaireFirstTimeMetaKey];
 
   interface StateType {
     show: boolean;
@@ -51,18 +54,25 @@ export const QuestionnairesModal = ({
 
   const { isStudent, isTutor } = useRoles();
 
-  const questionnaires = useMemo(
-    () =>
-      questionnairesList.filter((questionaire) =>
-        questionaire.models.some(
-          (model) =>
-            model.model_type_title === entityModel && // @ts-ignore add to sdk
-            ((isStudent && model.target_group === "user") || // @ts-ignore add to sdk
-              (isTutor && model.target_group === "author"))
-        )
-      ),
-    [questionnairesList, isStudent, isTutor, entityModel]
-  );
+  const questionnaires = useMemo(() => {
+    return questionnairesList.filter((questionnaire) =>
+      questionnaire.models.some((model) => {
+        if (model.model_type_title === entityModel) {
+          if (model.model_type_title === QuestionnaireModelType.CONSULTATION) {
+            // Additional filters for "consultation"
+            return (
+              // @ts-ignore add to sdk
+              (isStudent && model.target_group === "user") || // @ts-ignore add to sdk
+              (isTutor && model.target_group === "author")
+            );
+          }
+
+          return true;
+        }
+        return false;
+      })
+    );
+  }, [questionnairesList, isStudent, isTutor, entityModel]);
 
   const categorizedQuestionnaires = useCallback(() => {
     if (!questionnaires) return;
@@ -76,13 +86,25 @@ export const QuestionnairesModal = ({
         questionnaire
       ) => {
         const questionnaireFrequency = questionnaire.models.find(
-          (model) => model.model_type_title === entityModel
+          (model) =>
+            model.model_type_title === entityModel &&
+            model.model_id === entityId
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (questionnaireFrequency === 0 || !questionnaireFrequency) {
+        if (
+          !questionnaireFrequency &&
+          questionnaireFrequency !== undefined &&
+          questionnaireFrequency !== 0
+        ) {
           acc.firstTimeQuestionnaires.push(questionnaire);
-        } else {
+        }
+
+        if (
+          questionnaireFrequency !== null &&
+          questionnaireFrequency !== undefined &&
+          questionnaireFrequency !== 0
+        ) {
           acc.reShowableQuestionnaires.push(questionnaire);
         }
         return acc;
@@ -94,16 +116,17 @@ export const QuestionnairesModal = ({
       ...prevState,
       ...categorized,
     }));
-  }, [questionnaires, entityModel]);
+  }, [questionnaires, entityModel, entityId]);
 
   const getQuestionnaireFrequency = useCallback(
     (questionnaire: API.Questionnaire) => {
       return questionnaire.models.find(
-        (model) => model.model_type_title === entityModel
+        (model) =>
+          model.model_type_title === entityModel && model.model_id === entityId
         // @ts-ignore add to sdk
       )?.display_frequency_minutes;
     },
-    [entityModel]
+    [entityModel, entityId]
   );
 
   const updateDisplayTime = useCallback(
@@ -135,14 +158,23 @@ export const QuestionnairesModal = ({
   }, []);
 
   const handleClose = useCallback(() => {
-    updateDisplayTime(questionnaires[state.step]);
+    updateDisplayTime(
+      [...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires][
+        state.step
+      ]
+    );
 
     setState((prevState) => ({
       ...prevState,
       show: false,
     }));
 
-    if (state.step < questionnaires.length - 1) {
+    if (
+      state.step <
+      [...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires]
+        .length -
+        1
+    ) {
       if (state.firstVisit) {
         moveToNextQuestionnaire();
       }
@@ -153,13 +185,7 @@ export const QuestionnairesModal = ({
         firstVisit: false,
       }));
     }
-  }, [
-    questionnaires,
-    state.step,
-    state.firstVisit,
-    updateDisplayTime,
-    moveToNextQuestionnaire,
-  ]);
+  }, [state, updateDisplayTime, moveToNextQuestionnaire]);
 
   const getDisplayFrequencyInMs = useCallback(
     (questionnaire: API.Questionnaire) => {
@@ -188,10 +214,13 @@ export const QuestionnairesModal = ({
       setState((prevState) => ({
         ...prevState,
         show: true,
-        step: questionnaires.findIndex((q) => q.id === questionnaire.id),
+        step: [
+          ...state.firstTimeQuestionnaires,
+          ...state.reShowableQuestionnaires,
+        ].findIndex((q) => q.id === questionnaire.id),
       }));
     },
-    [questionnaires]
+    [state]
   );
 
   const runDisplayInterval = useCallback(() => {
@@ -210,18 +239,31 @@ export const QuestionnairesModal = ({
   }, [entityId]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (questionnaires.length && state.firstVisit) {
-      setState((prevState) => ({
-        ...prevState,
-        show: true,
-      }));
+      if (questionnaireFirstime) {
+        timer = setTimeout(() => {
+          setState((prevState) => ({
+            ...prevState,
+            show: true,
+          }));
+        }, questionnaireFirstime * 60 * 1000);
+      } else {
+        setState((prevState) => ({
+          ...prevState,
+          show: true,
+        }));
+      }
     }
     if (!!questionnaires.length) {
       onSuccesGetQuestionnaires && onSuccesGetQuestionnaires(true);
     }
     categorizedQuestionnaires();
-    return () => {};
+    return () => {
+      clearTimeout(timer);
+    };
   }, [
+    questionnaireFirstime,
     questionnaires,
     onSuccesGetQuestionnaires,
     state.firstVisit,
@@ -236,16 +278,24 @@ export const QuestionnairesModal = ({
 
   return (
     <>
-      {state.show && entityId && !!questionnaires.length && !loading && (
-        <RateCourse
-          entityModel={entityModel}
-          entityId={Number(entityId)}
-          visible={state.show}
-          onClose={handleClose}
-          questionnaire={questionnaires[state.step]}
-          onFinish={onFinish}
-        />
-      )}
+      {state.show &&
+        entityId &&
+        !![...state.firstTimeQuestionnaires, ...state.reShowableQuestionnaires]
+          .length &&
+        !loading && (
+          <RateCourse
+            entityModel={entityModel}
+            entityId={Number(entityId)}
+            visible={state.show}
+            onClose={handleClose}
+            questionnaire={
+              [
+                ...state.firstTimeQuestionnaires,
+                ...state.reShowableQuestionnaires,
+              ][state.step]
+            }
+          />
+        )}
     </>
   );
 };

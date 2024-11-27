@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Navigation } from "@escolalms/components/lib/components/molecules/Navigation/Navigation";
@@ -17,7 +17,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import Container from "@/components/Common/Container";
-import { useCart } from "@/hooks/useCart";
 import routeRoutes from "@/components/Routes/routes";
 import { DropdownMenu } from "@escolalms/components/lib/index";
 import { DropdownMenuItem } from "@escolalms/components/lib/components/molecules/DropdownMenu/DropdownMenu";
@@ -27,6 +26,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import { isMobilePlatform } from "@/utils/index";
+import { metaDataKeys } from "@/utils/meta";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -261,11 +261,12 @@ const Navbar = () => {
     settings,
     logout,
     notifications,
+    cart,
   } = useContext(EscolaLMSContext);
   const user = userObj?.value;
   const history = useHistory();
   const theme = useTheme();
-  const { cart } = useCart();
+
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
@@ -280,6 +281,10 @@ const Navbar = () => {
       history.push(routeRoutes.onboarding);
     }
   }, [user, history, settings?.value?.onboarding?.isShown]);
+
+  const displayCartItems = useMemo(() => {
+    return cart?.value?.items?.length ?? 0;
+  }, [cart]);
 
   const menuItems = [
     {
@@ -303,10 +308,10 @@ const Navbar = () => {
       key: "menu-2",
     },
     {
-      title: settings?.value?.config?.termsPage && (
-        <Link to={`/${settings?.value?.config?.termsPage}`}>
+      title: (
+        <Link to={routeRoutes.courses}>
           <Text noMargin bold>
-            {t("Terms")}
+            {t("Menu.Consultations")}
           </Text>
         </Link>
       ),
@@ -321,6 +326,18 @@ const Navbar = () => {
         </Link>
       ),
       key: "menu-4",
+    },
+    {
+      title: settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
+        <Link
+          to={`/${settings?.value?.config?.[metaDataKeys.termsPageMetaKey]}`}
+        >
+          <Text noMargin bold>
+            {t("Terms")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-5",
     },
 
     {
@@ -369,13 +386,13 @@ const Navbar = () => {
                   type="button"
                   className="cart-icon cart"
                   onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  data-tooltip={String(cart?.value?.items.length)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
+                  {cart && (cart?.value?.items?.length ?? 0) > 0 ? (
+                    <span>{displayCartItems}</span>
                   ) : null}
                 </button>
               </div>
@@ -446,6 +463,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to={routeRoutes.myConsultations}>
+                  {t("MyProfilePage.MyConsultations")}
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to={routeRoutes.myCertificates}>
                   {t("Navbar.MyCertificates")}
                 </NavLink>
@@ -464,15 +486,18 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               </>
-
               <li>
                 <NavLink to={routeRoutes.myData}>
                   {t("Navbar.EditProfile")}
                 </NavLink>
               </li>
-              {settings?.value?.config?.termsPage && (
+              {settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
                 <li>
-                  <NavLink to={`/${settings?.value?.config?.termsPage}`}>
+                  <NavLink
+                    to={`/${
+                      settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                    }`}
+                  >
                     {t("Terms")}
                   </NavLink>
                 </li>
@@ -566,7 +591,9 @@ const Navbar = () => {
                 {
                   id: 5,
                   content: t("Terms"),
-                  redirect: `/${settings?.value?.config?.termsPage}`,
+                  redirect: `/${
+                    settings?.value?.config?.[metaDataKeys.termsPageMetaKey]
+                  }`,
                 },
                 // {
                 //   id: 3,
@@ -636,13 +663,13 @@ const Navbar = () => {
                   type="button"
                   className="cart-icon"
                   onClick={() => history.push(routeRoutes.cart)}
-                  data-tooltip={String(cart.data?.items.length)}
+                  data-tooltip={String(cart?.value?.items.length ?? 0)}
                   aria-label={t("CoursePage.GoToCheckout")}
                 >
                   <HeaderCard mode={theme.mode} />
 
-                  {cart.data && cart.data.items?.length > 0 ? (
-                    <span>{cart.data.items.length}</span>
+                  {(cart?.value?.items?.length ?? 0) > 0 ? (
+                    <span>{displayCartItems}</span>
                   ) : null}
                 </button>
               </div>

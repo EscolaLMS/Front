@@ -199,8 +199,7 @@ const resources = {
         EmptyCartBtnText: "Browse courses",
         EmptyNameWarning: "Enter your full name",
         ThankYouTitle: "Thank you for your purchase",
-        ThankYouText:
-          "Go to profile to see purchased products or go to browse courses",
+        ThankYouText: "Go to profile to see purchased products",
         Status: "You can check the status of your order in the tab",
       },
       CourseProgram: {
@@ -953,8 +952,7 @@ const resources = {
         EmptyCartBtnText: "Przeglądaj kursy",
         EmptyNameWarning: "Podaj imię i nazwisko",
         ThankYouTitle: "Dziękujemy za zakup",
-        ThankYouText:
-          "Przejdź do profilu, aby zobaczyć zakupione produkty lub przejdź do przeglądania kursów",
+        ThankYouText: "Przejdź do profilu, aby zobaczyć zakupione produkty",
         Status: "Status zamówienia sprawdzisz w zakładce",
       },
       CourseProgram: {

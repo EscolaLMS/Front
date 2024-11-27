@@ -21,7 +21,6 @@ export const StyledDatePicker = styled.div`
   }
 
   .react-datepicker__month-container {
-    width: 100%;
   }
 
   .react-datepicker__current-month,
@@ -33,8 +32,7 @@ export const StyledDatePicker = styled.div`
   .react-datepicker__day-name,
   .react-datepicker__day,
   .react-datepicker__time-name {
-    width: 4em;
-    line-height: 4em;
+    line-height: 3em;
   }
 
   .react-datepicker__day--keyboard-selected:hover,
@@ -65,8 +63,8 @@ export const StyledDatePicker = styled.div`
 
   .react-datepicker__input-time-container
     .react-datepicker-time__input-container
-    .react-datepicker-time__input
-    input {
+    .react-datepicker-time__input,
+  .react-datepicker__time-list-item input {
     font-size: 14px;
     padding: 1em;
     border-radius: ${({ theme }) => theme.buttonRadius || 2}px;
@@ -74,6 +72,19 @@ export const StyledDatePicker = styled.div`
       theme.mode === "dark" ? theme.gray1 : theme.gray3};
     border-width: 1px;
     border-style: solid;
+  }
+
+  .react-datepicker__time-list-item {
+    border-radius: ${({ theme }) => theme.buttonRadius || 2}px;
+    height: fit-content !important;
+  }
+
+  .react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box
+    ul.react-datepicker__time-list
+    li.react-datepicker__time-list-item--selected {
+    background-color: red !important;
   }
 
   .react-datepicker__input-time-container

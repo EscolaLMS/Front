@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import ConsultationMeetModal from "@/components/Consultations/ConsultationCard/MeetModal";
+import { ConsultationModalContext } from "@/components/Consultations/ConsultationCard/Buttons/context";
 
 interface Props {
   consultationTermId: number;
@@ -14,21 +14,25 @@ const ConsultationCardJoinButton = ({
   term,
   consultationId,
 }: Props) => {
-  const [showModal, setShowModal] = useState(false);
+  const consultationModalContext = useContext(ConsultationModalContext);
+
   const { t } = useTranslation();
 
   return (
     <>
-      <Button mode="secondary" onClick={() => setShowModal(true)}>
+      <Button
+        mode="secondary"
+        onClick={() => [
+          consultationModalContext?.setConsultationData({
+            consultationTermId,
+            term,
+            consultationId,
+          }),
+          consultationModalContext?.setModalOpen(true),
+        ]}
+      >
         {t("ConsultationPage.Join")}
       </Button>
-      <ConsultationMeetModal
-        visible={showModal}
-        onClose={() => setShowModal(false)}
-        consultationTermId={consultationTermId}
-        consultationId={consultationId}
-        term={term}
-      />
     </>
   );
 };
