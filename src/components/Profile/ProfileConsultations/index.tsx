@@ -9,7 +9,7 @@ import ConsultationCard from "@/components/Consultations/ConsultationCard";
 import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 import { API } from "@escolalms/sdk/lib";
-
+// import { isPast } from "date-fns";
 interface ProfileConsultationsProps {
   type: ConsultationStatus;
 }
@@ -37,6 +37,20 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     return uniqueConsultations;
   }, [type, userConsultations.list?.data]);
 
+  // const handleRefreshIfTimePassed = useCallback(() => {
+  //   console.log("handleRefreshIfTimePassed");
+  //   console.log(filterConstulations);
+  //   filterConstulations.forEach((consultation) => {
+  //     if (
+  //       consultation.executed_at &&
+  //       isPast(new Date(consultation.executed_at)) &&
+  //       consultation.categories
+  //     ) {
+  //       fetchUserConsultations();
+  //     }
+  //   });
+  // }, [filterConstulations, fetchUserConsultations]);
+
   useEffect(() => {
     fetchUserConsultations();
   }, [type, fetchUserConsultations]);
@@ -44,8 +58,12 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   useEffect(() => {
     setConsultationsData([]);
     setConsultationsData(filterConstulations);
+    // const interval = setInterval(() => {
+    //   handleRefreshIfTimePassed();
+    // }, 5000);
     return () => {
       setConsultationsData([]);
+      // clearInterval(interval);
     };
   }, [type, filterConstulations]);
 

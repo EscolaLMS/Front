@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 const StyledLoginPage = styled.div`
-  min-height: calc(100vh - 682px);
+  min-height: calc(100vh - 592px);
+  max-height: calc(100vh - 9px);
   padding: 100px 0px;
+
   display: flex;
   align-items: center;
   justify-content: center;
