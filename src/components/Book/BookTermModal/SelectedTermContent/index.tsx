@@ -23,7 +23,8 @@ const SelectedTermContent = ({
   loading,
 }: Props) => {
   const { t } = useTranslation();
-  const { author } = consultation;
+  // @ts-ignore TODO: add to sdk
+  const { teachers } = consultation;
 
   return (
     <>
@@ -34,24 +35,30 @@ const SelectedTermContent = ({
         title={t("ConsultationPage.ConsultationTerm")}
         content={formatDate(selectedDate, APP_CONFIG.defaultDateTimeFormat)}
       />
-      <InfoBox
-        title={t("ConsultationPage.Expert")}
-        content={
-          <Tutor
-            mobile={isMobile}
-            avatar={{
-              alt: `${author.first_name} ${author.last_name}`,
-              src: `${API_URL}/api/images/img?path=${author.path_avatar}` || "",
-            }}
-            title={<></>}
-            fullName={`${author.first_name} ${author.last_name}`}
-            rating={{
-              ratingValue: 5,
-            }}
-            description={author.bio}
-          />
-        }
-      />
+      {/*  @ts-ignore TODO: add to sdk */}
+      {teachers.map((teacher) => (
+        <InfoBox
+          key={teacher?.id}
+          title={t("ConsultationPage.Expert")}
+          content={
+            <Tutor
+              mobile={isMobile}
+              avatar={{
+                alt: `${teacher?.first_name} ${teacher?.last_name}`,
+                src:
+                  `${API_URL}/api/images/img?path=${teacher?.path_avatar}` ||
+                  "",
+              }}
+              title={<></>}
+              fullName={`${teacher?.first_name} ${teacher?.last_name}`}
+              rating={{
+                ratingValue: 5,
+              }}
+              description={teacher?.bio}
+            />
+          }
+        />
+      ))}
       <Button
         mode="secondary"
         onClick={onClick}
