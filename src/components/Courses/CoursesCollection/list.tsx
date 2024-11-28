@@ -39,7 +39,7 @@ const CoursesList: React.FC<Props> = ({ courses, loading }) => {
   if (loading) {
     return <EntitySkeletonList />;
   }
-
+  console.log(courses);
   return (
     <CoursesListWrapper>
       <Row

@@ -79,16 +79,14 @@ export const EndMeetingQuestionnairesModal = ({
         },
         questionnaire
       ) => {
-        const questionnaireFrequency = questionnaire.models.find(
-          (model) => model.model_type_title === entityModel
+        const frequency = questionnaire.models.find(
+          (model) =>
+            model.model_type_title === entityModel &&
+            model.model_id === entityId
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (
-          questionnaireFrequency !== null &&
-          questionnaireFrequency !== undefined &&
-          questionnaireFrequency === 0
-        ) {
+        if (frequency !== null && frequency !== undefined && frequency === 0) {
           acc.endMeetingQuestionnaires.push(questionnaire);
         }
         return acc;
@@ -100,7 +98,7 @@ export const EndMeetingQuestionnairesModal = ({
       ...prevState,
       ...categorized,
     }));
-  }, [questionnaires, entityModel]);
+  }, [questionnaires, entityModel, entityId]);
 
   const moveToNextQuestionnaire = useCallback(() => {
     setState((prevState) => ({

@@ -85,26 +85,18 @@ export const QuestionnairesModal = ({
         },
         questionnaire
       ) => {
-        const questionnaireFrequency = questionnaire.models.find(
+        const frequency = questionnaire.models.find(
           (model) =>
             model.model_type_title === entityModel &&
             model.model_id === entityId
           // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
-        if (
-          !questionnaireFrequency &&
-          questionnaireFrequency !== undefined &&
-          questionnaireFrequency !== 0
-        ) {
+        if (!frequency && frequency !== undefined && frequency !== 0) {
           acc.firstTimeQuestionnaires.push(questionnaire);
         }
 
-        if (
-          questionnaireFrequency !== null &&
-          questionnaireFrequency !== undefined &&
-          questionnaireFrequency !== 0
-        ) {
+        if (frequency !== null && frequency !== undefined && frequency !== 0) {
           acc.reShowableQuestionnaires.push(questionnaire);
         }
         return acc;

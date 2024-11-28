@@ -578,7 +578,7 @@ const resources = {
         WriteComment: "Write comment",
         RateScale: "Rate on a scale of 1 - 5",
         ThankYou: "Thank you for rating this course",
-        ThankYouMessage: "Your rating has been saved",
+        ThankYouMessage: "Thank you for your reply",
         OptionalComment:
           "Here you can write a comment or leave a review (optional)",
         SendAnswer: "Send",
@@ -1265,7 +1265,7 @@ const resources = {
         "EscolaLms\\Consultations\\Events\\ReminderTrainerAboutTerm":
           "Przypomnienie! Termin o {{date}}",
         "EscolaLms\\Consultations\\Events\\ReportTerm":
-          "Uytkownik {{user}} zgłosił nowy termin {{date}} na konsultacje {{name}}",
+          "Użytkownik zgłosił nowy termin {{date}} na konsultacje {{name}}",
         // WEBINAR
         "EscolaLms\\Webinar\\Events\\ReminderAboutTerm":
           "Przypomnienie! Webinar startuje {{date}}",
@@ -1332,7 +1332,7 @@ const resources = {
         WriteComment: "Napisz komentarz",
         RateScale: "Oceń w skali 1 - 5",
         ThankYou: "Dziękujemy za wystawienie oceny",
-        ThankYouMessage: "Twoja ocena została zapisana",
+        ThankYouMessage: "Dziękujemy za udzielenie odpowiedzi",
         OptionalComment:
           "Tutaj możesz napisać komentarz lub zostawić opinię (nieobowiązkowe)",
         SendAnswer: "Wyślij",

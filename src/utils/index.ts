@@ -227,7 +227,6 @@ export const getNotificationTranslationObject = (
             notification.data.consultationTerm?.executed_at,
             APP_CONFIG.defaultDateTimeFormat
           ),
-          user: `${notification.data.consultationTerm?.user?.first_name} ${notification.data.consultationTerm?.user?.last_name}`,
         },
       };
     case EventTypes.ApprovedTerm:

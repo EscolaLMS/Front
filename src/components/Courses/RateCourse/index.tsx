@@ -53,7 +53,7 @@ const RateCourse: React.FC<Props> = ({
             }
           );
           if (request.success) {
-            toast(`${t("RateCourse.ThankYouMessage")}`, "success");
+            toast(`${t("RateCourse.")}`, "success");
           }
         } catch (error) {
           toast("Error", "error");
