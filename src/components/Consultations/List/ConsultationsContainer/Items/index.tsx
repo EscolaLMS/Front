@@ -20,7 +20,7 @@ const ConsultationsContainerItems: React.FC<Props> = ({
   if (loading) {
     return <EntitySkeletonList />;
   }
-  console.log(consultations);
+
   return (
     <>
       <Row
