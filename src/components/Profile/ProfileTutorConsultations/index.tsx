@@ -6,7 +6,7 @@ import { ConsultationStatus } from "../../../pages/user/my-consultations";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import ConsultationTutorCard from "@/components/Consultations/ConsultationTutorCard";
-import ContentLoader from "@/components/_App/ContentLoader";
+import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 
 interface ProfileTutorConsultationsProps {
   type: ConsultationStatus;
@@ -35,25 +35,37 @@ const ProfileTutorConsultations = ({
 
   return (
     <>
-      {tutorConsultations.loading ? (
-        <ContentLoader />
-      ) : consultationsData.length === 0 ? (
-        <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
-          {t<string>("MyProfilePage.OrdersEmpty")}
-        </Text>
-      ) : (
-        <Row
-          style={{
-            gap: "30px 0",
-          }}
-        >
-          {consultationsData.map((consultation) => (
-            <Col key={consultation.consultation_term_id} xs={12} md={6} lg={3}>
-              <ConsultationTutorCard consultation={consultation} />
+      <Row
+        style={{
+          gap: "30px 0",
+        }}
+      >
+        {tutorConsultations.loading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+            <Col md={3} key={`skeleton-card-${index}`}>
+              <CourseCardSkeleton />
             </Col>
-          ))}
-        </Row>
-      )}
+          ))
+        ) : consultationsData.length === 0 ? (
+          <Text style={{ paddingLeft: isMobile ? 20 : 40 }}>
+            {t<string>("MyProfilePage.OrdersEmpty")}
+          </Text>
+        ) : (
+          <>
+            {" "}
+            {consultationsData.map((consultation) => (
+              <Col
+                key={consultation.consultation_term_id}
+                xs={12}
+                md={6}
+                lg={3}
+              >
+                <ConsultationTutorCard consultation={consultation} />
+              </Col>
+            ))}
+          </>
+        )}
+      </Row>
     </>
   );
 };

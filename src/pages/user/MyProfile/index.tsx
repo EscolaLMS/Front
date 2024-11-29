@@ -20,7 +20,8 @@ export const Content = styled.section`
   .courses-wrapper {
     padding-top: 100px;
 
-    min-height: fit-content;
+    min-height: calc(100vh - 500px);
+    height: fit-content;
     @media (max-width: 991px) {
       margin-top: 0;
       min-height: fit-content;
