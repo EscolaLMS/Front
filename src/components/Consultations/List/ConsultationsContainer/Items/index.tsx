@@ -30,7 +30,7 @@ const ConsultationsContainerItems: React.FC<Props> = ({
         }}
       >
         {!loading &&
-          consultations?.data.map((consultation) => (
+          consultations?.data?.map((consultation) => (
             <Col md={6} lg={4} xl={3} key={consultation.id}>
               <ConsultationsContainerItem consultation={consultation} />
             </Col>
@@ -46,6 +46,7 @@ const ConsultationsContainerItems: React.FC<Props> = ({
             onPage={(i) => handlePageChange(i)}
           />
         )}
+      <br />
     </>
   );
 };
