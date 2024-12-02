@@ -17,6 +17,7 @@ const WebinarsContainer = () => {
             categories={
               categoryTree.list?.filter((category) => !!category.icon) || []
             }
+            entity="webinars"
           />
         </>
       )}

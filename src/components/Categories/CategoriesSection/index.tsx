@@ -11,10 +11,6 @@ import { API } from "@escolalms/sdk/lib";
 import Container from "../../Common/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-type Props = {
-  categories: API.Category[];
-};
-
 const StyledSection = styled.section`
   overflow: hidden;
 
@@ -68,7 +64,12 @@ const CategoryRow = styled.div`
   grid-gap: 10px;
 `;
 
-const CategoriesSection: React.FC<Props> = ({ categories }) => {
+type Props = {
+  categories: API.Category[];
+  entity: "courses" | "consultations" | "events" | "packages" | "webinars";
+};
+
+const CategoriesSection: React.FC<Props> = ({ categories, entity }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -116,7 +117,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                       />
                     }
                     onButtonClick={() =>
-                      history.push(`/courses/?categories[]=${item.id}`)
+                      history.push(`/${entity}/?categories[]=${item.id}`)
                     }
                     variant="gradient"
                   />
@@ -141,7 +142,7 @@ const CategoriesSection: React.FC<Props> = ({ categories }) => {
                     />
                   }
                   onButtonClick={() =>
-                    history.push(`/courses/?categories[]=${item.id}`)
+                    history.push(`/${entity}/?categories[]=${item.id}`)
                   }
                   variant="gradient"
                 />

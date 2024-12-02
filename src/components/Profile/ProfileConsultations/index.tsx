@@ -1,4 +1,11 @@
-import { memo, useContext, useEffect, useMemo, useState } from "react";
+import {
+  memo,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { isMobile } from "react-device-detect";
 import { Col, Row } from "react-grid-system";
@@ -9,13 +16,13 @@ import ConsultationCard from "@/components/Consultations/ConsultationCard";
 import ProfileConsultationsProvider from "./ProfileConsultationsProvider";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";
 import { API } from "@escolalms/sdk/lib";
-// import { isPast } from "date-fns";
+import { API_URL } from "@/config/index";
 interface ProfileConsultationsProps {
   type: ConsultationStatus;
 }
 
 const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
-  const { userConsultations, fetchUserConsultations } =
+  const { userConsultations, fetchUserConsultations, token } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const [consultationsData, setConsultationsData] = useState<
@@ -37,19 +44,47 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     return uniqueConsultations;
   }, [type, userConsultations.list?.data]);
 
-  // const handleRefreshIfTimePassed = useCallback(() => {
-  //   console.log("handleRefreshIfTimePassed");
-  //   console.log(filterConstulations);
-  //   filterConstulations.forEach((consultation) => {
-  //     if (
-  //       consultation.executed_at &&
-  //       isPast(new Date(consultation.executed_at)) &&
-  //       consultation.categories
-  //     ) {
-  //       fetchUserConsultations();
-  //     }
-  //   });
-  // }, [filterConstulations, fetchUserConsultations]);
+  const refreshConsultation = useCallback(
+    async (id: number) => {
+      try {
+        const request = await fetch(
+          `${API_URL}/api/consultations/me?ids[]=${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const response = await request.json();
+
+        if (response.success && response.data.length > 0) {
+          setConsultationsData((prev) => {
+            const index = prev.findIndex(
+              (consultation) => consultation.id === id
+            );
+
+            if (index !== -1) {
+              prev[index] = response.data[0];
+            }
+
+            return [...prev];
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [token]
+  );
+
+  const handleRefreshIfTimePassed = useCallback(() => {
+    consultationsData.forEach((consultation) => {
+      if (!consultation.is_started && !consultation.is_ended) {
+        refreshConsultation(consultation.id);
+      }
+    });
+  }, [consultationsData, refreshConsultation]);
 
   useEffect(() => {
     fetchUserConsultations();
@@ -58,14 +93,14 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   useEffect(() => {
     setConsultationsData([]);
     setConsultationsData(filterConstulations);
-    // const interval = setInterval(() => {
-    //   handleRefreshIfTimePassed();
-    // }, 5000);
+    const interval = setInterval(() => {
+      handleRefreshIfTimePassed();
+    }, 5000);
     return () => {
       setConsultationsData([]);
-      // clearInterval(interval);
+      clearInterval(interval);
     };
-  }, [type, filterConstulations]);
+  }, [type, filterConstulations, handleRefreshIfTimePassed]);
 
   return (
     <ProfileConsultationsProvider>

@@ -16,6 +16,7 @@ const PackagesContainer = () => {
           categories={
             categoryTree.list?.filter((category) => !!category.icon) || []
           }
+          entity="packages"
         />
       )}
     </>

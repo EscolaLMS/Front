@@ -64,6 +64,7 @@ const ConsultationsContainer = () => {
             categories={
               categoryTree.list?.filter((category) => !!category.icon) || []
             }
+            entity="consultations"
           />
         </>
       )}
