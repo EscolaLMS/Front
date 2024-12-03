@@ -27,29 +27,33 @@ interface Props {
 
 const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   const startDate = useMemo(() => {
+    const { active_from, proposed_terms } = consultation;
+    const now = new Date();
+
     if (
-      consultation.active_from &&
-      new Date(consultation.active_from) < new Date() &&
-      consultation.proposed_terms.length === 0
+      active_from &&
+      new Date(active_from) < now &&
+      proposed_terms.length === 0
     ) {
-      return new Date();
-    }
-    if (
-      consultation.active_from &&
-      new Date(consultation.active_from) > new Date() &&
-      consultation.proposed_terms.length === 0
-    ) {
-      return new Date(consultation.active_from);
-    }
-    if (consultation.proposed_terms.length > 0) {
-      const sorted = consultation.proposed_terms.sort(
-        (a, b) =>
-          new Date(a.toString()).getTime() - new Date(b.toString()).getTime()
-      )[0];
-      return new Date(sorted || new Date());
+      return now;
     }
 
-    return new Date(consultation.active_from || new Date());
+    if (
+      active_from &&
+      new Date(active_from) > now &&
+      proposed_terms.length === 0
+    ) {
+      return new Date(active_from);
+    }
+
+    if (proposed_terms.length > 0) {
+      const earliestTerm = proposed_terms
+        .map((term) => new Date(term.toString()))
+        .sort((a, b) => a.getTime() - b.getTime())[0];
+      return earliestTerm || now;
+    }
+
+    return new Date(active_from || now);
   }, [consultation]);
 
   const [selectedDate, setSelectedDay] = useState<Date | null>(startDate);
