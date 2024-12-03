@@ -1,3 +1,4 @@
+import { Col, Row } from "react-grid-system";
 import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 
@@ -15,18 +16,29 @@ const ConsultationPageContentSkeleton = () => {
   return (
     <SkeletonWrapper>
       <Skeleton width={"20px"} style={{ marginBottom: "5px" }} />
-      <Skeleton width={"40%"} height={37} style={{ marginBottom: "10px" }} />
-      <Skeleton width={"40%"} style={{ marginBottom: "10px" }} />{" "}
-      <Skeleton width={"100%"} height={490} style={{ marginBottom: "40px" }} />
+      <Row>
+        <Col style={{ marginTop: "120px" }} md={7}>
+          <Skeleton height={45} style={{ marginBottom: "10px" }} />
+        </Col>
+        <Col>
+          <Skeleton height={300} style={{ marginBottom: "10px" }} />
+        </Col>
+      </Row>
       <div style={{ marginBottom: "40px" }}>
-        <Skeleton width={"100%"} count={4} style={{ marginBottom: "5px" }} />
+        <Skeleton
+          width={"100%"}
+          height={20}
+          count={12}
+          style={{ marginBottom: "5px" }}
+        />
+      </div>{" "}
+      <div className="tutors">
+        <Skeleton circle width={"112px"} height={"112px"} />
+        <div>
+          <Skeleton width={"140px"} style={{ marginBottom: "20px" }} />
+          <Skeleton width={"140px"} count={2} />
+        </div>
       </div>
-      <div style={{ marginBottom: "40px" }}>
-        <Skeleton width={"100%"} count={5} style={{ marginBottom: "5px" }} />
-      </div>{" "}
-      <div style={{ marginBottom: "40px" }}>
-        <Skeleton width={"100%"} count={5} style={{ marginBottom: "5px" }} />
-      </div>{" "}
     </SkeletonWrapper>
   );
 };

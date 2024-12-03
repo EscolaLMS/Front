@@ -247,6 +247,7 @@ const resources = {
         AdditionalRecording:
           "Do you agree to provide an image for emotion and attentional analysis?",
         EmotionConsent: "Consent to the use of emotion analysis",
+        Teacher: "Trainer",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -1016,6 +1017,7 @@ const resources = {
         AdditionalRecording:
           "Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?",
         EmotionConsent: "Zgoda na analizę emocji i uwagi",
+        Teacher: "Trener",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",

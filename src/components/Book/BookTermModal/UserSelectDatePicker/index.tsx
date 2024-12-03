@@ -9,6 +9,14 @@ import SelectedTermContent from "../SelectedTermContent";
 import { ProfileConsultationsContext } from "@/components/Profile/ProfileConsultations/ProfileConsultationsProvider";
 import { toast } from "@/utils/toast";
 import { setHours, setMinutes, isSameDay } from "date-fns";
+import {
+  createArrayWithDateAndTimes,
+  isTwoDatesEqual,
+  removePastDates,
+  sortDates,
+  formatDate,
+} from "@/utils/date";
+import { StyledBookTermButtons } from "@/components/Book/BookTermModal/styles";
 
 interface Props {
   consultation: API.Consultation & {
@@ -18,7 +26,38 @@ interface Props {
 }
 
 const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
-  const [selectedDate, setSelectedDay] = useState<Date | null>(new Date());
+  const startDate = useMemo(() => {
+    const { active_from, proposed_terms } = consultation;
+    const now = new Date();
+
+    if (
+      active_from &&
+      new Date(active_from) < now &&
+      proposed_terms.length === 0
+    ) {
+      return now;
+    }
+
+    if (
+      active_from &&
+      new Date(active_from) > now &&
+      proposed_terms.length === 0
+    ) {
+      return new Date(active_from);
+    }
+
+    if (proposed_terms.length > 0) {
+      const earliestTerm = proposed_terms
+        .map((term) => new Date(term.toString()))
+        .sort((a, b) => a.getTime() - b.getTime())[0];
+      return earliestTerm || now;
+    }
+
+    return new Date(active_from || now);
+  }, [consultation]);
+
+  const [selectedDate, setSelectedDay] = useState<Date | null>(startDate);
+
   const { bookConsultationTerm, changeConsultationTerm } =
     useContext(EscolaLMSContext);
   const [loading, setLoading] = useState(false);
@@ -45,16 +84,47 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
     }
   }, [selectedDate]);
 
+  const proposedTerms = useMemo(() => {
+    return sortDates(
+      removePastDates(
+        consultation?.proposed_terms?.map(
+          (dateString: string) => new Date(dateString)
+        ) || []
+      )
+    );
+  }, [consultation]);
+
+  const sortedDates = useMemo(() => {
+    return createArrayWithDateAndTimes(proposedTerms ? proposedTerms : []);
+  }, [proposedTerms]);
+
+  const currentTimes = useMemo(() => {
+    return selectedDate
+      ? sortedDates.find((dateObj) =>
+          isTwoDatesEqual(dateObj.date, selectedDate)
+        )?.times || []
+      : [];
+  }, [selectedDate, sortedDates]);
+
   const close = useCallback(() => {
     setShowBookTermSuccess(true);
     onClose();
     setSelectedDay(null);
   }, [onClose, setShowBookTermSuccess]);
 
+  const minDate = useMemo(() => {
+    if (
+      consultation.active_from &&
+      new Date(consultation.active_from) > new Date()
+    ) {
+      return new Date(consultation.active_from);
+    }
+    return new Date();
+  }, [consultation]);
+
   const onClick = useCallback(async () => {
     if (consultation.consultation_term_id && selectedDate) {
       setLoading(true);
-
       try {
         if ((inComing && isApproved) || isRejected) {
           await changeConsultationTerm(
@@ -80,7 +150,6 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
       }
     }
   }, [
-    selectedDate,
     bookConsultationTerm,
     changeConsultationTerm,
     inComing,
@@ -91,6 +160,7 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
     fetchUserConsultations,
     user.value?.id,
     t,
+    selectedDate,
   ]);
 
   if (step === 2) {
@@ -110,12 +180,33 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
       <DatePicker
         onChange={onChange}
         selectedDate={selectedDate}
-        minDate={new Date()}
+        minDate={minDate}
+        maxDate={new Date(consultation.active_to || new Date())}
         minTime={minHours}
         maxTime={setHours(setMinutes(new Date(), 59), 23)}
         showTimeInput
         timeInputLabel={`${t("Time")}: `}
+        includeDates={
+          consultation.proposed_terms?.length ? proposedTerms : undefined
+        }
+        includeTimes={
+          consultation.proposed_terms?.length ? currentTimes : undefined
+        }
       />
+      <StyledBookTermButtons>
+        {currentTimes.map((date) => (
+          <Button
+            mode={
+              isTwoDatesEqual(date, selectedDate, "HH:mm")
+                ? "secondary"
+                : "secondary outline"
+            }
+            onClick={() => setSelectedDay(date)}
+          >
+            {formatDate(date, "HH:mm")}
+          </Button>
+        ))}
+      </StyledBookTermButtons>
       <Button
         mode="secondary"
         onClick={() => setStep(2)}
