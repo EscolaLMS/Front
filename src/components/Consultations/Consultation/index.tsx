@@ -21,6 +21,8 @@ import routeRoutes from "@/components/Routes/routes";
 import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
 import { StyledCoursePage } from "@/pages/courses/course/styles";
 import ConsultationPageContentSkeleton from "@/components/Skeletons/Consultation";
+import { CourseAuthor } from "@/pages/courses/course/Components";
+import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 
 const Consultation = () => {
   const { t } = useTranslation();
@@ -81,18 +83,37 @@ const Consultation = () => {
                 />
               </Col>
               <Col xs={12} md={9}>
-                <ConsultationHero consultation={consultation.value} />
+                <Row>
+                  <Col md={12}>
+                    <ConsultationHero consultation={consultation.value} />
+                  </Col>
+                  <Col md={12}>
+                    {consultation?.value?.description &&
+                      fixContentForMarkdown(consultation.value.description) !==
+                        "" && (
+                        <StyledDescription>
+                          <MarkdownRenderer>
+                            {consultation.value.description}
+                          </MarkdownRenderer>
+                        </StyledDescription>
+                      )}
+                  </Col>
 
-                {consultation?.value?.description &&
-                  fixContentForMarkdown(consultation.value.description) !==
-                    "" && (
-                    <StyledDescription>
-                      <MarkdownRenderer>
-                        {consultation.value.description}
-                      </MarkdownRenderer>
-                    </StyledDescription>
-                  )}
+                  <Col md={12}>
+                    {" "}
+                    <br />
+                    <Title as="h3" level={4} className="title">
+                      {t<string>("ConsultationPage.Teacher")}
+                    </Title>
+                    {consultation.value &&
+                      // @ts-ignore TODO: add to sdk
+                      consultation.value.teachers.map((author) => (
+                        <CourseAuthor author={author} />
+                      ))}
+                  </Col>
+                </Row>
               </Col>
+
               {consultation?.value?.product && (
                 <Col xs={12} md={3}>
                   <ConsultationSidebar consultation={consultation.value} />

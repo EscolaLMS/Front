@@ -17,6 +17,7 @@ interface Props {
   timeInputLabel?: string;
   minTime?: Date;
   maxTime?: Date;
+  maxDate?: Date;
 }
 
 const DatePicker = ({
@@ -29,6 +30,7 @@ const DatePicker = ({
   timeInputLabel,
   minTime,
   maxTime,
+  maxDate,
 }: Props) => {
   const { i18n } = useTranslation();
 
@@ -42,6 +44,7 @@ const DatePicker = ({
         inline
         locale={i18n.language}
         minDate={minDate}
+        maxDate={maxDate}
         timeIntervals={5}
         minTime={minTime}
         maxTime={maxTime}
