@@ -17,6 +17,7 @@ const EventsContainer = () => {
             categories={
               categoryTree.list?.filter((category) => !!category.icon) || []
             }
+            entity="events"
           />
         </>
       )}

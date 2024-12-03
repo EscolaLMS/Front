@@ -150,6 +150,7 @@ const Index = () => {
               categories={
                 categoryTree.list?.filter((category) => !!category.icon) || []
               }
+              entity="courses"
             />
           </div>
         )}
