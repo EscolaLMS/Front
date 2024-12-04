@@ -6,6 +6,7 @@ import {
 } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 type Sizes = {
   old: TextSize;
@@ -17,6 +18,7 @@ type Props = {
   taxRate?: number;
   oldPrice?: number | null;
   textSizes?: Sizes;
+  isFree?: boolean;
 };
 
 const Prices = styled.div`
@@ -33,7 +35,9 @@ const ProductPrices: React.FC<Props> = ({
   taxRate,
   oldPrice,
   textSizes,
+  isFree,
 }) => {
+  const { t } = useTranslation();
   if (isMobile) {
     return (
       <Prices>
@@ -47,6 +51,13 @@ const ProductPrices: React.FC<Props> = ({
         <Text size={textSizes?.new || "16"}>
           {formatPrice(price, taxRate)} zł
         </Text>
+      </Prices>
+    );
+  }
+  if (isFree) {
+    return (
+      <Prices>
+        <Text size={textSizes?.new || "16"}>{t("CoursesPage.Free")}</Text>
       </Prices>
     );
   }

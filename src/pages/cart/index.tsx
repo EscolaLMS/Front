@@ -7,6 +7,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { getFontFromTheme } from "@escolalms/components/lib/theme/provider";
 import Przelewy24Content from "@/components/Cart/CartContent/p24";
 import styled from "styled-components";
+import usePayment from "@/hooks/usePayment";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.gray4};
@@ -37,7 +38,7 @@ const CartPage: React.FC<Props> = () => {
   const theme = useTheme();
   const font = getFontFromTheme(theme);
 
-  const defaultGateway = config?.value?.escolalms_payments?.default_gateway;
+  const { defaultGateway } = usePayment();
 
   if (defaultGateway === PaymentGateway.Przelewy24) {
     return (

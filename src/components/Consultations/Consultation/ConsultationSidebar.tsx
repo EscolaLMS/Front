@@ -1,6 +1,6 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
-import React, { useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { CartItem, Consultation } from "@escolalms/sdk/lib/types/api";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
@@ -17,6 +17,11 @@ import {
 } from "@/components/Consultations/Consultation/style";
 import { isMobile } from "react-device-detect";
 import routeRoutes from "@/components/Routes/routes";
+import {
+  EntityRedirectBuyType,
+  useEntityBuyableType,
+} from "@/hooks/useEntityPrice";
+import usePayment, { PaymentGateway } from "@/hooks/usePayment";
 
 interface ConsultationSidebarProps {
   consultation: Consultation | undefined;
@@ -27,6 +32,9 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
   const { cart, addToCart, user } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const { push } = useHistory();
+  const buyableType = useEntityBuyableType(consultation);
+  const isFree = buyableType === EntityRedirectBuyType.FREE;
+  const { defaultGateway, payByP24, payByStripe } = usePayment();
 
   const consultationInCart = useMemo(() => {
     return cart?.value?.items.some(
@@ -34,6 +42,29 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
         Number(item.product_id) === Number(consultation?.product?.id)
     );
   }, [consultation?.product?.id, cart]);
+
+  const handleAddToCart = useCallback(() => {
+    if (isFree && consultation?.product?.id) {
+      addToCart(Number(consultation.product?.id)).then(() =>
+        defaultGateway === PaymentGateway.Stripe
+          ? payByStripe("free")
+          : payByP24()
+      );
+    } else {
+      consultation &&
+        addToCart(Number(consultation.product?.id)).then(() =>
+          push(routeRoutes.cart)
+        );
+    }
+  }, [
+    consultation,
+    addToCart,
+    push,
+    payByStripe,
+    payByP24,
+    defaultGateway,
+    isFree,
+  ]);
 
   return isMobile ? (
     <StyledMobileConsultationSidebar>
@@ -50,11 +81,13 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
                 marginBottom: 10,
               }}
             >
-              {consultation?.product &&
-                `${formatPrice(
-                  consultation.product.price,
-                  consultation.product.tax_rate
-                )} zł`}
+              {isFree
+                ? t("CoursesPage.Free")
+                : consultation?.product &&
+                  `${formatPrice(
+                    consultation.product.price,
+                    consultation.product.tax_rate
+                  )} zł`}
             </Title>
           </div>
           <div>
@@ -73,11 +106,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
                 loading={cart.loading}
                 block
                 mode="secondary"
-                onClick={() =>
-                  addToCart(Number(consultation.product?.id)).then(() =>
-                    push(routeRoutes.cart)
-                  )
-                }
+                onClick={handleAddToCart}
               >
                 {t("ConsultationPage.BuyConsultation")}
               </Button>
@@ -109,11 +138,13 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
             marginTop: 20,
           }}
         >
-          {consultation?.product &&
-            `${formatPrice(
-              consultation.product.price,
-              consultation.product.tax_rate
-            )} zł`}
+          {isFree
+            ? t("CoursesPage.Free")
+            : consultation?.product &&
+              `${formatPrice(
+                consultation.product.price,
+                consultation.product.tax_rate
+              )} zł`}
         </Title>
         <IconText
           icon={<IconTime />}
@@ -137,11 +168,7 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
           <Button
             loading={cart.loading}
             mode="secondary"
-            onClick={() =>
-              addToCart(Number(consultation.product?.id)).then(() =>
-                push(routeRoutes.cart)
-              )
-            }
+            onClick={handleAddToCart}
           >
             {t("ConsultationPage.BuyConsultation")}
           </Button>
