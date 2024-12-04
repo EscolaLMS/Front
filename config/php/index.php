@@ -29,7 +29,7 @@ if (key_exists($_SERVER['HTTP_HOST'], $domains) || key_exists($_SERVER['SERVER_N
     if (isset($setup)) {
         foreach ($setup as $key => $value) {
             if (str_starts_with($key, 'VITE_APP_') || str_starts_with($key, 'REACT_APP_')) {
-                $content = str_replace($token, "\n" . 'window.' . $key . '="' . $value . '"' . $token, $content);
+                $content = str_replace($token, "\n" . 'window.' . $key . '="' . $value . '";' . $token, $content);
             }
         }
     }
