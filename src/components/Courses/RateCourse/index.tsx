@@ -34,6 +34,7 @@ const RateCourse: React.FC<Props> = ({
 
   const handleSendAnswer = useCallback(
     async (rate: number, note?: string) => {
+      console.log("handleSendAnswer", rate, note);
       if (questionnaire.questions) {
         setState((prevState) => ({
           ...prevState,
@@ -55,8 +56,8 @@ const RateCourse: React.FC<Props> = ({
           if (request.success) {
             toast(`${t("RateCourse.")}`, "success");
           }
-        } catch (error) {
-          toast("Error", "error");
+        } catch (error: any) {
+          toast("Error", error.message);
           console.error(error);
         } finally {
           setState((prevState) => ({
