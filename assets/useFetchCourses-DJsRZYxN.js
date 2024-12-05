@@ -1,1 +1,0 @@
-import{r as e,N as l}from"./index-BVPnA-aq.js";const h=(s,u)=>{const[n,o]=e.useState(),[f,r]=e.useState(!0),{fetchCourses:c}=e.useContext(l.EscolaLMSContext),a=async i=>{r(!0);try{const t=await c(i);t&&o(t)}catch(t){console.error(t),o(void 0)}finally{r(!1)}};return e.useEffect(()=>{s&&!u&&a(s)},[c]),{courses:n,loading:f,fetchCoursesData:a}};export{h as u};
