@@ -35,11 +35,11 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
 
   const [answer, setAnswer] = useState({ rate: 0, note: "" });
 
-  const submit = () => {
-    handleSubmit(answer.rate, answer.note);
+  const submit = (rate?: number) => {
+    handleSubmit(rate ? rate : answer.rate, answer.note);
     setAnswer({ rate: 0, note: "" });
   };
-
+  console.log({ data });
   return (
     <QuestionBoxWrapper>
       <Title className="question-box__title">
@@ -52,7 +52,9 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
       <div className="question-box__content">
         {!!withStarsRating ? (
           <Rate
-            onSubmit={(rate) => setAnswer((prev) => ({ ...prev, rate }))}
+            // @ts-ignore TODO: add to sdk
+            score={data.max_score}
+            onSubmit={(rate) => submit(rate)}
             header={data.title}
             onCancel={onClose}
           >
@@ -103,7 +105,7 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
                 {t("RateCourse.NoAnswer")}
               </Button>
               <Button
-                onClick={submit}
+                onClick={() => submit()}
                 type="button"
                 mode="primary"
                 disabled={!answer.note.length}
