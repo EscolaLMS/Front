@@ -5,7 +5,7 @@ import { CartItem, Consultation } from "@escolalms/sdk/lib/types/api";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { IconBadge, IconQuestion, IconTime, IconUsers } from "../../../icons";
+import { IconBadge, IconQuestion, IconTime } from "../../../icons";
 import { formatPrice } from "@/utils/index";
 import isPast from "date-fns/isPast";
 import { useTranslation } from "react-i18next";

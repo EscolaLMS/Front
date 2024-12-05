@@ -1197,9 +1197,9 @@ const resources = {
         "EscolaLms\\Cart\\Events\\OrderCreated": "Zamówienie stworzone",
         "EscolaLms\\Cart\\Events\\OrderPaid": "Zamówienie {{name}} zapłacone",
         "EscolaLms\\Cart\\Events\\ProductableAttached":
-          "Productable {{name}} attached",
+          "Produkt {{name}} został dołączony",
         "EscolaLms\\Cart\\Events\\ProductableDetached":
-          "Productable {{name}} detached",
+          "Produkt {{name}} został odłączony",
         "EscolaLms\\Cart\\Events\\ProductAddedToCart":
           "Produkt {{name}} dodany do koszyka",
         "EscolaLms\\Cart\\Events\\ProductAttached":

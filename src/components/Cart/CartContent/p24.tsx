@@ -161,7 +161,7 @@ const Przelewy24Content = () => {
                       onBuyClick={() => handleSubmit()}
                       id={1}
                       // TODO: translate this it will be in new version in components
-                      disclaimer={`Składając zamówienie na EduMamy.pl, akceptujesz Postanowienia Polityki
+                      disclaimer={`Składając zamówienie, akceptujesz Postanowienia Polityki
                     Prywatności, Regulamin oraz zasady odstąpienia od umowy. Potwierdzasz
                     także, że ten zakup jest przeznaczony wyłącznie do użytku osobistego.`}
                       title={`${formatPrice(
