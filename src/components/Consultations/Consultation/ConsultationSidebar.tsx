@@ -184,10 +184,6 @@ const ConsultationSidebar: React.FC<ConsultationSidebarProps> = (props) => {
         )}
 
         <IconText
-          icon={<IconUsers />}
-          text={t("ConsultationPage.SidebarFeature1")}
-        />
-        <IconText
           icon={<IconQuestion />}
           text={t("ConsultationPage.SidebarFeature2")}
         />
