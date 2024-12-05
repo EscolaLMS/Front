@@ -17,6 +17,10 @@ import CourseDetailsSidebarButtons from "./Buttons";
 import ContentLoader from "@/components/_App/ContentLoader";
 import ProductPrices from "@/components/ProductPrices";
 import styled from "styled-components";
+import {
+  EntityRedirectBuyType,
+  useEntityBuyableType,
+} from "@/hooks/useEntityPrice";
 
 const CourseDetailsSidebarWrapper = styled.div`
   width: 100%;
@@ -67,7 +71,8 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { progress } = useCourseProgress(Number(id));
-
+  const buyableType = useEntityBuyableType(course);
+  const isFree = buyableType === EntityRedirectBuyType.FREE;
   const userOwnThisCourse = useMemo(
     () => course?.product?.owned,
     [course?.product?.owned]
@@ -108,6 +113,7 @@ const CoursesDetailsSidebar: React.FC<Props> = ({
                 old: "18",
                 new: "24",
               }}
+              isFree={isFree}
             />
           </div>
         </div>

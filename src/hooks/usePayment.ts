@@ -1,14 +1,19 @@
-import { useContext, useCallback, useState } from "react";
+import { useContext, useCallback, useState, useMemo } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
 import { InvoiceData } from "@escolalms/sdk/lib/types/api";
 import { APP_URL } from "@/config/index";
 import { toast } from "@/utils/toast";
 
+export enum PaymentGateway {
+  Stripe = "Stripe",
+  Przelewy24 = "Przelewy24",
+}
+
 const usePayment = () => {
   const {
+    config,
     user,
     cart,
     fetchCart,
@@ -121,6 +126,13 @@ const usePayment = () => {
     [t, subscriptionPayWithP24, user.value?.email, resetCart]
   );
 
+  const defaultGateway = useMemo(() => {
+    return config?.value?.escolalms_payments?.default_gateway ===
+      PaymentGateway.Przelewy24
+      ? PaymentGateway.Przelewy24
+      : PaymentGateway.Stripe;
+  }, [config]);
+
   return {
     user,
     processing,
@@ -137,6 +149,7 @@ const usePayment = () => {
     setDiscountStatus,
     fetchCart,
     buySubscriptionByP24,
+    defaultGateway,
   };
 };
 

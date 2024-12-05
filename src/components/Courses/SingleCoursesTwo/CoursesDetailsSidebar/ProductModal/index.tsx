@@ -56,12 +56,13 @@ type Props = {
 const ProductModal: React.FC<Props> = ({ course }) => {
   const { getCheapestSubscription } = useSubscriptions();
   const { cart, addToCart } = useContext(EscolaLMSContext);
+
   const { t } = useTranslation();
   const { push } = useHistory();
 
   const handleBuyCourse = useCallback(() => {
     addToCart(Number(course.product?.id)).then(() => push(routeRoutes.cart));
-  }, [course.product?.id, addToCart, push]);
+  }, [course, addToCart, push]);
 
   return (
     <StyledProductModal>

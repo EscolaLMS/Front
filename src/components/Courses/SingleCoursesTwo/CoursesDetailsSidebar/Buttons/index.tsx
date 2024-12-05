@@ -27,6 +27,11 @@ import {
   revenuecatErrorHandler,
 } from "@/utils/payment";
 import { CapacitorPaymentError } from "@/types/index";
+import {
+  EntityRedirectBuyType,
+  useEntityBuyableType,
+} from "@/hooks/useEntityPrice";
+import usePayment, { PaymentGateway } from "@/hooks/usePayment";
 
 interface CourseAccessButtonProps {
   course: API.Course;
@@ -46,9 +51,11 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  const { courseAccess, fetchCourseAccess, user, fetchCourse } =
+  const { courseAccess, fetchCourseAccess, user, fetchCourse, addToCart } =
     useContext(EscolaLMSContext);
   const { attachProduct, getActiveSubscription } = useSubscriptions();
+  const { payByStripe, payByP24, defaultGateway } = usePayment();
+  const buyableType = useEntityBuyableType(course);
 
   useEffect(() => {
     (async function () {
@@ -107,8 +114,24 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
   );
 
   const handleBuyButtonClick = useCallback(() => {
-    setModalVisible(true);
-  }, [setModalVisible]);
+    if (buyableType === EntityRedirectBuyType.FREE && course?.product?.id) {
+      addToCart(Number(course.product?.id)).then(() =>
+        defaultGateway === PaymentGateway.Stripe
+          ? payByStripe("free")
+          : payByP24()
+      );
+    } else {
+      setModalVisible(true);
+    }
+  }, [
+    setModalVisible,
+    addToCart,
+    course,
+    payByStripe,
+    buyableType,
+    payByP24,
+    defaultGateway,
+  ]);
 
   const handleAttachProduct = useCallback(() => {
     attachProduct(course.id, "EscolaLms\\Courses\\Models\\Course").then(() => [
@@ -133,10 +156,12 @@ const CourseAccessButton: React.FC<CourseAccessButtonProps> = ({
           handleBuyButtonClick();
         }}
       >
-        {t("Buy Course")}
+        {buyableType === EntityRedirectBuyType.FREE
+          ? t("Go to the course")
+          : t("Buy Course")}
       </Button>
     ),
-    [t, handleBuyButtonClick, buyOnMobile]
+    [t, handleBuyButtonClick, buyOnMobile, buyableType]
   );
 
   if (getActiveSubscription?.id) {
