@@ -85,7 +85,6 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   const handleRefreshIfTimePassed = useCallback(() => {
     consultationsData.forEach((consultation) => {
       if (!consultation.is_started && !consultation.is_ended) {
-        console.log("refreshing consultation", consultation);
         // @ts-ignore
         refreshConsultation(consultation.id, consultation.consultation_term_id);
       }
