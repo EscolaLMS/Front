@@ -45,7 +45,7 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   }, [type, userConsultations.list?.data]);
 
   const refreshConsultation = useCallback(
-    async (id: number) => {
+    async (id: number, termId: number) => {
       try {
         const request = await fetch(
           `${API_URL}/api/consultations/me?ids[]=${id}`,
@@ -59,13 +59,17 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
         const response = await request.json();
 
         if (response.success && response.data.length > 0) {
+          const responseIndex = response.data.findIndex(
+            (consultation: API.AppointmentTerm) =>
+              consultation?.consultation_term_id === termId
+          );
           setConsultationsData((prev) => {
             const index = prev.findIndex(
-              (consultation) => consultation.id === id
+              (consultation) => consultation.consultation_term_id === termId
             );
 
             if (index !== -1) {
-              prev[index] = response.data[0];
+              prev[index] = response.data[responseIndex];
             }
 
             return [...prev];
@@ -81,7 +85,8 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
   const handleRefreshIfTimePassed = useCallback(() => {
     consultationsData.forEach((consultation) => {
       if (!consultation.is_started && !consultation.is_ended) {
-        refreshConsultation(consultation.id);
+        // @ts-ignore
+        refreshConsultation(consultation.id, consultation.consultation_term_id);
       }
     });
   }, [consultationsData, refreshConsultation]);
@@ -95,7 +100,8 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     setConsultationsData(filterConstulations);
     const interval = setInterval(() => {
       handleRefreshIfTimePassed();
-    }, 5000);
+    }, 30000);
+
     return () => {
       setConsultationsData([]);
       clearInterval(interval);
