@@ -130,7 +130,7 @@ const ProfileTutorConsultations = ({
             {" "}
             {consultationsData.map((consultation) => (
               <Col
-                key={consultation.consultation_term_id}
+                key={consultation?.consultation_term_id}
                 xs={12}
                 md={6}
                 lg={3}
