@@ -82,6 +82,7 @@ const ProfileTutorConsultations = ({
 
   const handleRefreshIfTimePassed = useCallback(() => {
     consultationsData.forEach((consultation) => {
+      console.log("refreshing consultation", consultation);
       if (!consultation.is_started && !consultation.is_ended) {
         refreshConsultation(
           // @ts-ignore

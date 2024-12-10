@@ -30,10 +30,10 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
       />
     );
   }
-  if (isStarted && consultation.consultation_term_id) {
+  if (isStarted && consultation?.consultation_term_id) {
     return (
       <ConsultationCardJoinButton
-        consultationTermId={consultation.consultation_term_id}
+        consultationTermId={consultation?.consultation_term_id}
         consultationId={consultation.id}
         term={String(consultation.executed_at)}
       />

@@ -15,7 +15,6 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
   const { approveConsultationTerm, rejectConsultationTerm } =
     useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { consultation_term_id } = consultation;
 
   const menuItems = useMemo(
     () => [
@@ -26,7 +25,10 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
             icon={<IconSuccess />}
             text={t("Confirm")}
             onClick={() =>
-              approveConsultationTerm(consultation_term_id, consultation.date)
+              approveConsultationTerm(
+                consultation?.consultation_term_id,
+                consultation.date
+              )
             }
           />
         ),
@@ -38,7 +40,10 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
             icon={<IconCircleError />}
             text={t("Cancel")}
             onClick={() =>
-              rejectConsultationTerm(consultation_term_id, consultation.date)
+              rejectConsultationTerm(
+                consultation?.consultation_term_id,
+                consultation.date
+              )
             }
           />
         ),
@@ -46,7 +51,7 @@ const ConsultationTutorCardButtons = ({ consultation }: Props) => {
     ],
     [
       approveConsultationTerm,
-      consultation_term_id,
+      consultation?.consultation_term_id,
       rejectConsultationTerm,
       t,
       consultation.date,

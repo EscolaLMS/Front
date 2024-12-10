@@ -67,10 +67,10 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
   }, [onClose, setShowBookTermSuccess]);
 
   const onClick = useCallback(async () => {
-    if (consultation.consultation_term_id && selectedTime) {
+    if (consultation?.consultation_term_id && selectedTime) {
       setLoading(true);
       const response = await bookConsultationTerm(
-        consultation.consultation_term_id,
+        consultation?.consultation_term_id,
         selectedTime.toISOString()
       );
       if (response.success) {
@@ -79,7 +79,7 @@ const ProposedTermsContent = ({ consultation, onClose }: Props) => {
       setLoading(false);
     }
   }, [
-    consultation.consultation_term_id,
+    consultation?.consultation_term_id,
     selectedTime,
     bookConsultationTerm,
     close,

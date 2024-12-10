@@ -58,12 +58,12 @@ const ConsultationTutorCardContentDateInfo = ({ consultation }: Props) => {
           type={DateInfoTypes.ACCEPTED}
           date={consultation.date}
           info={
-            isStarted && consultation.consultation_term_id ? (
+            isStarted && consultation?.consultation_term_id ? (
               <ConsultationTutorCardContentDateInfoButtonsStyles>
                 <ConsultationCardJoinButton
-                  consultationTermId={consultation.consultation_term_id}
+                  consultationTermId={consultation?.consultation_term_id}
                   // @ts-ignore
-                  consultationId={consultation.consultation_id}
+                  consultationId={consultation?.consultation_id}
                   term={consultation.date}
                 />
               </ConsultationTutorCardContentDateInfoButtonsStyles>
