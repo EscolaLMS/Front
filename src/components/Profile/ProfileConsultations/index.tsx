@@ -68,7 +68,7 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
               (consultation) => consultation?.consultation_term_id === termId
             );
 
-            if (index !== -1) {
+            if (index !== -1 && responseIndex !== -1) {
               prev[index] = response.data[responseIndex];
             }
 
