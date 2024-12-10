@@ -65,7 +65,7 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
           );
           setConsultationsData((prev) => {
             const index = prev.findIndex(
-              (consultation) => consultation.consultation_term_id === termId
+              (consultation) => consultation?.consultation_term_id === termId
             );
 
             if (index !== -1) {
@@ -86,7 +86,12 @@ const ProfileConsultations = ({ type }: ProfileConsultationsProps) => {
     consultationsData.forEach((consultation) => {
       if (!consultation.is_started && !consultation.is_ended) {
         // @ts-ignore
-        refreshConsultation(consultation.id, consultation.consultation_term_id);
+        if (consultation?.consultation_term_id !== undefined) {
+          refreshConsultation(
+            consultation?.id,
+            consultation?.consultation_term_id
+          );
+        }
       }
     });
   }, [consultationsData, refreshConsultation]);

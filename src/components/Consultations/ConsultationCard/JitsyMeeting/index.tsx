@@ -20,7 +20,7 @@ export const StyledModal = styled(Modal)`
   }
 `;
 
-const FRAME_RATE = 0.3;
+const FRAME_RATE = 3;
 
 declare global {
   interface Window {

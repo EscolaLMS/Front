@@ -86,7 +86,7 @@ const ProfileTutorConsultations = ({
         refreshConsultation(
           // @ts-ignore
           consultation?.consultation_id,
-          consultation.consultation_term_id
+          consultation?.consultation_term_id
         );
       }
     });
