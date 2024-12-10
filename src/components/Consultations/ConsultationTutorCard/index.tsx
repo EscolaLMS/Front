@@ -19,7 +19,7 @@ const ConsultationTutorCard: React.FC<ConsultationTutorCardProps> = (props) => {
         id={consultation?.consultation_term_id}
         image={<ConsultationTutorCardImage product={consultation} />}
         title={<ConsultationTutorCardStatus consultation={consultation} />}
-        subtitle={<p>{consultation.related_product?.name}</p>}
+        subtitle={<p>{consultation?.related_product?.name}</p>}
         footer={<ConsultationTutorCardContent consultation={consultation} />}
       />
     </ConsultationTutorCardStyles>
