@@ -101,7 +101,7 @@ const ProfileTutorConsultations = ({
     setConsultationsData(filterConstulations);
     const interval = setInterval(() => {
       handleRefreshIfTimePassed();
-    }, 3000);
+    }, 30000);
     return () => {
       setConsultationsData([]);
       clearInterval(interval);
