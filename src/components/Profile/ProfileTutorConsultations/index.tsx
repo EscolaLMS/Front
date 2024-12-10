@@ -66,7 +66,7 @@ const ProfileTutorConsultations = ({
                 consultation?.consultation_term_id === termId
             );
 
-            if (index !== -1) {
+            if (index !== -1 && responseIndex !== -1) {
               prev[index] = response.data[responseIndex];
             }
 
@@ -82,12 +82,11 @@ const ProfileTutorConsultations = ({
 
   const handleRefreshIfTimePassed = useCallback(() => {
     consultationsData.forEach((consultation) => {
-      console.log("refreshing consultation", consultation);
       if (!consultation.is_started && !consultation.is_ended) {
         refreshConsultation(
           // @ts-ignore
           consultation?.consultation_id,
-          consultation?.consultation_term_id
+          consultation.consultation_term_id
         );
       }
     });
@@ -102,7 +101,7 @@ const ProfileTutorConsultations = ({
     setConsultationsData(filterConstulations);
     const interval = setInterval(() => {
       handleRefreshIfTimePassed();
-    }, 30000);
+    }, 3000);
     return () => {
       setConsultationsData([]);
       clearInterval(interval);
@@ -131,7 +130,7 @@ const ProfileTutorConsultations = ({
             {" "}
             {consultationsData.map((consultation) => (
               <Col
-                key={consultation?.consultation_term_id}
+                key={consultation.consultation_term_id}
                 xs={12}
                 md={6}
                 lg={3}
