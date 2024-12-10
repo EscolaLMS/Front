@@ -123,19 +123,19 @@ const UserSelectDatePicker = ({ consultation, onClose }: Props) => {
   }, [consultation]);
 
   const onClick = useCallback(async () => {
-    if (consultation.consultation_term_id && selectedDate) {
+    if (consultation?.consultation_term_id && selectedDate) {
       setLoading(true);
       try {
         if ((inComing && isApproved) || isRejected) {
           await changeConsultationTerm(
-            consultation.consultation_term_id,
+            consultation?.consultation_term_id,
             selectedDate.toISOString(),
             consultation.executed_at || "",
             user.value?.id
           );
         } else {
           await bookConsultationTerm(
-            consultation.consultation_term_id,
+            consultation?.consultation_term_id,
             selectedDate.toISOString()
           );
         }

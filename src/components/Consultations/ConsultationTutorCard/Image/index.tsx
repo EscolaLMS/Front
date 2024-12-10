@@ -10,7 +10,7 @@ interface Props {
 const ConsultationTutorCardImage = ({ product }: Props) => {
   if (!product) return null;
   return (
-    <Link to={`/consultations/${product.consultation_term_id}`}>
+    <Link to={`/consultations/${product?.consultation_term_id}`}>
       {/* @ts-ignore TODO:add to sdk */}
       {product.consultation_media ? (
         <ResponsiveImage

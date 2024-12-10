@@ -105,7 +105,7 @@ const ConsultationTutorCardContentUserInfo = ({ consultation }: Props) => {
                     text={t("Confirm")}
                     onClick={() =>
                       approveConsultationTerm(
-                        consultation.consultation_term_id,
+                        consultation?.consultation_term_id,
                         consultation.date,
                         user.id
                       )
@@ -116,7 +116,7 @@ const ConsultationTutorCardContentUserInfo = ({ consultation }: Props) => {
                     text={t("Cancel")}
                     onClick={() =>
                       rejectConsultationTerm(
-                        consultation.consultation_term_id,
+                        consultation?.consultation_term_id,
                         consultation.date,
                         user.id
                       )
