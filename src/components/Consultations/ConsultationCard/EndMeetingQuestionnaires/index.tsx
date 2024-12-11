@@ -69,6 +69,8 @@ export const EndMeetingQuestionnairesModal = ({
     );
   }, [questionnairesList, isStudent, isTutor, entityModel]);
 
+  console.log({ questionnairesList }, { questionnaires }, { state });
+
   const categorizedQuestionnaires = useCallback(() => {
     if (!questionnaires) return;
 

@@ -61,13 +61,8 @@ export const useQuestionnaires = ({
                   rate: matchingElement?.rate,
                   note: matchingElement?.note,
                 };
+                result.push(updatedElement);
 
-                if (
-                  updatedElement.rate === null &&
-                  updatedElement.note === null
-                ) {
-                  result.push(updatedElement);
-                }
                 return result;
               },
               [] as API.QuestionnaireQuestion[]
@@ -81,7 +76,12 @@ export const useQuestionnaires = ({
             };
           })
         );
-
+        console.log(
+          "data",
+          questionnairesWithCombinedQuestions.filter(
+            (q) => q.questions.length > 0
+          )
+        );
         setQuestionnaires(
           questionnairesWithCombinedQuestions.filter(
             (q) => q.questions.length > 0

@@ -267,7 +267,7 @@ export const QuestionnairesModal = ({
 
     return () => clearInterval(intervalId);
   }, [state.reShowableQuestionnaires, entityModel, runDisplayInterval]);
-
+  console.log({ state });
   return (
     <>
       {state.show &&
