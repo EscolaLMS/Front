@@ -76,12 +76,7 @@ export const useQuestionnaires = ({
             };
           })
         );
-        console.log(
-          "data",
-          questionnairesWithCombinedQuestions.filter(
-            (q) => q.questions.length > 0
-          )
-        );
+
         setQuestionnaires(
           questionnairesWithCombinedQuestions.filter(
             (q) => q.questions.length > 0
