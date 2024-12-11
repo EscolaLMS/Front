@@ -61,13 +61,8 @@ export const useQuestionnaires = ({
                   rate: matchingElement?.rate,
                   note: matchingElement?.note,
                 };
+                result.push(updatedElement);
 
-                if (
-                  updatedElement.rate === null &&
-                  updatedElement.note === null
-                ) {
-                  result.push(updatedElement);
-                }
                 return result;
               },
               [] as API.QuestionnaireQuestion[]
