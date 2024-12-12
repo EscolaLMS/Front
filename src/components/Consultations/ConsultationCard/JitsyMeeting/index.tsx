@@ -88,7 +88,6 @@ const JitsyMeeting: React.FC<Props> = ({
                 timestamp: new Date().toISOString(),
               });
 
-              // If 12 screenshots are collected, send them as a batch
               if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
                 const currentUser = await getCurrentUser(api);
 
@@ -103,7 +102,7 @@ const JitsyMeeting: React.FC<Props> = ({
                     term,
                     `${currentUser.displayName}.png`
                   );
-                  screenshots = []; // Clear the array after sending
+                  screenshots = [];
                 } else {
                   console.error(
                     "Failed to get current user for saving images."
@@ -113,7 +112,7 @@ const JitsyMeeting: React.FC<Props> = ({
             } else {
               console.error("Failed to get data URL for screenshot.");
             }
-          }, 1000 / FRAME_RATE); // Take screenshots at FRAME_RATE
+          }, 1000 / FRAME_RATE);
         }
       } else {
         console.log("Recording has stopped.");
@@ -139,7 +138,6 @@ const JitsyMeeting: React.FC<Props> = ({
       api.addListener("videoConferenceLeft", () => handleConferenceLeft());
 
       api.on("recordingStatusChanged", (status) => {
-        console.log("Recording status changed:", status);
         if (userConsentedRef.current)
           handleRecordingStatusChanged(
             api,
