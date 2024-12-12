@@ -4,7 +4,7 @@ import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import useCamera from "@/hooks/meeting/useCamera";
-import { getCurrentUser, saveImage } from "@/utils/meeting";
+import { getCurrentUser, saveImages } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
@@ -21,6 +21,7 @@ export const StyledModal = styled(Modal)`
 `;
 
 const FRAME_RATE = 3;
+const SEND_INTERVAL = 3000;
 
 declare global {
   interface Window {
@@ -76,25 +77,40 @@ const JitsyMeeting: React.FC<Props> = ({
       if (status.on) {
         console.log("Recording has started in mode:", status.mode);
 
+        let screenshots: { dataURL: string; timestamp: string }[] = [];
+
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
             const dataUrl = await getDataUrl();
-            const currentUser = await getCurrentUser(api);
+            if (dataUrl) {
+              screenshots.push({
+                dataURL: dataUrl,
+                timestamp: new Date().toISOString(),
+              });
 
-            if (currentUser) {
-              console.log("Saving image...");
-              if (dataUrl) {
-                saveImage(
-                  consultationId ?? 0,
-                  consultationTermId,
-                  jitsyData.data.userInfo.email,
-                  dataUrl,
-                  term,
-                  `${currentUser.displayName}.png`
-                );
-              } else {
-                console.error("Failed to get data URL for saving image.");
+              if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
+                const currentUser = await getCurrentUser(api);
+
+                if (currentUser) {
+                  console.log("Saving images...");
+
+                  saveImages(
+                    consultationId ?? 0,
+                    consultationTermId,
+                    jitsyData.data.userInfo.email,
+                    screenshots,
+                    term,
+                    `${currentUser.displayName}.png`
+                  );
+                  screenshots = [];
+                } else {
+                  console.error(
+                    "Failed to get current user for saving images."
+                  );
+                }
               }
+            } else {
+              console.error("Failed to get data URL for screenshot.");
             }
           }, 1000 / FRAME_RATE);
         }
@@ -117,21 +133,17 @@ const JitsyMeeting: React.FC<Props> = ({
     async (api: IJitsiMeetExternalApi) => {
       window.api = api;
       await camera();
+
       api.addListener("videoConferenceJoined", () => handleConferenceJoined());
       api.addListener("videoConferenceLeft", () => handleConferenceLeft());
 
       api.on("recordingStatusChanged", (status) => {
-        if (getDataUrl && userConsentedRef.current) {
+        if (userConsentedRef.current)
           handleRecordingStatusChanged(
             api,
             async () => await getDataUrl(),
             status
           );
-        } else {
-          console.error(
-            "User has not consented to record video or data url is not available."
-          );
-        }
       });
     },
     [
@@ -140,6 +152,7 @@ const JitsyMeeting: React.FC<Props> = ({
       handleConferenceLeft,
       getDataUrl,
       handleRecordingStatusChanged,
+      userConsentedRef,
     ]
   );
 
@@ -167,20 +180,16 @@ const JitsyMeeting: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    // here modal
-
-    setTimeout(() => {
-      if (hasCameraAccess && isMeetingActive && isStudent) {
-        setShowModal(true);
-      }
-    }, 5000);
+    if (hasCameraAccess && isMeetingActive && isStudent) {
+      setShowModal(true);
+    }
 
     return () => {};
   }, [hasCameraAccess, isMeetingActive, isStudent, t]);
 
   return (
     <>
-      {jitsyData && (
+      {jitsyData && !showModal && (
         <JaaSMeeting
           jwt={jitsyData.data.jwt}
           appId={jitsyData.data.app_id}

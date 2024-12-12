@@ -18,34 +18,61 @@ const formatDate = (date: Date) => {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
-export const saveImage = (
+export const saveImages = async (
   consultationId: number,
   consultationTermId: number,
   userEmail: string,
-  dataURL: string,
+  screenshots: { dataURL: string; timestamp: string }[],
   term: string,
-  name: string = "aaa.png"
+  name: string = "screenshot"
 ) => {
-  fetch(dataURL)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const data = new FormData();
+  const data = new FormData();
 
-      data.append("name", name);
-      data.append("file", new File([blob], name, { type: "image/png" }));
-      data.append("consultation_id", consultationId.toString());
-      data.append("user_termin_id", consultationTermId.toString());
-      data.append("user_email", userEmail);
-      data.append("timestamp", formatDate(new Date()));
-
-      fetch(`${API_URL}/api/consultations/save-screen?executed_at=${term}`, {
-        method: "POST",
-        body: data,
+  try {
+    // Process all screenshots asynchronously
+    const pairedFiles = await Promise.all(
+      screenshots.map(async (screenshot, index) => {
+        const response = await fetch(screenshot.dataURL);
+        const blob = await response.blob();
+        return {
+          file: new File([blob], `${name}_${index + 1}.png`, {
+            type: "image/png",
+          }),
+          timestamp: screenshot.timestamp,
+        };
       })
-        .then(() => {})
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+    );
+
+    // Append paired files and timestamps to FormData
+    pairedFiles.forEach((pair, index) => {
+      const objectKey = `files[${index}]`;
+      data.append(`${objectKey}[file]`, pair.file);
+      data.append(
+        `${objectKey}[timestamp]`,
+        formatDate(new Date(pair.timestamp))
+      );
+    });
+
+    // Add metadata
+    data.append("consultation_id", consultationId.toString());
+    data.append("user_termin_id", consultationTermId.toString());
+    data.append("user_email", userEmail);
+    data.append("executed_at", term);
+
+    // Send the request
+    const response = await fetch(`${API_URL}/api/consultations/save-screen`, {
+      method: "POST",
+      body: data,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to save images: ${response.statusText}`);
+    }
+
+    console.log("Screenshots and timestamps saved successfully.");
+  } catch (error) {
+    console.error("Error saving screenshots and timestamps:", error);
+  }
 };
 
 export const getCurrentUser = async (api: IJitsiMeetExternalApi) => {
