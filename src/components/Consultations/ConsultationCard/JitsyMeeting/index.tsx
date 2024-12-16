@@ -194,8 +194,6 @@ const JitsyMeeting: React.FC<Props> = ({
     return () => {};
   }, [hasCameraAccess, isMeetingActive, isStudent, t]);
 
-  console.log(jitsyData);
-
   return (
     <>
       {jitsyData && !showModal && (
