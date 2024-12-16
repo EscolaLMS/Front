@@ -26,9 +26,8 @@ export const saveImages = async (
   screenshots: { dataURL: string; timestamp: number }[],
   term: string
 ) => {
-  // const data = new FormData();
   const filenames = screenshots.map((screenshot) => ({
-    filename: `${screenshot.timestamp}.png`,
+    filename: `${screenshot.timestamp}.webp`,
   }));
 
   try {
@@ -59,7 +58,7 @@ export const saveImages = async (
     for (let i = 0; i < responseData.data.length; i++) {
       const { url, filename } = responseData.data[i];
       const screenshot = screenshots.find(
-        (s) => `${s.timestamp}.png` === filename
+        (s) => `${s.timestamp}.webp` === filename
       );
 
       if (!screenshot) {
@@ -67,14 +66,18 @@ export const saveImages = async (
         continue;
       }
 
-      const formData = new FormData();
-      formData.append("file", screenshot.dataURL);
-
       try {
-        // Make PUT request
+        const base64Data = screenshot.dataURL.split(",")[1];
+        const binaryData = atob(base64Data);
+        const arrayBuffer = new Uint8Array(binaryData.length);
+        for (let i = 0; i < binaryData.length; i++) {
+          arrayBuffer[i] = binaryData.charCodeAt(i);
+        }
+
+        const blob = new Blob([arrayBuffer]);
         const response = await fetch(url, {
           method: "PUT",
-          body: formData,
+          body: blob,
         });
 
         if (response.ok) {
