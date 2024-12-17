@@ -10,8 +10,6 @@ interface Props {
 const ConsultationTutorCardImage = ({ product }: Props) => {
   if (!product) return null;
 
-  console.log(product);
-
   return (
     <Link to={`/consultations/${product?.consultation_term_id}`}>
       {/* @ts-ignore TODO:add to sdk */}
