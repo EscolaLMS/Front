@@ -77,7 +77,7 @@ const JitsyMeeting: React.FC<Props> = ({
       if (status.on) {
         console.log("Recording has started in mode:", status.mode);
 
-        let screenshots: { dataURL: string; timestamp: string }[] = [];
+        let screenshots: { dataURL: string; timestamp: number }[] = [];
 
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
@@ -85,7 +85,7 @@ const JitsyMeeting: React.FC<Props> = ({
             if (dataUrl) {
               screenshots.push({
                 dataURL: dataUrl,
-                timestamp: new Date().toISOString(),
+                timestamp: new Date().getTime(),
               });
 
               if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
@@ -98,9 +98,10 @@ const JitsyMeeting: React.FC<Props> = ({
                     consultationId ?? 0,
                     consultationTermId,
                     jitsyData.data.userInfo.email,
+                    // @ts-ignore
+                    jitsyData.data.userInfo.id,
                     screenshots,
-                    term,
-                    `${currentUser.displayName}.png`
+                    term
                   );
                   screenshots = [];
                 } else {
@@ -126,7 +127,13 @@ const JitsyMeeting: React.FC<Props> = ({
         }
       }
     },
-    [consultationId, consultationTermId, jitsyData.data.userInfo.email, term]
+    [
+      consultationId,
+      consultationTermId,
+      jitsyData.data.userInfo.email, // @ts-ignore
+      jitsyData.data.userInfo.id,
+      term,
+    ]
   );
 
   const onApiReady = useCallback(

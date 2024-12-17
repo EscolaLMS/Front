@@ -62,7 +62,7 @@ const useCamera = () => {
       canvasElement.height = settings.height || 0;
       canvasElement.width = settings.width || 0;
       ctx?.drawImage(videoRef.current, 0, 0);
-      const dataURL = canvasElement.toDataURL("image/png", 1.0);
+      const dataURL = canvasElement.toDataURL("image/webp", 1.0);
 
       // Cleanup
       ctx?.clearRect(0, 0, canvasElement.width, canvasElement.height);
