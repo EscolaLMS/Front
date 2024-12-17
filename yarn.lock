@@ -419,10 +419,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz#acad351d582d157bb145535db2a6ff53dd514b5c"
   integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
-"@escolalms/components@^0.0.157":
-  version "0.0.157"
-  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.157.tgz#6f95119defa4b1332776102042db4ecdb35f1e62"
-  integrity sha512-Ifs++/y8lPRnTMJhomfyrjcnfCDE+INGKBe3HNRIgSWM4ctz3jG9T0fUV7JURb4UR/RNE+nio8LD/zVxcxwXgQ==
+"@escolalms/components@^0.0.159":
+  version "0.0.159"
+  resolved "https://registry.yarnpkg.com/@escolalms/components/-/components-0.0.159.tgz#66c986c17109641af4a079d70c02f32fd3f69a42"
+  integrity sha512-TVWBwKJPbzjofhZ1ulNNI7hRrlTwx+aM4bT2PQnQ0IF22scGAxksV+aDe5J7WT1gsoTZ/vSs8ayBDUpi8b2dtg==
   dependencies:
     "@escolalms/h5p-react" "^0.2.19"
     "@escolalms/sdk" "^0.6.2"
@@ -6146,9 +6146,9 @@ nan@^2.17.0:
   integrity sha512-nbajikzWTMwsW+eSsNm3QwlOs7het9gGJU5dDZzRTQGk03vyBOauxgI4VakDzE0PtsGTmXPsXTbbjVhRwR5mpw==
 
 nanoid@^3.3.7:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
-  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.8.tgz#b1be3030bee36aaff18bacb375e5cce521684baf"
+  integrity sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==
 
 napi-build-utils@^1.0.1:
   version "1.0.2"
