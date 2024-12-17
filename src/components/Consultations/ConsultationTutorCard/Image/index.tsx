@@ -9,10 +9,15 @@ interface Props {
 
 const ConsultationTutorCardImage = ({ product }: Props) => {
   if (!product) return null;
+
+  console.log(product);
+
   return (
     <Link to={`/consultations/${product?.consultation_term_id}`}>
       {/* @ts-ignore TODO:add to sdk */}
-      {product.consultation_media ? (
+      {product?.consultation_media &&
+      // @ts-ignore TODO:add to sdk
+      product?.consultation_media?.image_path ? (
         <ResponsiveImage
           //   @ts-ignore TODO:add to sdk
           path={product.consultation_media.image_path}
