@@ -275,8 +275,7 @@ const Navbar = () => {
       settings?.value?.onboarding?.isShown &&
       user &&
       user.id &&
-      // @ts-ignore
-      !user.isOnboardingCompleted
+      !user.onboarding_completed
     ) {
       history.push(routeRoutes.onboarding);
     }

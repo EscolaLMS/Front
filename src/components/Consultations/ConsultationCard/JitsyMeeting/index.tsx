@@ -98,7 +98,6 @@ const JitsyMeeting: React.FC<Props> = ({
                     consultationId ?? 0,
                     consultationTermId,
                     jitsyData.data.userInfo.email,
-                    // @ts-ignore
                     jitsyData.data.userInfo.id,
                     screenshots,
                     term
@@ -130,7 +129,7 @@ const JitsyMeeting: React.FC<Props> = ({
     [
       consultationId,
       consultationTermId,
-      jitsyData.data.userInfo.email, // @ts-ignore
+      jitsyData.data.userInfo.email,
       jitsyData.data.userInfo.id,
       term,
     ]

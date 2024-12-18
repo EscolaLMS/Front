@@ -23,7 +23,7 @@ const SelectedTermContent = ({
   loading,
 }: Props) => {
   const { t } = useTranslation();
-  // @ts-ignore TODO: add to sdk
+
   const { teachers } = consultation;
 
   return (
@@ -35,8 +35,8 @@ const SelectedTermContent = ({
         title={t("ConsultationPage.ConsultationTerm")}
         content={formatDate(selectedDate, APP_CONFIG.defaultDateTimeFormat)}
       />
-      {/*  @ts-ignore TODO: add to sdk */}
-      {teachers.map((teacher) => (
+
+      {teachers?.map((teacher) => (
         <InfoBox
           key={teacher?.id}
           title={t("ConsultationPage.Expert")}

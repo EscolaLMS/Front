@@ -106,7 +106,6 @@ const Consultation = () => {
                       {t<string>("ConsultationPage.Teacher")}
                     </Title>
                     {consultation.value &&
-                      // @ts-ignore TODO: add to sdk
                       consultation.value.teachers.map((author) => (
                         <CourseAuthor author={author} />
                       ))}

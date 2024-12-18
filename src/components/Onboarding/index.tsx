@@ -130,7 +130,7 @@ const Onboarding = () => {
   const swiperRef = useRef<SwiperType>();
 
   // @ts-ignore
-  if (user.value?.isOnboardingCompleted) {
+  if (user.value?.onboarding_completed) {
     history.push(routeRoutes.home);
   }
 
@@ -177,7 +177,7 @@ const Onboarding = () => {
     try {
       const req = await updateProfile({
         ...state.answers,
-        isOnboardingCompleted: true,
+        onboarding_completed: true,
       });
 
       if (req.success) {

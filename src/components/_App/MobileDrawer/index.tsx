@@ -40,7 +40,7 @@ const MobileDrawer: React.FC<Props> = ({
     <StyledMobileDrawer>
       <GlobalDrawer $height={height} />
       <Drawer
-        open={isOpen} // @ts-ignore
+        open={isOpen}
         classNames={{
           wrapper: "mobile-drawer-drawer-wrapper",
           content: "drawer-content",

@@ -56,8 +56,7 @@ export const EndMeetingQuestionnairesModal = ({
           if (model.model_type_title === QuestionnaireModelType.CONSULTATION) {
             // Additional filters for "consultation"
             return (
-              // @ts-ignore add to sdk
-              (isStudent && model.target_group === "user") || // @ts-ignore add to sdk
+              (isStudent && model.target_group === "user") ||
               (isTutor && model.target_group === "author")
             );
           }
@@ -83,7 +82,6 @@ export const EndMeetingQuestionnairesModal = ({
           (model) =>
             model.model_type_title === entityModel &&
             model.model_id === entityId
-          // @ts-ignore add to sdk
         )?.display_frequency_minutes;
 
         if (frequency !== null && frequency !== undefined && frequency === 0) {

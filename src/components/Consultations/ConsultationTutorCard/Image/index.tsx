@@ -12,14 +12,10 @@ const ConsultationTutorCardImage = ({ product }: Props) => {
 
   return (
     <Link to={`/consultations/${product?.consultation_term_id}`}>
-      {/* @ts-ignore TODO:add to sdk */}
       {product?.consultation_media &&
-      // @ts-ignore TODO:add to sdk
       product?.consultation_media?.image_path ? (
         <ResponsiveImage
-          //   @ts-ignore TODO:add to sdk
           path={product.consultation_media.image_path}
-          //   @ts-ignore TODO:add to sdk
           alt={product.name}
           srcSizes={[300, 600, 900]}
         />

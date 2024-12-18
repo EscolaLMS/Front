@@ -65,7 +65,6 @@ const ConsultationCard: React.FC<ConsultationCardProps> = (props) => {
         price={
           showPrice && (
             <>
-              {/* @ts-ignore TODO: missed in sdk */}
               {consultation.public ? (
                 <div className="course-price">{t("FREE")}</div>
               ) : (
