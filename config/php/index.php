@@ -36,7 +36,7 @@ foreach (getenv() as $key => $value) {
 }
 
 if (is_file('version.html')) {
-    $setup['VITE_APP_SENTRY_RELEASE'] = "front@" . trim(file_get_contents('version'));
+    $setup['VITE_APP_SENTRY_RELEASE'] = "front@" . trim(file_get_contents('version.html'));
 }
 
 
