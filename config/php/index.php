@@ -5,6 +5,7 @@ $content = file_get_contents("index.html");
 // check variables first 
 
 $domains = [];
+$setup = [];
 $token = '<!-- inject env variables -->';
 
 if (isset($_ENV['MULTI_DOMAINS'])) {
@@ -26,13 +27,25 @@ if (is_file(dirname(__FILE__) . "/env_config.php")) {
 
 if (key_exists($_SERVER['HTTP_HOST'], $domains) || key_exists($_SERVER['SERVER_NAME'], $domains)) {
     $setup = key_exists($_SERVER['HTTP_HOST'], $domains) ? $domains[$_SERVER['HTTP_HOST']] : $domains[$_SERVER['SERVER_NAME']];
-    if (isset($setup)) {
-        foreach ($setup as $key => $value) {
-            if (str_starts_with($key, 'VITE_APP_') || str_starts_with($key, 'REACT_APP_')) {
-                $content = str_replace($token, "\n" . 'window.' . $key . '="' . $value . '";' . $token, $content);
-            }
-        }
+}
+
+foreach (getenv() as $key => $value) {
+    if (str_starts_with($key, 'VITE_APP_') || str_starts_with($key, 'REACT_APP_')) {
+        $setup[$key] = $value;
     }
 }
+
+if (is_file('version.html')) {
+    $setup['VITE_APP_SENTRY_RELEASE'] = "front@" . trim(file_get_contents('version'));
+}
+
+
+foreach ($setup as $key => $value) {
+    if (str_starts_with($key, 'VITE_APP_') || str_starts_with($key, 'REACT_APP_')) {
+        $content = str_replace($token, "\n" . 'window.' . $key . '="' . $value . '";' . $token, $content);
+    }
+}
+
+
 
 echo $content;
