@@ -4,8 +4,42 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      - "main"
 jobs:
+  source-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        env:
+          CI: false
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          node -v 
+          yarn
+          yarn build
+          echo "${{github.ref_name}}" >> dist/version.html
+          yarn sentry:sourcemaps
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: sentry
+          SENTRY_PROJECT: front
+          SENTRY_URL: https://sentry.escolait.pl
+        with:
+          environment: production
+          sourcemaps: ./dist
+          version: front@${{github.ref_name}}
+          ignore_missing: true
+          ignore_empty: true
   build:
     runs-on: ubuntu-latest
     steps:
