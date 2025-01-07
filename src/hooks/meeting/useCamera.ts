@@ -1,14 +1,17 @@
+import { Blob } from "buffer";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { WorkerResponse } from "src/workers/dataUrlWorker";
 
+// Enums
 enum cameraPermissions {
   GRANTED = "granted",
-  // DENIED = "denied",
 }
 
 const useCamera = () => {
   const [hasCameraAccess, setHasCameraAccess] = useState(false);
   const streamRef = useRef<MediaStream | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const workerRef = useRef<Worker | null>(null); // Web Worker ref
 
   const getCameraStream = useCallback(async () => {
     try {
@@ -54,7 +57,7 @@ const useCamera = () => {
     return await getCameraStream();
   };
 
-  const getDataUrl = async () => {
+  const getDataUrl = async (): Promise<Blob | null> => {
     if (videoRef.current && streamRef.current) {
       const canvasElement = document.createElement("canvas");
       const ctx = canvasElement.getContext("2d");
@@ -62,15 +65,52 @@ const useCamera = () => {
       const track = streamRef.current.getVideoTracks()[0];
       const settings = track.getSettings();
 
-      canvasElement.height = settings.height || 0;
-      canvasElement.width = settings.width || 0;
-      ctx?.drawImage(videoRef.current, 0, 0);
-      const dataURL = canvasElement.toDataURL("image/webp", 1.0);
+      canvasElement.height = settings.height || 720;
+      canvasElement.width = settings.width || 1280;
 
-      // Cleanup
-      ctx?.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      canvasElement.remove();
-      return dataURL;
+      ctx?.drawImage(
+        videoRef.current,
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height
+      );
+
+      const imageBitmap = await createImageBitmap(canvasElement);
+
+      if (!workerRef.current) {
+        workerRef.current = new Worker(
+          new URL("../../workers/dataUrlWorker.ts", import.meta.url),
+          {
+            type: "module",
+          }
+        );
+      }
+
+      return new Promise((resolve, reject) => {
+        workerRef.current!.onmessage = (
+          event: MessageEvent<WorkerResponse>
+        ) => {
+          const { success, blob, error } = event.data;
+
+          if (success && blob) {
+            resolve(blob);
+          } else {
+            reject(error || "Unknown error occurred in Web Worker.");
+          }
+        };
+
+        workerRef.current!.onerror = (err) => {
+          console.error("Worker error:", err);
+          reject("Web Worker encountered an error.");
+        };
+
+        workerRef.current!.postMessage({
+          canvasData: imageBitmap,
+          width: canvasElement.width,
+          height: canvasElement.height,
+        });
+      });
     }
     return null;
   };
@@ -97,6 +137,13 @@ const useCamera = () => {
     };
 
     handlePermissionChange();
+
+    return () => {
+      // Clean up Workera
+      if (workerRef.current) {
+        workerRef.current.terminate();
+      }
+    };
   }, [restartVideoTrack]);
 
   return { camera, hasCameraAccess, restartVideoTrack, getDataUrl };

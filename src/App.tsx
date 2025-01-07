@@ -13,6 +13,7 @@ import { useFirebase } from "@/hooks/useFirebase";
 import { StatusBar } from "@capacitor/status-bar";
 import { isMobilePlatform } from "@/utils/index";
 import "react-loading-skeleton/dist/skeleton.css";
+import usePerformanceMetrics from "@/hooks/usePerformanceMetrics";
 
 const Customizer = lazy(
   () => import("./components/_App/ThemeCustomizer/ThemeCustomizer")
@@ -69,6 +70,8 @@ const mapStringToTheme = (theme: string) => {
 const App = () => {
   const { fetchSettings, settings, fetchNotifications, fetchConfig } =
     useContext(EscolaLMSContext);
+
+  usePerformanceMetrics();
 
   useEffect(() => {
     if (isMobilePlatform) {

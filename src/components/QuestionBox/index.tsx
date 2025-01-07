@@ -39,7 +39,7 @@ export const QuestionBox: FC<QuestionBoxProps> = ({
     handleSubmit(rate ? rate : answer.rate, answer.note);
     setAnswer({ rate: 0, note: "" });
   };
-  console.log({ data });
+
   return (
     <QuestionBoxWrapper>
       <Title className="question-box__title">
