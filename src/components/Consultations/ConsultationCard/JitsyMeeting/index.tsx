@@ -10,6 +10,7 @@ import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import styled from "styled-components";
+import { API_URL, getAPIURL } from "@/config/index";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
