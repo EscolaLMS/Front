@@ -22,12 +22,11 @@ const retryFetch = async (
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        resolve(response); // Fetch successful, resolve the promise
+        resolve(response);
       } catch (error) {
         console.error(`Fetch attempt ${attempt + 1} failed:`, error);
 
         if (attempt < retries - 1) {
-          // Schedule the next attempt using setTimeout
           setTimeout(() => attemptFetch(attempt + 1), delay);
         } else {
           reject(`Retries exhausted. Last error: ${error}`);
@@ -35,7 +34,7 @@ const retryFetch = async (
       }
     };
 
-    attemptFetch(0); // Start the first attempt
+    attemptFetch(0);
   });
 };
 
