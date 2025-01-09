@@ -4,7 +4,7 @@ import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import useCamera from "@/hooks/meeting/useCamera";
-import { getCurrentUser, saveImages } from "@/utils/meeting";
+import { getCurrentUser } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
@@ -49,6 +49,7 @@ const JitsyMeeting: React.FC<Props> = ({
   const userConsentedRef = useRef(false);
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
+  const workerRef = useRef<Worker | null>(null);
 
   const { isStudent } = useRoles();
   const { t } = useTranslation();
@@ -63,10 +64,52 @@ const JitsyMeeting: React.FC<Props> = ({
     isMeetingActive.current = false;
   }, []);
 
+  const saveImagesInWorker = useCallback(
+    (
+      consultationId: number,
+      consultationTermId: number,
+      userEmail: string,
+      userId: number,
+      screenshots: { dataURL: Blob; timestamp: number }[],
+      term: string
+    ) => {
+      if (!workerRef.current) {
+        workerRef.current = new Worker(
+          new URL("../../../../workers/saveImageWorker.ts", import.meta.url),
+          { type: "module" }
+        );
+      }
+
+      workerRef.current.onmessage = (event: MessageEvent) => {
+        const { success, error } = event.data;
+
+        if (success) {
+          console.log("Images saved successfully via Worker.");
+        } else {
+          console.error("Error saving images in Worker:", error);
+        }
+      };
+
+      workerRef.current.onerror = (err) => {
+        console.error("Worker encountered an error:", err);
+      };
+
+      workerRef.current.postMessage({
+        consultationId,
+        consultationTermId,
+        userEmail,
+        userId,
+        screenshots,
+        term,
+      });
+    },
+    []
+  );
+
   const handleRecordingStatusChanged = useCallback(
     async (
       api: IJitsiMeetExternalApi,
-      getDataUrl: () => Promise<string | null>,
+      getDataUrl: () => Promise<Blob | null>,
       status: {
         on: boolean;
         mode: string;
@@ -77,7 +120,7 @@ const JitsyMeeting: React.FC<Props> = ({
       if (status.on) {
         console.log("Recording has started in mode:", status.mode);
 
-        let screenshots: { dataURL: string; timestamp: number }[] = [];
+        let screenshots: { dataURL: Blob; timestamp: number }[] = [];
 
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
@@ -94,7 +137,7 @@ const JitsyMeeting: React.FC<Props> = ({
                 if (currentUser) {
                   console.log("Saving images...");
 
-                  saveImages(
+                  saveImagesInWorker(
                     consultationId ?? 0,
                     consultationTermId,
                     jitsyData.data.userInfo.email,
@@ -133,6 +176,7 @@ const JitsyMeeting: React.FC<Props> = ({
       jitsyData.data.userInfo.email, // @ts-ignore
       jitsyData.data.userInfo.id,
       term,
+      saveImagesInWorker,
     ]
   );
 
@@ -148,7 +192,7 @@ const JitsyMeeting: React.FC<Props> = ({
         if (userConsentedRef.current)
           handleRecordingStatusChanged(
             api,
-            async () => await getDataUrl(),
+            async () => (await getDataUrl()) as Blob,
             status
           );
       });
@@ -180,6 +224,9 @@ const JitsyMeeting: React.FC<Props> = ({
 
   useEffect(() => {
     return () => {
+      if (workerRef.current) {
+        workerRef.current.terminate();
+      }
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }

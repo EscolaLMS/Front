@@ -23,7 +23,7 @@ export const saveImages = async (
   consultationTermId: number,
   userEmail: string,
   userId: number,
-  screenshots: { dataURL: string; timestamp: number }[],
+  screenshots: { dataURL: Blob; timestamp: number }[],
   term: string
 ) => {
   const filenames = screenshots.map((screenshot) => ({
@@ -67,14 +67,7 @@ export const saveImages = async (
       }
 
       try {
-        const base64Data = screenshot.dataURL.split(",")[1];
-        const binaryData = atob(base64Data);
-        const arrayBuffer = new Uint8Array(binaryData.length);
-        for (let i = 0; i < binaryData.length; i++) {
-          arrayBuffer[i] = binaryData.charCodeAt(i);
-        }
-
-        const blob = new Blob([arrayBuffer]);
+        const blob = new Blob([screenshot.dataURL]);
         const response = await fetch(url, {
           method: "PUT",
           body: blob,
@@ -92,53 +85,6 @@ export const saveImages = async (
   } catch (error) {
     console.error("Error saving screenshots and timestamps:", error);
   }
-
-  // try {
-  //   // Process all screenshots asynchronously
-  //   const pairedFiles = await Promise.all(
-  //     screenshots.map(async (screenshot, index) => {
-  //       const response = await fetch(screenshot.dataURL);
-  //       const blob = await response.blob();
-  //       return {
-  //         file: new File([blob], `${name}_${index + 1}.png`, {
-  //           type: "image/png",
-  //         }),
-  //         timestamp: screenshot.timestamp,
-  //       };
-  //     })
-  //   );
-
-  //   // Append paired files and timestamps to FormData
-  //   pairedFiles.forEach((pair, index) => {
-  //     const objectKey = `files[${index}]`;
-  //     data.append(`${objectKey}[file]`, pair.file);
-  //     data.append(
-  //       `${objectKey}[timestamp]`,
-  //       formatDate(new Date(pair.timestamp))
-  //     );
-  //   });
-
-  //   // Add metadata
-  //   data.append("consultation_id", consultationId.toString());
-  //   data.append("user_termin_id", consultationTermId.toString());
-  //   data.append("user_id", userId.toString());
-  //   data.append("user_email", userEmail);
-  //   data.append("executed_at", term);
-
-  //   // Send the request
-  //   const response = await fetch(`${API_URL}/api/consultations/save-screen`, {
-  //     method: "POST",
-  //     body: data,
-  //   });
-
-  //   if (!response.ok) {
-  //     throw new Error(`Failed to save images: ${response.statusText}`);
-  //   }
-
-  //   console.log("Screenshots and timestamps saved successfully.");
-  // } catch (error) {
-  //   console.error("Error saving screenshots and timestamps:", error);
-  // }
 };
 
 export const getCurrentUser = async (api: IJitsiMeetExternalApi) => {

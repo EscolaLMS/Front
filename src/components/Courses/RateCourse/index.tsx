@@ -34,7 +34,6 @@ const RateCourse: React.FC<Props> = ({
 
   const handleSendAnswer = useCallback(
     async (rate: number, note?: string) => {
-      console.log("handleSendAnswer", rate, note);
       if (questionnaire.questions) {
         setState((prevState) => ({
           ...prevState,
