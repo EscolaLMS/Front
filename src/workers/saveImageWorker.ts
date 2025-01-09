@@ -13,7 +13,7 @@ const retryFetch = async (
   url: string,
   options: RequestInit,
   retries: number = 3,
-  delay: number = 1000
+  delay: number = 2000
 ): Promise<Response> => {
   return new Promise((resolve, reject) => {
     const attemptFetch = async (attempt: number) => {
