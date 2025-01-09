@@ -9,6 +9,35 @@ export interface SaveImagesMessage {
   term: string;
 }
 
+const retryFetch = async (
+  url: string,
+  options: RequestInit,
+  retries: number = 3,
+  delay: number = 2000
+): Promise<Response> => {
+  return new Promise((resolve, reject) => {
+    const attemptFetch = async (attempt: number) => {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        resolve(response);
+      } catch (error) {
+        console.error(`Fetch attempt ${attempt + 1} failed:`, error);
+
+        if (attempt < retries - 1) {
+          setTimeout(() => attemptFetch(attempt + 1), delay);
+        } else {
+          reject(`Retries exhausted. Last error: ${error}`);
+        }
+      }
+    };
+
+    attemptFetch(0);
+  });
+};
+
 self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
   const {
     consultationId,
@@ -24,7 +53,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
       filename: `${screenshot.timestamp}.webp`,
     }));
 
-    const signUrls = await fetch(
+    const signUrls = await retryFetch(
       `${
         import.meta.env.VITE_APP_PUBLIC_API_URL
       }/api/consultations/signed-screen-urls`,

@@ -585,6 +585,7 @@ const resources = {
         SendAnswer: "Send",
         NoAnswer: "Cancel",
         WriteAnswer: "Write an answer",
+        AnswerSended: "Answer sended",
       },
       OrderStatus: {
         NEW: "New",
@@ -1340,6 +1341,7 @@ const resources = {
         SendAnswer: "Wyślij",
         NoAnswer: "Anuluj",
         WriteAnswer: "Napisz odpowiedź",
+        AnswerSended: "Odpowiedź wysłana",
       },
       Filters: {
         Category: "Kategoria",
