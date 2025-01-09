@@ -19,10 +19,9 @@ export const isMobilePlatform =
 
 export const getTopicType = (type: string) => type.split("\\")?.pop();
 
-export const getPriceWithTax = (price: number, taxPercentage: number) => {
-  const totalTax = ((price / 100) * taxPercentage).toFixed(2);
-  const totalPrice = Number(price / 100) + Number(totalTax);
-  return totalPrice.toFixed(2);
+export const getPriceWithTax = (price: number): number => {
+  const totalPrice = Number(price / 100);
+  return parseFloat(totalPrice.toFixed(2));
 };
 
 export const getOrderProductsNames = (order: Order | undefined | null) => {
@@ -113,7 +112,7 @@ export const getNotificationTranslationObject = (
       return {
         translation,
         object: {
-          amount: notification.data.payment?.amount || 0,
+          amount: getPriceWithTax(notification.data.payment?.amount ?? 0),
           name: getOrderProductsNames(notification.data.payment?.payable),
         },
       };
@@ -121,7 +120,7 @@ export const getNotificationTranslationObject = (
       return {
         translation,
         object: {
-          amount: notification.data.payment?.amount || 0,
+          amount: getPriceWithTax(notification.data.payment?.amount ?? 0) || 0,
           name: getOrderProductsNames(notification.data.payment?.payable),
         },
       };
@@ -129,14 +128,14 @@ export const getNotificationTranslationObject = (
       return {
         translation,
         object: {
-          amount: notification.data.payment?.amount || 0,
+          amount: getPriceWithTax(notification.data.payment?.amount ?? 0) || 0,
         },
       };
     case EventTypes.PaymentSuccess:
       return {
         translation,
         object: {
-          amount: notification.data.payment?.amount || 0,
+          amount: getPriceWithTax(notification.data.payment?.amount ?? 0) || 0,
           name: getOrderProductsNames(notification.data.payment?.payable),
         },
       };
