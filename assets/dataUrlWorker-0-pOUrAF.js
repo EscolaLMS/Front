@@ -1,0 +1,2 @@
+(function(){"use strict";self.onmessage=async t=>{const{canvasData:n,width:r,height:o}=t.data;try{const e=new OffscreenCanvas(r,o),s=e.getContext("2d");if(!s)throw new Error("Failed to get 2D context for OffscreenCanvas.");s.drawImage(n,0,0,r,o);const a=await e.convertToBlob({type:"image/webp",quality:1});self.postMessage({success:!0,blob:a})}catch(e){console.error("Worker error:",e);const s={success:!1,error:e instanceof Error?e.message:"Unknown error"};self.postMessage(s)}}})();
+//# sourceMappingURL=dataUrlWorker-0-pOUrAF.js.map
