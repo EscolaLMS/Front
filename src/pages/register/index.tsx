@@ -52,7 +52,7 @@ const StyledLink = styled(Link)`
 const StyledContent = styled.div`
   background-color: ${({ theme }) => theme.gray4};
   padding-top: 100px;
-  height: calc(100vh - 452px);
+  height: 600px;
   @media (max-width: 991px) {
     height: 100%;
     padding: 100px 0px;
