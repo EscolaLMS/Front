@@ -49,17 +49,17 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
                 </Title>
                 <SwiperSlider slidesPerView={4}>
                   {relatedProducts?.map((product) => (
-                    <SwiperSlide key={product.id}>
+                    <SwiperSlide key={product?.id}>
                       <NewCourseCard
                         mobile={isMobile}
-                        id={product.id}
+                        id={product?.id}
                         image={
                           // @ts-ignore TODO: missed in sdk
                           <Link to={`/courses/${product?.productables[0]?.id}`}>
-                            {product.poster_path ? (
+                            {product?.poster_path ? (
                               <ResponsiveImage
-                                path={product.poster_path}
-                                alt={product.name}
+                                path={product?.poster_path}
+                                alt={product?.name}
                                 srcSizes={[300, 600, 900]}
                               />
                             ) : (
@@ -69,7 +69,7 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
                         }
                         price={
                           // @ts-ignore TODO: missed in sdk
-                          item.public ? (
+                          item?.public ? (
                             <div className="course-price">{t("FREE")}</div>
                           ) : (
                             <ProductPrices
@@ -82,7 +82,7 @@ export const CourseRelated: React.FC<Props> = ({ relatedProducts }) => {
                         title={
                           <Link to={`/courses/${product.id}`}>
                             <Title level={3} as="h3" className="title">
-                              {product.name}
+                              {product?.name}
                             </Title>
                           </Link>
                         }
