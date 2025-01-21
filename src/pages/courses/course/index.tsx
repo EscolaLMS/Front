@@ -30,6 +30,7 @@ import styled, { useTheme } from "styled-components";
 import { ArrowRight } from "@/icons/index";
 import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
 import CoursePageContentSkeleton from "@/components/Skeletons/CoursePage/content";
+import { API_URL } from "@/config/index";
 
 const BackButton = styled.button`
   all: unset;
@@ -91,6 +92,25 @@ const CoursePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const getPreviewContent = useCallback(
+    async (topic: API.Topic) => {
+      try {
+        const request = await fetch(
+          `${API_URL}/api/courses/${course.value?.id}/preview/${topic.id}`
+        );
+
+        if (request.ok) {
+          const response = await request.json();
+
+          setPreviewTopic(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [course]
+  );
 
   if (course.error) {
     return <pre>{course.error.message}</pre>;
@@ -175,7 +195,7 @@ const CoursePage = () => {
                   {course.value.lessons && course.value.lessons.length > 0 && (
                     <CourseProgram
                       lessons={course.value.lessons}
-                      onTopicClick={(topic) => setPreviewTopic(topic)}
+                      onTopicClick={(topic) => getPreviewContent(topic)}
                     />
                   )}
                   <CourseRatings questionnaires={questionnaires} />
