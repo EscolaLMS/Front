@@ -31,6 +31,7 @@ import { ArrowRight } from "@/icons/index";
 import SidebarSkeleton from "@/components/Skeletons/CoursePage/sidebar";
 import CoursePageContentSkeleton from "@/components/Skeletons/CoursePage/content";
 import { API_URL } from "@/config/index";
+import { toast } from "@/utils/toast";
 
 const BackButton = styled.button`
   all: unset;
@@ -107,9 +108,10 @@ const CoursePage = () => {
         }
       } catch (error) {
         console.error(error);
+        toast(`${t("UnexpectedError")}`, "error");
       }
     },
-    [course]
+    [course, t]
   );
 
   if (course.error) {
