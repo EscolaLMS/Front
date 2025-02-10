@@ -11,7 +11,8 @@ const ConsultationTutorCardImage = ({ product }: Props) => {
   if (!product) return null;
 
   return (
-    <Link to={`/consultations/${product?.consultation_term_id}`}>
+    // @ts-ignore TODO:add to sdk
+    <Link to={`/consultations/${product?.consultation_id}`}>
       {/* @ts-ignore TODO:add to sdk */}
       {product?.consultation_media &&
       // @ts-ignore TODO:add to sdk
