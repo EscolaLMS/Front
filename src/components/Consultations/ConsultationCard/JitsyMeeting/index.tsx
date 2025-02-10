@@ -10,6 +10,7 @@ import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import styled from "styled-components";
+import { API_URL } from "@/config/index";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -78,6 +79,9 @@ const JitsyMeeting: React.FC<Props> = ({
           new URL("../../../../workers/saveImageWorker.ts", import.meta.url),
           { type: "module" }
         );
+        workerRef.current.postMessage({
+          apiUrl: API_URL, // Ensure it's available in window
+        });
       }
 
       workerRef.current.onmessage = (event: MessageEvent) => {
