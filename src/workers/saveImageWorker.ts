@@ -7,7 +7,10 @@ export interface SaveImagesMessage {
   userId: number;
   screenshots: { dataURL: Blob; timestamp: number }[];
   term: string;
+  apiUrl?: string;
 }
+
+let API_URL: string;
 
 const retryFetch = async (
   url: string,
@@ -48,15 +51,18 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
     term,
   } = event.data;
 
+  if (event.data.apiUrl) {
+    API_URL = event.data.apiUrl; // Store the environment variable
+    return; // Exit early if it's just setting the API URL
+  }
+
   try {
     const filenames = screenshots.map((screenshot) => ({
       filename: `${screenshot.timestamp}.webp`,
     }));
 
     const signUrls = await retryFetch(
-      `${
-        import.meta.env.VITE_APP_PUBLIC_API_URL
-      }/api/consultations/signed-screen-urls`,
+      `${API_URL}/api/consultations/signed-screen-urls`,
       {
         method: "POST",
         headers: {
