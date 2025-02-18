@@ -75,7 +75,7 @@ const ScormPlayer: FunctionComponent<{
         <ScormPreview
           uuid={value.uuid}
           apiUrl={apiUrl}
-          serviceWorkerUrl="./service-worker-scorm.js"
+          serviceWorkerUrl="/service-worker-scorm.js"
         />
         {/* <iframe
           title={value.title}

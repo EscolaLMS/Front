@@ -63,7 +63,7 @@ export const CourseProgramPreview: React.FC<{
                 <ScormPreview
                   uuid={topic.topicable.uuid}
                   apiUrl={apiUrl}
-                  serviceWorkerUrl="./service-worker-scorm.js"
+                  serviceWorkerUrl="/service-worker-scorm.js"
                 />
               </div>
 
