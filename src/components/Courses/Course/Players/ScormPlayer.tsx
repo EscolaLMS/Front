@@ -9,6 +9,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { ResizeIcon } from "../../../../icons";
+import { ScormPreview } from "@escolalms/scorm-player";
 
 const StyledDiv = styled.div<{ fullview: boolean }>`
   > button {
@@ -71,10 +72,15 @@ const ScormPlayer: FunctionComponent<{
           {" "}
           {t("Scorm.Resize")} <ResizeIcon />
         </Button>
-        <iframe
+        <ScormPreview
+          uuid={value.uuid}
+          apiUrl={apiUrl}
+          serviceWorkerUrl="./service-worker-scorm.js"
+        />
+        {/* <iframe
           title={value.title}
           src={`${apiUrl}/api/scorm/play/${value.uuid}`}
-        />
+        /> */}
       </StyledDiv>
     </div>
   );

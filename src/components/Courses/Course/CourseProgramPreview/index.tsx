@@ -9,6 +9,7 @@ import { ImagePlayer } from "@escolalms/components/lib/components/players/ImageP
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { H5Player } from "@escolalms/components/lib/components/players/H5Player/H5Player";
 import GiftQuizPlayer from "@escolalms/components/lib/components/quizzes";
+import { ScormPreview } from "@escolalms/scorm-player";
 
 export const CourseProgramPreview: React.FC<{
   topic: API.Topic;
@@ -54,7 +55,19 @@ export const CourseProgramPreview: React.FC<{
         case TopicType.Scorm:
           return (
             <div className="scorm-wrapper">
-              <iframe
+              <div
+                style={{
+                  height: "440px",
+                }}
+              >
+                <ScormPreview
+                  uuid={topic.topicable.uuid}
+                  apiUrl={apiUrl}
+                  serviceWorkerUrl="./service-worker-scorm.js"
+                />
+              </div>
+
+              {/* <iframe
                 title={topic.topicable.value}
                 width="100%"
                 height="400px"
@@ -62,7 +75,7 @@ export const CourseProgramPreview: React.FC<{
                   border: "none",
                 }}
                 src={`${apiUrl}/api/scorm/play/${topic.topicable.uuid}`}
-              />
+              /> */}
             </div>
           );
         case API.TopicType.GiftQuiz:
