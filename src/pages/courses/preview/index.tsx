@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import Preloader from "@/components/_App/Preloader";
 import Layout from "@/components/_App/Layout";
-
+import { ScormPreview } from "@escolalms/scorm-player";
 import CourseProgramLessonsPreview from "@/components/Courses/Course/CourseProgramLessonsPreview";
 import Container from "@/components/Common/Container";
 import routeRoutes from "@/components/Routes/routes";
@@ -43,12 +43,20 @@ const CourseProgramScorm: React.FC<{ program: API.CourseProgram }> = ({
             height: `${headerAndFooterHeight + height}px`,
           }}
         >
-          <iframe
+          {uuid && (
+            <ScormPreview
+              uuid={uuid}
+              apiUrl={apiUrl}
+              serviceWorkerUrl="./service-worker-scorm.js"
+            />
+          )}
+
+          {/* <iframe
             title={"scorm-player"}
             ref={iframeRef}
             src={`${apiUrl}/api/scorm/play/${uuid}`}
             scrolling="no"
-          />
+          /> */}
         </div>
       </div>
     </React.Fragment>

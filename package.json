@@ -17,6 +17,7 @@
     "@capacitor/status-bar": "^5.0.7",
     "@escolalms/components": "^0.0.159",
     "@escolalms/h5p-react": "^0.2.19",
+    "@escolalms/scorm-player": "^0.0.0",
     "@escolalms/sdk": "^0.6.2",
     "@escolalms/ts-models": "^0.0.35",
     "@jitsi/react-sdk": "^1.4.0",
