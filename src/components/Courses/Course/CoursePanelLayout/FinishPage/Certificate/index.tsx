@@ -8,7 +8,7 @@ import Title from "@escolalms/components/lib/components/atoms/Typography/Title";
 import Text from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { IconCertificateBig } from "@/icons/index";
 import { useCertificateDownload } from "@/hooks/useDownloadCertificate";
-import { Certificate } from "@escolalms/sdk/lib/types/api";
+import { Certificate } from "@escolalms/sdk/lib/types";
 
 interface Props {
   certificates: Certificate[];

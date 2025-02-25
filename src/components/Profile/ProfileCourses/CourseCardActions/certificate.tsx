@@ -4,10 +4,8 @@ import { useCertificateDownload } from "@/hooks/useDownloadCertificate";
 import { IconCertificate } from "@/icons/index";
 import { toast } from "@/utils/toast";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import {
-  Certificate,
-  CertificateAssignableTypes,
-} from "@escolalms/sdk/lib/types/api";
+import { Certificate } from "@escolalms/sdk/lib/types/educycle";
+import { CertificateAssignableTypes } from "@escolalms/sdk/lib/types/enums";
 import { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 

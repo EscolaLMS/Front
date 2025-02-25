@@ -18,7 +18,7 @@
     "@escolalms/components": "^0.0.159",
     "@escolalms/h5p-react": "^0.2.19",
     "@escolalms/scorm-player": "^0.0.0",
-    "@escolalms/sdk": "^0.6.2",
+    "@escolalms/sdk": "1.0.1-beta.0",
     "@escolalms/ts-models": "^0.0.35",
     "@jitsi/react-sdk": "^1.4.0",
     "@revenuecat/purchases-capacitor": "^7.5.9",
@@ -66,7 +66,8 @@
     "styled-components": "^5.3.5",
     "swiper": "^11.0.6",
     "vite-tsconfig-paths": "^4.3.1",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "rollup-plugin-visualizer": "^5.14.0"
   },
   "scripts": {
     "start": " vite",

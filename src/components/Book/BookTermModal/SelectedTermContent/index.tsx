@@ -54,6 +54,7 @@ const SelectedTermContent = ({
               rating={{
                 ratingValue: 5,
               }}
+              // @ts-ignore TODO: add to sdk
               description={teacher?.bio}
             />
           }

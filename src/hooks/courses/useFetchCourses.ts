@@ -4,7 +4,7 @@ import {
   Course,
   CourseParams,
   PaginatedMetaList,
-} from "@escolalms/sdk/lib/types/api";
+} from "@escolalms/sdk/lib/types";
 
 const useFetchCourses = (params?: CourseParams, noAutoFech?: boolean) => {
   const [courses, setCourses] = useState<PaginatedMetaList<Course>>();

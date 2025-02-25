@@ -1,7 +1,7 @@
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { PricingCard } from "@escolalms/components/lib/components/atoms/PricingCard/PricingCard";
 import React, { useCallback, useContext, useMemo } from "react";
-import { CartItem, Consultation } from "@escolalms/sdk/lib/types/api";
+import { CartItem, Consultation } from "@escolalms/sdk/lib/types";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { IconText } from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";

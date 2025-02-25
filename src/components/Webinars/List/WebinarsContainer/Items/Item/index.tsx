@@ -13,7 +13,7 @@ import Button from "@escolalms/components/lib/components/atoms/Button/Button";
 import IconText from "@escolalms/components/lib/components/atoms/IconText/IconText";
 import { IconTime } from "../../../../../../icons";
 import Tags from "@/components/Tags";
-import { Tag } from "@escolalms/sdk/lib/types/api";
+import { Tag } from "@escolalms/sdk/lib/types";
 
 interface Props {
   webinar: API.Webinar;

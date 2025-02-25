@@ -4,7 +4,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Tags } from "@escolalms/components/lib/components/molecules/Tags/Tags";
 import { isMobile } from "react-device-detect";
 import { useTheme } from "styled-components";
-// import { Tag } from "@escolalms/sdk/lib/types/api";
+// import { Tag } from "@escolalms/sdk/lib/types";
 
 interface TagsSelectFilterProps {
   selectedTags?: string[];

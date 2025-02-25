@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { JaaSMeeting } from "@jitsi/react-sdk";
 import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 
-import * as API from "@escolalms/sdk/lib/types/api";
+import * as API from "@escolalms/sdk/lib/types";
 import useCamera from "@/hooks/meeting/useCamera";
 import { getCurrentUser } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";

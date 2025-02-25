@@ -1,6 +1,6 @@
 import { Input } from "@escolalms/components/lib/components/atoms/Input/Input";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-import { InvoiceData } from "@escolalms/sdk/lib/types/api";
+import { InvoiceData } from "@escolalms/sdk/lib/types";
 import { Formik, FormikProps } from "formik";
 import { Col, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";

@@ -7,7 +7,7 @@ import { SwiperSlide } from "swiper/react";
 import { useHistory } from "react-router-dom";
 import routeRoutes from "@/components/Routes/routes";
 import { useTranslation } from "react-i18next";
-import { CourseParams } from "@escolalms/sdk/lib/types/api";
+import { CourseParams } from "@escolalms/sdk/lib/types";
 import styled from "styled-components";
 import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
 import { CourseCardSkeleton } from "@/components/Skeletons/CourseCard";

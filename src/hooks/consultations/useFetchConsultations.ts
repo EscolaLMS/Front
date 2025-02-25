@@ -4,7 +4,7 @@ import {
   Consultation,
   CourseParams,
   PaginatedMetaList,
-} from "@escolalms/sdk/lib/types/api";
+} from "@escolalms/sdk/lib/types";
 
 const useFetchConsultations = (params?: CourseParams, noAutoFech?: boolean) => {
   const [consultations, setConsultations] =

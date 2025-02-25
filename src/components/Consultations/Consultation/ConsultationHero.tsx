@@ -4,7 +4,7 @@ import { isMobile } from "react-device-detect";
 
 import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/ResponsiveImage/ResponsiveImage";
 import React from "react";
-import { Consultation } from "@escolalms/sdk/lib/types/api";
+import { Consultation } from "@escolalms/sdk/lib/types";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { useHistory } from "react-router-dom";
 

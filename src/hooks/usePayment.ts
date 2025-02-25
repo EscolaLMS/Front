@@ -2,7 +2,7 @@ import { useContext, useCallback, useState, useMemo } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { InvoiceData } from "@escolalms/sdk/lib/types/api";
+import { InvoiceData } from "@escolalms/sdk/lib/types";
 import { APP_URL } from "@/config/index";
 import { toast } from "@/utils/toast";
 
