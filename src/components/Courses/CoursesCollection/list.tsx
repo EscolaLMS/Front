@@ -8,7 +8,7 @@ import { ResponsiveImage } from "@escolalms/components/lib/components/organisms/
 import { NewCourseCard } from "@escolalms/components/lib/index";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import CourseImgPlaceholder from "@/components/Courses/CourseImgPlaceholder";
-import { Course } from "@escolalms/sdk/lib/types/api";
+import { Course } from "@escolalms/sdk/lib/types";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import ProductPrices from "@/components/ProductPrices";

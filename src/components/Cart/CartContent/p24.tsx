@@ -6,7 +6,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { CheckoutCard } from "@escolalms/components/lib/components/molecules/CheckoutCard/CheckoutCard";
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
-import { CartItem, InvoiceData } from "@escolalms/sdk/lib/types/api";
+import { CartItem, InvoiceData } from "@escolalms/sdk/lib/types";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";

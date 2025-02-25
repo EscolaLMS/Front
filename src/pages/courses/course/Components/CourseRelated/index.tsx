@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
 import DisplayCourses from "@/components/Courses/DisplayCoursesSlider";
-import { Product } from "@escolalms/sdk/lib/types/api";
+import { Product } from "@escolalms/sdk/lib/types";
 import SwiperSlider from "@/components/Courses/CoursesSlider/swiper";
 import { SwiperSlide } from "swiper/react";
 import { NewCourseCard, Title } from "@escolalms/components/lib/index";

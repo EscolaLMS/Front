@@ -8,7 +8,7 @@ import { CheckoutCard } from "@escolalms/components/lib/components/molecules/Che
 import { CartCard } from "@escolalms/components/lib/components/molecules/CartCard/CartCard";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { Link as ComponentLink } from "@escolalms/components/lib/components/atoms/Link/Link";
-import { CartItem } from "@escolalms/sdk/lib/types/api";
+import { CartItem } from "@escolalms/sdk/lib/types";
 import { isMobile } from "react-device-detect";
 import Preloader from "@/components/_App/Preloader";
 import Collapse from "@/components/Common/Collapse";

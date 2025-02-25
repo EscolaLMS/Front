@@ -10,7 +10,8 @@ import routeRoutes from "@/components/Routes/routes";
 import {
   Certificate,
   CertificateAssignableTypes,
-} from "@escolalms/sdk/lib/types/api";
+} from "@escolalms/sdk/lib/types";
+
 import { QuestionnaireModelType } from "@/types/questionnaire";
 
 type State = {

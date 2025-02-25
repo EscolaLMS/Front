@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useCallback, useMemo } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { Category } from "@escolalms/sdk/lib/types/api";
+import { Category } from "@escolalms/sdk/lib/types";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { CoursesContext } from "@/components/Courses/CoursesContext";
