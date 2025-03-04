@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
-import { JitsyData } from "@escolalms/sdk/lib/types/api";
+import { JitsyData } from "@escolalms/sdk/lib/types";
 import ContentLoader from "@/components/_App/ContentLoader";
 import { ConsultationMeetModalStyles } from "./MeetModalStyles";
 import JitsyMeeting from "@/components/Consultations/ConsultationCard/JitsyMeeting";

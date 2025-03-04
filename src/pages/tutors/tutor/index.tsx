@@ -20,7 +20,7 @@ import { isMobile } from "react-device-detect";
 import CourseCardWrapper from "@/components/Courses/CourseCardWrapper";
 import { Col, Row } from "react-grid-system";
 import Container from "@/components/Common/Container";
-import { Tag } from "@escolalms/sdk/lib/types/api";
+import { Tag } from "@escolalms/sdk/lib/types";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
 import { APP_CONFIG } from "@/config/app";

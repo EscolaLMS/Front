@@ -7,7 +7,7 @@ import {
 import { isMobile } from "react-device-detect";
 import styled from "styled-components";
 import { ArrowDown, IconSquares } from "@/icons/index";
-import { Category, CourseParams } from "@escolalms/sdk/lib/types/api";
+import { Category, CourseParams } from "@escolalms/sdk/lib/types";
 import {
   MobileDrawerTypes,
   SortOrder,

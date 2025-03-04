@@ -141,7 +141,7 @@ export const EndMeetingQuestionnairesModal = ({
   }, [questionnaires, categorizedQuestionnaires, onSuccesGetQuestionnaires]);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: NodeJS.Timeout | undefined;
     if (state.endMeetingQuestionnaires.length) {
       setState((prevState) => ({
         ...prevState,
@@ -150,7 +150,7 @@ export const EndMeetingQuestionnairesModal = ({
     }
 
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
   }, [questionnaires, state.endMeetingQuestionnaires]);
 

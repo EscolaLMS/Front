@@ -12,7 +12,7 @@ import {
   IconUser,
 } from "../../../icons";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { PageParams } from "@escolalms/sdk/lib/types/api";
+import { PageParams } from "@escolalms/sdk/lib/types";
 
 const Tasks = () => {
   const { t } = useTranslation();

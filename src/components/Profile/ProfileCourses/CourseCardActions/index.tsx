@@ -10,7 +10,7 @@ import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { CourseProgressItem } from "@escolalms/sdk/lib/types/api";
+import { CourseProgressItem } from "@escolalms/sdk/lib/types";
 import {
   FC,
   useCallback,

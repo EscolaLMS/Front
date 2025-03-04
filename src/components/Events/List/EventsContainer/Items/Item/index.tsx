@@ -12,7 +12,7 @@ import IconText from "@escolalms/components/lib/components/atoms/IconText/IconTe
 import { IconLocation, UserIcon } from "../../../../../../icons";
 import Tags from "@/components/Tags";
 import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs";
-import { Tag } from "@escolalms/sdk/lib/types/api";
+import { Tag } from "@escolalms/sdk/lib/types";
 
 interface Props {
   event: API.StationaryEvent;
