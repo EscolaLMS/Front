@@ -211,7 +211,6 @@ const JitsyMeeting: React.FC<Props> = ({
         handleRecordingLinkAvailable(event)
       );
       api.on("recordingStatusChanged", (status) => {
-        console.log("Recording status changed:", status);
         if (userConsentedRef.current)
           handleRecordingStatusChanged(
             api,
