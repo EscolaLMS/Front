@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { JaaSMeeting } from "@jitsi/react-sdk";
 import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import useCamera from "@/hooks/meeting/useCamera";
@@ -11,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import styled from "styled-components";
 import { API_URL } from "@/config/index";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -51,6 +53,7 @@ const JitsyMeeting: React.FC<Props> = ({
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const workerRef = useRef<Worker | null>(null);
+  const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
 
   const { isStudent } = useRoles();
   const { t } = useTranslation();
@@ -64,6 +67,19 @@ const JitsyMeeting: React.FC<Props> = ({
     console.log("Video conference left");
     isMeetingActive.current = false;
   }, []);
+
+  interface RecordingLinkAvailableEvent {
+    link: string;
+  }
+
+  const handleRecordingLinkAvailable = useCallback(
+    (event: RecordingLinkAvailableEvent) => {
+      if (event.link) {
+        setRecordingUrl(event.link);
+      }
+    },
+    []
+  );
 
   const saveImagesInWorker = useCallback(
     (
@@ -122,7 +138,7 @@ const JitsyMeeting: React.FC<Props> = ({
       }
     ) => {
       if (status.on) {
-        console.log("Recording has started in mode:", status.mode);
+        console.log("Recording has started in mode:", status);
 
         let screenshots: { dataURL: Blob; timestamp: number }[] = [];
 
@@ -191,7 +207,9 @@ const JitsyMeeting: React.FC<Props> = ({
 
       api.addListener("videoConferenceJoined", () => handleConferenceJoined());
       api.addListener("videoConferenceLeft", () => handleConferenceLeft());
-
+      api.addListener("recordingLinkAvailable", (event) =>
+        handleRecordingLinkAvailable(event)
+      );
       api.on("recordingStatusChanged", (status) => {
         if (userConsentedRef.current)
           handleRecordingStatusChanged(
@@ -208,6 +226,7 @@ const JitsyMeeting: React.FC<Props> = ({
       getDataUrl,
       handleRecordingStatusChanged,
       userConsentedRef,
+      handleRecordingLinkAvailable,
     ]
   );
 
@@ -276,6 +295,8 @@ const JitsyMeeting: React.FC<Props> = ({
         maskAnimation="fade"
         destroyOnClose={true}
         width={468}
+        closable={false}
+        maskClosable={false}
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}
@@ -283,6 +304,24 @@ const JitsyMeeting: React.FC<Props> = ({
           userConsentedRef={userConsentedRef}
         />
       </StyledModal>
+      {recordingUrl && !isStudent && (
+        <div
+          style={{
+            marginTop: "20px",
+            textAlign: "center",
+            position: "absolute",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <Button
+            onClick={() => recordingUrl && window.open(recordingUrl, "_blank")}
+          >
+            <Text>{t("ConsultationPage.DownloadRecording")}</Text>
+          </Button>
+        </div>
+      )}
     </>
   );
 };
