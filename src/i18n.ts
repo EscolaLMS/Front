@@ -249,6 +249,10 @@ const resources = {
         EmotionConsent: "Consent to the use of emotion analysis",
         Teacher: "Trainer",
         DownloadRecording: "Download recording",
+        BlockedAccess: "You have blocked camera & microphone access.",
+        BlockedAccessEnable:
+          "Please enable them in your browser settings and refresh the page.",
+        ReloadPage: "Reload page",
       },
       Warning: "Warning",
       "I'm aware": "I'm aware",
@@ -1021,6 +1025,11 @@ const resources = {
         EmotionConsent: "Zgoda na analizę emocji i uwagi",
         Teacher: "Trener",
         DownloadRecording: "Pobierz nagranie",
+        BlockedAccess: "Dostęp do kamery i mikrofonu został zablokowany.",
+
+        BlockedAccessEnable:
+          " Włącz je w ustawieniach przeglądarki i odśwież stronę.",
+        ReloadPage: "Odśwież stronę",
       },
       TutorPage: {
         Courses: "Kursy instruktorów",
