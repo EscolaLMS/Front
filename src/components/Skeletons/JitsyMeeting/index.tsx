@@ -1,4 +1,3 @@
-import { Col, Row } from "react-grid-system";
 import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 
