@@ -4,7 +4,7 @@ import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 
 import * as API from "@escolalms/sdk/lib/types/api";
-import useCamera from "@/hooks/meeting/useCamera";
+import useCamera, { cameraPermissions } from "@/hooks/meeting/useCamera";
 import { getCurrentUser } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
@@ -13,6 +13,7 @@ import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import styled from "styled-components";
 import { API_URL } from "@/config/index";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import JitsyMeetingSkeleton from "@/components/Skeletons/JitsyMeeting";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -21,6 +22,30 @@ export const StyledModal = styled(Modal)`
   .rc-dialog-body {
     padding: 14px 0;
   }
+`;
+
+const StyledAccessWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  .button-reload {
+    margin-top: 20px;
+  }
+`;
+
+const RecordButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
 `;
 
 const FRAME_RATE = 3;
@@ -47,8 +72,10 @@ const JitsyMeeting: React.FC<Props> = ({
   consultationId,
   close,
 }) => {
+  const [showMeeting, setShowMeeting] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { camera, getDataUrl, hasCameraAccess } = useCamera();
+  const { camera, getDataUrl, hasCameraAccess, cameraAccessStatus } =
+    useCamera();
   const userConsentedRef = useRef(false);
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
@@ -207,6 +234,7 @@ const JitsyMeeting: React.FC<Props> = ({
 
       api.addListener("videoConferenceJoined", () => handleConferenceJoined());
       api.addListener("videoConferenceLeft", () => handleConferenceLeft());
+
       api.addListener("recordingLinkAvailable", (event) =>
         handleRecordingLinkAvailable(event)
       );
@@ -235,6 +263,7 @@ const JitsyMeeting: React.FC<Props> = ({
       close();
     }
     window.api?.dispose();
+    window.location.reload();
   };
 
   const getProperRoomName = useCallback(() => {
@@ -257,16 +286,29 @@ const JitsyMeeting: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    if (hasCameraAccess && isMeetingActive && isStudent) {
-      setShowModal(true);
-    }
+    const checkPermissions = async () => {
+      await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      try {
+        if (hasCameraAccess && isMeetingActive && isStudent) {
+          setShowModal(true);
+        } else {
+          setShowModal(false);
+          if (!isStudent) {
+            setShowMeeting(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error checking permissions:", error);
+        setShowModal(false);
+      }
+    };
 
-    return () => {};
+    checkPermissions();
   }, [hasCameraAccess, isMeetingActive, isStudent, t]);
 
   return (
     <>
-      {jitsyData && !showModal && (
+      {jitsyData && !showModal && showMeeting && (
         <JaaSMeeting
           jwt={jitsyData.data.jwt}
           appId={jitsyData.data.app_id}
@@ -285,11 +327,19 @@ const JitsyMeeting: React.FC<Props> = ({
             prejoinConfig: {
               enabled: false,
             },
+            constraints: {
+              video: {
+                deviceId: localStorage.getItem("preferredCamera") || undefined,
+              },
+              audio: {
+                deviceId: localStorage.getItem("preferredMic") || undefined,
+              },
+            },
           }}
         />
       )}
       <StyledModal
-        onClose={() => setShowModal(false)}
+        onClose={() => [setShowModal(false), setShowMeeting(true)]}
         visible={showModal}
         animation="zoom"
         maskAnimation="fade"
@@ -300,27 +350,32 @@ const JitsyMeeting: React.FC<Props> = ({
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}
-          closeToast={() => setShowModal(false)}
+          closeToast={() => [setShowModal(false), setShowMeeting(true)]}
           userConsentedRef={userConsentedRef}
         />
       </StyledModal>
+      {!showModal && !showMeeting && <JitsyMeetingSkeleton />}
+      {!showModal &&
+        !showMeeting &&
+        cameraAccessStatus === cameraPermissions.DENIED && (
+          <StyledAccessWrapper>
+            <Text>{t("ConsultationPage.BlockedAccess")}</Text>
+            <Text>{t("ConsultationPage.BlockedAccessEnable")}</Text>
+            <div className="button-reload">
+              <Button onClick={() => window.location.reload()}>
+                {t("ConsultationPage.ReloadPage")}
+              </Button>
+            </div>
+          </StyledAccessWrapper>
+        )}
       {recordingUrl && !isStudent && (
-        <div
-          style={{
-            marginTop: "20px",
-            textAlign: "center",
-            position: "absolute",
-            bottom: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
+        <RecordButtonWrapper>
           <Button
             onClick={() => recordingUrl && window.open(recordingUrl, "_blank")}
           >
             <Text>{t("ConsultationPage.DownloadRecording")}</Text>
           </Button>
-        </div>
+        </RecordButtonWrapper>
       )}
     </>
   );
