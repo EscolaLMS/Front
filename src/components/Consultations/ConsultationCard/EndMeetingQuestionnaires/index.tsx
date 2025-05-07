@@ -150,7 +150,9 @@ export const EndMeetingQuestionnairesModal = ({
     }
 
     return () => {
-      if (timer) clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer);
+      }
     };
   }, [questionnaires, state.endMeetingQuestionnaires]);
 

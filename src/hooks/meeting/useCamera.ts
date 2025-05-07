@@ -3,12 +3,17 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { WorkerResponse } from "src/workers/dataUrlWorker";
 
 // Enums
-enum cameraPermissions {
+export enum cameraPermissions {
   GRANTED = "granted",
+  DENIED = "denied",
+  PROMPT = "prompt",
 }
 
 const useCamera = () => {
   const [hasCameraAccess, setHasCameraAccess] = useState(false);
+  const [cameraAccessStatus, setCameraAccessStatus] = useState(
+    cameraPermissions.PROMPT
+  );
   const streamRef = useRef<MediaStream | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const workerRef = useRef<Worker | null>(null); // Web Worker ref
@@ -23,6 +28,7 @@ const useCamera = () => {
         audio: false,
       });
       setHasCameraAccess(true);
+      setCameraAccessStatus(cameraPermissions.GRANTED);
       streamRef.current = stream;
 
       // Create and configure video element
@@ -39,6 +45,7 @@ const useCamera = () => {
     } catch (err) {
       console.error("Camera access denied or not available:", err);
       setHasCameraAccess(false); // Camera access denied
+      setCameraAccessStatus(cameraPermissions.DENIED);
       return null;
     }
   }, []);
@@ -126,12 +133,18 @@ const useCamera = () => {
         await restartVideoTrack();
       }
 
+      if (permissionStatus.state === cameraPermissions.DENIED) {
+        setHasCameraAccess(false);
+        setCameraAccessStatus(cameraPermissions.DENIED);
+      }
+
       // Listen for permission changes
       permissionStatus.onchange = async () => {
         if (permissionStatus.state === cameraPermissions.GRANTED) {
           await restartVideoTrack();
         } else {
           setHasCameraAccess(false);
+          setCameraAccessStatus(cameraPermissions.DENIED);
         }
       };
     };
@@ -146,7 +159,13 @@ const useCamera = () => {
     };
   }, [restartVideoTrack]);
 
-  return { camera, hasCameraAccess, restartVideoTrack, getDataUrl };
+  return {
+    camera,
+    hasCameraAccess,
+    restartVideoTrack,
+    getDataUrl,
+    cameraAccessStatus,
+  };
 };
 
 export default useCamera;
