@@ -1,11 +1,18 @@
 export {};
 
+export interface Screenshot {
+  dataURL: Blob;
+  timestamp: number;
+  userID: number;
+  consultationId: number | undefined;
+}
+
 export interface SaveImagesMessage {
   consultationId: number;
   consultationTermId: number;
   userEmail: string;
   userId: number;
-  screenshots: { dataURL: Blob; timestamp: number }[];
+  screenshots: Screenshot[];
   term: string;
   apiUrl?: string;
 }
@@ -41,6 +48,19 @@ const retryFetch = async (
   });
 };
 
+function getFormattedFilename(screenshot: Screenshot): string {
+  const date = new Date(screenshot.timestamp);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  const formattedTimestamp =
+    `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}_` +
+    `${pad(date.getHours())}_${pad(date.getMinutes())}_${pad(
+      date.getSeconds()
+    )}`;
+
+  return `${screenshot.userID}_${screenshot.consultationId}_${formattedTimestamp}.webp`;
+}
+
 self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
   const {
     consultationId,
@@ -58,7 +78,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
 
   try {
     const filenames = screenshots.map((screenshot) => ({
-      filename: `${screenshot.timestamp}.webp`,
+      filename: getFormattedFilename(screenshot),
     }));
 
     const signUrls = await retryFetch(
@@ -88,7 +108,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
     for (let i = 0; i < responseData.data.length; i++) {
       const { url, filename } = responseData.data[i];
       const screenshot = screenshots.find(
-        (s) => `${s.timestamp}.webp` === filename
+        (s) => getFormattedFilename(s) === filename
       );
 
       if (!screenshot) {

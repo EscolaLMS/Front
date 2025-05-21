@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Tutor } from "@escolalms/components/lib/components/molecules/Tutor/Tutor";
 import { Title } from "@escolalms/components/lib/components/atoms/Typography/Title";
 import { TutorsSectionStyles } from "./TutorsSectionStyles";
-import { User } from "@escolalms/sdk/lib/types/api";
+import { User } from "@escolalms/sdk/lib/types";
 import { API_URL } from "@/config/index";
 
 const TutorStyled = styled(Tutor)`

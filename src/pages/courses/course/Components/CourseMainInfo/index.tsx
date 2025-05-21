@@ -8,7 +8,7 @@ import CategoriesBreadCrumbs from "@/components/Categories/CategoriesBreadCrumbs
 import { Rating, Text } from "@escolalms/components/lib/index";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { StateTypes } from "@/types/index";
-import { QuestionnaireStarsModel } from "@escolalms/sdk/lib/types/api";
+import { QuestionnaireStarsModel } from "@escolalms/sdk/lib/types";
 import ContentLoader from "@/components/_App/ContentLoader";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";

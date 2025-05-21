@@ -3,7 +3,7 @@ import { JaaSMeeting } from "@jitsi/react-sdk";
 import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 
-import * as API from "@escolalms/sdk/lib/types/api";
+import * as API from "@escolalms/sdk/lib/types";
 import useCamera, { cameraPermissions } from "@/hooks/meeting/useCamera";
 import { getCurrentUser } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
@@ -167,7 +167,12 @@ const JitsyMeeting: React.FC<Props> = ({
       if (status.on) {
         console.log("Recording has started in mode:", status);
 
-        let screenshots: { dataURL: Blob; timestamp: number }[] = [];
+        let screenshots: {
+          dataURL: Blob;
+          timestamp: number;
+          userID: number;
+          consultationId: number | undefined;
+        }[] = [];
 
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
@@ -176,6 +181,8 @@ const JitsyMeeting: React.FC<Props> = ({
               screenshots.push({
                 dataURL: dataUrl,
                 timestamp: new Date().getTime(),
+                userID: jitsyData.data.userInfo.id,
+                consultationId,
               });
 
               if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {

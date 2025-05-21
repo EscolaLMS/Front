@@ -5,7 +5,7 @@ import { Title } from "@escolalms/components/lib/components/atoms/Typography/Tit
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { CourseProgressItem } from "@escolalms/sdk/lib/types/api";
+import { CourseProgressItem } from "@escolalms/sdk/lib/types";
 import { FC, useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

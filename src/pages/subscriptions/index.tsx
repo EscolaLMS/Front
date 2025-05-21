@@ -59,11 +59,15 @@ const SubscriptionsPage = () => {
               {isLoading && <ContentLoader />}
               {!isLoading && (
                 <Row>
-                  {subscriptions.map((subscription) => (
-                    <Col lg={6} md={12} key={subscription.id}>
-                      <SubscriptionBox subscription={subscription} />
-                    </Col>
-                  ))}
+                  {subscriptions.length ? (
+                    subscriptions.map((subscription) => (
+                      <Col lg={6} md={12} key={subscription.id}>
+                        <SubscriptionBox subscription={subscription} />
+                      </Col>
+                    ))
+                  ) : (
+                    <Text>{t("MyProfilePage.NoSub")}</Text>
+                  )}
                 </Row>
               )}
             </SubscriptionsContainer>

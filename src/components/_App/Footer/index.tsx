@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from "react-i18next";
-import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types/api";
+import { PageListItem, PaginatedMetaList } from "@escolalms/sdk/lib/types";
 import { Link as LmsLink } from "@escolalms/components/lib/components/atoms/Link/Link";
 import { Link } from "react-router-dom";
 import Container from "@/components/Common/Container";
