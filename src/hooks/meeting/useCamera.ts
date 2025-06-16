@@ -75,8 +75,14 @@ const useCamera = () => {
       canvasElement.height = settings.height || 720;
       canvasElement.width = settings.width || 1280;
 
+      // Get the actual video element from Jitsi that includes background effects
+      const jitsiVideoElement = document.querySelector(
+        ".jitsi-video"
+      ) as HTMLVideoElement;
+      const sourceElement = jitsiVideoElement || videoRef.current;
+
       ctx?.drawImage(
-        videoRef.current,
+        sourceElement,
         0,
         0,
         canvasElement.width,
