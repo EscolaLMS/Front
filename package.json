@@ -45,7 +45,6 @@
     "date-fns": "^2.30.0",
     "firebase": "^10.12.0",
     "formik": "^2.4.5",
-    "html2canvas": "^1.4.1",
     "i18next": "^21.4.0",
     "leva": "^0.9.34",
     "lodash.debounce": "^4.0.8",
