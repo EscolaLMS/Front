@@ -373,7 +373,7 @@ const Navbar = () => {
             <div className="logo-container">
               <Link to="/" aria-label={t("Go to the main page")}>
                 <ResponsiveImage
-                  path={settings?.value?.global?.logo || ""}
+                  path={`${settings?.value?.global?.logo.split("/")[3]}` || ""}
                   srcSizes={[100, 200, 300]}
                 />
               </Link>
@@ -550,7 +550,7 @@ const Navbar = () => {
         <div className="logo-container">
           <Link to="/" aria-label={t("Go to the main page")}>
             <ResponsiveImage
-              path={settings?.value?.global?.logo || ""}
+              path={`${settings?.value?.global?.logo.split("/")[3]}` || ""}
               srcSizes={[50, 100, 150]}
             />
           </Link>

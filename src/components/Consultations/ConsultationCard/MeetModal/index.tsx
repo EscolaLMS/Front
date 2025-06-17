@@ -55,6 +55,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     setIsEnded(true);
     consultationModalContext?.setModalOpen?.(false);
     onClose();
+    window.location.reload();
   }, [setIsEnded, onClose, consultationModalContext]);
 
   return (
