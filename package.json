@@ -15,7 +15,7 @@
     "@capacitor/ios": "^5.7.3",
     "@capacitor/local-notifications": "^5.0.7",
     "@capacitor/status-bar": "^5.0.7",
-    "@escolalms/components": "^0.0.163",
+    "@escolalms/components": "^0.0.164",
     "@escolalms/h5p-react": "^0.2.19",
     "@escolalms/scorm-player": "^0.0.0",
     "@escolalms/sdk": "^1.0.0",
