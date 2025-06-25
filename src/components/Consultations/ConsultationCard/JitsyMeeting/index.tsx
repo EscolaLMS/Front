@@ -48,7 +48,7 @@ const RecordButtonWrapper = styled.div`
   gap: 10px;
 `;
 
-const FRAME_RATE = 3;
+const FRAME_RATE = 1;
 const SEND_INTERVAL = 3000;
 
 declare global {
