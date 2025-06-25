@@ -55,6 +55,7 @@ const RateCourse: React.FC<Props> = ({
           if (request.success) {
             toast(`${t("RateCourse.AnswerSended")}`, "success");
           }
+          // @ts-ignore
         } catch (error: any) {
           toast("Error", error.message);
           console.error(error);
