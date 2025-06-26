@@ -23,6 +23,7 @@ jobs:
           # VITE_APP_PUBLIC_MOBILE_DEVICE: false
           VITE_APP_PUBLIC_URL: https://demo-stage.app.s.wellms.io
           VITE_APP_PUBLIC_IMG_URL: https://wellms-multidomain-demo-stage.s3.pl-waw.scw.cloud
+          VITE_APP_PUBLIC_IMG_BUCKET_FOLDER: ""
         run: |
           npm i --legacy-peer-deps
           npm run build

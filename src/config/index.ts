@@ -52,3 +52,8 @@ export const VITE_APP_PUBLIC_IMG_URL =
   window.VITE_APP_PUBLIC_IMG_URL ||
   import.meta.env.VITE_APP_PUBLIC_IMG_URL ||
   null;
+
+export const VITE_APP_PUBLIC_IMG_BUCKET_FOLDER =
+  window.VITE_APP_PUBLIC_IMG_BUCKET_FOLDER ||
+  import.meta.env.VITE_APP_PUBLIC_IMG_BUCKET_FOLDER ||
+  "";
