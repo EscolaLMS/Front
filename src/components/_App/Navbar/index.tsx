@@ -27,10 +27,7 @@ import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import { isMobilePlatform } from "@/utils/index";
 import { metaDataKeys } from "@/utils/meta";
-import {
-  VITE_APP_PUBLIC_IMG_BUCKET_FOLDER,
-  VITE_APP_PUBLIC_IMG_URL,
-} from "@/config/index";
+import { VITE_APP_PUBLIC_IMG_BUCKET_FOLDER } from "@/config/index";
 
 const StyledHeader = styled.header`
   width: 100%;
