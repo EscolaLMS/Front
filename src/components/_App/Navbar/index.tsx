@@ -290,7 +290,7 @@ const Navbar = () => {
   const getProperLogoPath = useMemo(() => {
     const bucket = VITE_APP_PUBLIC_IMG_BUCKET_FOLDER.replace(/^\/|\/$/g, ""); // e.g. "/wellms" // -> "wellms"
 
-    // Full link, e.g. "https://s3.ca-central-1.amazonaws.com/wellms/avatars/testimg.jpg"
+    // Full link, e.g. "https://randomdomain/somefolder/folder/testimg.jpg"
     const url = settings.value.global.logo;
 
     // 1. Extract pathname: "/wellms/avatars/testimg.jpg"
