@@ -27,6 +27,10 @@ import useDeleteAccountModal from "@/hooks/useDeleteAccount";
 import DeleteAccountModal from "@/components/Authentication/DeleteAccountModal";
 import { isMobilePlatform } from "@/utils/index";
 import { metaDataKeys } from "@/utils/meta";
+import {
+  VITE_APP_PUBLIC_IMG_BUCKET_FOLDER,
+  VITE_APP_PUBLIC_IMG_URL,
+} from "@/config/index";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -286,6 +290,29 @@ const Navbar = () => {
     return cart?.value?.items?.length ?? 0;
   }, [cart]);
 
+  const getProperLogoPath = useMemo(() => {
+    const bucket = VITE_APP_PUBLIC_IMG_BUCKET_FOLDER.replace(/^\/|\/$/g, ""); // e.g. "/wellms" // -> "wellms"
+
+    // Full link, e.g. "https://s3.ca-central-1.amazonaws.com/wellms/avatars/testimg.jpg"
+    const url = settings.value.global.logo;
+
+    // 1. Extract pathname: "/wellms/avatars/testimg.jpg"
+    let relativePath = new URL(url).pathname;
+
+    // 2. Remove the bucket prefix
+    const bucketPrefix = `/${bucket}`; // "/wellms"
+    if (relativePath.startsWith(bucketPrefix)) {
+      relativePath = relativePath.slice(bucketPrefix.length);
+    }
+
+    // 3. Make sure the result begins with one leading slash
+    if (!relativePath.startsWith("/")) {
+      relativePath = "/" + relativePath;
+    }
+
+    return relativePath;
+  }, [settings.value.global.logo]);
+
   const menuItems = [
     {
       title: (
@@ -373,7 +400,7 @@ const Navbar = () => {
             <div className="logo-container">
               <Link to="/" aria-label={t("Go to the main page")}>
                 <ResponsiveImage
-                  path={`${settings?.value?.global?.logo.split("/")[3]}` || ""}
+                  path={getProperLogoPath || ""}
                   srcSizes={[100, 200, 300]}
                 />
               </Link>
@@ -550,7 +577,7 @@ const Navbar = () => {
         <div className="logo-container">
           <Link to="/" aria-label={t("Go to the main page")}>
             <ResponsiveImage
-              path={`${settings?.value?.global?.logo.split("/")[3]}` || ""}
+              path={getProperLogoPath || ""}
               srcSizes={[50, 100, 150]}
             />
           </Link>

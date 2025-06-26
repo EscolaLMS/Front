@@ -22,6 +22,7 @@ declare global {
     VITE_APP_IOS_APIKEY: string;
     VITE_APP_ANDROID_APIKEY: string;
     VITE_APP_PUBLIC_IMG_URL: string;
+    VITE_APP_PUBLIC_IMG_BUCKET_FOLDER: string;
   }
 }
 
