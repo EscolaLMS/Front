@@ -1,0 +1,2 @@
+import{r as e}from"./sentry-DZqhWugq.js";import{D as l}from"./index-YRlvC1Yo.js";const x=(s,u)=>{const[n,o]=e.useState(),[f,r]=e.useState(!0),{fetchCourses:c}=e.useContext(l.EscolaLMSContext),a=async i=>{r(!0);try{const t=await c(i);t&&o(t)}catch(t){console.error(t),o(void 0)}finally{r(!1)}};return e.useEffect(()=>{s&&!u&&a(s)},[c]),{courses:n,loading:f,fetchCoursesData:a}};export{x as u};
+//# sourceMappingURL=useFetchCourses-CD5xWClS.js.map
