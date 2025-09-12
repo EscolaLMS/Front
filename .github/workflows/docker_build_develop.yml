@@ -63,4 +63,6 @@ jobs:
           # Cannot be built at the moment https://github.com/nodejs/docker-node/issues/1335
           # platforms: linux/amd64,linux/arm64
           tags: escolalms/demo:dev
-          build-args: APP_VERSION=dev
+          build-args: |
+            APP_VERSION=dev
+            NODE_VERSION=20.18.1

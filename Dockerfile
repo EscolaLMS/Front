@@ -1,6 +1,6 @@
 #test with `docker build -t foo . && docker run  -p 8080:80 -it foo`
-FROM node:20-buster AS base
-
+ARG NODE_VERSION=20.18.1
+FROM node:${NODE_VERSION}-bookworm AS base
 ARG APP_VERSION="xxx"
 WORKDIR /home/node/app
 COPY / /home/node/app
