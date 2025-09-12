@@ -29,8 +29,8 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: sentry
-          SENTRY_PROJECT: front
-          SENTRY_URL: https://sentry.escolait.pl
+          SENTRY_PROJECT: wellms-front
+          SENTRY_URL: https://escolasoft.sentry.io
         with:
           environment: production
           sourcemaps: ./dist
