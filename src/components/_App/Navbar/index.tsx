@@ -295,7 +295,19 @@ const Navbar = () => {
 
     // 1. Extract pathname: "/wellms/avatars/testimg.jpg"
     if (!url) return null;
-    let relativePath = new URL(url).pathname;
+    let relativePath: string;
+    try {
+      // If url is absolute (starts with http(s) or protocol-relative //) use URL to extract pathname,
+      // otherwise treat it as already a relative path.
+      if (/^(https?:)?\/\//.test(url)) {
+        relativePath = new URL(url).pathname;
+      } else {
+        relativePath = url;
+      }
+    } catch (e) {
+      // On any parsing error, fall back to the original value
+      relativePath = url;
+    }
 
     // 2. Remove the bucket prefix
     const bucketPrefix = `/${bucket}`; // "/wellms"

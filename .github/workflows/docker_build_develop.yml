@@ -31,7 +31,7 @@ jobs:
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: sentry
+          SENTRY_ORG: escolasoft
           SENTRY_PROJECT: wellms-front
           SENTRY_URL: https://escolasoft.sentry.io
         with:

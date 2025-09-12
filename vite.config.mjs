@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
       process.env.SENTRY_AUTH_TOKEN
         ? sentryVitePlugin({
             authToken: process.env.SENTRY_AUTH_TOKEN,
-            org: "sentry",
+            org: "escolasoft",
             project: "wellms-front",
             url: "https://escolasoft.sentry.io",
           })
