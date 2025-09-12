@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
         ? sentryVitePlugin({
             authToken: process.env.SENTRY_AUTH_TOKEN,
             org: "sentry",
-            project: "front",
+            project: "wellms-front",
             url: "https://escolasoft.sentry.io",
           })
         : undefined,
