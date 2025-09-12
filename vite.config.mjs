@@ -5,6 +5,7 @@ import viteTsconfigPaths from "vite-tsconfig-paths";
 import eslint from "vite-plugin-eslint";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { visualizer } from "rollup-plugin-visualizer";
+
 // see all documentation here https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const config = {
@@ -39,7 +40,7 @@ export default defineConfig(({ mode }) => {
             authToken: process.env.SENTRY_AUTH_TOKEN,
             org: "sentry",
             project: "front",
-            url: "https://sentry.escolait.pl/",
+            url: "https://escolasoft.sentry.io",
           })
         : undefined,
       visualizer({ open: true }),
