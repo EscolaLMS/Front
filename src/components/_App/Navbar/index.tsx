@@ -291,9 +291,10 @@ const Navbar = () => {
     const bucket = VITE_APP_PUBLIC_IMG_BUCKET_FOLDER.replace(/^\/|\/$/g, ""); // e.g. "/wellms" // -> "wellms"
 
     // Full link, e.g. "https://randomdomain/somefolder/folder/testimg.jpg"
-    const url = settings.value.global.logo;
+    const url = settings?.value?.global?.logo;
 
     // 1. Extract pathname: "/wellms/avatars/testimg.jpg"
+    if (!url) return null;
     let relativePath = new URL(url).pathname;
 
     // 2. Remove the bucket prefix
@@ -308,7 +309,7 @@ const Navbar = () => {
     }
 
     return relativePath;
-  }, [settings.value.global.logo]);
+  }, [settings?.value?.global?.logo]);
 
   const menuItems = [
     {

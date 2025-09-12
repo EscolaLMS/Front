@@ -32,7 +32,7 @@ export const QuestionnairesModal = ({
   });
   const { settings } = useContext(EscolaLMSContext);
   const questionnaireFirstime =
-    settings?.value?.config[metaDataKeys.questionnaireFirstTimeMetaKey];
+    settings?.value?.config?.[metaDataKeys?.questionnaireFirstTimeMetaKey];
 
   interface StateType {
     show: boolean;
