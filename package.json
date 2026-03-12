@@ -62,6 +62,7 @@
     "react-router-dom": "^5.3.0",
     "react-slick": "^0.29.0",
     "react-toastify": "^10",
+    "recharts": "^3.7.0",
     "rollup-plugin-visualizer": "^5.14.0",
     "sass": "^1.42.1",
     "styled-components": "^5.3.5",

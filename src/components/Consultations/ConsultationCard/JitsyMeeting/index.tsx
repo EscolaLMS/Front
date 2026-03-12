@@ -153,6 +153,8 @@ const JitsyMeeting: React.FC<Props> = ({
     []
   );
 
+  // GLOWNY KOMPONENT
+
   const handleRecordingStatusChanged = useCallback(
     async (
       api: IJitsiMeetExternalApi,
