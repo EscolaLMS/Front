@@ -5,7 +5,7 @@ export const getEchoInstance = (token: string) => {
   if (typeof window === "undefined") return null;
 
   try {
-    (window as any).Pusher = Pusher;
+    (window as unknown as Window & { Pusher: typeof Pusher }).Pusher = Pusher;
 
     return new Echo({
       broadcaster: "pusher",

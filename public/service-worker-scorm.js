@@ -29,12 +29,10 @@ const getSCORMDetails = (xml, sco = "index.html") => {
 };
 
 self.addEventListener("install", (event) => {
-  console.log("Service Worker installing...");
   self.skipWaiting(); // Activate the service worker immediately after installation.
 });
 
 self.addEventListener("activate", (event) => {
-  console.log("Service Worker activated.");
   event.waitUntil(self.clients.claim()); // Ensure the service worker takes control of the page.
 });
 

@@ -16,20 +16,16 @@ export const useMeetingSockets = (
     if (!echo) return;
 
     const channelName = `consultation.${consultationId}.${termUnix}`;
-    console.log("Subskrypcja kanału:", channelName);
-
     const channel = echo.private(channelName);
 
     const processData = (payload: MeetingAnalyticsSocketData) => {
       if (!payload) return;
-      console.log("Hook: Otrzymano paczkę:", payload);
       setSocketData({ ...payload, _updatedAt: Date.now() });
     };
 
     channel.listen(
       ".AggregatedFrameStored",
       (data: MeetingAnalyticsSocketData) => {
-        console.log("Event: .AggregatedFrameStored");
         processData(data);
       }
     );
@@ -37,15 +33,12 @@ export const useMeetingSockets = (
     channel.listen(
       "AggregatedFrameStored",
       (data: MeetingAnalyticsSocketData) => {
-        console.log("Event: AggregatedFrameStored");
         processData(data);
       }
     );
 
     channel.listenToAll(
       (eventName: string, data: MeetingAnalyticsSocketData) => {
-        console.log("DEBUG WS (Nazwa Eventu):", eventName, data);
-
         if (eventName.includes("AggregatedFrameStored")) {
           processData(data);
         }
@@ -53,7 +46,6 @@ export const useMeetingSockets = (
     );
 
     return () => {
-      console.log("Leaving channel:", channelName);
       echo.leave(channelName);
     };
   }, [consultationId, termUnix, token]);
