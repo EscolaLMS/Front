@@ -202,6 +202,11 @@ export default function MeetingAnalyticsOverlay({
               active={hoveredPanel === "emotion"}
               onMouseEnter={() => setHoveredPanel("emotion")}
               onMouseLeave={() => setHoveredPanel(null)}
+              onClick={() =>
+                hoveredPanel === null || hoveredPanel === "attention"
+                  ? setHoveredPanel("emotion")
+                  : setHoveredPanel(null)
+              }
             >
               <BigEmoji>{currentEmot.icon}</BigEmoji>
               <Value>{currentEmot.val}%</Value>
@@ -211,6 +216,11 @@ export default function MeetingAnalyticsOverlay({
               glowColor={getColorByValue(latestAtt)}
               onMouseEnter={() => setHoveredPanel("attention")}
               onMouseLeave={() => setHoveredPanel(null)}
+              onClick={() =>
+                hoveredPanel === null || hoveredPanel === "emotion"
+                  ? setHoveredPanel("attention")
+                  : setHoveredPanel(null)
+              }
             >
               <MiniChartBox>
                 <ResponsiveContainer width="100%" height="100%">
@@ -373,13 +383,19 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  min-height: 72px;
   padding: 0 24px;
   position: relative;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: #000;
   font-family: ${({ theme }) => theme.font};
   pointer-events: auto;
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 12px;
+  }
 `;
 
 const LeftGroup = styled.div`
@@ -387,6 +403,10 @@ const LeftGroup = styled.div`
   align-items: center;
   gap: 15px;
   flex: 1;
+
+  @media (max-width: 480px) {
+    gap: 8px;
+  }
 `;
 
 const RightGroup = styled.div`
@@ -395,6 +415,10 @@ const RightGroup = styled.div`
   align-items: center;
   flex: 1;
   pointer-events: auto;
+
+  @media (max-width: 1024px) {
+    flex: 0;
+  }
 `;
 
 const StatsWrapper = styled.div`
@@ -405,6 +429,16 @@ const StatsWrapper = styled.div`
   gap: 8px;
   z-index: 10;
   pointer-events: auto;
+
+  @media (max-width: 1024px) {
+    position: static;
+    transform: none;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 8px;
+  }
 `;
 
 const DownloadButton = styled.button`
@@ -434,6 +468,15 @@ const DownloadButton = styled.button`
     height: 18px;
     fill: currentColor;
   }
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+    font-size: 0;
+    gap: 0;
+    svg {
+      margin: 0;
+    }
+  }
 `;
 
 const BackButton = styled.button`
@@ -442,7 +485,6 @@ const BackButton = styled.button`
   justify-content: center;
   width: 36px;
   height: 36px;
-  padding: 6px;
   background: transparent;
   border: 1px solid #999;
   border-radius: 6px;
@@ -463,6 +505,14 @@ const HeaderTitle = styled.h1`
   font-size: 18px;
   margin: 0;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    max-width: 160px;
+  }
 `;
 
 const StatCard = styled.div<{ active: boolean; glowColor?: string }>`
@@ -479,6 +529,7 @@ const StatCard = styled.div<{ active: boolean; glowColor?: string }>`
       ? `linear-gradient(#1A1A1A, #1A1A1A) padding-box, linear-gradient(to bottom, ${glowColor} 0%, transparent 60%) border-box`
       : `linear-gradient(#0D0D0D, #0D0D0D) padding-box, linear-gradient(to bottom, #333, #333) border-box`};
   border: 1px solid transparent;
+
   &::before {
     content: "";
     position: absolute;
@@ -494,14 +545,22 @@ const StatCard = styled.div<{ active: boolean; glowColor?: string }>`
     transition: opacity 0.2s ease;
     pointer-events: none;
   }
+
   &:hover {
     background: #141414;
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px 12px;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
   }
 `;
 
 const HoverPanel = styled.div<{ visible: boolean }>`
   position: absolute;
-  top: 72px;
+  top: 100%;
   left: 0;
   width: 100%;
   height: ${({ visible }) => (visible ? "220px" : "0")};
@@ -544,6 +603,10 @@ const EmotionTimeline = styled.div`
   min-height: 160px;
   gap: 60px;
   margin-top: 10px;
+
+  @media (max-width: 768px) {
+    gap: 40px;
+  }
 `;
 
 const TimelineItem = styled.div<{ active?: boolean }>`
@@ -562,6 +625,10 @@ const EmojiBox = styled.div<{ active?: boolean }>`
   font-size: 32px;
   margin-bottom: 25px;
   position: relative;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const LabelBubble = styled.div`
@@ -613,12 +680,20 @@ const ChartBox = styled.div`
 const MiniChartBox = styled.div`
   width: 50px;
   height: 24px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const Value = styled.span`
   font-weight: bold;
   font-size: 16px;
   font-variant-numeric: tabular-nums;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const BigEmoji = styled.span`
@@ -643,6 +718,10 @@ const AlertBar = styled.div`
       transform: translateY(0);
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+  }
 `;
 
 const AlertContent = styled.div`
@@ -650,19 +729,36 @@ const AlertContent = styled.div`
   align-items: center;
   gap: 12px;
   color: #000;
+  max-width: 1200px;
   font-family: ${({ theme }) => theme.font};
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 `;
 
 const AlertIcon = styled.span`
   font-size: 24px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
-const AlertText = styled.p`
+const AlertText = styled.div`
   margin: 0;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.3;
 
   strong {
     font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    strong {
+      display: block;
+    }
   }
 `;
