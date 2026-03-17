@@ -12,7 +12,13 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useMeetingSockets } from "@/hooks/useAnalyticsWebsockets";
 import { ConsultationModalContext } from "@/components/Consultations/ConsultationCard/Buttons/context";
 import { useRoles } from "@/hooks/useRoles";
-import { DataPoint, EMOTION_POOL, EmotionHistory } from "@/types/sockets";
+import {
+  DataPoint,
+  EMOTION_POOL,
+  EmotionHistory,
+  SocketDataState,
+} from "@/types/sockets";
+import { useTranslation } from "react-i18next";
 
 const getColorByValue = (val: number) => {
   if (val < 35) return "#FF4D4D";
@@ -28,7 +34,7 @@ export default function MeetingAnalyticsOverlay({
   const { isTutor } = useRoles();
   const { consultation, token } = useContext(EscolaLMSContext);
   const consultationModalContext = useContext(ConsultationModalContext);
-
+  const { t } = useTranslation();
   const [sessionTime, setSessionTime] = useState(0);
   const [hoveredPanel, setHoveredPanel] = useState<
     "emotion" | "attention" | null
@@ -58,7 +64,7 @@ export default function MeetingAnalyticsOverlay({
     const diff = Math.floor(
       (new Date(isoString).getTime() - new Date().getTime()) / 1000
     );
-    if (diff >= -15) return "Teraz";
+    if (diff >= -15) return t("MeetingAnalyticsOverlay.Chart.Now");
     const abs = Math.abs(diff);
     const m = Math.floor(abs / 60);
     const s = abs % 60;
@@ -114,6 +120,7 @@ export default function MeetingAnalyticsOverlay({
           {
             ...mappedEmotion,
             time: new Date(window_end).toLocaleTimeString(),
+            label: t(mappedEmotion.label),
             isCurrent: true,
             val: parseVal(emotion_percentage),
             fullDate: window_end,
@@ -125,7 +132,7 @@ export default function MeetingAnalyticsOverlay({
         );
       });
     }
-  }, [socketData, isTutor]);
+  }, [socketData, isTutor, getRelativeTime, t]);
 
   const formattedChartData = useMemo(() => {
     if (attentionData.length === 0) return [];
@@ -133,10 +140,10 @@ export default function MeetingAnalyticsOverlay({
       ...d,
       displayTime:
         idx === attentionData.length - 1
-          ? "Teraz"
+          ? t("MeetingAnalyticsOverlay.Chart.Now")
           : getRelativeTime(d.fullDate),
     }));
-  }, [attentionData]);
+  }, [attentionData, getRelativeTime, t]);
 
   const renderDynamicGradient = (
     data: DataPoint[],
@@ -254,7 +261,7 @@ export default function MeetingAnalyticsOverlay({
                           </EmojiBox>
                           <TimeLabel>
                             {idx === emotionHistory.length - 1
-                              ? "Teraz"
+                              ? t("MeetingAnalyticsOverlay.Chart.Now")
                               : getRelativeTime(item.fullDate)}
                           </TimeLabel>
                         </TimelineItem>
@@ -491,7 +498,7 @@ const EmotionTimeline = styled.div`
   align-items: flex-end;
   position: relative;
   width: 100%;
-  padding-bottom: 0px;
+  padding-bottom: 0;
   min-height: 160px;
 `;
 const TimelineItem = styled.div<{ active?: boolean }>`

@@ -1,11 +1,46 @@
 export const EMOTION_POOL = [
-  { icon: "😆", label: "Rozbawiony", val: 100, key: "happy" },
-  { icon: "😐", label: "Neutralny", val: 50, key: "neutral" },
-  { icon: "😡", label: "Zły", val: 10, key: "angry" },
-  { icon: "😳", label: "Zaskoczony", val: 60, key: "surprised" },
-  { icon: "🤢", label: "Zniesmaczony", val: 20, key: "disgusted" },
-  { icon: "😨", label: "Przestraszony", val: 30, key: "fearful" },
-  { icon: "🙁", label: "Smutny", val: 40, key: "sad" },
+  {
+    icon: "😆",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.happy",
+    val: 100,
+    key: "happy",
+  },
+  {
+    icon: "😐",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.neutral",
+    val: 50,
+    key: "neutral",
+  },
+  {
+    icon: "😡",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.angry",
+    val: 10,
+    key: "angry",
+  },
+  {
+    icon: "😳",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.surprised",
+    val: 60,
+    key: "surprised",
+  },
+  {
+    icon: "🤢",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.disgusted",
+    val: 20,
+    key: "disgusted",
+  },
+  {
+    icon: "😨",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.fearful",
+    val: 30,
+    key: "fearful",
+  },
+  {
+    icon: "🙁",
+    label: "MeetingAnalyticsOverlay.Chart.Emotions.sad",
+    val: 40,
+    key: "sad",
+  },
 ] as const;
 
 export type EmotionKey = typeof EMOTION_POOL[number]["key"];
