@@ -62,6 +62,7 @@ export default function MeetingAnalyticsOverlay({
 
   const [attentionData, setAttentionData] = useState<DataPoint[]>([]);
   const [emotionHistory, setEmotionHistory] = useState<EmotionHistory[]>([]);
+  const [shouldBreak, setShouldBreak] = useState(false);
 
   const getRelativeTime = useCallback(
     (isoString: string) => {
@@ -88,7 +89,14 @@ export default function MeetingAnalyticsOverlay({
 
   useEffect(() => {
     if (isTutor && socketData) {
-      const { attention, emotion, emotion_percentage, window_end } = socketData;
+      const {
+        attention,
+        emotion,
+        emotion_percentage,
+        window_end,
+        should_break,
+      } = socketData;
+      setShouldBreak(!!should_break);
       const parseVal = (v: string | number): number => {
         const value = typeof v === "string" ? parseFloat(v) : v;
         return Math.round((value ?? 0) * 100);
@@ -326,6 +334,27 @@ export default function MeetingAnalyticsOverlay({
           </HoverPanel>
         )}
       </Header>
+      {isTutor && shouldBreak && (
+        <AlertBar>
+          <AlertContent>
+            <AlertText>
+              <strong>
+                {t(
+                  "MeetingAnalyticsOverlay.Alert.AttentionDropping",
+                  "Atencja spada!"
+                )}
+              </strong>
+            </AlertText>
+            <AlertIcon>😴</AlertIcon>
+            <AlertText>
+              {t(
+                "MeetingAnalyticsOverlay.Alert.BreakRecommendation",
+                "Zalecamy zrobienie przerwy, aby rozmówcy na nowo odbudowali skupienie."
+              )}
+            </AlertText>
+          </AlertContent>
+        </AlertBar>
+      )}
     </OverlayRoot>
   );
 }
@@ -594,4 +623,46 @@ const Value = styled.span`
 
 const BigEmoji = styled.span`
   font-size: 20px;
+`;
+
+const AlertBar = styled.div`
+  width: 100%;
+  background: #e5a524;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  animation: slideDown 0.3s ease-out;
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+`;
+
+const AlertContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #000;
+  font-family: ${({ theme }) => theme.font};
+`;
+
+const AlertIcon = styled.span`
+  font-size: 24px;
+`;
+
+const AlertText = styled.p`
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+
+  strong {
+    font-weight: 700;
+  }
 `;
