@@ -11,7 +11,6 @@ import { ConsultationModalContext } from "@/components/Consultations/Consultatio
 import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
 import MeetingAnalyticsOverlay from "@/components/MeetingAnalyticsOverlay/MeetingAnalyticsOverlay";
 import styled from "styled-components";
-import { useRoles } from "@/hooks/useRoles";
 
 interface Props {
   onClose: () => void;
@@ -30,7 +29,6 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
   const [loading, setLoading] = useState(false);
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
   const consultationModalContext = useContext(ConsultationModalContext);
-  const { isTutor } = useRoles();
 
   useEffect(() => {
     const getMeetUrl = async () => {
@@ -86,7 +84,6 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
         <ConsultationMeetModalStyles>
           {loading && <ContentLoader />}
           <JitsiContainer>
-            {/* display on when: isTutor */}
             <MeetingAnalyticsOverlay onClose={handleOnClose} />
             {!loading && meetData && (
               <JitsyMeeting

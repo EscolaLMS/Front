@@ -49,7 +49,7 @@ const RecordButtonWrapper = styled.div`
 `;
 
 const FRAME_RATE = 1;
-const SEND_INTERVAL = 3000;
+const SEND_INTERVAL = 1000;
 
 declare global {
   interface Window {
@@ -117,7 +117,10 @@ const JitsyMeeting: React.FC<Props> = ({
       screenshots: { dataURL: Blob; timestamp: number }[],
       term: string
     ) => {
+      console.log(workerRef.current, "workerRef.current1");
+
       if (!workerRef.current) {
+        console.log("2");
         workerRef.current = new Worker(
           new URL("../../../../workers/saveImageWorker.ts", import.meta.url),
           { type: "module" }
@@ -166,6 +169,8 @@ const JitsyMeeting: React.FC<Props> = ({
         transcription: boolean;
       }
     ) => {
+      console.log(status, "stauts");
+
       if (status.on) {
         console.log("Recording has started in mode:", status);
 
@@ -175,6 +180,8 @@ const JitsyMeeting: React.FC<Props> = ({
           userID: number;
           consultationId: number | undefined;
         }[] = [];
+
+        console.log(intervalIdRef, "intervalIdRefintervalIdRef");
 
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
@@ -189,6 +196,8 @@ const JitsyMeeting: React.FC<Props> = ({
 
               if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
                 const currentUser = await getCurrentUser(api);
+
+                console.log("currentUser");
 
                 if (currentUser) {
                   console.log("Saving images...");
@@ -238,6 +247,8 @@ const JitsyMeeting: React.FC<Props> = ({
 
   const onApiReady = useCallback(
     async (api: IJitsiMeetExternalApi) => {
+      console.log("api ready functions");
+
       window.api = api;
       await camera();
 
@@ -248,6 +259,7 @@ const JitsyMeeting: React.FC<Props> = ({
         handleRecordingLinkAvailable(event)
       );
       api.on("recordingStatusChanged", (status) => {
+        console.log("test record changed");
         if (userConsentedRef.current)
           handleRecordingStatusChanged(
             api,

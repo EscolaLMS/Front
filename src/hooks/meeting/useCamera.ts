@@ -22,8 +22,8 @@ const useCamera = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          width: { ideal: 640 },
+          height: { ideal: 480 },
         },
         audio: false,
       });
@@ -69,11 +69,11 @@ const useCamera = () => {
       const canvasElement = document.createElement("canvas");
       const ctx = canvasElement.getContext("2d");
 
-      const track = streamRef.current.getVideoTracks()[0];
-      const settings = track.getSettings();
+      const TARGET_WIDTH = 640;
+      const TARGET_HEIGHT = 480;
 
-      canvasElement.height = settings.height || 720;
-      canvasElement.width = settings.width || 1280;
+      canvasElement.width = TARGET_WIDTH;
+      canvasElement.height = TARGET_HEIGHT;
 
       // Get the actual video element from Jitsi that includes background effects
       const jitsiVideoElement = document.querySelector(
