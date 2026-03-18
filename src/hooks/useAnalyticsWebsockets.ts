@@ -15,6 +15,14 @@ export const useMeetingSockets = (
     const echo = getEchoInstance(token);
     if (!echo) return;
 
+    echo.connector.pusher.connection.bind("connected", () => {
+      console.log("🟢 PUSHER CONNECTED", consultationId, termUnix);
+    });
+
+    echo.connector.pusher.connection.bind("error", (err: any) => {
+      console.log("🔴 PUSHER ERROR", err);
+    });
+
     const channelName = `consultation.${consultationId}.${termUnix}`;
     const channel = echo.private(channelName);
 

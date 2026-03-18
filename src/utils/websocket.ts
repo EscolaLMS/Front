@@ -13,10 +13,10 @@ export const getEchoInstance = (token: string) => {
       wsHost: import.meta.env.VITE_APP_WEBSOCKET_HOST,
       authEndpoint: import.meta.env.VITE_APP_WEBSOCKET_AUTH_ENDPOINT,
       wsPort: 80,
-      wssPort: 80,
-      forceTLS: false,
+      wssPort: 443,
+      forceTLS: true,
       disableStats: true,
-      enabledTransports: ["ws", "wss"],
+      enabledTransports: ["wss"],
       cluster: "mt1",
       auth: {
         headers: {
