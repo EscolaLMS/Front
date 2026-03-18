@@ -39,17 +39,8 @@ const StyledAccessWrapper = styled.div`
   }
 `;
 
-const RecordButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-`;
-
 const FRAME_RATE = 1;
-const SEND_INTERVAL = 3000;
+const SEND_INTERVAL = 1000;
 
 declare global {
   interface Window {
@@ -58,11 +49,12 @@ declare global {
 }
 
 type Props = {
-  jitsyData: Omit<API.JitsyData, "yt_url" | "yt_stream_url" | "yt_stream_key">; // or API.JitsyData but yt_stream in this type should be optional
+  jitsyData: Omit<API.JitsyData, "yt_url" | "yt_stream_url" | "yt_stream_key">;
   term: string;
   consultationTermId: number;
   consultationId?: number;
   close?: () => void;
+  onRecordingAvailable?: (url: string) => void;
 };
 
 const JitsyMeeting: React.FC<Props> = ({
@@ -71,6 +63,7 @@ const JitsyMeeting: React.FC<Props> = ({
   consultationTermId,
   consultationId,
   close,
+  onRecordingAvailable,
 }) => {
   const [showMeeting, setShowMeeting] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -80,18 +73,16 @@ const JitsyMeeting: React.FC<Props> = ({
   const isMeetingActive = useRef(false);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const workerRef = useRef<Worker | null>(null);
-  const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
+  const isCameraMutedRef = useRef(false);
 
   const { isStudent } = useRoles();
   const { t } = useTranslation();
 
   const handleConferenceJoined = useCallback(() => {
-    console.log("Video conference joined");
     isMeetingActive.current = true;
   }, []);
 
   const handleConferenceLeft = useCallback(() => {
-    console.log("Video conference left");
     isMeetingActive.current = false;
   }, []);
 
@@ -101,11 +92,11 @@ const JitsyMeeting: React.FC<Props> = ({
 
   const handleRecordingLinkAvailable = useCallback(
     (event: RecordingLinkAvailableEvent) => {
-      if (event.link) {
-        setRecordingUrl(event.link);
+      if (event.link && onRecordingAvailable) {
+        onRecordingAvailable(event.link);
       }
     },
-    []
+    [onRecordingAvailable]
   );
 
   const saveImagesInWorker = useCallback(
@@ -123,22 +114,17 @@ const JitsyMeeting: React.FC<Props> = ({
           { type: "module" }
         );
         workerRef.current.postMessage({
-          apiUrl: API_URL, // Ensure it's available in window
+          apiUrl: API_URL,
         });
       }
 
       workerRef.current.onmessage = (event: MessageEvent) => {
         const { success, error } = event.data;
-
         if (success) {
           console.log("Images saved successfully via Worker.");
         } else {
           console.error("Error saving images in Worker:", error);
         }
-      };
-
-      workerRef.current.onerror = (err) => {
-        console.error("Worker encountered an error:", err);
       };
 
       workerRef.current.postMessage({
@@ -165,8 +151,6 @@ const JitsyMeeting: React.FC<Props> = ({
       }
     ) => {
       if (status.on) {
-        console.log("Recording has started in mode:", status);
-
         let screenshots: {
           dataURL: Blob;
           timestamp: number;
@@ -176,6 +160,10 @@ const JitsyMeeting: React.FC<Props> = ({
 
         if (!intervalIdRef.current) {
           intervalIdRef.current = setInterval(async () => {
+            if (isCameraMutedRef.current) {
+              return;
+            }
+
             const dataUrl = await getDataUrl();
             if (dataUrl) {
               screenshots.push({
@@ -187,47 +175,32 @@ const JitsyMeeting: React.FC<Props> = ({
 
               if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
                 const currentUser = await getCurrentUser(api);
-
                 if (currentUser) {
-                  console.log("Saving images...");
-
                   saveImagesInWorker(
                     consultationId ?? 0,
                     consultationTermId,
                     jitsyData.data.userInfo.email,
-                    // @ts-ignore
                     jitsyData.data.userInfo.id,
                     screenshots,
                     term
                   );
                   screenshots = [];
-                } else {
-                  console.error(
-                    "Failed to get current user for saving images."
-                  );
                 }
               }
-            } else {
-              console.error("Failed to get data URL for screenshot.");
             }
           }, 1000 / FRAME_RATE);
         }
       } else {
-        console.log("Recording has stopped.");
         if (intervalIdRef.current) {
           clearInterval(intervalIdRef.current);
           intervalIdRef.current = null;
-        }
-
-        if (status.error) {
-          console.error("Recording error:", status.error);
         }
       }
     },
     [
       consultationId,
       consultationTermId,
-      jitsyData.data.userInfo.email, // @ts-ignore
+      jitsyData.data.userInfo.email,
       jitsyData.data.userInfo.id,
       term,
       saveImagesInWorker,
@@ -238,6 +211,9 @@ const JitsyMeeting: React.FC<Props> = ({
     async (api: IJitsiMeetExternalApi) => {
       window.api = api;
       await camera();
+      api.isVideoMuted().then((muted) => {
+        isCameraMutedRef.current = muted;
+      });
 
       api.addListener("videoConferenceJoined", () => handleConferenceJoined());
       api.addListener("videoConferenceLeft", () => handleConferenceLeft());
@@ -252,6 +228,10 @@ const JitsyMeeting: React.FC<Props> = ({
             async () => (await getDataUrl()) as Blob,
             status
           );
+      });
+
+      api.addListener("videoMuteStatusChanged", (event: { muted: boolean }) => {
+        isCameraMutedRef.current = event.muted;
       });
     },
     [
@@ -276,8 +256,6 @@ const JitsyMeeting: React.FC<Props> = ({
   const getProperRoomName = useCallback(() => {
     const regex = /\/([^/?]+)\?/;
     const match = jitsyData.url.match(regex);
-
-    // If there's a match, return the captured group, otherwise return null
     return match ? match[1] : jitsyData.data.roomName;
   }, [jitsyData]);
 
@@ -294,8 +272,8 @@ const JitsyMeeting: React.FC<Props> = ({
 
   useEffect(() => {
     const checkPermissions = async () => {
-      await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       try {
+        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         if (hasCameraAccess && isMeetingActive && isStudent) {
           setShowModal(true);
         } else {
@@ -375,15 +353,6 @@ const JitsyMeeting: React.FC<Props> = ({
             </div>
           </StyledAccessWrapper>
         )}
-      {recordingUrl && !isStudent && (
-        <RecordButtonWrapper>
-          <Button
-            onClick={() => recordingUrl && window.open(recordingUrl, "_blank")}
-          >
-            <Text>{t("ConsultationPage.DownloadRecording")}</Text>
-          </Button>
-        </RecordButtonWrapper>
-      )}
     </>
   );
 };

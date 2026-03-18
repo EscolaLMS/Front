@@ -82,8 +82,6 @@ const CoursePanelProvider: React.FC<React.PropsWithChildren> = ({
   const history = useHistory();
 
   const currentCourseProgress = courseProgressDetails.byId?.[courseId];
-  // console.log('currentCourseProgress: ', currentCourseProgress);
-
   const currentCourseProgram = useMemo(() => program.value, [program.value]);
 
   // For development purposes only

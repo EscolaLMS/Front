@@ -7,12 +7,14 @@ interface Props {
   consultationTermId: number;
   term: string;
   consultationId?: number;
+  name?: string;
 }
 
 const ConsultationCardJoinButton = ({
   consultationTermId,
   term,
   consultationId,
+  name,
 }: Props) => {
   const consultationModalContext = useContext(ConsultationModalContext);
 
@@ -27,6 +29,7 @@ const ConsultationCardJoinButton = ({
             consultationTermId,
             term,
             consultationId,
+            name,
           }),
           consultationModalContext?.setModalOpen(true),
         ]}

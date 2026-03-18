@@ -7,12 +7,14 @@ export const ConsultationModalContext = createContext<{
     consultationTermId: number;
     term: string;
     consultationId?: number;
+    name?: string;
   } | null;
   setConsultationData: (
     data: {
       consultationTermId: number;
       term: string;
       consultationId?: number;
+      name?: string;
     } | null
   ) => void;
 } | null>(null);
@@ -25,6 +27,7 @@ export const ConsultationModalProvider: React.FC<{
     consultationTermId: number;
     term: string;
     consultationId?: number;
+    name?: string;
   } | null>(null);
 
   return (

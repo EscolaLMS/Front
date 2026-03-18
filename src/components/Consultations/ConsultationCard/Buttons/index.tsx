@@ -36,6 +36,7 @@ const ConsultationCardButtons = ({ consultation, showBookTerm }: Props) => {
         consultationTermId={consultation?.consultation_term_id}
         consultationId={consultation.id}
         term={String(consultation.executed_at)}
+        name={consultation?.name}
       />
     );
   }

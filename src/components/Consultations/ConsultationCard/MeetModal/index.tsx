@@ -9,10 +9,19 @@ import { QuestionnaireModelType } from "@/types/questionnaire";
 import { QuestionnairesModal } from "@/components/Courses/Course/CoursePanelLayout/FinishPage/Rate";
 import { ConsultationModalContext } from "@/components/Consultations/ConsultationCard/Buttons/context";
 import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
+import MeetingAnalyticsOverlay from "@/components/MeetingAnalyticsOverlay/MeetingAnalyticsOverlay";
+import styled from "styled-components";
 
 interface Props {
   onClose: () => void;
 }
+
+const JitsiContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
 
 const ConsultationMeetModal = ({ onClose }: Props) => {
   const [meetData, setMeetData] = useState<JitsyData | null>(null);
@@ -20,6 +29,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
   const [loading, setLoading] = useState(false);
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
   const consultationModalContext = useContext(ConsultationModalContext);
+  const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const getMeetUrl = async () => {
@@ -61,35 +71,42 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
   return (
     <>
       <Modal
-        onClose={handleOnClose}
         visible={consultationModalContext?.isModalOpen}
         animation="zoom"
         maskAnimation="fade"
-        destroyOnClose={true}
         width="100vw"
         height="100vh"
         bodyStyle={{
-          minHeight: "93vh",
+          minHeight: "100vh",
+          padding: 0,
+          background: "black",
         }}
       >
         <ConsultationMeetModalStyles>
           {loading && <ContentLoader />}
-
-          {!loading && meetData && (
-            <JitsyMeeting
-              jitsyData={meetData}
-              close={handleOnClose}
-              consultationId={
-                consultationModalContext?.consultationData?.consultationId
-              }
-              consultationTermId={
-                consultationModalContext?.consultationData
-                  ?.consultationTermId ?? 0
-              }
-              term={consultationModalContext?.consultationData?.term ?? ""}
+          <JitsiContainer>
+            <MeetingAnalyticsOverlay
+              onClose={handleOnClose}
+              recordingUrl={recordingUrl}
             />
-          )}
+            {!loading && meetData && (
+              <JitsyMeeting
+                jitsyData={meetData}
+                close={handleOnClose}
+                consultationId={
+                  consultationModalContext?.consultationData?.consultationId
+                }
+                consultationTermId={
+                  consultationModalContext?.consultationData
+                    ?.consultationTermId ?? 0
+                }
+                term={consultationModalContext?.consultationData?.term ?? ""}
+                onRecordingAvailable={setRecordingUrl}
+              />
+            )}
+          </JitsiContainer>
         </ConsultationMeetModalStyles>
+
         <QuestionnairesModal
           entityId={Number(
             consultationModalContext?.consultationData?.consultationId
