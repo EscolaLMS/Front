@@ -1,23 +1,54 @@
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 
-export const getEchoInstance = (token: string) => {
+interface WindowEnv {
+  VITE_APP_WEBSOCKET_KEY?: string;
+  VITE_APP_WEBSOCKET_HOST?: string;
+  VITE_APP_WEBSOCKET_AUTH_ENDPOINT?: string;
+  Pusher: typeof Pusher;
+}
+
+declare global {
+  interface Window extends WindowEnv {}
+}
+
+export const getEchoInstance = (token: string): Echo<"pusher"> | null => {
   if (typeof window === "undefined") return null;
 
-  try {
-    (window as unknown as Window & { Pusher: typeof Pusher }).Pusher = Pusher;
+  const wsKey =
+    window.VITE_APP_WEBSOCKET_KEY ||
+    (import.meta.env.VITE_APP_WEBSOCKET_KEY as string) ||
+    "";
+  const wsHost =
+    window.VITE_APP_WEBSOCKET_HOST ||
+    (import.meta.env.VITE_APP_WEBSOCKET_HOST as string) ||
+    "";
+  const authEndpoint =
+    window.VITE_APP_WEBSOCKET_AUTH_ENDPOINT ||
+    (import.meta.env.VITE_APP_WEBSOCKET_AUTH_ENDPOINT as string) ||
+    "";
 
-    const __DEV__ = window.location.hostname === "localhost";
+  if (!wsKey) {
+    console.warn("Echo: WebSocket configuration was not found.");
+    return null;
+  }
+
+  try {
+    window.Pusher = Pusher;
+    Pusher.logToConsole = true;
+
+    const isDev = window.location.hostname === "localhost";
 
     return new Echo({
       broadcaster: "pusher",
-      key: import.meta.env.VITE_APP_WEBSOCKET_KEY,
-      wsHost: import.meta.env.VITE_APP_WEBSOCKET_HOST,
-      authEndpoint: import.meta.env.VITE_APP_WEBSOCKET_AUTH_ENDPOINT,
-      wsPort: 80,
-      wssPort: 443,
-      forceTLS: !__DEV__,
-      enabledTransports: __DEV__ ? ["ws"] : ["wss"],
+      key: wsKey,
+      wsHost: wsHost,
+      authEndpoint: authEndpoint,
+      forceTLS: !isDev,
+      wsPort: isDev ? 80 : 443,
+      wssPort: isDev ? 80 : 443,
+      disableStats: true,
+      enabledTransports: ["ws", "wss"],
       cluster: "mt1",
       auth: {
         headers: {
@@ -26,7 +57,8 @@ export const getEchoInstance = (token: string) => {
         },
       },
     });
-  } catch {
+  } catch (error) {
+    console.error("Echo init error:", error);
     return null;
   }
 };
