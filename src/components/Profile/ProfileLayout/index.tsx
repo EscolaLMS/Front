@@ -87,6 +87,11 @@ const ProfileLayout: React.FC<Props> = ({
         title: t("MyProfilePage.MyConsultations"),
         url: routeRoutes.myConsultations,
       },
+      {
+        key: "WEBINARS",
+        title: t("MyProfilePage.MyWebinars"),
+        url: routeRoutes.myWebinars,
+      },
     ],
     [t]
   );

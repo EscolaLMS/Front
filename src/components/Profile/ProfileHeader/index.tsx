@@ -29,7 +29,9 @@ const StyledHeader = styled.div<{ withTabs?: boolean }>`
 const ProfileHeader: React.FC<Props> = ({ title, withTabs, actions }) => {
   return (
     <StyledHeader withTabs={withTabs}>
-      <Title level={2}>{title}</Title>
+      <Title level={2} style={{ marginBottom: 12 }}>
+        {title}
+      </Title>
       {actions && <div className="actions">{actions}</div>}
     </StyledHeader>
   );

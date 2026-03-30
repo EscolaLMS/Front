@@ -35,8 +35,8 @@ const ConsultationsPage = lazy(() => import("../../pages/consultations"));
 const ResetPage = lazy(() => import("../../pages/reset-password/index"));
 // const EventsPage = lazy(() => import("../../pages/events"));
 // const EventPage = lazy(() => import("../../pages/event"));
-// const WebinarsPage = lazy(() => import("../../pages/webinars"));
-// const WebinarPage = lazy(() => import("../../pages/webinar"));
+const WebinarsPage = lazy(() => import("../../pages/webinars"));
+const WebinarPage = lazy(() => import("../../pages/webinar"));
 // const PackagesPage = lazy(() => import("../../pages/packages"));
 const PackagePage = lazy(() => import("../../pages/package"));
 const SubscriptionsPage = lazy(() => import("../../pages/subscriptions"));
@@ -62,7 +62,7 @@ const MyConsultationsPage = lazy(
 const MyDataPage = lazy(() => import("../../pages/user/my-data"));
 const CourseProgramPage = lazy(() => import("../../pages/course/index"));
 const CartPage = lazy(() => import("../../pages/cart/index"));
-// const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
+const MyWebinarsPage = lazy(() => import("../../pages/user/MyWebinars"));
 const MyCertificatesPage = lazy(
   () => import("../../pages/user/my-certificates")
 );
@@ -116,9 +116,9 @@ const Routes: React.FC = (): ReactElement => {
     // myStationaryEvents,
     // myTasks,
     // myBookmarks,
-    // webinars,
-    // webinar,
-    // myWebinars,
+    webinars,
+    webinar,
+    myWebinars,
     // packages,
     packageProduct,
     myCertificates,
@@ -154,9 +154,9 @@ const Routes: React.FC = (): ReactElement => {
           <ConfigRoute exact path={preview} component={CoursePreviewPage} />
           <ConfigRouteExtend exact path={courses} component={CoursesPage} />
           {/* <ConfigRoute exact path={events} component={EventsPage} />
-          <ConfigRoute exact path={event} component={EventPage} />
+          <ConfigRoute exact path={event} component={EventPage} />*/}
           <ConfigRoute exact path={webinars} component={WebinarsPage} />
-          <ConfigRoute exact path={webinar} component={WebinarPage} /> */}
+          <ConfigRoute exact path={webinar} component={WebinarPage} />
           {/* <ConfigRoute exact path={packages} component={PackagesPage} /> */}
           <ConfigRoute exact path={packageProduct} component={PackagePage} />
           {/* privates pages*/}
@@ -164,7 +164,7 @@ const Routes: React.FC = (): ReactElement => {
           <PrivateRoute exact path={myProfile} component={MyProfilePage} />
           {/* <PrivateRoute exact path={myTasks} component={MyTasks} />
           <PrivateRoute exact path={myBookmarks} component={MyBookmarks} /> */}
-          {/* <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} /> */}
+          <PrivateRoute exact path={myWebinars} component={MyWebinarsPage} />
           <PrivateRoute
             exact
             path={mySubscriptions}

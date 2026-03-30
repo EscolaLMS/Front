@@ -19,7 +19,7 @@ export const useMeetingSockets = (
       console.log("🟢 PUSHER CONNECTED", consultationId, termUnix);
     });
 
-    echo.connector.pusher.connection.bind("error", (err: any) => {
+    echo.connector.pusher.connection.bind("error", (err: string) => {
       console.log("🔴 PUSHER ERROR", err);
     });
 

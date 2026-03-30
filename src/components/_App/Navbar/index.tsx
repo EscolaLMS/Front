@@ -647,11 +647,11 @@ const Navbar = () => {
                 //   content: t("Menu.Events"),
                 //   redirect: routeRoutes.events,
                 // },
-                // {
-                //   id: 6,
-                //   content: t("Menu.Webinars"),
-                //   redrect: routeRoutes.webinars,
-                // },
+                {
+                  id: 6,
+                  content: t("Menu.Webinars"),
+                  redrect: routeRoutes.webinars,
+                },
                 // {
                 //   id: 7,
                 //   content: t("Menu.Packages"),
@@ -754,11 +754,11 @@ const Navbar = () => {
                     content: t("Navbar.MyConsultations"),
                     redirect: routeRoutes.myConsultations,
                   },
-                  // {
-                  //   id: 4,
-                  //   content: t("Navbar.MyWebinars"),
-                  //   redirect: routeRoutes.myWebinars,
-                  // },
+                  {
+                    id: 4,
+                    content: t("Navbar.MyWebinars"),
+                    redirect: routeRoutes.myWebinars,
+                  },
                   // {
                   //   id: 5,
                   //   content: t("Navbar.MyStationaryEvents"),
