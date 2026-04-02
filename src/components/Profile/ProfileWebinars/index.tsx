@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import ContentLoader from "@/components/_App/ContentLoader";
@@ -10,6 +10,7 @@ import { API } from "@escolalms/sdk/lib";
 import { ProfileWebinarItemFooter } from "./ItemFooter";
 import { ProfileWebinarItemActions } from "./ItemActions";
 import WebinarMeetModal from "@/components/Webinars/Webinar/WebinarMeetModal";
+import { WebinarsContext } from "@/components/Webinars/List/WebinarsContext";
 
 const RowStyled = styled(Row)`
   gap: 30px 0;
@@ -29,6 +30,11 @@ ProfileWebinarsProps) => {
   const [webinarJoinId, setWebinarJoinId] = useState<number | undefined>(
     undefined
   );
+  const [webinarData, setWebinarData] = useState<API.Webinar | undefined>(
+    undefined
+  );
+
+  const webinarsContext = useContext(WebinarsContext);
   const { t } = useTranslation();
 
   if (loading) {
@@ -54,19 +60,23 @@ ProfileWebinarsProps) => {
             actions={
               <ProfileWebinarItemActions
                 webinar={webinar}
-                onJoin={() => setWebinarJoinId(webinar.id)}
+                onJoin={() => {
+                  setWebinarData(webinar);
+                  setWebinarJoinId(webinar.id);
+                  webinarsContext?.setModalOpen?.(true);
+                }}
               />
             }
             footer={<ProfileWebinarItemFooter webinar={webinar} />}
           />
         </Col>
       ))}
-      {/* MEET MODAL */}
       {!!webinarJoinId && (
         <WebinarMeetModal
           visible={!!webinarJoinId}
           onClose={() => setWebinarJoinId(undefined)}
           webinarId={webinarJoinId}
+          webinar={webinarData}
         />
       )}
     </RowStyled>

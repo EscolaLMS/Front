@@ -21,6 +21,7 @@ import { ConsultationModalContext } from "@/components/Consultations/Consultatio
 import { useRoles } from "@/hooks/useRoles";
 import { DataPoint, EMOTION_POOL, EmotionHistory } from "@/types/sockets";
 import { useTranslation } from "react-i18next";
+import { API } from "@escolalms/sdk/lib";
 
 const getColorByValue = (val: number) => {
   if (val < 35) return "#FF4D4D";
@@ -30,10 +31,14 @@ const getColorByValue = (val: number) => {
 
 export default function MeetingAnalyticsOverlay({
   onClose,
+  modelType = "consultation",
   recordingUrl,
+  webinar,
 }: {
   onClose: () => void;
+  modelType?: "consultation" | "webinar";
   recordingUrl?: string | null;
+  webinar?: API.Webinar;
 }) {
   const { isTutor } = useRoles();
   const { consultation, token } = useContext(EscolaLMSContext);
@@ -77,6 +82,17 @@ export default function MeetingAnalyticsOverlay({
     },
     [t]
   );
+
+  const displayTitle = useMemo(() => {
+    if (modelType === "webinar") {
+      return webinar?.name || "";
+    }
+    return (
+      consultation?.value?.name ??
+      consultationModalContext?.consultationData?.name ??
+      ""
+    );
+  }, [modelType, webinar, consultation, consultationModalContext]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -189,11 +205,7 @@ export default function MeetingAnalyticsOverlay({
           <BackButton onClick={onClose}>
             <Chevron>‹</Chevron>
           </BackButton>
-          <HeaderTitle>
-            {consultation?.value?.name ??
-              consultationModalContext?.consultationData?.name ??
-              ""}
-          </HeaderTitle>
+          <HeaderTitle>{displayTitle}</HeaderTitle>
         </LeftGroup>
 
         {isTutor && (

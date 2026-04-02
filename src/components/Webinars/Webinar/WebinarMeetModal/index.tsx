@@ -11,11 +11,13 @@ import JitsyMeeting from "@/components/Consultations/ConsultationCard/JitsyMeeti
 import MeetingAnalyticsOverlay from "@/components/MeetingAnalyticsOverlay/MeetingAnalyticsOverlay";
 import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
 import { QuestionnaireModelType } from "@/types/questionnaire";
+import { API } from "@escolalms/sdk/lib";
 
 interface Props {
   onClose: () => void;
   visible: boolean;
   webinarId: number;
+  webinar?: API.Webinar;
 }
 
 const JitsiContainer = styled.div`
@@ -25,7 +27,7 @@ const JitsiContainer = styled.div`
   overflow: hidden;
 `;
 
-const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
+const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const [webinarMeetData, setWebinarMeetData] = useState<JitsyData | null>(
     null
   );
@@ -49,7 +51,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
             onClose();
           }
         } catch (error) {
-          console.error(error);
+          console.error("Error generating Jitsi URL:", error);
           toast(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`, "error");
         } finally {
           setLoading(false);
@@ -71,7 +73,9 @@ const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
   }, [webinarId, visible, generateWebinarJitsy, t, onClose]);
 
   useEffect(() => {
-    if (visible) setIsEnded(false);
+    if (visible) {
+      setIsEnded(false);
+    }
   }, [visible]);
 
   const handleOnClose = useCallback(() => {
@@ -101,15 +105,17 @@ const WebinarMeetModal = ({ onClose, visible, webinarId }: Props) => {
             <MeetingAnalyticsOverlay
               onClose={handleOnClose}
               recordingUrl={recordingUrl}
+              modelType="webinar"
+              webinar={webinar}
             />
             {!loading && webinarMeetData && (
               <JitsyMeeting
                 jitsyData={webinarMeetData}
+                modelId={webinarId}
+                modelType="webinar"
                 close={handleOnClose}
-                consultationId={webinarId}
-                consultationTermId={0}
-                term={""}
                 onRecordingAvailable={setRecordingUrl}
+                term={webinar?.active_to ?? ""}
               />
             )}
           </JitsiContainer>

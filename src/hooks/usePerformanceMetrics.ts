@@ -22,7 +22,6 @@ const usePerformanceMetrics = () => {
       const now = performance.now();
 
       if (now - startTimeRef.current >= 1000) {
-        console.log(`[FPS] Frames Per Second: ${frameCountRef.current}`);
         frameCountRef.current = 0;
         startTimeRef.current = now;
       }

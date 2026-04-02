@@ -92,15 +92,17 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
             {!loading && meetData && (
               <JitsyMeeting
                 jitsyData={meetData}
-                close={handleOnClose}
-                consultationId={
-                  consultationModalContext?.consultationData?.consultationId
+                modelId={
+                  consultationModalContext?.consultationData?.consultationId ??
+                  0
                 }
+                modelType="consultation"
                 consultationTermId={
                   consultationModalContext?.consultationData
                     ?.consultationTermId ?? 0
                 }
                 term={consultationModalContext?.consultationData?.term ?? ""}
+                close={handleOnClose}
                 onRecordingAvailable={setRecordingUrl}
               />
             )}

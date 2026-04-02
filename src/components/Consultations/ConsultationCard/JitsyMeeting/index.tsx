@@ -1,19 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { JaaSMeeting } from "@jitsi/react-sdk";
 import { IJitsiMeetExternalApi } from "@jitsi/react-sdk/lib/types";
-import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
-
-import * as API from "@escolalms/sdk/lib/types";
-import useCamera, { cameraPermissions } from "@/hooks/meeting/useCamera";
-import { getCurrentUser } from "@/utils/meeting";
 import JitsyMeetingMessage from "@/components/Consultations/ConsultationCard/JitsyMeeting/Message";
 import { useRoles } from "@/hooks/useRoles";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import styled from "styled-components";
-import { API_URL } from "@/config/index";
-import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import JitsyMeetingSkeleton from "@/components/Skeletons/JitsyMeeting";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
+import { API_URL } from "@/config/index";
+import useCamera from "@/hooks/meeting/useCamera";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -24,294 +20,292 @@ export const StyledModal = styled(Modal)`
   }
 `;
 
-const StyledAccessWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 20px;
-  .button-reload {
-    margin-top: 20px;
-  }
-`;
-
-const FRAME_RATE = 1;
-const SEND_INTERVAL = 1000;
-
-declare global {
-  interface Window {
-    api: IJitsiMeetExternalApi;
-  }
-}
-
-type Props = {
-  jitsyData: Omit<API.JitsyData, "yt_url" | "yt_stream_url" | "yt_stream_key">;
-  term: string;
-  consultationTermId: number;
-  consultationId?: number;
-  close?: () => void;
-  onRecordingAvailable?: (url: string) => void;
-};
-
-const JitsyMeeting: React.FC<Props> = ({
+const JitsyMeeting: React.FC<any> = ({
   jitsyData,
+  modelId,
+  modelType,
   term,
   consultationTermId,
-  consultationId,
   close,
   onRecordingAvailable,
 }) => {
+  const RECOMMENDER_TUTOR_INTERVAL = 15000;
+  const ANALYTICS_INTERVAL = 1000;
+
   const [showMeeting, setShowMeeting] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { camera, getDataUrl, hasCameraAccess, cameraAccessStatus } =
-    useCamera();
-  const userConsentedRef = useRef(false);
-  const isMeetingActive = useRef(false);
-  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
-  const workerRef = useRef<Worker | null>(null);
-  const isCameraMutedRef = useRef(false);
-
+  const { token } = useContext(EscolaLMSContext);
   const { isStudent } = useRoles();
   const { t } = useTranslation();
 
-  const handleConferenceJoined = useCallback(() => {
-    isMeetingActive.current = true;
-  }, []);
+  const { camera, getDataUrl } = useCamera();
+  const userConsentedRef = useRef(false);
+  const isCameraMutedRef = useRef(false);
 
-  const handleConferenceLeft = useCallback(() => {
-    isMeetingActive.current = false;
-  }, []);
+  const recordingIdRef = useRef<number | null>(null);
+  const recordingUrlRef = useRef<string | null>(null);
+  const recordingExpiryRef = useRef<number | null>(null);
 
-  interface RecordingLinkAvailableEvent {
-    link: string;
-  }
+  const analyticsIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const recommenderIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+  const apiRef = useRef<IJitsiMeetExternalApi | null>(null);
 
-  const handleRecordingLinkAvailable = useCallback(
-    (event: RecordingLinkAvailableEvent) => {
-      if (event.link && onRecordingAvailable) {
-        onRecordingAvailable(event.link);
-      }
-    },
-    [onRecordingAvailable]
-  );
-
-  const saveImagesInWorker = useCallback(
-    (
-      consultationId: number,
-      consultationTermId: number,
-      userEmail: string,
-      userId: number,
-      screenshots: { dataURL: Blob; timestamp: number }[],
-      term: string
-    ) => {
-      if (!workerRef.current) {
-        workerRef.current = new Worker(
-          new URL("../../../../workers/saveImageWorker.ts", import.meta.url),
-          { type: "module" }
-        );
-        workerRef.current.postMessage({
-          apiUrl: API_URL,
-        });
-      }
-
-      workerRef.current.onmessage = (event: MessageEvent) => {
-        const { success, error } = event.data;
-        if (success) {
-          console.log("Images saved successfully via Worker.");
-        } else {
-          console.error("Error saving images in Worker:", error);
-        }
+  const preparePayload = useCallback(
+    (action: "start-recording" | "end-recording") => {
+      const now = new Date().toISOString();
+      const payload: any = {
+        id: recordingIdRef.current || 0,
+        model_type: modelType,
+        model_id: Number(modelId),
+        action,
+        term: term || now,
       };
 
-      workerRef.current.postMessage({
-        consultationId,
-        consultationTermId,
-        userEmail,
-        userId,
-        screenshots,
-        term,
-      });
-    },
-    []
-  );
-
-  const handleRecordingStatusChanged = useCallback(
-    async (
-      api: IJitsiMeetExternalApi,
-      getDataUrl: () => Promise<Blob | null>,
-      status: {
-        on: boolean;
-        mode: string;
-        error?: string;
-        transcription: boolean;
-      }
-    ) => {
-      if (status.on) {
-        let screenshots: {
-          dataURL: Blob;
-          timestamp: number;
-          userID: number;
-          consultationId: number | undefined;
-        }[] = [];
-
-        if (!intervalIdRef.current) {
-          intervalIdRef.current = setInterval(async () => {
-            if (isCameraMutedRef.current) {
-              return;
-            }
-
-            const dataUrl = await getDataUrl();
-            if (dataUrl) {
-              screenshots.push({
-                dataURL: dataUrl,
-                timestamp: new Date().getTime(),
-                userID: jitsyData.data.userInfo.id,
-                consultationId,
-              });
-
-              if (screenshots.length === FRAME_RATE * (SEND_INTERVAL / 1000)) {
-                const currentUser = await getCurrentUser(api);
-                if (currentUser) {
-                  saveImagesInWorker(
-                    consultationId ?? 0,
-                    consultationTermId,
-                    jitsyData.data.userInfo.email,
-                    jitsyData.data.userInfo.id,
-                    screenshots,
-                    term
-                  );
-                  screenshots = [];
-                }
-              }
-            }
-          }, 1000 / FRAME_RATE);
-        }
+      if (action === "start-recording") {
+        payload.start_at = now;
       } else {
-        if (intervalIdRef.current) {
-          clearInterval(intervalIdRef.current);
-          intervalIdRef.current = null;
+        payload.end_at = now;
+        if (recordingUrlRef.current) {
+          payload.url = recordingUrlRef.current;
+        }
+
+        if (recordingExpiryRef.current) {
+          payload.url_expiration_time_millis = recordingExpiryRef.current;
         }
       }
+
+      if (modelType === "consultation") {
+        payload.consultation_term_id = consultationTermId || 0;
+      }
+      return payload;
     },
-    [
-      consultationId,
-      consultationTermId,
-      jitsyData.data.userInfo.email,
-      jitsyData.data.userInfo.id,
-      term,
-      saveImagesInWorker,
-    ]
+    [modelId, modelType, term, consultationTermId]
   );
 
-  const onApiReady = useCallback(
-    async (api: IJitsiMeetExternalApi) => {
-      window.api = api;
-      await camera();
-      api.isVideoMuted().then((muted) => {
-        isCameraMutedRef.current = muted;
-      });
+  const sendRecordingEvent = useCallback(
+    async (action: "start-recording" | "end-recording") => {
+      if (isStudent) return;
+      try {
+        const payload = preparePayload(action);
 
-      api.addListener("videoConferenceJoined", () => handleConferenceJoined());
-      api.addListener("videoConferenceLeft", () => handleConferenceLeft());
+        const response = await fetch(
+          "https://rekomender.api.s.wellms.io/api/recommender/meet-recordings",
+          {
+            method: "POST",
+            keepalive: true,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          }
+        );
 
-      api.addListener("recordingLinkAvailable", (event) =>
-        handleRecordingLinkAvailable(event)
+        const result = await response.json();
+
+        if (action === "start-recording" && result?.data?.id) {
+          recordingIdRef.current = result.data.id;
+        }
+      } catch (e) {
+        console.error("Recording API error", e);
+      }
+    },
+    [isStudent, token, preparePayload]
+  );
+
+  const stopAllIntervals = useCallback(() => {
+    if (analyticsIntervalRef.current)
+      clearInterval(analyticsIntervalRef.current);
+    if (recommenderIntervalRef.current)
+      clearInterval(recommenderIntervalRef.current);
+    analyticsIntervalRef.current = null;
+    recommenderIntervalRef.current = null;
+  }, []);
+
+  const startScreenshotFlows = useCallback(() => {
+    if (!workerRef.current) {
+      workerRef.current = new Worker(
+        new URL("../../../../workers/saveImageWorker.ts", import.meta.url),
+        { type: "module" }
       );
-      api.on("recordingStatusChanged", (status) => {
-        if (userConsentedRef.current)
-          handleRecordingStatusChanged(
-            api,
-            async () => (await getDataUrl()) as Blob,
-            status
-          );
-      });
-
-      api.addListener("videoMuteStatusChanged", (event: { muted: boolean }) => {
-        isCameraMutedRef.current = event.muted;
-      });
-    },
-    [
-      camera,
-      handleConferenceJoined,
-      handleConferenceLeft,
-      getDataUrl,
-      handleRecordingStatusChanged,
-      userConsentedRef,
-      handleRecordingLinkAvailable,
-    ]
-  );
-
-  const handleReadyToClose = () => {
-    if (close) {
-      close();
+      workerRef.current.postMessage({ apiUrl: API_URL });
     }
-    window.api?.dispose();
-    window.location.reload();
-  };
 
-  const getProperRoomName = useCallback(() => {
-    const regex = /\/([^/?]+)\?/;
-    const match = jitsyData.url.match(regex);
-    return match ? match[1] : jitsyData.data.roomName;
-  }, [jitsyData]);
+    const userId = jitsyData.data.userInfo.id;
+
+    if (isStudent && !analyticsIntervalRef.current) {
+      let screenshots: any[] = [];
+      analyticsIntervalRef.current = setInterval(async () => {
+        if (isCameraMutedRef.current || !userConsentedRef.current) return;
+        const blob = await getDataUrl();
+        if (blob) {
+          screenshots.push({
+            dataURL: blob,
+            timestamp: Date.now(),
+            userID: userId,
+          });
+          if (screenshots.length >= 1) {
+            workerRef.current?.postMessage({
+              modelId: Number(modelId),
+              modelType,
+              userId,
+              userEmail: jitsyData.data.userInfo.email,
+              consultationTermId,
+              screenshots,
+              term,
+              token,
+            });
+            screenshots = [];
+          }
+        }
+      }, ANALYTICS_INTERVAL);
+    }
+
+    if (!isStudent && !recommenderIntervalRef.current) {
+      recommenderIntervalRef.current = setInterval(async () => {
+        if (isCameraMutedRef.current) return;
+        const blob = await getDataUrl();
+        if (blob) {
+          workerRef.current?.postMessage({
+            action: "recommender-screens",
+            modelId: Number(modelId),
+            modelType,
+            userId,
+            term: term || new Date().toISOString(),
+            screenshots: [
+              { dataURL: blob, timestamp: Date.now(), userID: userId },
+            ],
+            token,
+          });
+        }
+      }, RECOMMENDER_TUTOR_INTERVAL);
+    }
+  }, [
+    isStudent,
+    modelId,
+    modelType,
+    term,
+    token,
+    jitsyData,
+    getDataUrl,
+    consultationTermId,
+  ]);
+
+  const onApiReady = (api: IJitsiMeetExternalApi) => {
+    apiRef.current = api;
+    camera();
+
+    api.on("recordingLinkAvailable", (event: { link: string; ttl: number }) => {
+      recordingUrlRef.current = event.link;
+      if (onRecordingAvailable) {
+        onRecordingAvailable(event.link);
+      }
+      if (event.ttl) {
+        recordingExpiryRef.current = event.ttl * 1000;
+      }
+    });
+
+    api.on("recordingStatusChanged", async (status: { on: boolean }) => {
+      if (status.on) {
+        recordingUrlRef.current = null;
+        recordingExpiryRef.current = null;
+        startScreenshotFlows();
+        await sendRecordingEvent("start-recording");
+      } else {
+        stopAllIntervals();
+        setTimeout(async () => {
+          if (recordingIdRef.current) {
+            await sendRecordingEvent("end-recording");
+            recordingIdRef.current = null;
+            recordingUrlRef.current = null;
+          }
+        }, 500);
+      }
+    });
+
+    api.addListener("videoMuteStatusChanged", (e: { muted: boolean }) => {
+      isCameraMutedRef.current = e.muted;
+    });
+
+    api.on("videoConferenceLeft", () => {
+      stopAllIntervals();
+      if (!isStudent && recordingIdRef.current) {
+        sendRecordingEvent("end-recording");
+      }
+    });
+  };
 
   useEffect(() => {
     return () => {
-      if (workerRef.current) {
-        workerRef.current.terminate();
+      stopAllIntervals();
+
+      if (!isStudent && recordingIdRef.current) {
+        sendRecordingEvent("end-recording");
       }
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
+
+      workerRef.current?.terminate();
+      if (apiRef.current) {
+        apiRef.current.dispose();
       }
     };
-  }, []);
+  }, [stopAllIntervals, isStudent, sendRecordingEvent]);
 
   useEffect(() => {
-    const checkPermissions = async () => {
-      try {
-        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        if (hasCameraAccess && isMeetingActive && isStudent) {
-          setShowModal(true);
-        } else {
-          setShowModal(false);
-          if (!isStudent) {
-            setShowMeeting(true);
-          }
-        }
-      } catch (error) {
-        console.error("Error checking permissions:", error);
-        setShowModal(false);
+    const handleUnload = () => {
+      if (!isStudent && recordingIdRef.current) {
+        const payload = preparePayload("end-recording");
+        navigator.sendBeacon(
+          "https://rekomender.api.s.wellms.io/api/recommender/meet-recordings",
+          JSON.stringify(payload)
+        );
       }
     };
 
-    checkPermissions();
-  }, [hasCameraAccess, isMeetingActive, isStudent, t]);
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [isStudent, preparePayload]);
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        isStudent ? setShowModal(true) : setShowMeeting(true);
+      } catch {
+        setShowMeeting(true);
+      }
+    };
+    init();
+  }, [isStudent]);
+
+  const getProperRoomName = () => {
+    const regex = /\/([^/?]+)\?/;
+    const match = jitsyData.url.match(regex);
+    return match ? match[1] : jitsyData.data.roomName;
+  };
 
   return (
     <>
-      {jitsyData && !showModal && showMeeting && (
+      {showMeeting && (
         <JaaSMeeting
           jwt={jitsyData.data.jwt}
           appId={jitsyData.data.app_id}
           roomName={getProperRoomName()}
+          onApiReady={onApiReady}
           getIFrameRef={(iframeRef) => {
             iframeRef.style.height = "calc(100vh - 76px)";
             iframeRef.style.width = "100%";
           }}
-          onApiReady={onApiReady}
-          onReadyToClose={handleReadyToClose}
-          interfaceConfigOverwrite={{
-            ...jitsyData.data.interfaceConfigOverwrite,
+          onReadyToClose={async () => {
+            stopAllIntervals();
+            if (!isStudent && recordingIdRef.current) {
+              await sendRecordingEvent("end-recording");
+            }
+            close?.();
           }}
           configOverwrite={{
             ...jitsyData.data.configOverwrite,
-            prejoinConfig: {
-              enabled: false,
-            },
+            prejoinConfig: { enabled: false },
             constraints: {
               video: {
                 deviceId: localStorage.getItem("preferredCamera") || undefined,
@@ -324,14 +318,12 @@ const JitsyMeeting: React.FC<Props> = ({
         />
       )}
       <StyledModal
-        onClose={() => [setShowModal(false), setShowMeeting(true)]}
         visible={showModal}
-        animation="zoom"
-        maskAnimation="fade"
-        destroyOnClose={true}
-        width={468}
+        onClose={() => [setShowModal(false), setShowMeeting(true)]}
         closable={false}
         maskClosable={false}
+        destroyOnClose={true}
+        width={468}
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}
@@ -339,20 +331,7 @@ const JitsyMeeting: React.FC<Props> = ({
           userConsentedRef={userConsentedRef}
         />
       </StyledModal>
-      {!showModal && !showMeeting && <JitsyMeetingSkeleton />}
-      {!showModal &&
-        !showMeeting &&
-        cameraAccessStatus === cameraPermissions.DENIED && (
-          <StyledAccessWrapper>
-            <Text>{t("ConsultationPage.BlockedAccess")}</Text>
-            <Text>{t("ConsultationPage.BlockedAccessEnable")}</Text>
-            <div className="button-reload">
-              <Button onClick={() => window.location.reload()}>
-                {t("ConsultationPage.ReloadPage")}
-              </Button>
-            </div>
-          </StyledAccessWrapper>
-        )}
+      {!showMeeting && !showModal && <JitsyMeetingSkeleton />}
     </>
   );
 };
