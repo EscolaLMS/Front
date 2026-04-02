@@ -3,60 +3,46 @@ import { getEchoInstance } from "@/utils/websocket";
 import { SocketDataState, MeetingAnalyticsSocketData } from "@/types/sockets";
 
 export const useMeetingSockets = (
-  consultationId?: number,
+  modelId?: number,
   termUnix?: number,
-  token?: string | null
+  token?: string | null,
+  modelType: "consultation" | "webinar" = "consultation"
 ) => {
   const [socketData, setSocketData] = useState<SocketDataState | null>(null);
 
   useEffect(() => {
-    if (!consultationId || !termUnix || !token) return;
+    if (!modelId || !termUnix || !token) return;
 
     const echo = getEchoInstance(token);
     if (!echo) return;
 
-    echo.connector.pusher.connection.bind("connected", () => {
-      console.log("🟢 PUSHER CONNECTED", consultationId, termUnix);
-    });
-
-    echo.connector.pusher.connection.bind("error", (err: string) => {
-      console.log("🔴 PUSHER ERROR", err);
-    });
-
-    const channelName = `consultation.${consultationId}.${termUnix}`;
-    const channel = echo.private(channelName);
+    const channelName = `${modelType}.${modelId}.${termUnix}`;
+    const privateChannel = echo.private(channelName);
 
     const processData = (payload: MeetingAnalyticsSocketData) => {
       if (!payload) return;
       setSocketData({ ...payload, _updatedAt: Date.now() });
     };
 
-    channel.listen(
+    echo.connector.pusher.connection.bind("connected", () => {
+      console.log(`🟢 PUSHER CONNECTED TO ${channelName}`);
+    });
+
+    privateChannel.listen(
       ".AggregatedFrameStored",
-      (data: MeetingAnalyticsSocketData) => {
-        processData(data);
-      }
+      (data: MeetingAnalyticsSocketData) => processData(data)
     );
 
-    channel.listen(
+    privateChannel.listen(
       "AggregatedFrameStored",
-      (data: MeetingAnalyticsSocketData) => {
-        processData(data);
-      }
-    );
-
-    channel.listenToAll(
-      (eventName: string, data: MeetingAnalyticsSocketData) => {
-        if (eventName.includes("AggregatedFrameStored")) {
-          processData(data);
-        }
-      }
+      (data: MeetingAnalyticsSocketData) => processData(data)
     );
 
     return () => {
       echo.leave(channelName);
+      echo.connector.pusher.connection.unbind("connected");
     };
-  }, [consultationId, termUnix, token]);
+  }, [modelId, termUnix, token, modelType]);
 
   return { socketData };
 };

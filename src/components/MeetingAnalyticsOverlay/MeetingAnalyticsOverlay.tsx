@@ -47,22 +47,27 @@ export default function MeetingAnalyticsOverlay({
   const [hoveredPanel, setHoveredPanel] = useState<
     "emotion" | "attention" | null
   >(null);
+  const modelId = useMemo(() => {
+    if (modelType === "webinar") return webinar?.id;
+    return consultationModalContext?.consultationData?.consultationId;
+  }, [modelType, webinar, consultationModalContext]);
+
+  const unixTimestamp = useMemo(() => {
+    const rawDate =
+      modelType === "webinar"
+        ? webinar?.active_from
+        : consultationModalContext?.consultationData?.term;
+
+    return rawDate ? Math.floor(new Date(rawDate).getTime() / 1000) : undefined;
+  }, [modelType, webinar, consultationModalContext]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const unixTimestamp = consultationModalContext?.consultationData?.term
-    ? Math.floor(
-        new Date(consultationModalContext?.consultationData?.term).getTime() /
-          1000
-      )
-    : undefined;
-
   const { socketData } = useMeetingSockets(
-    isTutor
-      ? consultationModalContext?.consultationData?.consultationId
-      : undefined,
+    isTutor ? modelId : undefined,
     isTutor ? unixTimestamp : undefined,
-    isTutor ? token : undefined
+    isTutor ? token : undefined,
+    modelType
   );
 
   const [attentionData, setAttentionData] = useState<DataPoint[]>([]);

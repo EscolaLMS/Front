@@ -10,6 +10,11 @@ import JitsyMeetingSkeleton from "@/components/Skeletons/JitsyMeeting";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API_URL } from "@/config/index";
 import useCamera from "@/hooks/meeting/useCamera";
+import { API } from "@escolalms/sdk/lib";
+import {
+  IMeetRecording,
+  IScreenshot,
+} from "@/components/Consultations/ConsultationCard/JitsyMeeting/types";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -20,7 +25,18 @@ export const StyledModal = styled(Modal)`
   }
 `;
 
-const JitsyMeeting: React.FC<any> = ({
+type JitsyMeetingProps = {
+  jitsyData: Omit<API.JitsyData, "yt_url" | "yt_stream_url" | "yt_stream_key">;
+  term: string;
+  consultationTermId?: number;
+  consultationId?: number;
+  close?: () => void;
+  onRecordingAvailable?: (url: string) => void;
+  modelId: number;
+  modelType: "consultation" | "webinar";
+};
+
+const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   jitsyData,
   modelId,
   modelType,
@@ -54,7 +70,7 @@ const JitsyMeeting: React.FC<any> = ({
   const preparePayload = useCallback(
     (action: "start-recording" | "end-recording") => {
       const now = new Date().toISOString();
-      const payload: any = {
+      const payload: IMeetRecording = {
         id: recordingIdRef.current || 0,
         model_type: modelType,
         model_id: Number(modelId),
@@ -75,12 +91,9 @@ const JitsyMeeting: React.FC<any> = ({
         }
       }
 
-      if (modelType === "consultation") {
-        payload.consultation_term_id = consultationTermId || 0;
-      }
       return payload;
     },
-    [modelId, modelType, term, consultationTermId]
+    [modelId, modelType, term]
   );
 
   const sendRecordingEvent = useCallback(
@@ -135,13 +148,13 @@ const JitsyMeeting: React.FC<any> = ({
     const userId = jitsyData.data.userInfo.id;
 
     if (isStudent && !analyticsIntervalRef.current) {
-      let screenshots: any[] = [];
+      let screenshots: IScreenshot[] = [];
       analyticsIntervalRef.current = setInterval(async () => {
         if (isCameraMutedRef.current || !userConsentedRef.current) return;
         const blob = await getDataUrl();
         if (blob) {
           screenshots.push({
-            dataURL: blob,
+            dataURL: blob as unknown as Blob,
             timestamp: Date.now(),
             userID: userId,
           });
