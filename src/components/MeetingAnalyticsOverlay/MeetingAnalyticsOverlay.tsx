@@ -55,7 +55,7 @@ export default function MeetingAnalyticsOverlay({
   const unixTimestamp = useMemo(() => {
     const rawDate =
       modelType === "webinar"
-        ? webinar?.active_from
+        ? webinar?.active_to
         : consultationModalContext?.consultationData?.term;
 
     return rawDate ? Math.floor(new Date(rawDate).getTime() / 1000) : undefined;
@@ -539,39 +539,59 @@ const StatCard = styled.div<{ active: boolean; glowColor?: string }>`
   padding: 10px 20px;
   cursor: pointer;
   position: relative;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  background: ${({ active, glowColor }) =>
-    active
-      ? `linear-gradient(#1A1A1A, #1A1A1A) padding-box, linear-gradient(to bottom, ${glowColor} 0%, transparent 60%) border-box`
-      : `linear-gradient(#0D0D0D, #0D0D0D) padding-box, linear-gradient(to bottom, #333, #333) border-box`};
-  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: ${({ active }) => (active ? "#1A1A1A" : "#0D0D0D")};
+  border: 1px solid ${({ active }) => (active ? "transparent" : "#222")};
+  overflow: hidden;
 
   &::before {
     content: "";
     position: absolute;
     top: -1px;
-    left: 10%;
-    right: 10%;
-    height: 1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 12px;
+    padding: 1.5px;
     background: ${({ active, glowColor }) =>
-      active ? glowColor : "transparent"};
-    box-shadow: ${({ active, glowColor }) =>
-      active ? `0 0 10px ${glowColor}` : "none"};
-    opacity: ${({ active }) => (active ? 0.8 : 0)};
-    transition: opacity 0.2s ease;
+      active
+        ? `linear-gradient(to bottom, ${glowColor}, transparent 65%)`
+        : "transparent"};
+
+    mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff, #fff) content-box,
+      linear-gradient(#fff, #fff);
+    -webkit-mask-composite: destination-out;
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: ${({ active, glowColor }) =>
+      active
+        ? `radial-gradient(circle at 50% 0%, ${glowColor}25 0%, transparent 60%)`
+        : "transparent"};
+    opacity: ${({ active }) => (active ? 1 : 0)};
     pointer-events: none;
+    transition: opacity 0.3s ease;
   }
 
   &:hover {
-    background: #141414;
+    background: ${({ active }) => (active ? "#1A1A1A" : "#141414")};
   }
 
-  @media (max-width: 768px) {
-    padding: 8px 12px;
-    gap: 8px;
-    flex: 1;
-    justify-content: center;
+  & > * {
+    position: relative;
+    z-index: 2;
   }
 `;
 

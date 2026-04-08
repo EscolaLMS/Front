@@ -29,7 +29,7 @@ self.onmessage = async (event: MessageEvent<WorkerMessage>) => {
 
     const blob = await offscreenCanvas.convertToBlob({
       type: "image/webp",
-      quality: 1.0,
+      quality: 0.5,
     });
 
     self.postMessage({ success: true, blob } as WorkerResponse);
