@@ -84,7 +84,6 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const handleOnClose = useCallback(() => {
     setIsEnded(true);
     onClose();
-    window.location.reload();
   }, [onClose]);
 
   return (
@@ -113,6 +112,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
             />
             {!loading && webinarMeetData && (
               <JitsyMeeting
+                key={webinarId}
                 jitsyData={webinarMeetData}
                 modelId={webinarId}
                 modelType="webinar"

@@ -68,7 +68,6 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     setIsEnded(true);
     consultationModalContext?.setModalOpen?.(false);
     onClose();
-    window.location.reload();
   }, [setIsEnded, onClose, consultationModalContext]);
 
   return (
@@ -94,6 +93,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
             />
             {!loading && meetData && (
               <JitsyMeeting
+                key={consultationModalContext?.consultationData?.consultationId}
                 jitsyData={meetData}
                 modelId={
                   consultationModalContext?.consultationData?.consultationId ??
