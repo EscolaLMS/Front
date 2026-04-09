@@ -38,7 +38,8 @@ const WebinarsProvider: React.FC<{
 
   useEffect(() => {
     push(`${location.pathname}?${parseParams(params)}`);
-  }, [params, location.pathname, push]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params, location.pathname]);
 
   useEffect(() => {
     if (

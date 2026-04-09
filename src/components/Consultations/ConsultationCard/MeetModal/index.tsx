@@ -47,6 +47,10 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     };
 
     getMeetUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consultationModalContext?.consultationData]);
+
+  useEffect(() => {
     return () => {
       Object.keys(localStorage).forEach((key) => {
         if (key.startsWith("questionnaire_")) {
@@ -54,8 +58,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
         }
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [consultationModalContext?.consultationData]);
+  }, []);
 
   useEffect(() => {
     setIsEnded(false);

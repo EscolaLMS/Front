@@ -1,0 +1,2 @@
+export const JITSY_TUTOR_INTERVAL = 15000;
+export const JITSY_ANALYTICS_INTERVAL = 1000;

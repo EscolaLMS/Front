@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Modal } from "@escolalms/components/lib/components/atoms/Modal/Modal";
 import { JitsyData } from "@escolalms/sdk/lib/types";
@@ -34,35 +34,38 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
-
+  const onCloseRef = useRef(onClose);
   const { generateWebinarJitsy } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
 
   useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  useEffect(() => {
     const getMeetUrl = async () => {
+      if (!webinarId || !visible || webinarMeetData) return;
+
       setLoading(true);
-      if (webinarId) {
-        try {
-          const res = await generateWebinarJitsy(webinarId);
-          if (res.success) {
-            setWebinarMeetData((res as { data: JitsyData }).data);
-          } else {
-            toast(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`, "error");
-            onClose();
-          }
-        } catch (error) {
-          console.error("Error generating Jitsi URL:", error);
-          toast(`${t("WebinarPage.ErrorWhileGeneratingUrl")}`, "error");
-        } finally {
-          setLoading(false);
+      try {
+        const res = await generateWebinarJitsy(webinarId);
+        if (res.success) {
+          setWebinarMeetData((res as { data: JitsyData }).data);
+        } else {
+          toast(t("WebinarPage.ErrorWhileGeneratingUrl"), "error");
+          onCloseRef.current();
         }
+      } catch (error) {
+        console.error("Error generating Jitsi URL:", error);
+        toast(t("WebinarPage.ErrorWhileGeneratingUrl"), "error");
+      } finally {
+        setLoading(false);
       }
     };
+    getMeetUrl();
+  }, [webinarId, visible, generateWebinarJitsy, t, webinarMeetData]);
 
-    if (visible) {
-      getMeetUrl();
-    }
-
+  useEffect(() => {
     return () => {
       Object.keys(localStorage).forEach((key) => {
         if (key.startsWith("questionnaire_")) {
@@ -70,7 +73,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
         }
       });
     };
-  }, [webinarId, visible, generateWebinarJitsy, t, onClose]);
+  }, []);
 
   useEffect(() => {
     if (visible) {

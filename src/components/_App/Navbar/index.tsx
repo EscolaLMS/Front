@@ -650,7 +650,7 @@ const Navbar = () => {
                 {
                   id: 6,
                   content: t("Menu.Webinars"),
-                  redrect: routeRoutes.webinars,
+                  redirect: routeRoutes.webinars,
                 },
                 // {
                 //   id: 7,

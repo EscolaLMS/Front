@@ -1,3 +1,5 @@
+import { getDateParts } from "@/utils/index";
+
 export {};
 
 export interface Screenshot {
@@ -31,34 +33,24 @@ const retryFetch = async (
     try {
       const response = await fetch(url, options);
       if (response.ok) return response;
-      if (i === retries - 1) throw new Error(`HTTP ${response.status}`);
+      throw new Error(`HTTP ${response.status}`);
     } catch (err) {
       if (i === retries - 1) throw err;
       await new Promise((r) => setTimeout(r, delay));
     }
   }
-  throw new Error("Fetch failed");
+  throw new Error("Fetch failed after retries");
 };
 
 function getFormattedFilename(screenshot: Screenshot, modelId: number): string {
-  const date = new Date(screenshot.timestamp);
-  const pad = (n: number) => n.toString().padStart(2, "0");
-  const ts = `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(
-    date.getDate()
-  )}_${pad(date.getHours())}_${pad(date.getMinutes())}_${pad(
-    date.getSeconds()
-  )}`;
+  const p = getDateParts(screenshot.timestamp);
+  const ts = `${p.yy}${p.mm}${p.dd}_${p.hh}_${p.mi}_${p.ss}`;
   return `${screenshot.userID}_${modelId}_${ts}.webp`;
 }
 
 const formatToSQL = (timestamp: number) => {
-  const date = new Date(timestamp);
-  const pad = (n: number) => n.toString().padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
-    date.getDate()
-  )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
-    date.getSeconds()
-  )}`;
+  const p = getDateParts(timestamp);
+  return `${p.yy}-${p.mm}-${p.dd} ${p.hh}:${p.mi}:${p.ss}`;
 };
 
 self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
@@ -101,6 +93,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
       self.postMessage({ success: true, type: "recommender" });
     } catch (error) {
       console.error("Worker Recommender Error:", error);
+      self.postMessage({ success: false, type: "recommender", error });
     }
     return;
   }
@@ -133,34 +126,35 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
 
     const signRes = await retryFetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     const responseData = await signRes.json();
 
-    for (const item of responseData.data) {
-      const screenshot = screenshots.find(
-        (s) => getFormattedFilename(s, modelId) === item.filename
-      );
-      if (screenshot) {
-        const blob = new Blob([screenshot.dataURL]);
+    await Promise.all(
+      responseData.data.map(async (item: { filename: string; url: string }) => {
+        const screenshot = screenshots.find(
+          (s) => getFormattedFilename(s, modelId) === item.filename
+        );
+        if (!screenshot) return;
+        const blobToUpload = new Blob([screenshot.dataURL]);
 
-        try {
-          await fetch(item.url, {
-            method: "PUT",
-            body: blob,
-          });
-          console.log(`Uploaded: ${item.filename}`);
-        } catch (s3Error) {
-          console.error(`S3 Error for ${item.filename}:`, s3Error);
+        const uploadRes = await fetch(item.url, {
+          method: "PUT",
+          body: blobToUpload,
+        });
+
+        if (!uploadRes.ok) {
+          console.error("S3 Upload Failed", uploadRes.status);
+          throw new Error(`S3 Status: ${uploadRes.status}`);
         }
-      }
-    }
+      })
+    );
+
     self.postMessage({ success: true, type: "analytics" });
   } catch (error) {
     console.error("Worker Analytics Error:", error);
+    self.postMessage({ success: false, type: "analytics", error });
   }
 };

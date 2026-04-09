@@ -9,12 +9,15 @@ import styled from "styled-components";
 import JitsyMeetingSkeleton from "@/components/Skeletons/JitsyMeeting";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { API_URL } from "@/config/index";
-import useCamera from "@/hooks/meeting/useCamera";
+import useCamera, { cameraPermissions } from "@/hooks/meeting/useCamera";
 import { API } from "@escolalms/sdk/lib";
+import { IMeetRecording } from "@/components/Consultations/ConsultationCard/JitsyMeeting/types";
 import {
-  IMeetRecording,
-  IScreenshot,
-} from "@/components/Consultations/ConsultationCard/JitsyMeeting/types";
+  JITSY_ANALYTICS_INTERVAL,
+  JITSY_TUTOR_INTERVAL,
+} from "@/utils/constants";
+import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
+import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -22,6 +25,21 @@ export const StyledModal = styled(Modal)`
   }
   .rc-dialog-body {
     padding: 14px 0;
+  }
+`;
+
+const StyledAccessWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  .button-reload {
+    margin-top: 20px;
   }
 `;
 
@@ -45,16 +63,13 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   close,
   onRecordingAvailable,
 }) => {
-  const RECOMMENDER_TUTOR_INTERVAL = 15000;
-  const ANALYTICS_INTERVAL = 1000;
-
   const [showMeeting, setShowMeeting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { token } = useContext(EscolaLMSContext);
   const { isStudent } = useRoles();
   const { t } = useTranslation();
 
-  const { camera, getDataUrl } = useCamera();
+  const { camera, getDataUrl, cameraAccessStatus } = useCamera();
   const userConsentedRef = useRef(false);
   const isCameraMutedRef = useRef(false);
 
@@ -66,6 +81,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   const recommenderIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const apiRef = useRef<IJitsiMeetExternalApi | null>(null);
+  const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const preparePayload = useCallback(
     (action: "start-recording" | "end-recording") => {
@@ -103,7 +119,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         const payload = preparePayload(action);
 
         const response = await fetch(
-          "https://rekomender.api.s.wellms.io/api/recommender/meet-recordings",
+          `${API_URL}/api/recommender/meet-recordings`,
           {
             method: "POST",
             keepalive: true,
@@ -128,12 +144,19 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   );
 
   const stopAllIntervals = useCallback(() => {
-    if (analyticsIntervalRef.current)
+    if (analyticsIntervalRef.current) {
       clearInterval(analyticsIntervalRef.current);
-    if (recommenderIntervalRef.current)
+      analyticsIntervalRef.current = null;
+    }
+    if (recommenderIntervalRef.current) {
       clearInterval(recommenderIntervalRef.current);
-    analyticsIntervalRef.current = null;
-    recommenderIntervalRef.current = null;
+      recommenderIntervalRef.current = null;
+    }
+
+    if (recordingTimeoutRef.current) {
+      clearTimeout(recordingTimeoutRef.current);
+      recordingTimeoutRef.current = null;
+    }
   }, []);
 
   const startScreenshotFlows = useCallback(() => {
@@ -146,38 +169,38 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
     }
 
     const userId = jitsyData.data.userInfo.id;
+    const userEmail = jitsyData.data.userInfo.email;
 
     if (isStudent && !analyticsIntervalRef.current) {
-      let screenshots: IScreenshot[] = [];
       analyticsIntervalRef.current = setInterval(async () => {
         if (isCameraMutedRef.current || !userConsentedRef.current) return;
+
         const blob = await getDataUrl();
         if (blob) {
-          screenshots.push({
-            dataURL: blob as unknown as Blob,
+          const screenshotPayload = {
+            dataURL: blob,
             timestamp: Date.now(),
             userID: userId,
+          };
+
+          workerRef.current?.postMessage({
+            modelId: Number(modelId),
+            modelType,
+            userId,
+            userEmail,
+            consultationTermId,
+            screenshots: [screenshotPayload],
+            term,
+            token,
           });
-          if (screenshots.length >= 1) {
-            workerRef.current?.postMessage({
-              modelId: Number(modelId),
-              modelType,
-              userId,
-              userEmail: jitsyData.data.userInfo.email,
-              consultationTermId,
-              screenshots,
-              term,
-              token,
-            });
-            screenshots = [];
-          }
         }
-      }, ANALYTICS_INTERVAL);
+      }, JITSY_ANALYTICS_INTERVAL);
     }
 
     if (!isStudent && !recommenderIntervalRef.current) {
       recommenderIntervalRef.current = setInterval(async () => {
         if (isCameraMutedRef.current) return;
+
         const blob = await getDataUrl();
         if (blob) {
           workerRef.current?.postMessage({
@@ -187,12 +210,16 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             userId,
             term: term || new Date().toISOString(),
             screenshots: [
-              { dataURL: blob, timestamp: Date.now(), userID: userId },
+              {
+                dataURL: blob,
+                timestamp: Date.now(),
+                userID: userId,
+              },
             ],
             token,
           });
         }
-      }, RECOMMENDER_TUTOR_INTERVAL);
+      }, JITSY_TUTOR_INTERVAL);
     }
   }, [
     isStudent,
@@ -205,49 +232,66 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
     consultationTermId,
   ]);
 
-  const onApiReady = (api: IJitsiMeetExternalApi) => {
-    apiRef.current = api;
-    camera();
+  const onApiReady = useCallback(
+    async (api: IJitsiMeetExternalApi) => {
+      apiRef.current = api;
+      await camera();
 
-    api.on("recordingLinkAvailable", (event: { link: string; ttl: number }) => {
-      recordingUrlRef.current = event.link;
-      if (onRecordingAvailable) {
-        onRecordingAvailable(event.link);
-      }
-      if (event.ttl) {
-        recordingExpiryRef.current = event.ttl * 1000;
-      }
-    });
-
-    api.on("recordingStatusChanged", async (status: { on: boolean }) => {
-      if (status.on) {
-        recordingUrlRef.current = null;
-        recordingExpiryRef.current = null;
-        startScreenshotFlows();
-        await sendRecordingEvent("start-recording");
-      } else {
-        stopAllIntervals();
-        setTimeout(async () => {
-          if (recordingIdRef.current) {
-            await sendRecordingEvent("end-recording");
-            recordingIdRef.current = null;
-            recordingUrlRef.current = null;
+      api.on(
+        "recordingLinkAvailable",
+        (event: { link: string; ttl: number }) => {
+          recordingUrlRef.current = event.link;
+          if (onRecordingAvailable) {
+            onRecordingAvailable(event.link);
           }
-        }, 500);
-      }
-    });
+          if (event.ttl) {
+            recordingExpiryRef.current = event.ttl * 1000;
+          }
+        }
+      );
 
-    api.addListener("videoMuteStatusChanged", (e: { muted: boolean }) => {
-      isCameraMutedRef.current = e.muted;
-    });
+      api.on("recordingStatusChanged", async (status: { on: boolean }) => {
+        if (status.on) {
+          recordingUrlRef.current = null;
+          recordingExpiryRef.current = null;
+          startScreenshotFlows();
+          await sendRecordingEvent("start-recording");
+        } else {
+          stopAllIntervals();
+          if (recordingTimeoutRef.current)
+            clearTimeout(recordingTimeoutRef.current);
 
-    api.on("videoConferenceLeft", () => {
-      stopAllIntervals();
-      if (!isStudent && recordingIdRef.current) {
-        sendRecordingEvent("end-recording");
-      }
-    });
-  };
+          recordingTimeoutRef.current = setTimeout(async () => {
+            if (recordingIdRef.current) {
+              await sendRecordingEvent("end-recording");
+              recordingIdRef.current = null;
+              recordingUrlRef.current = null;
+            }
+            recordingTimeoutRef.current = null;
+          }, 500);
+        }
+      });
+
+      api.on("videoMuteStatusChanged", (e: { muted: boolean }) => {
+        isCameraMutedRef.current = e.muted;
+      });
+
+      api.on("videoConferenceLeft", () => {
+        stopAllIntervals();
+        if (!isStudent && recordingIdRef.current) {
+          sendRecordingEvent("end-recording");
+        }
+      });
+    },
+    [
+      camera,
+      isStudent,
+      onRecordingAvailable,
+      sendRecordingEvent,
+      startScreenshotFlows,
+      stopAllIntervals,
+    ]
+  );
 
   useEffect(() => {
     return () => {
@@ -257,9 +301,14 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         sendRecordingEvent("end-recording");
       }
 
-      workerRef.current?.terminate();
+      if (workerRef.current) {
+        workerRef.current.terminate();
+        workerRef.current = null;
+      }
+
       if (apiRef.current) {
         apiRef.current.dispose();
+        apiRef.current = null;
       }
     };
   }, [stopAllIntervals, isStudent, sendRecordingEvent]);
@@ -269,7 +318,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
       if (!isStudent && recordingIdRef.current) {
         const payload = preparePayload("end-recording");
         navigator.sendBeacon(
-          "https://rekomender.api.s.wellms.io/api/recommender/meet-recordings",
+          `${API_URL}/api/recommender/meet-recordings`,
           JSON.stringify(payload)
         );
       }
@@ -316,9 +365,14 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             }
             close?.();
           }}
+          interfaceConfigOverwrite={{
+            ...jitsyData.data.interfaceConfigOverwrite,
+          }}
           configOverwrite={{
             ...jitsyData.data.configOverwrite,
-            prejoinConfig: { enabled: false },
+            prejoinConfig: {
+              enabled: false,
+            },
             constraints: {
               video: {
                 deviceId: localStorage.getItem("preferredCamera") || undefined,
@@ -337,6 +391,8 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         maskClosable={false}
         destroyOnClose={true}
         width={468}
+        animation="zoom"
+        maskAnimation="fade"
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}
@@ -345,6 +401,19 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         />
       </StyledModal>
       {!showMeeting && !showModal && <JitsyMeetingSkeleton />}
+      {!showModal &&
+        !showMeeting &&
+        cameraAccessStatus === cameraPermissions.DENIED && (
+          <StyledAccessWrapper>
+            <Text>{t("ConsultationPage.BlockedAccess")}</Text>
+            <Text>{t("ConsultationPage.BlockedAccessEnable")}</Text>
+            <div className="button-reload">
+              <Button onClick={() => window.location.reload()}>
+                {t("ConsultationPage.ReloadPage")}
+              </Button>
+            </div>
+          </StyledAccessWrapper>
+        )}
     </>
   );
 };
