@@ -85,11 +85,21 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
         formData.append(`files[${index}][timestamp]`, formatToSQL(s.timestamp));
       });
 
-      await fetch(`${API_URL}/api/recommender/meet-recordings/screens`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      const response = await fetch(
+        `${API_URL}/api/recommender/meet-recordings/screens`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Recommender API error: ${response.status} ${response.statusText}`
+        );
+      }
+
       self.postMessage({ success: true, type: "recommender" });
     } catch (error) {
       console.error("Worker Recommender Error:", error);

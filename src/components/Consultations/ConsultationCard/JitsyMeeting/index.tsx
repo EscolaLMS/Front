@@ -315,18 +315,24 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
 
   useEffect(() => {
     const handleUnload = () => {
-      if (!isStudent && recordingIdRef.current) {
+      if (!isStudent && recordingIdRef.current && token) {
         const payload = preparePayload("end-recording");
-        navigator.sendBeacon(
-          `${API_URL}/api/recommender/meet-recordings`,
-          JSON.stringify(payload)
-        );
+
+        fetch(`${API_URL}/api/recommender/meet-recordings`, {
+          method: "POST",
+          keepalive: true,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
       }
     };
 
     window.addEventListener("beforeunload", handleUnload);
     return () => window.removeEventListener("beforeunload", handleUnload);
-  }, [isStudent, preparePayload]);
+  }, [isStudent, preparePayload, token]);
 
   useEffect(() => {
     const init = async () => {
