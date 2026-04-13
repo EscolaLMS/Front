@@ -1,4 +1,4 @@
-import { getDateParts } from "@/utils/index";
+import { getDateParts } from "../utils/index";
 
 export {};
 

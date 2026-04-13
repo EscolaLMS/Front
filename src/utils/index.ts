@@ -4,8 +4,8 @@ import {
   Notification,
   Order,
 } from "@escolalms/sdk/lib/types";
-import { APP_CONFIG } from "@/config/app";
-import { formatDate } from "@/utils/date";
+import { APP_CONFIG } from "../config/app";
+import { formatDate } from "../utils/date";
 import { API } from "@escolalms/sdk/lib";
 import {
   differenceInDays,
