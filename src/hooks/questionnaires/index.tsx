@@ -38,59 +38,65 @@ export const useQuestionnaires = ({
     [entityId, entityModel, fetchQuestionnaire]
   );
 
-  const getQuestionnaires = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  const getQuestionnaires = useCallback(
+    async (handleClose?: () => void) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetchQuestionnaires(entityModel, entityId);
+      try {
+        const response = await fetchQuestionnaires(entityModel, entityId);
 
-      if (response?.success) {
-        const questionnairesWithCombinedQuestions = await Promise.all(
-          response.data.map(async (data) => {
-            const questions = await getQuestionnaire(data.id);
+        if (response?.success) {
+          const questionnairesWithCombinedQuestions = await Promise.all(
+            response.data.map(async (data) => {
+              const questions = await getQuestionnaire(data.id);
 
-            const combinedQuestions = data.questions.reduce(
-              (result, element) => {
-                const matchingElement = questions?.find(
-                  (item) => item.id === element.id
-                );
+              const combinedQuestions = data.questions.reduce(
+                (result, element) => {
+                  const matchingElement = questions?.find(
+                    (item) => item.id === element.id
+                  );
 
-                const updatedElement = {
-                  ...element,
-                  rate: matchingElement?.rate,
-                  note: matchingElement?.note,
-                };
-                result.push(updatedElement);
+                  const updatedElement = {
+                    ...element,
+                    rate: matchingElement?.rate,
+                    note: matchingElement?.note,
+                  };
+                  result.push(updatedElement);
 
-                return result;
-              },
-              [] as API.QuestionnaireQuestion[]
-            );
+                  return result;
+                },
+                [] as API.QuestionnaireQuestion[]
+              );
 
-            return {
-              ...data,
-              questions: combinedQuestions.sort(
-                (a, b) => a.position - b.position
-              ),
-            };
-          })
-        );
+              return {
+                ...data,
+                questions: combinedQuestions.sort(
+                  (a, b) => a.position - b.position
+                ),
+              };
+            })
+          );
 
-        setQuestionnaires(
-          questionnairesWithCombinedQuestions.filter(
-            (q) => q.questions.length > 0
-          )
-        );
+          setQuestionnaires(
+            questionnairesWithCombinedQuestions.filter(
+              (q) => q.questions.length > 0
+            )
+          );
+          questionnairesWithCombinedQuestions.length === 0 &&
+            handleClose &&
+            handleClose();
+        }
+      } catch (error) {
+        setError("Failed to fetch questionnaires");
+        toast(t<string>("UnexpectedError"), "error");
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError("Failed to fetch questionnaires");
-      toast(t<string>("UnexpectedError"), "error");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [entityId, entityModel, fetchQuestionnaires, getQuestionnaire]);
+    },
+    [entityId, entityModel, fetchQuestionnaires, getQuestionnaire]
+  );
 
   const getReviewQuestion = useCallback(
     ({

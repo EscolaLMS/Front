@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "react-grid-system";
 import ContentLoader from "@/components/_App/ContentLoader";
@@ -37,6 +37,10 @@ ProfileWebinarsProps) => {
   const webinarsContext = useContext(WebinarsContext);
   const { t } = useTranslation();
 
+  const handleOnCloseModal = useCallback(() => {
+    setWebinarJoinId(undefined);
+  }, []);
+
   if (loading) {
     return <ContentLoader />;
   }
@@ -74,7 +78,7 @@ ProfileWebinarsProps) => {
       {!!webinarJoinId && (
         <WebinarMeetModal
           visible={!!webinarJoinId}
-          onClose={() => setWebinarJoinId(undefined)}
+          onClose={handleOnCloseModal}
           webinarId={webinarJoinId}
           webinar={webinarData}
         />

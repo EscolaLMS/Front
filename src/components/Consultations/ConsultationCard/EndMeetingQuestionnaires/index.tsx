@@ -25,7 +25,6 @@ export const EndMeetingQuestionnairesModal = ({
   const {
     questionnaires: questionnairesList,
     loading,
-    // error,
     getQuestionnaires,
   } = useQuestionnaires({
     entityId: entityId || 0,
@@ -132,7 +131,7 @@ export const EndMeetingQuestionnairesModal = ({
   }, [state, moveToNextQuestionnaire, setIsEnded]);
 
   useEffect(() => {
-    getQuestionnaires();
+    getQuestionnaires(handleClose);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityId]);
 

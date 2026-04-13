@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { isPast } from "date-fns";
 
@@ -87,6 +87,10 @@ const WebinarSidebarButtons = () => {
     }
   }, [webinarInCart, webinarObj, user.value?.id]);
 
+  const handleOnCloseModal = useCallback(() => {
+    setShowMeetModal(false);
+  }, []);
+
   return (
     <>
       {buttonStatus === ButtonStatus.FINISHED && (
@@ -142,11 +146,10 @@ const WebinarSidebarButtons = () => {
         </Button>
       )}
 
-      {/* MEET MODAL */}
       {showMeetModal && webinarObj?.id && (
         <WebinarMeetModal
           visible={showMeetModal}
-          onClose={() => setShowMeetModal(false)}
+          onClose={handleOnCloseModal}
           webinarId={webinarObj.id}
         />
       )}
