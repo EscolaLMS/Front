@@ -55,7 +55,7 @@ const RateCourse: React.FC<Props> = ({
           if (request.success) {
             toast(`${t("RateCourse.AnswerSended")}`, "success");
           }
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
           toast("Error", error.message);
           console.error(error);

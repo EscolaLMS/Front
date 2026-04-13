@@ -386,3 +386,17 @@ export const getFormattedDifferenceRelativeToNow = (time: Date) => {
 export const relativeTimeFormatter = new Intl.RelativeTimeFormat("pl", {
   style: "short",
 });
+
+export const getDateParts = (timestamp: number) => {
+  const date = new Date(timestamp);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  return {
+    yy: date.getFullYear(),
+    mm: pad(date.getMonth() + 1),
+    dd: pad(date.getDate()),
+    hh: pad(date.getHours()),
+    mi: pad(date.getMinutes()),
+    ss: pad(date.getSeconds()),
+  };
+};

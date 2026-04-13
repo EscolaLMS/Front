@@ -58,6 +58,7 @@ const StaticPage = () => {
 
   const mainTabs = useMemo(() => {
     let items = pages?.list?.data;
+
     items = pages?.list?.data.filter((item) => !item.slug.includes("mobile"));
     return (
       items &&

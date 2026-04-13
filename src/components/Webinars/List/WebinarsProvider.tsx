@@ -20,17 +20,16 @@ const WebinarsProvider: React.FC<{
   const { fetchWebinars, webinars, fetchTags } = useContext(EscolaLMSContext);
   const location = useLocation();
   const { push } = useHistory();
-
   const [params, setParams] = useState<WebinarsParams | undefined>();
+  const [webinarData, setWebinarData] = useState<API.Webinar | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const getApiParams = (params: WebinarsParams = {}): WebinarsParams => {
-    const apiParams = {
+    return {
       page: 1,
       per_page: 8,
-      // order_by: 'created_at',
       ...params,
     };
-    return apiParams;
   };
 
   useEffect(() => {
@@ -53,11 +52,20 @@ const WebinarsProvider: React.FC<{
     } else {
       fetchWebinars(getApiParams(params));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+  }, [fetchWebinars, location.search, params]);
 
   return (
-    <WebinarsContext.Provider value={{ params, setParams, webinars: webinars }}>
+    <WebinarsContext.Provider
+      value={{
+        params,
+        setParams,
+        webinars: webinars,
+        webinarData,
+        setWebinarData,
+        isModalOpen,
+        setModalOpen,
+      }}
+    >
       {children}
     </WebinarsContext.Provider>
   );

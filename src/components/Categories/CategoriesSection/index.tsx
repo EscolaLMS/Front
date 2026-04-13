@@ -18,7 +18,7 @@ const StyledSection = styled.section`
     padding: 30px 0;
   }
   h2 {
-    margin-bottom: 27px;
+    margin: 27px 0;
   }
   .slider-title {
     @media (max-width: 575px) {

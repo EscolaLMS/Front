@@ -13,4 +13,8 @@ export const WebinarsContext: React.Context<{
   params?: WebinarsParams;
   setParams?: (params: WebinarsParams) => void;
   onlyFree?: boolean;
+  webinarData?: API.Webinar | null;
+  setWebinarData?: (webinar: API.Webinar | null) => void;
+  isModalOpen?: boolean;
+  setModalOpen?: (open: boolean) => void;
 }> = React.createContext({});

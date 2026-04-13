@@ -47,6 +47,10 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     };
 
     getMeetUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consultationModalContext?.consultationData]);
+
+  useEffect(() => {
     return () => {
       Object.keys(localStorage).forEach((key) => {
         if (key.startsWith("questionnaire_")) {
@@ -54,8 +58,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
         }
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [consultationModalContext?.consultationData]);
+  }, []);
 
   useEffect(() => {
     setIsEnded(false);
@@ -65,7 +68,6 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
     setIsEnded(true);
     consultationModalContext?.setModalOpen?.(false);
     onClose();
-    window.location.reload();
   }, [setIsEnded, onClose, consultationModalContext]);
 
   return (
@@ -91,16 +93,19 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
             />
             {!loading && meetData && (
               <JitsyMeeting
+                key={consultationModalContext?.consultationData?.consultationId}
                 jitsyData={meetData}
-                close={handleOnClose}
-                consultationId={
-                  consultationModalContext?.consultationData?.consultationId
+                modelId={
+                  consultationModalContext?.consultationData?.consultationId ??
+                  0
                 }
+                modelType="consultation"
                 consultationTermId={
                   consultationModalContext?.consultationData
                     ?.consultationTermId ?? 0
                 }
                 term={consultationModalContext?.consultationData?.term ?? ""}
+                close={handleOnClose}
                 onRecordingAvailable={setRecordingUrl}
               />
             )}
