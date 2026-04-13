@@ -1,5 +1,5 @@
 import { add, format, isAfter } from "date-fns";
-import { APP_CONFIG } from "@/config/app";
+import { APP_CONFIG } from "../config/app";
 
 export const formatDate = (
   date: string | number | Date | null | undefined,
