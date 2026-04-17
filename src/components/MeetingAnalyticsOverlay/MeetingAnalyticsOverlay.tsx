@@ -22,6 +22,7 @@ import { useRoles } from "@/hooks/useRoles";
 import { DataPoint, EMOTION_POOL, EmotionHistory } from "@/types/sockets";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
+import { useJitsyAnalyticsControl } from "@/hooks/meeting/useJitsyAnalyticsControl";
 
 const getColorByValue = (val: number) => {
   if (val < 35) return "#FF4D4D";
@@ -34,19 +35,31 @@ export default function MeetingAnalyticsOverlay({
   modelType = "consultation",
   recordingUrl,
   webinar,
+  participantCount,
 }: {
   onClose: () => void;
   modelType?: "consultation" | "webinar";
   recordingUrl?: string | null;
-  webinar?: API.Webinar;
+  webinar?: API.Webinar & {
+    analyze_enabled?: boolean;
+  };
+  participantCount: number;
 }) {
   const { isTutor } = useRoles();
-  const { consultation, token } = useContext(EscolaLMSContext);
+  const { fetchConsultation, consultation, token } =
+    useContext(EscolaLMSContext);
   const consultationModalContext = useContext(ConsultationModalContext);
   const { t } = useTranslation();
   const [hoveredPanel, setHoveredPanel] = useState<
     "emotion" | "attention" | null
   >(null);
+  const { shouldRunAnalytics } = useJitsyAnalyticsControl({
+    modelType,
+    participantCount,
+    consultationData: consultation.value,
+    webinarData: webinar,
+  });
+
   const modelId = useMemo(() => {
     if (modelType === "webinar") return webinar?.id;
     return consultationModalContext?.consultationData?.consultationId;
@@ -64,9 +77,9 @@ export default function MeetingAnalyticsOverlay({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { socketData } = useMeetingSockets(
-    isTutor ? modelId : undefined,
-    isTutor ? unixTimestamp : undefined,
-    isTutor ? token : undefined,
+    isTutor && shouldRunAnalytics ? modelId : undefined,
+    isTutor && shouldRunAnalytics ? unixTimestamp : undefined,
+    isTutor && shouldRunAnalytics ? token : undefined,
     modelType
   );
 
@@ -97,7 +110,24 @@ export default function MeetingAnalyticsOverlay({
       consultationModalContext?.consultationData?.name ??
       ""
     );
-  }, [modelType, webinar, consultation, consultationModalContext]);
+  }, [
+    modelType,
+    consultation?.value?.name,
+    consultationModalContext?.consultationData?.name,
+    webinar?.name,
+  ]);
+
+  useEffect(() => {
+    if (
+      consultationModalContext?.consultationData?.consultationId &&
+      modelType === "consultation"
+    ) {
+      fetchConsultation(
+        Number(consultationModalContext?.consultationData?.consultationId)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consultationModalContext?.consultationData?.consultationId, modelType]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -117,7 +147,7 @@ export default function MeetingAnalyticsOverlay({
         window_end,
         should_break,
       } = socketData;
-      setShouldBreak(!!should_break);
+      setShouldBreak(should_break);
       const parseVal = (v: string | number): number => {
         const value = typeof v === "string" ? parseFloat(v) : v;
         return Math.round((value ?? 0) * 100);
@@ -213,7 +243,7 @@ export default function MeetingAnalyticsOverlay({
           <HeaderTitle>{displayTitle}</HeaderTitle>
         </LeftGroup>
 
-        {isTutor && (
+        {shouldRunAnalytics && isTutor && (
           <StatsWrapper>
             <StatCard
               active={hoveredPanel === "emotion"}
@@ -361,7 +391,7 @@ export default function MeetingAnalyticsOverlay({
           </HoverPanel>
         )}
       </Header>
-      {isTutor && shouldBreak && (
+      {isTutor && shouldBreak && shouldRunAnalytics && (
         <AlertBar>
           <AlertContent>
             <AlertText>

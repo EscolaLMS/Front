@@ -35,6 +35,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const [loading, setLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
+  const [participantCount, setParticipantCount] = useState<number>(0);
   const onCloseRef = useRef(onClose);
   const { generateWebinarJitsy } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
@@ -111,6 +112,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
               recordingUrl={recordingUrl}
               modelType="webinar"
               webinar={webinar}
+              participantCount={participantCount}
             />
             {!loading && webinarMeetData && (
               <JitsyMeeting
@@ -121,6 +123,9 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
                 close={handleOnClose}
                 onRecordingAvailable={setRecordingUrl}
                 term={webinar?.active_to ?? ""}
+                participantCount={participantCount}
+                onParticipantCountChange={setParticipantCount}
+                webinar={webinar}
               />
             )}
           </JitsiContainer>

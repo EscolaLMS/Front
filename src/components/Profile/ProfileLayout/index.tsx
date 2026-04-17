@@ -24,7 +24,6 @@ const StyledProfile = styled.section`
   padding-bottom: 100px;
   min-height: 70vh;
   .tabs-menu {
-    padding: 0 0 70px 40px;
     background: #f8f8f8;
   }
   .certificates-container {
