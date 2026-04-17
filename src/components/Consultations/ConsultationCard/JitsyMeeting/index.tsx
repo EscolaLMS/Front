@@ -18,6 +18,7 @@ import {
 } from "@/utils/constants";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
+import { useJitsyAnalyticsControl } from "@/hooks/meeting/useJitsyAnalyticsControl";
 
 export const StyledModal = styled(Modal)`
   .rc-dialog-content {
@@ -52,6 +53,11 @@ type JitsyMeetingProps = {
   onRecordingAvailable?: (url: string) => void;
   modelId: number;
   modelType: "consultation" | "webinar";
+  participantCount: number;
+  onParticipantCountChange: (count: number) => void;
+  webinar?: API.Webinar & {
+    analyze_enabled?: boolean;
+  };
 };
 
 const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
@@ -62,13 +68,16 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   consultationTermId,
   close,
   onRecordingAvailable,
+  participantCount,
+  onParticipantCountChange,
+  webinar,
 }) => {
   const [showMeeting, setShowMeeting] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { token } = useContext(EscolaLMSContext);
+  const [isRecordingActive, setIsRecordingActive] = useState(false);
+  const { consultation, token } = useContext(EscolaLMSContext);
   const { isStudent } = useRoles();
   const { t } = useTranslation();
-
   const { camera, getDataUrl, cameraAccessStatus } = useCamera();
   const userConsentedRef = useRef(false);
   const isCameraMutedRef = useRef(false);
@@ -82,6 +91,12 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   const workerRef = useRef<Worker | null>(null);
   const apiRef = useRef<IJitsiMeetExternalApi | null>(null);
   const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { shouldRunAnalytics } = useJitsyAnalyticsControl({
+    modelType,
+    participantCount,
+    consultationData: consultation.value,
+    webinarData: webinar,
+  });
 
   const preparePayload = useCallback(
     (action: "start-recording" | "end-recording") => {
@@ -111,6 +126,16 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
     },
     [modelId, modelType, term]
   );
+
+  const updateParticipantCount = useCallback(() => {
+    if (
+      apiRef.current &&
+      typeof apiRef.current.getNumberOfParticipants === "function"
+    ) {
+      const total = apiRef.current.getNumberOfParticipants();
+      onParticipantCountChange(total);
+    }
+  }, [onParticipantCountChange]);
 
   const sendRecordingEvent = useCallback(
     async (action: "start-recording" | "end-recording") => {
@@ -237,6 +262,10 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
       apiRef.current = api;
       await camera();
 
+      api.on("participantJoined", updateParticipantCount);
+      api.on("participantLeft", updateParticipantCount);
+      api.on("videoConferenceJoined", updateParticipantCount);
+
       api.on(
         "recordingLinkAvailable",
         (event: { link: string; ttl: number }) => {
@@ -251,6 +280,8 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
       );
 
       api.on("recordingStatusChanged", async (status: { on: boolean }) => {
+        setIsRecordingActive(status.on);
+
         if (status.on) {
           recordingUrlRef.current = null;
           recordingExpiryRef.current = null;
@@ -278,6 +309,8 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
 
       api.on("videoConferenceLeft", () => {
         stopAllIntervals();
+        onParticipantCountChange(0);
+        setIsRecordingActive(false);
         if (!isStudent && recordingIdRef.current) {
           sendRecordingEvent("end-recording");
         }
@@ -290,8 +323,27 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
       sendRecordingEvent,
       startScreenshotFlows,
       stopAllIntervals,
+      updateParticipantCount,
+      onParticipantCountChange,
     ]
   );
+
+  useEffect(() => {
+    if (shouldRunAnalytics && isRecordingActive) {
+      if (!analyticsIntervalRef.current && !recommenderIntervalRef.current) {
+        startScreenshotFlows();
+      }
+    } else {
+      if (analyticsIntervalRef.current || recommenderIntervalRef.current) {
+        stopAllIntervals();
+      }
+    }
+  }, [
+    isRecordingActive,
+    shouldRunAnalytics,
+    startScreenshotFlows,
+    stopAllIntervals,
+  ]);
 
   useEffect(() => {
     return () => {

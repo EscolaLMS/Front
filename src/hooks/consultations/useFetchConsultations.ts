@@ -8,7 +8,7 @@ import {
 
 const useFetchConsultations = (params?: CourseParams, noAutoFech?: boolean) => {
   const [consultations, setConsultations] =
-    useState<PaginatedMetaList<Consultation>>();
+    useState<PaginatedMetaList<Consultation & { analyze_enabled?: boolean }>>();
   const [loading, setLoading] = useState(true);
   const { fetchConsultations } = useContext(EscolaLMSContext);
 
@@ -18,7 +18,11 @@ const useFetchConsultations = (params?: CourseParams, noAutoFech?: boolean) => {
       const request = await fetchConsultations(params);
 
       if (request) {
-        setConsultations(request as PaginatedMetaList<Consultation>);
+        setConsultations(
+          request as PaginatedMetaList<
+            Consultation & { analyze_enabled?: boolean }
+          >
+        );
       }
     } catch (e) {
       console.error(e);

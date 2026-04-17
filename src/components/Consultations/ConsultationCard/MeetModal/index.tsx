@@ -30,6 +30,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
   const { generateConsultationJitsy } = useContext(EscolaLMSContext);
   const consultationModalContext = useContext(ConsultationModalContext);
   const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
+  const [participantCount, setParticipantCount] = useState<number>(0);
 
   useEffect(() => {
     const getMeetUrl = async () => {
@@ -90,6 +91,7 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
             <MeetingAnalyticsOverlay
               onClose={handleOnClose}
               recordingUrl={recordingUrl}
+              participantCount={participantCount}
             />
             {!loading && meetData && (
               <JitsyMeeting
@@ -107,6 +109,8 @@ const ConsultationMeetModal = ({ onClose }: Props) => {
                 term={consultationModalContext?.consultationData?.term ?? ""}
                 close={handleOnClose}
                 onRecordingAvailable={setRecordingUrl}
+                participantCount={participantCount}
+                onParticipantCountChange={setParticipantCount}
               />
             )}
           </JitsiContainer>
