@@ -256,7 +256,7 @@ export default function MeetingAnalyticsOverlay({
               }
             >
               <BigEmoji>{currentEmot.icon}</BigEmoji>
-              <Value>{currentEmot.val}%</Value>
+              <Value>{currentEmot.val ? `${currentEmot.val}%` : "-"}</Value>
             </StatCard>
             <StatCard
               active={hoveredPanel === "attention"}
@@ -291,7 +291,7 @@ export default function MeetingAnalyticsOverlay({
                 </ResponsiveContainer>
               </MiniChartBox>
               <Value style={{ color: getColorByValue(latestAtt) }}>
-                {latestAtt}%
+                {latestAtt ? `${latestAtt}%` : "-"}
               </Value>
             </StatCard>
           </StatsWrapper>

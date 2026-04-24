@@ -204,7 +204,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         if (blob) {
           const screenshotPayload = {
             dataURL: blob,
-            timestamp: Date.now(),
+            timestamp: new Date().toISOString(),
             userID: userId,
           };
 
@@ -237,7 +237,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             screenshots: [
               {
                 dataURL: blob,
-                timestamp: Date.now(),
+                timestamp: new Date().toISOString(),
                 userID: userId,
               },
             ],

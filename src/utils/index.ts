@@ -387,7 +387,7 @@ export const relativeTimeFormatter = new Intl.RelativeTimeFormat("pl", {
   style: "short",
 });
 
-export const getDateParts = (timestamp: number) => {
+export const getDateParts = (timestamp: string) => {
   const date = new Date(timestamp);
   const pad = (n: number) => n.toString().padStart(2, "0");
 
