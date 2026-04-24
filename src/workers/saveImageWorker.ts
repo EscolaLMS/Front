@@ -4,7 +4,7 @@ export {};
 
 export interface Screenshot {
   dataURL: Blob;
-  timestamp: number;
+  timestamp: string;
   userID: number;
 }
 
@@ -48,11 +48,6 @@ function getFormattedFilename(screenshot: Screenshot, modelId: number): string {
   return `${screenshot.userID}_${modelId}_${ts}.webp`;
 }
 
-const formatToSQL = (timestamp: number) => {
-  const p = getDateParts(timestamp);
-  return `${p.yy}-${p.mm}-${p.dd} ${p.hh}:${p.mi}:${p.ss}`;
-};
-
 self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
   if (event.data.apiUrl) {
     API_URL = event.data.apiUrl;
@@ -82,7 +77,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
         const filename = getFormattedFilename(s, modelId);
         const file = new File([s.dataURL], filename, { type: "image/webp" });
         formData.append(`files[${index}][file]`, file, filename);
-        formData.append(`files[${index}][timestamp]`, formatToSQL(s.timestamp));
+        formData.append(`files[${index}][timestamp]`, s.timestamp);
       });
 
       const response = await fetch(
