@@ -9,7 +9,6 @@ export interface Screenshot {
 }
 
 export interface SaveImagesMessage {
-  action?: "recommender-screens";
   modelId: number;
   modelType: "consultation" | "webinar";
   screenshots: Screenshot[];
@@ -17,8 +16,9 @@ export interface SaveImagesMessage {
   userId: number;
   consultationTermId?: number;
   userEmail?: string;
-  token?: string;
   apiUrl?: string;
+  token?: string;
+  action?: "recommender-screens";
 }
 
 let API_URL: string;
@@ -55,7 +55,6 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
   }
 
   const {
-    action,
     modelId,
     modelType,
     screenshots,
@@ -63,45 +62,7 @@ self.onmessage = async (event: MessageEvent<SaveImagesMessage>) => {
     userId,
     userEmail,
     consultationTermId,
-    token,
   } = event.data;
-
-  if (action === "recommender-screens") {
-    try {
-      const formData = new FormData();
-      formData.append("model_id", modelId.toString());
-      formData.append("model_type", modelType);
-      formData.append("term", term);
-
-      screenshots.forEach((s, index) => {
-        const filename = getFormattedFilename(s, modelId);
-        const file = new File([s.dataURL], filename, { type: "image/webp" });
-        formData.append(`files[${index}][file]`, file, filename);
-        formData.append(`files[${index}][timestamp]`, s.timestamp);
-      });
-
-      const response = await fetch(
-        `${API_URL}/api/recommender/meet-recordings/screens`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Recommender API error: ${response.status} ${response.statusText}`
-        );
-      }
-
-      self.postMessage({ success: true, type: "recommender" });
-    } catch (error) {
-      console.error("Worker Recommender Error:", error);
-      self.postMessage({ success: false, type: "recommender", error });
-    }
-    return;
-  }
 
   try {
     const filenames = screenshots.map((s) => ({

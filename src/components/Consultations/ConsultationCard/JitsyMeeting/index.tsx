@@ -221,31 +221,6 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
         }
       }, JITSY_ANALYTICS_INTERVAL);
     }
-
-    if (!isStudent && !recommenderIntervalRef.current) {
-      recommenderIntervalRef.current = setInterval(async () => {
-        if (isCameraMutedRef.current) return;
-
-        const blob = await getDataUrl();
-        if (blob) {
-          workerRef.current?.postMessage({
-            action: "recommender-screens",
-            modelId: Number(modelId),
-            modelType,
-            userId,
-            term: term || new Date().toISOString(),
-            screenshots: [
-              {
-                dataURL: blob,
-                timestamp: new Date().toISOString(),
-                userID: userId,
-              },
-            ],
-            token,
-          });
-        }
-      }, JITSY_TUTOR_INTERVAL);
-    }
   }, [
     isStudent,
     modelId,
