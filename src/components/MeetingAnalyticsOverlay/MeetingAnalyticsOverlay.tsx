@@ -321,7 +321,7 @@ export default function MeetingAnalyticsOverlay({
           )}
         </RightGroup>
 
-        {isTutor && (
+        {isTutor && shouldRunAnalytics && (
           <HoverPanel visible={hoveredPanel !== null}>
             <ContentHalf ref={scrollRef}>
               {hoveredPanel === "emotion" ? (
