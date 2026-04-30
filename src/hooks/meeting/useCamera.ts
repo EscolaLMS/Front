@@ -130,40 +130,55 @@ const useCamera = () => {
 
   useEffect(() => {
     const handlePermissionChange = async () => {
-      const permissionStatus = await navigator.permissions.query({
-        name: "camera" as PermissionName,
-      });
+      try {
+        const permissionStatus = await navigator.permissions.query({
+          name: "camera" as PermissionName,
+        });
 
-      // If permission is granted, restart the video track
-      if (permissionStatus.state === cameraPermissions.GRANTED) {
-        await restartVideoTrack();
+        const updateStatus = () => {
+          if (permissionStatus.state === cameraPermissions.DENIED) {
+            setHasCameraAccess(false);
+            setCameraAccessStatus(cameraPermissions.DENIED);
+          } else {
+            setCameraAccessStatus(permissionStatus.state as cameraPermissions);
+          }
+        };
+
+        permissionStatus.onchange = updateStatus;
+        updateStatus();
+      } catch (e) {
+        console.error("Permissions API not supported", e);
       }
-
-      if (permissionStatus.state === cameraPermissions.DENIED) {
-        setHasCameraAccess(false);
-        setCameraAccessStatus(cameraPermissions.DENIED);
-      }
-
-      // Listen for permission changes
-      permissionStatus.onchange = async () => {
-        if (permissionStatus.state === cameraPermissions.GRANTED) {
-          await restartVideoTrack();
-        } else {
-          setHasCameraAccess(false);
-          setCameraAccessStatus(cameraPermissions.DENIED);
-        }
-      };
     };
 
     handlePermissionChange();
 
     return () => {
-      // Clean up Workera
       if (workerRef.current) {
         workerRef.current.terminate();
       }
+
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+      }
     };
-  }, [restartVideoTrack]);
+  }, []);
+
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+      streamRef.current = null;
+    }
+
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+      videoRef.current.pause();
+    }
+
+    setHasCameraAccess(false);
+  }, []);
 
   return {
     camera,
@@ -171,6 +186,7 @@ const useCamera = () => {
     restartVideoTrack,
     getDataUrl,
     cameraAccessStatus,
+    stopCamera,
   };
 };
 

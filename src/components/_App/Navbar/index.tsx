@@ -346,13 +346,23 @@ const Navbar = () => {
     },
     {
       title: (
+        <Link to={routeRoutes.webinars}>
+          <Text noMargin bold>
+            {t("Menu.Webinars")}
+          </Text>
+        </Link>
+      ),
+      key: "menu-3",
+    },
+    {
+      title: (
         <Link to={routeRoutes.courses}>
           <Text noMargin bold>
             {t("Menu.Consultations")}
           </Text>
         </Link>
       ),
-      key: "menu-3",
+      key: "menu-4",
     },
     {
       title: (
@@ -362,7 +372,7 @@ const Navbar = () => {
           </Text>
         </Link>
       ),
-      key: "menu-4",
+      key: "menu-5",
     },
     {
       title: settings?.value?.config?.[metaDataKeys.termsPageMetaKey] && (
@@ -374,7 +384,7 @@ const Navbar = () => {
           </Text>
         </Link>
       ),
-      key: "menu-5",
+      key: "menu-6",
     },
 
     {
@@ -502,6 +512,11 @@ const Navbar = () => {
               <li>
                 <NavLink to={routeRoutes.myConsultations}>
                   {t("MyProfilePage.MyConsultations")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={routeRoutes.myWebinars}>
+                  {t("MyProfilePage.MyWebinars")}
                 </NavLink>
               </li>
               <li>

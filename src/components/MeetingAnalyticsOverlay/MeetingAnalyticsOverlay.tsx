@@ -213,12 +213,16 @@ export default function MeetingAnalyticsOverlay({
     isArea: boolean
   ) => {
     if (data.length === 0) return null;
+    const isSinglePoint = data.length === 1;
+
     return (
       <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
         {data.map((point, index) => (
           <stop
             key={`${id}-${index}`}
-            offset={`${(index / (data.length - 1)) * 100}%`}
+            offset={
+              isSinglePoint ? "0%" : `${(index / (data.length - 1)) * 100}%`
+            }
             stopColor={getColorByValue(point.value)}
             stopOpacity={isArea ? 0.4 : 1}
           />
@@ -232,6 +236,14 @@ export default function MeetingAnalyticsOverlay({
     ...EMOTION_POOL[1],
     val: 0,
   };
+
+  useEffect(() => {
+    if (!shouldRunAnalytics) {
+      setAttentionData([]);
+      setEmotionHistory([]);
+      setShouldBreak(false);
+    }
+  }, [shouldRunAnalytics]);
 
   return (
     <OverlayRoot>

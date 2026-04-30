@@ -12,10 +12,7 @@ import { API_URL } from "@/config/index";
 import useCamera, { cameraPermissions } from "@/hooks/meeting/useCamera";
 import { API } from "@escolalms/sdk/lib";
 import { IMeetRecording } from "@/components/Consultations/ConsultationCard/JitsyMeeting/types";
-import {
-  JITSY_ANALYTICS_INTERVAL,
-  JITSY_TUTOR_INTERVAL,
-} from "@/utils/constants";
+import { JITSY_ANALYTICS_INTERVAL } from "@/utils/constants";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import { Button } from "@escolalms/components/lib/components/atoms/Button/Button";
 import { useJitsyAnalyticsControl } from "@/hooks/meeting/useJitsyAnalyticsControl";
@@ -78,7 +75,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   const { consultation, token } = useContext(EscolaLMSContext);
   const { isStudent } = useRoles();
   const { t } = useTranslation();
-  const { camera, getDataUrl, cameraAccessStatus } = useCamera();
+  const { camera, getDataUrl, cameraAccessStatus, stopCamera } = useCamera();
   const userConsentedRef = useRef(false);
   const isCameraMutedRef = useRef(false);
 
@@ -91,6 +88,8 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   const workerRef = useRef<Worker | null>(null);
   const apiRef = useRef<IJitsiMeetExternalApi | null>(null);
   const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasSentEndEventRef = useRef(false);
+
   const { shouldRunAnalytics } = useJitsyAnalyticsControl({
     modelType,
     participantCount,
@@ -140,6 +139,13 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   const sendRecordingEvent = useCallback(
     async (action: "start-recording" | "end-recording") => {
       if (isStudent) return;
+
+      if (
+        action === "end-recording" &&
+        (hasSentEndEventRef.current || !recordingIdRef.current)
+      ) {
+        return;
+      }
       try {
         const payload = preparePayload(action);
 
@@ -155,6 +161,10 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             body: JSON.stringify(payload),
           }
         );
+
+        if (action === "end-recording") {
+          recordingIdRef.current = null;
+        }
 
         const result = await response.json();
 
@@ -364,13 +374,25 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
   useEffect(() => {
     const init = async () => {
       try {
-        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+
+        stream.getTracks().forEach((track) => {
+          track.stop();
+          console.log("Init test track stopped");
+        });
+
         isStudent ? setShowModal(true) : setShowMeeting(true);
-      } catch {
+      } catch (err) {
+        console.warn("Camera access failed in init", err);
         setShowMeeting(true);
       }
     };
     init();
+
+    return () => {};
   }, [isStudent]);
 
   const getProperRoomName = () => {
@@ -392,7 +414,9 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             iframeRef.style.width = "100%";
           }}
           onReadyToClose={async () => {
+            console.log("Closing meeting...");
             stopAllIntervals();
+            stopCamera();
             if (!isStudent && recordingIdRef.current) {
               await sendRecordingEvent("end-recording");
             }

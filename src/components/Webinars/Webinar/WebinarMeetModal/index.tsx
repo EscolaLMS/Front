@@ -12,7 +12,6 @@ import MeetingAnalyticsOverlay from "@/components/MeetingAnalyticsOverlay/Meetin
 import { EndMeetingQuestionnairesModal } from "@/components/Consultations/ConsultationCard/EndMeetingQuestionnaires";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 import { API } from "@escolalms/sdk/lib";
-import { useRoles } from "@/hooks/useRoles";
 
 interface Props {
   onClose: () => void;
@@ -39,7 +38,6 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const onCloseRef = useRef(onClose);
   const { generateWebinarJitsy } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
-  const { isTutor } = useRoles();
 
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -86,8 +84,9 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
 
   const handleOnClose = useCallback(() => {
     setIsEnded(true);
-    isTutor && onClose();
-  }, [isTutor, onClose]);
+    setWebinarMeetData(null);
+    onClose();
+  }, [onClose]);
 
   return (
     <>
@@ -114,7 +113,7 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
               webinar={webinar}
               participantCount={participantCount}
             />
-            {!loading && webinarMeetData && (
+            {visible && !loading && webinarMeetData && (
               <JitsyMeeting
                 key={webinarId}
                 jitsyData={webinarMeetData}
