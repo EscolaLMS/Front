@@ -11,7 +11,10 @@ export const useMeetingSockets = (
   const [socketData, setSocketData] = useState<SocketDataState | null>(null);
 
   useEffect(() => {
-    if (!modelId || !termUnix || !token) return;
+    if (!modelId || !termUnix || !token) {
+      setSocketData(null);
+      return;
+    }
 
     const echo = getEchoInstance(token);
     if (!echo) return;
