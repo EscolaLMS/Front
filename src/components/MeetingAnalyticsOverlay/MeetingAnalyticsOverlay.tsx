@@ -242,6 +242,7 @@ export default function MeetingAnalyticsOverlay({
       setAttentionData([]);
       setEmotionHistory([]);
       setShouldBreak(false);
+      setHoveredPanel(null);
     }
   }, [shouldRunAnalytics]);
 
