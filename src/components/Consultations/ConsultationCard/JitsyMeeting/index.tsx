@@ -414,7 +414,6 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
             iframeRef.style.width = "100%";
           }}
           onReadyToClose={async () => {
-            console.log("Closing meeting...");
             stopAllIntervals();
             stopCamera();
             if (!isStudent && recordingIdRef.current) {
