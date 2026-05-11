@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import RateCourse from "@/components/Courses/RateCourse";
 import { QuestionnaireModelType } from "@/types/questionnaire";
 
@@ -46,6 +46,7 @@ export const EndMeetingQuestionnairesModal = ({
     endMeetingQuestionnaires: [],
   });
 
+  const wasLoadingRef = useRef(false);
   const { isStudent, isTutor } = useRoles();
 
   const questionnaires = useMemo(() => {
@@ -56,7 +57,6 @@ export const EndMeetingQuestionnairesModal = ({
             model.model_type_title === QuestionnaireModelType.CONSULTATION ||
             model.model_type_title === QuestionnaireModelType.WEBINAR
           ) {
-            // Additional filters for "consultation"
             return (
               // @ts-ignore add to sdk
               (isStudent && model.target_group === "user") || // @ts-ignore add to sdk
@@ -73,13 +73,12 @@ export const EndMeetingQuestionnairesModal = ({
 
   const categorizedQuestionnaires = useCallback(() => {
     if (loading) return;
+    if (!wasLoadingRef.current) return;
     if (!questionnaires) return;
 
     const categorized = questionnaires.reduce(
       (
-        acc: {
-          endMeetingQuestionnaires: API.Questionnaire[];
-        },
+        acc: { endMeetingQuestionnaires: API.Questionnaire[] },
         questionnaire
       ) => {
         const frequency = questionnaire.models.find(
@@ -101,7 +100,11 @@ export const EndMeetingQuestionnairesModal = ({
       ...prevState,
       ...categorized,
     }));
-  }, [loading, questionnaires, entityModel, entityId]);
+
+    if (categorized.endMeetingQuestionnaires.length === 0) {
+      setIsEnded?.(false);
+    }
+  }, [loading, questionnaires, entityModel, entityId, setIsEnded]);
 
   const moveToNextQuestionnaire = useCallback(() => {
     setState((prevState) => ({
@@ -135,7 +138,12 @@ export const EndMeetingQuestionnairesModal = ({
   }, [state, moveToNextQuestionnaire, setIsEnded]);
 
   useEffect(() => {
-    getQuestionnaires(handleClose);
+    if (loading) wasLoadingRef.current = true;
+  }, [loading]);
+
+  useEffect(() => {
+    wasLoadingRef.current = false;
+    getQuestionnaires();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityId]);
 
