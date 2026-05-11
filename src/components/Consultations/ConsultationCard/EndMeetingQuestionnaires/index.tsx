@@ -22,8 +22,6 @@ export const EndMeetingQuestionnairesModal = ({
   onSuccesGetQuestionnaires,
   setIsEnded,
 }: Props) => {
-  const [didProcess, setDidProcess] = useState(false);
-
   const {
     questionnaires: questionnairesList,
     loading,
