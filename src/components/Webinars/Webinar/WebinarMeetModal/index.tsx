@@ -85,13 +85,12 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
   const handleOnClose = useCallback(() => {
     setIsEnded(true);
     setWebinarMeetData(null);
-    onClose();
-  }, [onClose]);
+  }, []);
 
   return (
     <>
       <Modal
-        visible={visible}
+        visible={visible && !isEnded}
         animation="zoom"
         maskAnimation="fade"
         destroyOnClose={true}
@@ -136,8 +135,8 @@ const WebinarMeetModal = ({ onClose, visible, webinarId, webinar }: Props) => {
           entityId={webinarId}
           entityModel={QuestionnaireModelType.WEBINAR}
           setIsEnded={() => {
-            setIsEnded(false);
             onClose();
+            handleOnClose();
           }}
         />
       )}
