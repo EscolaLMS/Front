@@ -52,7 +52,10 @@ export const EndMeetingQuestionnairesModal = ({
     return questionnairesList.filter((questionnaire) =>
       questionnaire.models.some((model) => {
         if (model.model_type_title === entityModel) {
-          if (model.model_type_title === QuestionnaireModelType.CONSULTATION) {
+          if (
+            model.model_type_title === QuestionnaireModelType.CONSULTATION ||
+            model.model_type_title === QuestionnaireModelType.WEBINAR
+          ) {
             // Additional filters for "consultation"
             return (
               // @ts-ignore add to sdk
@@ -69,6 +72,7 @@ export const EndMeetingQuestionnairesModal = ({
   }, [questionnairesList, isStudent, isTutor, entityModel]);
 
   const categorizedQuestionnaires = useCallback(() => {
+    if (loading) return;
     if (!questionnaires) return;
 
     const categorized = questionnaires.reduce(
@@ -97,7 +101,7 @@ export const EndMeetingQuestionnairesModal = ({
       ...prevState,
       ...categorized,
     }));
-  }, [questionnaires, entityModel, entityId]);
+  }, [loading, questionnaires, entityModel, entityId]);
 
   const moveToNextQuestionnaire = useCallback(() => {
     setState((prevState) => ({
@@ -137,7 +141,12 @@ export const EndMeetingQuestionnairesModal = ({
 
   useEffect(() => {
     categorizedQuestionnaires();
-  }, [questionnaires, categorizedQuestionnaires, onSuccesGetQuestionnaires]);
+  }, [
+    loading,
+    questionnaires,
+    categorizedQuestionnaires,
+    onSuccesGetQuestionnaires,
+  ]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined;
