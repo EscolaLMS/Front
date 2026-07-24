@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Text } from "@escolalms/components/lib/components/atoms/Typography/Text";
 import styled from "styled-components";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -13,6 +13,8 @@ import { WellmsLogo } from "@/icons/index";
 import GoTop from "@/components/_App/GoTop";
 import { getStylesBasedOnTheme } from "@escolalms/components/lib/utils/utils";
 import { MarkdownRenderer } from "@escolalms/components/lib/components/molecules/MarkdownRenderer/MarkdownRenderer";
+import { EU_BANNER_LINK } from "@/utils/constants";
+import EuBanner from "../../../images/eu-banner.png";
 
 const StyledFooter = styled.footer`
   padding: ${isMobile ? "50px 0 18px" : "100px 0 50px 15px"};
@@ -45,7 +47,7 @@ const StyledFooter = styled.footer`
       display: block;
       text-align: ${isMobile ? "center" : "left"};
       /* border-top: 1px solid ${({ theme }) => theme.gray3}; */
-      padding: 2em 0;
+      padding: 1em 0;
 
       a > p {
         margin-bottom: 0.5em;
@@ -111,6 +113,38 @@ const StyledFooter = styled.footer`
     margin: ${isMobile ? "20px auto" : "0"};
     right: 18px;
     bottom: 18px;
+  }
+
+  .eu-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: -1rem 0;
+
+    &__img {
+      display: block;
+      width: 100%;
+      max-width: 70%;
+      margin: 0 auto;
+      height: auto;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      @media (max-width: 767px) {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+        padding: 0 16px;
+        box-sizing: border-box;
+      }
+    }
   }
 `;
 
@@ -252,6 +286,12 @@ const Footer = () => {
           </div>
         )}
         {getLogotypes && <div className="footer-logotypes">{getLogotypes}</div>}
+
+        <div className="eu-banner">
+          <a href={EU_BANNER_LINK} target="_blank" rel="noopener noreferrer">
+            <img className="eu-banner__img" src={EuBanner} alt="tutor_avatar" />
+          </a>
+        </div>
 
         <div className="copyrights">
           <Text size="14">{t<string>("Footer.PoweredBy")}</Text>
