@@ -452,6 +452,7 @@ const JitsyMeeting: React.FC<JitsyMeetingProps> = ({
       >
         <JitsyMeetingMessage
           message={t("ConsultationPage.AdditionalRecording")}
+          description={t("ConsultationPage.AdditionalRecordingDescription")}
           closeToast={() => [setShowModal(false), setShowMeeting(true)]}
           userConsentedRef={userConsentedRef}
         />

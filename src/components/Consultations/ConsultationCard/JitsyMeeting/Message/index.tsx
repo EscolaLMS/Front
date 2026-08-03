@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 type Props = {
   message: string;
+  description?: string;
   closeToast: () => void;
   userConsentedRef: React.MutableRefObject<boolean | null>;
 };
@@ -20,6 +21,10 @@ const Container = styled.div`
   p {
     max-width: 80%;
     margin: 20px auto;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
 `;
 
@@ -36,6 +41,7 @@ const ButtonWrapper = styled.div`
 
 const JitsyMeetingMessage: React.FC<Props> = ({
   message,
+  description,
   closeToast,
   userConsentedRef,
 }) => {
@@ -46,17 +52,18 @@ const JitsyMeetingMessage: React.FC<Props> = ({
         {t("ConsultationPage.EmotionConsent")}
       </Title>
       <Text size="16">{message}</Text>
+      {description && <Text size="16">{description}</Text>}
       <ButtonWrapper>
-        <Button
-          onClick={() => [(userConsentedRef.current = true), closeToast()]}
-        >
-          {t("ConsultationPage.Yes")}
-        </Button>
         <Button
           mode="secondary"
           onClick={() => [(userConsentedRef.current = false), closeToast()]}
         >
           {t("ConsultationPage.No")}
+        </Button>
+        <Button
+          onClick={() => [(userConsentedRef.current = true), closeToast()]}
+        >
+          {t("ConsultationPage.Yes")}
         </Button>
       </ButtonWrapper>
     </Container>
