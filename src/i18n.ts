@@ -245,8 +245,10 @@ const resources = {
         Yes: "Yes",
         No: "No",
         AdditionalRecording:
-          "Do you agree to provide an image for emotion and attentional analysis?",
-        EmotionConsent: "Consent to the use of emotion analysis",
+          "During this meeting, we use an AI system to analyze participants' emotions and attention. The system analyzes parameters of your face and gaze. The data is processed solely for the purpose of generating anonymous, aggregate engagement statistics for the meeting host. The system does not identify your identity.",
+        AdditionalRecordingDescription:
+          "I consent to the processing of my biometric data for the purpose of analyzing my emotions and attention by the AI system. Providing the data is voluntary, and refusal does not affect the ability to participate in the event. I may withdraw my consent at any time (e.g., by turning off my camera).",
+        EmotionConsent: "Information on the use of AI",
         Teacher: "Trainer",
         DownloadRecording: "Download recording",
         BlockedAccess: "You have blocked camera & microphone access.",
@@ -1022,8 +1024,10 @@ const resources = {
         Yes: "Tak",
         No: "Nie",
         AdditionalRecording:
-          "Czy wyrażasz zgodę na przekazanie obrazu do analizy emocji i atencji?",
-        EmotionConsent: "Zgoda na analizę emocji i uwagi",
+          "Podczas tego spotkania używamy systemu AI do analizy emocji oraz atencji uczestników. System analizuje parametry Twojej twarzy i wzroku. Dane są przetwarzane wyłącznie w celu generowania anonimowych, zbiorczych statystyk zaangażowania dla prowadzącego spotkanie. System nie identyfikuje Twojej tożsamości.",
+        AdditionalRecordingDescription:
+          "Wyrażam zgodę na przetwarzanie moich danych biometrycznych w celu analizy moich emocji i atencji przez system AI. Podanie danych jest dobrowolne, a odmowa nie wpływa na możliwość udziału w wydarzeniu. Mogę wycofać zgodę w dowolnym momencie (np. wyłączając kamerę).",
+        EmotionConsent: "Informacja o wykorzystaniu AI",
         Teacher: "Trener",
         DownloadRecording: "Pobierz nagranie",
         BlockedAccess: "Dostęp do kamery i mikrofonu został zablokowany.",
